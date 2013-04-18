@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BookId</key>
+	<string>com.zoombin.bookyn2.</string>
+	<key>是否免费</key>
+	<false/>
+	<key>ProductId</key>
+	<array>
+		<string>product1</string>
+		<string>product2</string>
+		<string>product3</string>
+		<string>product4</string>
+		<string>product5</string>
+		<string>product6</string>
+		<string>product7</string>
+		<string>product8</string>
+		<string>product9</string>
+		<string>product10</string>
+		<string>product11</string>
+		<string>product12</string>
+		<string>product13</string>
+		<string>product14</string>
+		<string>product15</string>
+		<string>product16</string>
+		<string>product17</string>
+		<string>product18</string>
+		<string>product19</string>
+		<string>product20</string>
+		<string>product21</string>
+		<string>product22</string>
+		<string>product23</string>
+		<string>product24</string>
+		<string>product25</string>
+		<string>product26</string>
+		<string>product27</string>
+		<string>product28</string>
+		<string>product29</string>
+		<string>product30</string>
+	</array>
+</dict>
+</plist>
