@@ -18,12 +18,16 @@
     CGFloat fontSize;
     CFMutableArrayRef fontsMutable;
 }
+@synthesize fontSize;
+@synthesize font;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        font = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:20];
+        fontSize = 20;
     }
     return self;
 }
@@ -49,8 +53,6 @@
 }
 
 - (void)buildTextWithString:(NSString *)string {
-    fontSize = 20;
-	
 	if(attrString) {
 		CFRelease(attrString);
 	}
@@ -60,7 +62,7 @@
     
     CFAttributedStringReplaceString (attrString, CFRangeMake(0, 0), (CFStringRef)mString);
     
-    CFStringRef fontName = (CFStringRef)@"Helvetica";
+    CFStringRef fontName = (__bridge CFStringRef)font.fontName;
     CTFontRef myFont = CTFontCreateWithName((CFStringRef)fontName, fontSize, NULL);
     CFAttributedStringSetAttribute(attrString, CFRangeMake(0, CFStringGetLength((CFStringRef)mString)), kCTFontAttributeName, myFont);
 }

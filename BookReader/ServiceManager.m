@@ -12,6 +12,7 @@
 #import "AFJSONRequestOperation.h"
 #import "NSString+MD5.h"
 #import "CJSONDeserializer.h"
+#import "NSString+XXSYDecoding.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -460,7 +461,7 @@
 
 + (void)bookCatalogue:(NSString *)cataid
             andUserid:(NSString *)userid
-            withBlock:(void (^)(NSString *,NSString *,NSError *))block {
+            withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
     if (userid==nil) {
         userid = @"0";
     }
@@ -470,14 +471,17 @@
     parameters[@"userid"] = userid;
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        NSLog(@"%@",[theObject objectForKey:@"error"]);
         if (block) {
-            block([theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+            if ([[theObject objectForKey:@"result"] isEqualToString:@"0000"]) {
+               block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil); 
+            }else {
+                block(@"",[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showAlertWithMessage:NETWORKERROR];
         if (block) {
-            block(nil,nil,error);
+            block(nil,nil,nil,error);
         }
     }];
 }
@@ -487,7 +491,7 @@
                   book:(NSString *)bookid
                 author:(NSString *)authorid
                 andPrice:(NSString *)price
-               withBlock:(void (^)(NSString *,NSString *,NSError *))block {
+               withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",userid,chapterid,bookid,authorid,price];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"userid"] = userid;
@@ -498,12 +502,16 @@
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         if (block) {
-            block([theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+            if ([[theObject objectForKey:@"result"] isEqualToString:@"0000"]) {
+                block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+            }else {
+                block(@"",[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showAlertWithMessage:NETWORKERROR];
         if (block) {
-            block(nil,nil, error);
+            block(nil,nil,nil, error);
         }
     }];
 }

@@ -15,10 +15,12 @@
     BOOL bVip;
     BOOL bRead;
     BOOL bBuy;
+    NSString *text;
 }
 @property (nonatomic, strong) NSString *bookID;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *text;
 @property (nonatomic, assign) BOOL bVip;
 @property (nonatomic, assign) BOOL bRead;
 @property (nonatomic, assign) BOOL bBuy;

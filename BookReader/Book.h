@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CoreData+MagicalRecord.h"
 
 @interface Book : NSObject {
     NSString *author;

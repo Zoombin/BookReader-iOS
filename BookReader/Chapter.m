@@ -15,5 +15,6 @@
 @synthesize bVip;
 @synthesize bRead;
 @synthesize bBuy;
+@synthesize text;
 
 @end

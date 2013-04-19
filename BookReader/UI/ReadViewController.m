@@ -500,7 +500,6 @@
         SEL textcolorselector = NSSelectorFromString(textcolorStr);
         currentTextColor = [UIColor performSelector:textcolorselector];
         readView.textColor = currentTextColor;
-        statusView.time.textColor = currentTextColor;
         statusView.title.textColor = currentTextColor;
         statusView.percentage.textColor = currentTextColor;
     }

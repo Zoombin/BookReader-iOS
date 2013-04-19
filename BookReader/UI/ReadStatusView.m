@@ -10,14 +10,10 @@
 
 
 
-@interface ReadStatusView(private)
-- (void)updateTime;
-@end
 
 
 @implementation ReadStatusView
 
-@synthesize time;
 @synthesize title;
 @synthesize percentage;
 @synthesize booknameScroll;

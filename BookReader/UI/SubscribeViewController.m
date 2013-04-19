@@ -11,6 +11,7 @@
 #import "ServiceManager.h"
 #import "Chapter.h"
 #import "UIViewController+HUD.h"
+#import "CoreTextViewController.h"
 
 @implementation SubscribeViewController
 {
@@ -127,7 +128,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
-    [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *result,NSString *code, NSError *error) {
+    [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
         if (error)
         {
             
@@ -140,17 +141,24 @@
             }
             else
             {
-                [self showAlertWithMessage:result];
+                obj.text = content;
+                [self pushToCoreTextWithChapterObj:obj];
             }
         }
     }];
+}
+
+- (void)pushToCoreTextWithChapterObj:(Chapter *)obj
+{
+    CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj andChapter:obj];
+    [self.navigationController pushViewController:childViewController animated:YES];
 }
 
 - (void)chapterSubscribeWithObj:(Chapter *)obj
 {
     if (userid!=nil)
     {
-        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *result,NSString *code,NSError *error) {
+        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error)
             {
                 
@@ -158,7 +166,9 @@
             else
             {
                 if ([code isEqualToString:@"0000"]) {
-                   obj.bBuy = YES; 
+                   obj.bBuy = YES;
+                    obj.text = content;
+                    [self pushToCoreTextWithChapterObj:obj];
                 }
                 [self showAlertWithMessage:result];
             }

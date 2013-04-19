@@ -93,7 +93,7 @@
 //获取章节内容
 + (void)bookCatalogue:(NSString *)cataid
             andUserid:(NSString *)userid
-            withBlock:(void(^)(NSString *,NSString *,NSError *))block;
+            withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //章节订阅
 + (void)chapterSubscribe:(NSString *)userid
@@ -101,7 +101,7 @@
                   book:(NSString *)bookid
                 author:(NSString *)authorid
                 andPrice:(NSString *)price
-               withBlock:(void(^)(NSString *,NSString *,NSError *))block;
+               withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //获取数据信息
 + (void)userBooks:(NSString *)userid

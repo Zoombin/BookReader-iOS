@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BookReadMenuView.h"
+#import "Chapter.h"
+#import "Book.h"
 
-@interface CoreTextViewController : UIViewController
+@interface CoreTextViewController : UIViewController<ReadMenuViewDelegate>
 {
     BOOL bFlipV;
     NSInteger startPointX;
     NSInteger startPointY;
 }
-
+- (id)initWithBook:(Book *)bookObj andChapter:(Chapter *)chapterObj;
 @end

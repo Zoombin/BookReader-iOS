@@ -41,6 +41,7 @@
             count = 0;
         }
     }
+    [deString setString:[deString stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"]];
     NSLog(@"---END---");
     return deString;
 }
