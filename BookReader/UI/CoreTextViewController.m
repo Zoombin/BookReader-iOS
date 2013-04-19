@@ -53,7 +53,7 @@
         
         userid = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]];
         if (userid==nil) {
-            userid = @"0";
+            userid = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
         [textString setString:[chapter.text XXSYDecodingWithKey:userid]];
         currentFontSize = 17;
