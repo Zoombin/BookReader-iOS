@@ -24,6 +24,7 @@
 #import "UIDefines.h"
 #import "Constants.h"
 #import "CoreTextViewController.h"
+#import "SubscribeViewController.h"
 #import "BookCell.h"
 
 //UIFrame
@@ -279,9 +280,9 @@
 #pragma mark BookShelfView Delegate
 - (void)bookViewButtonClick:(id)sender
 {
+    BookView *bookView = [bookViewArray objectAtIndex:[sender tag]];
     if (editing)
     {
-        BookView *bookView = [bookViewArray objectAtIndex:[sender tag]];
         if ([selectedArray containsObject:bookView])
         {
             bookView.isSelected = NO;
@@ -292,7 +293,8 @@
             [selectedArray addObject:bookView];
         }
     } else {
-        [self.navigationController pushViewController:[[CoreTextViewController alloc] init] animated:YES];
+        Book *book = [allArray objectAtIndex:bookView.tag];
+        [self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:book] animated:YES];
     }
 }
 
