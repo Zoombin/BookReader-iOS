@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		777826911722477A005BB0B6 /* GenGitVersion */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 777826941722477B005BB0B6 /* Build configuration list for PBXAggregateTarget "GenGitVersion" */;
+			buildPhases = (
+				7778269517224790005BB0B6 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = GenGitVersion;
+			productName = GenGitVersion;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */; };
 		18089DF9171A35CE00BCB50E /* BookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089DF8171A35CE00BCB50E /* BookView.m */; };
@@ -275,6 +289,16 @@
 		8BF84D46165F6CB200D46D9B /* HandleGBString.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF84D45165F6CB200D46D9B /* HandleGBString.m */; };
 		8BF84D5E165F72C800D46D9B /* BookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF84D5D165F72C800D46D9B /* BookManager.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7778269617225830005BB0B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDB0AA8165E03BB008F328A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 777826911722477A005BB0B6;
+			remoteInfo = GenGitVersion;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailsViewController.h; sourceTree = "<group>"; };
@@ -1522,6 +1546,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7778269717225830005BB0B6 /* PBXTargetDependency */,
 			);
 			name = BookReader;
 			productName = BookReader;
@@ -1551,6 +1576,7 @@
 			projectRoot = "";
 			targets = (
 				8BDB0AB0165E03BB008F328A /* BookReader */,
+				777826911722477A005BB0B6 /* GenGitVersion */,
 			);
 		};
 /* End PBXProject section */
@@ -1681,6 +1707,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7778269517224790005BB0B6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "version=`git describe`\nversionNumLong=`echo $version | sed 's/\\-\\([0-9]*\\)\\-g\\([a-z0-9]*\\)/.\\1/'`\nversionNum=`echo $version | sed 's/.*\\-g\\([a-z0-9]*\\)/\\1/'`\necho \"#define GIT_VERSION $versionNumLong\" > InfoPlist.h\necho \"#define APP_VERSION $versionNum\" >> InfoPlist.h\ntouch BookReader/BookReader-Info.plist\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8BDB0AAD165E03BB008F328A /* Sources */ = {
@@ -1819,6 +1861,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7778269717225830005BB0B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 777826911722477A005BB0B6 /* GenGitVersion */;
+			targetProxy = 7778269617225830005BB0B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		188FE62516F84510009561CB /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -1841,6 +1891,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		777826921722477B005BB0B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		777826931722477B005BB0B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8BDB0ACD165E03BB008F328A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1908,6 +1972,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BookReader/BookReader-Prefix.pch";
 				INFOPLIST_FILE = "BookReader/BookReader-Info.plist";
+				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1937,6 +2003,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BookReader/BookReader-Prefix.pch";
 				INFOPLIST_FILE = "BookReader/BookReader-Info.plist";
+				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1955,6 +2023,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		777826941722477B005BB0B6 /* Build configuration list for PBXAggregateTarget "GenGitVersion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				777826921722477B005BB0B6 /* Debug */,
+				777826931722477B005BB0B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8BDB0AAB165E03BB008F328A /* Build configuration list for PBXProject "BookReader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
