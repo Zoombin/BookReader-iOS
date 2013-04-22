@@ -70,7 +70,7 @@
     [statusView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:statusView];
     
-    statusView.title.text = book.name;
+    statusView.title.text = chapter.name;
     
     coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-40)];
     [coreTextView setBackgroundColor:[UIColor whiteColor]];
@@ -79,8 +79,6 @@
     menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-20)];
     [menuView setDelegate:self];
     [menuView setBackgroundColor:[UIColor clearColor]];
-    
-    menuView.titleLabel.text = book.name;
     [self.view addSubview:menuView];
     menuView.hidden = YES;
 }

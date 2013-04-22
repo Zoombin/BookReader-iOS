@@ -79,7 +79,7 @@
         categoryLabel.text = [NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"CategoryName", nil), book.category];
     }
     if (book.cover) {
-        coverView.image = book.cover;
+        coverView.image = [UIImage imageWithData:book.cover];
     } else if (book.coverURL) {
         [coverView setImageWithURL:[NSURL URLWithString:book.coverURL]];
     }

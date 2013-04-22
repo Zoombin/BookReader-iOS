@@ -31,11 +31,11 @@
         book.author = authors[i];
         book.category = categorys[i];
         book.progress = progresses[i];
-        book.cover = [UIImage imageNamed:coverNames[i]];
+//        book.cover = [UIImage imageNamed:coverNames[i]];
         book.words = wordsArray[i];
         book.lastUpdate = lastupdates[i];
         book.describe = shortdescribes;
-        book.autoBuy = [boolValues[i] isEqualToString:@"1"]==YES?YES:NO;
+//        book.autoBuy = [boolValues[i] isEqualToString:@"1"]==YES?YES:NO;
         [books addObject:book];
     }
     return books;

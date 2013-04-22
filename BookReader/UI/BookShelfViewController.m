@@ -52,7 +52,7 @@
     
     BookShelfLayoutStyle layoutStyle;
     
-    NSString *userid;
+    NSNumber *userid;
 }
 @synthesize delegate;
 @synthesize layoutStyle;
@@ -81,7 +81,7 @@
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     if ([allArray count]==0&&userid!=nil)
     {
-        [self refreshUserBooks];
+        [self refreshUserBooks]; 
     }
 }
 

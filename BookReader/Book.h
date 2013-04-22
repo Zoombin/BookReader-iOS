@@ -2,45 +2,30 @@
 //  Book.h
 //  BookReader
 //
-//  Created by 颜超 on 13-3-22.
+//  Created by 颜超 on 13-4-20.
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "CoreData+MagicalRecord.h"
+#import <CoreData/CoreData.h>
 
-@interface Book : NSObject {
-    NSString *author;
-    NSString *authorID;
-    NSString *name;
-    NSString *uid;
-    NSString *category;
-    NSString *catagoryID;
-    NSNumber *progress;
-    UIImage *cover;
-    NSString *coverURL;
-    NSNumber *words;
-    NSDate *lastUpdate;
-    NSString *describe;
-    NSString *recommandID;
-    NSString *recommandTitle;
-    BOOL autoBuy;
-}
-@property (nonatomic, strong) NSString *author;
-@property (nonatomic, strong) NSString *authorID;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *uid;
-@property (nonatomic, strong) NSString *category;
-@property (nonatomic, strong) NSString *catagoryID;
-@property (nonatomic, strong) NSNumber *progress;
-@property (nonatomic, strong) UIImage *cover;
-@property (nonatomic, strong) NSString *coverURL;
-@property (nonatomic, strong) NSNumber *words;
-@property (nonatomic, strong) NSDate *lastUpdate;
-@property (nonatomic, strong) NSString *describe;
-@property (nonatomic, strong) NSString *recommandID;
-@property (nonatomic, strong) NSString *recommandTitle;
-@property (nonatomic, assign) BOOL autoBuy;
 
+@interface Book : NSManagedObject
+
+@property (nonatomic, retain) NSString * author;
+@property (nonatomic, retain) NSNumber * authorID;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * uid;
+@property (nonatomic, retain) NSString * category;
+@property (nonatomic, retain) NSNumber * categoryID;
+@property (nonatomic, retain) NSString * coverURL;
+@property (nonatomic, retain) NSData * cover;
+@property (nonatomic, retain) NSString * lastUpdate;
+@property (nonatomic, retain) NSString * describe;
+@property (nonatomic, retain) NSNumber * recommandID;
+@property (nonatomic, retain) NSString * recommandTitle;
+@property (nonatomic, retain) NSNumber * autoBuy;
+@property (nonatomic, retain) NSNumber * progress;
+@property (nonatomic, retain) NSNumber * words;
 
 @end

@@ -11,7 +11,7 @@
 #import "Chapter.h"
 #import "Book.h"
 
-@interface CoreTextViewController : UIViewController<ReadMenuViewDelegate>
+@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate>
 {
     BOOL bFlipV;
     NSInteger startPointX;

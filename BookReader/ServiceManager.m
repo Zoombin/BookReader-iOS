@@ -118,7 +118,7 @@
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        Member *member = [[Member alloc]init];
+        Member *member = [Member createEntity];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member.uid = [[theObject objectForKey:@"user"] objectForKey:@"userid"];
             member.coin = [[theObject objectForKey:@"user"] objectForKey:@"account"];
@@ -136,7 +136,7 @@
     }];
 }
 
-+ (void)changePassword:(NSString *)userid
++ (void)changePassword:(NSNumber *)userid
         oldPassword:(NSString *)oldPassword
         andNewPassword:(NSString *)newPassword
              withBlock:(void (^)(NSString *, NSError *))block {
@@ -246,10 +246,10 @@
     }];
 }
 
-+ (void)paymentHistory:(NSString *)userid
++ (void)paymentHistory:(NSNumber *)userid
           pageIndex:(NSString *)pageIndex //第几页
               andCount:(NSString *)count //每页的数目
-             withBlock:(void (^)(Member *,NSString *, NSError *))block
+             withBlock:(void (^)(NSArray *,NSString *, NSError *))block
 {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@", userid, pageIndex, count];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
@@ -258,21 +258,21 @@
     parameters[@"size"] = count;
     [[ServiceManager shared] postPath:@"RechargeList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        Member *member = [[Member alloc]init];
+        NSMutableArray *array = [[NSMutableArray alloc] init];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             NSArray *rechargeList = [theObject objectForKey:@"rechargeList"];
-            NSMutableArray *dictsArray = [[NSMutableArray alloc]init];
             if ([rechargeList count]>0) {
                 for (int i=0; i<[rechargeList count]; i++) {
-                    NSString *rechageString = [NSString stringWithFormat:@"订单号:%@ 充值金额:%@点",rechargeList[i][@"orderid"],rechargeList[i][@"count"]];
-                    [dictsArray addObject:rechageString];
+                    Pay *pay = [[Pay alloc] init];
+                    pay.orderID = rechargeList[i][@"orderid"];
+                    pay.count = rechargeList[i][@"count"];
+                    [array addObject:pay];
                 }
             }
-            member.history = dictsArray;
         }
         
         if (block) {
-            block(member,[theObject objectForKey:@"result"],nil);
+            block(array,[theObject objectForKey:@"result"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showAlertWithMessage:NETWORKERROR];
@@ -305,7 +305,7 @@
             resultArray = theObject[@"bookList"];
             for (int i = 0; i<[resultArray count]; i++) {
                 NSDictionary *tempDict = resultArray[i];
-                Book *book = [[Book alloc]init];
+                Book *book = [Book createEntity];
                 book.uid = tempDict[@"bookId"];
                 book.author = tempDict[@"authorName"];
                 book.category = tempDict[@"className"];
@@ -334,7 +334,7 @@
         NSMutableArray *resultArray = [[NSMutableArray alloc]init];
         for (int i =0; i<[bookListArray count]; i++) {
             NSDictionary *tempDict = [bookListArray objectAtIndex:i];
-            Book *book = [[Book alloc]init];
+            Book *book = [Book createEntity];
             book.name = tempDict[@"bookName"];
             book.author = tempDict[@"authorName"];
             book.uid = tempDict[@"bookId"];
@@ -355,7 +355,7 @@
     }];
 }
 
-+ (void)bookDetailsByBookId:(NSString *)bookid
++ (void)bookDetailsByBookId:(NSNumber *)bookid
                       andIntro:(NSString *)intro
                      withBlock:(void (^)(Book *, NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@",bookid,intro];
@@ -366,7 +366,7 @@
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         NSLog(@"%@",theObject);
         NSDictionary *bookDict = [theObject objectForKey:@"book"];
-        Book *book = [[Book alloc]init];
+        Book *book = [Book createEntity];
         book.name = bookDict[@"bookName"];
         book.author = bookDict[@"authorName"];
         book.uid = bookDict[@"bookId"];
@@ -376,7 +376,7 @@
         book.lastUpdate = bookDict[@"lastUpdateTime"];
         book.coverURL = [NSString stringWithFormat:@"%@%@.jpg", XXSY_IMAGE_URL, bookDict[@"bookId"]];
         book.category = bookDict[@"className"];
-        book.catagoryID = bookDict[@"classId"];
+        book.categoryID = bookDict[@"classId"];
         if (block) {
             block(book, nil);
         }
@@ -388,7 +388,7 @@
     }];
 }
 
-+ (void)bookDiccusssListByBookId:(NSString *)bookid
++ (void)bookDiccusssListByBookId:(NSNumber *)bookid
                             size:(NSString *)size
                         andIndex:(NSString *)index
                        withBlock:(void (^)(NSArray *, NSError *))block {
@@ -425,8 +425,8 @@
     }];
 }
 
-+ (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSString *)cataid
++ (void)bookCatalogueList:(NSNumber *)bookid
+          andNewestCataId:(NSNumber *)cataid
                 withBlock:(void (^)(NSArray *, NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@",bookid,cataid];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
@@ -439,12 +439,12 @@
             NSArray *chapterList = [theObject objectForKey:@"chapterList"];
             for (int i = 0; i<[chapterList count]; i++) {
                 NSDictionary *tmpDict = [chapterList objectAtIndex:i];
-                Chapter *obj = [[Chapter alloc] init];
+                Chapter *obj = [Chapter createEntity];
                 obj.name = tmpDict[@"chapterName"];
                 obj.uid = tmpDict[@"chapterId"];
                 obj.bookID = bookid;
-                obj.bVip = [tmpDict[@"isVip"] isEqualToNumber:[NSNumber numberWithInt:1]]==YES?YES:NO;
-                obj.bBuy = NO;
+                obj.bVip = tmpDict[@"isVip"];
+                obj.bBuy = [NSNumber numberWithBool:NO];
                 [resultArray addObject:obj];
             }
         }
@@ -459,11 +459,11 @@
     }];
 }
 
-+ (void)bookCatalogue:(NSString *)cataid
-            andUserid:(NSString *)userid
++ (void)bookCatalogue:(NSNumber *)cataid
+            andUserid:(NSNumber *)userid
             withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
     if (userid==nil) {
-        userid = @"0";
+        userid = [NSNumber numberWithInt:0];
     }
     NSString *signString = [NSString stringWithFormat:@"%@%@",cataid,userid];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
@@ -486,10 +486,10 @@
     }];
 }
 
-+ (void)chapterSubscribe:(NSString *)userid
-               chapter:(NSString *)chapterid
-                  book:(NSString *)bookid
-                author:(NSString *)authorid
++ (void)chapterSubscribe:(NSNumber *)userid
+               chapter:(NSNumber *)chapterid
+                  book:(NSNumber *)bookid
+                author:(NSNumber *)authorid
                 andPrice:(NSString *)price
                withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",userid,chapterid,bookid,authorid,price];
@@ -516,7 +516,7 @@
     }];
 }
 
-+ (void)userBooks:(NSString *)userid
++ (void)userBooks:(NSNumber *)userid
              size:(NSString *)size
          andIndex:(NSString *)index
         withBlock:(void (^)(NSArray *, NSError *))block {
@@ -535,11 +535,12 @@
         if ([keepList count]>0) {
             for (int i =0; i<[keepList count]; i++) {
                 NSDictionary *tmpDict = [keepList objectAtIndex:i];
-                Book *book = [[Book alloc] init];
+                Book *book = [Book createEntity];
                 book.author = tmpDict[@"authorName"];
-                book.autoBuy = [tmpDict[@"auto"] isEqualToNumber:[NSNumber numberWithInt:1]]==YES?YES:NO;
+                book.autoBuy = tmpDict[@"auto"];
                 book.uid = tmpDict[@"bookid"];
-                book.cover = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.jpg",XXSY_IMAGE_URL,tmpDict[@"bookid"]]]]];
+                book.name = tmpDict[@"bookName"];
+                book.cover = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.jpg",XXSY_IMAGE_URL,tmpDict[@"bookid"]]]];
                 [bookList addObject:book];
             }
         }
@@ -554,8 +555,8 @@
     }];
 }
 
-+ (void)addFavourite:(NSString *)userid
-         book:(NSString *)bookid
++ (void)addFavourite:(NSNumber *)userid
+         book:(NSNumber *)bookid
        andValue:(BOOL)value
       withBlock:(void (^)(NSString *,NSString *, NSError *))block {
     NSString *signString = @"keep.insert";
@@ -579,8 +580,8 @@
     }];
 }
 
-+ (void)autoSubscribe:(NSString *)userid
-               book:(NSString *)bookid
++ (void)autoSubscribe:(NSNumber *)userid
+               book:(NSNumber *)bookid
              andValue:(NSString *)value
             withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"keep.auto";
@@ -604,8 +605,8 @@
     }];
 }
 
-+ (void)disscuss:(NSString *)userid
-              book:(NSString *)bookid
++ (void)disscuss:(NSNumber *)userid
+              book:(NSNumber *)bookid
           andContent:(NSString *)content
            withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"discuss.send";
@@ -629,7 +630,7 @@
 }
 
 
-+ (void)bookRecommand:(NSString *)classid
++ (void)bookRecommand:(NSNumber *)classid
              andCount:(NSString *)count
             withBlock:(void (^)(NSArray *, NSError *))block {
     NSString *signString = @"type.recommend";
@@ -644,7 +645,7 @@
             NSArray *bookList = [theObject objectForKey:@"bookList"];
             for (int i = 0; i < [bookList count]; i++) {
                 NSDictionary *tmpDict = [bookList objectAtIndex:i];
-                Book *book = [[Book alloc] init];
+                Book *book = [Book createEntity];
                 book.name = tmpDict[@"bookName"];
                 book.uid = tmpDict[@"bookid"];
                 [resultArray addObject:book];
@@ -661,7 +662,7 @@
     }];
 }
 
-+ (void)otherBooksFromAuthor:(NSString *)authorid
++ (void)otherBooksFromAuthor:(NSNumber *)authorid
                andCount:(NSString *)count
               withBlock:(void (^)(NSArray *, NSError *))block {
     NSString *signString = @"book.authorother";
@@ -676,7 +677,7 @@
             NSArray *bookList = [theObject objectForKey:@"bookList"];
             for (int i = 0; i < [bookList count]; i++) {
                 NSDictionary *tmpDict = [bookList objectAtIndex:i];
-                Book *book = [[Book alloc] init];
+                Book *book = [Book createEntity];
                 book.name = tmpDict[@"bookName"];
                 book.uid = tmpDict[@"bookid"];
                 [resultArray addObject:book];
@@ -716,12 +717,12 @@
     }];
 }
 
-+ (void)giveGift:(NSString *)userid
++ (void)giveGift:(NSNumber *)userid
             type:(NSString *)type
-        author:(NSString *)authorid
+        author:(NSNumber *)authorid
            count:(NSString *)count
         integral:(NSString *)integral //1~5
-       andBook:(NSString *)bookid withBlock:(void (^)(NSString *, NSError *))block {
+       andBook:(NSNumber *)bookid withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"user.props";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"userid"] = userid;

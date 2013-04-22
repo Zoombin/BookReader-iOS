@@ -21,7 +21,7 @@
 
 @implementation BookDetailsViewController
 {
-    NSString *bookid;
+    NSNumber *bookid;
     Book *bookObj;
     int currentIndex;
     UITextField *commitField;
@@ -33,10 +33,10 @@
     NSMutableArray *authorBookArray;
     NSMutableArray *sameTypeBookArray;
     
-    NSString *userid;
+    NSNumber *userid;
 }
 
-- (id)initWithBook:(NSString *)uid
+- (id)initWithBook:(NSNumber *)uid
 {
     self = [super init];
     if (self) {
@@ -96,7 +96,7 @@
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [tmpImageView setImage:image];
-        bookObj.cover = image;
+        bookObj.cover = UIImageJPEGRepresentation(image, 1.0);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.view addSubview:tmpImageView];
         });
@@ -194,7 +194,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommand:bookObj.catagoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookRecommand:bookObj.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
             
         }

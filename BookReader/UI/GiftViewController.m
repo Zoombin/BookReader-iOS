@@ -15,7 +15,7 @@
     NSString *currentIndex;
     UITextField *numberTextField;
     Book *bookObj;
-    NSString *userid;
+    NSNumber *userid;
     NSArray *integralArrays;
     NSString *currentIntegral;
 }
@@ -134,7 +134,7 @@
     NSString *index = [NSString stringWithFormat:@"%d",[currentIndex integerValue]+1];
     [ServiceManager giveGift:userid
                         type:index
-                      author:bookObj.author
+                      author:bookObj.authorID
                        count:numberTextField.text
                     integral:integral
                      andBook:bookObj.uid

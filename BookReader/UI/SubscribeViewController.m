@@ -16,7 +16,7 @@
 @implementation SubscribeViewController
 {
     Book *bookobj;
-    NSString *userid;
+    NSNumber *userid;
     UITableView *infoTableView;
     NSMutableArray *infoArray;
 }
@@ -75,7 +75,7 @@
 - (void)loadChapterData
 {
     [self displayHUD:@"获取章节列表..."];
-    [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:[NSNumber numberWithInt:0] withBlock:^(NSArray *result, NSError *error) {
         if (error)
         {
             [self hideHUD:YES];
@@ -119,7 +119,7 @@
         cell.textLabel.text = obj.name;
         [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
         NSString *vipString = @"";
-        vipString = obj.bVip==YES?@"VIP":@"免费";
+        vipString = [obj.bVip boolValue]==YES?@"VIP":@"免费";
         cell.detailTextLabel.text = vipString;
     }
     return cell;
@@ -166,7 +166,7 @@
             else
             {
                 if ([code isEqualToString:@"0000"]) {
-                   obj.bBuy = YES;
+                   obj.bBuy = [NSNumber numberWithBool:YES];
                     obj.text = content;
                     [self pushToCoreTextWithChapterObj:obj];
                 }

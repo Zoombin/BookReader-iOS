@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ReadMenuViewDelegate<NSObject>
+@protocol BookReadMenuViewDelegate<NSObject>
 @required
 
 - (void)backButtonPressed;
@@ -17,10 +17,10 @@
 @end
 
 @interface BookReadMenuView : UIView {
-    id<ReadMenuViewDelegate> delegate;
+    id<BookReadMenuViewDelegate> delegate;
     UILabel *titleLabel;
 }
 
-@property (nonatomic, strong) id<ReadMenuViewDelegate> delegate;
+@property (nonatomic, strong) id<BookReadMenuViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *titleLabel;
 @end

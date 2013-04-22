@@ -12,6 +12,7 @@
 #import "Book.h"
 #import "Chapter.h"
 #import "Commit.h"
+#import "Pay.h"
 
 @interface ServiceManager : AFHTTPClient
 
@@ -32,7 +33,7 @@
                andPassword:(NSString *)password
                  withBlock:(void (^)(Member *,NSString *,NSError *))block;
 //用户密码修改
-+ (void)changePassword:(NSString *)userid
++ (void)changePassword:(NSNumber *)userid
         oldPassword:(NSString *)oldPassword
         andNewPassword:(NSString *)newPassword
              withBlock:(void (^)(NSString *,NSError *))block;
@@ -57,10 +58,10 @@
       withBlock:(void(^)(NSString *,NSError *))block; //{"result":"0000","count":8400}
 
 //用户充值记录
-+ (void)paymentHistory:(NSString *)userid
++ (void)paymentHistory:(NSNumber *)userid
           pageIndex:(NSString *)pageIndex //第几页
               andCount:(NSString *)count        //每页的数目
-             withBlock:(void(^)(Member *,NSString *,NSError *))block;
+             withBlock:(void(^)(NSArray *,NSString *,NSError *))block;
 
 #pragma mark -
 #pragma mark 书城接口
@@ -76,64 +77,64 @@
 + (void)getRecommandBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取图书详情
-+ (void)bookDetailsByBookId:(NSString *)bookid //书的id
++ (void)bookDetailsByBookId:(NSNumber *)bookid //书的id
                       andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
                      withBlock:(void (^)(Book *,NSError *))block;
 
 //获取评论接口
-+ (void)bookDiccusssListByBookId:(NSString *)bookid //书的id
++ (void)bookDiccusssListByBookId:(NSNumber *)bookid //书的id
                             size:(NSString *)size //每次返回条数
                         andIndex:(NSString *)index //第几页
                        withBlock:(void(^)(NSArray *,NSError *))block;
 //章节列表
-+ (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSString *)cataid
++ (void)bookCatalogueList:(NSNumber *)bookid
+          andNewestCataId:(NSNumber *)cataid
                 withBlock:(void(^)(NSArray *,NSError *))block;
 
 //获取章节内容
-+ (void)bookCatalogue:(NSString *)cataid
-            andUserid:(NSString *)userid
++ (void)bookCatalogue:(NSNumber *)cataid
+            andUserid:(NSNumber *)userid
             withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //章节订阅
-+ (void)chapterSubscribe:(NSString *)userid
-               chapter:(NSString *)chapterid
-                  book:(NSString *)bookid
-                author:(NSString *)authorid
++ (void)chapterSubscribe:(NSNumber *)userid
+               chapter:(NSNumber *)chapterid
+                  book:(NSNumber *)bookid
+                author:(NSNumber *)authorid
                 andPrice:(NSString *)price
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //获取数据信息
-+ (void)userBooks:(NSString *)userid
++ (void)userBooks:(NSNumber *)userid
              size:(NSString *)size
          andIndex:(NSString *)index
         withBlock:(void(^)(NSArray *,NSError *))block;
 
 //收藏书籍
-+ (void)addFavourite:(NSString *)userid
-         book:(NSString *)bookid
++ (void)addFavourite:(NSNumber *)userid
+         book:(NSNumber *)bookid
        andValue:(BOOL)value
       withBlock:(void(^)(NSString *,NSString *,NSError *))block;
 
 //自动订阅
-+ (void)autoSubscribe:(NSString *)userid
-               book:(NSString *)bookid
++ (void)autoSubscribe:(NSNumber *)userid
+               book:(NSNumber *)bookid
              andValue:(NSString *)value //1:打开 0:关闭
             withBlock:(void(^)(NSString *,NSError *))block;
 
 //发表评论
-+ (void)disscuss:(NSString *)userid
-              book:(NSString *)bookid
++ (void)disscuss:(NSNumber *)userid
+              book:(NSNumber *)bookid
           andContent:(NSString *)content
            withBlock:(void(^)(NSString *,NSError *))block;
 
 //同类推荐
-+ (void)bookRecommand:(NSString *)classid //1~11
++ (void)bookRecommand:(NSNumber *)classid //1~11
              andCount:(NSString *)count
             withBlock:(void(^)(NSArray *,NSError *))block;
 
 //作者其他书
-+ (void)otherBooksFromAuthor:(NSString *)authorid
++ (void)otherBooksFromAuthor:(NSNumber *)authorid
                andCount:(NSString *)count
               withBlock:(void(^)(NSArray *,NSError *))block;
 
@@ -143,12 +144,12 @@
            withBlock:(void(^)(NSString *,NSError *))block;
 
 //用户道具
-+ (void)giveGift:(NSString *)userid
++ (void)giveGift:(NSNumber *)userid
             type:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
-        author:(NSString *)authorid  //月票没了就没了
+        author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
         integral:(NSString *)integral //投评价不能为0 其他为0
-       andBook:(NSString *)bookid
+       andBook:(NSNumber *)bookid
        withBlock:(void(^)(NSString *,NSError *))block;
 //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
 

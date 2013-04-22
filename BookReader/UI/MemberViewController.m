@@ -12,6 +12,7 @@
 #import "Member+Test.h"
 #import "ServiceManager.h"
 #import "UIDefines.h"
+#import "Pay.h"
     
 #define ACCOUNT_TEXTFIELD_TAG                   100
 #define PASSWORD_TEXTFIELD_TAG                  101
@@ -65,7 +66,7 @@
     self = [super init];
     if (self) {
         fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏", @"我要充值", @"充值记录",nil];
-        _member = [[Member alloc]init];
+        _member = [Member createEntity];
     }
     return self;
 }
@@ -234,15 +235,14 @@
     [backButton addTarget:self action:@selector(backToLoginView) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    [ServiceManager paymentHistory:_member.uid pageIndex:@"1" andCount:@"20" withBlock:^(Member *member,NSString *result,NSError *error) {
+    [ServiceManager paymentHistory:_member.uid pageIndex:@"1" andCount:@"20" withBlock:^(NSArray *payMent,NSString *result,NSError *error) {
         if (error) {
 
         }else {
-            _member.history = member.history;
             NSString *historyString = @"";
-            for (int i =0; i<[_member.history count]; i++) {
-                NSString *tempString = [_member.history objectAtIndex:i];
-                historyString = [historyString stringByAppendingString:[NSString stringWithFormat:@"%@\n",tempString]];
+            for (int i =0; i<[payMent count]; i++) {
+                Pay *pay = [payMent objectAtIndex:i];
+                historyString = [historyString stringByAppendingString:[NSString stringWithFormat:@"订单号:%@充值金额:%@\n",pay.orderID,pay.count]];
             }
             UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, MAIN_SCREEN.size.width, 300)];
             [textView setEditable:NO];

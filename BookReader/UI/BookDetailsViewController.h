@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BookDetailsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate> 
-- (id)initWithBook:(NSString *)uid;
+- (id)initWithBook:(NSNumber *)uid;
 @end

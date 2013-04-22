@@ -80,7 +80,7 @@
 }
 
 - (void)valueChanged:(id)sender {
-    NSString *bookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+    NSNumber *bookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     [ServiceManager autoSubscribe:bookId book:bookObject.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
         if (error) {
             
@@ -92,11 +92,11 @@
     }];
     if ([sender isOn])
     {
-        bookObject.autoBuy = YES;
+        bookObject.autoBuy = [NSNumber numberWithBool:YES];
     }
     else
     {
-        bookObject.autoBuy = NO;
+        bookObject.autoBuy = [NSNumber numberWithBool:NO];
     }
 }
 
@@ -147,7 +147,7 @@
 {
     bookObject = book;
     if (bookObject.cover) {
-        [backgroundButton setImage:bookObject.cover forState:UIControlStateNormal];
+        [backgroundButton setImage:[UIImage imageWithData:book.cover] forState:UIControlStateNormal];
     }
     if (bookObject.progress) {
         [customprogressView setProgress:bookObject.progress.floatValue];

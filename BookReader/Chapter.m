@@ -2,19 +2,21 @@
 //  Chapter.m
 //  BookReader
 //
-//  Created by 颜超 on 13-4-15.
+//  Created by 颜超 on 13-4-22.
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
 #import "Chapter.h"
 
+
 @implementation Chapter
-@synthesize bookID;
-@synthesize uid;
-@synthesize name;
-@synthesize bVip;
-@synthesize bRead;
-@synthesize bBuy;
-@synthesize text;
+
+@dynamic bookID;
+@dynamic uid;
+@dynamic name;
+@dynamic text;
+@dynamic bVip;
+@dynamic bRead;
+@dynamic bBuy;
 
 @end
