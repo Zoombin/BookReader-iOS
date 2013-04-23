@@ -72,9 +72,9 @@
     if (book.author) {
         [authorLabel setText:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"AuthorName", nil), book.author]];
     }
-    if (book.progress) {
-        progressLabel.text = [NSString stringWithFormat:@"%@:%.1f", NSLocalizedString(@"ReadPosition", nil), book.progress.floatValue];
-    }
+//    if (book.progress) {
+//        progressLabel.text = [NSString stringWithFormat:@"%@:%.1f", NSLocalizedString(@"ReadPosition", nil), book.progress.floatValue];
+//    }
     if (book.category) {
         categoryLabel.text = [NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"CategoryName", nil), book.category];
     }

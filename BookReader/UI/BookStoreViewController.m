@@ -43,6 +43,8 @@
     
     BOOL shouldRefresh;
     int currentType;
+    
+    NSMutableDictionary *recommandDict;
 }
 
 - (id)init
@@ -50,6 +52,7 @@
     self = [super init];
     if (self) {
         // Custom initialization
+        recommandDict = [[NSMutableDictionary alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
         currentType = RECOMMAND;
@@ -231,7 +234,7 @@
             [self hideHUD:YES];
         }
     }];
- 
+    
 }
 
 - (void)changeButtonImage:(id)sender {
@@ -271,7 +274,7 @@
     }
     [self displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                    classID:@"0"
+                  classID:@"0"
                   ranking:rankId
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
@@ -312,7 +315,8 @@
     [self loadDataWithKeyWord:@"" classId:@"0" ranking:[NSString stringWithFormat:@"%d",currentPage] size:@"5" andIndex:1];
 }
 
-- (void)loadRecommandData {
+- (void)loadRecommandData
+{
     [infoTableView setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-50-20)];
     [infoTableView setHidden:NO];
     [self displayHUD:@"加载中..."];
@@ -324,13 +328,32 @@
                 [infoArray removeAllObjects];
             }
             [infoArray addObjectsFromArray:resultArray];
-            [infoTableView reloadData];
-            [self hideHUD:YES];
+            [self refreshRecommandDataWithArray:infoArray];
         }
     }];
 }
 
-- (void)showSearchBarWithBoolValue:(BOOL)boolValue {
+- (void)refreshRecommandDataWithArray:(NSArray *)array
+{
+    NSString *lastKey = nil;
+    for (int i = 0; i < [array count]; i++) {
+        Book *book = [array objectAtIndex:i];
+        NSMutableArray *tmpArray;
+        if ([lastKey isEqualToString:book.recommandTitle]) {
+            tmpArray = [recommandDict objectForKey:book.recommandTitle];
+        } else {
+            tmpArray = [[NSMutableArray alloc] init];
+            [recommandDict setObject:tmpArray forKey:book.recommandTitle];
+        }
+        [tmpArray addObject:book];
+        lastKey = book.recommandTitle;
+    }
+    [infoTableView reloadData];
+    [self hideHUD:YES];
+}
+
+- (void)showSearchBarWithBoolValue:(BOOL)boolValue
+{
     if ([infoArray count] > 0) {
         [infoArray removeAllObjects];
         [infoTableView reloadData];
@@ -349,7 +372,7 @@
     [self.navigationController pushViewController:childViewController animated:YES];
     [childViewController displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                    classID:[NSString stringWithFormat:@"%d",[sender tag]-1000+1]
+                  classID:[NSString stringWithFormat:@"%d",[sender tag]-1000+1]
                   ranking:@"0"
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
@@ -408,27 +431,84 @@
 }
 
 #pragma mark tableview
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (currentType == RECOMMAND) {
+        return [[recommandDict allKeys] count];
+    }
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (currentType == RECOMMAND) {
+        for (int i = 0; i<[[recommandDict allKeys] count]; i++) {
+            if (section == i) {
+                return [[recommandDict allKeys] objectAtIndex:i];
+            }
+        }
+    }
+    return nil;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (currentType == RECOMMAND) {
+        for (int i = 0; i<[[recommandDict allKeys] count]; i++) {
+            if (section == i) {
+                NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:i]];
+                return [array count];
+            }
+        }
+    }
     return [infoArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (currentType == RECOMMAND) {
+        if (indexPath.row == 0) {
+            return [BookCell height];
+        }
+        else {
+            return 30;
+        }
+    }
     return [BookCell height];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *reuseIdentifier = @"Cell";
-    BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-	if (cell == nil) {
-        cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-        Book *book = infoArray[indexPath.row];
-        [cell setBook:book];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (currentType == RECOMMAND) {
+        if (cell == nil) {
+            cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:[indexPath section]]];
+            if (indexPath.row == 0) {
+                Book *book = array[indexPath.row];
+                [(BookCell *)cell setBook:book];
+            }else {
+                Book *book = array[indexPath.row];
+                cell.textLabel.text = book.name;
+                cell.detailTextLabel.text = book.author;
+            }
+        }
+    }
+    else {
+        if (cell == nil) {
+            cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            Book *book = infoArray[indexPath.row];
+            [(BookCell *)cell setBook:book];
+        }
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Book *book = infoArray[indexPath.row];
+    Book *book;
+    if (currentType == RECOMMAND) {
+        NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:[indexPath section]]];
+        book = array[indexPath.row];
+    } else {
+        book = infoArray[indexPath.row];
+    }
     BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
     [self.navigationController pushViewController:childViewController animated:YES];
 }

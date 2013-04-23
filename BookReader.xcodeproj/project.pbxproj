@@ -29,7 +29,6 @@
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
 		18089E51171E8ACD00BCB50E /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E50171E8ACC00BCB50E /* SubscribeViewController.m */; };
 		1848FC33171F9C3D00E8A3F1 /* BookShelfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */; };
-		188389511704205F00CAB586 /* Member+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 188389501704205F00CAB586 /* Member+Test.m */; };
 		1888A36E16FC18CF0046DA4C /* toolbar_bottom_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */; };
 		1888A37016FC28A40046DA4C /* toolbar_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */; };
 		1888A37316FC2A3E0046DA4C /* search_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37116FC2A3E0046DA4C /* search_btn_hl.png */; };
@@ -80,6 +79,8 @@
 		18ABAF2C1724EBAC00ED02C6 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2A1724EBAC00ED02C6 /* UserModel.xcdatamodeld */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
+		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
+		18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF36172517C200ED02C6 /* Member+Test.m */; };
 		18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		18FC1B0917210B2300A043C9 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1AD117210B2300A043C9 /* MagicalImportFunctions.m */; };
@@ -109,7 +110,6 @@
 		18FC1B2117210B2300A043C9 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0417210B2300A043C9 /* MagicalRecord+ShorthandSupport.m */; };
 		18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0617210B2300A043C9 /* MagicalRecord.m */; };
 		773B39A116CF229C00AAAF28 /* BookDoc in Resources */ = {isa = PBXBuildFile; fileRef = 773B39A016CF229C00AAAF28 /* BookDoc */; };
-		779DB62E1702F03A00318674 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 779DB62D1702F03A00318674 /* Book+Test.m */; };
 		77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */; };
 		77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */; };
 		77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D63417180C10009F2B9F /* CoreTextView.m */; };
@@ -320,8 +320,6 @@
 		182FD04716BB8E700045AAE0 /* UIDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDefines.h; sourceTree = "<group>"; };
 		1848FC31171F9C3D00E8A3F1 /* BookShelfBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfBottomView.h; sourceTree = "<group>"; };
 		1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfBottomView.m; sourceTree = "<group>"; };
-		1883894F1704205F00CAB586 /* Member+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member+Test.h"; sourceTree = "<group>"; };
-		188389501704205F00CAB586 /* Member+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member+Test.m"; sourceTree = "<group>"; };
 		1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_bottom_bar.png; sourceTree = "<group>"; };
 		1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_top_bar.png; sourceTree = "<group>"; };
 		1888A37116FC2A3E0046DA4C /* search_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_btn_hl.png; sourceTree = "<group>"; };
@@ -385,6 +383,10 @@
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
 		18ABAF311724FB1D00ED02C6 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
+		18ABAF33172517C200ED02C6 /* Book+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Test.h"; sourceTree = "<group>"; };
+		18ABAF34172517C200ED02C6 /* Book+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Test.m"; sourceTree = "<group>"; };
+		18ABAF35172517C200ED02C6 /* Member+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member+Test.h"; sourceTree = "<group>"; };
+		18ABAF36172517C200ED02C6 /* Member+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member+Test.m"; sourceTree = "<group>"; };
 		18BD746D170AC69700B142EC /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "../NSString+MD5.h"; sourceTree = "<group>"; };
 		18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		18FC1AC91720CAFE00A043C9 /* BookReadMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadMenuView.h; sourceTree = "<group>"; };
@@ -444,8 +446,6 @@
 		18FC1B0717210B2300A043C9 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		18FC1B0817210B2300A043C9 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		773B39A016CF229C00AAAF28 /* BookDoc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BookDoc; sourceTree = "<group>"; };
-		779DB62C1702F03A00318674 /* Book+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Test.h"; sourceTree = "<group>"; };
-		779DB62D1702F03A00318674 /* Book+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Test.m"; sourceTree = "<group>"; };
 		77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BundleExtensions.h"; path = "../UI/NSString+BundleExtensions.h"; sourceTree = "<group>"; };
 		77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+BundleExtensions.m"; path = "../UI/NSString+BundleExtensions.m"; sourceTree = "<group>"; };
 		77A2D62F171805FC009F2B9F /* UIFont+CoreTextExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CoreTextExtensions.h"; path = "../UI/UIFont+CoreTextExtensions.h"; sourceTree = "<group>"; };
@@ -773,13 +773,13 @@
 		1888A36916FBE4150046DA4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18ABAF33172517C200ED02C6 /* Book+Test.h */,
+				18ABAF34172517C200ED02C6 /* Book+Test.m */,
+				18ABAF35172517C200ED02C6 /* Member+Test.h */,
+				18ABAF36172517C200ED02C6 /* Member+Test.m */,
 				188AC57C1714139900FC012B /* source.txt */,
 				18ABAF2D1724FAFB00ED02C6 /* Pay.h */,
 				18ABAF2E1724FAFC00ED02C6 /* Pay.m */,
-				779DB62C1702F03A00318674 /* Book+Test.h */,
-				779DB62D1702F03A00318674 /* Book+Test.m */,
-				1883894F1704205F00CAB586 /* Member+Test.h */,
-				188389501704205F00CAB586 /* Member+Test.m */,
 				18089E49171CFA7A00BCB50E /* Commit.h */,
 				18089E4A171CFA7A00BCB50E /* Commit.m */,
 				18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */,
@@ -1769,8 +1769,6 @@
 				1888A3AE17000CE50046DA4C /* BookCell.m in Sources */,
 				77EB59761702B8EB004E2C00 /* BookShelfButton.m in Sources */,
 				1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */,
-				779DB62E1702F03A00318674 /* Book+Test.m in Sources */,
-				188389511704205F00CAB586 /* Member+Test.m in Sources */,
 				77A612D71716635F00934254 /* NSString+XXSYDecoding.m in Sources */,
 				77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */,
 				77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */,
@@ -1870,6 +1868,8 @@
 				18ABAF2C1724EBAC00ED02C6 /* UserModel.xcdatamodeld in Sources */,
 				18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */,
 				18ABAF321724FB1D00ED02C6 /* Member.m in Sources */,
+				18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */,
+				18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

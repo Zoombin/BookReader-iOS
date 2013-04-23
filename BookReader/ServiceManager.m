@@ -435,6 +435,7 @@
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+        NSLog(@"%@",theObject);
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             NSArray *chapterList = [theObject objectForKey:@"chapterList"];
             for (int i = 0; i<[chapterList count]; i++) {
@@ -499,6 +500,7 @@
     parameters[@"bookid"] = bookid;
     parameters[@"authorid"] = authorid;
     parameters[@"price"] = price;
+    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         if (block) {
