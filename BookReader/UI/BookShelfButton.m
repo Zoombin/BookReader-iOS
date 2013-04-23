@@ -29,7 +29,6 @@
 
 - (void)clicked
 {
-    [APP_DELEGATE shouldRefreshBookStore];
     [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
 }
 

@@ -24,5 +24,4 @@ typedef enum {
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)switchToRootController:(RootControllerType)type;
-- (void)shouldRefreshBookStore;
 @end

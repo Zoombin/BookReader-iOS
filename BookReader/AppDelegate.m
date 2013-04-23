@@ -157,12 +157,6 @@
     [navController.view addSubview:tabBar];
 }
 
-- (void)shouldRefreshBookStore
-{
-    BookStoreViewController *bookStoreViewController = rootControllers[@(kRootControllerTypeBookStore)];
-    [bookStoreViewController shouldRefresh];
-}
-
 - (void)bottomButtonTapped:(id)sender
 {
     UIButton *button = (UIButton *)sender;
