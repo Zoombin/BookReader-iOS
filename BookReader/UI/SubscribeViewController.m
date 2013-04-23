@@ -123,7 +123,7 @@
         cell.textLabel.text = obj.name;
         [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
         NSString *vipString = @"";
-        vipString = [obj.bVip boolValue]==YES?@"VIP":@"免费";
+        vipString = [obj.bVip boolValue] ? @"VIP" : @"免费";
         cell.detailTextLabel.text = vipString;
     }
     return cell;
