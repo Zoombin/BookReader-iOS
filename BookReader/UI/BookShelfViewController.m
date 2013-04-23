@@ -294,7 +294,7 @@
         }
     } else {
         Book *book = [allArray objectAtIndex:bookView.tag];
-        [self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:book] animated:YES];
+        [self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:book andOnline:NO] animated:YES];
     }
 }
 
