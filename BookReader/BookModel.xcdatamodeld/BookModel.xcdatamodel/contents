@@ -19,15 +19,16 @@
     </entity>
     <entity name="Chapter" representedClassName="Chapter" syncable="YES">
         <attribute name="bBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="bookID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="bid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="bRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bVip" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="-18" positionY="189" width="119" height="268"/>
-        <element name="Chapter" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="Chapter" positionX="160" positionY="192" width="128" height="165"/>
     </elements>
 </model>

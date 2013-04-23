@@ -310,7 +310,7 @@
 
 - (void)chapterButtonClick
 {
-    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:book];
+    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:book andOnline:YES];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 

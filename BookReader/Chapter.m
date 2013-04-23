@@ -11,12 +11,13 @@
 
 @implementation Chapter
 
-@dynamic bookID;
+@dynamic bid;
 @dynamic uid;
 @dynamic name;
 @dynamic content;
 @dynamic bVip;
 @dynamic bRead;
 @dynamic bBuy;
+@dynamic index;
 
 @end

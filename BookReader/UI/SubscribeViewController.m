@@ -19,15 +19,18 @@
     NSNumber *userid;
     UITableView *infoTableView;
     NSMutableArray *infoArray;
+    BOOL bOnline;
 }
 
-- (id)initWithBookId:(Book *)book;
+- (id)initWithBookId:(Book *)book
+           andOnline:(BOOL)online;
 {
     self = [super init];
     if (self) {
         bookobj = book;
         userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
         infoArray = [[NSMutableArray alloc] init];
+        bOnline = online;
     }
     return self;
 }
@@ -74,11 +77,25 @@
 
 - (void)loadChapterData
 {
-    [self displayHUD:@"获取章节列表..."];
-//    if ([Chapter findAllSortedBy:@"uid" ascending:YES]) {
-    NSLog(@"%@",[Chapter findAll]);
-//        NSLog(@"%@",[Chapter findByAttribute:@"chapterId" withValue:@"4147135"]);
-//    }
+    if (bOnline) {
+        [self chapterDataFromService];
+    } else {
+        NSArray *array = [Chapter findByAttribute:@"bid" withValue:bookobj.uid andOrderBy:@"index" ascending:YES];
+        if ([array count]>0)
+        {
+            [infoArray addObjectsFromArray:array];
+            [infoTableView reloadData];
+        }
+        else
+        {
+            [self chapterDataFromService];
+        }
+    }
+}
+
+- (void)chapterDataFromService
+{
+    [self displayHUD:@"获取书籍目录中..."];
     [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:[NSNumber numberWithInt:0] withBlock:^(NSArray *result, NSError *error) {
         if (error)
         {
@@ -170,7 +187,7 @@
             else
             {
                 if ([code isEqualToString:@"0000"]) {
-                   obj.bBuy = [NSNumber numberWithBool:YES];
+                    obj.bBuy = [NSNumber numberWithBool:YES];
                     obj.content = content;
                     [self pushToCoreTextWithChapterObj:obj];
                 }

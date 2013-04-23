@@ -276,7 +276,7 @@
 
 - (void)pushToSubscribeView
 {
-    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:bookObj];
+    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:bookObj andOnline:YES];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 

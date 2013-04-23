@@ -448,9 +448,11 @@
                 Chapter *obj = [Chapter createEntity];
                 obj.name = tmpDict[@"chapterName"];
                 obj.uid = tmpDict[@"chapterId"];
-                obj.bookID = bookid;
+                obj.bid = bookid;
                 obj.bVip = tmpDict[@"isVip"];
                 obj.bBuy = [NSNumber numberWithBool:NO];
+                obj.index = [NSNumber numberWithInteger:i];
+                [[NSManagedObjectContext defaultContext] saveNestedContexts];
                 [resultArray addObject:obj];
             }
         }
@@ -546,6 +548,7 @@
                 book.author = tmpDict[@"authorName"];
                 book.autoBuy = tmpDict[@"auto"];
                 book.uid = tmpDict[@"bookid"];
+                book.authorID = tmpDict[@"authorid"];
                 book.name = tmpDict[@"bookName"];
                 book.cover = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.jpg",XXSY_IMAGE_URL,tmpDict[@"bookid"]]]];
                 [bookList addObject:book];
