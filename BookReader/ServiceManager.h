@@ -49,8 +49,8 @@
            withBlock:(void(^)(NSString *,NSError *))block;
 
 //获取用户信息
-+ (void)userInfo:(NSString *)userid
-          withBlock:(void(^)(NSString *,NSError *))block;
++ (void)userInfo:(NSNumber *)userid
+          withBlock:(void(^)(Member *,NSError *))block;
 
 //用户充值
 + (void)pay:(NSString *)userid   //Example:20130108153057_2797792_14 日期_userid_40

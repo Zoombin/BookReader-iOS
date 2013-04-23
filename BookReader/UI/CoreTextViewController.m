@@ -55,7 +55,7 @@
         if (userid==nil) {
             userid = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
-        [textString setString:[chapter.text XXSYDecodingWithKey:userid]];
+        [textString setString:[chapter.content XXSYDecodingWithKey:userid]];
         currentFontSize = 17;
         currentFont = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:currentFontSize];
         pagesArray = [[NSMutableArray alloc] init];

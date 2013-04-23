@@ -59,6 +59,7 @@
 {
     NSArray *fuctionArray;
     Member *_member;
+    NSNumber *userid;
     BOOL isLogin;
 }
 
@@ -66,7 +67,6 @@
     self = [super init];
     if (self) {
         fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏", @"我要充值", @"充值记录",nil];
-        _member = [Member createEntity];
     }
     return self;
 }
@@ -77,7 +77,27 @@
     isLogin = NO;
     UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
-    [self reloadUI];
+    userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+    if (userid !=nil) {
+        [ServiceManager userInfo:userid withBlock:^(Member *member, NSError *error) {
+            if (error) {
+                
+            }
+            else {
+                isLogin = YES;
+                _member = member;
+                [self reloadUI];
+            }
+        }];
+    }else {
+        [self reloadUI];
+    }
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)reloadUI {
@@ -436,6 +456,7 @@
 - (void)logoutButtonClicked {
     isLogin = NO;
     //清除个人信息等...
+    [_member deleteEntity];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userid"];
     [self reloadUI];
 }
@@ -469,9 +490,7 @@
         }else {
             isLogin = YES;
             if ([result isEqualToString:@"0000"]) {
-                _member.coin = member.coin;
-                _member.uid = member.uid;
-                _member.name = member.name;
+                _member = member;
                 [self reloadUI];
             }else if([result isEqualToString:@"0001"]) {
                 [self showAlertWithMessage:ERROR_MESSAGE_EIGHT];
@@ -509,7 +528,7 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
         if ([indexPath section]==1) {
             cell.textLabel.text = fuctionArray[[indexPath row]];
         }else {

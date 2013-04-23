@@ -200,20 +200,25 @@
     }];
 }
 
-+ (void)userInfo:(NSString *)userid
-          withBlock:(void (^)(NSString *, NSError *))block {
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:userid]];
++ (void)userInfo:(NSNumber *)userid
+          withBlock:(void (^)(Member *, NSError *))block {
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:[userid stringValue]]];
     parameters[@"userid"] = userid;
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSString *postsFromResponse = [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding];
-        NSLog(@"success=>%@",postsFromResponse);
+        id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
+        Member *member = [Member createEntity];
+        if ([theObject isKindOfClass:[NSDictionary class]]) {
+            member.uid = [[theObject objectForKey:@"user"] objectForKey:@"userid"];
+            member.coin = [[theObject objectForKey:@"user"] objectForKey:@"account"];
+            member.name = [[theObject objectForKey:@"user"] objectForKey:@"username"];
+        }
         if (block) {
-            block([NSString stringWithFormat:@"%@",postsFromResponse], nil);
+            block(member,nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showAlertWithMessage:NETWORKERROR];
         if (block) {
-            block(@"", error);
+            block(nil, error);
         }
     }];
 }

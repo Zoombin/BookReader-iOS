@@ -15,7 +15,7 @@
 @property (nonatomic, retain) NSNumber * bookID;
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSNumber * bVip;
 @property (nonatomic, retain) NSNumber * bRead;
 @property (nonatomic, retain) NSNumber * bBuy;

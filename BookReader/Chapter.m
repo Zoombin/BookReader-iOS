@@ -14,7 +14,7 @@
 @dynamic bookID;
 @dynamic uid;
 @dynamic name;
-@dynamic text;
+@dynamic content;
 @dynamic bVip;
 @dynamic bRead;
 @dynamic bBuy;

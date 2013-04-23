@@ -75,6 +75,10 @@
 - (void)loadChapterData
 {
     [self displayHUD:@"获取章节列表..."];
+//    if ([Chapter findAllSortedBy:@"uid" ascending:YES]) {
+    NSLog(@"%@",[Chapter findAll]);
+//        NSLog(@"%@",[Chapter findByAttribute:@"chapterId" withValue:@"4147135"]);
+//    }
     [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:[NSNumber numberWithInt:0] withBlock:^(NSArray *result, NSError *error) {
         if (error)
         {
@@ -141,7 +145,7 @@
             }
             else
             {
-                obj.text = content;
+                obj.content = content;
                 [self pushToCoreTextWithChapterObj:obj];
             }
         }
@@ -167,7 +171,7 @@
             {
                 if ([code isEqualToString:@"0000"]) {
                    obj.bBuy = [NSNumber numberWithBool:YES];
-                    obj.text = content;
+                    obj.content = content;
                     [self pushToCoreTextWithChapterObj:obj];
                 }
                 [self showAlertWithMessage:result];
