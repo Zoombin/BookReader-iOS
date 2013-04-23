@@ -13,6 +13,7 @@
 #import "NSString+MD5.h"
 #import "CJSONDeserializer.h"
 #import "NSString+XXSYDecoding.h"
+#import "Book+Setup.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -24,7 +25,6 @@
 
 //#define XXSY_BASE_URL   @"http://10.224.72.188/service/"
 #define XXSY_BASE_URL  @"http://link.xxsy.net/service"
-#define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 #define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
 
 #define NETWORKERROR    @"网络异常"
@@ -304,20 +304,9 @@
     [[ServiceManager shared] postPath:@"Search.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         NSLog(@"%@",theObject);
-        NSMutableArray *bookListsArray = [[NSMutableArray alloc]init];
-        NSArray *resultArray = [[NSArray alloc]init];
+        NSMutableArray *bookListsArray = [@[] mutableCopy];
         if ([theObject[@"bookList"] isKindOfClass:[NSArray class]]) {
-            resultArray = theObject[@"bookList"];
-            for (int i = 0; i<[resultArray count]; i++) {
-                NSDictionary *tempDict = resultArray[i];
-                Book *book = [Book createEntity];
-                book.uid = tempDict[@"bookId"];
-                book.author = tempDict[@"authorName"];
-                book.category = tempDict[@"className"];
-                book.name = tempDict[@"bookName"];
-                book.coverURL = [NSString stringWithFormat:@"%@%@.jpg", XXSY_IMAGE_URL, tempDict[@"bookId"]];
-                [bookListsArray addObject:book];
-            }
+			[bookListsArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(bookListsArray, nil);
@@ -336,19 +325,8 @@
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         NSArray *bookListArray = [theObject objectForKey:@"bookList"];
-        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
-        for (int i =0; i<[bookListArray count]; i++) {
-            NSDictionary *tempDict = [bookListArray objectAtIndex:i];
-            Book *book = [Book createEntity];
-            book.name = tempDict[@"bookName"];
-            book.author = tempDict[@"authorName"];
-            book.uid = tempDict[@"bookId"];
-            book.recommandID = tempDict[@"recId"];
-            book.recommandTitle = tempDict[@"recTitle"];
-            book.coverURL = [NSString stringWithFormat:@"%@%@.jpg", XXSY_IMAGE_URL, tempDict[@"bookId"]];
-            book.category = tempDict[@"className"];
-            [resultArray addObject:book];
-        }
+        NSMutableArray *resultArray = [@[] mutableCopy];
+		[resultArray addObjectsFromArray:[Book booksWithAttributesArray:bookListArray]];
         if (block) {
             block(resultArray, nil);
         }
@@ -370,18 +348,8 @@
     [[ServiceManager shared] postPath:@"GetBookDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         NSLog(@"%@",theObject);
-        NSDictionary *bookDict = [theObject objectForKey:@"book"];
-        Book *book = [Book createEntity];
-        book.name = bookDict[@"bookName"];
-        book.author = bookDict[@"authorName"];
-        book.uid = bookDict[@"bookId"];
-        book.describe = bookDict[@"intro"];
-        book.words = bookDict[@"length"];
-        book.authorID = bookDict[@"authorId"];
-        book.lastUpdate = bookDict[@"lastUpdateTime"];
-        book.coverURL = [NSString stringWithFormat:@"%@%@.jpg", XXSY_IMAGE_URL, bookDict[@"bookId"]];
-        book.category = bookDict[@"className"];
-        book.categoryID = bookDict[@"classId"];
+        NSDictionary *dict = [theObject objectForKey:@"book"];
+        Book *book = [Book createWithAttributes:dict];
         if (block) {
             block(book, nil);
         }
@@ -539,21 +507,8 @@
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
         NSLog(@"%@",theObject);
         NSLog(@"%@",[theObject objectForKey:@"error"]);
-        NSArray *keepList = [theObject objectForKey:@"keepList"];
-        NSMutableArray *bookList = [[NSMutableArray alloc] init];
-        if ([keepList count]>0) {
-            for (int i =0; i<[keepList count]; i++) {
-                NSDictionary *tmpDict = [keepList objectAtIndex:i];
-                Book *book = [Book createEntity];
-                book.author = tmpDict[@"authorName"];
-                book.autoBuy = tmpDict[@"auto"];
-                book.uid = tmpDict[@"bookid"];
-                book.authorID = tmpDict[@"authorid"];
-                book.name = tmpDict[@"bookName"];
-                book.cover = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.jpg",XXSY_IMAGE_URL,tmpDict[@"bookid"]]]];
-                [bookList addObject:book];
-            }
-        }
+        NSMutableArray *bookList = [@[] mutableCopy];
+		[bookList addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"keepList"]]];
         if (block) {
             block(bookList, nil);
         }
@@ -650,16 +605,9 @@
     parameters[@"methed"] = signString;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+        NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            NSArray *bookList = [theObject objectForKey:@"bookList"];
-            for (int i = 0; i < [bookList count]; i++) {
-                NSDictionary *tmpDict = [bookList objectAtIndex:i];
-                Book *book = [Book createEntity];
-                book.name = tmpDict[@"bookName"];
-                book.uid = tmpDict[@"bookid"];
-                [resultArray addObject:book];
-            }
+			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(resultArray, nil);
@@ -682,16 +630,9 @@
     parameters[@"methed"] = signString;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+        NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            NSArray *bookList = [theObject objectForKey:@"bookList"];
-            for (int i = 0; i < [bookList count]; i++) {
-                NSDictionary *tmpDict = [bookList objectAtIndex:i];
-                Book *book = [Book createEntity];
-                book.name = tmpDict[@"bookName"];
-                book.uid = tmpDict[@"bookid"];
-                [resultArray addObject:book];
-            }
+			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(resultArray, nil);

@@ -109,6 +109,7 @@
 		18FC1B2017210B2300A043C9 /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0217210B2300A043C9 /* MagicalRecord+Setup.m */; };
 		18FC1B2117210B2300A043C9 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0417210B2300A043C9 /* MagicalRecord+ShorthandSupport.m */; };
 		18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0617210B2300A043C9 /* MagicalRecord.m */; };
+		772CD44B1726CB3D00489D77 /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD44A1726CB3D00489D77 /* Book+Setup.m */; };
 		773B39A116CF229C00AAAF28 /* BookDoc in Resources */ = {isa = PBXBuildFile; fileRef = 773B39A016CF229C00AAAF28 /* BookDoc */; };
 		77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */; };
 		77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */; };
@@ -445,6 +446,8 @@
 		18FC1B0617210B2300A043C9 /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		18FC1B0717210B2300A043C9 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		18FC1B0817210B2300A043C9 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
+		772CD4491726CB3D00489D77 /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
+		772CD44A1726CB3D00489D77 /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		773B39A016CF229C00AAAF28 /* BookDoc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BookDoc; sourceTree = "<group>"; };
 		77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BundleExtensions.h"; path = "../UI/NSString+BundleExtensions.h"; sourceTree = "<group>"; };
 		77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+BundleExtensions.m"; path = "../UI/NSString+BundleExtensions.m"; sourceTree = "<group>"; };
@@ -790,6 +793,8 @@
 				18ABAF2A1724EBAC00ED02C6 /* UserModel.xcdatamodeld */,
 				18ABAF301724FB1D00ED02C6 /* Member.h */,
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
+				772CD4491726CB3D00489D77 /* Book+Setup.h */,
+				772CD44A1726CB3D00489D77 /* Book+Setup.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1870,6 +1875,7 @@
 				18ABAF321724FB1D00ED02C6 /* Member.m in Sources */,
 				18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */,
 				18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */,
+				772CD44B1726CB3D00489D77 /* Book+Setup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
