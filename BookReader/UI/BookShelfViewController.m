@@ -89,9 +89,11 @@
 	person2.firstName = @"aaa";
 	NSLog(@"firstName = %@, lastName = %@", person2.firstName, person2.lastName);
 
+
 	id<PersonInterface> person3 = [ManagedPerson createPersonWithNonManagedPerson:person];
 	NSLog(@"person3: firstName = %@, lastName = %@", person3.firstName, person3.lastName);
 	[[NSManagedObjectContext defaultContext] saveNestedContexts];
+
 }
 
 - (void)loadUserBookShelf
