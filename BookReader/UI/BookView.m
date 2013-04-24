@@ -81,8 +81,8 @@
 }
 
 - (void)valueChanged:(id)sender {
-    NSNumber *bookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
-    [ServiceManager autoSubscribe:bookId book:bookObject.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
+    NSNumber *userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+    [ServiceManager autoSubscribe:userid book:bookObject.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
         if (error) {
             
         }

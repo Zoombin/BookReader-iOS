@@ -77,17 +77,17 @@
 + (void)getRecommandBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取图书详情
-+ (void)bookDetailsByBookId:(NSNumber *)bookid //书的id
++ (void)bookDetailsByBookId:(NSString *)bookid //书的id
                       andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
                      withBlock:(void (^)(Book *,NSError *))block;
 
 //获取评论接口
-+ (void)bookDiccusssListByBookId:(NSNumber *)bookid //书的id
++ (void)bookDiccusssListByBookId:(NSString *)bookid //书的id
                             size:(NSString *)size //每次返回条数
                         andIndex:(NSString *)index //第几页
                        withBlock:(void(^)(NSArray *,NSError *))block;
 //章节列表
-+ (void)bookCatalogueList:(NSNumber *)bookid
++ (void)bookCatalogueList:(NSString *)bookid
           andNewestCataId:(NSNumber *)cataid
                 withBlock:(void(^)(NSArray *,NSError *))block;
 
@@ -99,7 +99,7 @@
 //章节订阅
 + (void)chapterSubscribe:(NSNumber *)userid
                chapter:(NSNumber *)chapterid
-                  book:(NSNumber *)bookid
+                  book:(NSString *)bookid
                 author:(NSNumber *)authorid
                 andPrice:(NSString *)price
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
@@ -112,19 +112,19 @@
 
 //收藏书籍
 + (void)addFavourite:(NSNumber *)userid
-         book:(NSNumber *)bookid
+         book:(NSString *)bookid
        andValue:(BOOL)value
       withBlock:(void(^)(NSString *,NSString *,NSError *))block;
 
 //自动订阅
 + (void)autoSubscribe:(NSNumber *)userid
-               book:(NSNumber *)bookid
+               book:(NSString *)bookid
              andValue:(NSString *)value //1:打开 0:关闭
             withBlock:(void(^)(NSString *,NSError *))block;
 
 //发表评论
 + (void)disscuss:(NSNumber *)userid
-              book:(NSNumber *)bookid
+              book:(NSString *)bookid
           andContent:(NSString *)content
            withBlock:(void(^)(NSString *,NSError *))block;
 
@@ -149,7 +149,7 @@
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
         integral:(NSString *)integral //投评价不能为0 其他为0
-       andBook:(NSNumber *)bookid
+       andBook:(NSString *)bookid
        withBlock:(void(^)(NSString *,NSError *))block;
 //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
 

@@ -29,9 +29,9 @@
 
 	
 	if (attributes[@"bookId"]) {
-		book.uid = attributes[@"bookId"];
+		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
-		book.uid = attributes[@"bookid"];
+		book.uid = [attributes[@"bookid"] stringValue];
 	}
 	
 	if (attributes[@"authorId"]) {

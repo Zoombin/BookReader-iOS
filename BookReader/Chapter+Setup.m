@@ -21,11 +21,22 @@
 	return chapter;
 }
 
-+ (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSNumber *)bookid
++ (NSArray *)chaptersWithAttributesArray:(NSArray *)array
+                               andBookID:(NSString *)bookid
 {
+    NSArray *dataBaseArray = [Chapter findByAttribute:@"bid"
+                                            withValue:bookid
+                                           andOrderBy:@"index"
+                                            ascending:YES];
     int i = 0;
+    if ([dataBaseArray count]>0)
+    {
+        Chapter *obj = [dataBaseArray lastObject];
+        i = [obj.index integerValue]+1;
+    }
 	NSMutableArray *chapters = [@[] mutableCopy];
-	for (NSDictionary *attributes in array) {
+	for (NSDictionary *attributes in array)
+    {
 		Chapter *chapter = [Chapter createWithAttributes:attributes];
         chapter.index = [NSNumber numberWithInteger:i];
         chapter.bid = bookid;

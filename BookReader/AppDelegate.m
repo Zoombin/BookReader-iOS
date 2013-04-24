@@ -17,6 +17,7 @@
 #import "BookManager.h"
 #import "Constants.h"
 #import "ServiceManager.h"
+//#import "MobileProbe.h"
 #import "NSString+XXSYDecoding.h"
 
 #define REMOTE_MODE
@@ -30,7 +31,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
-    [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
+//    [MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];
+//    [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
     application.statusBarHidden = NO;
     rootControllers = [@{} mutableCopy];
     BookShelfViewController *bookShelfViewController = [[BookShelfViewController alloc] init];

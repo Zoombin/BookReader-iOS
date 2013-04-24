@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
+#import "Chapter.h"
 //Local
 #import "ReadViewController.h"
 #import "BookManager.h"
@@ -99,10 +100,31 @@
             if ([allArray count]>0) {
                 [allArray removeAllObjects];
             }
+            for (int i = 0; i<[result count]; i++) {
+                Book *obj = [result objectAtIndex:i];
+                NSArray *chapterArray = [Chapter findByAttribute:@"bid" withValue:obj.uid andOrderBy:@"index" ascending:YES];
+                if ([chapterArray count] > 0) {
+                    Chapter *chapter = [chapterArray lastObject];
+                    [self loadChapterList:chapter.uid andBookId:obj.uid];
+                }
+                else
+                {
+                    [self loadChapterList:[NSNumber numberWithInt:0] andBookId:obj.uid];
+                }
+            }
             [allArray addObjectsFromArray:result];
             [self layoutBookViewWithArray:[self bookViews]];
         }
     }];
+}
+
+- (void)loadChapterList:(NSNumber *)CataId andBookId:(NSString *)bookid
+{
+   [ServiceManager bookCatalogueList:bookid andNewestCataId:CataId withBlock:^(NSArray *result, NSError *error) {
+       if (error)
+       {
+       }
+   }];
 }
 
 

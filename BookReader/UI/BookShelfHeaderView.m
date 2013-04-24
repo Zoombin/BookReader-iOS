@@ -32,7 +32,7 @@
         
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:frame];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
-        [titleLabel setText:@"我的书架"];
+        [titleLabel setText:@"我的收藏"];
         [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:titleLabel];

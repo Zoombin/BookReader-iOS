@@ -21,7 +21,7 @@
 
 @implementation BookDetailsViewController
 {
-    NSNumber *bookid;
+    NSString *bookid;
     Book *bookObj;
     int currentIndex;
     UITextField *commitField;
@@ -36,7 +36,7 @@
     NSNumber *userid;
 }
 
-- (id)initWithBook:(NSNumber *)uid
+- (id)initWithBook:(NSString *)uid
 {
     self = [super init];
     if (self) {

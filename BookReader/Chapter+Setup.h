@@ -10,5 +10,5 @@
 
 @interface Chapter (Setup)
 + (Chapter *)createWithAttributes:(NSDictionary *)attributes;
-+ (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSNumber *)bookid;
++ (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 @end
