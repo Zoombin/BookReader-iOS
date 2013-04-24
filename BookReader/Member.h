@@ -7,13 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
+@interface Member : NSObject
 
-@interface Member : NSManagedObject
-
-@property (nonatomic, retain) NSNumber * coin;
-@property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, strong) NSNumber * coin;
+@property (nonatomic, strong) NSNumber * uid;
+@property (nonatomic, strong) NSString * name;
 
 @end

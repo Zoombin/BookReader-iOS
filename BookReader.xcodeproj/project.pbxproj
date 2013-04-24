@@ -75,7 +75,6 @@
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
 		18ABAF1117226BB300ED02C6 /* BookModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */; };
 		18ABAF291724E39500ED02C6 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF281724E39500ED02C6 /* Chapter.m */; };
-		18ABAF2C1724EBAC00ED02C6 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2A1724EBAC00ED02C6 /* UserModel.xcdatamodeld */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
@@ -379,7 +378,6 @@
 		18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookModel.xcdatamodel; sourceTree = "<group>"; };
 		18ABAF271724E39400ED02C6 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
 		18ABAF281724E39500ED02C6 /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
-		18ABAF2B1724EBAC00ED02C6 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -794,7 +792,6 @@
 				18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */,
 				18ABAF271724E39400ED02C6 /* Chapter.h */,
 				18ABAF281724E39500ED02C6 /* Chapter.m */,
-				18ABAF2A1724EBAC00ED02C6 /* UserModel.xcdatamodeld */,
 				18ABAF301724FB1D00ED02C6 /* Member.h */,
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
 				772CD4491726CB3D00489D77 /* Book+Setup.h */,
@@ -1869,7 +1866,6 @@
 				18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */,
 				18ABAF1117226BB300ED02C6 /* BookModel.xcdatamodeld in Sources */,
 				18ABAF291724E39500ED02C6 /* Chapter.m in Sources */,
-				18ABAF2C1724EBAC00ED02C6 /* UserModel.xcdatamodeld in Sources */,
 				18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */,
 				18ABAF321724FB1D00ED02C6 /* Member.m in Sources */,
 				18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */,
@@ -2096,16 +2092,6 @@
 			);
 			currentVersion = 18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */;
 			path = BookModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		18ABAF2A1724EBAC00ED02C6 /* UserModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				18ABAF2B1724EBAC00ED02C6 /* UserModel.xcdatamodel */,
-			);
-			currentVersion = 18ABAF2B1724EBAC00ED02C6 /* UserModel.xcdatamodel */;
-			path = UserModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

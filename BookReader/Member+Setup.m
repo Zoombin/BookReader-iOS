@@ -12,7 +12,7 @@
 
 + (Member *)createWithAttributes:(NSDictionary *)attributes
 {
-    Member *member = [Member createEntity];
+    Member *member = [[Member alloc] init];
     member.uid = attributes[@"userid"];
     member.coin = attributes[@"account"];
     member.name = attributes[@"username"];

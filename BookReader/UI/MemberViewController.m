@@ -456,7 +456,6 @@
 - (void)logoutButtonClicked {
     isLogin = NO;
     //清除个人信息等...
-    [_member deleteEntity];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userid"];
     [self reloadUI];
 }

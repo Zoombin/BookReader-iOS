@@ -11,8 +11,8 @@
 
 @implementation Member
 
-@dynamic coin;
-@dynamic uid;
-@dynamic name;
+@synthesize coin;
+@synthesize uid;
+@synthesize name;
 
 @end
