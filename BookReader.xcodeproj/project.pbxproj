@@ -81,6 +81,8 @@
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
 		18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF36172517C200ED02C6 /* Member+Test.m */; };
+		18ABAF3B1727ADB000ED02C6 /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF3A1727ADB000ED02C6 /* Chapter+Setup.m */; };
+		18ABAF3E1727B69700ED02C6 /* Member+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF3D1727B69600ED02C6 /* Member+Setup.m */; };
 		18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		18FC1B0917210B2300A043C9 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1AD117210B2300A043C9 /* MagicalImportFunctions.m */; };
@@ -388,6 +390,10 @@
 		18ABAF34172517C200ED02C6 /* Book+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Test.m"; sourceTree = "<group>"; };
 		18ABAF35172517C200ED02C6 /* Member+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member+Test.h"; sourceTree = "<group>"; };
 		18ABAF36172517C200ED02C6 /* Member+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member+Test.m"; sourceTree = "<group>"; };
+		18ABAF391727ADB000ED02C6 /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
+		18ABAF3A1727ADB000ED02C6 /* Chapter+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chapter+Setup.m"; sourceTree = "<group>"; };
+		18ABAF3C1727B69500ED02C6 /* Member+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member+Setup.h"; sourceTree = "<group>"; };
+		18ABAF3D1727B69600ED02C6 /* Member+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member+Setup.m"; sourceTree = "<group>"; };
 		18BD746D170AC69700B142EC /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "../NSString+MD5.h"; sourceTree = "<group>"; };
 		18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		18FC1AC91720CAFE00A043C9 /* BookReadMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadMenuView.h; sourceTree = "<group>"; };
@@ -795,6 +801,10 @@
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
 				772CD4491726CB3D00489D77 /* Book+Setup.h */,
 				772CD44A1726CB3D00489D77 /* Book+Setup.m */,
+				18ABAF391727ADB000ED02C6 /* Chapter+Setup.h */,
+				18ABAF3A1727ADB000ED02C6 /* Chapter+Setup.m */,
+				18ABAF3C1727B69500ED02C6 /* Member+Setup.h */,
+				18ABAF3D1727B69600ED02C6 /* Member+Setup.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1876,6 +1886,8 @@
 				18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */,
 				18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */,
 				772CD44B1726CB3D00489D77 /* Book+Setup.m in Sources */,
+				18ABAF3B1727ADB000ED02C6 /* Chapter+Setup.m in Sources */,
+				18ABAF3E1727B69700ED02C6 /* Member+Setup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

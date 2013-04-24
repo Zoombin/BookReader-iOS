@@ -14,6 +14,8 @@
 #import "CJSONDeserializer.h"
 #import "NSString+XXSYDecoding.h"
 #import "Book+Setup.h"
+#import "Chapter+Setup.h"
+#import "Member+Setup.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -118,11 +120,9 @@
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        Member *member = [Member createEntity];
+        Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            member.uid = [[theObject objectForKey:@"user"] objectForKey:@"userid"];
-            member.coin = [[theObject objectForKey:@"user"] objectForKey:@"account"];
-            member.name = [[theObject objectForKey:@"user"] objectForKey:@"username"];
+            member = [Member createWithAttributes:theObject[@"user"]];
             [[NSUserDefaults standardUserDefaults] setValue:member.uid forKey:@"userid"];
         }
         if (block) {
@@ -206,11 +206,10 @@
     parameters[@"userid"] = userid;
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        Member *member = [Member createEntity];
+        Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            member.uid = [[theObject objectForKey:@"user"] objectForKey:@"userid"];
-            member.coin = [[theObject objectForKey:@"user"] objectForKey:@"account"];
-            member.name = [[theObject objectForKey:@"user"] objectForKey:@"username"];
+            member = [Member createWithAttributes:theObject[@"user"]];
+            [[NSUserDefaults standardUserDefaults] setValue:member.uid forKey:@"userid"];
         }
         if (block) {
             block(member,nil);
@@ -407,23 +406,11 @@
     parameters[@"lastchapterid"] = cataid;
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [[CJSONDeserializer deserializer] deserializeAsDictionary:JSON error:nil];
-        NSMutableArray *resultArray = [[NSMutableArray alloc] init];
-        NSLog(@"%@",theObject);
-        if ([theObject isKindOfClass:[NSDictionary class]]) {
-            NSArray *chapterList = [theObject objectForKey:@"chapterList"];
-            for (int i = 0; i<[chapterList count]; i++) {
-                NSDictionary *tmpDict = [chapterList objectAtIndex:i];
-                Chapter *obj = [Chapter createEntity];
-                obj.name = tmpDict[@"chapterName"];
-                obj.uid = tmpDict[@"chapterId"];
-                obj.bid = bookid;
-                obj.bVip = tmpDict[@"isVip"];
-                obj.bBuy = [NSNumber numberWithBool:NO];
-                obj.index = [NSNumber numberWithInteger:i];
-                [[NSManagedObjectContext defaultContext] saveNestedContexts];
-                [resultArray addObject:obj];
-            }
+        NSMutableArray *resultArray = [@[] mutableCopy];
+        if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
+			[resultArray addObjectsFromArray:[Chapter chaptersWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
         }
+        [[NSManagedObjectContext defaultContext] saveNestedContexts];
         if (block) {
             block(resultArray, nil);
         }

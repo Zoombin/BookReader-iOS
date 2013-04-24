@@ -12,6 +12,7 @@
 #import "UIDefines.h"
 #import "MKNumberBadgeView.h"
 #import "ServiceManager.h"
+#import "UIImageView+AFNetworking.h"
 
 #define BOOK_WIDTH                        72
 #define BOOK_HEIGHT                       99
@@ -147,15 +148,28 @@
 {
     bookObject = book;
     if (bookObject.cover) {
-        [backgroundButton setImage:[UIImage imageWithData:book.cover] forState:UIControlStateNormal];
+        [backgroundButton setBackgroundImage:[UIImage imageWithData:book.cover] forState:UIControlStateNormal];
+    } else {
+        [backgroundButton.imageView
+         setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bookObject.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+             [self refreshCoverWithImage:image];
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                
+        }];
     }
     if (bookObject.progress) {
         [customprogressView setProgress:bookObject.progress.floatValue];
     }
     [badgeView setFrame:BADGEVIEWFRAME];
     if (bookObject.autoBuy) {
-        [switchView setOn:bookObject.autoBuy];
+        [switchView setOn:[bookObject.autoBuy boolValue]];
     }
+}
+
+- (void)refreshCoverWithImage:(UIImage *)image
+{
+   bookObject.cover = UIImageJPEGRepresentation(image, 1.0);
+   [backgroundButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 
 @end

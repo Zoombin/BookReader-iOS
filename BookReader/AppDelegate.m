@@ -67,7 +67,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self testAPIs];
-    [MagicalRecord setupCoreDataStack];
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
     application.statusBarHidden = NO;
     rootControllers = [@{} mutableCopy];
