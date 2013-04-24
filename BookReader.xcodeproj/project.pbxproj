@@ -121,6 +121,9 @@
 		18FC1B2117210B2300A043C9 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0417210B2300A043C9 /* MagicalRecord+ShorthandSupport.m */; };
 		18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0617210B2300A043C9 /* MagicalRecord.m */; };
 		772CD44B1726CB3D00489D77 /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD44A1726CB3D00489D77 /* Book+Setup.m */; };
+		772CD44F1728165B00489D77 /* NonManagedPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD44E1728165A00489D77 /* NonManagedPerson.m */; };
+		772CD4521728169F00489D77 /* ManagedPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD4511728169E00489D77 /* ManagedPerson.m */; };
+		772CD45517281D4B00489D77 /* Person.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 772CD45317281D4900489D77 /* Person.xcdatamodeld */; };
 		773B39A116CF229C00AAAF28 /* BookDoc in Resources */ = {isa = PBXBuildFile; fileRef = 773B39A016CF229C00AAAF28 /* BookDoc */; };
 		77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */; };
 		77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */; };
@@ -472,6 +475,12 @@
 		18FC1B0817210B2300A043C9 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		772CD4491726CB3D00489D77 /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		772CD44A1726CB3D00489D77 /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
+		772CD44C1728162200489D77 /* PersonInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInterface.h; sourceTree = "<group>"; };
+		772CD44D1728165900489D77 /* NonManagedPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonManagedPerson.h; sourceTree = "<group>"; };
+		772CD44E1728165A00489D77 /* NonManagedPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonManagedPerson.m; sourceTree = "<group>"; };
+		772CD4501728169C00489D77 /* ManagedPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedPerson.h; sourceTree = "<group>"; };
+		772CD4511728169E00489D77 /* ManagedPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedPerson.m; sourceTree = "<group>"; };
+		772CD45417281D4B00489D77 /* Person.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Person.xcdatamodel; sourceTree = "<group>"; };
 		773B39A016CF229C00AAAF28 /* BookDoc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BookDoc; sourceTree = "<group>"; };
 		77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BundleExtensions.h"; path = "../UI/NSString+BundleExtensions.h"; sourceTree = "<group>"; };
 		77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+BundleExtensions.m"; path = "../UI/NSString+BundleExtensions.m"; sourceTree = "<group>"; };
@@ -802,6 +811,12 @@
 				18ABAF3D1727B69600ED02C6 /* Member+Setup.m */,
 				18ABAFBA1727CC4700ED02C6 /* Book.h */,
 				18ABAFBB1727CC4A00ED02C6 /* Book.m */,
+				772CD44C1728162200489D77 /* PersonInterface.h */,
+				772CD44D1728165900489D77 /* NonManagedPerson.h */,
+				772CD44E1728165A00489D77 /* NonManagedPerson.m */,
+				772CD4501728169C00489D77 /* ManagedPerson.h */,
+				772CD4511728169E00489D77 /* ManagedPerson.m */,
+				772CD45317281D4900489D77 /* Person.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1884,6 +1899,9 @@
 				18ABAFB81727CB6900ED02C6 /* CJSONSerializer.m in Sources */,
 				18ABAFB91727CB6900ED02C6 /* CSerializedJSONData.m in Sources */,
 				18ABAFBC1727CC5000ED02C6 /* Book.m in Sources */,
+				772CD44F1728165B00489D77 /* NonManagedPerson.m in Sources */,
+				772CD4521728169F00489D77 /* ManagedPerson.m in Sources */,
+				772CD45517281D4B00489D77 /* Person.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2092,6 +2110,16 @@
 			);
 			currentVersion = 18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */;
 			path = BookModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		772CD45317281D4900489D77 /* Person.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				772CD45417281D4B00489D77 /* Person.xcdatamodel */,
+			);
+			currentVersion = 772CD45417281D4B00489D77 /* Person.xcdatamodel */;
+			path = Person.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
