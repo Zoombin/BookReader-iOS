@@ -27,6 +27,9 @@
 #import "CoreTextViewController.h"
 #import "SubscribeViewController.h"
 #import "BookCell.h"
+#import "PersonInterface.h"
+#import "NonManagedPerson.h"
+#import "ManagedPerson.h"
 
 //UIFrame
 #define EDIT_BUTTON_FRAME                      CGRectMake(10, 11, 50, 32)
@@ -75,6 +78,19 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadUserBookShelf];
+	id<PersonInterface> person = [NonManagedPerson createPerson];
+	NSLog(@"firstName = %@, lastName = %@", person.firstName, person.lastName);
+	person.firstName = @"111";
+	NSLog(@"firstName = %@, lastName = %@", person.firstName, person.lastName);
+	
+	
+	id<PersonInterface> person2 = [ManagedPerson createPerson];
+	NSLog(@"firstName = %@, lastName = %@", person2.firstName, person2.lastName);
+	person2.firstName = @"aaa";
+	NSLog(@"firstName = %@, lastName = %@", person2.firstName, person2.lastName);
+	
+	id<PersonInterface> person3 = [ManagedPerson createPersonWithNonManagedPerson:person];
+	NSLog(@"person3: firstName = %@, lastName = %@", person3.firstName, person3.lastName);
 }
 
 - (void)loadUserBookShelf
