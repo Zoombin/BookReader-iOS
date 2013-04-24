@@ -27,46 +27,8 @@
     UIView *tabBar;
 }
 
-- (void)testAPIs
-{
-    //    NSString *documentDir = [[NSBundle mainBundle] pathForResource:@"source" ofType:@"txt"];
-    //    NSString *string = [[NSString alloc]initWithContentsOfFile:documentDir encoding:NSUTF8StringEncoding error:nil];
-    //    //string = @"35B3";
-    //    NSLog(@"==>%@",[string XXSYDecodingWithKey:@"522601"]);
-    //    NSLog(@"%@", [[NSData  dataWithBase64EncodedString:@"asdadasdsa"] base64Encoding]);
-    //    NSData *data = [NSData data];
-    //    [[NSData  dataWithBase64EncodedString:@"adadasd"] base64Encoding];
-    //    [ServiceManager verifyCodeByPhoneNumber:@"13862090556" withBlock:nil];
-    //    [ServiceManager registerByPhoneNumber:@"13862090556" verifyCode:@"9162" andPassword:@"123456" withBlock:nil];
-    //    [ServiceManager loginByPhoneNumber:@"13862090556" andPassword:@"123456" withBlock:nil];
-    //    [ServiceManager changePassword:@"5508883" andOldPassword:@"123456" andNewPassword:@"123456" withBlock:nil];
-    //    [ServiceManager postFindPasswordCode:@"15850236194" withBlock:nil];
-    //    [ServiceManager findPassword:@"15850236194" andverifiyCode:@"7394" andNewPassword:@"654321" withBlock:nil];
-    //    [ServiceManager getUserInfo:@"5508883" withBlock:nil];
-//        [ServiceManager pay:@"5639339" type:@"5" withBlock:nil];
-    //    [ServiceManager getUserPayList:@"5508883" andPageIndex:@"1" andCount:@"10" withBlock:nil];
-    //    [ServiceManager seachBook:@"" withBlock:nil];
-    //    [ServiceManager getRecommandBooksWithBlock:nil];
-    //    [ServiceManager getBooks:@"玄幻" andClassId:@"0" andRanking:@"0" andSize:@"10" andIndex:@"1" withBlock:nil];
-    //    [ServiceManager bookDiccusssListByBookId:@"449218" size:@"10" andIndex:@"1" withBlock:nil];
-    //    [ServiceManager bookDetailInfoByBookId:@"449218" andIntro:@"1" withBlock:nil];
-    //   [ServiceManager bookCatalogueList:@"449218" andNewestCataId:@"0" withBlock:nil];
-    //     [ServiceManager bookCatalogue:@"5067267" andUserid:@"5508883" withBlock:nil];
-    //    [ServiceManager ChapterSubscribe:@"5508883" chapterId:@"5067267" bookId:@"449218" authorId:@"285344" andPrice:@"0" withBlock:nil];
-    //  [ServiceManager userBooks:@"5508883" size:@"10" andIndex:@"1" withBlock:nil];
-    //    [ServiceManager favBook:@"5508883" Bookid:@"449218" andValue:YES withBlock:nil];
-    //    [ServiceManager autoSubscribe:@"5508883" Bookid:@"449218" andValue:@"1" withBlock:nil];
-    //    [ServiceManager disscussSend:@"5508883" bookid:@"449218" andContent:@"111adasdasdasd" withBlock:nil];
-    //    [ServiceManager authorOtherBook:@"285344" andCount:@"10" withBlock:nil];
-    //    [ServiceManager bookRecommand:@"1" andCount:@"10" withBlock:nil];
-    //    [ServiceManager checkIsExist:@"5508883" andBookid:@"449218" withBlock:nil];
-    //    [ServiceManager giveGift:@"5508883" type:@"" andBookid:@"449218" withBlock:nil];
-    //    [ServiceManager giveGift:@"5508883" type:@"5" authorid:@"285344" count:@"1" integral:@"1" andBookid:@"449218" withBlock:nil];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self testAPIs];
     [MagicalRecord setupCoreDataStack];
     [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
     application.statusBarHidden = NO;
