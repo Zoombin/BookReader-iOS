@@ -7,9 +7,9 @@
 //
 
 #import "BookCell.h"
-#import "Book.h"
 #import "UIDefines.h"
 #import "UIImageView+AFNetworking.h"
+#import "NonManagedBook.h"
 
 #define bookimageViewFrame      CGRectMake(10, 16, 52, 70)
 #define bookNameLabelFrame      CGRectMake(65, 12, 240, 30)
@@ -64,7 +64,7 @@
     return self;
 }
 
-- (void)setBook:(Book *)book
+- (void)setBook:(id<BookInterface>)book
 {
     if (book.name) {
         [nameLabel setText:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"BookName", nil), book.name]];

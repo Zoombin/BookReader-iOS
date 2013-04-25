@@ -9,20 +9,23 @@
 #import "SubscribeViewController.h"
 #import "UIDefines.h"
 #import "ServiceManager.h"
-#import "Chapter.h"
+#import "NonManagedChapter.h"
+#import "NonManagedBook.h"
+#import "ManagedBook.h"
+#import "ManagedChapter.h"
 #import "UIViewController+HUD.h"
 #import "CoreTextViewController.h"
 
 @implementation SubscribeViewController
 {
-    Book *bookobj;
+    id<BookInterface> bookobj;
     NSNumber *userid;
     UITableView *infoTableView;
     NSMutableArray *infoArray;
     BOOL bOnline;
 }
 
-- (id)initWithBookId:(Book *)book
+- (id)initWithBookId:(id<BookInterface>)book
            andOnline:(BOOL)online;
 {
     self = [super init];
@@ -80,7 +83,7 @@
     if (bOnline) {
         [self chapterDataFromService];
     } else {
-        NSArray *array = [Chapter findByAttribute:@"bid" withValue:bookobj.uid andOrderBy:@"index" ascending:YES];
+        NSArray *array = [ManagedChapter findByAttribute:@"bid" withValue:bookobj.uid andOrderBy:@"index" ascending:YES];
         if ([array count]>0)
         {
             [infoArray addObjectsFromArray:array];
@@ -136,7 +139,7 @@
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-        Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
+        id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
         cell.textLabel.text = obj.name;
         [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
         NSString *vipString = @"";
@@ -148,34 +151,43 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
-    [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
-        if (error)
-        {
-            
-        }
-        else
-        {
-            if (![code isEqualToString:@"0000"])
+    id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
+    if (obj.content!=nil) {
+        NSLog(@"书籍已经下载！");
+        [self pushToCoreTextWithChapterObj:obj];
+    }else {
+        [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
+            if (error)
             {
-                [self chapterSubscribeWithObj:obj];
+                
             }
             else
             {
-                obj.content = content;
-                [self pushToCoreTextWithChapterObj:obj];
+                if (![code isEqualToString:@"0000"])
+                {
+                    [self chapterSubscribeWithObj:obj];
+                }
+                else
+                {
+                    obj.content = content;
+                    if (!bOnline) {
+                        NSLog(@"本地阅读需要存入数据库");
+                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    }
+                    [self pushToCoreTextWithChapterObj:obj];
+                }
             }
-        }
-    }];
+        }];
+    }
 }
 
-- (void)pushToCoreTextWithChapterObj:(Chapter *)obj
+- (void)pushToCoreTextWithChapterObj:(id<ChapterInterface>)obj
 {
     CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj andChapter:obj];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 
-- (void)chapterSubscribeWithObj:(Chapter *)obj
+- (void)chapterSubscribeWithObj:(id<ChapterInterface>)obj
 {
     if (userid!=nil)
     {
@@ -189,6 +201,10 @@
                 if ([code isEqualToString:@"0000"]) {
                     obj.bBuy = [NSNumber numberWithBool:YES];
                     obj.content = content;
+                    if (!bOnline) {
+                        NSLog(@"本地阅读需要存入数据库");
+                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    }
                     [self pushToCoreTextWithChapterObj:obj];
                 }
                 [self showAlertWithMessage:result];

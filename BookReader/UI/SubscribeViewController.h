@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
+#import "NonManagedBook.h"
 
 @interface SubscribeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
-- (id)initWithBookId:(Book *)book
+- (id)initWithBookId:(id<BookInterface>)book
            andOnline:(BOOL)online;
 @end

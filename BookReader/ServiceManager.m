@@ -12,8 +12,8 @@
 #import "AFJSONRequestOperation.h"
 #import "NSString+MD5.h"
 #import "NSString+XXSYDecoding.h"
-#import "Book+Setup.h"
-#import "Chapter+Setup.h"
+#import "NonManagedBook.h"
+#import "NonManagedChapter.h"
 #import "Member+Setup.h"
 
 //获取IP地址需要用到
@@ -303,7 +303,7 @@
         NSLog(@"%@",theObject);
         NSMutableArray *bookListsArray = [@[] mutableCopy];
         if ([theObject[@"bookList"] isKindOfClass:[NSArray class]]) {
-			[bookListsArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
+			[bookListsArray addObjectsFromArray:[NonManagedBook booksWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(bookListsArray, nil);
@@ -323,7 +323,7 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSArray *bookListArray = [theObject objectForKey:@"bookList"];
         NSMutableArray *resultArray = [@[] mutableCopy];
-		[resultArray addObjectsFromArray:[Book booksWithAttributesArray:bookListArray]];
+		[resultArray addObjectsFromArray:[NonManagedBook booksWithAttributesArray:bookListArray]];
         if (block) {
             block(resultArray, nil);
         }
@@ -337,7 +337,7 @@
 
 + (void)bookDetailsByBookId:(NSString *)bookid
                       andIntro:(NSString *)intro
-                     withBlock:(void (^)(Book *, NSError *))block {
+                     withBlock:(void (^)(id<BookInterface>, NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@",bookid,intro];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"bookid"] = bookid;
@@ -346,7 +346,7 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
         NSDictionary *dict = [theObject objectForKey:@"book"];
-        Book *book = [Book createWithAttributes:dict];
+        id<BookInterface> book = [NonManagedBook createBookWithAttributes:dict];
         if (block) {
             block(book, nil);
         }
@@ -406,9 +406,8 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
-			[resultArray addObjectsFromArray:[Chapter chaptersWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
+			[resultArray addObjectsFromArray:[NonManagedChapter chaptersWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
         }
-        [[NSManagedObjectContext defaultContext] saveNestedContexts];
         if (block) {
             block(resultArray, nil);
         }
@@ -491,7 +490,7 @@
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-		[bookList addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"keepList"]]];
+		[bookList addObjectsFromArray:[NonManagedBook booksWithAttributesArray:theObject[@"keepList"]]];
         if (block) {
             block(bookList, nil);
         }
@@ -588,7 +587,7 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
+			[resultArray addObjectsFromArray:[NonManagedBook booksWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(resultArray, nil);
@@ -613,7 +612,7 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
+			[resultArray addObjectsFromArray:[NonManagedBook booksWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(resultArray, nil);

@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 #import "Member.h"
-#import "Book.h"
-#import "Chapter.h"
+#import "NonManagedChapter.h"
 #import "Commit.h"
 #import "Pay.h"
+#import "NonManagedBook.h"
 
 @interface ServiceManager : AFHTTPClient
 
@@ -79,7 +79,7 @@
 //获取图书详情
 + (void)bookDetailsByBookId:(NSString *)bookid //书的id
                       andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
-                     withBlock:(void (^)(Book *,NSError *))block;
+                     withBlock:(void (^)(id<BookInterface>,NSError *))block;
 
 //获取评论接口
 + (void)bookDiccusssListByBookId:(NSString *)bookid //书的id

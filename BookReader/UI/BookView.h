@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Book;
+#import "BookInterface.h"
 
 @protocol BookViewDelegate <NSObject>
 - (void)bookViewButtonClick:(id)sender;
@@ -17,5 +17,5 @@
 @property (nonatomic, weak) id<BookViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isInEditing;
 @property (nonatomic, assign) BOOL isSelected;
-- (void)setBook:(Book *)book;
+- (void)setBook:(id<BookInterface>)book;
 @end

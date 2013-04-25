@@ -10,7 +10,7 @@
 #import "UIDefines.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "Book.h"
+#import "BookInterface.h"
 #import "UIImageView+AFNetworking.h"
 #import "GiftViewController.h"
 #import "AppDelegate.h"
@@ -22,7 +22,7 @@
 @implementation BookDetailsViewController
 {
     NSString *bookid;
-    Book *bookObj;
+    id<BookInterface> bookObj;
     int currentIndex;
     UITextField *commitField;
     UIScrollView *scrollView;
@@ -56,7 +56,7 @@
     [super viewDidAppear:animated];
     if (bookObj == nil) {
         [self displayHUD:@"加载中..."];
-        [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(Book *obj, NSError *error) {
+        [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(NonManagedBook *obj, NSError *error) {
             if(error) {
                 [self hideHUD:YES];
             }else {
@@ -181,7 +181,7 @@
                 [authorBookArray removeAllObjects];
             }
             for (int i = 0 ; i<[result count]; i++) {
-                Book *obj = [result objectAtIndex:i];
+                id<BookInterface> obj = [result objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue])
                 {
                     [authorBookArray addObject:obj];
@@ -204,7 +204,7 @@
                 [sameTypeBookArray removeAllObjects];
             }
             for (int i = 0 ; i<[result count]; i++) {
-                Book *obj = [result objectAtIndex:i];
+                id<BookInterface> obj = [result objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue])
                 {
                     [sameTypeBookArray addObject:obj];
@@ -433,10 +433,10 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             if ([indexPath section]==0)
             {
-                Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
+                id<BookInterface> obj = [authorBookArray objectAtIndex:[indexPath row]];
                 cell.textLabel.text = obj.name;
             } else {
-                Book *obj = [sameTypeBookArray objectAtIndex:[indexPath row]];
+                id<BookInterface> obj = [sameTypeBookArray objectAtIndex:[indexPath row]];
                 cell.textLabel.text = obj.name;
             }
         }
@@ -449,12 +449,12 @@
     {
         if ([indexPath section] == 0)
         {
-            Book *book = [authorBookArray objectAtIndex:[indexPath row]];
+            id<BookInterface> book = [authorBookArray objectAtIndex:[indexPath row]];
             BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
             [self.navigationController pushViewController:childViewController animated:YES];
         }else
         {
-            Book *book = [sameTypeBookArray objectAtIndex:[indexPath row]];
+            id<BookInterface> book = [sameTypeBookArray objectAtIndex:[indexPath row]];
              BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
             [self.navigationController pushViewController:childViewController animated:YES];
         }

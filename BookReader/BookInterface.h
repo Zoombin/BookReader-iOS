@@ -1,16 +1,14 @@
 //
-//  Book.h
+//  BookInterface.h
 //  BookReader
 //
-//  Created by 颜超 on 13-4-24.
+//  Created by 颜超 on 13-4-25.
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-
-@interface Book : NSManagedObject
+@protocol BookInterface <NSObject>
 
 @property (nonatomic, retain) NSString * author;
 @property (nonatomic, retain) NSNumber * authorID;

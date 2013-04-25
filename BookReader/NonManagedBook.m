@@ -1,21 +1,21 @@
 //
-//  Book+Setup.m
+//  NonManagedBook.m
 //  BookReader
 //
-//  Created by zhangbin on 4/23/13.
-//  Copyright (c) 2013 颜超. All rights reserved.
+//  Created by 颜超 on 13-4-25.
+//  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "Book+Setup.h"
-#import "Book.h"
+#import "NonManagedBook.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
+@implementation NonManagedBook
 
-@implementation Book (Setup)
+@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
 
-+ (Book *)createWithAttributes:(NSDictionary *)attributes
++ (id<BookInterface>)createBookWithAttributes:(NSDictionary *)attributes
 {
-	Book *book = [Book createEntity];
+    NonManagedBook *book = [[NonManagedBook alloc] init];
 	book.author = attributes[@"authorName"];
 	book.autoBuy = attributes[@"auto"];
 	book.name = attributes[@"bookName"];
@@ -26,8 +26,6 @@
 	book.words = attributes[@"length"];
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
-
-	
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -39,22 +37,19 @@
 	} else if (attributes[@"authorid"]) {
 		book.authorID = attributes[@"authorid"];
 	}
-	
 	if (book.uid) {
 		book.coverURL = [NSString stringWithFormat:@"%@%@.jpg", XXSY_IMAGE_URL, book.uid];
 	}
-
 	return book;
 }
 
 + (NSArray *)booksWithAttributesArray:(NSArray *)array
 {
-	NSMutableArray *books = [@[] mutableCopy];
+   	NSMutableArray *books = [@[] mutableCopy];
 	for (NSDictionary *attributes in array) {
-		Book *book = [Book createWithAttributes:attributes];
+		NonManagedBook *book = [self createBookWithAttributes:attributes];
 		[books addObject:book];
 	}
 	return books;
 }
-
 @end

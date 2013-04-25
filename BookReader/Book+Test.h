@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 颜超. All rights reserved.
 //
 
-#import "Book.h"
+#import "NonManagedBook.h"
 
-@interface Book (Test)
+@interface NonManagedBook (Test)
 
 + (NSArray *)testBooks;
 + (NSArray *)testRankingBooks;

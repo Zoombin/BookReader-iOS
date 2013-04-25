@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Book;
+#import "BookInterface.h"
 
 @interface BookCell : UITableViewCell
 + (CGFloat)height;
-- (void)setBook:(Book *)book;
+- (void)setBook:(id<BookInterface>)book;
 @end

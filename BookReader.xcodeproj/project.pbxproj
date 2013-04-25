@@ -28,6 +28,10 @@
 		18089E4B171CFA7C00BCB50E /* Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4A171CFA7A00BCB50E /* Commit.m */; };
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
 		18089E51171E8ACD00BCB50E /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E50171E8ACC00BCB50E /* SubscribeViewController.m */; };
+		1820F0511728B3D3002670F2 /* NonManagedBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F0501728B3D3002670F2 /* NonManagedBook.m */; };
+		1820F0541728B3E4002670F2 /* ManagedBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F0531728B3E4002670F2 /* ManagedBook.m */; };
+		1820F05A1728CB29002670F2 /* ManagedChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F0591728CB29002670F2 /* ManagedChapter.m */; };
+		1820F05D1728CB40002670F2 /* NonManagedChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F05C1728CB40002670F2 /* NonManagedChapter.m */; };
 		1848FC33171F9C3D00E8A3F1 /* BookShelfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */; };
 		1888A36E16FC18CF0046DA4C /* toolbar_bottom_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */; };
 		1888A37016FC28A40046DA4C /* toolbar_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */; };
@@ -74,12 +78,10 @@
 		188FE63B16F9A069009561CB /* localbook_progress_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FE63916F9A069009561CB /* localbook_progress_front.png */; };
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
 		18ABAF1117226BB300ED02C6 /* BookModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */; };
-		18ABAF291724E39500ED02C6 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF281724E39500ED02C6 /* Chapter.m */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
 		18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF36172517C200ED02C6 /* Member+Test.m */; };
-		18ABAF3B1727ADB000ED02C6 /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF3A1727ADB000ED02C6 /* Chapter+Setup.m */; };
 		18ABAF3E1727B69700ED02C6 /* Member+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF3D1727B69600ED02C6 /* Member+Setup.m */; };
 		18ABAFB01727CB6900ED02C6 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF9B1727CB6900ED02C6 /* CDataScanner.m */; };
 		18ABAFB11727CB6900ED02C6 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF9E1727CB6900ED02C6 /* CDataScanner_Extensions.m */; };
@@ -91,7 +93,6 @@
 		18ABAFB71727CB6900ED02C6 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFAB1727CB6900ED02C6 /* CJSONScanner.m */; };
 		18ABAFB81727CB6900ED02C6 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFAD1727CB6900ED02C6 /* CJSONSerializer.m */; };
 		18ABAFB91727CB6900ED02C6 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFAF1727CB6900ED02C6 /* CSerializedJSONData.m */; };
-		18ABAFBC1727CC5000ED02C6 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFBB1727CC4A00ED02C6 /* Book.m */; };
 		18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		18FC1B0917210B2300A043C9 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1AD117210B2300A043C9 /* MagicalImportFunctions.m */; };
@@ -120,7 +121,6 @@
 		18FC1B2017210B2300A043C9 /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0217210B2300A043C9 /* MagicalRecord+Setup.m */; };
 		18FC1B2117210B2300A043C9 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0417210B2300A043C9 /* MagicalRecord+ShorthandSupport.m */; };
 		18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1B0617210B2300A043C9 /* MagicalRecord.m */; };
-		772CD44B1726CB3D00489D77 /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD44A1726CB3D00489D77 /* Book+Setup.m */; };
 		772CD44F1728165B00489D77 /* NonManagedPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD44E1728165A00489D77 /* NonManagedPerson.m */; };
 		772CD4521728169F00489D77 /* ManagedPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 772CD4511728169E00489D77 /* ManagedPerson.m */; };
 		772CD45517281D4B00489D77 /* Person.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 772CD45317281D4900489D77 /* Person.xcdatamodeld */; };
@@ -322,6 +322,16 @@
 		18089E4D171E3A6900BCB50E /* GiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftViewController.m; sourceTree = "<group>"; };
 		18089E4F171E8ACB00BCB50E /* SubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeViewController.h; sourceTree = "<group>"; };
 		18089E50171E8ACC00BCB50E /* SubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
+		1820F04F1728B3D3002670F2 /* NonManagedBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonManagedBook.h; sourceTree = "<group>"; };
+		1820F0501728B3D3002670F2 /* NonManagedBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonManagedBook.m; sourceTree = "<group>"; };
+		1820F0521728B3E4002670F2 /* ManagedBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedBook.h; sourceTree = "<group>"; };
+		1820F0531728B3E4002670F2 /* ManagedBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedBook.m; sourceTree = "<group>"; };
+		1820F0551728B3F2002670F2 /* BookInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInterface.h; sourceTree = "<group>"; };
+		1820F0581728CB28002670F2 /* ManagedChapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedChapter.h; sourceTree = "<group>"; };
+		1820F0591728CB29002670F2 /* ManagedChapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedChapter.m; sourceTree = "<group>"; };
+		1820F05B1728CB40002670F2 /* NonManagedChapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonManagedChapter.h; sourceTree = "<group>"; };
+		1820F05C1728CB40002670F2 /* NonManagedChapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonManagedChapter.m; sourceTree = "<group>"; };
+		1820F05E1728CB5C002670F2 /* ChapterInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterInterface.h; sourceTree = "<group>"; };
 		182FD04716BB8E700045AAE0 /* UIDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDefines.h; sourceTree = "<group>"; };
 		1848FC31171F9C3D00E8A3F1 /* BookShelfBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfBottomView.h; sourceTree = "<group>"; };
 		1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfBottomView.m; sourceTree = "<group>"; };
@@ -379,8 +389,6 @@
 		188FE63916F9A069009561CB /* localbook_progress_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbook_progress_front.png; sourceTree = "<group>"; };
 		188FE67316FB003F009561CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookModel.xcdatamodel; sourceTree = "<group>"; };
-		18ABAF271724E39400ED02C6 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
-		18ABAF281724E39500ED02C6 /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -389,8 +397,6 @@
 		18ABAF34172517C200ED02C6 /* Book+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Test.m"; sourceTree = "<group>"; };
 		18ABAF35172517C200ED02C6 /* Member+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member+Test.h"; sourceTree = "<group>"; };
 		18ABAF36172517C200ED02C6 /* Member+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member+Test.m"; sourceTree = "<group>"; };
-		18ABAF391727ADB000ED02C6 /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
-		18ABAF3A1727ADB000ED02C6 /* Chapter+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chapter+Setup.m"; sourceTree = "<group>"; };
 		18ABAF3C1727B69500ED02C6 /* Member+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Member+Setup.h"; sourceTree = "<group>"; };
 		18ABAF3D1727B69600ED02C6 /* Member+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Member+Setup.m"; sourceTree = "<group>"; };
 		18ABAF9A1727CB6900ED02C6 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
@@ -413,8 +419,6 @@
 		18ABAFAD1727CB6900ED02C6 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		18ABAFAE1727CB6900ED02C6 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
 		18ABAFAF1727CB6900ED02C6 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
-		18ABAFBA1727CC4700ED02C6 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
-		18ABAFBB1727CC4A00ED02C6 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		18BD746D170AC69700B142EC /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "../NSString+MD5.h"; sourceTree = "<group>"; };
 		18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		18FC1AC91720CAFE00A043C9 /* BookReadMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadMenuView.h; sourceTree = "<group>"; };
@@ -473,8 +477,6 @@
 		18FC1B0617210B2300A043C9 /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		18FC1B0717210B2300A043C9 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		18FC1B0817210B2300A043C9 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
-		772CD4491726CB3D00489D77 /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
-		772CD44A1726CB3D00489D77 /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		772CD44C1728162200489D77 /* PersonInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInterface.h; sourceTree = "<group>"; };
 		772CD44D1728165900489D77 /* NonManagedPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonManagedPerson.h; sourceTree = "<group>"; };
 		772CD44E1728165A00489D77 /* NonManagedPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonManagedPerson.m; sourceTree = "<group>"; };
@@ -799,24 +801,26 @@
 				18089E49171CFA7A00BCB50E /* Commit.h */,
 				18089E4A171CFA7A00BCB50E /* Commit.m */,
 				18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */,
-				18ABAF271724E39400ED02C6 /* Chapter.h */,
-				18ABAF281724E39500ED02C6 /* Chapter.m */,
 				18ABAF301724FB1D00ED02C6 /* Member.h */,
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
-				772CD4491726CB3D00489D77 /* Book+Setup.h */,
-				772CD44A1726CB3D00489D77 /* Book+Setup.m */,
-				18ABAF391727ADB000ED02C6 /* Chapter+Setup.h */,
-				18ABAF3A1727ADB000ED02C6 /* Chapter+Setup.m */,
 				18ABAF3C1727B69500ED02C6 /* Member+Setup.h */,
 				18ABAF3D1727B69600ED02C6 /* Member+Setup.m */,
-				18ABAFBA1727CC4700ED02C6 /* Book.h */,
-				18ABAFBB1727CC4A00ED02C6 /* Book.m */,
 				772CD44C1728162200489D77 /* PersonInterface.h */,
 				772CD44D1728165900489D77 /* NonManagedPerson.h */,
 				772CD44E1728165A00489D77 /* NonManagedPerson.m */,
 				772CD4501728169C00489D77 /* ManagedPerson.h */,
 				772CD4511728169E00489D77 /* ManagedPerson.m */,
 				772CD45317281D4900489D77 /* Person.xcdatamodeld */,
+				1820F04F1728B3D3002670F2 /* NonManagedBook.h */,
+				1820F0501728B3D3002670F2 /* NonManagedBook.m */,
+				1820F0521728B3E4002670F2 /* ManagedBook.h */,
+				1820F0531728B3E4002670F2 /* ManagedBook.m */,
+				1820F0551728B3F2002670F2 /* BookInterface.h */,
+				1820F0581728CB28002670F2 /* ManagedChapter.h */,
+				1820F0591728CB29002670F2 /* ManagedChapter.m */,
+				1820F05B1728CB40002670F2 /* NonManagedChapter.h */,
+				1820F05C1728CB40002670F2 /* NonManagedChapter.m */,
+				1820F05E1728CB5C002670F2 /* ChapterInterface.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1880,13 +1884,10 @@
 				18FC1B2117210B2300A043C9 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */,
 				18ABAF1117226BB300ED02C6 /* BookModel.xcdatamodeld in Sources */,
-				18ABAF291724E39500ED02C6 /* Chapter.m in Sources */,
 				18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */,
 				18ABAF321724FB1D00ED02C6 /* Member.m in Sources */,
 				18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */,
 				18ABAF38172517C200ED02C6 /* Member+Test.m in Sources */,
-				772CD44B1726CB3D00489D77 /* Book+Setup.m in Sources */,
-				18ABAF3B1727ADB000ED02C6 /* Chapter+Setup.m in Sources */,
 				18ABAF3E1727B69700ED02C6 /* Member+Setup.m in Sources */,
 				18ABAFB01727CB6900ED02C6 /* CDataScanner.m in Sources */,
 				18ABAFB11727CB6900ED02C6 /* CDataScanner_Extensions.m in Sources */,
@@ -1898,10 +1899,13 @@
 				18ABAFB71727CB6900ED02C6 /* CJSONScanner.m in Sources */,
 				18ABAFB81727CB6900ED02C6 /* CJSONSerializer.m in Sources */,
 				18ABAFB91727CB6900ED02C6 /* CSerializedJSONData.m in Sources */,
-				18ABAFBC1727CC5000ED02C6 /* Book.m in Sources */,
 				772CD44F1728165B00489D77 /* NonManagedPerson.m in Sources */,
 				772CD4521728169F00489D77 /* ManagedPerson.m in Sources */,
 				772CD45517281D4B00489D77 /* Person.xcdatamodeld in Sources */,
+				1820F0511728B3D3002670F2 /* NonManagedBook.m in Sources */,
+				1820F0541728B3E4002670F2 /* ManagedBook.m in Sources */,
+				1820F05A1728CB29002670F2 /* ManagedChapter.m in Sources */,
+				1820F05D1728CB40002670F2 /* NonManagedChapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

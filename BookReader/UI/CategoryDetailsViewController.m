@@ -12,7 +12,7 @@
 #import "BookDetailsViewController.h"
 #import "ServiceManager.h"
 #import "BookCell.h"
-#import "Book.h"
+#import "NonManagedBook.h"
 #import "UIViewController+HUD.h"
 
 @implementation CategoryDetailsViewController
@@ -140,7 +140,7 @@
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil) {
         cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-        Book *book = [infoArray objectAtIndex:[indexPath row]];
+        id<BookInterface> book = [infoArray objectAtIndex:[indexPath row]];
         [cell setBook:book];
     }
 	return cell;
@@ -148,7 +148,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Book *book = [infoArray objectAtIndex:[indexPath row]];
+    id< BookInterface> book = [infoArray objectAtIndex:[indexPath row]];
     BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
     [self.navigationController pushViewController:childViewController animated:YES];
 }

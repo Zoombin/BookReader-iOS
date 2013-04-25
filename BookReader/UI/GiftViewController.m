@@ -14,14 +14,14 @@
     NSString *title;
     NSString *currentIndex;
     UITextField *numberTextField;
-    Book *bookObj;
+    id<BookInterface> bookObj;
     NSNumber *userid;
     NSArray *integralArrays;
     NSString *currentIntegral;
 }
 
 - (id)initWithIndex:(NSString *)index
-         andBookObj:(Book *)bookObject
+         andBookObj:(id<BookInterface>)bookObject
 {
     self = [super init];
     if (self) {

@@ -15,6 +15,7 @@
 #import "BookReadMenuView.h"
 #import "SubscribeViewController.h"
 #import "NSString+XXSYDecoding.h"
+#import "NonManagedBook.h"
 
 @interface CoreTextViewController ()
 
@@ -32,14 +33,14 @@
     ReadStatusView *statusView;
     BookReadMenuView *menuView;
     
-    Chapter *chapter;
-    Book *book;
+    id<ChapterInterface> chapter;
+    id<BookInterface>  book;
     
     NSString *userid;
 }
 
-- (id)initWithBook:(Book *)bookObj
-        andChapter:(Chapter *)chapterObj
+- (id)initWithBook:(id<BookInterface>)bookObj
+        andChapter:(id<ChapterInterface>)chapterObj
 {
     self = [super init];
     if (self)

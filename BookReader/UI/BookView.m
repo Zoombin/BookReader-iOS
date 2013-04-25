@@ -7,7 +7,6 @@
 //
 
 #import "BookView.h"
-#import "Book.h"
 #import "CustomProgressView.h"
 #import "UIDefines.h"
 #import "MKNumberBadgeView.h"
@@ -34,7 +33,7 @@
 @implementation BookView
 {
     UIButton *backgroundButton;
-    Book *bookObject;
+    id<BookInterface> bookObject;
     CustomProgressView *customprogressView;
     UIImage *selectedImage;
     UIImage *badgeImage;
@@ -144,7 +143,7 @@
     }
 }
 
-- (void)setBook:(Book *)book
+- (void)setBook:(id<BookInterface>)book
 {
     bookObject = book;
     if (bookObject.cover) {

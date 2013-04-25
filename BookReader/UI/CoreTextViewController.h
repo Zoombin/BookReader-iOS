@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
-#import "Chapter.h"
-#import "Book.h"
+#import "NonManagedChapter.h"
+#import "NonManagedBook.h"
+#import "BookInterface.h"
 
 @interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate>
 {
@@ -17,5 +18,5 @@
     NSInteger startPointX;
     NSInteger startPointY;
 }
-- (id)initWithBook:(Book *)bookObj andChapter:(Chapter *)chapterObj;
+- (id)initWithBook:(id<BookInterface>)bookObj andChapter:(id<ChapterInterface>)chapterObj;
 @end

@@ -1,16 +1,14 @@
 //
-//  Chapter.h
+//  ChapterInterface.h
 //  BookReader
 //
-//  Created by 颜超 on 13-4-22.
+//  Created by 颜超 on 13-4-25.
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-
-@interface Chapter : NSManagedObject
+@protocol ChapterInterface<NSObject>
 
 @property (nonatomic, retain) NSString * bid;
 @property (nonatomic, retain) NSNumber * uid;
