@@ -85,7 +85,16 @@
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     if ([allArray count]==0&&userid!=nil)
     {
+        NSArray *array = [ManagedBook findAll];
+        if ([array count]>0)
+        {
+          [allArray addObjectsFromArray:array];
+          [self layoutBookViewWithArray:[self bookViews]];
+        }
+        else
+        {
         [self refreshUserBooks];
+        }
     }
 }
 
@@ -94,7 +103,7 @@
     if (userid==nil) {
         return;
     }
-    [self displayHUD:@"获取用户书架中..."];
+    [self displayHUD:@"获取用户书架中..."];    
     [ServiceManager userBooks:userid size:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
             [self hideHUD:YES];
