@@ -75,7 +75,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if ([infoArray count]==0)
+    {
     [self loadChapterData];
+    }
 }
 
 - (void)loadChapterData
