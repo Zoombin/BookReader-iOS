@@ -30,9 +30,6 @@
 #import "CoreTextViewController.h"
 #import "SubscribeViewController.h"
 #import "BookCell.h"
-#import "PersonInterface.h"
-#import "NonManagedPerson.h"
-#import "ManagedPerson.h"
 
 //UIFrame
 #define EDIT_BUTTON_FRAME                      CGRectMake(10, 11, 50, 32)
