@@ -41,6 +41,7 @@
     chapter.name = attributes[@"chapterName"];
     chapter.uid = attributes[@"chapterId"];
     chapter.bVip = attributes[@"isVip"];
+    
     chapter.bBuy = [NSNumber numberWithBool:NO];
 	return chapter;
 }

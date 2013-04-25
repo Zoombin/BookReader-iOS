@@ -15,6 +15,7 @@
 #import "GiftViewController.h"
 #import "AppDelegate.h"
 #import "SubscribeViewController.h"
+#import "BookShelfViewController.h"
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002
@@ -342,6 +343,8 @@
             if (!error)
             {
                 [self showAlertWithMessage:resultMessage];
+                BookShelfViewController *viewController = (BookShelfViewController *)[APP_DELEGATE viewControllerByType:kRootControllerTypeBookShelf];
+                [viewController refreshUserBooks];
             }
         }];
     }

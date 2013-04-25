@@ -81,7 +81,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadUserBookShelf];
-    NSLog(@"%d",[[ManagedBook findAll] count]);
 }
 
 - (void)loadUserBookShelf
@@ -89,7 +88,7 @@
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     if ([allArray count]==0&&userid!=nil)
     {
-        [self refreshUserBooks]; 
+        [self refreshUserBooks];
     }
 }
 
@@ -103,7 +102,6 @@
         if (error) {
             [self hideHUD:YES];
         }else {
-            [self hideHUD:YES];
             if ([allArray count]>0) {
                 [allArray removeAllObjects];
             }
@@ -134,35 +132,86 @@
             }
             [allArray addObjectsFromArray:result];
             [self layoutBookViewWithArray:[self bookViews]];
+            [self hideHUD:YES];
         }
     }];
 }
 
-//- (void)autoSubscribeBooks
-//{
-//    NSArray *userBookArray = [ManagedBook findAll];
-//    for (int i = 0; i<[userBookArray count]; i++) {
-//        id<BookInterface> book = [userBookArray objectAtIndex:i];
-//        if ([book.autoBuy boolValue]==YES) {
-//            NSArray *chaptersArray = [ManagedChapter findByAttribute:@"bid" withValue: andOrderBy:<#(NSString *)#> ascending:<#(BOOL)#>];
-//        }
-//    }
-//}
+- (void)refreshUserBooksAndDownload {
+    [self refreshUserBooks];
+    NSArray *userBookArray = [ManagedBook findAll];
+    for (int i = 0; i<[userBookArray count]; i++) {
+        id<BookInterface> book = [userBookArray objectAtIndex:i];
+        NSArray *chaptersArray = [ManagedChapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"index" ascending:YES];
+        for (int j = 0; j < [chaptersArray count]; j++) {
+            ManagedChapter *chapter = chaptersArray[j];
+            [self downloadBooks:chapter andBook:book];
+        }
+    }
+    [self hideHUD:YES];
+}
+
+- (void)downloadBooks:(ManagedChapter *)obj andBook:(id<BookInterface>)book
+{
+    if (obj.content!=nil) {
+        return;
+    }
+    [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
+        if (error)
+        {
+            
+        }
+        else
+        {
+            if (![code isEqualToString:@"0000"])
+            {
+                if ([book.autoBuy boolValue]) {
+                   [self subscribeBook:obj andBook:book]; 
+                }
+            }
+            else
+            {
+                obj.content = content;
+                [[NSManagedObjectContext defaultContext] saveNestedContexts];
+            }
+        }
+    }];
+}
+
+- (void)subscribeBook:(ManagedChapter *)chapter andBook:(id<BookInterface>)book
+{
+    if ([chapter.bVip boolValue]==YES&&chapter.content==nil) {
+        [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+            if (error)
+            {
+                
+            }
+            else
+            {
+                if ([result isEqualToString:@"0000"])
+                {
+                    chapter.content = content;
+                    [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                }
+            }
+        }];
+    }
+}
 
 - (void)loadChapterList:(NSNumber *)CataId andBookId:(NSString *)bookid
 {
-   [ServiceManager bookCatalogueList:bookid andNewestCataId:CataId withBlock:^(NSArray *result, NSError *error) {
-       if (error)
-       {
-       }
-       else
-       {
-           for (int i = 0; i<[result count]; i++) {
-               [ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
-               [[NSManagedObjectContext defaultContext] saveNestedContexts];
-           }
-       }
-   }];
+    [ServiceManager bookCatalogueList:bookid andNewestCataId:CataId withBlock:^(NSArray *result, NSError *error) {
+        if (error)
+        {
+        }
+        else
+        {
+            for (int i = 0; i<[result count]; i++) {
+                [ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
+                [[NSManagedObjectContext defaultContext] saveNestedContexts];
+            }
+        }
+    }];
 }
 
 
@@ -308,11 +357,12 @@
         {
             [selectedArray removeAllObjects];
         }
+        [self saveBookValue];//保存设置
         [self layoutBookViewWithArray:[self bookViews]];
     }
     else if (type.intValue == kBottomViewButtonRefresh)
     {
-        [self refreshUserBooks];
+        [self refreshUserBooksAndDownload];
     }
     else if (type.intValue == kBottomViewButtonShelf)
     {
@@ -320,6 +370,19 @@
     }
     else if (type.intValue == kBottomViewButtonBookHistoroy)
     {
+        
+    }
+}
+
+- (void)saveBookValue
+{
+    if ([allArray count]>0) {
+        for (int i = 0; i<[allArray count]; i++) {
+           id<BookInterface> book = [allArray objectAtIndex:i];
+            ManagedBook *obj = [[ManagedBook findByAttribute:@"uid" withValue:book.uid] objectAtIndex:0];
+            obj.autoBuy = book.autoBuy;
+            [[NSManagedObjectContext defaultContext] saveNestedContexts];
+        }
         
     }
 }

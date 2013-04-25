@@ -459,7 +459,6 @@
     parameters[@"bookid"] = bookid;
     parameters[@"authorid"] = authorid;
     parameters[@"price"] = price;
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
