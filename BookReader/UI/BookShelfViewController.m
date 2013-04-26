@@ -78,6 +78,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadUserBookShelf];
+    [self layoutBookViewWithArray:[self bookViews]];
 }
 
 - (void)loadUserBookShelf
@@ -93,7 +94,7 @@
         }
         else
         {
-        [self refreshUserBooks];
+            [self refreshUserBooks];
         }
     }
 }
@@ -160,7 +161,8 @@
 
 - (void)downloadBooks:(ManagedChapter *)obj andBook:(id<BookInterface>)book
 {
-    if (obj.content!=nil) {
+    if (obj.content!=nil)
+    {
         return;
     }
     [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
@@ -216,6 +218,7 @@
             for (int i = 0; i<[result count]; i++) {
                 [ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
                 [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                [self layoutBookViewWithArray:[self bookViews]];
             }
         }
     }];

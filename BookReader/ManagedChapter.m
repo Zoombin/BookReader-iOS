@@ -41,7 +41,7 @@
     chapter.name = attributes[@"chapterName"];
     chapter.uid = attributes[@"chapterId"];
     chapter.bVip = attributes[@"isVip"];
-    
+    chapter.bRead = [NSNumber numberWithBool:NO];
     chapter.bBuy = [NSNumber numberWithBool:NO];
 	return chapter;
 }
@@ -52,6 +52,7 @@
     chapter.bid = nonManagedBook.bid;
     chapter.index = nonManagedBook.index;
     chapter.name = nonManagedBook.name;
+    chapter.bRead = nonManagedBook.bRead;
     chapter.uid = nonManagedBook.uid;
     chapter.bVip = nonManagedBook.bVip;
     chapter.bBuy = nonManagedBook.bBuy;

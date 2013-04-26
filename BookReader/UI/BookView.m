@@ -12,6 +12,7 @@
 #import "MKNumberBadgeView.h"
 #import "ServiceManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "ManagedChapter.h"
 
 #define BOOK_WIDTH                        72
 #define BOOK_HEIGHT                       99
@@ -159,7 +160,10 @@
     if (bookObject.progress) {
         [customprogressView setProgress:bookObject.progress.floatValue];
     }
+    NSArray *array = [ManagedChapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",book.uid]];
+    [badgeView setValue:[array count]];
     [badgeView setFrame:BADGEVIEWFRAME];
+    
     if (bookObject.autoBuy) {
         [switchView setOn:[bookObject.autoBuy boolValue]];
     }
