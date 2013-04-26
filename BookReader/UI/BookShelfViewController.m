@@ -143,18 +143,19 @@
     }];
 }
 
-- (void)refreshUserBooksAndDownload {
+- (void)refreshUserBooksAndDownload
+{
     [self refreshUserBooks];
-    NSArray *userBookArray = [ManagedBook findAll];
-    for (int i = 0; i<[userBookArray count]; i++) {
-        id<BookInterface> book = [userBookArray objectAtIndex:i];
+    for (int i = 0; i<[allArray count]; i++)
+    {
+        id<BookInterface> book = [allArray objectAtIndex:i];
         NSArray *chaptersArray = [ManagedChapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"index" ascending:YES];
-        for (int j = 0; j < [chaptersArray count]; j++) {
+        for (int j = 0; j < [chaptersArray count]; j++)
+        {
             ManagedChapter *chapter = chaptersArray[j];
             [self downloadBooks:chapter andBook:book];
         }
     }
-    [self hideHUD:YES];
 }
 
 - (void)downloadBooks:(ManagedChapter *)obj andBook:(id<BookInterface>)book

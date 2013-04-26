@@ -81,7 +81,8 @@
     if (userid !=nil) {
         [ServiceManager userInfo:userid withBlock:^(Member *member, NSError *error) {
             if (error) {
-                
+                isLogin = NO;
+                [self reloadUI];            
             }
             else {
                 isLogin = YES;

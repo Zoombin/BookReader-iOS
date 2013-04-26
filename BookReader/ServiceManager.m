@@ -439,7 +439,7 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
+//        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil,nil,nil,error);
         }
@@ -469,7 +469,7 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
+//        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil,nil,nil, error);
         }
