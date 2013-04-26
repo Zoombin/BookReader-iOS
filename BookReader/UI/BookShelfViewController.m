@@ -247,9 +247,9 @@
         {
             for (int i = 0; i<[result count]; i++) {
                 [ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
-                [[NSManagedObjectContext defaultContext] saveNestedContexts];
-                [self layoutBookViewWithArray:[self bookViews]];
             }
+            [[NSManagedObjectContext defaultContext] saveNestedContexts];
+            [self layoutBookViewWithArray:[self bookViews]];
         }
     }];
 }
