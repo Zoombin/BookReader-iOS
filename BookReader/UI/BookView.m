@@ -12,7 +12,6 @@
 #import "MKNumberBadgeView.h"
 #import "ServiceManager.h"
 #import "UIImageView+AFNetworking.h"
-#import "Chapter.h"
 
 #define BOOK_WIDTH                        72
 #define BOOK_HEIGHT                       99
