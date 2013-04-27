@@ -75,7 +75,6 @@
 		188FE63A16F9A069009561CB /* localbook_progress_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FE63816F9A069009561CB /* localbook_progress_background.png */; };
 		188FE63B16F9A069009561CB /* localbook_progress_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FE63916F9A069009561CB /* localbook_progress_front.png */; };
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
-		18ABAF1117226BB300ED02C6 /* BookModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
@@ -91,6 +90,7 @@
 		18ABAFB71727CB6900ED02C6 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFAB1727CB6900ED02C6 /* CJSONScanner.m */; };
 		18ABAFB81727CB6900ED02C6 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFAD1727CB6900ED02C6 /* CJSONSerializer.m */; };
 		18ABAFB91727CB6900ED02C6 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAFAF1727CB6900ED02C6 /* CSerializedJSONData.m */; };
+		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
 		18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		18FC1B0917210B2300A043C9 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1AD117210B2300A043C9 /* MagicalImportFunctions.m */; };
@@ -377,7 +377,6 @@
 		188FE63816F9A069009561CB /* localbook_progress_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbook_progress_background.png; sourceTree = "<group>"; };
 		188FE63916F9A069009561CB /* localbook_progress_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbook_progress_front.png; sourceTree = "<group>"; };
 		188FE67316FB003F009561CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookModel.xcdatamodel; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -408,6 +407,7 @@
 		18ABAFAD1727CB6900ED02C6 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		18ABAFAE1727CB6900ED02C6 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
 		18ABAFAF1727CB6900ED02C6 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
+		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		18BD746D170AC69700B142EC /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "../NSString+MD5.h"; sourceTree = "<group>"; };
 		18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		18FC1AC91720CAFE00A043C9 /* BookReadMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadMenuView.h; sourceTree = "<group>"; };
@@ -783,7 +783,6 @@
 				18ABAF2E1724FAFC00ED02C6 /* Pay.m */,
 				18089E49171CFA7A00BCB50E /* Commit.h */,
 				18089E4A171CFA7A00BCB50E /* Commit.m */,
-				18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */,
 				18ABAF301724FB1D00ED02C6 /* Member.h */,
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
 				18ABAF3C1727B69500ED02C6 /* Member+Setup.h */,
@@ -792,6 +791,7 @@
 				1820F0501728B3D3002670F2 /* Book.m */,
 				1820F05B1728CB40002670F2 /* Chapter.h */,
 				1820F05C1728CB40002670F2 /* Chapter.m */,
+				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1854,7 +1854,6 @@
 				18FC1B2017210B2300A043C9 /* MagicalRecord+Setup.m in Sources */,
 				18FC1B2117210B2300A043C9 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				18FC1B2217210B2300A043C9 /* MagicalRecord.m in Sources */,
-				18ABAF1117226BB300ED02C6 /* BookModel.xcdatamodeld in Sources */,
 				18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */,
 				18ABAF321724FB1D00ED02C6 /* Member.m in Sources */,
 				18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */,
@@ -1872,6 +1871,7 @@
 				18ABAFB91727CB6900ED02C6 /* CSerializedJSONData.m in Sources */,
 				1820F0511728B3D3002670F2 /* Book.m in Sources */,
 				1820F05D1728CB40002670F2 /* Chapter.m in Sources */,
+				18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2073,13 +2073,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		18ABAF0F17226BB300ED02C6 /* BookModel.xcdatamodeld */ = {
+		18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */,
+				18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */,
 			);
-			currentVersion = 18ABAF1017226BB300ED02C6 /* BookModel.xcdatamodel */;
-			path = BookModel.xcdatamodeld;
+			currentVersion = 18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */;
+			path = ModelManaged.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

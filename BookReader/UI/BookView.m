@@ -175,8 +175,8 @@
 
 - (void)refreshCoverWithImage:(UIImage *)image
 {
-//   bookObject.cover = UIImageJPEGRepresentation(image, 1.0);
-//   [backgroundButton setBackgroundImage:image forState:UIControlStateNormal];
+   bookObject.cover = UIImageJPEGRepresentation(image, 1.0);
+   [backgroundButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 
 @end

@@ -76,8 +76,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
-//    [self loadUserBookShelf];
-//    [self layoutBookViewWithArray:[self bookViews]];
+    [self loadUserBookShelf];
+    [self layoutBookViewWithArray:[self bookViews]];
 }
 
 - (void)loadUserBookShelf
@@ -94,6 +94,8 @@
         {
             [self refreshUserBooks];
         }
+    } else {
+        NSLog(@"1");
     }
 }
 
@@ -124,7 +126,7 @@
                     tmpobj.autoBuy = obj.autoBuy;
                     [tmpobj persist];
                 }
-                NSArray *chapterArray = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@",obj.uid]];
+                NSArray *chapterArray = [Chapter chaptersWithBookId:obj.uid];
                 if ([chapterArray count] > 0)
                 {
                     Chapter *chapter = [chapterArray lastObject];

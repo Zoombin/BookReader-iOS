@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="BookManaged" representedClassName="Book" isAbstract="YES" syncable="YES">
+    <entity name="BookManaged" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="autoBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -15,9 +15,9 @@
         <attribute name="recommandID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="recommandTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="words" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="words" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
-    <entity name="ChapterManaged" representedClassName="Chapter" syncable="YES">
+    <entity name="ChapterManaged" syncable="YES">
         <attribute name="bBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bRead" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -28,7 +28,7 @@
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookManaged" positionX="-18" positionY="189" width="119" height="270"/>
+        <element name="BookManaged" positionX="160" positionY="192" width="128" height="270"/>
         <element name="ChapterManaged" positionX="160" positionY="192" width="128" height="165"/>
     </elements>
 </model>
