@@ -110,14 +110,19 @@
 	return [ManagedChapter numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",uid]];
 }
 
-+ (NSArray *)findAll
++ (NSArray *)create:(NSArray *)mangedArray
 {
-	NSArray *all = [ManagedBook findAll];
 	NSMutableArray *rtnAll = [@[] mutableCopy];
-	for (ManagedBook *manged in all) {
+	for (ManagedBook *manged in mangedArray) {
 		[rtnAll addObject:[self createWithManaged:manged]];
 	}
 	return rtnAll;
+}
+
++ (NSArray *)findAll
+{
+	NSArray *all = [ManagedBook findAll];
+	return [self create:all];
 }
 
 + (Book *)createWithManaged:(ManagedBook *)managed
@@ -139,5 +144,11 @@
 	book.recommandID = managed.recommandID;
 	book.recommandTitle = managed.recommandTitle;
 	return book;
+}
+
++ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm
+{
+	NSArray *all = [ManagedBook findAllWithPredicate:searchTerm];
+	return [self create:all];
 }
 @end
