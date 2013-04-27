@@ -31,8 +31,8 @@
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 
 - (void)sync:(ChapterManaged *)managed;
-- (void)persist;
-+ (void)persist:(NSArray *)array;
+- (void)persistWithBlock:(dispatch_block_t)block;
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
 
 + (NSArray *)findAll;
 + (NSArray *)chaptersWithBookId:(NSString *)bookid;

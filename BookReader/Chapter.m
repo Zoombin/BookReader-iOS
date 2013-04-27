@@ -52,7 +52,7 @@
 	managed.index = index;
 }
 
-- (void)persist
+- (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
@@ -60,10 +60,11 @@
 			managed = [ChapterManaged createInContext:localContext];
 		}
 		[self sync:managed];
+		if (block) block();
 	}];
 }
 
-+ (void)persist:(NSArray *)array
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		for (Chapter *chapter in array) {
@@ -73,6 +74,7 @@
 			}
 			[chapter sync:managed];
 		}
+		if (block) block();
 	}];
 }
 
