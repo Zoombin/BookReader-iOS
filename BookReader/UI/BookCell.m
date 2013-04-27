@@ -64,7 +64,7 @@
     return self;
 }
 
-- (void)setBook:(id<BookInterface>)book
+- (void)setBook:(Book *)book
 {
     if (book.name) {
         [nameLabel setText:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"BookName", nil), book.name]];

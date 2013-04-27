@@ -79,7 +79,7 @@
 //获取图书详情
 + (void)bookDetailsByBookId:(NSString *)bookid //书的id
                       andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
-                     withBlock:(void (^)(id<BookInterface>,NSError *))block;
+                     withBlock:(void (^)(Book *,NSError *))block;
 
 //获取评论接口
 + (void)bookDiccusssListByBookId:(NSString *)bookid //书的id

@@ -17,7 +17,8 @@
     NSInteger startPointX;
     NSInteger startPointY;
 }
-- (id)initWithBook:(id<BookInterface>)bookObj
-           chapter:(id<ChapterInterface>)chapterObj
-  andChaptersArray:(NSArray *)array;
+- (id)initWithBook:(Book *)bookObj
+           chapter:(Chapter *)chapterObj
+     chaptersArray:(NSArray *)array
+         andOnline:(BOOL)online;
 @end

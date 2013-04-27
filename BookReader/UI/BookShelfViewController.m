@@ -75,16 +75,16 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self loadUserBookShelf];
-    [self layoutBookViewWithArray:[self bookViews]];
+    userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+//    [self loadUserBookShelf];
+//    [self layoutBookViewWithArray:[self bookViews]];
 }
 
 - (void)loadUserBookShelf
 {
-    userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     if ([allArray count]==0&&userid!=nil)
     {
-        NSArray *array = [ManagedBook findAll];
+        NSArray *array = [Book findAll];
         if ([array count]>0)
         {
             [allArray addObjectsFromArray:array];
@@ -112,22 +112,22 @@
             }
             for (int i = 0; i<[result count]; i++) {
                 Book *obj = [result objectAtIndex:i];
-                NSArray *bookArray = [ManagedBook findByAttribute:@"uid" withValue:obj.uid];
+                NSArray *bookArray = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@",obj.uid]];
                 if ([bookArray count]==0)
                 {
-                    //[ManagedBook createBookWithNonManagedBook:obj];
-                    //[[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    NSLog(@"%@",obj.name);
+                    [obj persist];
                 }
                 else
                 {
-                    ManagedBook *tmpobj = [bookArray objectAtIndex:0];
+                    Book *tmpobj = [bookArray objectAtIndex:0];
                     tmpobj.autoBuy = obj.autoBuy;
-                    [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    [tmpobj persist];
                 }
-                NSArray *chapterArray = [ManagedChapter findByAttribute:@"bid" withValue:obj.uid andOrderBy:@"index" ascending:YES];
+                NSArray *chapterArray = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@",obj.uid]];
                 if ([chapterArray count] > 0)
                 {
-                    id<ChapterInterface> chapter = [chapterArray lastObject];
+                    Chapter *chapter = [chapterArray lastObject];
                     [self loadChapterList:chapter.uid andBookId:obj.uid];
                 }
                 else
@@ -152,7 +152,7 @@
 {
     NSLog(@"index %d ? = %d",index, [allArray count]);
     if (index < [allArray count]) {
-        id<BookInterface> book = [allArray objectAtIndex:index];
+        Book *book = [allArray objectAtIndex:index];
         NSArray *chaptersArray = [ManagedChapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"index" ascending:YES];
         [self downloadBooks:[chaptersArray objectAtIndex:0] andBookIndex:index andCurrentChapterArray:chaptersArray];
     } else {
@@ -161,9 +161,9 @@
     }
 }
 
-- (void)downloadBooks:(ManagedChapter *)obj andBookIndex:(NSInteger)bookIndex andCurrentChapterArray:(NSArray *)chaptersArray;
+- (void)downloadBooks:(Chapter *)obj andBookIndex:(NSInteger)bookIndex andCurrentChapterArray:(NSArray *)chaptersArray;
 {
-    id<BookInterface> book = [allArray objectAtIndex:bookIndex];
+    Book *book = [allArray objectAtIndex:bookIndex];
     if (obj.content!=nil) {
         [self nextBookOrChapterWithChapter:obj
                           andChaptersArray:chaptersArray
@@ -202,7 +202,7 @@
     }];
 }
 
-- (void)nextBookOrChapterWithChapter:(ManagedChapter *)chapter
+- (void)nextBookOrChapterWithChapter:(Chapter *)chapter
                     andChaptersArray:(NSArray *)chaptersArray
                         andBookIndex:(NSInteger)bookIndex
 {
@@ -216,11 +216,11 @@
     }
 }
 
-- (void)subscribeBook:(ManagedChapter *)chapter
+- (void)subscribeBook:(Chapter *)chapter
          andBookIndex:(NSInteger)bookIndex
 andCurrentChapterArray:(NSArray *)chaptersArray
 {
-    id<BookInterface> book = [allArray objectAtIndex:bookIndex];
+    Book *book = [allArray objectAtIndex:bookIndex];
     if ([chapter.bVip boolValue]==YES&&chapter.content==nil) {
         [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
             if (error) {
@@ -247,9 +247,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         }
         else {
             for (int i = 0; i<[result count]; i++) {
-                //[ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
+                [Chapter persist:result];
             }
-            //[[NSManagedObjectContext defaultContext] saveNestedContexts];
+            [[NSManagedObjectContext defaultContext] saveNestedContexts];
             [self layoutBookViewWithArray:[self bookViews]];
         }
     }];
@@ -349,6 +349,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     NSArray *framesArray = [self createFrames:[allArray count]];
     for (int i = 0; i< [allArray count]; i++) {
         BookView *bookView = [[BookView alloc]initWithFrame:CGRectFromString([framesArray objectAtIndex:i])];
+        Book *obj = [allArray objectAtIndex:i];
+        [bookView setBadgeValue:[obj numberOfUnreadChapters]];
         [bookView setBook:[allArray objectAtIndex:i]];
         [bookView setDelegate:self];
         [bookView setTag:i];
@@ -371,7 +373,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         for (int i = 0; i<[selectedArray count]; i++)
         {
             BookView *bookView = [selectedArray objectAtIndex:i];
-            id<BookInterface> book = [allArray objectAtIndex:bookView.tag];
+            Book *book = [allArray objectAtIndex:bookView.tag];
             [ServiceManager addFavourite:userid book:book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
                 if (error)
                 {
@@ -419,9 +421,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 {
     if ([allArray count]>0) {
         for (int i = 0; i<[allArray count]; i++) {
-            id<BookInterface> book = [allArray objectAtIndex:i];
-            ManagedBook *obj = [[ManagedBook findByAttribute:@"uid" withValue:book.uid] objectAtIndex:0];
-            obj.autoBuy = book.autoBuy;
+            Book *book = [allArray objectAtIndex:i];
+            [book persist];
             [[NSManagedObjectContext defaultContext] saveNestedContexts];
         }
         
@@ -457,7 +458,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
             [selectedArray addObject:bookView];
         }
     } else {
-        id<BookInterface> book = [allArray objectAtIndex:bookView.tag];
+        Book *book = [allArray objectAtIndex:bookView.tag];
         [self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:book andOnline:NO] animated:YES];
     }
 }
@@ -499,7 +500,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil) {
         cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
-        id<BookInterface> book = allArray[indexPath.row];
+        Book *book = allArray[indexPath.row];
         [cell setBook:book];
     }
 	return cell;

@@ -75,23 +75,27 @@
     
     #define BUTTON_WIDTH  48
     #define BUTTON_HEIGHT 32
-    #define BUTTON_NUMBER 3
+    #define BUTTON_NUMBER 5
     
     #define WIDTH  ((MAIN_SCREEN.size.width)/BUTTON_NUMBER)
     
-    #define BUTTON_FRAME_ONE    CGRectMake(0*WIDTH+(WIDTH-BUTTON_WIDTH)/2, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
-    #define BUTTON_FRAME_TWO    CGRectMake(1*WIDTH+(WIDTH-BUTTON_WIDTH)/2, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
-    #define BUTTON_FRAME_THREE  CGRectMake(2*WIDTH+(WIDTH-BUTTON_WIDTH)/2, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
+    #define BUTTON_FRAME_ONE    CGRectMake(0*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
+    #define BUTTON_FRAME_TWO    CGRectMake(1*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
+    #define BUTTON_FRAME_THREE  CGRectMake(2*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
+    #define BUTTON_FRAME_FOUR  CGRectMake(3*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
+    #define BUTTON_FRAME_FIVE  CGRectMake(4*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 4, BUTTON_WIDTH, BUTTON_HEIGHT)
     
     #define BUTTON_FRAME_ONE_STR    NSStringFromCGRect(BUTTON_FRAME_ONE)
     #define BUTTON_FRAME_TWO_STR    NSStringFromCGRect(BUTTON_FRAME_TWO)
     #define BUTTON_FRAME_THREE_STR  NSStringFromCGRect(BUTTON_FRAME_THREE)
+    #define BUTTON_FRAME_FOUR_STR  NSStringFromCGRect(BUTTON_FRAME_FOUR)
+    #define BUTTON_FRAME_FIVE_STR  NSStringFromCGRect(BUTTON_FRAME_FIVE)
     
     #define BUTTON_IMAGE [UIImage imageNamed:@"search_btn"]
     #define BUTTON_HIGHLIGHTED_IMAGE [UIImage imageNamed:@"search_btn_hl"]
     
-    NSArray *titleArrays = @[@"目录", @"字体", @"背景"];
-    NSArray *rectArrays = @[BUTTON_FRAME_ONE_STR,BUTTON_FRAME_TWO_STR,BUTTON_FRAME_THREE_STR];
+    NSArray *titleArrays = @[@"目录", @"上一章", @"字体", @"下一章", @"背景"];
+    NSArray *rectArrays = @[BUTTON_FRAME_ONE_STR,BUTTON_FRAME_TWO_STR,BUTTON_FRAME_THREE_STR,BUTTON_FRAME_FOUR_STR,BUTTON_FRAME_FIVE_STR];
     for (int i = 0; i <[rectArrays count]; i++) {
         UIButton *button =[UIButton buttonWithType:UIButtonTypeRoundedRect];
         [button setFrame:CGRectFromString([rectArrays objectAtIndex:i])];
@@ -117,10 +121,22 @@
 
 - (void)bottomButtonsPressed:(id)sender
 {
-    if ([sender tag]==0) {
+    if ([sender tag] ==0 ) {
         if ([self.delegate respondsToSelector:@selector(chapterButtonClick)]) {
             [self.delegate performSelector:@selector(chapterButtonClick)];
         }
+    } else if ([sender tag] == 1) {
+        if ([self.delegate respondsToSelector:@selector(previousChapterButtonClick)]) {
+            [self.delegate performSelector:@selector(previousChapterButtonClick)];
+        }
+    } else if ([sender tag] == 2) {
+        
+    } else if ([sender tag] == 3) {
+        if ([self.delegate respondsToSelector:@selector(nextChapterButtonClick)]) {
+            [self.delegate performSelector:@selector(nextChapterButtonClick)];
+        }
+    } else if ([sender tag] == 4) {
+        
     }
 }
 

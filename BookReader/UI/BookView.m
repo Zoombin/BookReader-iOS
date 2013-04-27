@@ -12,6 +12,7 @@
 #import "MKNumberBadgeView.h"
 #import "ServiceManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "Chapter.h"
 
 #define BOOK_WIDTH                        72
 #define BOOK_HEIGHT                       99
@@ -33,7 +34,7 @@
 @implementation BookView
 {
     UIButton *backgroundButton;
-    id<BookInterface> bookObject;
+    Book *bookObject;
     CustomProgressView *customprogressView;
     UIImage *selectedImage;
     UIImage *badgeImage;
@@ -143,7 +144,7 @@
     }
 }
 
-- (void)setBook:(id<BookInterface>)book
+- (void)setBook:(Book *)book
 {
     bookObject = book;
     if (bookObject.cover) {
@@ -159,19 +160,23 @@
     if (bookObject.progress) {
         [customprogressView setProgress:bookObject.progress.floatValue];
     }
-    NSArray *array = [ManagedChapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",book.uid]];
-    [badgeView setValue:[array count]];
-    [badgeView setFrame:BADGEVIEWFRAME];
+   
     
     if (bookObject.autoBuy) {
         [switchView setOn:[bookObject.autoBuy boolValue]];
     }
 }
 
+- (void)setBadgeValue:(NSInteger)badgeValue
+{
+    [badgeView setValue:badgeValue];
+    [badgeView setFrame:BADGEVIEWFRAME];
+}
+
 - (void)refreshCoverWithImage:(UIImage *)image
 {
-   bookObject.cover = UIImageJPEGRepresentation(image, 1.0);
-   [backgroundButton setBackgroundImage:image forState:UIControlStateNormal];
+//   bookObject.cover = UIImageJPEGRepresentation(image, 1.0);
+//   [backgroundButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 
 @end

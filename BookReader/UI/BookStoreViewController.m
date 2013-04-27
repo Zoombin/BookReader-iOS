@@ -337,7 +337,7 @@
 {
     NSString *lastKey = nil;
     for (int i = 0; i < [array count]; i++) {
-        id<BookInterface> book = [array objectAtIndex:i];
+        Book *book = [array objectAtIndex:i];
         NSMutableArray *tmpArray;
         if ([lastKey isEqualToString:book.recommandTitle]) {
             tmpArray = [recommandDict objectForKey:book.recommandTitle];
@@ -482,10 +482,10 @@
             cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:[indexPath section]]];
             if (indexPath.row == 0) {
-                id<BookInterface> book = array[indexPath.row];
+                Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }else {
-                id<BookInterface> book = array[indexPath.row];
+                Book *book = array[indexPath.row];
                 cell.textLabel.text = book.name;
                 cell.detailTextLabel.text = book.author;
             }
@@ -494,7 +494,7 @@
     else {
         if (cell == nil) {
             cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-            id<BookInterface> book = infoArray[indexPath.row];
+            Book *book = infoArray[indexPath.row];
             [(BookCell *)cell setBook:book];
         }
     }
@@ -502,7 +502,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    id<BookInterface> book;
+    Book *book;
     if (currentType == RECOMMAND) {
         NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:[indexPath section]]];
         book = array[indexPath.row];

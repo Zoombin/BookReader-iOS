@@ -337,7 +337,7 @@
 
 + (void)bookDetailsByBookId:(NSString *)bookid
                       andIntro:(NSString *)intro
-                     withBlock:(void (^)(id<BookInterface>, NSError *))block {
+                     withBlock:(void (^)(Book *, NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@",bookid,intro];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"bookid"] = bookid;
@@ -346,7 +346,7 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
         NSDictionary *dict = [theObject objectForKey:@"book"];
-        id<BookInterface> book = [Book createBookWithAttributes:dict];
+        Book *book = [Book createBookWithAttributes:dict];
         if (block) {
             block(book, nil);
         }

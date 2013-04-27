@@ -10,6 +10,6 @@
 #import "Book.h"
 
 @interface SubscribeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
-- (id)initWithBookId:(id<BookInterface>)book
+- (id)initWithBookId:(Book *)book
            andOnline:(BOOL)online;
 @end

@@ -11,5 +11,5 @@
 
 @interface BookCell : UITableViewCell
 + (CGFloat)height;
-- (void)setBook:(id<BookInterface>)book;
+- (void)setBook:(Book *)book;
 @end

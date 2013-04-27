@@ -140,7 +140,7 @@
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil) {
         cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-        id<BookInterface> book = [infoArray objectAtIndex:[indexPath row]];
+        Book *book = [infoArray objectAtIndex:[indexPath row]];
         [cell setBook:book];
     }
 	return cell;
@@ -148,7 +148,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id< BookInterface> book = [infoArray objectAtIndex:[indexPath row]];
+    Book *book = [infoArray objectAtIndex:[indexPath row]];
     BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
     [self.navigationController pushViewController:childViewController animated:YES];
 }

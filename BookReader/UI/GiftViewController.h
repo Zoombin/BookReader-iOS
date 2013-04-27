@@ -10,5 +10,5 @@
 #import "Book.h"
 
 @interface GiftViewController : UIViewController
-- (id)initWithIndex:(NSString *)index andBookObj:(id<BookInterface>)bookObject;
+- (id)initWithIndex:(NSString *)index andBookObj:(Book *)bookObject;
 @end

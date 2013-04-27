@@ -16,6 +16,7 @@
 #import "SubscribeViewController.h"
 #import "NSString+XXSYDecoding.h"
 #import "Book.h"
+#import "ServiceManager.h"
 
 @interface CoreTextViewController ()
 
@@ -29,21 +30,25 @@
     UIFont *currentFont;
     CGFloat currentFontSize;
     int currentPage;
+    BOOL bOnline;
     
     ReadStatusView *statusView;
     BookReadMenuView *menuView;
     
-    id<ChapterInterface> chapter;
-    id<BookInterface>  book;
+    Chapter *chapter;
+    Book *book;
     
     NSMutableArray *chaptersArray;
     
-    NSString *userid;
+    NSNumber *userid;
+    NSString *key;
 }
 
-- (id)initWithBook:(id<BookInterface>)bookObj
-           chapter:(id<ChapterInterface>)chapterObj
-  andChaptersArray:(NSArray *)array
+- (id)initWithBook:(Book *)bookObj
+           chapter:(Chapter *)chapterObj
+     chaptersArray:(NSArray *)array
+         andOnline:(BOOL)online;
+ 
 {
     self = [super init];
     if (self)
@@ -54,14 +59,16 @@
         bFlipV = NO;
         mString = [@"" mutableCopy];
         textString = [@"" mutableCopy];
+        bOnline = online;
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
+        userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
         
-        userid = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]];
+        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]];
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]==nil) {
-            userid = @"04B6A5985B70DC641B0E98C0F8B221A60";
+            key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
-        [textString setString:[chapter.content XXSYDecodingWithKey:userid]];
+        [textString setString:[chapter.content XXSYDecodingWithKey:key]];
         currentFontSize = 17;
         currentFont = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:currentFontSize];
         pagesArray = [[NSMutableArray alloc] init];
@@ -96,11 +103,13 @@
 }
 
 - (void)updateContent {
-    if ([pagesArray count]==0) {
-        [pagesArray addObjectsFromArray:[self pagesWithString:textString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:currentFont]];
+    if ([pagesArray count]>0) {
+        [pagesArray removeAllObjects];
     }
+    [pagesArray addObjectsFromArray:[self pagesWithString:textString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:currentFont]];
     [mString setString:[textString substringWithRange:NSRangeFromString([pagesArray objectAtIndex:currentPage])]];
     [self updateStatusPercentage];
+    statusView.title.text = chapter.name;
     coreTextView.fontSize = currentFontSize;
     coreTextView.font =currentFont;
 	[coreTextView buildTextWithString:mString];
@@ -158,6 +167,8 @@
 {
     if ([chapter.index integerValue] == [chaptersArray count] - 1) {
         [self displayHUDError:@"" message:@"最后一章"];
+    } else {
+       [self downloadBookWithIndex:[chapter.index integerValue]+1];
     }
 }
 
@@ -172,6 +183,8 @@
 {
     if ([chapter.index integerValue] == 0) {
         [self displayHUDError:@"" message:@"此章是第一章"];
+    }else {
+        [self downloadBookWithIndex:[chapter.index integerValue]-1];
     }
 }
 
@@ -336,20 +349,32 @@
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 
+- (void)previousChapterButtonClick
+{
+    [self previousChapter];
+}
+
+- (void)nextChapterButtonClick
+{
+    [self nextChapter];
+}
+
 //订阅和下载
-- (void)downloadBook 
-    id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
+- (void)downloadBookWithIndex:(NSInteger)index
+{
+    [self displayHUD:@"获取内容中..."];
+    Chapter *obj = [chaptersArray objectAtIndex:index];
     if (obj.content!=nil) {
-        NSLog(@"书籍已经下载！");
-        ManagedChapter *chapterobj = [[ManagedChapter findByAttribute:@"uid" withValue:obj.uid] objectAtIndex:0];
-        chapterobj.bRead = [NSNumber numberWithBool:YES];
-        [[NSManagedObjectContext defaultContext] saveNestedContexts];
-        [self pushToCoreTextWithChapterObj:obj];
+        [textString setString:[obj.content XXSYDecodingWithKey:key]];
+        currentPage = 0;
+        chapter = obj;
+        [self updateContent];
+        [self hideHUD:YES];
     }else {
         [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
             if (error)
             {
-                
+                [self hideHUD:YES];
             }
             else
             {
@@ -360,46 +385,43 @@
                 else
                 {
                     obj.content = content;
-                    if (!bOnline) {
-                        obj.bRead = [NSNumber numberWithBool:YES];
-                        NSLog(@"本地阅读需要存入数据库");
-                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
-                    }
-                    [self pushToCoreTextWithChapterObj:obj];
+                    chapter = obj;
+                    [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+                    currentPage = 0;
+                    [self updateContent];
+                    [self hideHUD:YES];
                 }
             }
         }];
     }
 }
 
-- (void)chapterSubscribeWithObj:(id<ChapterInterface>)obj
+- (void)chapterSubscribeWithObj:(Chapter *)obj
 {
     if (userid!=nil)
     {
-        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
+        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error)
             {
-                
+                [self hideHUD:YES];
             }
             else
             {
                 if ([code isEqualToString:@"0000"]) {
                     obj.bBuy = [NSNumber numberWithBool:YES];
                     obj.content = content;
-                    if (!bOnline) {
-                        NSLog(@"本地阅读需要存入数据库");
-                        obj.bRead = [NSNumber numberWithBool:YES];
-                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
-                    }
-                    [self pushToCoreTextWithChapterObj:obj];
+                    chapter = obj;
+                    [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+                    currentPage = 0;
+                    [self updateContent];
+                    [self hideHUD:YES];
                 }
-                [self showAlertWithMessage:result];
             }
         }];
     }
     else
     {
-        [self showAlertWithMessage:@"您尚未登录"];
+        
     }
 }
 

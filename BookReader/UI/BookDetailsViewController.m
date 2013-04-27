@@ -23,7 +23,7 @@
 @implementation BookDetailsViewController
 {
     NSString *bookid;
-    id<BookInterface> bookObj;
+    Book *bookObj;
     int currentIndex;
     UITextField *commitField;
     UIScrollView *scrollView;
@@ -182,7 +182,7 @@
                 [authorBookArray removeAllObjects];
             }
             for (int i = 0 ; i<[result count]; i++) {
-                id<BookInterface> obj = [result objectAtIndex:i];
+                Book *obj = [result objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue])
                 {
                     [authorBookArray addObject:obj];
@@ -205,7 +205,7 @@
                 [sameTypeBookArray removeAllObjects];
             }
             for (int i = 0 ; i<[result count]; i++) {
-                id<BookInterface> obj = [result objectAtIndex:i];
+                Book *obj = [result objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue])
                 {
                     [sameTypeBookArray addObject:obj];
@@ -436,10 +436,10 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             if ([indexPath section]==0)
             {
-                id<BookInterface> obj = [authorBookArray objectAtIndex:[indexPath row]];
+                Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
                 cell.textLabel.text = obj.name;
             } else {
-                id<BookInterface> obj = [sameTypeBookArray objectAtIndex:[indexPath row]];
+                Book *obj = [sameTypeBookArray objectAtIndex:[indexPath row]];
                 cell.textLabel.text = obj.name;
             }
         }
@@ -452,12 +452,12 @@
     {
         if ([indexPath section] == 0)
         {
-            id<BookInterface> book = [authorBookArray objectAtIndex:[indexPath row]];
+            Book *book = [authorBookArray objectAtIndex:[indexPath row]];
             BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
             [self.navigationController pushViewController:childViewController animated:YES];
         }else
         {
-            id<BookInterface> book = [sameTypeBookArray objectAtIndex:[indexPath row]];
+             Book *book = [sameTypeBookArray objectAtIndex:[indexPath row]];
              BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
             [self.navigationController pushViewController:childViewController animated:YES];
         }

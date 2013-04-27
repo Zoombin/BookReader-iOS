@@ -16,14 +16,14 @@
 
 @implementation SubscribeViewController
 {
-    id<BookInterface> bookobj;
+    Book *bookobj;
     NSNumber *userid;
     UITableView *infoTableView;
     NSMutableArray *infoArray;
     BOOL bOnline;
 }
 
-- (id)initWithBookId:(id<BookInterface>)book
+- (id)initWithBookId:(Book *)book
            andOnline:(BOOL)online;
 {
     self = [super init];
@@ -140,7 +140,7 @@
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-        id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
+        Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
         cell.textLabel.text = obj.name;
         if (obj.content!=nil) {
             cell.textLabel.textColor = [UIColor blueColor];
@@ -155,12 +155,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
+    Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
     if (obj.content!=nil) {
         NSLog(@"书籍已经下载！");
-        ManagedChapter *chapterobj = [[ManagedChapter findByAttribute:@"uid" withValue:obj.uid] objectAtIndex:0];
-        chapterobj.bRead = [NSNumber numberWithBool:YES];
-        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+//        ManagedChapter *chapterobj = [[ManagedChapter findByAttribute:@"uid" withValue:obj.uid] objectAtIndex:0];
+//        chapterobj.bRead = [NSNumber numberWithBool:YES];
+//        [[NSManagedObjectContext defaultContext] saveNestedContexts];
         [self pushToCoreTextWithChapterObj:obj];
     }else {
         [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
@@ -189,13 +189,13 @@
     }
 }
 
-- (void)pushToCoreTextWithChapterObj:(id<ChapterInterface>)obj
+- (void)pushToCoreTextWithChapterObj:(Chapter *)obj
 {
-    CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj chapter:obj andChaptersArray:infoArray];
+    CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj chapter:obj chaptersArray:infoArray andOnline:bOnline];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 
-- (void)chapterSubscribeWithObj:(id<ChapterInterface>)obj
+- (void)chapterSubscribeWithObj:(Chapter *)obj
 {
     if (userid!=nil)
     {

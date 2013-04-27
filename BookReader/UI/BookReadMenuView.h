@@ -14,6 +14,8 @@
 - (void)backButtonPressed;
 - (void)addBookMarkButtonPressed;
 - (void)chapterButtonClick;
+- (void)nextChapterButtonClick;
+- (void)previousChapterButtonClick;
 @end
 
 @interface BookReadMenuView : UIView {
