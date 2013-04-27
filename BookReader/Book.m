@@ -9,11 +9,18 @@
 #import "Book.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
+
+@implementation ManagedBook
+@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
+@end
+
+
+
 @implementation Book
 
 @synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
 
-+ (id<BookInterface>)createBookWithAttributes:(NSDictionary *)attributes
++ (Book *)createBookWithAttributes:(NSDictionary *)attributes
 {
     Book *book = [[Book alloc] init];
 	book.author = attributes[@"authorName"];
@@ -51,5 +58,49 @@
 		[books addObject:book];
 	}
 	return books;
+}
+
+- (void)sync:(ManagedBook *)managedBook
+{
+	managedBook.name = name;
+	managedBook.progress = progress;
+	managedBook.uid = uid;
+	managedBook.author = author;
+	managedBook.authorID = authorID;
+	managedBook.autoBuy = autoBuy;
+	managedBook.cover = cover;
+	managedBook.coverURL = coverURL;
+	managedBook.category = category;
+	managedBook.categoryID = categoryID;
+	managedBook.words = words;
+	managedBook.lastUpdate = lastUpdate;
+	managedBook.describe = describe;
+	managedBook.recommandID = recommandID;
+	managedBook.recommandTitle = recommandTitle;
+}
+
+- (void)persist
+{
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		ManagedBook *managedBook = [ManagedBook findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
+		if (!managedBook) {
+			managedBook = [ManagedBook createInContext:localContext];
+		}
+		[self sync:managedBook];
+		
+	}];
+}
+
++ (void)persist:(NSArray *)books
+{
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		for (Book *book in books) {
+			ManagedBook *managedBook = [ManagedBook findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+			if (!managedBook) {
+				managedBook = [ManagedBook createInContext:localContext];
+			}
+			[book sync:managedBook];
+		}
+	}];
 }
 @end

@@ -16,8 +16,7 @@
 #import "UIViewController+HUD.h"
 #import "Chapter.h"
 #import "ManagedChapter.h"
-#import "ManagedBook.h"
-#import "BookInterface.h"
+#import "Book.h"
 //Local
 #import "ReadViewController.h"
 #import "BookManager.h"
@@ -117,8 +116,8 @@
                 NSArray *bookArray = [ManagedBook findByAttribute:@"uid" withValue:obj.uid];
                 if ([bookArray count]==0)
                 {
-                    [ManagedBook createBookWithNonManagedBook:obj];
-                    [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    //[ManagedBook createBookWithNonManagedBook:obj];
+                    //[[NSManagedObjectContext defaultContext] saveNestedContexts];
                 }
                 else
                 {

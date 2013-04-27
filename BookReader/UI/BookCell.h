@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BookInterface.h"
+#import "Book.h"
 
 @interface BookCell : UITableViewCell
 + (CGFloat)height;

@@ -7,10 +7,43 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BookInterface.h"
+#import <CoreData/CoreData.h>
+
+@protocol BookInterface <NSObject>
+
+@property (nonatomic, retain) NSString * author;
+@property (nonatomic, retain) NSNumber * authorID;
+@property (nonatomic, retain) NSNumber * autoBuy;
+@property (nonatomic, retain) NSString * category;
+@property (nonatomic, retain) NSNumber * categoryID;
+@property (nonatomic, retain) NSData * cover;
+@property (nonatomic, retain) NSString * coverURL;
+@property (nonatomic, retain) NSString * describe;
+@property (nonatomic, retain) NSString * lastUpdate;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * progress;
+@property (nonatomic, retain) NSNumber * recommandID;
+@property (nonatomic, retain) NSString * recommandTitle;
+@property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) NSNumber * words;
+
+@end
+
+
+@interface ManagedBook : NSManagedObject <BookInterface>
+@end
+
+
 
 @interface Book : NSObject<BookInterface>
 
-+ (id<BookInterface>)createBookWithAttributes:(NSDictionary *)attributes;
++ (Book *)createBookWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)booksWithAttributesArray:(NSArray *)array;
++ (void)persist:(NSArray *)books;
+- (void)persist;
+- (void)sync:(ManagedBook *)managedBook;
+
+
 @end
+
+

@@ -10,7 +10,6 @@
 #import "BookReadMenuView.h"
 #import "Chapter.h"
 #import "Book.h"
-#import "BookInterface.h"
 
 @interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate>
 {

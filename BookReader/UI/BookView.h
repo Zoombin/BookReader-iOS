@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BookInterface.h"
+#import "Book.h"
 
 @protocol BookViewDelegate <NSObject>
 - (void)bookViewButtonClick:(id)sender;

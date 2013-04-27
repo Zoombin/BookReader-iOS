@@ -10,7 +10,7 @@
 #import "UIDefines.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "BookInterface.h"
+#import "Book.h"
 #import "UIImageView+AFNetworking.h"
 #import "GiftViewController.h"
 #import "AppDelegate.h"
