@@ -193,7 +193,7 @@
 
 - (void)pushToCoreTextWithChapterObj:(id<ChapterInterface>)obj
 {
-    CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj andChapter:obj];
+    CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj chapter:obj andChaptersArray:infoArray];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 

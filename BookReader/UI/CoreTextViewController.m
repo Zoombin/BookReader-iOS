@@ -36,11 +36,14 @@
     id<ChapterInterface> chapter;
     id<BookInterface>  book;
     
+    NSMutableArray *chaptersArray;
+    
     NSString *userid;
 }
 
 - (id)initWithBook:(id<BookInterface>)bookObj
-        andChapter:(id<ChapterInterface>)chapterObj
+           chapter:(id<ChapterInterface>)chapterObj
+  andChaptersArray:(NSArray *)array
 {
     self = [super init];
     if (self)
@@ -51,6 +54,8 @@
         bFlipV = NO;
         mString = [@"" mutableCopy];
         textString = [@"" mutableCopy];
+        
+        chaptersArray = [[NSMutableArray alloc] initWithArray:array];
         
         userid = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]];
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]==nil) {
@@ -135,7 +140,8 @@
     if(currentPage >= [pagesArray count])
     {
         currentPage = [pagesArray count] - 1;
-        [self displayHUDError:@"" message:NSLocalizedString(@"finel page", nil)];
+        [self nextChapter];
+//        [self displayHUDError:@"" message:NSLocalizedString(@"finel page", nil)];
         NSLog(@"no more next!");
         return;
     }
@@ -148,11 +154,25 @@
     [self updateContent];
 }
 
+- (void)nextChapter
+{
+    if ([chapter.index integerValue] == [chaptersArray count] - 1) {
+        [self displayHUDError:@"" message:@"最后一章"];
+    }
+}
+
 - (void)menu
 {
     startPointX = NSIntegerMax;
     startPointY = NSIntegerMax;
     menuView.hidden = !menuView.hidden;
+}
+
+- (void)previousChapter
+{
+    if ([chapter.index integerValue] == 0) {
+        [self displayHUDError:@"" message:@"此章是第一章"];
+    }
 }
 
 - (void)previousPage
@@ -161,7 +181,8 @@
     if(currentPage < 0)
     {
         currentPage = 0;
-        [self displayHUDError:@"" message:NSLocalizedString(@"first page", nil)];
+        [self previousChapter];
+//        [self displayHUDError:@"" message:NSLocalizedString(@"first page", nil)];
         NSLog(@"no more previous!");
         return;
     }
@@ -313,6 +334,73 @@
 {
     SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:book andOnline:YES];
     [self.navigationController pushViewController:childViewController animated:YES];
+}
+
+//订阅和下载
+- (void)downloadBook 
+    id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
+    if (obj.content!=nil) {
+        NSLog(@"书籍已经下载！");
+        ManagedChapter *chapterobj = [[ManagedChapter findByAttribute:@"uid" withValue:obj.uid] objectAtIndex:0];
+        chapterobj.bRead = [NSNumber numberWithBool:YES];
+        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+        [self pushToCoreTextWithChapterObj:obj];
+    }else {
+        [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
+            if (error)
+            {
+                
+            }
+            else
+            {
+                if (![code isEqualToString:@"0000"])
+                {
+                    [self chapterSubscribeWithObj:obj];
+                }
+                else
+                {
+                    obj.content = content;
+                    if (!bOnline) {
+                        obj.bRead = [NSNumber numberWithBool:YES];
+                        NSLog(@"本地阅读需要存入数据库");
+                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    }
+                    [self pushToCoreTextWithChapterObj:obj];
+                }
+            }
+        }];
+    }
+}
+
+- (void)chapterSubscribeWithObj:(id<ChapterInterface>)obj
+{
+    if (userid!=nil)
+    {
+        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
+            if (error)
+            {
+                
+            }
+            else
+            {
+                if ([code isEqualToString:@"0000"]) {
+                    obj.bBuy = [NSNumber numberWithBool:YES];
+                    obj.content = content;
+                    if (!bOnline) {
+                        NSLog(@"本地阅读需要存入数据库");
+                        obj.bRead = [NSNumber numberWithBool:YES];
+                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                    }
+                    [self pushToCoreTextWithChapterObj:obj];
+                }
+                [self showAlertWithMessage:result];
+            }
+        }];
+    }
+    else
+    {
+        [self showAlertWithMessage:@"您尚未登录"];
+    }
 }
 
 @end
