@@ -76,4 +76,28 @@
 	}];
 }
 
++ (NSArray *)findAll
+{
+	NSArray *all = [ManagedChapter findAll];
+	NSMutableArray *rtnAll = [@[] mutableCopy];
+	for (ManagedChapter *manged in all) {
+		[rtnAll addObject:[self createWithManaged:manged]];
+	}
+	return rtnAll;
+}
+
++ (Chapter *)createWithManaged:(ManagedChapter *)managed
+{
+	Chapter *chapter = [[Chapter alloc] init];
+	chapter.uid = managed.uid;
+	chapter.bid = managed.bid;
+	chapter.name = managed.name;
+	chapter.bBuy = managed.bBuy;
+	chapter.bRead = managed.bRead;
+	chapter.bVip = managed.bVip;
+	chapter.content = managed.content;
+	chapter.index = managed.index;
+	return chapter;
+}
+
 @end

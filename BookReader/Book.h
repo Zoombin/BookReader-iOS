@@ -45,6 +45,7 @@
 + (void)persist:(NSArray *)books;
 
 - (NSNumber *)numberOfUnreadChapters;
++ (NSArray *)findAll;
 
 
 @end

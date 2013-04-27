@@ -34,6 +34,7 @@
 - (void)persist;
 + (void)persist:(NSArray *)array;
 
++ (NSArray *)findAll;
 
 
 @end
