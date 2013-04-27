@@ -75,9 +75,28 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self checkFirstLaunch];
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     [self loadUserBookShelf];
     [self layoutBookViewWithArray:[self bookViews]];
+}
+
+- (void)checkFirstLaunch
+{
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"firstlaunch"]==nil) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"firstlaunch"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+        [alertView show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSLog(@"登录");
+        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+    }
+    
 }
 
 - (void)loadUserBookShelf
