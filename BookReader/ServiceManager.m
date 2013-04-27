@@ -396,7 +396,7 @@
 }
 
 + (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSNumber *)cataid
+          andNewestCataId:(NSString *)cataid
                 withBlock:(void (^)(NSArray *, NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@",bookid,cataid];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
@@ -419,7 +419,7 @@
     }];
 }
 
-+ (void)bookCatalogue:(NSNumber *)cataid
++ (void)bookCatalogue:(NSString *)cataid
             andUserid:(NSNumber *)userid
             withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
     if (userid==nil) {
@@ -447,7 +447,7 @@
 }
 
 + (void)chapterSubscribe:(NSNumber *)userid
-               chapter:(NSNumber *)chapterid
+               chapter:(NSString *)chapterid
                   book:(NSString *)bookid
                 author:(NSNumber *)authorid
                 andPrice:(NSString *)price

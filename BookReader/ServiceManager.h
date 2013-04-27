@@ -88,17 +88,17 @@
                        withBlock:(void(^)(NSArray *,NSError *))block;
 //章节列表
 + (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSNumber *)cataid
+          andNewestCataId:(NSString *)cataid
                 withBlock:(void(^)(NSArray *,NSError *))block;
 
 //获取章节内容
-+ (void)bookCatalogue:(NSNumber *)cataid
++ (void)bookCatalogue:(NSString *)cataid
             andUserid:(NSNumber *)userid
             withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //章节订阅
 + (void)chapterSubscribe:(NSNumber *)userid
-               chapter:(NSNumber *)chapterid
+               chapter:(NSString *)chapterid
                   book:(NSString *)bookid
                 author:(NSNumber *)authorid
                 andPrice:(NSString *)price
