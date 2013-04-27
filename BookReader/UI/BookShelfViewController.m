@@ -134,7 +134,7 @@
                 }
                 else
                 {
-                    [self loadChapterList:[NSNumber numberWithInt:0] andBookId:obj.uid];
+                    [self loadChapterList:@"0" andBookId:obj.uid];
                 }
             }
             [allArray addObjectsFromArray:result];
@@ -242,9 +242,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     }
 }
 
-- (void)loadChapterList:(NSNumber *)CataId andBookId:(NSString *)bookid
+- (void)loadChapterList:(NSString *)cataId andBookId:(NSString *)bookid
 {
-    [ServiceManager bookCatalogueList:bookid andNewestCataId:CataId withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookCatalogueList:bookid andNewestCataId:cataId withBlock:^(NSArray *result, NSError *error) {
         if (error) {
         }
         else {

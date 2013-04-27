@@ -11,7 +11,7 @@
 @protocol ChapterInterface<NSObject>
 
 @property (nonatomic, retain) NSString * bid;
-@property (nonatomic, retain) NSNumber * uid;
+@property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSNumber * bVip;

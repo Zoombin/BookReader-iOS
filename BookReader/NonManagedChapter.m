@@ -29,7 +29,7 @@
 {
     NonManagedChapter *chapter = [[NonManagedChapter alloc] init];
     chapter.name = attributes[@"chapterName"];
-    chapter.uid = attributes[@"chapterId"];
+    chapter.uid = [attributes[@"chapterId"] stringValue];
     chapter.bVip = attributes[@"isVip"];
     chapter.bRead = [NSNumber numberWithBool:NO];
     chapter.bBuy = [NSNumber numberWithBool:NO];
