@@ -15,7 +15,6 @@
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "Chapter.h"
-#import "ManagedChapter.h"
 #import "Book.h"
 //Local
 #import "ReadViewController.h"
@@ -248,9 +247,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         }
         else {
             for (int i = 0; i<[result count]; i++) {
-                [ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
+                //[ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
             }
-            [[NSManagedObjectContext defaultContext] saveNestedContexts];
+            //[[NSManagedObjectContext defaultContext] saveNestedContexts];
             [self layoutBookViewWithArray:[self bookViews]];
         }
     }];

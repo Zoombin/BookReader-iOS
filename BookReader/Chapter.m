@@ -8,6 +8,10 @@
 
 #import "Chapter.h"
 
+@implementation ManagedChapter
+@dynamic uid,bid,name,bBuy,bRead,bVip,content,index;
+@end
+
 @implementation Chapter
 @synthesize uid,bid,name,bBuy,bRead,bVip,content,index;
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
@@ -35,4 +39,41 @@
     chapter.bBuy = [NSNumber numberWithBool:NO];
 	return chapter;
 }
+
+- (void)sync:(ManagedChapter *)managed
+{
+	managed.uid = uid;
+	managed.bid = bid;
+	managed.name = name;
+	managed.bBuy = bBuy;
+	managed.bRead = bRead;
+	managed.bVip = bVip;
+	managed.content = content;
+	managed.index = index;
+}
+
+- (void)persist
+{
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		ManagedChapter *managed = [ManagedChapter findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
+		if (!managed) {
+			managed = [ManagedChapter createInContext:localContext];
+		}
+		[self sync:managed];
+	}];
+}
+
++ (void)persist:(NSArray *)array
+{
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		for (Chapter *chapter in array) {
+			ManagedChapter *managed = [ManagedChapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+			if (!managed) {
+				managed = [ManagedChapter createInContext:localContext];
+			}
+			[chapter sync:managed];
+		}
+	}];
+}
+
 @end

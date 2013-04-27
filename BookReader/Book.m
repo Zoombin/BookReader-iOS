@@ -60,46 +60,46 @@
 	return books;
 }
 
-- (void)sync:(ManagedBook *)managedBook
+- (void)sync:(ManagedBook *)managed
 {
-	managedBook.name = name;
-	managedBook.progress = progress;
-	managedBook.uid = uid;
-	managedBook.author = author;
-	managedBook.authorID = authorID;
-	managedBook.autoBuy = autoBuy;
-	managedBook.cover = cover;
-	managedBook.coverURL = coverURL;
-	managedBook.category = category;
-	managedBook.categoryID = categoryID;
-	managedBook.words = words;
-	managedBook.lastUpdate = lastUpdate;
-	managedBook.describe = describe;
-	managedBook.recommandID = recommandID;
-	managedBook.recommandTitle = recommandTitle;
+	managed.name = name;
+	managed.progress = progress;
+	managed.uid = uid;
+	managed.author = author;
+	managed.authorID = authorID;
+	managed.autoBuy = autoBuy;
+	managed.cover = cover;
+	managed.coverURL = coverURL;
+	managed.category = category;
+	managed.categoryID = categoryID;
+	managed.words = words;
+	managed.lastUpdate = lastUpdate;
+	managed.describe = describe;
+	managed.recommandID = recommandID;
+	managed.recommandTitle = recommandTitle;
 }
 
 - (void)persist
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		ManagedBook *managedBook = [ManagedBook findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
-		if (!managedBook) {
-			managedBook = [ManagedBook createInContext:localContext];
+		ManagedBook *managed = [ManagedBook findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
+		if (!managed) {
+			managed = [ManagedBook createInContext:localContext];
 		}
-		[self sync:managedBook];
+		[self sync:managed];
 		
 	}];
 }
 
-+ (void)persist:(NSArray *)books
++ (void)persist:(NSArray *)array
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		for (Book *book in books) {
-			ManagedBook *managedBook = [ManagedBook findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
-			if (!managedBook) {
-				managedBook = [ManagedBook createInContext:localContext];
+		for (Book *book in array) {
+			ManagedBook *managed = [ManagedBook findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+			if (!managed) {
+				managed = [ManagedBook createInContext:localContext];
 			}
-			[book sync:managedBook];
+			[book sync:managed];
 		}
 	}];
 }

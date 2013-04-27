@@ -39,9 +39,12 @@
 
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)booksWithAttributesArray:(NSArray *)array;
-+ (void)persist:(NSArray *)books;
+
+- (void)sync:(ManagedBook *)managed;
 - (void)persist;
-- (void)sync:(ManagedBook *)managedBook;
++ (void)persist:(NSArray *)books;
+
+
 
 
 @end
