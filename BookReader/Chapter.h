@@ -35,8 +35,6 @@
 + (void)persist:(NSArray *)array;
 
 + (NSArray *)findAll;
-+ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
-
-
++ (NSArray *) findAllWithPredicate:(NSPredicate *)searchTerm;
 
 @end
