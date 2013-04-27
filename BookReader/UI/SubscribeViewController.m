@@ -144,9 +144,10 @@
         if (obj.content!=nil) {
             cell.textLabel.textColor = [UIColor blueColor];
         }
-        [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
         NSString *vipString = @"";
-        vipString = [obj.bVip boolValue] ? @"VIP" : @"免费";
+        vipString = [obj.bVip boolValue] ? @"v" : @"";
+        cell.detailTextLabel.textColor = [UIColor redColor];
         cell.detailTextLabel.text = vipString;
     }
     return cell;
