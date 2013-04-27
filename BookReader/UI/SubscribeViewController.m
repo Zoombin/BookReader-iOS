@@ -11,8 +11,6 @@
 #import "ServiceManager.h"
 #import "Chapter.h"
 #import "Book.h"
-#import "ManagedBook.h"
-#import "ManagedChapter.h"
 #import "UIViewController+HUD.h"
 #import "CoreTextViewController.h"
 
