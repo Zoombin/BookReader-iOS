@@ -7,6 +7,7 @@
 //
 
 #import "Book.h"
+#import "Chapter.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
@@ -102,5 +103,41 @@
 			[book sync:managed];
 		}
 	}];
+}
+
+- (NSNumber *)numberOfUnreadChapters
+{
+	return [ManagedChapter numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",uid]];
+}
+
++ (NSArray *)findAll
+{
+	NSArray *all = [ManagedBook findAll];
+	NSMutableArray *rtnAll = [@[] mutableCopy];
+	for (ManagedBook *manged in all) {
+		[rtnAll addObject:[self createWithManaged:manged]];
+	}
+	return rtnAll;
+}
+
++ (Book *)createWithManaged:(ManagedBook *)managed
+{
+	Book *book = [[Book alloc] init];
+	book.name = managed.name;
+	book.progress = managed.progress;
+	book.uid = managed.uid;
+	book.author = managed.author;
+	book.authorID = managed.authorID;
+	book.autoBuy = managed.autoBuy;
+	book.cover = managed.cover;
+	book.coverURL = managed.coverURL;
+	book.category = managed.category;
+	book.categoryID = managed.categoryID;
+	book.words = managed.words;
+	book.lastUpdate = managed.lastUpdate;
+	book.describe = managed.describe;
+	book.recommandID = managed.recommandID;
+	book.recommandTitle = managed.recommandTitle;
+	return book;
 }
 @end
