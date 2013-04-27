@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BookInterface.h"
 
-@interface NonManagedBook : NSObject<BookInterface>
+@interface Book : NSObject<BookInterface>
 
 + (id<BookInterface>)createBookWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)booksWithAttributesArray:(NSArray *)array;

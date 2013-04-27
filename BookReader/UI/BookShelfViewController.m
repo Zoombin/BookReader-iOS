@@ -9,7 +9,7 @@
 #import "Book+Test.h"
 
 #import "BookShelfViewController.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 #import "BookView.h"
 #import "AppDelegate.h"
 #import "ServiceManager.h"
@@ -113,7 +113,7 @@
                 [allArray removeAllObjects];
             }
             for (int i = 0; i<[result count]; i++) {
-                NonManagedBook *obj = [result objectAtIndex:i];
+                Book *obj = [result objectAtIndex:i];
                 NSArray *bookArray = [ManagedBook findByAttribute:@"uid" withValue:obj.uid];
                 if ([bookArray count]==0)
                 {

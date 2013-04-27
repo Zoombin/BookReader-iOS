@@ -10,7 +10,7 @@
 #import "UIDefines.h"
 #import "ServiceManager.h"
 #import "NonManagedChapter.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 #import "ManagedBook.h"
 #import "ManagedChapter.h"
 #import "UIViewController+HUD.h"

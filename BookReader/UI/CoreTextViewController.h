@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
 #import "NonManagedChapter.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 #import "BookInterface.h"
 
 @interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate>

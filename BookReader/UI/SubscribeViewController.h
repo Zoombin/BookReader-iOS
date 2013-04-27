@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NonManagedBook.h"
+#import "Book.h"
 
 @interface SubscribeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 - (id)initWithBookId:(id<BookInterface>)book

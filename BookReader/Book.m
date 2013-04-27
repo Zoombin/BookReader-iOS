@@ -6,16 +6,16 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "NonManagedBook.h"
+#import "Book.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
-@implementation NonManagedBook
+@implementation Book
 
 @synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
 
 + (id<BookInterface>)createBookWithAttributes:(NSDictionary *)attributes
 {
-    NonManagedBook *book = [[NonManagedBook alloc] init];
+    Book *book = [[Book alloc] init];
 	book.author = attributes[@"authorName"];
 	book.autoBuy = attributes[@"auto"];
 	book.name = attributes[@"bookName"];
@@ -47,7 +47,7 @@
 {
    	NSMutableArray *books = [@[] mutableCopy];
 	for (NSDictionary *attributes in array) {
-		NonManagedBook *book = [self createBookWithAttributes:attributes];
+		Book *book = [self createBookWithAttributes:attributes];
 		[books addObject:book];
 	}
 	return books;

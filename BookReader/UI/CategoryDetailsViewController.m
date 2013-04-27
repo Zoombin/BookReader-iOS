@@ -12,7 +12,7 @@
 #import "BookDetailsViewController.h"
 #import "ServiceManager.h"
 #import "BookCell.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 #import "UIViewController+HUD.h"
 
 @implementation CategoryDetailsViewController

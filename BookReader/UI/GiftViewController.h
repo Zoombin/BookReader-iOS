@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NonManagedBook.h"
+#import "Book.h"
 
 @interface GiftViewController : UIViewController
 - (id)initWithIndex:(NSString *)index andBookObj:(id<BookInterface>)bookObject;

@@ -12,7 +12,7 @@
 #import "NonManagedChapter.h"
 #import "Commit.h"
 #import "Pay.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 
 @interface ServiceManager : AFHTTPClient
 

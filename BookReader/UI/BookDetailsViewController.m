@@ -57,7 +57,7 @@
     [super viewDidAppear:animated];
     if (bookObj == nil) {
         [self displayHUD:@"加载中..."];
-        [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(NonManagedBook *obj, NSError *error) {
+        [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(Book *obj, NSError *error) {
             if(error) {
                 [self hideHUD:YES];
             }else {

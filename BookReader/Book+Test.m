@@ -8,7 +8,7 @@
 
 #import "Book+Test.h"
 
-@implementation NonManagedBook (Test)
+@implementation Book (Test)
 
 
 + (NSArray *)testBooks
@@ -23,7 +23,7 @@
     NSString *shortdescribes = @"《三国演义》全名《三国志通俗演义》，元末明初小说家罗贯中所著，为中国第一部长篇章回体历史演义的小说，中国古典四大名著之一，历史演义小说的经典之作。";
     NSAssert(names.count == authors.count, @"names.count can't match authors.cout...");
     for (int i = 0; i < names.count; i++) {
-        NonManagedBook *book = [[NonManagedBook alloc] init];
+        Book *book = [[Book alloc] init];
         book.uid = [NSString stringWithFormat:@"%d", i+1];
         book.name = names[i];
         book.author = authors[i];

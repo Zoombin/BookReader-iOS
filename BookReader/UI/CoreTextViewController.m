@@ -15,7 +15,7 @@
 #import "BookReadMenuView.h"
 #import "SubscribeViewController.h"
 #import "NSString+XXSYDecoding.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 
 @interface CoreTextViewController ()
 

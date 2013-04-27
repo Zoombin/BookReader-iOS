@@ -9,7 +9,7 @@
 #import "BookCell.h"
 #import "UIDefines.h"
 #import "UIImageView+AFNetworking.h"
-#import "NonManagedBook.h"
+#import "Book.h"
 
 #define bookimageViewFrame      CGRectMake(10, 16, 52, 70)
 #define bookNameLabelFrame      CGRectMake(65, 12, 240, 30)
