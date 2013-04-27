@@ -8,7 +8,7 @@
 
 #import "Chapter.h"
 
-@implementation ManagedChapter
+@implementation ChapterManaged
 @dynamic uid,bid,name,bBuy,bRead,bVip,content,index;
 @end
 
@@ -40,7 +40,7 @@
 	return chapter;
 }
 
-- (void)sync:(ManagedChapter *)managed
+- (void)sync:(ChapterManaged *)managed
 {
 	managed.uid = uid;
 	managed.bid = bid;
@@ -55,9 +55,9 @@
 - (void)persist
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		ManagedChapter *managed = [ManagedChapter findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
+		ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
 		if (!managed) {
-			managed = [ManagedChapter createInContext:localContext];
+			managed = [ChapterManaged createInContext:localContext];
 		}
 		[self sync:managed];
 	}];
@@ -67,9 +67,9 @@
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		for (Chapter *chapter in array) {
-			ManagedChapter *managed = [ManagedChapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+			ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
 			if (!managed) {
-				managed = [ManagedChapter createInContext:localContext];
+				managed = [ChapterManaged createInContext:localContext];
 			}
 			[chapter sync:managed];
 		}
@@ -79,7 +79,7 @@
 + (NSArray *)create:(NSArray *)mangedArray
 {
 	NSMutableArray *rtnAll = [@[] mutableCopy];
-	for (ManagedChapter *manged in mangedArray) {
+	for (ChapterManaged *manged in mangedArray) {
 		[rtnAll addObject:[self createWithManaged:manged]];
 	}
 	return rtnAll;
@@ -87,11 +87,11 @@
 
 + (NSArray *)findAll
 {
-	NSArray *all = [ManagedChapter findAll];
+	NSArray *all = [ChapterManaged findAll];
 	return [self create:all];
 }
 
-+ (Chapter *)createWithManaged:(ManagedChapter *)managed
++ (Chapter *)createWithManaged:(ChapterManaged *)managed
 {
 	Chapter *chapter = [[Chapter alloc] init];
 	chapter.uid = managed.uid;
@@ -107,7 +107,7 @@
 
 + (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm
 {
-	NSArray *all = [ManagedChapter findAllWithPredicate:searchTerm];
+	NSArray *all = [ChapterManaged findAllWithPredicate:searchTerm];
 	return [self create:all];
 }
 @end

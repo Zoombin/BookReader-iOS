@@ -30,7 +30,7 @@
 @end
 
 
-@interface ManagedBook : NSManagedObject <BookInterface>
+@interface BookManaged : NSManagedObject <BookInterface>
 @end
 
 
@@ -40,7 +40,7 @@
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)booksWithAttributesArray:(NSArray *)array;
 
-- (void)sync:(ManagedBook *)managed;
+- (void)sync:(BookManaged *)managed;
 - (void)persist;
 + (void)persist:(NSArray *)books;
 

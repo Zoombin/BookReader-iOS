@@ -84,7 +84,7 @@
     if (bOnline) {
         [self chapterDataFromService];
     } else {
-        NSArray *array = [ManagedChapter findByAttribute:@"bid" withValue:bookobj.uid andOrderBy:@"index" ascending:YES];
+        NSArray *array = [ChapterManaged findByAttribute:@"bid" withValue:bookobj.uid andOrderBy:@"index" ascending:YES];
         if ([array count]>0)
         {
             [infoArray addObjectsFromArray:array];

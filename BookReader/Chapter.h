@@ -22,7 +22,7 @@
 
 @end
 
-@interface ManagedChapter : NSManagedObject<ChapterInterface>
+@interface ChapterManaged : NSManagedObject<ChapterInterface>
 @end
 
 @interface Chapter : NSObject<ChapterInterface>
@@ -30,7 +30,7 @@
 + (id<ChapterInterface>)createChapterWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 
-- (void)sync:(ManagedChapter *)managed;
+- (void)sync:(ChapterManaged *)managed;
 - (void)persist;
 + (void)persist:(NSArray *)array;
 

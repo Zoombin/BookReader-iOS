@@ -153,7 +153,7 @@
     NSLog(@"index %d ? = %d",index, [allArray count]);
     if (index < [allArray count]) {
         Book *book = [allArray objectAtIndex:index];
-        NSArray *chaptersArray = [ManagedChapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"index" ascending:YES];
+        NSArray *chaptersArray = [ChapterManaged findByAttribute:@"bid" withValue:book.uid andOrderBy:@"index" ascending:YES];
         [self downloadBooks:[chaptersArray objectAtIndex:0] andBookIndex:index andCurrentChapterArray:chaptersArray];
     } else {
         NSLog(@"Start Saving...");

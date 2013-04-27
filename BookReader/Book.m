@@ -11,7 +11,7 @@
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
-@implementation ManagedBook
+@implementation BookManaged
 @dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
 @end
 
@@ -61,7 +61,7 @@
 	return books;
 }
 
-- (void)sync:(ManagedBook *)managed
+- (void)sync:(BookManaged *)managed
 {
 	managed.name = name;
 	managed.progress = progress;
@@ -83,9 +83,9 @@
 - (void)persist
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		ManagedBook *managed = [ManagedBook findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
+		BookManaged *managed = [BookManaged findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
 		if (!managed) {
-			managed = [ManagedBook createInContext:localContext];
+			managed = [BookManaged createInContext:localContext];
 		}
 		[self sync:managed];
 		
@@ -96,9 +96,9 @@
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		for (Book *book in array) {
-			ManagedBook *managed = [ManagedBook findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+			BookManaged *managed = [BookManaged findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
 			if (!managed) {
-				managed = [ManagedBook createInContext:localContext];
+				managed = [BookManaged createInContext:localContext];
 			}
 			[book sync:managed];
 		}
@@ -107,13 +107,13 @@
 
 - (NSNumber *)numberOfUnreadChapters
 {
-	return [ManagedChapter numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",uid]];
+	return [ChapterManaged numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",uid]];
 }
 
 + (NSArray *)create:(NSArray *)mangedArray
 {
 	NSMutableArray *rtnAll = [@[] mutableCopy];
-	for (ManagedBook *manged in mangedArray) {
+	for (BookManaged *manged in mangedArray) {
 		[rtnAll addObject:[self createWithManaged:manged]];
 	}
 	return rtnAll;
@@ -121,11 +121,11 @@
 
 + (NSArray *)findAll
 {
-	NSArray *all = [ManagedBook findAll];
+	NSArray *all = [BookManaged findAll];
 	return [self create:all];
 }
 
-+ (Book *)createWithManaged:(ManagedBook *)managed
++ (Book *)createWithManaged:(BookManaged *)managed
 {
 	Book *book = [[Book alloc] init];
 	book.name = managed.name;
@@ -148,7 +148,7 @@
 
 + (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm
 {
-	NSArray *all = [ManagedBook findAllWithPredicate:searchTerm];
+	NSArray *all = [BookManaged findAllWithPredicate:searchTerm];
 	return [self create:all];
 }
 @end
