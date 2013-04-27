@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
-#import "NonManagedChapter.h"
+#import "Chapter.h"
 #import "Book.h"
 #import "BookInterface.h"
 

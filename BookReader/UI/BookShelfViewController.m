@@ -14,7 +14,7 @@
 #import "AppDelegate.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "NonManagedChapter.h"
+#import "Chapter.h"
 #import "ManagedChapter.h"
 #import "ManagedBook.h"
 #import "BookInterface.h"

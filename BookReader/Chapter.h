@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ChapterInterface.h"
 
-@interface NonManagedChapter : NSObject<ChapterInterface>
+@interface Chapter : NSObject<ChapterInterface>
 
 + (id<ChapterInterface>)createChapterWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;

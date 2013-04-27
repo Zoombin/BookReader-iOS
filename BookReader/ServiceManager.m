@@ -13,7 +13,7 @@
 #import "NSString+MD5.h"
 #import "NSString+XXSYDecoding.h"
 #import "Book.h"
-#import "NonManagedChapter.h"
+#import "Chapter.h"
 #import "Member+Setup.h"
 
 //获取IP地址需要用到
@@ -406,7 +406,7 @@
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
-			[resultArray addObjectsFromArray:[NonManagedChapter chaptersWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
+			[resultArray addObjectsFromArray:[Chapter chaptersWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
         }
         if (block) {
             block(resultArray, nil);

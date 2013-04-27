@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "NonManagedChapter.h"
+#import "Chapter.h"
 
-@implementation NonManagedChapter
+@implementation Chapter
 @synthesize uid,bid,name,bBuy,bRead,bVip,content,index;
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 {
@@ -16,7 +16,7 @@
     int i = 0;
 	for (NSDictionary *attributes in array)
     {
-		NonManagedChapter *chapter = [NonManagedChapter createChapterWithAttributes:attributes];
+		Chapter *chapter = [Chapter createChapterWithAttributes:attributes];
         chapter.index = [NSNumber numberWithInteger:i];
         chapter.bid = bookid;
 		[chapters addObject:chapter];
@@ -27,7 +27,7 @@
 
 + (id<ChapterInterface>)createChapterWithAttributes:(NSDictionary *)attributes
 {
-    NonManagedChapter *chapter = [[NonManagedChapter alloc] init];
+    Chapter *chapter = [[Chapter alloc] init];
     chapter.name = attributes[@"chapterName"];
     chapter.uid = [attributes[@"chapterId"] stringValue];
     chapter.bVip = attributes[@"isVip"];

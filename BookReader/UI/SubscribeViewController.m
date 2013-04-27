@@ -9,7 +9,7 @@
 #import "SubscribeViewController.h"
 #import "UIDefines.h"
 #import "ServiceManager.h"
-#import "NonManagedChapter.h"
+#import "Chapter.h"
 #import "Book.h"
 #import "ManagedBook.h"
 #import "ManagedChapter.h"

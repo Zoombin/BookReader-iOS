@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 #import "Member.h"
-#import "NonManagedChapter.h"
+#import "Chapter.h"
 #import "Commit.h"
 #import "Pay.h"
 #import "Book.h"
