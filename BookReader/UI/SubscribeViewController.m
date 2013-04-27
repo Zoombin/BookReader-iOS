@@ -73,9 +73,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([infoArray count]==0)
-    {
-    [self loadChapterData];
+    if ([infoArray count]==0) {
+        [self loadChapterData];
     }
 }
 
@@ -158,9 +157,8 @@
     Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
     if (obj.content!=nil) {
         NSLog(@"书籍已经下载！");
-//        ManagedChapter *chapterobj = [[ManagedChapter findByAttribute:@"uid" withValue:obj.uid] objectAtIndex:0];
-//        chapterobj.bRead = [NSNumber numberWithBool:YES];
-//        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+        obj.bRead = [NSNumber numberWithBool:YES];
+        [obj persistWithBlock:nil];
         [self pushToCoreTextWithChapterObj:obj];
     }else {
         [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
@@ -180,7 +178,7 @@
                     if (!bOnline) {
                         obj.bRead = [NSNumber numberWithBool:YES];
                         NSLog(@"本地阅读需要存入数据库");
-                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                        [obj persistWithBlock:nil];
                     }
                     [self pushToCoreTextWithChapterObj:obj];
                 }
@@ -212,7 +210,7 @@
                     if (!bOnline) {
                         NSLog(@"本地阅读需要存入数据库");
                         obj.bRead = [NSNumber numberWithBool:YES];
-                        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+                        [obj persistWithBlock:nil];
                     }
                     [self pushToCoreTextWithChapterObj:obj];
                 }

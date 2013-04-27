@@ -368,6 +368,8 @@
         [textString setString:[obj.content XXSYDecodingWithKey:key]];
         currentPage = 0;
         chapter = obj;
+        obj.bRead = [NSNumber numberWithBool:YES];
+        [obj persistWithBlock:nil];
         [self updateContent];
         [self hideHUD:YES];
     }else {
@@ -385,7 +387,9 @@
                 else
                 {
                     obj.content = content;
+                    obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
+                    [obj persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     currentPage = 0;
                     [self updateContent];
@@ -410,11 +414,15 @@
                 if ([code isEqualToString:@"0000"]) {
                     obj.bBuy = [NSNumber numberWithBool:YES];
                     obj.content = content;
+                    obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
+                    [obj persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     currentPage = 0;
                     [self updateContent];
                     [self hideHUD:YES];
+                } else {
+                    [self displayHUDError:nil message:result];
                 }
             }
         }];

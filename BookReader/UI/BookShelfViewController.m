@@ -94,8 +94,6 @@
         {
             [self refreshUserBooks];
         }
-    } else {
-        NSLog(@"1");
     }
 }
 
@@ -127,13 +125,11 @@
                     [tmpobj persist];
                 }
                 NSArray *chapterArray = [Chapter chaptersWithBookId:obj.uid];
-                if ([chapterArray count] > 0)
-                {
+                if ([chapterArray count] > 0) {
                     Chapter *chapter = [chapterArray lastObject];
                     [self loadChapterList:chapter.uid andBookId:obj.uid];
                 }
-                else
-                {
+                else {
                     [self loadChapterList:@"0" andBookId:obj.uid];
                 }
             }
@@ -158,8 +154,7 @@
         NSArray *chaptersArray = [ChapterManaged findByAttribute:@"bid" withValue:book.uid andOrderBy:@"index" ascending:YES];
         [self downloadBooks:[chaptersArray objectAtIndex:0] andBookIndex:index andCurrentChapterArray:chaptersArray];
     } else {
-        NSLog(@"Start Saving...");
-        [[NSManagedObjectContext defaultContext] saveNestedContexts];
+        NSLog(@"下载完毕");
     }
 }
 
@@ -248,11 +243,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         if (error) {
         }
         else {
-            for (int i = 0; i<[result count]; i++) {
-                [Chapter persist:result];
-            }
-            [[NSManagedObjectContext defaultContext] saveNestedContexts];
-            [self layoutBookViewWithArray:[self bookViews]];
+            [Chapter persist:result withBlock:^{
+                
+            }];
         }
     }];
 }
@@ -352,7 +345,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     for (int i = 0; i< [allArray count]; i++) {
         BookView *bookView = [[BookView alloc]initWithFrame:CGRectFromString([framesArray objectAtIndex:i])];
         Book *obj = [allArray objectAtIndex:i];
-        [bookView setBadgeValue:[obj numberOfUnreadChapters]];
+        [bookView setBadgeValue:[[obj numberOfUnreadChapters] integerValue]];
         [bookView setBook:[allArray objectAtIndex:i]];
         [bookView setDelegate:self];
         [bookView setTag:i];
@@ -425,9 +418,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         for (int i = 0; i<[allArray count]; i++) {
             Book *book = [allArray objectAtIndex:i];
             [book persist];
-            [[NSManagedObjectContext defaultContext] saveNestedContexts];
         }
-        
     }
 }
 
