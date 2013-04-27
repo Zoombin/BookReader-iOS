@@ -7,6 +7,7 @@
 //
 
 #import "Book.h"
+#import "Chapter.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
@@ -103,4 +104,10 @@
 		}
 	}];
 }
+
+- (NSNumber *)numberOfUnreadChapters
+{
+	return [ManagedChapter numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO",uid]];
+}
+
 @end
