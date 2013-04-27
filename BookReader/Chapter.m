@@ -76,14 +76,19 @@
 	}];
 }
 
-+ (NSArray *)findAll
++ (NSArray *)create:(NSArray *)mangedArray
 {
-	NSArray *all = [ManagedChapter findAll];
 	NSMutableArray *rtnAll = [@[] mutableCopy];
-	for (ManagedChapter *manged in all) {
+	for (ManagedChapter *manged in mangedArray) {
 		[rtnAll addObject:[self createWithManaged:manged]];
 	}
 	return rtnAll;
+}
+
++ (NSArray *)findAll
+{
+	NSArray *all = [ManagedChapter findAll];
+	return [self create:all];
 }
 
 + (Chapter *)createWithManaged:(ManagedChapter *)managed
@@ -100,4 +105,9 @@
 	return chapter;
 }
 
++ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm
+{
+	NSArray *all = [ManagedChapter findAllWithPredicate:searchTerm];
+	return [self create:all];
+}
 @end

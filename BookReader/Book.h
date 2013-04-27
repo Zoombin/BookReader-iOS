@@ -47,6 +47,7 @@
 - (NSNumber *)numberOfUnreadChapters;
 + (NSArray *)findAll;
 
++ (NSArray *) findAllWithPredicate:(NSPredicate *)searchTerm;
 
 @end
 
