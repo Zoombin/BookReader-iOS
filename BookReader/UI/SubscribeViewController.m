@@ -144,6 +144,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
         id<ChapterInterface> obj = [infoArray objectAtIndex:[indexPath row]];
         cell.textLabel.text = obj.name;
+        if (obj.content!=nil) {
+            cell.textLabel.textColor = [UIColor blueColor];
+        }
         [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
         NSString *vipString = @"";
         vipString = [obj.bVip boolValue] ? @"VIP" : @"免费";

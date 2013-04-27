@@ -66,7 +66,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏", @"我要充值", @"充值记录",nil];
+        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏", @"充值记录",nil];
     }
     return self;
 }
@@ -554,9 +554,6 @@
                 NSLog(@"我的收藏");
                 break;
             case 2:
-                NSLog(@"我要充值");
-                break;
-            case 3:
                 [self showPaymentListView];
                 NSLog(@"充值记录");
                 break;

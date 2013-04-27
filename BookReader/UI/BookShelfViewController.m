@@ -167,70 +167,75 @@
 {
     id<BookInterface> book = [allArray objectAtIndex:bookIndex];
     if (obj.content!=nil) {
-        if ([obj.index integerValue]<[chaptersArray count]-1) {
-            [self downloadBooks:[chaptersArray objectAtIndex:[obj.index integerValue]+1] andBookIndex:bookIndex andCurrentChapterArray:chaptersArray];
-        }
-        else
-        {
-            [self chaptersArrayWithIndex:bookIndex+1];
-        }
+        [self nextBookOrChapterWithChapter:obj
+                          andChaptersArray:chaptersArray
+                              andBookIndex:bookIndex];
         return;
     }
-    [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
+    [ServiceManager bookCatalogue:obj.uid
+                        andUserid:userid
+                        withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
         if (error) {
-            
+            [self nextBookOrChapterWithChapter:obj
+                              andChaptersArray:chaptersArray
+                                  andBookIndex:bookIndex];
         }
         else
         {
             if (![code isEqualToString:@"0000"]) {
                 if ([book.autoBuy boolValue]) {
-                    [self subscribeBook:obj andBookIndex:bookIndex andCurrentChapterArray:chaptersArray];
+                    [self subscribeBook:obj
+                           andBookIndex:bookIndex
+                 andCurrentChapterArray:chaptersArray];
                 } else {
-                    if ([obj.index integerValue]<[chaptersArray count]-1) {
-                        [self downloadBooks:[chaptersArray objectAtIndex:[obj.index integerValue]+1] andBookIndex:bookIndex andCurrentChapterArray:chaptersArray];
-                    }
-                    else
-                    {
-                        [self chaptersArrayWithIndex:bookIndex+1];
-                    }
+                   [self nextBookOrChapterWithChapter:obj
+                                     andChaptersArray:chaptersArray
+                                         andBookIndex:bookIndex];
                 }
             }
             else
             {
                 obj.content = content;
-                if ([obj.index integerValue]<[chaptersArray count]-1) {
-                    [self downloadBooks:[chaptersArray objectAtIndex:[obj.index integerValue]+1] andBookIndex:bookIndex andCurrentChapterArray:chaptersArray];
-                }
-                else
-                {
-                    [self chaptersArrayWithIndex:bookIndex+1];
-                }
+                [self nextBookOrChapterWithChapter:obj
+                                  andChaptersArray:chaptersArray
+                                      andBookIndex:bookIndex];
             }
         }
     }];
 }
 
-- (void)subscribeBook:(ManagedChapter *)chapter andBookIndex:(NSInteger)bookIndex andCurrentChapterArray:(NSArray *)chaptersArray
+- (void)nextBookOrChapterWithChapter:(ManagedChapter *)chapter
+                    andChaptersArray:(NSArray *)chaptersArray
+                        andBookIndex:(NSInteger)bookIndex
+{
+    if ([chapter.index integerValue]<[chaptersArray count]-1) {
+        [self downloadBooks:[chaptersArray objectAtIndex:[chapter.index integerValue]+1]
+               andBookIndex:bookIndex
+     andCurrentChapterArray:chaptersArray];
+    }
+    else {
+        [self chaptersArrayWithIndex:bookIndex+1];
+    }
+}
+
+- (void)subscribeBook:(ManagedChapter *)chapter
+         andBookIndex:(NSInteger)bookIndex
+andCurrentChapterArray:(NSArray *)chaptersArray
 {
     id<BookInterface> book = [allArray objectAtIndex:bookIndex];
     if ([chapter.bVip boolValue]==YES&&chapter.content==nil) {
         [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
-            if (error)
-            {
-                
+            if (error) {
+              [self nextBookOrChapterWithChapter:chapter
+                                andChaptersArray:chaptersArray
+                                    andBookIndex:bookIndex];
             }
-            else
-            {
-                if ([result isEqualToString:@"0000"])
-                {
+            else {
+                if ([result isEqualToString:@"0000"]) {
                     chapter.content = content;
-                    if ([chapter.index integerValue]<[chaptersArray count]-1) {
-                        [self downloadBooks:[chaptersArray objectAtIndex:[chapter.index integerValue]+1] andBookIndex:bookIndex andCurrentChapterArray:chaptersArray];
-                    }
-                    else
-                    {
-                        [self chaptersArrayWithIndex:bookIndex+1];
-                    }
+                    [self nextBookOrChapterWithChapter:chapter
+                                      andChaptersArray:chaptersArray
+                                          andBookIndex:bookIndex];
                 }
             }
         }];
@@ -240,11 +245,9 @@
 - (void)loadChapterList:(NSNumber *)CataId andBookId:(NSString *)bookid
 {
     [ServiceManager bookCatalogueList:bookid andNewestCataId:CataId withBlock:^(NSArray *result, NSError *error) {
-        if (error)
-        {
+        if (error) {
         }
-        else
-        {
+        else {
             for (int i = 0; i<[result count]; i++) {
                 [ManagedChapter createChapterWithNonManagedBook:[result objectAtIndex:i]];
             }
