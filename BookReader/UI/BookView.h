@@ -11,6 +11,7 @@
 
 @protocol BookViewDelegate <NSObject>
 - (void)bookViewButtonClick:(id)sender;
+- (void)switchOnorOff:(id)sender andBookName:(NSString *)name;
 @end
 
 @interface BookView : UIView

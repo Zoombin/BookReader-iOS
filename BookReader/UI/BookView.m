@@ -25,10 +25,10 @@
 
 #define BACKGROUNDBUTTONFRAME  CGRectMake(0, 0, BOOK_WIDTH*SCREEN_SCALE, BOOK_HEIGHT*SCREEN_SCALE+PROGRESS_BOOK_OFFSET*SCREEN_SCALE)     
 #define CUSTOMPROGRESSVIEWFRAME CGRectMake(0,backgroundButton.frame.size.height+PROGRESS_BOOK_OFFSET*SCREEN_SCALE, BOOK_WIDTH*SCREEN_SCALE, 8)
-#define SELECTEDIMAGEVIEWFRAME CGRectMake(self.frame.size.width - CHECKMARKWIDTH*SCREEN_SCALE, self.frame.size.height - CHECKMARKHEIGHT*SCREEN_SCALE, CHECKMARKWIDTH*SCREEN_SCALE, CHECKMARKHEIGHT*SCREEN_SCALE )
+#define SWITCHVIEWFRAME CGRectMake(0, self.frame.size.height - CHECKMARKHEIGHT*SCREEN_SCALE, BOOK_WIDTH*SCREEN_SCALE, 30)
 #define BADGESIZE   [badgeView badgeSize]
 #define BADGEVIEWFRAME CGRectMake(self.frame.size.width - (BADGESIZE.width*SCREEN_SCALE)/2, -(BADGESIZE.height*SCREEN_SCALE)/2, BADGESIZE.width*SCREEN_SCALE*1.1, BADGESIZE.height*SCREEN_SCALE*1.1)
-#define SWITCHVIEWFRAME CGRectMake(0, self.frame.size.height-30-selectedImageView.frame.size.height, BOOK_WIDTH, 30)
+#define SELECTEDIMAGEVIEWFRAME CGRectMake(self.frame.size.width - CHECKMARKWIDTH*SCREEN_SCALE, self.frame.size.height-60-switchView.frame.size.height, CHECKMARKWIDTH*SCREEN_SCALE, CHECKMARKHEIGHT*SCREEN_SCALE)
 
 @implementation BookView
 {
@@ -97,6 +97,9 @@
     else
     {
         bookObject.autoBuy = [NSNumber numberWithBool:NO];
+    }
+    if (self.delegate!=nil) {
+        [self.delegate switchOnorOff:sender andBookName:bookObject.name];
     }
 }
 

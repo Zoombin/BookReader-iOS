@@ -456,6 +456,14 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     }
 }
 
+- (void)switchOnorOff:(id)sender andBookName:(NSString *)name
+{
+    if ([sender isOn]) {
+        [self displayHUDError:nil message:[NSString stringWithFormat:@"%@自动更新开启",name]];
+    } else {
+        [self displayHUDError:nil message:[NSString stringWithFormat:@"%@自动更新关闭",name]];
+    }
+}
 
 - (void)loadLocalView {
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:headerImageViewFrame];
