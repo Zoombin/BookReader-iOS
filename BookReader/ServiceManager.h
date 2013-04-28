@@ -40,13 +40,13 @@
 
 //发送短信收取改回密码验证码
 + (void)postFindPasswordCode:(NSString *)phoneNumber
-                   withBlock:(void (^)(NSString *,NSError *))block;
+                   withBlock:(void (^)(NSString *,NSString*,NSError *))block;
 
 //短信找回密码
 + (void)findPassword:(NSString *)phoneNumber
-      verifyCode:(NSString *)verifyCode
+          verifyCode:(NSString *)verifyCode
       andNewPassword:(NSString *)newPassword
-           withBlock:(void(^)(NSString *,NSError *))block;
+           withBlock:(void(^)(NSString *,NSString *,NSError *))block; //error resultCode
 
 //获取用户信息
 + (void)userInfo:(NSNumber *)userid
