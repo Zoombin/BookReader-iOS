@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		180318F2172CDDE200733C58 /* GiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180318F1172CDDE200733C58 /* GiftCell.m */; };
 		18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */; };
 		18089DF9171A35CE00BCB50E /* BookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089DF8171A35CE00BCB50E /* BookView.m */; };
 		18089E40171BAFC400BCB50E /* local_book_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 18089E3F171BAFC400BCB50E /* local_book_select.png */; };
@@ -304,6 +305,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180318F0172CDDE200733C58 /* GiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftCell.h; sourceTree = "<group>"; };
+		180318F1172CDDE200733C58 /* GiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftCell.m; sourceTree = "<group>"; };
 		18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailsViewController.h; sourceTree = "<group>"; };
 		18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailsViewController.m; sourceTree = "<group>"; };
 		18089DF7171A35CD00BCB50E /* BookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookView.h; sourceTree = "<group>"; };
@@ -828,6 +831,8 @@
 				18089E50171E8ACC00BCB50E /* SubscribeViewController.m */,
 				1848FC31171F9C3D00E8A3F1 /* BookShelfBottomView.h */,
 				1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */,
+				180318F0172CDDE200733C58 /* GiftCell.h */,
+				180318F1172CDDE200733C58 /* GiftCell.m */,
 			);
 			name = RemoteMode;
 			sourceTree = "<group>";
@@ -1872,6 +1877,7 @@
 				1820F0511728B3D3002670F2 /* Book.m in Sources */,
 				1820F05D1728CB40002670F2 /* Chapter.m in Sources */,
 				18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */,
+				180318F2172CDDE200733C58 /* GiftCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
