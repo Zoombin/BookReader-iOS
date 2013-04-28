@@ -75,15 +75,15 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self checkFirstLaunch];
+    [self checkLogin];
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     [self loadUserBookShelf];
     [self layoutBookViewWithArray:[self bookViews]];
 }
 
-- (void)checkFirstLaunch
+- (void)checkLogin
 {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"firstlaunch"]==nil) {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]==nil) {
         [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"firstlaunch"];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
