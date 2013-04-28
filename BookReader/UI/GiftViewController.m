@@ -18,6 +18,8 @@
     NSNumber *userid;
     NSArray *integralArrays;
     NSString *currentIntegral;
+    
+    UITableView *infoTableView;
 }
 
 - (id)initWithIndex:(NSString *)index
@@ -66,6 +68,12 @@
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
+    
+//    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-20) style:UITableViewStylePlain];
+//    [infoTableView setDataSource:self];
+//    [infoTableView setDelegate:self];
+//    [self.view addSubview:infoTableView];
+    
     
     UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [hidenKeyboardButton setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44)];
@@ -163,6 +171,38 @@
 - (void)backButtonClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark tableview
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 30;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"123";
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *reuseIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+    }
+    return cell;
 }
 
 

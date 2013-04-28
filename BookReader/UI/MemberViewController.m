@@ -311,8 +311,8 @@
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    NSArray *placeHolders = @[@"请输入账号", @"请输入密码", @"请再次输入密码", @"请输入短信验证码"];
-    NSArray *tags = @[@REGISTER_ACCOUNT_TEXTFIELD_TAG,@REGISTER_PASSWORD_TEXTFIELD_TAG,@REGISTER_CONFIRM_TEXTFIELD_TAG,@REGISTER_CODE_TEXTFIELD_TAG];
+    NSArray *placeHolders = @[@"请输入账号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
+    NSArray *tags = @[@REGISTER_ACCOUNT_TEXTFIELD_TAG,@REGISTER_CODE_TEXTFIELD_TAG,@REGISTER_PASSWORD_TEXTFIELD_TAG,@REGISTER_CONFIRM_TEXTFIELD_TAG];
     for (int i =0; i<[placeHolders count]; i++) {
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30)];
         [textField setPlaceholder:placeHolders[i]];
@@ -347,16 +347,16 @@
         [self showAlertWithMessage:ERROR_MESSAGE_TWO];
         return;
     }
+    if ([codeTextField.text length]==0) {
+        [self showAlertWithMessage:ERROR_MESSAGE_FIVE];
+        return;
+    }
     if ([passwordTextField.text length]==0) {
         [self showAlertWithMessage:ERROR_MESSAGE_THREE];
         return;
     }
     if ([confirmTextField.text length]==0) {
         [self showAlertWithMessage:ERROR_MESSAGE_FOUR];
-        return;
-    }
-    if ([codeTextField.text length]==0) {
-        [self showAlertWithMessage:ERROR_MESSAGE_FIVE];
         return;
     }
     if (![confirmTextField.text isEqualToString:passwordTextField.text]) {

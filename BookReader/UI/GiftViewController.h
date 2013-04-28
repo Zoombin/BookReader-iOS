@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Book.h"
 
-@interface GiftViewController : UIViewController
+@interface GiftViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 - (id)initWithIndex:(NSString *)index andBookObj:(Book *)bookObject;
 @end
