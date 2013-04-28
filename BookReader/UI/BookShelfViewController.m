@@ -311,6 +311,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         [view removeFromSuperview];
     }
     [self addDefaultBackground];
+    [array count]==0 ? [bottomView setEditButtonHidden:YES] : [bottomView setEditButtonHidden:NO];
+    
     int line = 0, column = 0;
     for (int i = 0; i < [array count]; i++) {
         line = i/3;
@@ -319,7 +321,6 @@ andCurrentChapterArray:(NSArray *)chaptersArray
             imageView.image = [UIImage imageNamed:@"bookshelf"];
             [bookShelfView insertSubview:imageView atIndex:0];
         }
-        
         BookView *book = [array objectAtIndex:i];
         
         UIImageView *bookBackground = [[UIImageView alloc] init];

@@ -15,8 +15,8 @@
 #define EDIT_BUTTON_FRAME                      CGRectMake(10, 4, 48, 32)
 #define Finish_BUTTON_FRAME                    CGRectMake(10, 4, 48, 32)
 #define DELETE_BUTTON_FRAME                    CGRectMake(MAIN_SCREEN.size.width-60,4,48,32)
-#define REFRESH_BUTTON_FRAME                 CGRectMake(MAIN_SCREEN.size.width-110,4,48,32)
-#define HISTORY_BUTTON_FRAME                 CGRectMake(MAIN_SCREEN.size.width-60,4,48,32)
+#define REFRESH_BUTTON_FRAME                 CGRectMake(MAIN_SCREEN.size.width-122,4,48,32)
+#define HISTORY_BUTTON_FRAME                 CGRectMake(MAIN_SCREEN.size.width-72,4,60,32)
 
 @implementation BookShelfBottomView {
     NSMutableArray *buttonArray;
@@ -51,7 +51,7 @@
     [self addSubview:bottomViewTwo];
     [bottomViewTwo setHidden:YES];
     
-    NSArray *titles = @[@"编辑", @"更新", @"历史", @"书架" ,@"删除", @"完成"];
+    NSArray *titles = @[@"编辑", @"更新", @"阅读历史", @"我的收藏" ,@"删除", @"完成"];
     NSArray *rectStrings = @[NSStringFromCGRect(EDIT_BUTTON_FRAME), NSStringFromCGRect(REFRESH_BUTTON_FRAME),NSStringFromCGRect(HISTORY_BUTTON_FRAME),NSStringFromCGRect(HISTORY_BUTTON_FRAME), NSStringFromCGRect(DELETE_BUTTON_FRAME), NSStringFromCGRect(Finish_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"editButtonClick", @"refreshButtonClick", @"historyButtonClick", @"shelfButtonClick", @"deleteButtonClick", @"finishButtonClick"];
     
@@ -130,6 +130,12 @@
     [[self layer] addAnimation:animation forKey:@"animation"];
     
     [self invokeDelegateMethod:kBottomViewButtonEdit];
+}
+
+- (void)setEditButtonHidden:(BOOL)hiden
+{
+   UIButton *editButton = (UIButton *)[buttonArray objectAtIndex:0];
+   [editButton setHidden:hiden];
 }
 
 - (void)deleteButtonClick {
