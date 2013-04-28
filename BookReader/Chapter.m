@@ -29,7 +29,7 @@
 	return chapters;
 }
 
-+ (id<ChapterInterface>)createChapterWithAttributes:(NSDictionary *)attributes
++ (Chapter *)createChapterWithAttributes:(NSDictionary *)attributes
 {
     Chapter *chapter = [[Chapter alloc] init];
     chapter.name = attributes[@"chapterName"];

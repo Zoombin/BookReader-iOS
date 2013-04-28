@@ -27,7 +27,7 @@
 
 @interface Chapter : NSObject<ChapterInterface>
 
-+ (id<ChapterInterface>)createChapterWithAttributes:(NSDictionary *)attributes;
++ (Chapter *)createChapterWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 
 - (void)sync:(ChapterManaged *)managed;
