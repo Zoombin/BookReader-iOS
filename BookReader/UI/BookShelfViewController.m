@@ -250,6 +250,10 @@ andCurrentChapterArray:(NSArray *)chaptersArray
                     [self nextBookOrChapterWithChapter:chapter
                                       andChaptersArray:chaptersArray
                                           andBookIndex:bookIndex];
+                }else {
+                    [self nextBookOrChapterWithChapter:chapter
+                                      andChaptersArray:chaptersArray
+                                          andBookIndex:bookIndex];
                 }
             }
         }];
