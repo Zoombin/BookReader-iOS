@@ -146,7 +146,7 @@
         }
         [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
         NSString *vipString = @"";
-        vipString = [obj.bVip boolValue] ? @"v" : @"";
+        vipString = [obj.bVip boolValue] ? @"V" : @"";
         cell.detailTextLabel.textColor = [UIColor redColor];
         cell.detailTextLabel.text = vipString;
     }
