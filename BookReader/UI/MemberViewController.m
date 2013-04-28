@@ -149,6 +149,13 @@
         [registerButton addTarget:self action:@selector(showRegisterView) forControlEvents:UIControlEventTouchUpInside];
         [registerButton setTitle:@"注册" forState:UIControlStateNormal];
         [self.view addSubview:registerButton];
+        
+        UIButton *findButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [findButton setFrame:CGRectMake(30, 190, 100, 30)];
+        [findButton addTarget:self action:@selector(showFindPasswodView) forControlEvents:UIControlEventTouchUpInside];
+        [findButton setTitle:@"找回密码" forState:UIControlStateNormal];
+        [self.view addSubview:findButton];
+
     }else {
         UITableView *infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44) style:UITableViewStyleGrouped];
         [infoTableView setBackgroundColor:[UIColor clearColor]];
@@ -273,7 +280,126 @@
     }];
 }
 
-- (void)showChangePasswordView {
+- (void)showFindPasswodView
+{
+    for (UIView *view in [self.view subviews]) {
+        [view removeFromSuperview];
+    }
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
+    [self.view addSubview:backgroundImage];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setText:@"个人中心"];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:titleLabel];
+    
+    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hidenKeyboardButton setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44)];
+    [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:hidenKeyboardButton];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [backButton setFrame:CGRectMake(10, 6, 50, 32)];;
+    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
+    
+    NSArray *placeHolders = @[@"请输入账号", @"请输入密码", @"请再次输入密码", @"请输入短信验证码"];
+    NSArray *tags = @[@REGISTER_ACCOUNT_TEXTFIELD_TAG,@REGISTER_PASSWORD_TEXTFIELD_TAG,@REGISTER_CONFIRM_TEXTFIELD_TAG,@REGISTER_CODE_TEXTFIELD_TAG];
+    for (int i =0; i<[placeHolders count]; i++) {
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30)];
+        [textField setPlaceholder:placeHolders[i]];
+        [textField setTag:[tags[i] intValue]];
+        if (i==1||i==2) {
+            [textField setSecureTextEntry:YES];
+        }
+        [textField setBackgroundColor:[UIColor whiteColor]];
+        [self.view addSubview:textField];
+    }
+    
+    UIButton *findButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [findButton setFrame:CGRectMake(30, 234, 100, 30)];
+    [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
+    [findButton setTitle:@"修改" forState:UIControlStateNormal];
+    [self.view addSubview:findButton];
+    
+    UIButton *getCodeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [getCodeButton setFrame:CGRectMake(190, 234, 100, 30)];
+    [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
+    [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [self.view addSubview:getCodeButton];
+}
+
+- (void)findPassword
+{
+    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
+    UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:REGISTER_PASSWORD_TEXTFIELD_TAG];
+    UITextField *confirmTextField = (UITextField *)[self.view viewWithTag:REGISTER_CONFIRM_TEXTFIELD_TAG];
+    UITextField *codeTextField = (UITextField *)[self.view viewWithTag:REGISTER_CODE_TEXTFIELD_TAG];
+    if ([accountTextField.text length]==0) {
+        [self showAlertWithMessage:ERROR_MESSAGE_TWO];
+        return;
+    }
+    if ([passwordTextField.text length]==0) {
+        [self showAlertWithMessage:ERROR_MESSAGE_THREE];
+        return;
+    }
+    if ([confirmTextField.text length]==0) {
+        [self showAlertWithMessage:ERROR_MESSAGE_FOUR];
+        return;
+    }
+    if ([codeTextField.text length]==0) {
+        [self showAlertWithMessage:ERROR_MESSAGE_FIVE];
+        return;
+    }
+    if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
+        [self showAlertWithMessage:ERROR_MESSAGE_ONE];
+        return;
+    }
+    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
+        if (error) {
+            
+        }else {
+            if ([code isEqualToString:@"0000"]) {
+                [self showAlertWithMessage:@"密码修改成功"];
+                isLogin = NO;
+                [self reloadUI];
+            } else {
+                [self showAlertWithMessage:@"验证码不正确"];
+            }
+        }
+    }];
+}
+
+- (void)getFindPasswordCode
+{
+    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
+    if ([accountTextField.text length]==0) {
+        [self showAlertWithMessage:ERROR_MESSAGE_TWO];
+        return;
+    }
+    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
+        if (error) {
+            
+        } else {
+            if ([code isEqualToString:@"0000"]) {
+                [self showAlertWithMessage:@"获取验证码成功"];
+            } else {
+                [self showAlertWithMessage:@"验证码获取失败"];
+            }
+        }
+    }];
+}
+
+- (void)showChangePasswordView
+{
     for (UIView *view in [self.view subviews]) {
         [view removeFromSuperview];
     }
@@ -321,7 +447,8 @@
     [self.view addSubview:changeButton];
 }
 
-- (void)changeButtonClicked {
+- (void)changeButtonClicked
+{
     UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:REGISTER_PASSWORD_TEXTFIELD_TAG];
     UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:REGISTER_CONFIRM_TEXTFIELD_TAG];
     UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:REGISTER_CODE_TEXTFIELD_TAG];
@@ -357,7 +484,8 @@
    }];
 }
 
-- (void)registerButtonClicked {
+- (void)registerButtonClicked
+{
     UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
     UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:REGISTER_PASSWORD_TEXTFIELD_TAG];
     UITextField *confirmTextField = (UITextField *)[self.view viewWithTag:REGISTER_CONFIRM_TEXTFIELD_TAG];
@@ -409,7 +537,8 @@
     }];
 }
 
-- (void)getCode {
+- (void)getCode
+{
     UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
     if ([accountTextField.text length]>0) {
         [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(NSString *result, NSError *error) {
@@ -445,7 +574,8 @@
     }
 }
 
-- (void)showAlertWithMessage:(NSString *)message {
+- (void)showAlertWithMessage:(NSString *)message
+{
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message
                                                        message:nil
                                                       delegate:nil
@@ -454,24 +584,28 @@
     [alertView show];
 }
 
-- (void)logoutButtonClicked {
+- (void)logoutButtonClicked
+{
     isLogin = NO;
     //清除个人信息等...
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userid"];
     [self reloadUI];
 }
 
-- (void)backButtonClicked {
+- (void)backButtonClicked
+{
     isLogin = NO;
     [self reloadUI];
 }
 
-- (void)backToLoginView {
+- (void)backToLoginView
+{
     isLogin = YES;
     [self reloadUI];
 }
 
-- (void)loginButtonClicked {
+- (void)loginButtonClicked
+{
     UITextField *accountTextField = (UITextField *)[self.view viewWithTag:ACCOUNT_TEXTFIELD_TAG];
     UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
     
@@ -502,14 +636,16 @@
 }
 
 #pragma mark tableview
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
     if (section==0) {
         return @"会员中心";
     }
     return @"功能列表";
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section==0) {
         return 2;
     }

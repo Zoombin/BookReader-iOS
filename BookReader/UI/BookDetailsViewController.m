@@ -123,7 +123,7 @@
         [self.view addSubview:label];
     }
     //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
-    NSArray *buttonTitles = @[@"订阅",@"收藏",@"送钻石",@"送鲜花",@"打赏",@"投月票",@"投评价"];
+    NSArray *buttonTitles = @[@"阅读",@"收藏",@"送钻石",@"送鲜花",@"打赏",@"投月票",@"投评价"];
     for (int i=0; i<[buttonTitles count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         if (i>=2) {
