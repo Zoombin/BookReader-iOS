@@ -1,5 +1,5 @@
 //
-//  NonManagedBook.h
+//  Book.h
 //  BookReader
 //
 //  Created by 颜超 on 13-4-25.
