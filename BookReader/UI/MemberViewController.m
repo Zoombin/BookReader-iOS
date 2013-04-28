@@ -66,7 +66,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏", @"充值记录",nil];
+        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏",nil];
     }
     return self;
 }
@@ -552,10 +552,6 @@
             case 1:
                 [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
                 NSLog(@"我的收藏");
-                break;
-            case 2:
-                [self showPaymentListView];
-                NSLog(@"充值记录");
                 break;
             default:
                 break;

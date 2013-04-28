@@ -26,4 +26,5 @@ typedef enum {
     UIView *bottomViewTwo;
 }
 @property (nonatomic, weak) id<BookShelfBottomViewDelegate> delegate;
+- (void)setEditButtonHidden:(BOOL)hiden;
 @end

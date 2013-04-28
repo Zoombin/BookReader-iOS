@@ -75,15 +75,15 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self checkFirstLaunch];
+    [self checkLogin];
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     [self loadUserBookShelf];
     [self layoutBookViewWithArray:[self bookViews]];
 }
 
-- (void)checkFirstLaunch
+- (void)checkLogin
 {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"firstlaunch"]==nil) {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]==nil) {
         [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"firstlaunch"];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
@@ -250,6 +250,10 @@ andCurrentChapterArray:(NSArray *)chaptersArray
                     [self nextBookOrChapterWithChapter:chapter
                                       andChaptersArray:chaptersArray
                                           andBookIndex:bookIndex];
+                }else {
+                    [self nextBookOrChapterWithChapter:chapter
+                                      andChaptersArray:chaptersArray
+                                          andBookIndex:bookIndex];
                 }
             }
         }];
@@ -307,6 +311,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         [view removeFromSuperview];
     }
     [self addDefaultBackground];
+    [array count]==0 ? [bottomView setEditButtonHidden:YES] : [bottomView setEditButtonHidden:NO];
+    
     int line = 0, column = 0;
     for (int i = 0; i < [array count]; i++) {
         line = i/3;
@@ -315,7 +321,6 @@ andCurrentChapterArray:(NSArray *)chaptersArray
             imageView.image = [UIImage imageNamed:@"bookshelf"];
             [bookShelfView insertSubview:imageView atIndex:0];
         }
-        
         BookView *book = [array objectAtIndex:i];
         
         UIImageView *bookBackground = [[UIImageView alloc] init];
