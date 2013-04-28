@@ -422,7 +422,7 @@
                     [self updateContent];
                     [self hideHUD:YES];
                 } else {
-                    [self displayHUDError:nil message:result];
+                    [self displayHUDError:nil message:@"无法下载阅读"];
                 }
             }
         }];

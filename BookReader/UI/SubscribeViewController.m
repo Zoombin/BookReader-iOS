@@ -214,8 +214,11 @@
                         [obj persistWithBlock:nil];
                     }
                     [self pushToCoreTextWithChapterObj:obj];
+                    [self showAlertWithMessage:result];
+                } else {
+                    [self showAlertWithMessage:@"无法下载阅读"];
                 }
-                [self showAlertWithMessage:result];
+                
             }
         }];
     }
