@@ -8,16 +8,19 @@
 
 #import "GiftViewController.h"
 #import "UIDefines.h"
+#import "GiftCell.h"
 #import "ServiceManager.h"
 
 @implementation GiftViewController {
     NSString *title;
     NSString *currentIndex;
-    UITextField *numberTextField;
     Book *bookObj;
     NSNumber *userid;
     NSArray *integralArrays;
-    NSString *currentIntegral;
+    
+    NSMutableArray *oldKeyWordsArray;
+    NSMutableArray *newKeyWordsArray;
+    UITableView *infoTableView;
 }
 
 - (id)initWithIndex:(NSString *)index
@@ -27,11 +30,17 @@
     if (self) {
         // Custom initialization
         currentIndex = index;
-        currentIntegral = @"";
         bookObj = bookObject;
-        NSArray *array = @[@"钻石",@"鲜花",@"打赏",@"月票",@"评价票"];
+        NSLog(@"==>%@",currentIndex);
+        oldKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
+        newKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
+    
+        NSString *key = [oldKeyWordsArray objectAtIndex:[index intValue]];
+        [newKeyWordsArray removeObjectAtIndex:[index intValue]];
+        [newKeyWordsArray insertObject:key atIndex:0];
+    
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
-        title = array[[index integerValue]];
+        title = oldKeyWordsArray[[index integerValue]];
         userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
         //  1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         // 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
@@ -67,75 +76,24 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
-    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44)];
-    [hidenKeyboardButton addTarget:self action:@selector(hidenKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:hidenKeyboardButton];
-    
-    numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(80, 80, MAIN_SCREEN.size.width-80*2, 25)];
-    [numberTextField setText:@"0"];
-    [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
-    [numberTextField setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:numberTextField];
-    
-    UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(80, 130, MAIN_SCREEN.size.width-80*2, 25)];
-    [slider setMinimumValue:0];
-    [slider setMaximumValue:1000];
-    [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:slider];
-    
-    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [sendButton addTarget:self action:@selector(sendButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [sendButton setFrame:CGRectMake(120, 160, MAIN_SCREEN.size.width-120*2, 30)];
-    [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
-    [self.view addSubview:sendButton];
-    
-    if ([currentIndex isEqualToString:@"4"]) {
-        for (int i = 0; i< [integralArrays count]; i++) {
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [button setTag:i+100];
-            [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            if (i==0) {
-                [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-                currentIntegral = @"1";
-            }else {
-                [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            }
-            [button setFrame:CGRectMake(80, 200+25*i, MAIN_SCREEN.size.width-80*2, 25)];
-            [button setTitle:integralArrays[i] forState:UIControlStateNormal];
-            [self.view addSubview:button];
-        }
-    }
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-20) style:UITableViewStyleGrouped];
+    [infoTableView setDataSource:self];
+    [infoTableView setDelegate:self];
+    [self.view addSubview:infoTableView];
 }
 
-- (void)buttonClicked:(id)sender
-{
-    currentIntegral = [NSString stringWithFormat:@"%d",[sender tag]-99];
-    for (int i = 0; i < 5; i++) {
-        UIButton *button = (UIButton *)[self.view viewWithTag:i+100];
-        if (i+100==[sender tag])
-        {
-            [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        }
-        else
-        {
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-    }
-}
-
-- (void)sendButtonClicked
+- (void)sendButtonClick:(NSDictionary *)value
 {
     NSString *integral = @"";
-    if ([currentIndex isEqualToString:@"4"])
-    {
-        integral = currentIntegral;
+    NSString *count = [value objectForKey:@"count"];
+    NSString *index = [value objectForKey:@"index"];
+    if ([value objectForKey:@"integral"]) {
+        integral = [value objectForKey:@"integral"];
     }
-    NSString *index = [NSString stringWithFormat:@"%d",[currentIndex integerValue]+1];
     [ServiceManager giveGift:userid
                         type:index
                       author:bookObj.authorID
-                       count:numberTextField.text
+                       count:count
                     integral:integral
                      andBook:bookObj.uid
                    withBlock:^(NSString *result, NSError *error) {
@@ -148,21 +106,46 @@
                    }];
 }
 
-- (void)valueChanged:(id)sender
-{
-    UISlider *slider = sender;
-    int k = slider.value;
-    [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
-}
-
-- (void)hidenKeyboard
-{
-    [numberTextField resignFirstResponder];
-}
-
 - (void)backButtonClick
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark tableview
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"评价票"]) {
+        return 200;
+    }
+    return 50;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [newKeyWordsArray objectAtIndex:section];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *reuseIdentifier = @"Cell";
+    GiftCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil)
+    {
+        cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+        [cell setValue:[newKeyWordsArray objectAtIndex:[indexPath section]]];
+        [cell setDelegate:self];
+    }
+    return cell;
 }
 
 

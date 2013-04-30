@@ -177,7 +177,7 @@
 }
 
 + (void)findPassword:(NSString *)phoneNumber
-      verifyCode:(NSString *)verifyCode
+          verifyCode:(NSString *)verifyCode
       andNewPassword:(NSString *)newPassword
            withBlock:(void (^)(NSString *, NSString *, NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@", phoneNumber, verifyCode, [newPassword md516]];
