@@ -17,10 +17,6 @@
 #import <StoreKit/StoreKit.h>
 #import "IAPHandler.h"
 
-@protocol BookShelfViewControllerDelegate <NSObject>
-@required
-- (void)selectedABook:(UIViewController *)pushController;
-@end
 
 typedef enum {
     kBookShelfLayoutStyleShelfLike,
@@ -29,7 +25,6 @@ typedef enum {
 
 
 @interface BookShelfViewController : UIViewController<BookViewDelegate,BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
-@property (nonatomic, weak) id<BookShelfViewControllerDelegate> delegate;
 @property (nonatomic, assign) BookShelfLayoutStyle layoutStyle;
 - (void)refreshUserBooks;
 @end
