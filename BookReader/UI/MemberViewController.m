@@ -367,7 +367,7 @@
         if (error) {
             
         }else {
-            if ([code isEqualToString:@"0000"]) {
+            if ([code isEqualToString:SUCCESS_FLAG]) {
                 [self showAlertWithMessage:@"密码修改成功"];
                 isLogin = NO;
                 [self reloadUI];
@@ -389,7 +389,7 @@
         if (error) {
             
         } else {
-            if ([code isEqualToString:@"0000"]) {
+            if ([code isEqualToString:SUCCESS_FLAG]) {
                 [self showAlertWithMessage:@"获取验证码成功"];
             } else {
                 [self showAlertWithMessage:@"验证码获取失败"];
@@ -623,7 +623,7 @@
 
         }else {
             isLogin = YES;
-            if ([result isEqualToString:@"0000"]) {
+            if ([result isEqualToString:SUCCESS_FLAG]) {
                 _member = member;
                 [self reloadUI];
             }else if([result isEqualToString:@"0001"]) {

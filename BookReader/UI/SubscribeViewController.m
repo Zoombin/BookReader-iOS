@@ -169,7 +169,7 @@
             }
             else
             {
-                if (![code isEqualToString:@"0000"])
+                if (![code isEqualToString:SUCCESS_FLAG])
                 {
                     [self chapterSubscribeWithObj:obj];
                 }
@@ -205,7 +205,7 @@
             }
             else
             {
-                if ([code isEqualToString:@"0000"]) {
+                if ([code isEqualToString:SUCCESS_FLAG]) {
                     obj.bBuy = [NSNumber numberWithBool:YES];
                     obj.content = content;
                     if (!bOnline) {

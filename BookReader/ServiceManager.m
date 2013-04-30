@@ -433,7 +433,7 @@
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            if ([[theObject objectForKey:@"result"] isEqualToString:@"0000"]) {
+            if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
                block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil); 
             }else {
                 block(@"",[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
@@ -463,7 +463,7 @@
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            if ([[theObject objectForKey:@"result"] isEqualToString:@"0000"]) {
+            if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
                 block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
             }else {
                 block(@"",[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);

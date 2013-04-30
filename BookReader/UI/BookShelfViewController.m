@@ -194,7 +194,7 @@
         }
         else
         {
-            if (![code isEqualToString:@"0000"]) {
+            if (![code isEqualToString:SUCCESS_FLAG]) {
                 if ([book.autoBuy boolValue]) {
                     [self subscribeBook:obj
                            andBookIndex:bookIndex
@@ -243,7 +243,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
                                     andBookIndex:bookIndex];
             }
             else {
-                if ([result isEqualToString:@"0000"]) {
+                if ([result isEqualToString:SUCCESS_FLAG]) {
                     chapter.content = content;
                     [self nextBookOrChapterWithChapter:chapter
                                       andChaptersArray:chaptersArray
@@ -392,7 +392,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 					if (error) {
 					}
 					else {
-						if ([result isEqualToString:@"0000"]) {
+						if ([result isEqualToString:SUCCESS_FLAG]) {
 							[allArray removeObject:book];
 							[bookViewArray removeObject:bv];
 							[self layoutBookViewWithArray:[self bookViews]];

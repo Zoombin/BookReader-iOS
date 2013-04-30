@@ -14,6 +14,8 @@
 #import "Pay.h"
 #import "Book.h"
 
+#define SUCCESS_FLAG @"0000"
+
 @interface ServiceManager : AFHTTPClient
 
 +(ServiceManager *)shared;
