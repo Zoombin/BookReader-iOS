@@ -43,7 +43,7 @@
 }
 @synthesize delegate;
 @synthesize editing;
-@synthesize isSelected;
+@synthesize selected;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -126,7 +126,7 @@
     }
 }
 
-- (void)setIsSelected:(BOOL)isSelect
+- (void)setSelected:(BOOL)isSelect
 {
     selectedImageView.image = (isSelect) ? selectedImage : nil;
     if (isSelect)

@@ -467,11 +467,11 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     {
         if ([selectedArray containsObject:bookView])
         {
-            bookView.isSelected = NO;
+            bookView.selected = NO;
             [selectedArray removeObject:bookView];
         } else
         {
-            bookView.isSelected = YES;
+            bookView.selected = YES;
             [selectedArray addObject:bookView];
         }
     } else {
