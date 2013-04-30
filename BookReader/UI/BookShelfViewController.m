@@ -480,7 +480,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     }
 }
 
-- (void)switchOnorOff:(id)sender andBookName:(NSString *)name
+- (void)switchOnOrOff:(id)sender andBookName:(NSString *)name
 {
     if ([sender isOn]) {
         [self displayHUDError:nil message:[NSString stringWithFormat:@"%@自动更新开启",name]];

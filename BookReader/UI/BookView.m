@@ -99,7 +99,7 @@
         bookObject.autoBuy = [NSNumber numberWithBool:NO];
     }
     if (self.delegate!=nil) {
-        [self.delegate switchOnorOff:sender andBookName:bookObject.name];
+        [self.delegate switchOnOrOff:sender andBookName:bookObject.name];
     }
 }
 
