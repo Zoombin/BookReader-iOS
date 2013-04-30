@@ -9,15 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "Book.h"
 
+@class BookView;
 @protocol BookViewDelegate <NSObject>
-- (void)bookViewButtonClick:(id)sender;
+- (void)bookViewClicked:(BookView *)bookView;
 - (void)switchOnOrOff:(id)sender andBookName:(NSString *)name;
 @end
 
 @interface BookView : UIView
 @property (nonatomic, weak) id<BookViewDelegate> delegate;
+@property (nonatomic, strong) Book *book;
 @property (nonatomic, assign) BOOL editing;
 @property (nonatomic, assign) BOOL selected;
+
 - (void)setBook:(Book *)book;
 - (void)setBadgeValue:(NSInteger)badgeValue;
 @end

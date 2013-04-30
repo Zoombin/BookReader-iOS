@@ -49,10 +49,7 @@
     BOOL editing;
     BookShelfHeaderView *headerView;
     BookShelfBottomView *bottomView;
-    UITableView *infoTableView;
-    
-    BookShelfLayoutStyle layoutStyle;
-    
+	
     NSNumber *userid;
 }
 @synthesize layoutStyle;
@@ -60,6 +57,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	editing = NO;
     allArray = [[NSMutableArray alloc] init];
     bookViewArray = [[NSMutableArray alloc]init];
     if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
@@ -70,10 +68,16 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     [self checkLogin];
-    userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     [self loadUserBookShelf];
     [self layoutBookViewWithArray:[self bookViews]];
 
@@ -88,7 +92,8 @@
 
 - (void)checkLogin
 {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]==nil) {
+	//TODO: logical error
+    if (!userid) {
         [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"firstlaunch"];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
@@ -101,21 +106,18 @@
         NSLog(@"登录");
         [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
     }
-    
 }
 
 - (void)loadUserBookShelf
 {
-    if ([allArray count]==0&&userid!=nil)
-    {
+	//TODO: logical error, allArray.count > 0 means shouldn't refresh user's fav???
+    if ([allArray count] == 0 && userid != nil) {
         NSArray *array = [Book findAll];
-        if ([array count]>0)
-        {
+        if ([array count] > 0) {
             [allArray addObjectsFromArray:array];
-            [self layoutBookViewWithArray:[self bookViews]];
+            [self layoutBookViewWithArray:[self bookViews]];//TODO: error. WHAT should this method do? load data OR layout? WHY invoke layout everywhere? layout is layout, load is load
         }
-        else
-        {
+        else {
             [self refreshUserBooks];
         }
     }
@@ -123,7 +125,7 @@
 
 - (void)refreshUserBooks
 {
-    if (userid==nil) {
+    if (!userid) {
         return;
     }
     [self displayHUD:@"获取用户书架中..."];
@@ -131,25 +133,21 @@
         if (error) {
             [self hideHUD:YES];
         }else {
-            if ([allArray count]>0) {
-                [allArray removeAllObjects];
-            }
-            for (int i = 0; i<[result count]; i++) {
-                Book *obj = [result objectAtIndex:i];
+			[allArray removeAllObjects];
+            for (int i = 0; i < result.count; i++) {
+                Book *obj = result[i];
                 NSArray *bookArray = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@",obj.uid]];
-                if ([bookArray count]==0)
-                {
+                if (bookArray.count == 0) {
                     NSLog(@"%@",obj.name);
                     [obj persist];
                 }
-                else
-                {
-                    Book *tmpobj = [bookArray objectAtIndex:0];
+                else {
+                    Book *tmpobj = bookArray[0];
                     tmpobj.autoBuy = obj.autoBuy;
                     [tmpobj persist];
                 }
                 NSArray *chapterArray = [Chapter chaptersWithBookId:obj.uid];
-                if ([chapterArray count] > 0) {
+                if (chapterArray.count > 0) {
                     Chapter *chapter = [chapterArray lastObject];
                     [self loadChapterList:chapter.uid andBookId:obj.uid];
                 }
@@ -185,7 +183,7 @@
 - (void)downloadBooks:(Chapter *)obj andBookIndex:(NSInteger)bookIndex andCurrentChapterArray:(NSArray *)chaptersArray;
 {
     Book *book = [allArray objectAtIndex:bookIndex];
-    if (obj.content!=nil) {
+    if (obj.content) {
         [self nextBookOrChapterWithChapter:obj
                           andChaptersArray:chaptersArray
                               andBookIndex:bookIndex];
@@ -227,13 +225,13 @@
                     andChaptersArray:(NSArray *)chaptersArray
                         andBookIndex:(NSInteger)bookIndex
 {
-    if ([chapter.index integerValue]<[chaptersArray count]-1) {
-        [self downloadBooks:[chaptersArray objectAtIndex:[chapter.index integerValue]+1]
+    if ([chapter.index integerValue] < [chaptersArray count]-1) {
+        [self downloadBooks:[chaptersArray objectAtIndex:[chapter.index integerValue] + 1]
                andBookIndex:bookIndex
      andCurrentChapterArray:chaptersArray];
     }
     else {
-        [self chaptersArrayWithIndex:bookIndex+1];
+        [self chaptersArrayWithIndex:bookIndex + 1];
     }
 }
 
@@ -242,7 +240,7 @@
 andCurrentChapterArray:(NSArray *)chaptersArray
 {
     Book *book = [allArray objectAtIndex:bookIndex];
-    if ([chapter.bVip boolValue]==YES&&chapter.content==nil) {
+    if ([chapter.bVip boolValue] && chapter.content == nil) {
         [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
             if (error) {
               [self nextBookOrChapterWithChapter:chapter
@@ -268,12 +266,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 - (void)loadChapterList:(NSString *)cataId andBookId:(NSString *)bookid
 {
     [ServiceManager bookCatalogueList:bookid andNewestCataId:cataId withBlock:^(NSArray *result, NSError *error) {
-        if (error) {
-        }
-        else {
-            [Chapter persist:result withBlock:^{
-                
-            }];
+        if (!error) {
+			[Chapter persist:result withBlock:nil];
         }
     }];
 }
@@ -284,7 +278,6 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-20)];
     [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
     [self.view addSubview:backgroundImage];
-    editing = NO;
     
     headerView = [[BookShelfHeaderView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [headerView setDelegate:self];
@@ -298,8 +291,6 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     [bookShelfView setDelegate:self];
     [bookShelfView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:bookShelfView];
-    
-    [self layoutBookViewWithArray:[self bookViews]];
 }
 
 - (void)addDefaultBackground {
@@ -319,8 +310,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     [array count] == 0 ? [bottomView setEditButtonHidden:YES] : [bottomView setEditButtonHidden:NO];
     
     int line = 0, column = 0;
-    for (int i = 0; i < [array count]; i++) {
-        line = i/3;
+    for (int i = 0; i < array.count; i++) {
+        line = i / 3;
         if (line > 3) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, SCREEN_SCALE*line*SHELF_HEIGHT, MAIN_SCREEN.size.width, SHELF_HEIGHT*SCREEN_SCALE)];
             imageView.image = [UIImage imageNamed:@"bookshelf"];
@@ -331,14 +322,14 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         UIImageView *bookBackground = [[UIImageView alloc] init];
         [bookBackground setImage:[UIImage imageNamed:@"bookcase_readed_bg"]];
         CGRect backgroundframe = bookBackground.frame;
-        backgroundframe.size.width = 88*SCREEN_SCALE;
-        backgroundframe.size.height = 30*SCREEN_SCALE;
-        backgroundframe.origin.x = book.frame.origin.x-(88*SCREEN_SCALE-79*SCREEN_SCALE);
-        backgroundframe.origin.y = book.frame.origin.y + BOOK_HEIGHT*SCREEN_SCALE + PROGRESS_BOOK_OFFSET-18*SCREEN_SCALE;
+        backgroundframe.size.width = 88 * SCREEN_SCALE;
+        backgroundframe.size.height = 30 * SCREEN_SCALE;
+        backgroundframe.origin.x = book.frame.origin.x - (88 * SCREEN_SCALE - 79 * SCREEN_SCALE);
+        backgroundframe.origin.y = book.frame.origin.y + BOOK_HEIGHT * SCREEN_SCALE + PROGRESS_BOOK_OFFSET - 18 * SCREEN_SCALE;
         bookBackground.frame = backgroundframe;
         
         column++;
-        if (column%3 == 0) {
+        if (column % 3 == 0) {
             column = 0;
         }
         [bookShelfView addSubview:bookBackground];
@@ -354,12 +345,12 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     NSMutableArray *array = [[NSMutableArray alloc] init];
     int line = 0, column = 0;
     for (int i = 0; i < count; i++) {
-        line = i/3;
+        line = i / 3;
         CGRect buttonFrame = CGRectMake(BOOK_HORIZONTAL_SPACING*SCREEN_SCALE*(column+1)+column*BOOK_WIDTH*SCREEN_SCALE, BOOK_VERTICAL_SPACING*SCREEN_SCALE*line+ BOOK_TOP_SPACING+line*BOOK_HEIGHT*SCREEN_SCALE + line*7, BOOK_WIDTH*SCREEN_SCALE, BOOK_HEIGHT*SCREEN_SCALE+PROGRESS_BOOK_OFFSET*SCREEN_SCALE);
         NSString *frameString = NSStringFromCGRect(buttonFrame);
         [array addObject:frameString];
         column++;
-        if (column%3 == 0) {
+        if (column % 3 == 0) {
             column = 0;
         }
     }
@@ -367,18 +358,14 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 }
 
 - (NSMutableArray *)bookViews {
-    if ([bookViewArray count]>0) {
-        [bookViewArray removeAllObjects];
-    }
+	[bookViewArray removeAllObjects];
     NSArray *framesArray = [self createFrames:[allArray count]];
     for (int i = 0; i< [allArray count]; i++) {
-        BookView *bookView = [[BookView alloc]initWithFrame:CGRectFromString([framesArray objectAtIndex:i])];
-        Book *obj = [allArray objectAtIndex:i];
-        [bookView setBadgeValue:[[obj numberOfUnreadChapters] integerValue]];
-        [bookView setBook:[allArray objectAtIndex:i]];
+        BookView *bookView = [[BookView alloc] initWithFrame:CGRectFromString([framesArray objectAtIndex:i])];
+        Book *book = allArray[i];
+        [bookView setBadgeValue:[[book numberOfUnreadChapters] integerValue]];
+        [bookView setBook:book];
         [bookView setDelegate:self];
-        [bookView setTag:i];
-        bookView.editing = editing;
         bookViewArray[i] = bookView;
     }
     return bookViewArray;
@@ -387,20 +374,22 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 - (void)bottomButtonClicked:(NSNumber *)type {
     if (type.intValue == kBottomViewButtonEdit) {
         editing = YES;
-		[bookViewArray removeAllObjects];
+		for (BookView *bv in bookViewArray) {
+			bv.selected = NO;
+			bv.editing = YES;
+		}
         [self layoutBookViewWithArray:[self bookViews]];
     }
     else if (type.intValue == kBottomViewButtonDelete)
     {
 		for (BookView *bv in bookViewArray) {
 			if (bv.selected) {
-				Book *book = [allArray objectAtIndex:bv.tag];
-				[ServiceManager addFavourite:userid book:book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
+				[ServiceManager addFavourite:userid book:bv.book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
 					if (error) {
 					}
 					else {
 						if ([result isEqualToString:SUCCESS_FLAG]) {
-							[allArray removeObject:book];
+							[allArray removeObject:bv.book];
 							[bookViewArray removeObject:bv];
 							[self layoutBookViewWithArray:[self bookViews]];
 						}
@@ -411,6 +400,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     } else if (type.intValue == kBottomViewButtonFinishEditing) {
 		editing = NO;
         [self saveBookValue];//保存设置
+		for (BookView *bv in bookViewArray) {
+			bv.editing = NO;
+		}
         [self layoutBookViewWithArray:[self bookViews]];
     }
     else if (type.intValue == kBottomViewButtonRefresh) {
@@ -448,15 +440,14 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 
 #pragma mark -
 #pragma mark BookShelfView Delegate
-- (void)bookViewButtonClick:(id)sender
+- (void)bookViewClicked:(BookView *)bookView
 {
-    BookView *bookView = [bookViewArray objectAtIndex:[sender tag]];
-    if (editing)
-    {
+    if (editing) {
         bookView.selected = !bookView.selected;
     } else {
-        Book *book = [allArray objectAtIndex:bookView.tag];
-        [self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:book andOnline:NO] animated:YES];
+		if (bookView.book) {
+			[self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:bookView.book andOnline:NO] animated:YES];
+		}
     }
 }
 
@@ -483,7 +474,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     [self.view addSubview:titleLabel];
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_background.png"]];
-    infoTableView = [[UITableView alloc] initWithFrame:infoTableViewFrame style:UITableViewStylePlain];
+    UITableView *infoTableView = [[UITableView alloc] initWithFrame:infoTableViewFrame style:UITableViewStylePlain];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
     [infoTableView setBackgroundView:backgroundView];
@@ -491,44 +482,47 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     [self.view addSubview:infoTableView];
 }
 
-#pragma mark tableview
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [allArray count];
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [BookCell height];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
-    BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-	if (cell == nil) {
-        cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
-        Book *book = allArray[indexPath.row];
-        [cell setBook:book];
-    }
-	return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    Book *book = allArray[indexPath.row];
-    //    NSString *bookid = [bookIdArray objectAtIndex:[indexPath row]];
-    //    UIViewController *pushController;
-    //    //此处做判断,如果没有章节则直接进入阅读,并且当这书是免费的。
-    //    if ([[[BookManager sharedInstance] getchaptersByBookId:bookid]count] == 0) {
-    //        ReadViewController *controller = [[ReadViewController alloc] initWithBookUID:bookid andShouldMoveToNew:NO andMoveIndex:@"" andNewText:nil];
-    //        controller.isBuy = YES;
-    //        pushController = controller;
-    //        //[self.navigationController pushViewController:controller animated:YES];
-    //        //[controller release];
-    //        //return;
-    //    }
-    //    ChapterViewController *chapterViewController = [[ChapterViewController alloc] initBookWithUID:book.uid];
-    //    pushController = chapterViewController;
-    //    if (delegate) {
-    //        [delegate selectedABook:pushController];
-    //    }
-}
+#pragma mark -
+#pragma kBookShelfLayoutStyleTableList
+//#pragma mark tableview
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return [allArray count];
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return [BookCell height];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
+//    BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+//	if (cell == nil) {
+//        cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+//        Book *book = allArray[indexPath.row];
+//        [cell setBook:book];
+//    }
+//	return cell;
+//}
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    //    Book *book = allArray[indexPath.row];
+//    //    NSString *bookid = [bookIdArray objectAtIndex:[indexPath row]];
+//    //    UIViewController *pushController;
+//    //    //此处做判断,如果没有章节则直接进入阅读,并且当这书是免费的。
+//    //    if ([[[BookManager sharedInstance] getchaptersByBookId:bookid]count] == 0) {
+//    //        ReadViewController *controller = [[ReadViewController alloc] initWithBookUID:bookid andShouldMoveToNew:NO andMoveIndex:@"" andNewText:nil];
+//    //        controller.isBuy = YES;
+//    //        pushController = controller;
+//    //        //[self.navigationController pushViewController:controller animated:YES];
+//    //        //[controller release];
+//    //        //return;
+//    //    }
+//    //    ChapterViewController *chapterViewController = [[ChapterViewController alloc] initBookWithUID:book.uid];
+//    //    pushController = chapterViewController;
+//    //    if (delegate) {
+//    //        [delegate selectedABook:pushController];
+//    //    }
+//}
 
 @end

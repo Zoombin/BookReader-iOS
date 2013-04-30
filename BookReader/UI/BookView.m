@@ -33,7 +33,6 @@
 @implementation BookView
 {
     UIButton *backgroundButton;
-    Book *bookObject;
     CustomProgressView *customprogressView;
     UIImage *selectedImage;
     UIImage *badgeImage;
@@ -44,6 +43,7 @@
 @synthesize delegate;
 @synthesize editing;
 @synthesize selected;
+@synthesize book;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -81,7 +81,7 @@
 
 - (void)valueChanged:(id)sender {
     NSNumber *userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
-    [ServiceManager autoSubscribe:userid book:bookObject.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
+    [ServiceManager autoSubscribe:userid book:book.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
         if (error) {
             
         }
@@ -92,14 +92,14 @@
     }];
     if ([sender isOn])
     {
-        bookObject.autoBuy = [NSNumber numberWithBool:YES];
+        book.autoBuy = [NSNumber numberWithBool:YES];
     }
     else
     {
-        bookObject.autoBuy = [NSNumber numberWithBool:NO];
+        book.autoBuy = [NSNumber numberWithBool:NO];
     }
     if (self.delegate!=nil) {
-        [self.delegate switchOnOrOff:sender andBookName:bookObject.name];
+        [self.delegate switchOnOrOff:sender andBookName:book.name];
     }
 }
 
@@ -109,9 +109,9 @@
 }
 
 
-- (void)setEditing:(BOOL)isInEdit
+- (void)setEditing:(BOOL)editingOrNot
 {
-    editing = isInEdit;
+    editing = editingOrNot;
     if (editing)
     {
         [badgeView setHidden:YES];
@@ -141,31 +141,30 @@
 
 - (void)buttonClick:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(bookViewButtonClick:)]) {
-        [self.delegate bookViewButtonClick:sender];
+    if ([self.delegate respondsToSelector:@selector(bookViewClicked:)]) {
+        [self.delegate bookViewClicked:self];
     }
 }
 
-- (void)setBook:(Book *)book
+- (void)setBook:(Book *)aBook
 {
-    bookObject = book;
-    if (bookObject.cover) {
+	book = aBook;
+    if (book.cover) {
         [backgroundButton setBackgroundImage:[UIImage imageWithData:book.cover] forState:UIControlStateNormal];
     } else {
         [backgroundButton.imageView
-         setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:bookObject.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+         setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
              [self refreshCoverWithImage:image];
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                 
         }];
     }
-    if (bookObject.progress) {
-        [customprogressView setProgress:bookObject.progress.floatValue];
+    if (book.progress) {
+        [customprogressView setProgress:book.progress.floatValue];
     }
    
-    
-    if (bookObject.autoBuy) {
-        [switchView setOn:[bookObject.autoBuy boolValue]];
+    if (book.autoBuy) {
+        [switchView setOn:[book.autoBuy boolValue]];
     }
 }
 
@@ -177,7 +176,7 @@
 
 - (void)refreshCoverWithImage:(UIImage *)image
 {
-   bookObject.cover = UIImageJPEGRepresentation(image, 1.0);
+   book.cover = UIImageJPEGRepresentation(image, 1.0);
    [backgroundButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 
