@@ -42,7 +42,7 @@
     UISwitch *switchView;
 }
 @synthesize delegate;
-@synthesize isInEditing;
+@synthesize editing;
 @synthesize isSelected;
 
 - (id)initWithFrame:(CGRect)frame
@@ -109,10 +109,10 @@
 }
 
 
-- (void)setIsInEditing:(BOOL)isInEdit
+- (void)setEditing:(BOOL)isInEdit
 {
-    isInEditing = isInEdit;
-    if (isInEditing)
+    editing = isInEdit;
+    if (editing)
     {
         [badgeView setHidden:YES];
         [switchView setHidden:NO];

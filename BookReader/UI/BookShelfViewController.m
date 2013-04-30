@@ -373,7 +373,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         [bookView setBook:[allArray objectAtIndex:i]];
         [bookView setDelegate:self];
         [bookView setTag:i];
-        bookView.isInEditing = editing;
+        bookView.editing = editing;
         bookViewArray[i] = bookView;
     }
     return bookViewArray;

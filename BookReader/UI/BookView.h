@@ -16,7 +16,7 @@
 
 @interface BookView : UIView
 @property (nonatomic, weak) id<BookViewDelegate> delegate;
-@property (nonatomic, assign) BOOL isInEditing;
+@property (nonatomic, assign) BOOL editing;
 @property (nonatomic, assign) BOOL isSelected;
 - (void)setBook:(Book *)book;
 - (void)setBadgeValue:(NSInteger)badgeValue;
