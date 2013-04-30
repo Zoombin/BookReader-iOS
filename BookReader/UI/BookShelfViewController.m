@@ -43,7 +43,6 @@
 
 @implementation BookShelfViewController {
     //Remote
-    NSMutableArray *selectedArray; //选中的书籍
     NSMutableArray *allArray;      //所有的书籍
     NSMutableArray *bookViewArray;
     UIScrollView *bookShelfView;
@@ -65,7 +64,6 @@
     allArray = [[NSMutableArray alloc] init];
     bookViewArray = [[NSMutableArray alloc]init];
     if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
-        selectedArray = [[NSMutableArray alloc] init];
         [self loadRemoteView];
     }
     else if (layoutStyle == kBookShelfLayoutStyleTableList) {
@@ -311,7 +309,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         [view removeFromSuperview];
     }
     [self addDefaultBackground];
-    [array count]==0 ? [bottomView setEditButtonHidden:YES] : [bottomView setEditButtonHidden:NO];
+    [array count] == 0 ? [bottomView setEditButtonHidden:YES] : [bottomView setEditButtonHidden:NO];
     
     int line = 0, column = 0;
     for (int i = 0; i < [array count]; i++) {
@@ -382,56 +380,39 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 - (void)bottomButtonClicked:(NSNumber *)type {
     if (type.intValue == kBottomViewButtonEdit) {
         editing = YES;
-        if ([selectedArray count]>0) {
-            [selectedArray removeAllObjects];
-        }
+		[bookViewArray removeAllObjects];
         [self layoutBookViewWithArray:[self bookViews]];
     }
     else if (type.intValue == kBottomViewButtonDelete)
     {
-        for (int i = 0; i<[selectedArray count]; i++)
-        {
-            BookView *bookView = [selectedArray objectAtIndex:i];
-            Book *book = [allArray objectAtIndex:bookView.tag];
-            [ServiceManager addFavourite:userid book:book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
-                if (error)
-                {
-                    
-                }
-                else
-                {
-                    if ([result isEqualToString:@"0000"]) {
-                        [allArray removeObject:book];
-                        [bookViewArray removeObject:bookView];
-                        [self layoutBookViewWithArray:[self bookViews]];
-                    }
-                }
-            }];
-        }
-        [selectedArray removeAllObjects];
-    } else if (type.intValue == kBottomViewButtonFinishEditing)
-    {
-        if (editing)
-        {
-            editing = NO;
-        }
-        if ([selectedArray count]>0)
-        {
-            [selectedArray removeAllObjects];
-        }
+		for (BookView *bv in bookViewArray) {
+			if (bv.selected) {
+				Book *book = [allArray objectAtIndex:bv.tag];
+				[ServiceManager addFavourite:userid book:book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
+					if (error) {
+					}
+					else {
+						if ([result isEqualToString:@"0000"]) {
+							[allArray removeObject:book];
+							[bookViewArray removeObject:bv];
+							[self layoutBookViewWithArray:[self bookViews]];
+						}
+					}
+				}];
+			}
+		}
+    } else if (type.intValue == kBottomViewButtonFinishEditing) {
+		editing = NO;
         [self saveBookValue];//保存设置
         [self layoutBookViewWithArray:[self bookViews]];
     }
-    else if (type.intValue == kBottomViewButtonRefresh)
-    {
+    else if (type.intValue == kBottomViewButtonRefresh) {
         [self refreshUserBooksAndDownload];
     }
-    else if (type.intValue == kBottomViewButtonShelf)
-    {
+    else if (type.intValue == kBottomViewButtonShelf) {
         
     }
-    else if (type.intValue == kBottomViewButtonBookHistoroy)
-    {
+    else if (type.intValue == kBottomViewButtonBookHistoroy) {
         
     }
 }
@@ -465,15 +446,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     BookView *bookView = [bookViewArray objectAtIndex:[sender tag]];
     if (editing)
     {
-        if ([selectedArray containsObject:bookView])
-        {
-            bookView.selected = NO;
-            [selectedArray removeObject:bookView];
-        } else
-        {
-            bookView.selected = YES;
-            [selectedArray addObject:bookView];
-        }
+        bookView.selected = !bookView.selected;
     } else {
         Book *book = [allArray objectAtIndex:bookView.tag];
         [self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:book andOnline:NO] animated:YES];
