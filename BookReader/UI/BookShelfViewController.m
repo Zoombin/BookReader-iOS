@@ -46,7 +46,6 @@
     NSMutableArray *allArray;      //所有的书籍
     NSMutableArray *bookViewArray;
     UIScrollView *bookShelfView;
-    BOOL editing;
     BookShelfHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	
@@ -57,7 +56,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	editing = NO;
     allArray = [[NSMutableArray alloc] init];
     bookViewArray = [[NSMutableArray alloc]init];
     if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
@@ -373,7 +371,6 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 
 - (void)bottomButtonClicked:(NSNumber *)type {
     if (type.intValue == kBottomViewButtonEdit) {
-        editing = YES;
 		for (BookView *bv in bookViewArray) {
 			bv.selected = NO;
 			bv.editing = YES;
@@ -398,7 +395,6 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 			}
 		}
     } else if (type.intValue == kBottomViewButtonFinishEditing) {
-		editing = NO;
         [self saveBookValue];//保存设置
 		for (BookView *bv in bookViewArray) {
 			bv.editing = NO;
@@ -442,9 +438,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 #pragma mark BookShelfView Delegate
 - (void)bookViewClicked:(BookView *)bookView
 {
-    if (editing) {
-        bookView.selected = !bookView.selected;
-    } else {
+	if (bookView.editing) {
+		bookView.selected = !bookView.selected;
+	} else {
 		if (bookView.book) {
 			[self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:bookView.book andOnline:NO] animated:YES];
 		}
