@@ -25,6 +25,6 @@ typedef enum {
 
 
 @interface BookShelfViewController : UIViewController<BookViewDelegate,BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+
 @property (nonatomic, assign) BookShelfLayoutStyle layoutStyle;
-- (void)refreshUserBooks;
 @end

@@ -10,6 +10,9 @@
 
 #define SCREEN_SCALE ( (MAIN_SCREEN).size.width == 768 ? 2.4 : 1 )
 
+#define kNeedRefreshBookShelf @"need_refresh_bookshelf"
+
+
 #define txtColor [UIColor colorWithRed:91.0/255.0 green:33.0/255.0 blue:0.0/255.0 alpha:1.0]  //UI的字体颜色
 
 #define headerImageViewFrame    CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)
@@ -21,4 +24,8 @@
 //---infoTableView---
 #define textViewFrame               CGRectMake(20, 2, MAIN_SCREEN.size.width-40, 78)
 #define backgroundImageViewFrame    CGRectMake(15, 0, textView.frame.size.width+10, textView.frame.size.height+10)
+
+
+
+
 

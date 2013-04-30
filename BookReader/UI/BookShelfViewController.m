@@ -55,7 +55,6 @@
     
     NSNumber *userid;
 }
-@synthesize delegate;
 @synthesize layoutStyle;
 
 - (void)viewDidLoad
@@ -77,6 +76,14 @@
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
     [self loadUserBookShelf];
     [self layoutBookViewWithArray:[self bookViews]];
+
+	NSNumber *needRefreshBookShelf = [[NSUserDefaults standardUserDefaults] valueForKey:kNeedRefreshBookShelf];
+	if (needRefreshBookShelf) {
+		if (needRefreshBookShelf.boolValue) {
+			[self refreshUserBooks];
+			[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:kNeedRefreshBookShelf];
+		}
+	}
 }
 
 - (void)checkLogin

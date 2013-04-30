@@ -343,8 +343,7 @@
             if (!error)
             {
                 [self showAlertWithMessage:resultMessage];
-                BookShelfViewController *viewController = (BookShelfViewController *)[APP_DELEGATE viewControllerByType:kRootControllerTypeBookShelf];
-                [viewController refreshUserBooks];
+				[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kNeedRefreshBookShelf];
             }
         }];
     }
