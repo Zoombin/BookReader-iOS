@@ -1,3 +1,12 @@
-[submodule "PSTCollectionView"]
-	path = PSTCollectionView
-	url = https://qq30135878@github.com/qq30135878/PSTCollectionView.git
+[submodule "Libraries/PSTCollectionView"]
+	path = Libraries/PSTCollectionView
+	url = git://github.com/qq30135878/PSTCollectionView.git
+[submodule "Libraries/MagicalRecord"]
+	path = Libraries/MagicalRecord
+	url = git://github.com/qq30135878/MagicalRecord.git
+[submodule "Libraries/AFNetworking"]
+	path = Libraries/AFNetworking
+	url = git://github.com/qq30135878/AFNetworking.git
+[submodule "Libraries/MBProgressHUD"]
+	path = Libraries/MBProgressHUD
+	url = git://github.com/qq30135878/MBProgressHUD.git
