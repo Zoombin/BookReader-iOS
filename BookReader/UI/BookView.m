@@ -128,6 +128,7 @@
 
 - (void)setSelected:(BOOL)isSelect
 {
+    selected = isSelect;
     selectedImageView.image = (isSelect) ? selectedImage : nil;
     if (isSelect)
     {

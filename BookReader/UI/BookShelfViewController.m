@@ -361,6 +361,8 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     for (int i = 0; i< [allArray count]; i++) {
         BookView *bookView = [[BookView alloc] initWithFrame:CGRectFromString([framesArray objectAtIndex:i])];
         Book *book = allArray[i];
+        bookView.selected = NO;
+        bookView.editing = NO;
         [bookView setBadgeValue:[[book numberOfUnreadChapters] integerValue]];
         [bookView setBook:book];
         [bookView setDelegate:self];
@@ -375,7 +377,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 			bv.selected = NO;
 			bv.editing = YES;
 		}
-        [self layoutBookViewWithArray:[self bookViews]];
+        [self layoutBookViewWithArray:bookViewArray];
     }
     else if (type.intValue == kBottomViewButtonDelete)
     {
@@ -388,7 +390,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 						if ([result isEqualToString:SUCCESS_FLAG]) {
 							[allArray removeObject:bv.book];
 							[bookViewArray removeObject:bv];
-							[self layoutBookViewWithArray:[self bookViews]];
+							[self layoutBookViewWithArray:bookViewArray];
 						}
 					}
 				}];
@@ -397,9 +399,10 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     } else if (type.intValue == kBottomViewButtonFinishEditing) {
         [self saveBookValue];//保存设置
 		for (BookView *bv in bookViewArray) {
+            bv.selected = NO;
 			bv.editing = NO;
 		}
-        [self layoutBookViewWithArray:[self bookViews]];
+        [self layoutBookViewWithArray:bookViewArray];
     }
     else if (type.intValue == kBottomViewButtonRefresh) {
         [self refreshUserBooksAndDownload];
@@ -439,7 +442,11 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 - (void)bookViewClicked:(BookView *)bookView
 {
 	if (bookView.editing) {
-		bookView.selected = !bookView.selected;
+        if (bookView.selected) {
+            bookView.selected = NO;
+        } else {
+            bookView.selected = YES;
+        }
 	} else {
 		if (bookView.book) {
 			[self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:bookView.book andOnline:NO] animated:YES];
