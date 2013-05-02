@@ -20,6 +20,7 @@
 
 @implementation BookShelfHeaderView
 @synthesize delegate;
+@synthesize titleLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,7 +31,7 @@
         [self addSubview:backgroundImage];
         [self addButtons];
         
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:frame];
+         self.titleLabel = [[UILabel alloc]initWithFrame:frame];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel setText:@"我的收藏"];
         [titleLabel setTextColor:[UIColor whiteColor]];

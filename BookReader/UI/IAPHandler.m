@@ -27,10 +27,10 @@ static IAPHandler *DefaultHandle_ = nil;
 - (id)init
 {
     if (self = [super init]) {
-        [[ECPurchase shared] addTransactionObserver];
-        [[ECPurchase shared] setProductDelegate:self];
-        [[ECPurchase shared] setTransactionDelegate:self];
-        [[ECPurchase shared] setVerifyRecepitMode:ECVerifyRecepitModeiPhone];
+//        [[ECPurchase shared] addTransactionObserver];
+//        [[ECPurchase shared] setProductDelegate:self];
+//        [[ECPurchase shared] setTransactionDelegate:self];
+//        [[ECPurchase shared] setVerifyRecepitMode:ECVerifyRecepitModeiPhone];
     }
     return self;
 }

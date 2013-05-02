@@ -13,9 +13,10 @@
 #define IAPDidCompleteTransactionAndVerifySucceed   @"IAPDidCompleteTransactionAndVerifySucceed"
 #define IAPDidCompleteTransactionAndVerifyFailed    @"IAPDidCompleteTransactionAndVerifyFailed"
 #import <Foundation/Foundation.h>
-#import "ECPurchase.h"
+//#import "ECPurchase.h"
 
-@interface IAPHandler : NSObject<ECPurchaseTransactionDelegate, ECPurchaseProductDelegate>
+@interface IAPHandler : NSObject
+//@interface IAPHandler : NSObject<ECPurchaseTransactionDelegate, ECPurchaseProductDelegate>
 
 + (void)initECPurchaseWithHandler;
 @end

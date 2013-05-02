@@ -25,6 +25,7 @@ typedef enum {
     UIView *headerViewTwo;
 }
 @property (nonatomic, weak) id<BookShelfHeaderViewDelegate> delegate;
+@property (nonatomic, strong) UILabel *titleLabel;
 @end
 
 

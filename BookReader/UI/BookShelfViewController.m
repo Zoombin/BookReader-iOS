@@ -408,10 +408,10 @@ andCurrentChapterArray:(NSArray *)chaptersArray
         [self refreshUserBooksAndDownload];
     }
     else if (type.intValue == kBottomViewButtonShelf) {
-        
+        headerView.titleLabel.text = @"我的收藏";
     }
     else if (type.intValue == kBottomViewButtonBookHistoroy) {
-        
+        headerView.titleLabel.text = @"阅读历史";
     }
 }
 

@@ -12,7 +12,7 @@
 #import "HandleGBString.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
-#import "ECPurchase.h"
+//#import "ECPurchase.h"
 #import "IAPHandler.h"
 #import "Constants.h"
 
@@ -140,7 +140,7 @@
     if ([[PurchaseManager sharedInstance]checkFreeOrNot] == NO) {
         if (indexPath.row>=19&&[bought isEqualToString:@"0"]&&[productId length]>0) {
             [bookMarkTableView setUserInteractionEnabled:NO];
-            [[ECPurchase shared]addPayment:productId];
+//            [[ECPurchase shared]addPayment:productId];
             return;
         }
     }
