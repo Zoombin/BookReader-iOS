@@ -145,12 +145,15 @@
 
 - (void)nextPage
 {
+    if (!menuView.hidden) {
+        menuView.hidden = YES;
+        return;
+    }
     currentPage++;
     if(currentPage >= [pagesArray count])
     {
         currentPage = [pagesArray count] - 1;
         [self nextChapter];
-//        [self displayHUDError:@"" message:NSLocalizedString(@"finel page", nil)];
         NSLog(@"no more next!");
         return;
     }
@@ -190,12 +193,15 @@
 
 - (void)previousPage
 {
+    if (!menuView.hidden) {
+        menuView.hidden = YES;
+        return;
+    }
     currentPage--;
     if(currentPage < 0)
     {
         currentPage = 0;
         [self previousChapter];
-//        [self displayHUDError:@"" message:NSLocalizedString(@"first page", nil)];
         NSLog(@"no more previous!");
         return;
     }
