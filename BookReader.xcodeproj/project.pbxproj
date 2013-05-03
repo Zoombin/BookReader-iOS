@@ -202,7 +202,6 @@
 		8B00EBD21664C4D9005EED81 /* setting_cellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B00EBD11664C4D9005EED81 /* setting_cellbackground.png */; };
 		8B03719216ACE80100DFE776 /* downloadbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B03719116ACE80100DFE776 /* downloadbutton.png */; };
 		8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0371C116AD219100DFE776 /* CFNetwork.framework */; };
-		8B0371C516AD21E500DFE776 /* IAPHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0371C416AD21E500DFE776 /* IAPHandler.m */; settings = {COMPILER_FLAGS = ""; }; };
 		8B22BC55167EBBA900A2B316 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B22BC54167EBBA900A2B316 /* libz.dylib */; };
 		8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C3AB016B2814F00C8468D /* PurchaseManager.m */; settings = {COMPILER_FLAGS = ""; }; };
 		8B453D0F16B8C90A00FD6FE0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936816B7A1C2001BEE70 /* Default.png */; };
@@ -637,8 +636,6 @@
 		8B00EBD11664C4D9005EED81 /* setting_cellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_cellbackground.png; sourceTree = "<group>"; };
 		8B03719116ACE80100DFE776 /* downloadbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloadbutton.png; sourceTree = "<group>"; };
 		8B0371C116AD219100DFE776 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		8B0371C316AD21E400DFE776 /* IAPHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHandler.h; sourceTree = "<group>"; };
-		8B0371C416AD21E500DFE776 /* IAPHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHandler.m; sourceTree = "<group>"; };
 		8B22BC54167EBBA900A2B316 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8B3C3AAF16B2814F00C8468D /* PurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseManager.h; sourceTree = "<group>"; };
 		8B3C3AB016B2814F00C8468D /* PurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseManager.m; sourceTree = "<group>"; };
@@ -1577,8 +1574,6 @@
 		8BF84D5F165F738900D46D9B /* LocalMode */ = {
 			isa = PBXGroup;
 			children = (
-				8B0371C316AD21E400DFE776 /* IAPHandler.h */,
-				8B0371C416AD21E500DFE776 /* IAPHandler.m */,
 				8BEA22C3166320FC00AB4DDF /* HouseBookListViewController.h */,
 				8BEA22C4166320FC00AB4DDF /* HouseBookListViewController.m */,
 				8BDB0B09165E04F1008F328A /* HouseAppListViewController.h */,
@@ -1805,7 +1800,6 @@
 				8BF84D5E165F72C800D46D9B /* BookManager.m in Sources */,
 				8BEA22C5166320FD00AB4DDF /* HouseBookListViewController.m in Sources */,
 				8B659F251687EAB200D5126C /* ChapterViewController.m in Sources */,
-				8B0371C516AD21E500DFE776 /* IAPHandler.m in Sources */,
 				8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */,
 				188FE63516F99F73009561CB /* CustomProgressView.m in Sources */,
 				1888A38116FC689C0046DA4C /* BookShelfHeaderView.m in Sources */,

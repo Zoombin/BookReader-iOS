@@ -11,7 +11,7 @@
 #import "ServiceManager.h"
 #import "BookShelfButton.h"
 #import "UIViewController+HUD.h"
-#import "UITextField+category.h"
+#import "UITextField+BookReader.h"
 #import "SignOutViewController.h"
 #import "PasswordViewController.h"
 #import "AppDelegate.h"

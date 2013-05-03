@@ -10,7 +10,7 @@
 #import "UIDefines.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "UITextField+category.h"
+#import "UITextField+BookReader.h"
 
 
 #define ACCOUNT_TEXTFIELD_TAG          100

@@ -14,7 +14,6 @@
 #import "BookManager.h"
 //#import "ECPurchase.h"
 #import "PurchaseManager.h"
-#import "IAPHandler.h"
 #import "Constants.h"
 #import "UIViewController+HUD.h"
 
@@ -40,7 +39,6 @@
 - (id)initWithBookUID:(NSString *)uid andShouldMoveToNew:(BOOL)shouldMove andMoveIndex:(NSString *)index andNewText:(NSString *)ntext{
     self = [super init];
     if(self) {
-        [IAPHandler initECPurchaseWithHandler];
         chapterIndexArray = [[NSMutableArray alloc] init];
         currentBookId = uid;
         shouldReload = shouldMove;

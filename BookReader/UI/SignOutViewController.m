@@ -8,7 +8,7 @@
 
 #import "SignOutViewController.h"
 #import "UIDefines.h"
-#import "UITextField+category.h"
+#import "UITextField+BookReader.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 

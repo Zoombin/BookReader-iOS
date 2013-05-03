@@ -15,7 +15,6 @@
 //Local
 #import "UIDefines.h"
 #import <StoreKit/StoreKit.h>
-#import "IAPHandler.h"
 
 
 typedef enum {

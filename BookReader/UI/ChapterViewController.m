@@ -13,7 +13,6 @@
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
 //#import "ECPurchase.h"
-#import "IAPHandler.h"
 #import "Constants.h"
 
 #define TOP_BAR_IMAGE [UIImage imageNamed:@"read_top_bar.png"]
@@ -56,7 +55,6 @@
     [super viewDidAppear:animated];
     if (bFirstAppeared) { //如果是第一次进入章节界面,则加载数据
         [self registIapObservers];
-        [IAPHandler initECPurchaseWithHandler];
         bought = [[[BookManager sharedInstance]getBookInfoById:bookid] objectForKey:BOUGHT_FLAG];
         
         NSDictionary *tempDict = [[BookManager sharedInstance]getBookInfoById:bookid];
@@ -184,33 +182,33 @@
 // 这里可以根据业务需求和收据认证模式有选择的注册需要
 - (void)registIapObservers
 {
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(receivedProducts:)
-                                                name:IAPDidReceivedProducts
-                                              object:nil];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(failedTransaction:)
-                                                name:IAPDidFailedTransaction
-                                              object:nil];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(restoreTransaction:)
-                                                name:IAPDidRestoreTransaction
-                                              object:nil];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(completeTransaction:)
-                                                name:IAPDidCompleteTransaction object:nil];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTransactionAndVerifySucceed:)
-                                                name:IAPDidCompleteTransactionAndVerifySucceed
-                                              object:nil];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(completeTransactionAndVerifyFailed:)
-                                                name:IAPDidCompleteTransactionAndVerifyFailed
-                                              object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self
+//                                            selector:@selector(receivedProducts:)
+//                                                name:IAPDidReceivedProducts
+//                                              object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter]addObserver:self
+//                                            selector:@selector(failedTransaction:)
+//                                                name:IAPDidFailedTransaction
+//                                              object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter]addObserver:self
+//                                            selector:@selector(restoreTransaction:)
+//                                                name:IAPDidRestoreTransaction
+//                                              object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter]addObserver:self
+//                                            selector:@selector(completeTransaction:)
+//                                                name:IAPDidCompleteTransaction object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTransactionAndVerifySucceed:)
+//                                                name:IAPDidCompleteTransactionAndVerifySucceed
+//                                              object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter]addObserver:self
+//                                            selector:@selector(completeTransactionAndVerifyFailed:)
+//                                                name:IAPDidCompleteTransactionAndVerifyFailed
+//                                              object:nil];
 }
 
 -(void)showAlertWithMsg:(NSString*)message
