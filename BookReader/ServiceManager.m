@@ -629,9 +629,9 @@
     }];
 }
 
-+ (void)existsFavourite:(NSString *)userid
-           book:(NSString *)bookid
-           withBlock:(void (^)(NSString *, NSError *))block {
++ (void)existsFavourite:(NSNumber *)userid
+                   book:(NSString *)bookid
+              withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"keep.isexists";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"userid"] = userid;
@@ -640,7 +640,7 @@
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([NSString stringWithFormat:@"%@",theObject], nil);
+            block([theObject objectForKey:@"value"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showAlertWithMessage:NETWORKERROR];
