@@ -12,7 +12,6 @@
 #import "ReadMenuBookMarkViewController.h"
 #import "ReadMoreViewController.h"
 #import "BookManager.h"
-//#import "ECPurchase.h"
 #import "PurchaseManager.h"
 #import "Constants.h"
 #import "UIViewController+HUD.h"
@@ -319,7 +318,6 @@
         [self.view setUserInteractionEnabled:NO];
         NSInteger bookindex = [[BookManager sharedInstance] getIndex:currentBookId];
         NSString *productId = [NSString stringWithFormat:@"%@",[[PurchaseManager sharedInstance]getProductIdByIndex:bookindex]];
-//        [[ECPurchase shared]addPayment:productId];
         return;
     }
     currentPage++;
