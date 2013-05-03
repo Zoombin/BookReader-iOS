@@ -1,5 +1,5 @@
 //
-//  NonManagedChapter.m
+//  Chapter.m
 //  BookReader
 //
 //  Created by 颜超 on 13-4-25.
