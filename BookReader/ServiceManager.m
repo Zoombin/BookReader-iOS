@@ -76,6 +76,7 @@
     parameters[@"username"] = phoneNumber;
     [[ServiceManager shared] postPath:@"PostVerifyCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         if (block) {
             block([theObject objectForKey:@"result"],nil);
         }
@@ -90,7 +91,7 @@
 + (void)registerByPhoneNumber:(NSString *)phoneNumber
                    verifyCode:(NSString *)verifyCode
                   andPassword:(NSString *)password
-                    withBlock:(void (^)(NSString *, NSError *))block
+                    withBlock:(void (^)(NSString *, NSString *,NSError *))block
 {
     NSString *signString = [NSString stringWithFormat:@"%@%@", phoneNumber, verifyCode];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
@@ -99,38 +100,40 @@
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         if (block) {
-            block([theObject objectForKey:@"result"], nil);
+            block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
-            block(@"", error);
+            block(@"",@"", error);
         }
     }];
 }
 
 + (void)loginByPhoneNumber:(NSString *)phoneNumber
                andPassword:(NSString *)password
-                 withBlock:(void (^)(Member *,NSString *,NSError *))block {
+                 withBlock:(void (^)(Member *,NSString *,NSString *,NSError *))block {
     NSString *signString = [[NSString stringWithFormat:@"%@%@", phoneNumber, [password md516]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"username"] = phoneNumber;
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
             [[NSUserDefaults standardUserDefaults] setValue:member.uid forKey:@"userid"];
         }
         if (block) {
-            block(member, [theObject objectForKey:@"result"], nil);
+            block(member, [theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
-            block(nil,nil, error);
+            block(nil,nil,nil,error);
         }
     }];
 }
@@ -138,7 +141,7 @@
 + (void)changePassword:(NSNumber *)userid
         oldPassword:(NSString *)oldPassword
         andNewPassword:(NSString *)newPassword
-             withBlock:(void (^)(NSString *, NSError *))block {
+             withBlock:(void (^)(NSString *, NSString *,NSError *))block {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@", userid, [oldPassword md516],[newPassword md516]];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"userid"] = userid;
@@ -146,13 +149,14 @@
     parameters[@"newpwd"] = [newPassword md516];
     [[ServiceManager shared] postPath:@"ChangePassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         if (block) {
-            block([theObject objectForKey:@"result"], nil);
+            block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showAlertWithMessage:NETWORKERROR];
         if (block) {
-            block(@"", error);
+            block(@"", @"", error);
         }
     }];
 }

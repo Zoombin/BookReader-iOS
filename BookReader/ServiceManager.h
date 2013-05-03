@@ -29,16 +29,16 @@
 + (void)registerByPhoneNumber:(NSString *)phoneNumber     //用户手机号
                    verifyCode:(NSString *)verifyCode
                   andPassword:(NSString *)password
-                    withBlock:(void (^)(NSString *, NSError *))block;  //sign:md5(username+key)
+                    withBlock:(void (^)(NSString *, NSString *,NSError *))block;  //sign:md5(username+key)
 //用户登录
 + (void)loginByPhoneNumber:(NSString *)phoneNumber //用户手机号
                andPassword:(NSString *)password
-                 withBlock:(void (^)(Member *,NSString *,NSError *))block;
+                 withBlock:(void (^)(Member *,NSString *,NSString *,NSError *))block;
 //用户密码修改
 + (void)changePassword:(NSNumber *)userid
         oldPassword:(NSString *)oldPassword
         andNewPassword:(NSString *)newPassword
-             withBlock:(void (^)(NSString *,NSError *))block;
+             withBlock:(void (^)(NSString *,NSString *,NSError *))block;
 
 //发送短信收取改回密码验证码
 + (void)postFindPasswordCode:(NSString *)phoneNumber

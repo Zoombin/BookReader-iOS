@@ -11,6 +11,7 @@
 #import "BookShelfViewController.h"
 #import "BookStoreViewController.h"
 #import "MemberViewController.h"
+#import "SignInViewController.h"
 #import "HouseAppListViewController.h"
 #import "AboutViewController.h"
 #import "HouseBookListViewController.h"
@@ -45,6 +46,9 @@
     
     MemberViewController *memberViewController = [[MemberViewController alloc] init];
     rootControllers[@(kRootControllerTypeMember)] = memberViewController;
+    
+    SignInViewController *signinViewController = [[SignInViewController alloc] init];
+    rootControllers[@(kRootControllerTypeLogin)] = signinViewController;
 #else
     //[[BookManager sharedInstance] createTxtInfo];//扫描作者信息和书名到Documents下面，用于iTunes Connect
     

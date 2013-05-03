@@ -10,5 +10,4 @@
 #import "Member.h"
 
 @interface MemberViewController: UIViewController<UITableViewDataSource,UITableViewDelegate>
-- (void)hidenAllKeyboard;
 @end

@@ -29,9 +29,13 @@
 		18089E4B171CFA7C00BCB50E /* Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4A171CFA7A00BCB50E /* Commit.m */; };
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
 		18089E51171E8ACD00BCB50E /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E50171E8ACC00BCB50E /* SubscribeViewController.m */; };
+		181091D517339104000931AB /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D417339104000931AB /* PasswordViewController.m */; };
 		1820F0511728B3D3002670F2 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F0501728B3D3002670F2 /* Book.m */; };
 		1820F05D1728CB40002670F2 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F05C1728CB40002670F2 /* Chapter.m */; };
 		1848FC33171F9C3D00E8A3F1 /* BookShelfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */; };
+		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
+		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
+		186292FE17335B4B00777357 /* SignOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FD17335B4B00777357 /* SignOutViewController.m */; };
 		1888A36E16FC18CF0046DA4C /* toolbar_bottom_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */; };
 		1888A37016FC28A40046DA4C /* toolbar_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */; };
 		1888A37316FC2A3E0046DA4C /* search_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37116FC2A3E0046DA4C /* search_btn_hl.png */; };
@@ -322,6 +326,8 @@
 		18089E4D171E3A6900BCB50E /* GiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftViewController.m; sourceTree = "<group>"; };
 		18089E4F171E8ACB00BCB50E /* SubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeViewController.h; sourceTree = "<group>"; };
 		18089E50171E8ACC00BCB50E /* SubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
+		181091D317339104000931AB /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
+		181091D417339104000931AB /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		1820F04F1728B3D3002670F2 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		1820F0501728B3D3002670F2 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		1820F05B1728CB40002670F2 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
@@ -329,6 +335,12 @@
 		182FD04716BB8E700045AAE0 /* UIDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDefines.h; sourceTree = "<group>"; };
 		1848FC31171F9C3D00E8A3F1 /* BookShelfBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfBottomView.h; sourceTree = "<group>"; };
 		1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfBottomView.m; sourceTree = "<group>"; };
+		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BookReader.h"; sourceTree = "<group>"; };
+		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BookReader.m"; sourceTree = "<group>"; };
+		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		186292FA17325C5300777357 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		186292FC17335B4A00777357 /* SignOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignOutViewController.h; sourceTree = "<group>"; };
+		186292FD17335B4B00777357 /* SignOutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignOutViewController.m; sourceTree = "<group>"; };
 		1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_bottom_bar.png; sourceTree = "<group>"; };
 		1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_top_bar.png; sourceTree = "<group>"; };
 		1888A37116FC2A3E0046DA4C /* search_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_btn_hl.png; sourceTree = "<group>"; };
@@ -801,6 +813,8 @@
 				1820F05B1728CB40002670F2 /* Chapter.h */,
 				1820F05C1728CB40002670F2 /* Chapter.m */,
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
+				186292F61732572500777357 /* UITextField+BookReader.h */,
+				186292F71732572500777357 /* UITextField+BookReader.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -839,6 +853,12 @@
 				1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */,
 				180318F0172CDDE200733C58 /* GiftCell.h */,
 				180318F1172CDDE200733C58 /* GiftCell.m */,
+				186292F917325C5300777357 /* SignInViewController.h */,
+				186292FA17325C5300777357 /* SignInViewController.m */,
+				186292FC17335B4A00777357 /* SignOutViewController.h */,
+				186292FD17335B4B00777357 /* SignOutViewController.m */,
+				181091D317339104000931AB /* PasswordViewController.h */,
+				181091D417339104000931AB /* PasswordViewController.m */,
 			);
 			name = RemoteMode;
 			sourceTree = "<group>";
@@ -1899,6 +1919,10 @@
 				77A1DF851730DF9F002BE306 /* PSTGridLayoutItem.m in Sources */,
 				77A1DF861730DF9F002BE306 /* PSTGridLayoutRow.m in Sources */,
 				77A1DF871730DF9F002BE306 /* PSTGridLayoutSection.m in Sources */,
+				186292F81732572500777357 /* UITextField+BookReader.m in Sources */,
+				186292FB17325C5300777357 /* SignInViewController.m in Sources */,
+				186292FE17335B4B00777357 /* SignOutViewController.m in Sources */,
+				181091D517339104000931AB /* PasswordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@ typedef enum {
     kRootControllerTypeBookShelf,
     kRootControllerTypeBookStore,
     kRootControllerTypeMember,
+    kRootControllerTypeLogin,
     kRootControllerTypeHouseBook,
     kRootControllerTypeHouseApp,
     kRootControllerTypeAbout
