@@ -141,9 +141,9 @@
               withBlock:(void(^)(NSArray *,NSError *))block;
 
 //是否在收藏夹
-+ (void)existsFavourite:(NSString *)userid
-           book:(NSString *)bookid
-           withBlock:(void(^)(NSString *,NSError *))block;
++ (void)existsFavourite:(NSNumber *)userid
+                   book:(NSString *)bookid
+              withBlock:(void(^)(NSString *,NSError *))block;
 
 //用户道具
 + (void)giveGift:(NSNumber *)userid

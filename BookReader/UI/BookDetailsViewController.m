@@ -35,6 +35,7 @@
     NSMutableArray *sameTypeBookArray;
     
     NSNumber *userid;
+    BOOL bFav;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -48,6 +49,7 @@
         sameTypeBookArray = [[NSMutableArray alloc] init];
         
         userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+        bFav = NO;
         // Custom initialization
     }
     return self;
@@ -136,6 +138,19 @@
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
     }
+    [ServiceManager existsFavourite:userid book:bookid withBlock:^(NSString *result, NSError *error) {
+        if (error) {
+            
+        } else {
+            if ([result intValue]==1) {
+                bFav = YES;
+                UIButton *button = (UIButton *)[self.view viewWithTag:1];
+                [button setEnabled:NO];
+                [button setTitle:@"已收藏" forState:UIControlStateNormal];
+            }
+        }
+    }];
+    
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 204, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height - 204)];
     [scrollView setContentSize:CGSizeMake(MAIN_SCREEN.size.width, scrollView.frame.size.height*1.8)];
     [scrollView setBackgroundColor:[UIColor clearColor]];
@@ -342,7 +357,13 @@
         [ServiceManager addFavourite:userid book:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
             if (!error)
             {
-                [self showAlertWithMessage:resultMessage];
+                if ([result isEqualToString:SUCCESS_FLAG]) {
+                    bFav = YES;
+                    UIButton *button = (UIButton *)[self.view viewWithTag:1];
+                    [button setEnabled:NO];
+                    [button setTitle:@"已收藏" forState:UIControlStateNormal];
+                }
+                [self displayHUDError:nil message:resultMessage];
 				[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kNeedRefreshBookShelf];
             }
         }];
