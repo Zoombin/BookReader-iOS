@@ -334,8 +334,8 @@
 		182FD04716BB8E700045AAE0 /* UIDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDefines.h; sourceTree = "<group>"; };
 		1848FC31171F9C3D00E8A3F1 /* BookShelfBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfBottomView.h; sourceTree = "<group>"; };
 		1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfBottomView.m; sourceTree = "<group>"; };
-		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BookReader.h"; sourceTree = "<group>"; };
-		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BookReader.m"; sourceTree = "<group>"; };
+		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
+		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		186292FA17325C5300777357 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		186292FC17335B4A00777357 /* SignOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignOutViewController.h; sourceTree = "<group>"; };
@@ -810,8 +810,6 @@
 				1820F05B1728CB40002670F2 /* Chapter.h */,
 				1820F05C1728CB40002670F2 /* Chapter.m */,
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
-				186292F61732572500777357 /* UITextField+BookReader.h */,
-				186292F71732572500777357 /* UITextField+BookReader.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -971,6 +969,8 @@
 				77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */,
 				77A2D62F171805FC009F2B9F /* UIFont+CoreTextExtensions.h */,
 				77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */,
+				186292F61732572500777357 /* UITextField+BookReader.h */,
+				186292F71732572500777357 /* UITextField+BookReader.m */,
 			);
 			name = Categories;
 			path = Manager;
