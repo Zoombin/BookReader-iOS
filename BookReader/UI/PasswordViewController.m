@@ -60,6 +60,11 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
+    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hidenKeyboardButton setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44)];
+    [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:hidenKeyboardButton];
+    
     if (bFindPassword) {
         [self showFindPassword];
     } else {
@@ -173,6 +178,10 @@
         [self displayHUDError:nil message:@"两次密码输入不一致"];
         return;
     }
+    if ([accountTextField.text length]!=8&&[accountTextField.text length]!=11) {
+        [self displayHUDError:nil message:@"手机号不合法"];
+        return;
+    }
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
             
@@ -236,6 +245,16 @@
         [changeButton setEnabled:YES];
     } else {
         [changeButton setEnabled:NO];
+    }
+}
+
+- (void)hidenAllKeyboard {
+    for (int i =0; i<4; i++) {
+        int tag = 100+i;
+        UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
+        if (textField&&[textField isKindOfClass:[UITextField class]]) {
+            [textField resignFirstResponder];
+        }
     }
 }
 

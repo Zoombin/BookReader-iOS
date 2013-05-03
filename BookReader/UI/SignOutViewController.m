@@ -141,6 +141,10 @@
         [self displayHUDError:nil message:@"两次密码不一致"];
         return;
     }
+    if ([accountTextField.text length]!=8&&[accountTextField.text length]!=11) {
+        [self displayHUDError:nil message:@"手机号不合法"];
+        return;
+    }
     [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(NSString *result, NSString *resultMessage,NSError *error) {
         if (error) {
             

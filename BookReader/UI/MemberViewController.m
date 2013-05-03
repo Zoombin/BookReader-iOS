@@ -83,11 +83,6 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
-    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44)];
-    [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:hidenKeyboardButton];
-    
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
     
