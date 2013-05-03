@@ -138,18 +138,20 @@
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
     }
-    [ServiceManager existsFavourite:userid book:bookid withBlock:^(NSString *result, NSError *error) {
-        if (error) {
-            
-        } else {
-            if ([result intValue]==1) {
-                bFav = YES;
-                UIButton *button = (UIButton *)[self.view viewWithTag:1];
-                [button setEnabled:NO];
-                [button setTitle:@"已收藏" forState:UIControlStateNormal];
+    if (userid!=nil) {
+        [ServiceManager existsFavourite:userid book:bookid withBlock:^(NSString *result, NSError *error) {
+            if (error) {
+                
+            } else {
+                if ([result intValue]==1) {
+                    bFav = YES;
+                    UIButton *button = (UIButton *)[self.view viewWithTag:1];
+                    [button setEnabled:NO];
+                    [button setTitle:@"已收藏" forState:UIControlStateNormal];
+                }
             }
-        }
-    }];
+        }];
+    }
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 204, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height - 204)];
     [scrollView setContentSize:CGSizeMake(MAIN_SCREEN.size.width, scrollView.frame.size.height*1.8)];
@@ -179,7 +181,7 @@
     [recommandTableView setTag:BOOKRECOMMANDTAG];
     [recommandTableView setDataSource:self];
     [scrollView addSubview:recommandTableView];
-
+    
     [self loadAuthorOtherBook];
     [self loadSameType];
 }
@@ -252,16 +254,16 @@
     {
         [ServiceManager disscuss:userid book:bookid andContent:commitField.text withBlock:^(NSString *result, NSError *error)
          {
-            if (error)
-            {
-                
-            }
-            else
-            {
-                [self showAlertWithMessage:result];
-                [self loadCommitList];
-            }
-        }];
+             if (error)
+             {
+                 
+             }
+             else
+             {
+                 [self showAlertWithMessage:result];
+                 [self loadCommitList];
+             }
+         }];
     }
 }
 
@@ -272,22 +274,22 @@
         [infoArray removeAllObjects];
     }
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *result, NSError *error)
-    {
-        if (error)
-        {
-            
-        }
-        else
-        {
-            if ([result count]==10)
-            {
-                [self addFootView];
-                currentIndex++;
-            }
-            [infoArray addObjectsFromArray:result];
-            [infoTableView reloadData];
-        }
-    }];
+     {
+         if (error)
+         {
+             
+         }
+         else
+         {
+             if ([result count]==10)
+             {
+                 [self addFootView];
+                 currentIndex++;
+             }
+             [infoArray addObjectsFromArray:result];
+             [infoTableView reloadData];
+         }
+     }];
 }
 
 - (void)pushToSubscribeView
@@ -437,7 +439,7 @@
 {
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-
+    
     if (tableView.tag == INFOTABLEVIEWTAG)
     {
         if (cell == nil)
@@ -477,8 +479,8 @@
             [self.navigationController pushViewController:childViewController animated:YES];
         }else
         {
-             Book *book = [sameTypeBookArray objectAtIndex:[indexPath row]];
-             BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
+            Book *book = [sameTypeBookArray objectAtIndex:[indexPath row]];
+            BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
             [self.navigationController pushViewController:childViewController animated:YES];
         }
     }
@@ -504,22 +506,22 @@
 {
     [self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error)
-    {
-        if (error)
-        {
-            [self hideHUD:YES];
-        }else
-        {
-            if ([infoArray count]==0)
-            {
-                [infoTableView setTableFooterView:nil];
-            }
-            [infoArray addObjectsFromArray:result];
-            currentIndex++;
-            [infoTableView reloadData];
-            [self hideHUD:YES];
-        }
-    }];
+     {
+         if (error)
+         {
+             [self hideHUD:YES];
+         }else
+         {
+             if ([infoArray count]==0)
+             {
+                 [infoTableView setTableFooterView:nil];
+             }
+             [infoArray addObjectsFromArray:result];
+             currentIndex++;
+             [infoTableView reloadData];
+             [self hideHUD:YES];
+         }
+     }];
 }
 
 @end
