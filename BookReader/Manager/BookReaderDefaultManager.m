@@ -31,6 +31,7 @@
     [self setObject:UserDefaultFontSizeMin ForKey:UserDefaultKeyFontSize];
     [self setObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
     [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
+    [self setObject:UserDefaultBrightDefault ForKey:UserDefaultKeyBright];
 }
 
 

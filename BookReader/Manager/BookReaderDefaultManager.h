@@ -13,6 +13,7 @@
 #define UserDefaultKeyFontSize     @"fontsize"
 #define UserDefaultKeyFontName     @"fontname"
 #define UserDefaultKeyTextColor    @"textcolor"
+#define UserDefaultKeyBright       @"bright"
 
 //字体大小
 #define UserDefaultFontSizeMax [NSNumber numberWithFloat:23]
@@ -28,6 +29,9 @@
 #define UserDefaultTextColorGreen  @"greenColor"
 #define UserDefaultTextColorBlue   @"blueColor"
 #define UserDefaultTextColorBrown  @"brownColor"
+
+//亮度
+#define UserDefaultBrightDefault   [NSNumber numberWithFloat:1]
 
 
 @interface BookReaderDefaultManager : NSObject

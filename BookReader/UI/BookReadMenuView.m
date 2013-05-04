@@ -12,6 +12,7 @@
 
 @implementation BookReadMenuView {
     UIView *fontView;
+    UIView *backgroundView;
     NSArray *textcolorName;
     NSArray *textcolorArray;
 }
@@ -28,6 +29,7 @@
         [self initTopView];
         [self initBottomView];
         [self initFontView];
+        [self initBackgroundView];
     }
     return self;
 }
@@ -152,13 +154,45 @@
     
     for (int i =0 ; i < [textcolorArray count]; i++) {
         UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [colorButton setFrame:CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*i, 90, fontView.bounds.size.width/[textcolorArray count], 30)];
+        [colorButton setFrame:CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*i, 100, fontView.bounds.size.width/[textcolorArray count], 30)];
         [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
         [colorButton setTag:i];
         [colorButton setTitle:textcolorName[i] forState:UIControlStateNormal];
         [fontView addSubview:colorButton];
     }
 }
+
+-(void)initBackgroundView
+{
+    NSLog(@"显示BackgroundView");
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-140-40, MAIN_SCREEN.size.width, 140)];
+    [backgroundView setHidden:YES];
+    [backgroundView setBackgroundColor:[UIColor grayColor]];
+    [self addSubview:backgroundView];
+    
+    UILabel *brightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [brightLabel setText:@"亮度"];
+    [brightLabel setBackgroundColor:[UIColor clearColor]];
+    [brightLabel setTextAlignment:NSTextAlignmentCenter];
+    [backgroundView addSubview:brightLabel];
+    
+    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 0, backgroundView.bounds.size.width-50, 30)];
+    [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyBright]) {
+       brightSlider.value = [[BookReaderDefaultManager objectForKey:UserDefaultKeyBright] floatValue]; 
+    } else {
+       brightSlider.value = 1;
+    }
+    [brightSlider setMaximumValue:1];
+    [brightSlider setMinimumValue:0.5];
+    [backgroundView addSubview:brightSlider];
+}
+
+- (void)sliderValueChanged:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(brightChanged:)]) {
+        [self.delegate brightChanged:sender];
+    }}
 
 - (void)colorChanged:(id)sender
 {
@@ -207,6 +241,7 @@
             [self.delegate performSelector:@selector(previousChapterButtonClick)];
         }
     } else if ([sender tag] == 2) {
+        backgroundView.hidden = YES;
         fontView.hidden = !fontView.hidden;
         
     } else if ([sender tag] == 3) {
@@ -214,7 +249,8 @@
             [self.delegate performSelector:@selector(nextChapterButtonClick)];
         }
     } else if ([sender tag] == 4) {
-        
+        backgroundView.hidden = !backgroundView.hidden;
+        fontView.hidden = YES;
     }
 }
 

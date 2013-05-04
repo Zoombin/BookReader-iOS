@@ -22,6 +22,7 @@
 - (void)systemFont;
 - (void)foundFont;
 - (void)changeTextColor:(NSString *)textColor;
+- (void)brightChanged:(id)sender;
 
 @end
 

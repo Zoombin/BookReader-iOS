@@ -29,6 +29,7 @@
     CGFloat currentFontSize;
     NSString *currentFontName;
     NSString *currentTextColorStr;
+    float currentAlpa;
     int currentPage;
     BOOL bOnline;
     
@@ -76,6 +77,7 @@
         currentFontName = UserDefaultSystemFont;
         currentFont = [self setFontWithName:currentFontName];
         currentTextColorStr = @"blackColor";
+        currentAlpa = 1;
         
         [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
@@ -111,6 +113,12 @@
     [self updateContent];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self saveUserDefault];
+}
+
 - (void)updateContent {
     if ([pagesArray count]>0) {
         [pagesArray removeAllObjects];
@@ -126,11 +134,13 @@
     statusView.title.text = chapter.name;
     coreTextView.fontSize = currentFontSize;
     coreTextView.font =currentFont;
+    coreTextView.alpha = currentAlpa;
+    statusView.alpha = currentAlpa;
+    
     SEL textcolorselector = NSSelectorFromString(currentTextColorStr);
     coreTextView.textColor = [UIColor performSelector:textcolorselector];
     statusView.title.textColor = [UIColor performSelector:textcolorselector];
     statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
-    
 	[coreTextView buildTextWithString:mString];
 	[coreTextView setNeedsDisplay];
 }
@@ -146,6 +156,9 @@
     if ([BookReaderDefaultManager objectForKey:UserDefaultKeyTextColor]) {
         currentTextColorStr = [BookReaderDefaultManager objectForKey:UserDefaultKeyTextColor];
     }
+    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyBright]) {
+        currentAlpa = [[BookReaderDefaultManager objectForKey:UserDefaultKeyBright] floatValue];
+    }
 }
 
 - (void)saveUserDefault
@@ -156,6 +169,8 @@
     [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentFontSize] ForKey:UserDefaultKeyFontSize];
     //保存字体颜色
     [BookReaderDefaultManager setObject:currentTextColorStr ForKey:UserDefaultKeyTextColor];
+    //保存亮度
+    [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentAlpa] ForKey:UserDefaultKeyBright];
 }
 
 #pragma mark- 
@@ -164,6 +179,14 @@
 {
     UIFont *font = [UIFont fontWithName:fontName size:currentFontSize];
     return font;
+}
+
+- (void)brightChanged:(id)sender
+{
+    UISlider *slider = sender;
+    currentAlpa = slider.value;
+    coreTextView.alpha = slider.value;
+    statusView.alpha = slider.value;
 }
 
 - (void)changeTextColor:(NSString *)textColor
