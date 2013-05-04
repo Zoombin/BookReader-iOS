@@ -70,7 +70,7 @@
             key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
         [textString setString:[chapter.content XXSYDecodingWithKey:key]];
-        currentFontSize = 17;
+        currentFontSize = 19;
         currentFont = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:currentFontSize];
         pagesArray = [[NSMutableArray alloc] init];
     }
@@ -115,6 +115,29 @@
     coreTextView.font =currentFont;
 	[coreTextView buildTextWithString:mString];
 	[coreTextView setNeedsDisplay];
+}
+
+#pragma mark- 
+#pragma MenuView delegate
+- (void)fontReduce
+{
+    if (currentFontSize==19) {
+        [self displayHUDError:nil message:@"字体已达到最小"];
+        return;
+    } else {
+        currentFontSize--;
+        [self updateContent];
+    }
+}
+
+- (void)fontAdd {
+    if (currentFontSize==23) {
+        [self displayHUDError:nil message:@"字体已达到最大"];
+        return;
+    } else {
+        currentFontSize++;
+        [self updateContent];
+    }
 }
 
 - (void)updateStatusPercentage

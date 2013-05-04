@@ -16,6 +16,10 @@
 - (void)chapterButtonClick;
 - (void)nextChapterButtonClick;
 - (void)previousChapterButtonClick;
+
+- (void)fontAdd;
+- (void)fontReduce;
+
 @end
 
 @interface BookReadMenuView : UIView {

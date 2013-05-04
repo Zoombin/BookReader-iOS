@@ -9,7 +9,9 @@
 #import "BookReadMenuView.h"
 #import "UIDefines.h"
 
-@implementation BookReadMenuView
+@implementation BookReadMenuView {
+    UIView *fontView;
+}
 @synthesize titleLabel;
 @synthesize delegate;
 
@@ -20,6 +22,7 @@
         // Initialization code
         [self initTopView];
         [self initBottomView];
+        [self initFontView];
     }
     return self;
 }
@@ -116,8 +119,39 @@
 
 - (void) initFontView
 {
+    NSLog(@"显示FontView");
+    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-100-40, MAIN_SCREEN.size.width, 100)];
+    [fontView setHidden:YES];
+    [fontView setBackgroundColor:[UIColor grayColor]];
+    [self addSubview:fontView];
     
+    UIButton *fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
+    [fontButonMin addTarget:self action:@selector(fontSizeReduce) forControlEvents:UIControlEventTouchUpInside];
+    [fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
+    [fontView addSubview:fontButonMin];
+    
+    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width/2, 0, fontView.bounds.size.width/2, 30)];
+    [fontButonMax addTarget:self action:@selector(fontSizeAdd) forControlEvents:UIControlEventTouchUpInside];
+    [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
+    [fontView addSubview:fontButonMax];
 }
+
+- (void)fontSizeAdd
+{
+    if ([self.delegate respondsToSelector:@selector(fontAdd)]) {
+        [self.delegate fontAdd];
+    }
+}
+
+- (void)fontSizeReduce
+{
+    if ([self.delegate respondsToSelector:@selector(fontReduce)]) {
+        [self.delegate fontReduce];
+    }
+}
+
 
 - (void)bottomButtonsPressed:(id)sender
 {
@@ -130,6 +164,7 @@
             [self.delegate performSelector:@selector(previousChapterButtonClick)];
         }
     } else if ([sender tag] == 2) {
+        fontView.hidden = !fontView.hidden;
         
     } else if ([sender tag] == 3) {
         if ([self.delegate respondsToSelector:@selector(nextChapterButtonClick)]) {
