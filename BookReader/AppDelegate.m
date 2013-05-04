@@ -34,6 +34,8 @@
 	//TOTEST: yanchao's account
 //	[BookReaderDefaultManager saveUserID:@(5639339)];
 	
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+	
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
 //    [MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];
 //    [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
