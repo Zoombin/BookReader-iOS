@@ -156,6 +156,8 @@
 		77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D63417180C10009F2B9F /* CoreTextView.m */; };
 		77A2D63717180DBE009F2B9F /* test_book.txt in Resources */ = {isa = PBXBuildFile; fileRef = 77A2D63617180DBE009F2B9F /* test_book.txt */; };
 		77A2D63A17180EE8009F2B9F /* CoreTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D63917180EE8009F2B9F /* CoreTextViewController.m */; };
+		77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2A173497320027D1DF /* BRBookCell.m */; };
+		77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2D173497890027D1DF /* BRBooksView.m */; };
 		77A487BF172035AA004F7C5A /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A486F5172035AA004F7C5A /* libGoogleAdMobAds.a */; };
 		77A487C1172035AA004F7C5A /* AdWhirlAdapterGoogleAdMobAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A486FB172035AA004F7C5A /* AdWhirlAdapterGoogleAdMobAds.m */; };
 		77A487CE172035AA004F7C5A /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A48719172035AA004F7C5A /* AdWhirlAdapterCustom.m */; };
@@ -546,6 +548,10 @@
 		77A2D63617180DBE009F2B9F /* test_book.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_book.txt; sourceTree = SOURCE_ROOT; };
 		77A2D63817180EE8009F2B9F /* CoreTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextViewController.h; sourceTree = "<group>"; };
 		77A2D63917180EE8009F2B9F /* CoreTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextViewController.m; sourceTree = "<group>"; };
+		77A3FA29173497320027D1DF /* BRBookCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBookCell.h; sourceTree = "<group>"; };
+		77A3FA2A173497320027D1DF /* BRBookCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBookCell.m; sourceTree = "<group>"; };
+		77A3FA2C173497890027D1DF /* BRBooksView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBooksView.h; sourceTree = "<group>"; };
+		77A3FA2D173497890027D1DF /* BRBooksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBooksView.m; sourceTree = "<group>"; };
 		77A486EC172035AA004F7C5A /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
 		77A486ED172035AA004F7C5A /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
 		77A486EE172035AA004F7C5A /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
@@ -1481,6 +1487,10 @@
 				182FD04716BB8E700045AAE0 /* UIDefines.h */,
 				1888A3A916FFF52E0046DA4C /* BookShelfViewController.h */,
 				1888A3AA16FFF52F0046DA4C /* BookShelfViewController.m */,
+				77A3FA2C173497890027D1DF /* BRBooksView.h */,
+				77A3FA2D173497890027D1DF /* BRBooksView.m */,
+				77A3FA29173497320027D1DF /* BRBookCell.h */,
+				77A3FA2A173497320027D1DF /* BRBookCell.m */,
 				1888A3AC17000CE40046DA4C /* BookCell.h */,
 				1888A3AD17000CE50046DA4C /* BookCell.m */,
 				8BF84D5F165F738900D46D9B /* LocalMode */,
@@ -1917,6 +1927,8 @@
 				186292FB17325C5300777357 /* SignInViewController.m in Sources */,
 				186292FE17335B4B00777357 /* SignOutViewController.m in Sources */,
 				181091D517339104000931AB /* PasswordViewController.m in Sources */,
+				77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */,
+				77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

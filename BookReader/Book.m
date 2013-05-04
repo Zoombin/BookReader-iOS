@@ -92,6 +92,13 @@
 	}];
 }
 
+- (BOOL)persisted
+{
+	//TODO: try to use countOfEntitiesWithPredicate improve performance?
+	NSArray *array = [[self class] findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", uid]];
+	return array.count == 0 ? NO : YES;
+}
+
 + (void)persist:(NSArray *)array
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {

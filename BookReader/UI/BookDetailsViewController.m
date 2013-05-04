@@ -366,7 +366,7 @@
                     [button setTitle:@"已收藏" forState:UIControlStateNormal];
                 }
                 [self displayHUDError:nil message:resultMessage];
-				[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
             }
         }];
     }

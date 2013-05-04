@@ -26,15 +26,6 @@
     UIButton *loginButton;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -133,6 +124,7 @@
         }else {
             [self hideHUD:YES];
             if ([result isEqualToString:SUCCESS_FLAG]) {
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
                 [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
             } else {
                 [self displayHUDError:nil message:resultMessage];

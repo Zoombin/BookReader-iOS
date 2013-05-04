@@ -42,12 +42,14 @@
 
 - (void)sync:(BookManaged *)managed;
 - (void)persist;
+- (BOOL)persisted;//check if exists in database already
 + (void)persist:(NSArray *)books;
 
 - (NSNumber *)numberOfUnreadChapters;
 + (NSArray *)findAll;
++ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
 
-+ (NSArray *) findAllWithPredicate:(NSPredicate *)searchTerm;
+
 
 @end
 
