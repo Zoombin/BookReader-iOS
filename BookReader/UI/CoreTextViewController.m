@@ -19,9 +19,6 @@
 #import "ServiceManager.h"
 #import "BookReaderDefaultManager.h"
 
-@interface CoreTextViewController ()
-
-@end
 
 @implementation CoreTextViewController {
     CoreTextView *coreTextView;
@@ -31,8 +28,11 @@
     UIFont *currentFont;
     CGFloat currentFontSize;
     NSString *currentFontName;
+    NSString *currentTextColorStr;
     int currentPage;
     BOOL bOnline;
+    
+    NSArray *textColorArray;
     
     ReadStatusView *statusView;
     BookReadMenuView *menuView;
@@ -75,6 +75,7 @@
         currentFontSize = 19;
         currentFontName = UserDefaultSystemFont;
         currentFont = [self setFontWithName:currentFontName];
+        currentTextColorStr = @"blackColor";
         
         [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
@@ -85,14 +86,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
     statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 20)];
-    [statusView setBackgroundColor:[UIColor whiteColor]];
+    [statusView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:statusView];
     
     statusView.title.text = chapter.name;
     
     coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-40)];
-    [coreTextView setBackgroundColor:[UIColor whiteColor]];
+    [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
     menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-20)];
@@ -123,6 +126,11 @@
     statusView.title.text = chapter.name;
     coreTextView.fontSize = currentFontSize;
     coreTextView.font =currentFont;
+    SEL textcolorselector = NSSelectorFromString(currentTextColorStr);
+    coreTextView.textColor = [UIColor performSelector:textcolorselector];
+    statusView.title.textColor = [UIColor performSelector:textcolorselector];
+    statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
+    
 	[coreTextView buildTextWithString:mString];
 	[coreTextView setNeedsDisplay];
 }
@@ -135,6 +143,9 @@
     if ([BookReaderDefaultManager objectForKey:UserDefaultKeyFontSize]) {
         currentFontSize = [[BookReaderDefaultManager objectForKey:UserDefaultKeyFontSize] floatValue];
     }
+    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyTextColor]) {
+        currentTextColorStr = [BookReaderDefaultManager objectForKey:UserDefaultKeyTextColor];
+    }
 }
 
 - (void)saveUserDefault
@@ -143,6 +154,8 @@
     [BookReaderDefaultManager setObject:currentFontName ForKey:UserDefaultKeyFontName];
     //保存字体大小
     [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentFontSize] ForKey:UserDefaultKeyFontSize];
+    //保存字体颜色
+    [BookReaderDefaultManager setObject:currentTextColorStr ForKey:UserDefaultKeyTextColor];
 }
 
 #pragma mark- 
@@ -151,6 +164,12 @@
 {
     UIFont *font = [UIFont fontWithName:fontName size:currentFontSize];
     return font;
+}
+
+- (void)changeTextColor:(NSString *)textColor
+{
+    currentTextColorStr = textColor;
+    [self updateContent];
 }
 
 - (void)fontReduce

@@ -12,12 +12,23 @@
 
 #define UserDefaultKeyFontSize     @"fontsize"
 #define UserDefaultKeyFontName     @"fontname"
+#define UserDefaultKeyTextColor    @"textcolor"
 
+//字体大小
 #define UserDefaultFontSizeMax [NSNumber numberWithFloat:23]
 #define UserDefaultFontSizeMin [NSNumber numberWithFloat:19]
 
+//字体名
 #define UserDefaultSystemFont  @"Arial"
 #define UserDefaultFoundFont   @"FZLTHJW--GB1-0"
+
+//字体颜色
+#define UserDefaultTextColorBlack  @"blackColor"
+#define UserDefaultTextColorRed    @"redColor"
+#define UserDefaultTextColorGreen  @"greenColor"
+#define UserDefaultTextColorBlue   @"blueColor"
+#define UserDefaultTextColorBrown  @"brownColor"
+
 
 @interface BookReaderDefaultManager : NSObject
 + (void)saveUserid:(id)object;

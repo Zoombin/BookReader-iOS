@@ -8,9 +8,12 @@
 
 #import "BookReadMenuView.h"
 #import "UIDefines.h"
+#import "BookReaderDefaultManager.h"
 
 @implementation BookReadMenuView {
     UIView *fontView;
+    NSArray *textcolorName;
+    NSArray *textcolorArray;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -20,6 +23,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        textcolorName = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
+        textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
         [self initTopView];
         [self initBottomView];
         [self initFontView];
@@ -110,17 +115,13 @@
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:button];
     }
-    
-    
-    
-    
     [self addSubview:bottomView];
 }
 
 - (void) initFontView
 {
     NSLog(@"显示FontView");
-    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-100-40, MAIN_SCREEN.size.width, 100)];
+    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-140-40, MAIN_SCREEN.size.width, 140)];
     [fontView setHidden:YES];
     [fontView setBackgroundColor:[UIColor grayColor]];
     [self addSubview:fontView];
@@ -148,6 +149,22 @@
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
+    
+    for (int i =0 ; i < [textcolorArray count]; i++) {
+        UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [colorButton setFrame:CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*i, 90, fontView.bounds.size.width/[textcolorArray count], 30)];
+        [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
+        [colorButton setTag:i];
+        [colorButton setTitle:textcolorName[i] forState:UIControlStateNormal];
+        [fontView addSubview:colorButton];
+    }
+}
+
+- (void)colorChanged:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(changeTextColor:)]) {
+        [self.delegate changeTextColor:textcolorArray[[sender tag]]];
+    }
 }
 
 - (void)fontSizeAdd

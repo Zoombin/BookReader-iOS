@@ -21,6 +21,7 @@
 - (void)fontReduce;
 - (void)systemFont;
 - (void)foundFont;
+- (void)changeTextColor:(NSString *)textColor;
 
 @end
 

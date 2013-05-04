@@ -15,6 +15,7 @@
 }
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, strong) UIColor *textColor;
 - (void)buildTextWithString:(NSString *)string;
 - (void)loadMutableFonts;
 @end
