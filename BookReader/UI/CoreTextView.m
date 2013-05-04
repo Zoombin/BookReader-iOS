@@ -20,14 +20,16 @@
 }
 @synthesize fontSize;
 @synthesize font;
+@synthesize textColor;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        font = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:20];
-        fontSize = 20;
+        font = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:19];
+        fontSize = 19;
+        textColor = [UIColor blackColor];
     }
     return self;
 }
@@ -64,7 +66,12 @@
     
     CFStringRef fontName = (__bridge CFStringRef)font.fontName;
     CTFontRef myFont = CTFontCreateWithName((CFStringRef)fontName, fontSize, NULL);
-    CFAttributedStringSetAttribute(attrString, CFRangeMake(0, CFStringGetLength((CFStringRef)mString)), kCTFontAttributeName, myFont);
+    CFRange range = CFRangeMake(0, CFStringGetLength((CFStringRef)mString));
+    CFAttributedStringSetAttribute(attrString, range, kCTFontAttributeName, myFont);
+    
+    CGColorRef color = textColor.CGColor;
+    CFAttributedStringSetAttribute(attrString, range,
+                                   kCTForegroundColorAttributeName, color);
 }
 
 - (void) drawRect:(CGRect)rect {
@@ -82,6 +89,7 @@
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGRect bounds = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
 	CGPathAddRect(path, NULL, bounds);
+    
 	/* draw the text */
 	CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attrString);
 	CTFrameRef frame = CTFramesetterCreateFrame(framesetter,

@@ -30,7 +30,7 @@
 #import "BookCell.h"
 #import "BRBooksView.h"
 #import "BRBookCell.h"
-
+#import "BookReaderDefaultManager.h"
 
 //UIFrame
 #define EDIT_BUTTON_FRAME                      CGRectMake(10, 11, 50, 32)
@@ -82,13 +82,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+	userid = [BookReaderDefaultManager userid];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	
 	if (!userid) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
@@ -236,33 +235,33 @@
     [ServiceManager bookCatalogue:obj.uid
                         andUserid:userid
                         withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
-        if (error) {
-            [self nextBookOrChapterWithChapter:obj
-                              andChaptersArray:chaptersArray
-                                  andBookIndex:bookIndex];
-        }
-        else
-        {
-            if (![code isEqualToString:SUCCESS_FLAG]) {
-                if ([book.autoBuy boolValue]) {
-                    [self subscribeBook:obj
-                           andBookIndex:bookIndex
-                 andCurrentChapterArray:chaptersArray];
-                } else {
-                   [self nextBookOrChapterWithChapter:obj
-                                     andChaptersArray:chaptersArray
-                                         andBookIndex:bookIndex];
-                }
-            }
-            else
-            {
-                obj.content = content;
-                [self nextBookOrChapterWithChapter:obj
-                                  andChaptersArray:chaptersArray
-                                      andBookIndex:bookIndex];
-            }
-        }
-    }];
+                            if (error) {
+                                [self nextBookOrChapterWithChapter:obj
+                                                  andChaptersArray:chaptersArray
+                                                      andBookIndex:bookIndex];
+                            }
+                            else
+                            {
+                                if (![code isEqualToString:SUCCESS_FLAG]) {
+                                    if ([book.autoBuy boolValue]) {
+                                        [self subscribeBook:obj
+                                               andBookIndex:bookIndex
+                                     andCurrentChapterArray:chaptersArray];
+                                    } else {
+                                        [self nextBookOrChapterWithChapter:obj
+                                                          andChaptersArray:chaptersArray
+                                                              andBookIndex:bookIndex];
+                                    }
+                                }
+                                else
+                                {
+                                    obj.content = content;
+                                    [self nextBookOrChapterWithChapter:obj
+                                                      andChaptersArray:chaptersArray
+                                                          andBookIndex:bookIndex];
+                                }
+                            }
+                        }];
 }
 
 - (void)nextBookOrChapterWithChapter:(Chapter *)chapter
@@ -287,9 +286,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     if ([chapter.bVip boolValue] && chapter.content == nil) {
         [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
             if (error) {
-              [self nextBookOrChapterWithChapter:chapter
-                                andChaptersArray:chaptersArray
-                                    andBookIndex:bookIndex];
+                [self nextBookOrChapterWithChapter:chapter
+                                  andChaptersArray:chaptersArray
+                                      andBookIndex:bookIndex];
             }
             else {
                 if ([result isEqualToString:SUCCESS_FLAG]) {

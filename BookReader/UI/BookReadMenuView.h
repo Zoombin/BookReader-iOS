@@ -16,6 +16,14 @@
 - (void)chapterButtonClick;
 - (void)nextChapterButtonClick;
 - (void)previousChapterButtonClick;
+
+- (void)fontAdd;
+- (void)fontReduce;
+- (void)systemFont;
+- (void)foundFont;
+- (void)changeTextColor:(NSString *)textColor;
+- (void)brightChanged:(id)sender;
+
 @end
 
 @interface BookReadMenuView : UIView {

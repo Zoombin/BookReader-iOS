@@ -14,7 +14,8 @@
 #import "Pay.h"
 #import "Book.h"
 
-#define SUCCESS_FLAG @"0000"
+#define SUCCESS_FLAG    @"0000"
+#define NETWORKERROR    @"网络异常"
 
 @interface ServiceManager : AFHTTPClient
 

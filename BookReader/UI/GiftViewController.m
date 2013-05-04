@@ -10,6 +10,8 @@
 #import "UIDefines.h"
 #import "GiftCell.h"
 #import "ServiceManager.h"
+#import "UIViewController+HUD.h"
+#import "BookReaderDefaultManager.h"
 
 @implementation GiftViewController {
     NSString *title;
@@ -41,7 +43,7 @@
     
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
         title = oldKeyWordsArray[[index integerValue]];
-        userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+        userid = [BookReaderDefaultManager userid];
         //  1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         // 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
     }
@@ -90,6 +92,7 @@
     if ([value objectForKey:@"integral"]) {
         integral = [value objectForKey:@"integral"];
     }
+    [self displayHUD:@"处理中..."];
     [ServiceManager giveGift:userid
                         type:index
                       author:bookObj.authorID
@@ -98,10 +101,9 @@
                      andBook:bookObj.uid
                    withBlock:^(NSString *result, NSError *error) {
                        if (error) {
-                           
+                           [self displayHUDError:nil message:NETWORKERROR];
                        }else {
-                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:result message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-                           [alertView show];
+                           [self displayHUDError:nil message:result];
                        }
                    }];
 }

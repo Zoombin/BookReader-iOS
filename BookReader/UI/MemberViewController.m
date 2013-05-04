@@ -14,6 +14,7 @@
 #import "SignInViewController.h"
 #import "PasswordViewController.h"
 #import "UIViewController+HUD.h"
+#import "BookReaderDefaultManager.h"
     
 
 
@@ -45,7 +46,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+    userid = [BookReaderDefaultManager userid];
     if (userid !=nil) {
         [ServiceManager userInfo:userid withBlock:^(Member *member, NSError *error) {
             if (error) {
@@ -113,7 +114,7 @@
 {
     isLogin = NO;
     //清除个人信息等...
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userid"];
+    [BookReaderDefaultManager deleteUserid];
     [self reloadUI];
 }
 
