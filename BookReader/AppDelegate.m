@@ -18,8 +18,8 @@
 #import "BookManager.h"
 #import "Constants.h"
 #import "ServiceManager.h"
-//#import "MobileProbe.h"
 #import "NSString+XXSYDecoding.h"
+#import "BookReaderDefaultManager.h"
 
 #define REMOTE_MODE
 
@@ -31,6 +31,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	//TOTEST: yanchao's account
+	[BookReaderDefaultManager saveUserid:@(5639339)];
+	
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
 //    [MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];
 //    [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
