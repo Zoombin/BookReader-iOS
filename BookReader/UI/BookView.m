@@ -12,6 +12,7 @@
 #import "MKNumberBadgeView.h"
 #import "ServiceManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "BookReaderDefaultManager.h"
 
 #define BOOK_WIDTH                        72
 #define BOOK_HEIGHT                       99
@@ -80,7 +81,7 @@
 }
 
 - (void)valueChanged:(id)sender {
-    NSNumber *userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+    NSNumber *userid = [BookReaderDefaultManager userid];
     [ServiceManager autoSubscribe:userid book:book.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
         if (error) {
             

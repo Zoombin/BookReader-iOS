@@ -11,6 +11,7 @@
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"
+#import "BookReaderDefaultManager.h"
 
 
 #define ACCOUNT_TEXTFIELD_TAG          100
@@ -217,7 +218,7 @@
 #pragma mark ChangePassword
 - (void)changeButtonClicked
 {
-    NSNumber *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
+    NSNumber *uid = [BookReaderDefaultManager userid];
     UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
     UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
     UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];

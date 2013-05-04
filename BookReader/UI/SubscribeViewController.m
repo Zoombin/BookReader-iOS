@@ -12,6 +12,7 @@
 #import "Chapter.h"
 #import "Book.h"
 #import "UIViewController+HUD.h"
+#import "BookReaderDefaultManager.h"
 #import "CoreTextViewController.h"
 
 @implementation SubscribeViewController
@@ -29,7 +30,7 @@
     self = [super init];
     if (self) {
         bookobj = book;
-        userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+        userid = [BookReaderDefaultManager userid];
         infoArray = [[NSMutableArray alloc] init];
         bOnline = online;
     }

@@ -17,6 +17,7 @@
 #import "NSString+XXSYDecoding.h"
 #import "Book.h"
 #import "ServiceManager.h"
+#import "BookReaderDefaultManager.h"
 
 @interface CoreTextViewController ()
 
@@ -62,10 +63,10 @@
         bOnline = online;
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
-        userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+        userid = [BookReaderDefaultManager userid];
         
-        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]];
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"userid"]==nil) {
+        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",userid];
+        if (userid==nil) {
             key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
         [textString setString:[chapter.content XXSYDecodingWithKey:key]];

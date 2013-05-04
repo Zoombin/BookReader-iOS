@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "SubscribeViewController.h"
 #import "BookShelfViewController.h"
+#import "BookReaderDefaultManager.h"
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002
@@ -48,7 +49,7 @@
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         
-        userid = [[NSUserDefaults standardUserDefaults] valueForKey:@"userid"];
+        userid = [BookReaderDefaultManager userid];
         bFav = NO;
         // Custom initialization
     }

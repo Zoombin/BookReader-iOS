@@ -15,6 +15,7 @@
 #import "Book.h"
 #import "Chapter.h"
 #import "Member+Setup.h"
+#import "BookReaderDefaultManager.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -123,7 +124,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [[NSUserDefaults standardUserDefaults] setValue:member.uid forKey:@"userid"];
+            [BookReaderDefaultManager saveUserid:member.uid];
         }
         if (block) {
             block(member, [theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
@@ -206,7 +207,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [[NSUserDefaults standardUserDefaults] setValue:member.uid forKey:@"userid"];
+            [BookReaderDefaultManager saveUserid:member.uid];
         }
         if (block) {
             block(member,nil);
