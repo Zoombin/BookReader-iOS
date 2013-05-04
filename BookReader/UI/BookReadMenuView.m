@@ -30,7 +30,8 @@
         textcolorNames = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
         
-        backgroundNames = @[@"羊皮纸",@"绿色",@"蓝色"];
+        backgroundNames = @[UserDefaultReadBackgroundGreen,UserDefaultReadBackgroundBlue,UserDefaultReadBackgroundSheep];
+        backgroundArray = @[ReadBackgroundColorGreen,ReadBackgroundColorBlue,ReadBackgroundColorSheep];
         [self initTopView];
         [self initBottomView];
         [self initFontView];
@@ -193,8 +194,11 @@
     [backgroundView addSubview:brightSlider];
     
     for (int i=0; i<3; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/3, 30, backgroundView.bounds.size.width/3, 110)];
+        [button setBackgroundColor:backgroundArray[i]];
+        [button setTitle:backgroundNames[i] forState:UIControlStateNormal];
+        [backgroundView addSubview:button];
     }
 }
 

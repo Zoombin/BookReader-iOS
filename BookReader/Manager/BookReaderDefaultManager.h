@@ -34,12 +34,17 @@
 //亮度
 #define UserDefaultBrightDefault   [NSNumber numberWithFloat:1]
 
-//5种背景图
+//3种样式名称
+#define UserDefaultReadBackgroundGreen  @"绿色"
+#define UserDefaultReadBackgroundBlue   @"蓝色"
+#define UserDefaultReadBackgroundSheep  @"羊皮纸"
+
+//3种背景图
 #define ReadBackgroundImageGreen [UIImage imageNamed:@"read_menu_view_background_safe.png"]
 #define ReadBackgroundImageBlue [UIImage imageNamed:@"read_menu_view_background_dream.png"]
 #define ReadBackgroundImageSheep [UIImage imageNamed:@"Read_SheepPager"]
 
-//5种背景颜色
+//3种背景颜色
 #define ReadBackgroundColorGreen [UIColor colorWithPatternImage:ReadBackgroundImageGreen]
 #define ReadBackgroundColorBlue [UIColor colorWithPatternImage:ReadBackgroundImageBlue]
 #define ReadBackgroundColorSheep [UIColor colorWithPatternImage:ReadBackgroundImageSheep]
