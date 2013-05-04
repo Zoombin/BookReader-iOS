@@ -47,8 +47,7 @@
 @end
 
 @implementation BookShelfViewController {
-    NSMutableArray *allArray;      //所有的书籍
-    NSMutableArray *bookViewArray;
+    NSMutableArray *books;      //所有的书籍
     BookShelfHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
@@ -60,8 +59,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    allArray = [[NSMutableArray alloc] init];
-    bookViewArray = [[NSMutableArray alloc]init];
+    books = [[NSMutableArray alloc] init];
 	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -108,12 +106,11 @@
     [ServiceManager userBooks:userid size:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
 		[self hideHUD:YES];
         if (error) {
-			[self displayHUDError:@"出错了！" message:error.description];
+			[self displayHUDError:nil message:error.description];
         }else {
-			[allArray removeAllObjects];
-			[allArray addObjectsFromArray:result];
-			NSLog(@"allArray = %@", allArray);
-			[Book persist:allArray];
+			[books removeAllObjects];
+			[books addObjectsFromArray:result];
+			[Book persist:books];
 			[booksView reloadData];
 			
 //            for (int i = 0; i < result.count; i++) {
@@ -212,9 +209,9 @@
 
 - (void)chaptersArrayWithIndex:(NSInteger)index
 {
-    NSLog(@"index %d ? = %d",index, [allArray count]);
-    if (index < [allArray count]) {
-        Book *book = [allArray objectAtIndex:index];
+    NSLog(@"index %d ? = %d",index, [books count]);
+    if (index < [books count]) {
+        Book *book = [books objectAtIndex:index];
         NSArray *chaptersArray = [Chapter chaptersWithBookId:book.uid];
         [self downloadBooks:[chaptersArray objectAtIndex:0] andBookIndex:index andCurrentChapterArray:chaptersArray];
     } else {
@@ -224,7 +221,7 @@
 
 - (void)downloadBooks:(Chapter *)obj andBookIndex:(NSInteger)bookIndex andCurrentChapterArray:(NSArray *)chaptersArray;
 {
-    Book *book = [allArray objectAtIndex:bookIndex];
+    Book *book = [books objectAtIndex:bookIndex];
     if (obj.content) {
         [self nextBookOrChapterWithChapter:obj
                           andChaptersArray:chaptersArray
@@ -281,7 +278,7 @@
          andBookIndex:(NSInteger)bookIndex
 andCurrentChapterArray:(NSArray *)chaptersArray
 {
-    Book *book = [allArray objectAtIndex:bookIndex];
+    Book *book = [books objectAtIndex:bookIndex];
     if ([chapter.bVip boolValue] && chapter.content == nil) {
         [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
             if (error) {
@@ -376,9 +373,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 
 - (void)saveBookValue
 {
-    if ([allArray count]>0) {
-        for (int i = 0; i<[allArray count]; i++) {
-            Book *book = [allArray objectAtIndex:i];
+    if ([books count]>0) {
+        for (int i = 0; i<[books count]; i++) {
+            Book *book = [books objectAtIndex:i];
             [book persist];
         }
     }
@@ -450,12 +447,12 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 #pragma mark - CollectionView
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	return allArray.count;
+	return books.count;
 }
 
 - (PSTCollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	Book *book = allArray[indexPath.row];
+	Book *book = books[indexPath.row];
 	BRBookCell *cell = [booksView cellForBook:book atIndexPath:indexPath];
 	cell.editing = editing;
 	return cell;
