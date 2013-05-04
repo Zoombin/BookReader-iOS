@@ -43,9 +43,6 @@
         [switchView addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 		switchView.hidden = YES;
         [self addSubview:switchView];
-
-		//TOTEST
-		self.badge = 30;		
 	}
 	return self;
 }
