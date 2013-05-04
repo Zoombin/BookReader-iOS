@@ -28,7 +28,7 @@
 #define XXSY_BASE_URL  @"http://link.xxsy.net/service"
 #define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
 
-#define NETWORKERROR    @"网络异常"
+
 
 //pwd 是16位小写 sign是32位小写
 @implementation ServiceManager
@@ -81,7 +81,6 @@
             block([theObject objectForKey:@"result"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(@"", error);
         }
@@ -105,7 +104,6 @@
             block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(@"",@"", error);
         }
@@ -131,7 +129,6 @@
             block(member, [theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil,nil,nil,error);
         }
@@ -154,7 +151,6 @@
             block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(@"", @"", error);
         }
@@ -173,7 +169,6 @@
             block([theObject objectForKey:@"error"], [theObject objectForKey:@"result"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(@"",@"", error);
         }
@@ -196,7 +191,6 @@
             block([theObject objectForKey:@"error"], [theObject objectForKey:@"result"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(@"", @"", error);
         }
@@ -218,7 +212,6 @@
             block(member,nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -246,7 +239,6 @@
             block([NSString stringWithFormat:@"%@",postsFromResponse], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(@"", error);
         }
@@ -282,7 +274,6 @@
             block(array,[theObject objectForKey:@"result"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil,nil,error);
         }
@@ -314,7 +305,6 @@
             block(bookListsArray, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -333,7 +323,6 @@
             block(resultArray, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -356,7 +345,6 @@
             block(book, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -393,7 +381,6 @@
             block(commentArray, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -417,7 +404,6 @@
             block(resultArray, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -444,7 +430,6 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil,nil,nil,error);
         }
@@ -474,7 +459,6 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil,nil,nil, error);
         }
@@ -499,7 +483,6 @@
             block(bookList, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -524,7 +507,6 @@
             block([theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self showAlertWithMessage:NETWORKERROR]; 会造成无限跳Alert，， 如果网络异常的话
         if (block) {
             block(nil,nil, error);
         }
@@ -547,7 +529,6 @@
             block([NSString stringWithFormat:@"%@",theObject], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -571,7 +552,6 @@
             block([theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -597,7 +577,6 @@
             block(resultArray, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -622,7 +601,6 @@
             block(resultArray, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -643,7 +621,6 @@
             block([theObject objectForKey:@"value"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -671,7 +648,6 @@
             block([theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showAlertWithMessage:NETWORKERROR];
         if (block) {
             block(nil, error);
         }
@@ -693,12 +669,6 @@
         ipAddress = [[NSString alloc] initWithFormat:@"%s",ip];
     }
     return ipAddress;
-}
-
-+ (void)showAlertWithMessage:(NSString *)message
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-    [alertView show];
 }
 
 @end

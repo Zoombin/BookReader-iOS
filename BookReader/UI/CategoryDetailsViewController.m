@@ -108,7 +108,7 @@
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {
-                         [self hideHUD:YES];
+                         [self displayHUDError:nil message:NETWORKERROR];
                      }else {
                          if ([infoArray count]>0) {
                              [infoArray addObjectsFromArray:result];

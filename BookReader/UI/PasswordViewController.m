@@ -182,6 +182,7 @@
         [self displayHUDError:nil message:@"手机号不合法"];
         return;
     }
+    [self displayHUD:@"请稍等..."];
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
             
@@ -198,6 +199,7 @@
 - (void)getFindPasswordCode
 {
     UITextField *accountTextField = (UITextField *)[self.view viewWithTag:ACCOUNT_TEXTFIELD_TAG];
+    [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
             
@@ -223,6 +225,7 @@
         [self displayHUDError:nil message:@"两次密码不一致"];
         return;
     }
+    [self displayHUD:@"请稍等..."];
     [ServiceManager changePassword:uid oldPassword:oldPasswordTextField.text andNewPassword:newPasswordTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];

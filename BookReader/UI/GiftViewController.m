@@ -10,6 +10,7 @@
 #import "UIDefines.h"
 #import "GiftCell.h"
 #import "ServiceManager.h"
+#import "UIViewController+HUD.h"
 
 @implementation GiftViewController {
     NSString *title;
@@ -90,6 +91,7 @@
     if ([value objectForKey:@"integral"]) {
         integral = [value objectForKey:@"integral"];
     }
+    [self displayHUD:@"处理中..."];
     [ServiceManager giveGift:userid
                         type:index
                       author:bookObj.authorID
@@ -98,10 +100,9 @@
                      andBook:bookObj.uid
                    withBlock:^(NSString *result, NSError *error) {
                        if (error) {
-                           
+                           [self displayHUDError:nil message:NETWORKERROR];
                        }else {
-                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:result message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-                           [alertView show];
+                           [self displayHUDError:nil message:result];
                        }
                    }];
 }

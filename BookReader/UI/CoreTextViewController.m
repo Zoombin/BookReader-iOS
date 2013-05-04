@@ -382,7 +382,7 @@
         [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
             if (error)
             {
-                [self hideHUD:YES];
+                [self displayHUDError:nil message:NETWORKERROR];
             }
             else
             {

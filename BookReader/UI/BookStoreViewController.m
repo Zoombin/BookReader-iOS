@@ -218,8 +218,7 @@
     [self displayHUD:@"加载中..."];
     [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(NSArray *reArray, NSError *error) {
         if (error) {
-            [self hideHUD:YES];
-            [self displayHUDError:@"Error" message:error.localizedDescription];
+            [self displayHUDError:nil message:NETWORKERROR];
         }else {
             if ([infoArray count] > 0) {
                 [infoArray removeAllObjects];
@@ -279,7 +278,7 @@
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {
-                         [self hideHUD:YES];
+                         [self displayHUDError:nil message:NETWORKERROR];
                      }else {
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
@@ -322,7 +321,7 @@
     [self displayHUD:@"加载中..."];
     [ServiceManager getRecommandBooksWithBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
-            [self hideHUD:YES];
+            [self displayHUDError:nil message:NETWORKERROR];
         }else {
             if ([infoArray count]>0) {
                 [infoArray removeAllObjects];
@@ -377,7 +376,7 @@
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {
-                         [childViewController hideHUD:YES];
+                         [childViewController displayHUDError:nil message:NETWORKERROR];
                      }else {
                          if ([infoArray count]>0) {
                              [infoArray removeAllObjects];
