@@ -111,9 +111,7 @@
 			[books removeAllObjects];
 			[books addObjectsFromArray:result];
 			[Book persist:books];
-			dispatch_sync(dispatch_get_main_queue(), ^{
-				[booksView reloadData];
-			});
+			[booksView reloadData];
 			
 //            for (int i = 0; i < result.count; i++) {
 //                Book *book = result[i];
