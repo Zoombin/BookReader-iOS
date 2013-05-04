@@ -428,7 +428,7 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     [headerView setDelegate:self];
     [self.view addSubview:headerView];
     
-    bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
+    bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
     [bottomView setDelegate:self];
     [self.view addSubview:bottomView];
 }
