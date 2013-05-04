@@ -91,9 +91,8 @@
 		
 		//TODO: load data from database
     } else {
-		[self syncFav];//TOTEST: have to delete
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			//[self syncFav];
+			[self syncFav];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 		}
 	}
