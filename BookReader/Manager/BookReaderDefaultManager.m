@@ -25,6 +25,14 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserDefaultUserid];
 }
 
+
++ (void)reset
+{
+    [self setObject:UserDefaultFontSizeMin ForKey:UserDefaultKeyFontSize];
+    [self setObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
+}
+
+
 + (void)setObject:(id)object ForKey:(id)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];

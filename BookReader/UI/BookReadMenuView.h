@@ -19,6 +19,8 @@
 
 - (void)fontAdd;
 - (void)fontReduce;
+- (void)systemFont;
+- (void)foundFont;
 
 @end
 

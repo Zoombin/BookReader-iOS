@@ -136,6 +136,18 @@
     [fontButonMax addTarget:self action:@selector(fontSizeAdd) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
+    
+    UIButton *defaultFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [defaultFontButton setFrame:CGRectMake(0, 30, fontView.bounds.size.width, 30)];
+    [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
+    [defaultFontButton setTitle:@"系统默认字体" forState:UIControlStateNormal];
+    [fontView addSubview:defaultFontButton];
+    
+    UIButton *foundFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [foundFontButton setFrame:CGRectMake(0, 60, fontView.bounds.size.width, 30)];
+    [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
+    [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
+    [fontView addSubview:foundFontButton];
 }
 
 - (void)fontSizeAdd
@@ -152,6 +164,20 @@
     }
 }
 
+
+- (void)systemFontChange
+{
+    if ([self.delegate respondsToSelector:@selector(systemFont)]) {
+        [self.delegate systemFont];
+    }
+}
+
+- (void)foundFontChange
+{
+    if ([self.delegate respondsToSelector:@selector(foundFont)]) {
+        [self.delegate foundFont];
+    }
+}
 
 - (void)bottomButtonsPressed:(id)sender
 {

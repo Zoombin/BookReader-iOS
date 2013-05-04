@@ -26,8 +26,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        font = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:20];
-        fontSize = 20;
+        font = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:19];
+        fontSize = 19;
     }
     return self;
 }

@@ -30,6 +30,7 @@
     NSMutableString *textString;
     UIFont *currentFont;
     CGFloat currentFontSize;
+    NSString *currentFontName;
     int currentPage;
     BOOL bOnline;
     
@@ -70,8 +71,12 @@
             key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
         [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+        
         currentFontSize = 19;
-        currentFont = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:currentFontSize];
+        currentFontName = UserDefaultSystemFont;
+        currentFont = [self setFontWithName:currentFontName];
+        
+        [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
     }
     return self;
@@ -107,6 +112,8 @@
     if ([pagesArray count]>0) {
         [pagesArray removeAllObjects];
     }
+    [self saveUserDefault];
+    currentFont = [self setFontWithName:currentFontName];
     [pagesArray addObjectsFromArray:[self pagesWithString:textString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:currentFont]];
     [mString setString:[textString substringWithRange:NSRangeFromString([pagesArray objectAtIndex:currentPage])]];
     [self updateStatusPercentage];
@@ -117,11 +124,35 @@
 	[coreTextView setNeedsDisplay];
 }
 
+- (void)loadUserDefault
+{
+    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyFontName]) {
+        currentFontName = [BookReaderDefaultManager objectForKey:UserDefaultKeyFontName];
+    }
+    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyFontSize]) {
+        currentFontSize = [[BookReaderDefaultManager objectForKey:UserDefaultKeyFontSize] floatValue];
+    }
+}
+
+- (void)saveUserDefault
+{
+    //保存字体名字
+    [BookReaderDefaultManager setObject:currentFontName ForKey:UserDefaultKeyFontName];
+    //保存字体大小
+    [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentFontSize] ForKey:UserDefaultKeyFontSize];
+}
+
 #pragma mark- 
-#pragma MenuView delegate
+#pragma mark MenuView Delegate
+- (UIFont *)setFontWithName:(NSString *)fontName
+{
+    UIFont *font = [UIFont fontWithName:fontName size:currentFontSize];
+    return font;
+}
+
 - (void)fontReduce
 {
-    if (currentFontSize==19) {
+    if (currentFontSize==[UserDefaultFontSizeMin floatValue]) {
         [self displayHUDError:nil message:@"字体已达到最小"];
         return;
     } else {
@@ -131,7 +162,7 @@
 }
 
 - (void)fontAdd {
-    if (currentFontSize==23) {
+    if (currentFontSize==[UserDefaultFontSizeMax floatValue]) {
         [self displayHUDError:nil message:@"字体已达到最大"];
         return;
     } else {
@@ -139,6 +170,21 @@
         [self updateContent];
     }
 }
+
+- (void)systemFont
+{
+    currentFontName = UserDefaultSystemFont;
+    [self updateContent];
+}
+
+- (void)foundFont
+{
+    currentFontName = UserDefaultFoundFont;
+    [self updateContent];
+}
+
+#pragma mark -
+#pragma mark other methods
 
 - (void)updateStatusPercentage
 {

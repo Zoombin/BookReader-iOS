@@ -10,6 +10,15 @@
 
 #define UserDefaultUserid   @"userid"
 
+#define UserDefaultKeyFontSize     @"fontsize"
+#define UserDefaultKeyFontName     @"fontname"
+
+#define UserDefaultFontSizeMax [NSNumber numberWithFloat:23]
+#define UserDefaultFontSizeMin [NSNumber numberWithFloat:19]
+
+#define UserDefaultSystemFont  @"Arial"
+#define UserDefaultFoundFont   @"FZLTHJW--GB1-0"
+
 @interface BookReaderDefaultManager : NSObject
 + (void)saveUserid:(id)object;
 + (id)userid;
@@ -17,4 +26,6 @@
 
 + (void)setObject:(id)object ForKey:(id)key;
 + (id)objectForKey:(id)key;
+
++ (void)reset;
 @end
