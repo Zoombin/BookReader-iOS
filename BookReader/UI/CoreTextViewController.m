@@ -115,6 +115,9 @@
     [self saveUserDefault];
     currentFont = [self setFontWithName:currentFontName];
     [pagesArray addObjectsFromArray:[self pagesWithString:textString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:currentFont]];
+    if (currentPage>=[pagesArray count]) {
+        currentPage = [pagesArray count]-1;
+    }
     [mString setString:[textString substringWithRange:NSRangeFromString([pagesArray objectAtIndex:currentPage])]];
     [self updateStatusPercentage];
     statusView.title.text = chapter.name;
