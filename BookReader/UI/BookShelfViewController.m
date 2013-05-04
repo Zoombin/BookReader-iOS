@@ -10,7 +10,6 @@
 
 #import "BookShelfViewController.h"
 #import "Book.h"
-#import "BookView.h"
 #import "AppDelegate.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
@@ -94,9 +93,9 @@
 		
 		//TODO: load data from database
     } else {
-		//[self syncFav];//TOTEST: have to delete
+		[self syncFav];//TOTEST: have to delete
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			[self syncFav];
+			//[self syncFav];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 		}
 	}
@@ -346,20 +345,20 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     }
     else if (type.intValue == kBottomViewButtonDelete)
     {
-		for (BookView *bv in bookViewArray) {
-			if (bv.selected) {
-				[ServiceManager addFavourite:userid book:bv.book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
-					if (error) {
-					}
-					else {
-						if ([result isEqualToString:SUCCESS_FLAG]) {
-							[allArray removeObject:bv.book];
-							[bookViewArray removeObject:bv];
-						}
-					}
-				}];
-			}
-		}
+//		for (BookView *bv in bookViewArray) {
+//			if (bv.selected) {
+//				[ServiceManager addFavourite:userid book:bv.book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
+//					if (error) {
+//					}
+//					else {
+//						if ([result isEqualToString:SUCCESS_FLAG]) {
+//							[allArray removeObject:bv.book];
+//							[bookViewArray removeObject:bv];
+//						}
+//					}
+//				}];
+//			}
+//		}
     } else if (type.intValue == kBottomViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
