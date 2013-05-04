@@ -32,7 +32,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	//TOTEST: yanchao's account
-	[BookReaderDefaultManager saveUserID:@(5639339)];
+//	[BookReaderDefaultManager saveUserID:@(5639339)];
 	
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
 //    [MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];

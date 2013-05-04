@@ -42,7 +42,7 @@
 //3种背景图
 #define ReadBackgroundImageGreen [UIImage imageNamed:@"read_menu_view_background_safe.png"]
 #define ReadBackgroundImageBlue [UIImage imageNamed:@"read_menu_view_background_dream.png"]
-#define ReadBackgroundImageSheep [UIImage imageNamed:@"Read_SheepPager"]
+#define ReadBackgroundImageSheep [UIImage imageNamed:@"read_sheeppager"]
 
 //3种背景颜色
 #define ReadBackgroundColorGreen [UIColor colorWithPatternImage:ReadBackgroundImageGreen]
