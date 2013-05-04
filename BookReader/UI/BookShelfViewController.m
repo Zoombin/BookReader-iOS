@@ -94,7 +94,7 @@
 		
 		//TODO: load data from database
     } else {
-		[self syncFav];//TOTEST: have to delete
+		//[self syncFav];//TOTEST: have to delete
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			[self syncFav];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
@@ -424,11 +424,11 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
     [self.view addSubview:backgroundImage];
     
-    headerView = [[BookShelfHeaderView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+    headerView = [[BookShelfHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerView setDelegate:self];
     [self.view addSubview:headerView];
     
-    bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN.size.height-44-20, MAIN_SCREEN.size.width, 44)];
+    bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
     [bottomView setDelegate:self];
     [self.view addSubview:bottomView];
 }
