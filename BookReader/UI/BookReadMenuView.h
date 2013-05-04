@@ -23,6 +23,7 @@
 - (void)foundFont;
 - (void)changeTextColor:(NSString *)textColor;
 - (void)brightChanged:(id)sender;
+- (void)backgroundColorChanged:(NSString *)colorName;
 
 @end
 

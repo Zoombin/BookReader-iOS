@@ -38,6 +38,9 @@
         [badgeView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:badgeView];
         
+        [badgeView setValue:0];
+        [badgeView badgeSize];
+        
         switchView = [[UISwitch alloc] init];
 		switchView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMaxY(self.bounds) - 30);
         [switchView addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];

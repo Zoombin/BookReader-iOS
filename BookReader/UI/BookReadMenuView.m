@@ -196,9 +196,18 @@
     for (int i=0; i<3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/3, 30, backgroundView.bounds.size.width/3, 110)];
+        [button setTag:i];
         [button setBackgroundColor:backgroundArray[i]];
+        [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:backgroundNames[i] forState:UIControlStateNormal];
         [backgroundView addSubview:button];
+    }
+}
+
+- (void)backgroundChanged:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(backgroundColorChanged:)]) {
+        [self.delegate backgroundColorChanged:backgroundNames[[sender tag]]];
     }
 }
 
@@ -206,7 +215,8 @@
 {
     if ([self.delegate respondsToSelector:@selector(brightChanged:)]) {
         [self.delegate brightChanged:sender];
-    }}
+    }
+}
 
 - (void)colorChanged:(id)sender
 {

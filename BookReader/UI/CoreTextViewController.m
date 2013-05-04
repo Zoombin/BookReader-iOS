@@ -29,6 +29,7 @@
     CGFloat currentFontSize;
     NSString *currentFontName;
     NSString *currentTextColorStr;
+    NSString *currentBackgroundStr;
     float currentAlpa;
     int currentPage;
     BOOL bOnline;
@@ -78,6 +79,8 @@
         currentFont = [self setFontWithName:currentFontName];
         currentTextColorStr = @"blackColor";
         currentAlpa = 1;
+        currentBackgroundStr = UserDefaultReadBackgroundSheep;
+        [self.view setBackgroundColor:ReadBackgroundColorSheep];
         
         [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
@@ -159,6 +162,14 @@
     if ([BookReaderDefaultManager objectForKey:UserDefaultKeyBright]) {
         currentAlpa = [[BookReaderDefaultManager objectForKey:UserDefaultKeyBright] floatValue];
     }
+    NSString *colorName = [BookReaderDefaultManager objectForKey:UserDefaultKeyBackground];
+    if ([colorName isEqualToString:UserDefaultReadBackgroundSheep]) {
+        [self.view setBackgroundColor:ReadBackgroundColorSheep];
+    } else if ([colorName isEqualToString:UserDefaultReadBackgroundBlue]) {
+        [self.view setBackgroundColor:ReadBackgroundColorBlue];
+    } else if ([colorName isEqualToString:UserDefaultReadBackgroundGreen]) {
+        [self.view setBackgroundColor:ReadBackgroundColorGreen];
+    }
 }
 
 - (void)saveUserDefault
@@ -171,6 +182,8 @@
     [BookReaderDefaultManager setObject:currentTextColorStr ForKey:UserDefaultKeyTextColor];
     //保存亮度
     [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentAlpa] ForKey:UserDefaultKeyBright];
+    //保存背景色
+    [BookReaderDefaultManager setObject:currentBackgroundStr ForKey:UserDefaultKeyBackground];
 }
 
 #pragma mark- 
@@ -187,6 +200,18 @@
     currentAlpa = slider.value;
     coreTextView.alpha = slider.value;
     statusView.alpha = slider.value;
+}
+
+- (void)backgroundColorChanged:(NSString *)colorName
+{
+    if ([colorName isEqualToString:UserDefaultReadBackgroundSheep]) {
+        [self.view setBackgroundColor:ReadBackgroundColorSheep];
+    } else if ([colorName isEqualToString:UserDefaultReadBackgroundBlue]) {
+        [self.view setBackgroundColor:ReadBackgroundColorBlue];
+    } else if ([colorName isEqualToString:UserDefaultReadBackgroundGreen]) {
+        [self.view setBackgroundColor:ReadBackgroundColorGreen];
+    }
+    currentBackgroundStr = colorName;
 }
 
 - (void)changeTextColor:(NSString *)textColor
