@@ -124,7 +124,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [BookReaderDefaultManager saveUserid:member.uid];
+            [BookReaderDefaultManager saveUserID:member.uid];
         }
         if (block) {
             block(member, [theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
@@ -207,7 +207,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [BookReaderDefaultManager saveUserid:member.uid];
+            [BookReaderDefaultManager saveUserID:member.uid];
         }
         if (block) {
             block(member,nil);

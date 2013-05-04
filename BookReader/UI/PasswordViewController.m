@@ -218,7 +218,7 @@
 #pragma mark ChangePassword
 - (void)changeButtonClicked
 {
-    NSNumber *uid = [BookReaderDefaultManager userid];
+    NSNumber *uid = [BookReaderDefaultManager userID];
     UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
     UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
     UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];

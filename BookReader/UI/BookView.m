@@ -81,7 +81,7 @@
 }
 
 - (void)valueChanged:(id)sender {
-    NSNumber *userid = [BookReaderDefaultManager userid];
+    NSNumber *userid = [BookReaderDefaultManager userID];
     [ServiceManager autoSubscribe:userid book:book.uid andValue:[sender isOn]==YES?@"1":@"0" withBlock:^(NSString *result, NSError *error) {
         if (error) {
             

@@ -13,8 +13,11 @@
 @implementation BookReadMenuView {
     UIView *fontView;
     UIView *backgroundView;
-    NSArray *textcolorName;
+    NSArray *textcolorNames;
     NSArray *textcolorArray;
+    
+    NSArray *backgroundNames;
+    NSArray *backgroundArray;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -24,8 +27,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        textcolorName = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
+        textcolorNames = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
+        
+        backgroundNames = @[@"羊皮纸",@"绿色",@"蓝色"];
         [self initTopView];
         [self initBottomView];
         [self initFontView];
@@ -157,7 +162,7 @@
         [colorButton setFrame:CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*i, 100, fontView.bounds.size.width/[textcolorArray count], 30)];
         [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
         [colorButton setTag:i];
-        [colorButton setTitle:textcolorName[i] forState:UIControlStateNormal];
+        [colorButton setTitle:textcolorNames[i] forState:UIControlStateNormal];
         [fontView addSubview:colorButton];
     }
 }
@@ -186,6 +191,11 @@
     [brightSlider setMaximumValue:1];
     [brightSlider setMinimumValue:0.5];
     [backgroundView addSubview:brightSlider];
+    
+    for (int i=0; i<3; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+    }
 }
 
 - (void)sliderValueChanged:(id)sender

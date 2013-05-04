@@ -46,7 +46,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    userid = [BookReaderDefaultManager userid];
+    userid = [BookReaderDefaultManager userID];
     if (userid !=nil) {
         [ServiceManager userInfo:userid withBlock:^(Member *member, NSError *error) {
             if (error) {
@@ -114,7 +114,7 @@
 {
     isLogin = NO;
     //清除个人信息等...
-    [BookReaderDefaultManager deleteUserid];
+    [BookReaderDefaultManager deleteUserID];
     [self reloadUI];
 }
 
