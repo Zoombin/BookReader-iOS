@@ -50,8 +50,8 @@
 #define ReadBackgroundColorSheep [UIColor colorWithPatternImage:ReadBackgroundImageSheep]
 
 @interface BookReaderDefaultManager : NSObject
-+ (void)saveUserID:(id)object;
-+ (id)userID;
++ (void)saveUserID:(NSNumber *)userID;
++ (NSNumber *)userID;
 + (void)deleteUserID;
 
 + (void)setObject:(id)object ForKey:(id)key;
