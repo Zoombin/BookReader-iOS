@@ -250,7 +250,6 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        NSLog(@"登录");
         [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
     }
 }
@@ -281,13 +280,14 @@
 
 - (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell
 {
-	BOOL onOrOff = bookCell.switchView.on;
-	NSString *message = onOrOff ? @"开启订阅..." : @"关闭订阅...";
+	BOOL shiftToOnOrOff = !bookCell.autoBuy;
+	NSString *message = shiftToOnOrOff ? @"开启订阅..." : @"关闭订阅...";
 		[self displayHUD:message];
-	[ServiceManager autoSubscribe:userid book:bookCell.book.uid andValue:onOrOff ? @"1" : @"0" withBlock:^(NSString *result, NSError *error) {
+	[ServiceManager autoSubscribe:userid book:bookCell.book.uid andValue:shiftToOnOrOff ? @"1" : @"0" withBlock:^(NSString *result, NSError *error) {
 		[self hideHUD:YES];
 		if (!error) {
-			bookCell.book.autoBuy = @(onOrOff);
+			bookCell.book.autoBuy = @(shiftToOnOrOff);
+			bookCell.autoBuy = shiftToOnOrOff;
 		}
 	}];
 }
@@ -303,7 +303,6 @@
 	Book *book = books[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
-	cell.switchView.on = book.autoBuy.boolValue;
 	return cell;
 }
 
