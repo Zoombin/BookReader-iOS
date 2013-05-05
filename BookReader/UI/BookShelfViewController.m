@@ -31,18 +31,6 @@
 #import "BRBookCell.h"
 #import "BookReaderDefaultManager.h"
 
-//UIFrame
-#define EDIT_BUTTON_FRAME                      CGRectMake(10, 11, 50, 32)
-#define DELETE_BUTTON_FRAME                    CGRectMake(MAIN_SCREEN.size.width-60,11,50,32)
-
-#define SHELF_HEIGHT                      132
-#define BOOK_WIDTH                        72
-#define BOOK_HEIGHT                       99
-#define BOOK_TOP_SPACING                  20
-#define BOOK_HORIZONTAL_SPACING           26
-#define BOOK_VERTICAL_SPACING             26
-#define PROGRESS_BOOK_OFFSET              4
-
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
 @end
 
@@ -112,227 +100,95 @@
 			[Book persist:books];
 			[booksView reloadData];
 			
-//            for (int i = 0; i < result.count; i++) {
-//                Book *book = result[i];
-//				[book persist];
-//                NSArray *bookArray = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@",book.uid]];
-//                if (bookArray.count == 0) {
-//                    NSLog(@"%@",book.name);
-//                    [book persist];
-//                }
-//                else {
-//                    Book *tmpobj = bookArray[0];
-//                    tmpobj.autoBuy = book.autoBuy;
-//                    [tmpobj persist];
-//                }
-//                NSArray *chapterArray = [Chapter chaptersWithBookId:book.uid];
-//                if (chapterArray.count > 0) {
-//                    Chapter *chapter = [chapterArray lastObject];
-//                    [self loadChapterList:chapter.uid andBookId:book.uid];
-//                }
-//                else {
-//                    [self loadChapterList:@"0" andBookId:book.uid];
-//                }
-//            }            
+			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
+				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+					if (!error) {
+						[Chapter persist:result withBlock:nil];
+					}
+					
+					if (idx == books.count - 1) {
+						//[self syncChapterContent:0 bookIdx:0];
+					}
+				}];
+				
+
+			}];
         }
     }];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)syncChapterContent:(NSInteger)idx bookIdx:(NSInteger)bookIdx
 {
-    if (buttonIndex == 0) {
-        NSLog(@"登录");
-        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
-    }
+	if (bookIdx >= books.count) return;
+	Book *book = books[bookIdx];
+	NSArray *chapters = [Chapter chaptersWithBookID:book.uid];
+	if (idx >= chapters.count) return;
+	[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger bookIdx, BOOL *stop) {
+		[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+			[self displayHUD:[NSString stringWithFormat:@"下载中%@:%@", book.name, chapter.name]];
+			[ServiceManager bookCatalogue:book.uid	andUserid:userid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+				chapter.content = content;
+				[chapter persistWithBlock:^{
+					[self syncChapterContent:idx + 1 bookIdx:bookIdx];
+				}];
+			}];
+		}];
+	}];
 }
 
-//- (void)loadUserBookShelf
+//- (void)subscribeBook:(Chapter *)chapter
+//         andBookIndex:(NSInteger)bookIndex
+//andCurrentChapterArray:(NSArray *)chaptersArray
 //{
-//	//TODO: logical error, allArray.count > 0 means shouldn't refresh user's fav???
-//    if ([allArray count] == 0 && userid != nil) {
-//        NSArray *array = [Book findAll];
-//        if (array.count > 0) {
-//            [allArray addObjectsFromArray:array];
-//			[booksView reloadData];
-//        }
-//        else {
-//            //[self refreshUserBooks];
-//        }
-//    }
-//}
-
-//- (void)refreshUserBooks
-//{
-//    if (!userid) {
-//        return;
-//    }
-//    [self displayHUD:@"获取用户书架中..."];
-//    [ServiceManager userBooks:userid size:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
-//        if (error) {
-//            [self hideHUD:YES];
-//        }else {
-//			[allArray removeAllObjects];
-//            for (int i = 0; i < result.count; i++) {
-//                Book *obj = result[i];
-//                NSArray *bookArray = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@",obj.uid]];
-//                if (bookArray.count == 0) {
-//                    NSLog(@"%@",obj.name);
-//                    [obj persist];
-//                }
-//                else {
-//                    Book *tmpobj = bookArray[0];
-//                    tmpobj.autoBuy = obj.autoBuy;
-//                    [tmpobj persist];
-//                }
-//                NSArray *chapterArray = [Chapter chaptersWithBookId:obj.uid];
-//                if (chapterArray.count > 0) {
-//                    Chapter *chapter = [chapterArray lastObject];
-//                    [self loadChapterList:chapter.uid andBookId:obj.uid];
-//                }
-//                else {
-//                    [self loadChapterList:@"0" andBookId:obj.uid];
+//    Book *book = [books objectAtIndex:bookIndex];
+//    if ([chapter.bVip boolValue] && chapter.content == nil) {
+//        [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+//            if (error) {
+//                [self nextBookOrChapterWithChapter:chapter
+//                                  andChaptersArray:chaptersArray
+//                                      andBookIndex:bookIndex];
+//            }
+//            else {
+//                if ([result isEqualToString:SUCCESS_FLAG]) {
+//                    chapter.content = content;
+//                    [self nextBookOrChapterWithChapter:chapter
+//                                      andChaptersArray:chaptersArray
+//                                          andBookIndex:bookIndex];
+//                }else {
+//                    [self nextBookOrChapterWithChapter:chapter
+//                                      andChaptersArray:chaptersArray
+//                                          andBookIndex:bookIndex];
 //                }
 //            }
-//            [allArray addObjectsFromArray:result];
-//            //[self layoutBookViewWithArray:[self bookViews]];
-//            [self hideHUD:YES];
-//        }
-//    }];
-//}
-
-- (void)refreshUserBooksAndDownload
-{
-//    [self refreshUserBooks];
-    [self chaptersArrayWithIndex:0];
-}
-
-- (void)chaptersArrayWithIndex:(NSInteger)index
-{
-    NSLog(@"index %d ? = %d",index, [books count]);
-    if (index < [books count]) {
-        Book *book = [books objectAtIndex:index];
-        NSArray *chaptersArray = [Chapter chaptersWithBookId:book.uid];
-        [self downloadBooks:[chaptersArray objectAtIndex:0] andBookIndex:index andCurrentChapterArray:chaptersArray];
-    } else {
-        NSLog(@"下载完毕");
-    }
-}
-
-- (void)downloadBooks:(Chapter *)obj andBookIndex:(NSInteger)bookIndex andCurrentChapterArray:(NSArray *)chaptersArray;
-{
-    Book *book = [books objectAtIndex:bookIndex];
-    if (obj.content) {
-        [self nextBookOrChapterWithChapter:obj
-                          andChaptersArray:chaptersArray
-                              andBookIndex:bookIndex];
-        return;
-    }
-    [ServiceManager bookCatalogue:obj.uid
-                        andUserid:userid
-                        withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
-                            if (error) {
-                                [self nextBookOrChapterWithChapter:obj
-                                                  andChaptersArray:chaptersArray
-                                                      andBookIndex:bookIndex];
-                            }
-                            else
-                            {
-                                if (![code isEqualToString:SUCCESS_FLAG]) {
-                                    if ([book.autoBuy boolValue]) {
-                                        [self subscribeBook:obj
-                                               andBookIndex:bookIndex
-                                     andCurrentChapterArray:chaptersArray];
-                                    } else {
-                                        [self nextBookOrChapterWithChapter:obj
-                                                          andChaptersArray:chaptersArray
-                                                              andBookIndex:bookIndex];
-                                    }
-                                }
-                                else
-                                {
-                                    obj.content = content;
-                                    [self nextBookOrChapterWithChapter:obj
-                                                      andChaptersArray:chaptersArray
-                                                          andBookIndex:bookIndex];
-                                }
-                            }
-                        }];
-}
-
-- (void)nextBookOrChapterWithChapter:(Chapter *)chapter
-                    andChaptersArray:(NSArray *)chaptersArray
-                        andBookIndex:(NSInteger)bookIndex
-{
-    if ([chapter.index integerValue] < [chaptersArray count]-1) {
-        [self downloadBooks:[chaptersArray objectAtIndex:[chapter.index integerValue] + 1]
-               andBookIndex:bookIndex
-     andCurrentChapterArray:chaptersArray];
-    }
-    else {
-        [self chaptersArrayWithIndex:bookIndex + 1];
-    }
-}
-
-- (void)subscribeBook:(Chapter *)chapter
-         andBookIndex:(NSInteger)bookIndex
-andCurrentChapterArray:(NSArray *)chaptersArray
-{
-    Book *book = [books objectAtIndex:bookIndex];
-    if ([chapter.bVip boolValue] && chapter.content == nil) {
-        [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
-            if (error) {
-                [self nextBookOrChapterWithChapter:chapter
-                                  andChaptersArray:chaptersArray
-                                      andBookIndex:bookIndex];
-            }
-            else {
-                if ([result isEqualToString:SUCCESS_FLAG]) {
-                    chapter.content = content;
-                    [self nextBookOrChapterWithChapter:chapter
-                                      andChaptersArray:chaptersArray
-                                          andBookIndex:bookIndex];
-                }else {
-                    [self nextBookOrChapterWithChapter:chapter
-                                      andChaptersArray:chaptersArray
-                                          andBookIndex:bookIndex];
-                }
-            }
-        }];
-    }
-}
-
-- (void)loadChapterList:(NSString *)cataId andBookId:(NSString *)bookid
-{
-    [ServiceManager bookCatalogueList:bookid andNewestCataId:cataId withBlock:^(NSArray *result, NSError *error) {
-        if (!error) {
-			[Chapter persist:result withBlock:nil];
-        }
-    }];
-}
-
-//- (void)addDefaultBackground {
-//    for (int i =0; i<4; i++) {
-//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*SHELF_HEIGHT*SCREEN_SCALE, MAIN_SCREEN.size.width, SHELF_HEIGHT*SCREEN_SCALE)];
-//        imageView.image = [UIImage imageNamed:@"bookshelf"];
-//        //[bookShelfView insertSubview:imageView atIndex:0];
+//        }];
 //    }
 //}
 
-//- (NSMutableArray *)bookViews {
-//	[bookViewArray removeAllObjects];
-//    NSArray *framesArray = [self createFrames:[allArray count]];
-//    for (int i = 0; i< [allArray count]; i++) {
-//        BookView *bookView = [[BookView alloc] initWithFrame:CGRectFromString([framesArray objectAtIndex:i])];
-//        Book *book = allArray[i];
-//        bookView.selected = NO;
-//        bookView.editing = NO;
-//        [bookView setBadgeValue:[[book numberOfUnreadChapters] integerValue]];
-//        [bookView setBook:book];
-//        [bookView setDelegate:self];
-//        bookViewArray[i] = bookView;
-//    }
-//    return bookViewArray;
-//}
+- (void)removeFav:(NSInteger)idx
+{
+	static NSMutableIndexSet *needRemoveIndexes;
+	if (!needRemoveIndexes) {
+		needRemoveIndexes = [[NSMutableIndexSet alloc] init];
+	}
+	if (idx >= books.count) {
+		[books removeObjectsAtIndexes:needRemoveIndexes];
+		[needRemoveIndexes removeAllIndexes];
+		[booksView reloadData];
+		//TODO: need delete in database
+		return;
+	}
+	BRBookCell *bookCell = (BRBookCell *)[booksView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
+	if (bookCell.cellSelected) {
+		[self displayHUD:[NSString stringWithFormat:@"删除收藏:%@", bookCell.book.name]];
+		[ServiceManager addFavourite:userid book:bookCell.book.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
+			[self hideHUD:YES];
+			if ([result isEqualToString:SUCCESS_FLAG]) {
+				[needRemoveIndexes addIndex:idx];
+				[self removeFav:idx + 1];
+			}
+		}];
+	}
+}
 
 - (void)bottomButtonClicked:(NSNumber *)type {
     if (type.intValue == kBottomViewButtonEdit) {
@@ -341,42 +197,19 @@ andCurrentChapterArray:(NSArray *)chaptersArray
     }
     else if (type.intValue == kBottomViewButtonDelete)
     {
-//		for (BookView *bv in bookViewArray) {
-//			if (bv.selected) {
-//				[ServiceManager addFavourite:userid book:bv.book.uid andValue:NO withBlock:^(NSString *errorMessage,NSString *result, NSError *error) {
-//					if (error) {
-//					}
-//					else {
-//						if ([result isEqualToString:SUCCESS_FLAG]) {
-//							[allArray removeObject:bv.book];
-//							[bookViewArray removeObject:bv];
-//						}
-//					}
-//				}];
-//			}
-//		}
+		[self removeFav:0];
     } else if (type.intValue == kBottomViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
     }
     else if (type.intValue == kBottomViewButtonRefresh) {
-        [self refreshUserBooksAndDownload];
+        //[self refreshUserBooksAndDownload];
     }
     else if (type.intValue == kBottomViewButtonShelf) {
         headerView.titleLabel.text = @"我的收藏";
     }
     else if (type.intValue == kBottomViewButtonBookHistoroy) {
         headerView.titleLabel.text = @"阅读历史";
-    }
-}
-
-- (void)saveBookValue
-{
-    if ([books count]>0) {
-        for (int i = 0; i<[books count]; i++) {
-            Book *book = [books objectAtIndex:i];
-            [book persist];
-        }
     }
 }
 
@@ -414,6 +247,14 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 //    [self.view addSubview:infoTableView];
 //}
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSLog(@"登录");
+        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+    }
+}
+
 - (void)loadRemoteView {
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
     [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
@@ -440,7 +281,15 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 
 - (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell
 {
-	NSLog(@"changedValue");
+	BOOL onOrOff = bookCell.switchView.on;
+	NSString *message = onOrOff ? @"开启订阅..." : @"关闭订阅...";
+		[self displayHUD:message];
+	[ServiceManager autoSubscribe:userid book:bookCell.book.uid andValue:onOrOff ? @"1" : @"0" withBlock:^(NSString *result, NSError *error) {
+		[self hideHUD:YES];
+		if (!error) {
+			bookCell.book.autoBuy = @(onOrOff);
+		}
+	}];
 }
 
 #pragma mark - CollectionView
@@ -452,8 +301,9 @@ andCurrentChapterArray:(NSArray *)chaptersArray
 - (PSTCollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	Book *book = books[indexPath.row];
-	BRBookCell *cell = [booksView cellForBook:book atIndexPath:indexPath];
+	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
+	cell.switchView.on = book.autoBuy.boolValue;
 	return cell;
 }
 
