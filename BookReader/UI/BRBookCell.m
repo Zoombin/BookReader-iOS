@@ -16,7 +16,6 @@
 	CustomProgressView *progressView;
 	UIImageView *selectedMark;
 	MKNumberBadgeView *badgeView;
-	UISwitch *switchView;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -41,11 +40,11 @@
         [badgeView setValue:0];
         [badgeView badgeSize];
         
-        switchView = [[UISwitch alloc] init];
-		switchView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMaxY(self.bounds) - 30);
-        [switchView addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-		switchView.hidden = YES;
-        [self addSubview:switchView];
+        _switchView = [[UISwitch alloc] init];
+		_switchView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMaxY(self.bounds) - 30);
+        [_switchView addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+		_switchView.hidden = YES;
+        [self addSubview:_switchView];
 	}
 	return self;
 }
@@ -69,7 +68,7 @@
     }
 	
     if (_book.autoBuy) {
-        [switchView setOn:[book.autoBuy boolValue]];
+        [_switchView setOn:[book.autoBuy boolValue]];
     }
 }
 
@@ -77,7 +76,7 @@
 {
     _editing = editing;
 	badgeView.hidden = _editing;
-	switchView.hidden = !_editing;
+	_switchView.hidden = !_editing;
 	self.backgroundView.alpha = _editing ? 0.5 : 1.0;
 }
 

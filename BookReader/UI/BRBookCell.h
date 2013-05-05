@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL editing;
 @property (nonatomic, assign) BOOL cellSelected;
 @property (nonatomic, assign) NSInteger badge;
+@property (nonatomic, strong) UISwitch *switchView;
 
 
 @end
