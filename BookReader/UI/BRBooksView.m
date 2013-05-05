@@ -24,6 +24,15 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+	//- (void)addDefaultBackground {
+	//    for (int i =0; i<4; i++) {
+	//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*SHELF_HEIGHT*SCREEN_SCALE, MAIN_SCREEN.size.width, SHELF_HEIGHT*SCREEN_SCALE)];
+	//        imageView.image = [UIImage imageNamed:@"bookshelf"];
+	//        //[bookShelfView insertSubview:imageView atIndex:0];
+	//    }
+	//}
+	
+	
 	PSUICollectionViewFlowLayout *_listLayout = [[PSUICollectionViewFlowLayout alloc] init];
 	_listLayout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
 	_listLayout.itemSize = CGSizeMake(self.bounds.size.width, 100);
@@ -62,7 +71,7 @@
 	[self setCollectionViewLayout:layout animated:YES];
 }
 
-- (BRBookCell *)cellForBook:(Book *)book atIndexPath:(NSIndexPath *)indexPath
+- (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath
 {
 	BRBookCell *cell = [self dequeueReusableCellWithReuseIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
 	cell.bookCellDelegate = self;

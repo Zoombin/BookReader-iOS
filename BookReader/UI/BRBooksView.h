@@ -24,6 +24,6 @@
 @property (nonatomic, weak) id<BRBooksViewDelegate> booksViewDelegate;
 @property (nonatomic) BOOL gridStyle;
 
-- (BRBookCell *)cellForBook:(Book *)book atIndexPath:(NSIndexPath *)indexPath;
+- (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath;
 
 @end
