@@ -187,13 +187,17 @@
     [brightSlider setMinimumValue:0.5];
     [backgroundView addSubview:brightSlider];
     
+    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, backgroundView.bounds.size.width, 110)];
+    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*3, 110)];
+    [backgroundView addSubview:scrollerView];
+    
     for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/16, 30, backgroundView.bounds.size.width/16, 110)];
+        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/16*3, 0, backgroundView.bounds.size.width/16*3, 110)];
         [button setTag:i];
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
-        [backgroundView addSubview:button];
+        [scrollerView addSubview:button];
     }
 }
 
