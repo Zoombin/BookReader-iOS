@@ -8,7 +8,7 @@
 
 #import "BookReadMenuView.h"
 #import "UIDefines.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 @implementation BookReadMenuView {
     UIView *fontView;
@@ -184,8 +184,8 @@
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 0, backgroundView.bounds.size.width-50, 30)];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyBright]) {
-       brightSlider.value = [[BookReaderDefaultManager objectForKey:UserDefaultKeyBright] floatValue]; 
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
+       brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     } else {
        brightSlider.value = 1;
     }

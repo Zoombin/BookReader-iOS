@@ -11,7 +11,7 @@
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 
 #define ACCOUNT_TEXTFIELD_TAG          100

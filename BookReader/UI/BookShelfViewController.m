@@ -29,7 +29,7 @@
 #import "BookCell.h"
 #import "BRBooksView.h"
 #import "BRBookCell.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
 @end

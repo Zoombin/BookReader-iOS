@@ -11,7 +11,7 @@
 #import "GiftCell.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 @implementation GiftViewController {
     NSString *title;

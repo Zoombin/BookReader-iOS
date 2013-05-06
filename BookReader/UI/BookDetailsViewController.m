@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 #import "SubscribeViewController.h"
 #import "BookShelfViewController.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002

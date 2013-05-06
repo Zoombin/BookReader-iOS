@@ -12,7 +12,7 @@
 #import "Chapter.h"
 #import "Book.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 #import "CoreTextViewController.h"
 
 @implementation SubscribeViewController

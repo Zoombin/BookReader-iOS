@@ -19,7 +19,7 @@
 #import "Constants.h"
 #import "ServiceManager.h"
 #import "NSString+XXSYDecoding.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 #define REMOTE_MODE
 

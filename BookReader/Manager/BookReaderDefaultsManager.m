@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
-@implementation BookReaderDefaultManager
+@implementation BookReaderDefaultsManager
 + (void)reset
 {
     [self setObject:UserDefaultFontSizeMin ForKey:UserDefaultKeyFontSize];

@@ -47,7 +47,7 @@
 #define ReadBackgroundColorBlue [UIColor colorWithPatternImage:ReadBackgroundImageBlue]
 #define ReadBackgroundColorSheep [UIColor colorWithPatternImage:ReadBackgroundImageSheep]
 
-@interface BookReaderDefaultManager : NSObject
+@interface BookReaderDefaultsManager : NSObject
 
 
 + (void)setObject:(id)object ForKey:(id)key;

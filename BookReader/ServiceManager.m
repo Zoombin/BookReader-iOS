@@ -15,7 +15,7 @@
 #import "Book.h"
 #import "Chapter.h"
 #import "Member+Setup.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
