@@ -67,7 +67,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	userid = [BookReaderDefaultManager userID];
+	userid = [ServiceManager userID];
 }
 
 - (void)viewDidAppear:(BOOL)animated

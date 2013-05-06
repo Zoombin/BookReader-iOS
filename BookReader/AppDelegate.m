@@ -32,7 +32,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	//TOTEST: yanchao's account
-	[BookReaderDefaultManager saveUserID:@(5639339)];
+	[ServiceManager saveUserID:@(5639339)];
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	

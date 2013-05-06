@@ -49,7 +49,7 @@
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         bFav = NO;
         // Custom initialization
     }

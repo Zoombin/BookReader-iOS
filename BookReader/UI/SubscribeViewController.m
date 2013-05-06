@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         bookobj = book;
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         infoArray = [[NSMutableArray alloc] init];
         bOnline = online;
     }

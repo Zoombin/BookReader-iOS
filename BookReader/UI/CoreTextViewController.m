@@ -66,7 +66,7 @@
         bOnline = online;
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         
         key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",userid];
         if (userid==nil) {

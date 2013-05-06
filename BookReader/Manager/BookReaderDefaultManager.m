@@ -9,32 +9,6 @@
 #import "BookReaderDefaultManager.h"
 
 @implementation BookReaderDefaultManager
-
-static NSNumber *sUserID;
-
-+ (void)saveUserID:(NSNumber *)userID
-{
-	sUserID = userID;
-    [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:UserDefaultUserID];
-}
-
-+ (NSNumber *)userID
-{
-	if (sUserID) {
-		return sUserID;
-	} else {
-		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultUserID];
-	}
-	return sUserID;
-}
-
-+ (void)deleteUserID
-{
-	sUserID = nil;
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserDefaultUserID];
-}
-
-
 + (void)reset
 {
     [self setObject:UserDefaultFontSizeMin ForKey:UserDefaultKeyFontSize];

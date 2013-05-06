@@ -14,13 +14,17 @@
 #import "Pay.h"
 #import "Book.h"
 
-#define SUCCESS_FLAG    @"0000"
-#define NETWORKERROR    @"网络异常"
+#define SUCCESS_FLAG        @"0000"
+#define NETWORKERROR        @"网络异常"
+#define UserDefaultUserID   @"userid"
 
 @interface ServiceManager : AFHTTPClient
 
 +(ServiceManager *)shared;
 
++ (void)saveUserID:(NSNumber *)userID;
++ (NSNumber *)userID;
++ (void)deleteUserID;
 #pragma mark -
 #pragma mark 用户接口
 //短信获取验证码

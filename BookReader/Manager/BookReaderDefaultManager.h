@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define UserDefaultUserID   @"userid"
-
 #define UserDefaultKeyFontSize     @"fontsize"
 #define UserDefaultKeyFontName     @"fontname"
 #define UserDefaultKeyTextColor    @"textcolor"
@@ -50,9 +48,7 @@
 #define ReadBackgroundColorSheep [UIColor colorWithPatternImage:ReadBackgroundImageSheep]
 
 @interface BookReaderDefaultManager : NSObject
-+ (void)saveUserID:(NSNumber *)userID;
-+ (NSNumber *)userID;
-+ (void)deleteUserID;
+
 
 + (void)setObject:(id)object ForKey:(id)key;
 + (id)objectForKey:(id)key;

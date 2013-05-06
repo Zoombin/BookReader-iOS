@@ -44,6 +44,31 @@
     return instance;
 }
 
+static NSNumber *sUserID;
+
++ (void)saveUserID:(NSNumber *)userID
+{
+	sUserID = userID;
+    [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:UserDefaultUserID];
+}
+
++ (NSNumber *)userID
+{
+	if (sUserID) {
+		return sUserID;
+	} else {
+		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultUserID];
+	}
+	return sUserID;
+}
+
++ (void)deleteUserID
+{
+	sUserID = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserDefaultUserID];
+}
+
+
 //获取随机Key和check
 + (NSDictionary *)randomCode {
     NSMutableString *checkString = [@"" mutableCopy];
@@ -124,7 +149,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [BookReaderDefaultManager saveUserID:member.uid];
+            [ServiceManager saveUserID:member.uid];
         }
         if (block) {
             block(member, [theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
@@ -207,7 +232,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [BookReaderDefaultManager saveUserID:member.uid];
+            [ServiceManager saveUserID:member.uid];
         }
         if (block) {
             block(member,nil);
