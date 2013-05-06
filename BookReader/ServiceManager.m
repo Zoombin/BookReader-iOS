@@ -125,7 +125,10 @@ static NSNumber *sUserID;
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
+        if ([theObject isKindOfClass:[NSDictionary class]]) {
+            Member *member = [Member createWithAttributes:theObject[@"user"]];
+            [ServiceManager saveUserID:member.uid];
+        }
         if (block) {
             block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
