@@ -7,7 +7,7 @@
 //
 
 #import "PasswordViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"

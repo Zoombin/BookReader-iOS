@@ -16,7 +16,7 @@
 #import "AboutViewController.h"
 #import "HouseBookListViewController.h"
 #import "BookManager.h"
-#import "Constants.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "NSString+XXSYDecoding.h"
 #import "BookReaderDefaultsManager.h"

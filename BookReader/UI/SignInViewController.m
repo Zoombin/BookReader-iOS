@@ -7,7 +7,7 @@
 //
 
 #import "SignInViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "BookShelfButton.h"
 #import "UIViewController+HUD.h"

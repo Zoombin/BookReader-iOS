@@ -7,7 +7,7 @@
 //
 
 #import "SubscribeViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "Chapter.h"
 #import "Book.h"

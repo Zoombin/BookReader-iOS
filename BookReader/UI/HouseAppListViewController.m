@@ -9,7 +9,7 @@
 #import "HouseAppListViewController.h"
 #import "UMTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Constants.h"
+#import "BookReader.h"
 
 @implementation HouseAppListViewController
 {

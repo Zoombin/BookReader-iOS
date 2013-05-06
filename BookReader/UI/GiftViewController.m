@@ -7,7 +7,7 @@
 //
 
 #import "GiftViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "GiftCell.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"

@@ -7,7 +7,7 @@
 //
 
 #import "BookStoreViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
 

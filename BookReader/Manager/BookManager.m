@@ -9,7 +9,7 @@
 #define  GroupNum   9
 
 #import "BookManager.h"
-#import "Constants.h"
+#import "BookReader.h"
 
 @implementation BookManager
 static BookManager *bookmanager;

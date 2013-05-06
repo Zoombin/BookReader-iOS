@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "BookManager.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Constants.h"
+#import "BookReader.h"
 #import "UMTableViewCell.h"
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "BookReadMenuView.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "BookReaderDefaultsManager.h"
 
 @implementation BookReadMenuView {
