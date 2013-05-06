@@ -75,7 +75,7 @@
         [textString setString:[chapter.content XXSYDecodingWithKey:key]];
         
         currentFontSize = 19;
-        currentFontName = UserDefaultSystemFont;
+        currentFontName = UserDefaultFoundFont;
         currentFont = [self setFontWithName:currentFontName];
         currentTextColorStr = @"blackColor";
         currentAlpa = 1;
