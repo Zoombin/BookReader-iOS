@@ -10,18 +10,27 @@
 
 @implementation BookReaderDefaultManager
 
-+ (void)saveUserID:(id)object
+static NSNumber *sUserID;
+
++ (void)saveUserID:(NSNumber *)userID
 {
-    [[NSUserDefaults standardUserDefaults] setObject:object forKey:UserDefaultUserID];
+	sUserID = userID;
+    [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:UserDefaultUserID];
 }
 
-+ (id)userID
++ (NSNumber *)userID
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultUserID];
+	if (sUserID) {
+		return sUserID;
+	} else {
+		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultUserID];
+	}
+	return sUserID;
 }
 
 + (void)deleteUserID
 {
+	sUserID = nil;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserDefaultUserID];
 }
 

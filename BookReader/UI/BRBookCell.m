@@ -12,11 +12,12 @@
 #import "CustomProgressView.h"
 #import "MKNumberBadgeView.h"
 
+
 @implementation BRBookCell {
 	CustomProgressView *progressView;
 	UIImageView *selectedMark;
 	MKNumberBadgeView *badgeView;
-	UISwitch *switchView;
+	UIButton *autoBuyButton;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -35,24 +36,24 @@
         badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
         [badgeView setHideWhenZero:YES];
-        [badgeView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:badgeView];
         
-        [badgeView setValue:0];
-        [badgeView badgeSize];
-        
-        switchView = [[UISwitch alloc] init];
-		switchView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMaxY(self.bounds) - 30);
-        [switchView addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-		switchView.hidden = YES;
-        [self addSubview:switchView];
+		autoBuyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		autoBuyButton.backgroundColor = [UIColor grayColor];
+		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 50, self.bounds.size.width, 30);
+		autoBuyButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+		autoBuyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
+		[self addSubview:autoBuyButton];
+		
+		self.autoBuy = NO;
+		self.badge = 0;
 	}
 	return self;
 }
 
 - (void)setBook:(Book *)book
 {
-	if (_book == book) return;
 	_book = book;
     if (_book.cover) {
 		self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:_book.cover]];
@@ -69,7 +70,7 @@
     }
 	
     if (_book.autoBuy) {
-        [switchView setOn:[book.autoBuy boolValue]];
+		self.autoBuy = _book.autoBuy;
     }
 }
 
@@ -77,7 +78,7 @@
 {
     _editing = editing;
 	badgeView.hidden = _editing;
-	switchView.hidden = !_editing;
+	autoBuyButton.hidden = !_editing;
 	self.backgroundView.alpha = _editing ? 0.5 : 1.0;
 }
 
@@ -90,11 +91,20 @@
 - (void)setBadge:(NSInteger)badge
 {
 	_badge = badge;
-    [badgeView setValue:_badge];
+	badgeView.hidden = _badge == 0;
+    badgeView.value = _badge;
 }
 
 - (void)valueChanged:(id)sender {
 	[_bookCellDelegate changedValueBookCell:self];
+}
+
+- (void)setAutoBuy:(BOOL)onOrOff
+{
+	_autoBuy = onOrOff;
+	NSString *onOffString = onOrOff ? @"开" : @"关";
+	[autoBuyButton setTitle:[NSString stringWithFormat:@"自动订阅:%@", onOffString] forState:UIControlStateNormal];
+	[autoBuyButton setTitleColor:onOrOff ? [UIColor greenColor] : [UIColor blackColor] forState:UIControlStateNormal];
 }
 
 @end

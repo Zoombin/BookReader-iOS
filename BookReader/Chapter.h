@@ -35,7 +35,7 @@
 + (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
 
 + (NSArray *)findAll;
-+ (NSArray *)chaptersWithBookId:(NSString *)bookid;
++ (NSArray *)chaptersWithBookID:(NSString *)bookid;
 + (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
 
 @end

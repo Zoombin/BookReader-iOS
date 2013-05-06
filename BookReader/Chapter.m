@@ -93,7 +93,7 @@
 	return [self create:all];
 }
 
-+ (NSArray *)chaptersWithBookId:(NSString *)bookid
++ (NSArray *)chaptersWithBookID:(NSString *)bookid
 {
     NSArray *array = [ChapterManaged findByAttribute:@"bid" withValue:bookid andOrderBy:@"index" ascending:YES];
     return [self create:array];
