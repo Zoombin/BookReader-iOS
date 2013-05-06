@@ -15,9 +15,6 @@
     UIView *backgroundView;
     NSArray *textcolorNames;
     NSArray *textcolorArray;
-    
-    NSArray *backgroundNames;
-    NSArray *backgroundArray;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -29,9 +26,6 @@
         // Initialization code
         textcolorNames = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
-        
-        backgroundNames = @[UserDefaultReadBackgroundGreen,UserDefaultReadBackgroundBlue,UserDefaultReadBackgroundSheep];
-        backgroundArray = @[ReadBackgroundColorGreen,ReadBackgroundColorBlue,ReadBackgroundColorSheep];
         [self initTopView];
         [self initBottomView];
         [self initFontView];
@@ -193,13 +187,12 @@
     [brightSlider setMinimumValue:0.5];
     [backgroundView addSubview:brightSlider];
     
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/3, 30, backgroundView.bounds.size.width/3, 110)];
+        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/16, 30, backgroundView.bounds.size.width/16, 110)];
         [button setTag:i];
-        [button setBackgroundColor:backgroundArray[i]];
+        [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitle:backgroundNames[i] forState:UIControlStateNormal];
         [backgroundView addSubview:button];
     }
 }
@@ -207,7 +200,7 @@
 - (void)backgroundChanged:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(backgroundColorChanged:)]) {
-        [self.delegate backgroundColorChanged:backgroundNames[[sender tag]]];
+        [self.delegate backgroundColorChanged:[sender tag]];
     }
 }
 

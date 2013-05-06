@@ -32,26 +32,12 @@
 //亮度
 #define UserDefaultBrightDefault   [NSNumber numberWithFloat:1]
 
-//3种样式名称
-#define UserDefaultReadBackgroundGreen  @"绿色"
-#define UserDefaultReadBackgroundBlue   @"蓝色"
-#define UserDefaultReadBackgroundSheep  @"羊皮纸"
-
-//3种背景图
-#define ReadBackgroundImageGreen [UIImage imageNamed:@"read_menu_view_background_safe.png"]
-#define ReadBackgroundImageBlue [UIImage imageNamed:@"read_menu_view_background_dream.png"]
-#define ReadBackgroundImageSheep [UIImage imageNamed:@"read_sheeppager"]
-
-//3种背景颜色
-#define ReadBackgroundColorGreen [UIColor colorWithPatternImage:ReadBackgroundImageGreen]
-#define ReadBackgroundColorBlue [UIColor colorWithPatternImage:ReadBackgroundImageBlue]
-#define ReadBackgroundColorSheep [UIColor colorWithPatternImage:ReadBackgroundImageSheep]
-
 @interface BookReaderDefaultsManager : NSObject
 
 
 + (void)setObject:(id)object ForKey:(id)key;
 + (id)objectForKey:(id)key;
++ (UIColor *)backgroundColorWithIndex:(NSInteger)index;
 
 + (void)reset;
 @end

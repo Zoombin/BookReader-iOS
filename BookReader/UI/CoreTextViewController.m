@@ -29,7 +29,7 @@
     CGFloat currentFontSize;
     NSString *currentFontName;
     NSString *currentTextColorStr;
-    NSString *currentBackgroundStr;
+    NSInteger currentBackgroundIndex;
     float currentAlpa;
     int currentPage;
     BOOL bOnline;
@@ -79,8 +79,8 @@
         currentFont = [self setFontWithName:currentFontName];
         currentTextColorStr = @"blackColor";
         currentAlpa = 1;
-        currentBackgroundStr = UserDefaultReadBackgroundSheep;
-        [self.view setBackgroundColor:ReadBackgroundColorSheep];
+        currentBackgroundIndex = 13;
+        [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:currentBackgroundIndex]];
         
         [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
@@ -162,13 +162,8 @@
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
         currentAlpa = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     }
-    NSString *colorName = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
-    if ([colorName isEqualToString:UserDefaultReadBackgroundSheep]) {
-        [self.view setBackgroundColor:ReadBackgroundColorSheep];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundBlue]) {
-        [self.view setBackgroundColor:ReadBackgroundColorBlue];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundGreen]) {
-        [self.view setBackgroundColor:ReadBackgroundColorGreen];
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground]) {
+        [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:[[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue]]];
     }
 }
 
@@ -183,7 +178,7 @@
     //保存亮度
     [BookReaderDefaultsManager setObject:[NSNumber numberWithFloat:currentAlpa] ForKey:UserDefaultKeyBright];
     //保存背景色
-    [BookReaderDefaultsManager setObject:currentBackgroundStr ForKey:UserDefaultKeyBackground];
+    [BookReaderDefaultsManager setObject:[NSNumber numberWithInteger:currentBackgroundIndex] ForKey:UserDefaultKeyBackground];
 }
 
 #pragma mark- 
@@ -202,16 +197,10 @@
     statusView.alpha = slider.value;
 }
 
-- (void)backgroundColorChanged:(NSString *)colorName
+- (void)backgroundColorChanged:(NSInteger)index
 {
-    if ([colorName isEqualToString:UserDefaultReadBackgroundSheep]) {
-        [self.view setBackgroundColor:ReadBackgroundColorSheep];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundBlue]) {
-        [self.view setBackgroundColor:ReadBackgroundColorBlue];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundGreen]) {
-        [self.view setBackgroundColor:ReadBackgroundColorGreen];
-    }
-    currentBackgroundStr = colorName;
+    currentBackgroundIndex = index;
+    [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:index]];
 }
 
 - (void)changeTextColor:(NSString *)textColor
