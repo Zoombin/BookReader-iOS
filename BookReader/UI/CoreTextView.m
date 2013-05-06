@@ -87,7 +87,7 @@
 	CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0, 1.0));
 	/* generate the path for the text */
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGRect bounds = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+	CGRect bounds = CGRectMake(8, 0, self.bounds.size.width-8, self.bounds.size.height);
 	CGPathAddRect(path, NULL, bounds);
     
 	/* draw the text */
