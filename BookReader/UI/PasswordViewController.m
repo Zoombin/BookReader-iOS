@@ -77,7 +77,7 @@
 - (void)showFindPassword
 {
     [titleLabel setText:@"找回密码"];
-    NSArray *placeHolders = @[@"请输入手机号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
+    NSArray *placeHolders = @[@"请输入账号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
     NSArray *tags = @[@ACCOUNT_TEXTFIELD_TAG,@CODE_TEXTFIELD_TAG,@PASSWORD_TEXTFIELD_TAG,@CONFIRM_TEXTFIELD_TAG];
     for (int i =0; i<[placeHolders count]; i++) {
         CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
@@ -177,10 +177,6 @@
     UITextField *codeTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];
     if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
         [self displayHUDError:nil message:@"两次密码输入不一致"];
-        return;
-    }
-    if ([accountTextField.text length]!=8&&[accountTextField.text length]!=11) {
-        [self displayHUDError:nil message:@"手机号不合法"];
         return;
     }
     [self displayHUD:@"请稍等..."];

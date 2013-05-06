@@ -20,7 +20,7 @@
 + (UITextField *)accountTextFieldWithFrame:(CGRect)frame
 {
     UITextField *textField = [self customWithFrame:frame];
-    [textField setPlaceholder:@"请输入手机号"];
+    [textField setPlaceholder:@"请输入账号"];
     return textField;
 }
 
