@@ -163,7 +163,7 @@
         [obj persistWithBlock:nil];
         [self pushToCoreTextWithChapterObj:obj];
     }else {
-        [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
+        [ServiceManager bookCatalogue:obj.uid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
             if (error)
             {
                 
@@ -199,7 +199,7 @@
 {
     if (userid!=nil)
     {
-        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
+        [ServiceManager chapterSubscribeWithChapterID:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error)
             {
                 

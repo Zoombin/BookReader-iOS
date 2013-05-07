@@ -214,7 +214,6 @@
 #pragma mark ChangePassword
 - (void)changeButtonClicked
 {
-    NSNumber *uid = [ServiceManager userID];
     UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
     UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
     UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];
@@ -223,7 +222,7 @@
         return;
     }
     [self displayHUD:@"请稍等..."];
-    [ServiceManager changePassword:uid oldPassword:oldPasswordTextField.text andNewPassword:newPasswordTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
+    [ServiceManager changePasswordWithOldPassword:oldPasswordTextField.text andNewPassword:newPasswordTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {

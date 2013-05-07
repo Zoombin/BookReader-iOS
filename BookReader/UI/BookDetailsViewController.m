@@ -140,7 +140,7 @@
         [self.view addSubview:button];
     }
     if (userid!=nil) {
-        [ServiceManager existsFavourite:userid book:bookid withBlock:^(NSString *result, NSError *error) {
+        [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
             if (error) {
                 
             } else {
@@ -253,7 +253,7 @@
 {
     if (buttonIndex==1)
     {
-        [ServiceManager disscuss:userid book:bookid andContent:commitField.text withBlock:^(NSString *result, NSError *error)
+        [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *result, NSError *error)
          {
              if (error)
              {
@@ -358,7 +358,7 @@
 {
     [self displayHUD:@"请稍等..."];
     if ([self checkLogin]) {
-        [ServiceManager addFavourite:userid book:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
+        [ServiceManager addFavouriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
             if (!error)
             {
                 if ([result isEqualToString:SUCCESS_FLAG]) {

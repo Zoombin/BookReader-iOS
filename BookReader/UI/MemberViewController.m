@@ -48,7 +48,7 @@
     [super viewDidAppear:animated];
     userid = [ServiceManager userID];
     if (userid !=nil) {
-        [ServiceManager userInfo:userid withBlock:^(Member *member, NSError *error) {
+        [ServiceManager userInfoWithBlock:^(Member *member, NSError *error) {
             if (error) {
                 isLogin = NO;
                 [self reloadUI];

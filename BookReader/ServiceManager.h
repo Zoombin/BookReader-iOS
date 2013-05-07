@@ -40,8 +40,7 @@
                andPassword:(NSString *)password
                  withBlock:(void (^)(Member *,NSString *,NSString *,NSError *))block;
 //用户密码修改
-+ (void)changePassword:(NSNumber *)userid
-        oldPassword:(NSString *)oldPassword
++ (void)changePasswordWithOldPassword:(NSString *)oldPassword
         andNewPassword:(NSString *)newPassword
              withBlock:(void (^)(NSString *,NSString *,NSError *))block;
 
@@ -56,17 +55,14 @@
            withBlock:(void(^)(NSString *,NSString *,NSError *))block; //error resultCode
 
 //获取用户信息
-+ (void)userInfo:(NSNumber *)userid
-          withBlock:(void(^)(Member *,NSError *))block;
++ (void)userInfoWithBlock:(void(^)(Member *,NSError *))block;
 
 //用户充值
-+ (void)pay:(NSString *)userid   //Example:20130108153057_2797792_14 日期_userid_40
-     type:(NSString *)payType //分为5种 1,2,3,4,5 分别代表0.99$ 1.99$ 4.99$ 9.99$ 19.99$
++ (void)payWithType:(NSString *)payType //分为5种 1,2,3,4,5 分别代表0.99$ 1.99$ 4.99$ 9.99$ 19.99$
       withBlock:(void(^)(NSString *,NSError *))block; //{"result":"0000","count":8400}
-
+                 //Example:20130108153057_2797792_14 日期_userid_40
 //用户充值记录
-+ (void)paymentHistory:(NSNumber *)userid
-          pageIndex:(NSString *)pageIndex //第几页
++ (void)paymentHistoryWithPageIndex:(NSString *)pageIndex //第几页
               andCount:(NSString *)count        //每页的数目
              withBlock:(void(^)(NSArray *,NSString *,NSError *))block;
 
@@ -100,38 +96,32 @@
 
 //获取章节内容
 + (void)bookCatalogue:(NSString *)cataid
-            andUserid:(NSNumber *)userid
             withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //章节订阅
-+ (void)chapterSubscribe:(NSNumber *)userid
-               chapter:(NSString *)chapterid
++ (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                   book:(NSString *)bookid
                 author:(NSNumber *)authorid
                 andPrice:(NSString *)price
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //获取数据信息
-+ (void)userBooks:(NSNumber *)userid
-             size:(NSString *)size
++ (void)userBooksWithSize:(NSString *)size
          andIndex:(NSString *)index
         withBlock:(void(^)(NSArray *,NSError *))block;
 
 //收藏书籍
-+ (void)addFavourite:(NSNumber *)userid
-         book:(NSString *)bookid
++ (void)addFavouriteWithBookID:(NSString *)bookid
        andValue:(BOOL)value
       withBlock:(void(^)(NSString *,NSString *,NSError *))block;
 
 //自动订阅
-+ (void)autoSubscribe:(NSNumber *)userid
-               book:(NSString *)bookid
++ (void)autoSubscribeWithBookID:(NSString *)bookid
              andValue:(NSString *)value //1:打开 0:关闭
             withBlock:(void(^)(NSString *,NSError *))block;
 
 //发表评论
-+ (void)disscuss:(NSNumber *)userid
-              book:(NSString *)bookid
++ (void)disscussWithBookID:(NSString *)bookid
           andContent:(NSString *)content
            withBlock:(void(^)(NSString *,NSError *))block;
 
@@ -146,13 +136,11 @@
               withBlock:(void(^)(NSArray *,NSError *))block;
 
 //是否在收藏夹
-+ (void)existsFavourite:(NSNumber *)userid
-                   book:(NSString *)bookid
++ (void)existsFavouriteWithBookID:(NSString *)bookid
               withBlock:(void(^)(NSString *,NSError *))block;
 
 //用户道具
-+ (void)giveGift:(NSNumber *)userid
-            type:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
++ (void)giveGiftWithType:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
         integral:(NSString *)integral //投评价不能为0 其他为0

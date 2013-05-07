@@ -522,7 +522,7 @@
         [self updateContent];
         [self hideHUD:YES];
     }else {
-        [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
+        [ServiceManager bookCatalogue:obj.uid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
             if (error)
             {
                 [self displayHUDError:nil message:NETWORK_ERROR];
@@ -553,7 +553,7 @@
 {
     if (userid!=nil)
     {
-        [ServiceManager chapterSubscribe:userid chapter:obj.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
+        [ServiceManager chapterSubscribeWithChapterID:obj.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error)
             {
                 [self hideHUD:YES];

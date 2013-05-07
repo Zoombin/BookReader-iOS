@@ -164,13 +164,13 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)changePassword:(NSNumber *)userid
-        oldPassword:(NSString *)oldPassword
-        andNewPassword:(NSString *)newPassword
-             withBlock:(void (^)(NSString *, NSString *,NSError *))block {
-    NSString *signString = [NSString stringWithFormat:@"%@%@%@", userid, [oldPassword md516],[newPassword md516]];
++ (void)changePasswordWithOldPassword:(NSString *)oldPassword
+                       andNewPassword:(NSString *)newPassword
+                            withBlock:(void (^)(NSString *, NSString *, NSError *))block
+{
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@", [self userID], [oldPassword md516],[newPassword md516]];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"oldpwd"] = [oldPassword md516];
     parameters[@"newpwd"] = [newPassword md516];
     [[ServiceManager shared] postPath:@"ChangePassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -226,10 +226,9 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)userInfo:(NSNumber *)userid
-          withBlock:(void (^)(Member *, NSError *))block {
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:[userid stringValue]]];
-    parameters[@"userid"] = userid;
++ (void)userInfoWithBlock:(void (^)(Member *, NSError *))block{
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:[[self userID] stringValue]]];
+    parameters[@"userid"] = [self userID];
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         Member *member = nil;
@@ -247,17 +246,16 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)pay:(NSString *)userid //订单号日期_用户id_40  20130108153057_2797792_14 精确到秒
-     type:(NSString *)payType
-      withBlock:(void (^)(NSString *, NSError *))block {
++ (void)payWithType:(NSString *)payType
+          withBlock:(void (^)(NSString *, NSError *))block{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
     NSDate *date = [NSDate date];
-    NSString *paymentCode = [NSString stringWithFormat:@"%@_%@_40",[dateFormatter stringFromDate:date],userid];//潇湘书院的订单号
+    NSString *paymentCode = [NSString stringWithFormat:@"%@_%@_40",[dateFormatter stringFromDate:date],[self userID]];//潇湘书院的订单号
     
-    NSString *signString = [NSString stringWithFormat:@"%@%@%@", userid, payType, paymentCode];
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@", [self userID], payType, paymentCode];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"mount"] = payType;
     parameters[@"orderid"] = paymentCode;
     NSLog(@"%@",parameters);
@@ -274,14 +272,13 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)paymentHistory:(NSNumber *)userid
-          pageIndex:(NSString *)pageIndex //第几页
-              andCount:(NSString *)count //每页的数目
-             withBlock:(void (^)(NSArray *,NSString *, NSError *))block
++ (void)paymentHistoryWithPageIndex:(NSString *)pageIndex
+                           andCount:(NSString *)count
+                          withBlock:(void (^)(NSArray *, NSString *, NSError *))block
 {
-    NSString *signString = [NSString stringWithFormat:@"%@%@%@", userid, pageIndex, count];
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@", [self userID], pageIndex, count];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"index"] = pageIndex;
     parameters[@"size"] = count;
     [[ServiceManager shared] postPath:@"RechargeList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -440,9 +437,9 @@ static NSNumber *sUserID;
 }
 
 + (void)bookCatalogue:(NSString *)cataid
-            andUserid:(NSNumber *)userid
-            withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
-    if (userid==nil) {
+            withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block {
+    NSNumber *userid = [self userID];
+    if ([self userID]==nil) {
         userid = [NSNumber numberWithInt:0];
     }
     NSString *signString = [NSString stringWithFormat:@"%@%@",cataid,userid];
@@ -465,15 +462,14 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)chapterSubscribe:(NSNumber *)userid
-               chapter:(NSString *)chapterid
-                  book:(NSString *)bookid
-                author:(NSNumber *)authorid
-                andPrice:(NSString *)price
-               withBlock:(void (^)(NSString *,NSString *,NSString *,NSError *))block {
-    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",userid,chapterid,bookid,authorid,price];
++ (void)chapterSubscribeWithChapterID:(NSString *)chapterid
+                                 book:(NSString *)bookid
+                               author:(NSNumber *)authorid
+                             andPrice:(NSString *)price
+                            withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block {
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],chapterid,bookid,authorid,price];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"chapterid"] = chapterid;
     parameters[@"bookid"] = bookid;
     parameters[@"authorid"] = authorid;
@@ -494,13 +490,12 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)userBooks:(NSNumber *)userid
-             size:(NSString *)size
-         andIndex:(NSString *)index
-        withBlock:(void (^)(NSArray *, NSError *))block {
++ (void)userBooksWithSize:(NSString *)size
+                 andIndex:(NSString *)index
+                withBlock:(void (^)(NSArray *, NSError *))block {
     NSString *signString = @"keep.get";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"size"] = size;
     parameters[@"index"] = index;
     parameters[@"methed"]=@"keep.get";
@@ -518,16 +513,15 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)addFavourite:(NSNumber *)userid
-         book:(NSString *)bookid
-       andValue:(BOOL)value
-      withBlock:(void (^)(NSString *,NSString *, NSError *))block {
++ (void)addFavouriteWithBookID:(NSString *)bookid
+                      andValue:(BOOL)value
+                     withBlock:(void (^)(NSString *, NSString *, NSError *))block {
     NSString *signString = @"keep.insert";
     if (value == NO) {
         signString = @"keep.remove";
     }
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"methed"]= signString;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -542,13 +536,12 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)autoSubscribe:(NSNumber *)userid
-               book:(NSString *)bookid
-             andValue:(NSString *)value
-            withBlock:(void (^)(NSString *, NSError *))block {
++ (void)autoSubscribeWithBookID:(NSString *)bookid
+                       andValue:(NSString *)value
+                      withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"keep.auto";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"value"] = value;
     parameters[@"methed"]= signString;
@@ -564,13 +557,12 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)disscuss:(NSNumber *)userid
-              book:(NSString *)bookid
-          andContent:(NSString *)content
-           withBlock:(void (^)(NSString *, NSError *))block {
++ (void)disscussWithBookID:(NSString *)bookid
+                andContent:(NSString *)content
+                 withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"discuss.send";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"content"] = content;
     parameters[@"methed"]= signString;
@@ -636,12 +628,11 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)existsFavourite:(NSNumber *)userid
-                   book:(NSString *)bookid
-              withBlock:(void (^)(NSString *, NSError *))block {
++ (void)existsFavouriteWithBookID:(NSString *)bookid
+                        withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"keep.isexists";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"methed"] = signString;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -656,15 +647,14 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)giveGift:(NSNumber *)userid
-            type:(NSString *)type
-        author:(NSNumber *)authorid
-           count:(NSString *)count
-        integral:(NSString *)integral //1~5
-       andBook:(NSString *)bookid withBlock:(void (^)(NSString *, NSError *))block {
++ (void)giveGiftWithType:(NSString *)type
+                  author:(NSNumber *)authorid
+                   count:(NSString *)count
+                integral:(NSString *)integral
+                 andBook:(NSString *)bookid withBlock:(void (^)(NSString *, NSError *))block {
     NSString *signString = @"user.props";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
-    parameters[@"userid"] = userid;
+    parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"type"] = type;
     parameters[@"authorid"] = authorid;

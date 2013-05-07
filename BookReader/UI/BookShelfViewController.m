@@ -89,7 +89,7 @@
 {
 	if (!userid) return;
 	[self displayHUD:@"获取用户书架中..."];
-    [ServiceManager userBooks:userid size:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager userBooksWithSize:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
 		[self hideHUD:YES];
         if (error) {
 			[self displayHUDError:nil message:error.description];
@@ -125,7 +125,7 @@
 	[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger bookIdx, BOOL *stop) {
 		[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
 			[self displayHUD:[NSString stringWithFormat:@"下载中%@:%@", book.name, chapter.name]];
-			[ServiceManager bookCatalogue:book.uid	andUserid:userid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+			[ServiceManager bookCatalogue:book.uid	withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 				chapter.content = content;
 				[chapter persistWithBlock:^{
 					[self syncChapterContent:idx + 1 bookIdx:bookIdx];
@@ -179,7 +179,7 @@
 	BRBookCell *bookCell = (BRBookCell *)[booksView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
 	if (bookCell.cellSelected) {
 		[self displayHUD:[NSString stringWithFormat:@"删除收藏:%@", bookCell.book.name]];
-		[ServiceManager addFavourite:userid book:bookCell.book.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
+		[ServiceManager addFavouriteWithBookID:bookCell.book.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
 			[self hideHUD:YES];
 			if ([result isEqualToString:SUCCESS_FLAG]) {
 				[needRemoveIndexes addIndex:idx];
@@ -282,7 +282,7 @@
 	BOOL shiftToOnOrOff = !bookCell.autoBuy;
 	NSString *message = shiftToOnOrOff ? @"开启订阅..." : @"关闭订阅...";
 		[self displayHUD:message];
-	[ServiceManager autoSubscribe:userid book:bookCell.book.uid andValue:shiftToOnOrOff ? @"1" : @"0" withBlock:^(NSString *result, NSError *error) {
+	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid andValue:shiftToOnOrOff ? @"1" : @"0" withBlock:^(NSString *result, NSError *error) {
 		[self hideHUD:YES];
 		if (!error) {
 			bookCell.book.autoBuy = @(shiftToOnOrOff);

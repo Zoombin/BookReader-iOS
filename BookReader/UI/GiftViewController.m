@@ -93,8 +93,7 @@
         integral = [value objectForKey:@"integral"];
     }
     [self displayHUD:@"处理中..."];
-    [ServiceManager giveGift:userid
-                        type:index
+    [ServiceManager giveGiftWithType:index
                       author:bookObj.authorID
                        count:count
                     integral:integral
