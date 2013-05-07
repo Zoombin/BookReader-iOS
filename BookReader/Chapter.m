@@ -52,6 +52,21 @@
 	managed.index = index;
 }
 
+- (void)truncate
+{
+	ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid];
+	if (managed) {
+		[managed deleteEntity];
+	}
+	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+}
+
++ (void)truncateAll
+{
+	[ChapterManaged truncateAll];
+	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+}
+
 - (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {

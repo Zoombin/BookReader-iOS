@@ -80,7 +80,23 @@
 	managed.recommandTitle = recommandTitle;
 }
 
-- (void)persist
+- (void)truncate
+{
+	BookManaged *managed = [BookManaged findFirstByAttribute:@"uid" withValue:uid];
+	if (managed) {
+		[managed deleteEntity];
+	}
+	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+}
+
++ (void)truncateAll
+{
+	[BookManaged truncateAll];
+	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+}
+
+
+- (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		BookManaged *managed = [BookManaged findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
@@ -88,7 +104,7 @@
 			managed = [BookManaged createInContext:localContext];
 		}
 		[self sync:managed];
-		
+		if (block) block();
 	}];
 }
 
@@ -99,7 +115,7 @@
 	return array.count == 0 ? NO : YES;
 }
 
-+ (void)persist:(NSArray *)array
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		for (Book *book in array) {
@@ -109,6 +125,7 @@
 			}
 			[book sync:managed];
 		}
+		if (block) block();
 	}];
 }
 

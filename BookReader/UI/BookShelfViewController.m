@@ -47,7 +47,6 @@
 {
     [super viewDidLoad];
     books = [[NSMutableArray alloc] init];
-	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.dataSource = self;
@@ -96,7 +95,7 @@
         }else {
 			[books removeAllObjects];
 			[books addObjectsFromArray:result];
-			[Book persist:books];
+			[Book persist:books withBlock:nil];
 			[booksView reloadData];
 			
 			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {

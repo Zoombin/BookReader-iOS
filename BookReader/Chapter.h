@@ -9,6 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+
+@protocol ModelDelegate <NSObject>
+
+- (void)persistWithBlock:(dispatch_block_t)block;
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
+
+- (void)truncate;
++ (void)truncateAll;
+
++ (NSArray *)findAll;
++ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
+
+@end
+
 @protocol ChapterInterface<NSObject>
 
 @property (nonatomic, retain) NSString * bid;
@@ -25,17 +39,11 @@
 @interface ChapterManaged : NSManagedObject<ChapterInterface>
 @end
 
-@interface Chapter : NSObject<ChapterInterface>
+@interface Chapter : NSObject<ChapterInterface, ModelDelegate>
 
 + (Chapter *)createChapterWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)chaptersWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 
-- (void)sync:(ChapterManaged *)managed;
-- (void)persistWithBlock:(dispatch_block_t)block;
-+ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
-
-+ (NSArray *)findAll;
 + (NSArray *)chaptersWithBookID:(NSString *)bookid;
-+ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
 
 @end

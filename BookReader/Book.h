@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "Chapter.h"
 
 @protocol BookInterface <NSObject>
 
@@ -35,21 +36,13 @@
 
 
 
-@interface Book : NSObject<BookInterface>
+@interface Book : NSObject<BookInterface, ModelDelegate>
 
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)booksWithAttributesArray:(NSArray *)array;
 
-- (void)sync:(BookManaged *)managed;
-- (void)persist;
 - (BOOL)persisted;//check if exists in database already
-+ (void)persist:(NSArray *)books;
-
 - (NSNumber *)numberOfUnreadChapters;
-+ (NSArray *)findAll;
-+ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
-
-
 
 @end
 
