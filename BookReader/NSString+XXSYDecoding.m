@@ -17,52 +17,57 @@
 
 - (NSString *)XXSYDecodingWithKey:(NSString *)key {
     NSLog(@"--Start--");
-    NSString *userkey = [[self class] newDictKey:key];
-    NSLog(@"key = %@, userKey = %@", key, userkey);
-    NSMutableString *enString = [@"" mutableCopy];
-    NSMutableString *deString = [@"" mutableCopy];
+    const char *userkey = [[self class] newDictKey:key];
+    NSLog(@"key = %@, userKey = %s", key, userkey);
     NSInteger length = [self length];
+	char deBuffer[length*2];
     NSInteger count = 0;
+	NSInteger bufferLoop = 0;
+	deBuffer[bufferLoop++] = '\\';
+	deBuffer[bufferLoop++] = 'u';
     for (int i = 0; i < length; i++) {
         char k = [self characterAtIndex:i];
         int index = 0;
-        for (int j = 0; j < [userkey length]; j++) {
-            char m = [userkey characterAtIndex:j];
+        for (int j = 0; j < strlen(userkey); j++) {
+            char m = userkey[j];
             if (m == k) {
                 index = j;
                 count++;
                 break;
             }
         }
-        [enString appendString:[NSString stringWithFormat:@"%X", index]];
-        if (count == 4) {
-            [deString appendString:[[self class] replaceUnicode:enString]];
-            enString = [@"" mutableCopy];
-            count = 0;
-        }
+		char c[2];
+		sprintf(c, "%X", index);
+		deBuffer[bufferLoop++] = c[0];
+		if (i == length - 1) {
+			deBuffer[bufferLoop++] = '\0';
+		}
+		if (count == 4) {
+			deBuffer[bufferLoop++] = '\\';
+			deBuffer[bufferLoop++] = 'u';
+			count = 0;
+		}
     }
-    [deString setString:[deString stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"]];
+	NSString *debufferString = [[NSString alloc] initWithCString:deBuffer encoding:NSUTF8StringEncoding];
+//    [deString setString:[xxsyDecodingString stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"]];
     NSLog(@"---END---");
-    return deString;
+    return [[self class] replaceUnicode:debufferString];
 }
 
 + (NSString *)replaceUnicode:(NSString *)unicodeStr {
-    NSMutableString *unicode = [@"" mutableCopy];
-    [unicode setString:unicodeStr];
-    [unicode insertString:@"\\U" atIndex:0];
-    [unicode stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    [unicode insertString:@"\"" atIndex:0];
-    [unicode appendString:@"\""];
-    NSData *tempData = [unicode dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
     NSString* returnStr = [NSPropertyListSerialization propertyListFromData:tempData
                                                            mutabilityOption:NSPropertyListImmutable
                                                                      format:NULL
                                                            errorDescription:NULL];
+    
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n" withString:@"\n"];
 }
 
-
-+ (NSString *)newDictKey:(NSString *)userkey {
++ (const char *)newDictKey:(NSString *)userkey {
     NSString *md5key = userkey;
     md5key = [[md5key md532] uppercaseString];
     NSMutableArray *array = [[NSMutableArray alloc]init];
@@ -93,7 +98,7 @@
         NSString  *kString = array[i];
         dictKey = [dictKey stringByAppendingString:kString];
     }
-    return dictKey;
+    return [dictKey UTF8String];
 }
 
 @end

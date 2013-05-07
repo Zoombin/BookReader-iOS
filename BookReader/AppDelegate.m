@@ -29,10 +29,21 @@
     UIView *tabBar;
 }
 
+- (void)testApis
+{
+	NSString *documentDir = [[NSBundle mainBundle] pathForResource:@"source" ofType:@"txt"];
+    NSString *string = [[NSString alloc]initWithContentsOfFile:documentDir encoding:NSUTF8StringEncoding error:nil];
+    //string = @"393558745974";
+	NSString *decodedString = [string XXSYDecodingWithKey:@"522601"];
+    NSLog(@"==>%@",[decodedString substringToIndex:decodedString.length]);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[self testApis];
+	
 	//TOTEST: yanchao's account
-	[BookReaderDefaultManager saveUserID:@(5639339)];
+	//[BookReaderDefaultManager saveUserID:@(5639339)];
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
