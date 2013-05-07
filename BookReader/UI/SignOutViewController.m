@@ -144,7 +144,7 @@
     [self displayHUD:@"注册中..."];
     [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(NSString *result, NSString *resultMessage,NSError *error) {
         if (error) {
-            [self displayHUDError:nil message:NETWORKERROR];
+            [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
             [self displayHUDError:nil message:resultMessage];
             if ([result isEqualToString:SUCCESS_FLAG]) {

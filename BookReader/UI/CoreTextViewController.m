@@ -18,6 +18,7 @@
 #import "Book.h"
 #import "ServiceManager.h"
 #import "BookReaderDefaultsManager.h"
+#import "ReadHelpView.h"
 
 
 @implementation CoreTextViewController {
@@ -46,6 +47,8 @@
     
     NSNumber *userid;
     NSString *key;
+    
+    ReadHelpView *helpView;
 }
 
 - (id)initWithBook:(Book *)bookObj
@@ -108,6 +111,14 @@
     [menuView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:menuView];
     menuView.hidden = YES;
+    
+    helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds];
+    [helpView setHidden:YES];
+    [self.view addSubview:helpView];
+    if (![BookReaderDefaultsManager objectForKey:UserDefaultKeyFirstLaunch]) {
+        [helpView setHidden:NO];
+        [BookReaderDefaultsManager setObject:[NSNumber numberWithInt:1] ForKey:UserDefaultKeyFirstLaunch];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -344,7 +355,7 @@
 - (BOOL)pointInMenuTouchX:(float)x andY:(float)y
 {
 	float pageOffset = 0*coreTextView.bounds.size.width;
-    if (x >= pageOffset+MAIN_SCREEN.size.width/3 && x <= pageOffset+MAIN_SCREEN.size.width/3*2 && y >= MAIN_SCREEN.size.height/3 && y <= MAIN_SCREEN.size.height/3*2) {
+    if (x >= pageOffset+MAIN_SCREEN.size.width/3 && x <= pageOffset+MAIN_SCREEN.size.width/3*2 && y >= MAIN_SCREEN.size.height/4 && y <= MAIN_SCREEN.size.height/4*3) {
         return YES;
     }
     return NO;
@@ -366,6 +377,9 @@
     float endPointX = endPoint.x;
     float endPointY = endPoint.y;
     
+    if (!helpView.hidden) {
+        helpView.hidden = YES;
+    }
     //NSLog(@"end ponts x : %f y : %f", endPoint.x, endPoint.y);
     
     if (startPointX == NSIntegerMax || startPointY == NSIntegerMax) {
@@ -511,7 +525,7 @@
         [ServiceManager bookCatalogue:obj.uid andUserid:userid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
             if (error)
             {
-                [self displayHUDError:nil message:NETWORKERROR];
+                [self displayHUDError:nil message:NETWORK_ERROR];
             }
             else
             {

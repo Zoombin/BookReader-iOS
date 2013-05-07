@@ -13,6 +13,7 @@
 #define UserDefaultKeyTextColor    @"textcolor"
 #define UserDefaultKeyBright       @"bright"
 #define UserDefaultKeyBackground   @"background"
+#define UserDefaultKeyFirstLaunch  @"firstlaunch"
 
 //字体大小
 #define UserDefaultFontSizeMax [NSNumber numberWithFloat:23]

@@ -62,7 +62,7 @@
         [self displayHUD:@"加载中..."];
         [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(Book *obj, NSError *error) {
             if(error) {
-                [self displayHUDError:nil message:NETWORKERROR];
+                [self displayHUDError:nil message:NETWORK_ERROR];
             }else {
                 bookObj = obj;
                 [self hideHUD:YES];
@@ -370,7 +370,7 @@
                 [self displayHUDError:nil message:resultMessage];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
             } else {
-                [self displayHUDError:nil message:NETWORKERROR];
+                [self displayHUDError:nil message:NETWORK_ERROR];
             }
         }];
     }
@@ -513,7 +513,7 @@
      {
          if (error)
          {
-             [self displayHUDError:nil message:NETWORKERROR];
+             [self displayHUDError:nil message:NETWORK_ERROR];
          }else
          {
              if ([infoArray count]==0)

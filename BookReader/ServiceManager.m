@@ -49,7 +49,7 @@ static NSNumber *sUserID;
 + (void)saveUserID:(NSNumber *)userID
 {
 	sUserID = userID;
-    [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:UserDefaultUserID];
+    [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:USER_ID];
 }
 
 + (NSNumber *)userID
@@ -57,7 +57,7 @@ static NSNumber *sUserID;
 	if (sUserID) {
 		return sUserID;
 	} else {
-		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultUserID];
+		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:USER_ID];
 	}
 	return sUserID;
 }
@@ -65,7 +65,7 @@ static NSNumber *sUserID;
 + (void)deleteUserID
 {
 	sUserID = nil;
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserDefaultUserID];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_ID];
 }
 
 

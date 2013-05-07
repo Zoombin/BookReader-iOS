@@ -15,8 +15,8 @@
 #import "Book.h"
 
 #define SUCCESS_FLAG        @"0000"
-#define NETWORKERROR        @"网络异常"
-#define UserDefaultUserID   @"userid"
+#define NETWORK_ERROR        @"网络异常"
+#define USER_ID   @"userid"
 
 @interface ServiceManager : AFHTTPClient
 

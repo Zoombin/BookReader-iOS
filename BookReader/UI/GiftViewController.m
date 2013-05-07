@@ -101,7 +101,7 @@
                      andBook:bookObj.uid
                    withBlock:^(NSString *result, NSError *error) {
                        if (error) {
-                           [self displayHUDError:nil message:NETWORKERROR];
+                           [self displayHUDError:nil message:NETWORK_ERROR];
                        }else {
                            [self displayHUDError:nil message:result];
                        }
