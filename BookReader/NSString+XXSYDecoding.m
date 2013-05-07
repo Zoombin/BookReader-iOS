@@ -49,9 +49,8 @@
 		}
     }
 	NSString *debufferString = [[NSString alloc] initWithCString:deBuffer encoding:NSUTF8StringEncoding];
-//    [deString setString:[xxsyDecodingString stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"]];
     NSLog(@"---END---");
-    return [[self class] replaceUnicode:debufferString];
+    return [[[self class] replaceUnicode:debufferString] stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
 }
 
 + (NSString *)replaceUnicode:(NSString *)unicodeStr {
