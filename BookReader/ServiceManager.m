@@ -54,9 +54,7 @@ static NSNumber *sUserID;
 
 + (NSNumber *)userID
 {
-	if (sUserID) {
-		return sUserID;
-	} else {
+	if (!sUserID) {
 		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:USER_ID];
 	}
 	return sUserID;
@@ -439,10 +437,10 @@ static NSNumber *sUserID;
 + (void)bookCatalogue:(NSString *)cataid
             withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block {
     NSNumber *userid = [self userID];
-    if ([self userID]==nil) {
-        userid = [NSNumber numberWithInt:0];
+    if ([self userID] == nil) {
+        userid = @0;
     }
-    NSString *signString = [NSString stringWithFormat:@"%@%@",cataid,userid];
+    NSString *signString = [NSString stringWithFormat:@"%@%@", cataid, userid];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"chapterid"] = cataid;
     parameters[@"userid"] = userid;
@@ -516,10 +514,7 @@ static NSNumber *sUserID;
 + (void)addFavouriteWithBookID:(NSString *)bookid
                       andValue:(BOOL)value
                      withBlock:(void (^)(NSString *, NSString *, NSError *))block {
-    NSString *signString = @"keep.insert";
-    if (value == NO) {
-        signString = @"keep.remove";
-    }
+    NSString *signString = value ? @"keep.insert" : @"keep.remove";
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:[self commonParameters:signString]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;

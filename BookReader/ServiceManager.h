@@ -25,8 +25,8 @@
 + (void)saveUserID:(NSNumber *)userID;
 + (NSNumber *)userID;
 + (void)deleteUserID;
-#pragma mark -
-#pragma mark 用户接口
+
+#pragma mark - 用户接口
 //短信获取验证码
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
                       withBlock:(void (^)(NSString *, NSError *))block;
@@ -66,8 +66,7 @@
               andCount:(NSString *)count        //每页的数目
              withBlock:(void(^)(NSArray *,NSString *,NSError *))block;
 
-#pragma mark -
-#pragma mark 书城接口
+#pragma mark - 书城接口
 //获取榜单 分类 搜索的书籍列表
 + (void)books:(NSString *)keyword
       classID:(NSString *)classid  //分类1~9 穿越，架空，历史，都市，青春，豪门，魔幻，异能，玄幻
