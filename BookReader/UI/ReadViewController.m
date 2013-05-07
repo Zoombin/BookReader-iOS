@@ -13,7 +13,7 @@
 #import "ReadMoreViewController.h"
 #import "BookManager.h"
 #import "PurchaseManager.h"
-#import "Constants.h"
+#import "BookReader.h"
 #import "UIViewController+HUD.h"
 
 @implementation ReadViewController

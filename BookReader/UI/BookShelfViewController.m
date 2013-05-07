@@ -22,14 +22,13 @@
 #import "HandleGBString.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
-#import "UIDefines.h"
-#import "Constants.h"
+#import "BookReader.h"
 #import "CoreTextViewController.h"
 #import "SubscribeViewController.h"
 #import "BookCell.h"
 #import "BRBooksView.h"
 #import "BRBookCell.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
 @end
@@ -67,7 +66,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	userid = [BookReaderDefaultManager userID];
+	userid = [ServiceManager userID];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -12,7 +12,7 @@
 #import "HandleGBString.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
-#import "Constants.h"
+#import "BookReader.h"
 
 #define TOP_BAR_IMAGE [UIImage imageNamed:@"read_top_bar.png"]
 #define BACKGROUND_IMAGE [UIImage imageNamed:@"read_more_background.png"]

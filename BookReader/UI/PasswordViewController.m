@@ -7,11 +7,11 @@
 //
 
 #import "PasswordViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 
 #define ACCOUNT_TEXTFIELD_TAG          100
@@ -77,7 +77,7 @@
 - (void)showFindPassword
 {
     [titleLabel setText:@"找回密码"];
-    NSArray *placeHolders = @[@"请输入手机号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
+    NSArray *placeHolders = @[@"请输入账号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
     NSArray *tags = @[@ACCOUNT_TEXTFIELD_TAG,@CODE_TEXTFIELD_TAG,@PASSWORD_TEXTFIELD_TAG,@CONFIRM_TEXTFIELD_TAG];
     for (int i =0; i<[placeHolders count]; i++) {
         CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
@@ -179,10 +179,6 @@
         [self displayHUDError:nil message:@"两次密码输入不一致"];
         return;
     }
-    if ([accountTextField.text length]!=8&&[accountTextField.text length]!=11) {
-        [self displayHUDError:nil message:@"手机号不合法"];
-        return;
-    }
     [self displayHUD:@"请稍等..."];
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
@@ -218,7 +214,7 @@
 #pragma mark ChangePassword
 - (void)changeButtonClicked
 {
-    NSNumber *uid = [BookReaderDefaultManager userID];
+    NSNumber *uid = [ServiceManager userID];
     UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
     UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
     UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];

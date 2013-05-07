@@ -10,11 +10,11 @@
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
 #import "ServiceManager.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "SignInViewController.h"
 #import "PasswordViewController.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
     
 
 
@@ -46,7 +46,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    userid = [BookReaderDefaultManager userID];
+    userid = [ServiceManager userID];
     if (userid !=nil) {
         [ServiceManager userInfo:userid withBlock:^(Member *member, NSError *error) {
             if (error) {
@@ -114,7 +114,7 @@
 {
     isLogin = NO;
     //清除个人信息等...
-    [BookReaderDefaultManager deleteUserID];
+    [ServiceManager deleteUserID];
     [self reloadUI];
 }
 

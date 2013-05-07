@@ -7,17 +7,14 @@
 //
 
 #import "BookReadMenuView.h"
-#import "UIDefines.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReader.h"
+#import "BookReaderDefaultsManager.h"
 
 @implementation BookReadMenuView {
     UIView *fontView;
     UIView *backgroundView;
     NSArray *textcolorNames;
     NSArray *textcolorArray;
-    
-    NSArray *backgroundNames;
-    NSArray *backgroundArray;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -29,9 +26,6 @@
         // Initialization code
         textcolorNames = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
-        
-        backgroundNames = @[UserDefaultReadBackgroundGreen,UserDefaultReadBackgroundBlue,UserDefaultReadBackgroundSheep];
-        backgroundArray = @[ReadBackgroundColorGreen,ReadBackgroundColorBlue,ReadBackgroundColorSheep];
         [self initTopView];
         [self initBottomView];
         [self initFontView];
@@ -184,8 +178,8 @@
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 0, backgroundView.bounds.size.width-50, 30)];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyBright]) {
-       brightSlider.value = [[BookReaderDefaultManager objectForKey:UserDefaultKeyBright] floatValue]; 
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
+       brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     } else {
        brightSlider.value = 1;
     }
@@ -193,21 +187,24 @@
     [brightSlider setMinimumValue:0.5];
     [backgroundView addSubview:brightSlider];
     
-    for (int i=0; i<3; i++) {
+    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, backgroundView.bounds.size.width, 110)];
+    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*3, 110)];
+    [backgroundView addSubview:scrollerView];
+    
+    for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/3, 30, backgroundView.bounds.size.width/3, 110)];
+        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/16*3, 0, backgroundView.bounds.size.width/16*3, 110)];
         [button setTag:i];
-        [button setBackgroundColor:backgroundArray[i]];
+        [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitle:backgroundNames[i] forState:UIControlStateNormal];
-        [backgroundView addSubview:button];
+        [scrollerView addSubview:button];
     }
 }
 
 - (void)backgroundChanged:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(backgroundColorChanged:)]) {
-        [self.delegate backgroundColorChanged:backgroundNames[[sender tag]]];
+        [self.delegate backgroundColorChanged:[sender tag]];
     }
 }
 

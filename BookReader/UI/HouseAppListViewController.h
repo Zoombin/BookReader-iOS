@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UMUFPTableView.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 
 @interface HouseAppListViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UMUFPTableViewDataLoadDelegate>
 @end

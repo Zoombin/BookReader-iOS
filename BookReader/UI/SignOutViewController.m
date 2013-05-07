@@ -7,7 +7,7 @@
 //
 
 #import "SignOutViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "UITextField+BookReader.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
@@ -65,7 +65,7 @@
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    NSArray *placeHolders = @[@"请输入手机号", @"请输入密码", @"请再次输入密码", @"请输入短信验证码"];
+    NSArray *placeHolders = @[@"请输入账号", @"请输入密码", @"请再次输入密码", @"请输入短信验证码"];
     NSArray *tags = @[@REGISTER_ACCOUNT_TEXTFIELD_TAG,@REGISTER_PASSWORD_TEXTFIELD_TAG,@REGISTER_CONFIRM_TEXTFIELD_TAG,@REGISTER_CODE_TEXTFIELD_TAG];
     for (int i =0; i<[placeHolders count]; i++) {
         UITextField *textField;
@@ -139,10 +139,6 @@
     UITextField *codeTextField = (UITextField *)[self.view viewWithTag:REGISTER_CODE_TEXTFIELD_TAG];
     if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
         [self displayHUDError:nil message:@"两次密码不一致"];
-        return;
-    }
-    if ([accountTextField.text length]!=8&&[accountTextField.text length]!=11) {
-        [self displayHUDError:nil message:@"手机号不合法"];
         return;
     }
     [self displayHUD:@"注册中..."];

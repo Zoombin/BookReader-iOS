@@ -14,7 +14,7 @@
 #import "ReadStatusView.h"
 #import "HandleGBString.h"
 #import "AdWhirlView.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 
 @interface ReadViewController : UIViewController<ReadMenuViewDelegate,AdWhirlDelegate,UIApplicationDelegate ,UIScrollViewDelegate, UITextViewDelegate> {
     ReadView *readView;

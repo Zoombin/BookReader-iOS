@@ -15,7 +15,7 @@
 #import "Book.h"
 #import "Chapter.h"
 #import "Member+Setup.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -43,6 +43,31 @@
     }
     return instance;
 }
+
+static NSNumber *sUserID;
+
++ (void)saveUserID:(NSNumber *)userID
+{
+	sUserID = userID;
+    [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:UserDefaultUserID];
+}
+
++ (NSNumber *)userID
+{
+	if (sUserID) {
+		return sUserID;
+	} else {
+		sUserID = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultUserID];
+	}
+	return sUserID;
+}
+
++ (void)deleteUserID
+{
+	sUserID = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:UserDefaultUserID];
+}
+
 
 //获取随机Key和check
 + (NSDictionary *)randomCode {
@@ -100,7 +125,10 @@
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject=[NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
+        if ([theObject isKindOfClass:[NSDictionary class]]) {
+            Member *member = [Member createWithAttributes:theObject[@"user"]];
+            [ServiceManager saveUserID:member.uid];
+        }
         if (block) {
             block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
@@ -124,7 +152,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [BookReaderDefaultManager saveUserID:member.uid];
+            [ServiceManager saveUserID:member.uid];
         }
         if (block) {
             block(member, [theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
@@ -207,7 +235,7 @@
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [BookReaderDefaultManager saveUserID:member.uid];
+            [ServiceManager saveUserID:member.uid];
         }
         if (block) {
             block(member,nil);

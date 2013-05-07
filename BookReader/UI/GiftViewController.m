@@ -7,11 +7,11 @@
 //
 
 #import "GiftViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "GiftCell.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 @implementation GiftViewController {
     NSString *title;
@@ -43,7 +43,7 @@
     
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
         title = oldKeyWordsArray[[index integerValue]];
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         //  1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         // 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
     }

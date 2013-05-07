@@ -8,8 +8,7 @@
 #import "AboutViewController.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Constants.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 
 
 @implementation AboutViewController {

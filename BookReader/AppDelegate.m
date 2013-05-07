@@ -16,10 +16,10 @@
 #import "AboutViewController.h"
 #import "HouseBookListViewController.h"
 #import "BookManager.h"
-#import "Constants.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "NSString+XXSYDecoding.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 #define REMOTE_MODE
 
@@ -43,7 +43,8 @@
 	[self testApis];
 	
 	//TOTEST: yanchao's account
-	//[BookReaderDefaultManager saveUserID:@(5639339)];
+	[ServiceManager saveUserID:@(5639339)];
+
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	

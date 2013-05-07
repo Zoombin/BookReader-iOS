@@ -7,7 +7,7 @@
 //
 
 #import "BookDetailsViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "Book.h"
@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 #import "SubscribeViewController.h"
 #import "BookShelfViewController.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002
@@ -49,7 +49,7 @@
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         bFav = NO;
         // Custom initialization
     }

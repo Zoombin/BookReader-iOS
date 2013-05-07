@@ -7,7 +7,7 @@
 //
 
 #import "GiftCell.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 
 @implementation GiftCell {
     UITextField *numberTextField;

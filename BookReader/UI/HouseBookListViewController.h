@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIDefines.h"
+#import "BookReader.h"
 
 @interface HouseBookListViewController: UIViewController<UITableViewDataSource, UITableViewDelegate>
 - (void)checkShouldLoadAgain;

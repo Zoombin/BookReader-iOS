@@ -10,14 +10,14 @@
 #import "CoreTextView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+HUD.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ReadStatusView.h"
 #import "BookReadMenuView.h"
 #import "SubscribeViewController.h"
 #import "NSString+XXSYDecoding.h"
 #import "Book.h"
 #import "ServiceManager.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 
 
 @implementation CoreTextViewController {
@@ -29,7 +29,7 @@
     CGFloat currentFontSize;
     NSString *currentFontName;
     NSString *currentTextColorStr;
-    NSString *currentBackgroundStr;
+    NSInteger currentBackgroundIndex;
     float currentAlpa;
     int currentPage;
     BOOL bOnline;
@@ -66,7 +66,7 @@
         bOnline = online;
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         
         key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",userid];
         if (userid==nil) {
@@ -75,12 +75,12 @@
         [textString setString:[chapter.content XXSYDecodingWithKey:key]];
         
         currentFontSize = 19;
-        currentFontName = UserDefaultSystemFont;
+        currentFontName = UserDefaultFoundFont;
         currentFont = [self setFontWithName:currentFontName];
         currentTextColorStr = @"blackColor";
         currentAlpa = 1;
-        currentBackgroundStr = UserDefaultReadBackgroundSheep;
-        [self.view setBackgroundColor:ReadBackgroundColorSheep];
+        currentBackgroundIndex = 13;
+        [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:currentBackgroundIndex]];
         
         [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
@@ -150,40 +150,35 @@
 
 - (void)loadUserDefault
 {
-    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyFontName]) {
-        currentFontName = [BookReaderDefaultManager objectForKey:UserDefaultKeyFontName];
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName]) {
+        currentFontName = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName];
     }
-    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyFontSize]) {
-        currentFontSize = [[BookReaderDefaultManager objectForKey:UserDefaultKeyFontSize] floatValue];
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize]) {
+        currentFontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
     }
-    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyTextColor]) {
-        currentTextColorStr = [BookReaderDefaultManager objectForKey:UserDefaultKeyTextColor];
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor]) {
+        currentTextColorStr = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
     }
-    if ([BookReaderDefaultManager objectForKey:UserDefaultKeyBright]) {
-        currentAlpa = [[BookReaderDefaultManager objectForKey:UserDefaultKeyBright] floatValue];
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
+        currentAlpa = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     }
-    NSString *colorName = [BookReaderDefaultManager objectForKey:UserDefaultKeyBackground];
-    if ([colorName isEqualToString:UserDefaultReadBackgroundSheep]) {
-        [self.view setBackgroundColor:ReadBackgroundColorSheep];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundBlue]) {
-        [self.view setBackgroundColor:ReadBackgroundColorBlue];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundGreen]) {
-        [self.view setBackgroundColor:ReadBackgroundColorGreen];
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground]) {
+        [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:[[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue]]];
     }
 }
 
 - (void)saveUserDefault
 {
     //保存字体名字
-    [BookReaderDefaultManager setObject:currentFontName ForKey:UserDefaultKeyFontName];
+    [BookReaderDefaultsManager setObject:currentFontName ForKey:UserDefaultKeyFontName];
     //保存字体大小
-    [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentFontSize] ForKey:UserDefaultKeyFontSize];
+    [BookReaderDefaultsManager setObject:[NSNumber numberWithFloat:currentFontSize] ForKey:UserDefaultKeyFontSize];
     //保存字体颜色
-    [BookReaderDefaultManager setObject:currentTextColorStr ForKey:UserDefaultKeyTextColor];
+    [BookReaderDefaultsManager setObject:currentTextColorStr ForKey:UserDefaultKeyTextColor];
     //保存亮度
-    [BookReaderDefaultManager setObject:[NSNumber numberWithFloat:currentAlpa] ForKey:UserDefaultKeyBright];
+    [BookReaderDefaultsManager setObject:[NSNumber numberWithFloat:currentAlpa] ForKey:UserDefaultKeyBright];
     //保存背景色
-    [BookReaderDefaultManager setObject:currentBackgroundStr ForKey:UserDefaultKeyBackground];
+    [BookReaderDefaultsManager setObject:[NSNumber numberWithInteger:currentBackgroundIndex] ForKey:UserDefaultKeyBackground];
 }
 
 #pragma mark- 
@@ -202,16 +197,10 @@
     statusView.alpha = slider.value;
 }
 
-- (void)backgroundColorChanged:(NSString *)colorName
+- (void)backgroundColorChanged:(NSInteger)index
 {
-    if ([colorName isEqualToString:UserDefaultReadBackgroundSheep]) {
-        [self.view setBackgroundColor:ReadBackgroundColorSheep];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundBlue]) {
-        [self.view setBackgroundColor:ReadBackgroundColorBlue];
-    } else if ([colorName isEqualToString:UserDefaultReadBackgroundGreen]) {
-        [self.view setBackgroundColor:ReadBackgroundColorGreen];
-    }
-    currentBackgroundStr = colorName;
+    currentBackgroundIndex = index;
+    [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:index]];
 }
 
 - (void)changeTextColor:(NSString *)textColor

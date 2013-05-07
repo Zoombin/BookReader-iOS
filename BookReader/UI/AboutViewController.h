@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIDefines.h"
+#import "BookReader.h"
 
 @interface AboutViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "SignInViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "BookShelfButton.h"
 #import "UIViewController+HUD.h"
@@ -113,10 +113,6 @@
 
 - (void)loginButtonClicked
 {
-    if ([accountTextField.text length]!=8&&[accountTextField.text length]!=11) {
-        [self displayHUDError:nil message:@"手机号不合法"];
-        return;
-    }
     [self displayHUD:@"登录中"];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(Member *member,NSString *result,NSString *resultMessage,NSError *error) {
         if (error) {

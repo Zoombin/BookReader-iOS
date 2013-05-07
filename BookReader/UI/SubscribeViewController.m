@@ -7,12 +7,12 @@
 //
 
 #import "SubscribeViewController.h"
-#import "UIDefines.h"
+#import "BookReader.h"
 #import "ServiceManager.h"
 #import "Chapter.h"
 #import "Book.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultManager.h"
+#import "BookReaderDefaultsManager.h"
 #import "CoreTextViewController.h"
 
 @implementation SubscribeViewController
@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         bookobj = book;
-        userid = [BookReaderDefaultManager userID];
+        userid = [ServiceManager userID];
         infoArray = [[NSMutableArray alloc] init];
         bOnline = online;
     }
