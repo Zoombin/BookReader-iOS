@@ -38,14 +38,14 @@
 {
     [super viewDidLoad];
     isLogin = NO;
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
+    UIImage*img = [UIImage imageNamed:@"main_view_bkg"];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([ServiceManager userID] !=nil) {
+    if ([ServiceManager userID] != nil) {
         [ServiceManager userInfoWithBlock:^(Member *member, NSError *error) {
             if (error) {
                 isLogin = NO;
@@ -113,11 +113,8 @@
     isLogin = NO;
     //清除个人信息等...
     [ServiceManager deleteUserID];
-    NSArray *booksArray = [Book findAll];
-    for (int i = 0; i<[booksArray count]; i++) {
-        Book *obj = [booksArray objectAtIndex:i];
-        [obj truncate];
-    }
+	[Book truncateAll];
+	[Chapter truncateAll];
     [self reloadUI];
 }
 
