@@ -43,8 +43,9 @@
 //	[self testApis];
 	
 	//TOTEST: yanchao's account
-//	[ServiceManager saveUserID:@(5639339)];
+	//[ServiceManager saveUserID:@(5639339)];
 
+	
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
@@ -139,7 +140,6 @@
     [bottomView addSubview:aboutButton];
     
     tabBar = bottomView;
-    [navController.view addSubview:tabBar];
 }
 
 - (void)bottomButtonTapped:(id)sender
@@ -155,11 +155,10 @@
     [navController setNavigationBarHidden:YES];
     self.window.rootViewController = navController;
 #ifndef REMOTE_MODE
-    if (tabBar) {
-        [navController.view addSubview:tabBar];
-    } else {
-        [self createTabBar];
-    }
+    if (!tabBar) {
+		[self createTabBar];
+	}
+	[navController.view addSubview:tabBar];
 #endif
 }
 
