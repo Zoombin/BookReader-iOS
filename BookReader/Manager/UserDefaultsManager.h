@@ -101,7 +101,6 @@
 #define UserDefaultsBookReadingPercent @"user_defaults_key_book_reading_percent_%@"  //阅读进度
 
 #define UserDefaultsValueToken              @"token"            //token
-#define UserDefaultsValueUserid             @"userid"           //用户id
 #define UserDefaultsValueVerifycode         @"verifycode"       //用户verifycode
 #define UserDefaultsValueSnsid              @"snsid"            //sns账户id
 #define UserDefaultsValueWidth              @"width"            //屏幕大小
