@@ -25,5 +25,4 @@ typedef enum {
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)switchToRootController:(RootControllerType)type;
-- (UIViewController *)viewControllerByType:(RootControllerType)type;
 @end
