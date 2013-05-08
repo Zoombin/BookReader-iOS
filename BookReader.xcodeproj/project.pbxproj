@@ -440,7 +440,6 @@
 		18ABAFAE1727CB6900ED02C6 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
 		18ABAFAF1727CB6900ED02C6 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
 		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
-		18BD746D170AC69700B142EC /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "../NSString+MD5.h"; sourceTree = "<group>"; };
 		18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		18FC1AC91720CAFE00A043C9 /* BookReadMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadMenuView.h; sourceTree = "<group>"; };
 		18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReadMenuView.m; sourceTree = "<group>"; };
@@ -990,7 +989,6 @@
 				77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */,
 				77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */,
 				77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */,
-				18BD746D170AC69700B142EC /* NSString+MD5.h */,
 				77A612D51716635F00934254 /* NSString+XXSYDecoding.h */,
 				77A612D61716635F00934254 /* NSString+XXSYDecoding.m */,
 				77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */,
