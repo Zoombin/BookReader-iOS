@@ -22,7 +22,6 @@
 {
     NSArray *fuctionArray;
     Member *_member;
-    NSNumber *userid;
     BOOL isLogin;
     SignInViewController *signViewController;
 }
@@ -46,8 +45,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    userid = [ServiceManager userID];
-    if (userid !=nil) {
+    if ([ServiceManager userID] !=nil) {
         [ServiceManager userInfoWithBlock:^(Member *member, NSError *error) {
             if (error) {
                 isLogin = NO;
@@ -115,6 +113,11 @@
     isLogin = NO;
     //清除个人信息等...
     [ServiceManager deleteUserID];
+    NSArray *booksArray = [Book findAll];
+    for (int i = 0; i<[booksArray count]; i++) {
+        Book *obj = [booksArray objectAtIndex:i];
+        [obj truncate];
+    }
     [self reloadUI];
 }
 

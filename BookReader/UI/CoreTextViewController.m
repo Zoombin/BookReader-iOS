@@ -44,8 +44,6 @@
     Book *book;
     
     NSMutableArray *chaptersArray;
-    
-    NSNumber *userid;
     NSString *key;
     
     ReadHelpView *helpView;
@@ -69,10 +67,8 @@
         bOnline = online;
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
-        userid = [ServiceManager userID];
-        
-        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",userid];
-        if (userid==nil) {
+        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[ServiceManager userID]];
+        if ([ServiceManager userID]==nil) {
             key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
         [textString setString:[chapter.content XXSYDecodingWithKey:key]];
@@ -551,7 +547,7 @@
 
 - (void)chapterSubscribeWithObj:(Chapter *)obj
 {
-    if (userid!=nil)
+    if ([ServiceManager userID]!=nil)
     {
         [ServiceManager chapterSubscribeWithChapterID:obj.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error)

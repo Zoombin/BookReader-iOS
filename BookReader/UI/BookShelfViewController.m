@@ -38,7 +38,6 @@
     BookShelfHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
-    NSNumber *userid;
 	BOOL editing;
 }
 @synthesize layoutStyle;
@@ -65,13 +64,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	userid = [ServiceManager userID];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	if (!userid) {
+	if (![ServiceManager userID]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
 		
@@ -86,7 +84,7 @@
 
 - (void)syncFav
 {
-	if (!userid) return;
+	if (![ServiceManager userID]) return;
 	[self displayHUD:@"获取用户书架中..."];
     [ServiceManager userBooksWithSize:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
 		[self hideHUD:YES];

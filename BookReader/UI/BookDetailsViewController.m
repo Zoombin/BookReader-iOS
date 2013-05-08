@@ -34,8 +34,6 @@
     NSMutableArray *infoArray;
     NSMutableArray *authorBookArray;
     NSMutableArray *sameTypeBookArray;
-    
-    NSNumber *userid;
     BOOL bFav;
 }
 
@@ -48,8 +46,6 @@
         
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
-        
-        userid = [ServiceManager userID];
         bFav = NO;
         // Custom initialization
     }
@@ -139,7 +135,7 @@
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
     }
-    if (userid!=nil) {
+    if ([ServiceManager userID]!=nil) {
         [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
             if (error) {
                 
@@ -338,7 +334,7 @@
 
 - (BOOL)checkLogin
 {
-    if (userid==nil)
+    if ([ServiceManager userID]==nil)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您尚未登录!"
                                                             message:nil

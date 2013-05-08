@@ -18,7 +18,6 @@
 @implementation SubscribeViewController
 {
     Book *bookobj;
-    NSNumber *userid;
     UITableView *infoTableView;
     NSMutableArray *infoArray;
     BOOL bOnline;
@@ -30,7 +29,6 @@
     self = [super init];
     if (self) {
         bookobj = book;
-        userid = [ServiceManager userID];
         infoArray = [[NSMutableArray alloc] init];
         bOnline = online;
     }
@@ -197,7 +195,7 @@
 
 - (void)chapterSubscribeWithObj:(Chapter *)obj
 {
-    if (userid!=nil)
+    if ([ServiceManager userID]!=nil)
     {
         [ServiceManager chapterSubscribeWithChapterID:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error)
