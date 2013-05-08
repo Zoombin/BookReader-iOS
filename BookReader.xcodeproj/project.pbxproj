@@ -32,6 +32,9 @@
 		181091D817348C8B000931AB /* BookReaderDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D717348C8B000931AB /* BookReaderDefaultsManager.m */; };
 		181091DB17350289000931AB /* read_sheeppager.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091DA17350289000931AB /* read_sheeppager.png */; };
 		181091E1173895EE000931AB /* ReadHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E0173895EC000931AB /* ReadHelpView.m */; };
+		181091E4173A3564000931AB /* UIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E3173A3563000931AB /* UIManager.m */; };
+		181091E7173A40EA000931AB /* UILabel+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E6173A40EA000931AB /* UILabel+BookReader.m */; };
+		181091EA173A49F0000931AB /* UIButton+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E9173A49F0000931AB /* UIButton+BookReader.m */; };
 		1820F0511728B3D3002670F2 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F0501728B3D3002670F2 /* Book.m */; };
 		1820F05D1728CB40002670F2 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F05C1728CB40002670F2 /* Chapter.m */; };
 		1848FC33171F9C3D00E8A3F1 /* BookShelfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */; };
@@ -335,6 +338,12 @@
 		181091DC17374B78000931AB /* BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReader.h; sourceTree = "<group>"; };
 		181091DF173895EA000931AB /* ReadHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadHelpView.h; sourceTree = "<group>"; };
 		181091E0173895EC000931AB /* ReadHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadHelpView.m; sourceTree = "<group>"; };
+		181091E2173A3562000931AB /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
+		181091E3173A3563000931AB /* UIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIManager.m; sourceTree = "<group>"; };
+		181091E5173A40E9000931AB /* UILabel+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+BookReader.h"; sourceTree = "<group>"; };
+		181091E6173A40EA000931AB /* UILabel+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BookReader.m"; sourceTree = "<group>"; };
+		181091E8173A49EF000931AB /* UIButton+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BookReader.h"; sourceTree = "<group>"; };
+		181091E9173A49F0000931AB /* UIButton+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BookReader.m"; sourceTree = "<group>"; };
 		1820F04F1728B3D3002670F2 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		1820F0501728B3D3002670F2 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		1820F05B1728CB40002670F2 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
@@ -990,6 +999,10 @@
 				77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */,
 				186292F61732572500777357 /* UITextField+BookReader.h */,
 				186292F71732572500777357 /* UITextField+BookReader.m */,
+				181091E5173A40E9000931AB /* UILabel+BookReader.h */,
+				181091E6173A40EA000931AB /* UILabel+BookReader.m */,
+				181091E8173A49EF000931AB /* UIButton+BookReader.h */,
+				181091E9173A49F0000931AB /* UIButton+BookReader.m */,
 			);
 			name = Categories;
 			path = Manager;
@@ -1591,6 +1604,8 @@
 				8B3C3AB016B2814F00C8468D /* PurchaseManager.m */,
 				181091D617348C8B000931AB /* BookReaderDefaultsManager.h */,
 				181091D717348C8B000931AB /* BookReaderDefaultsManager.m */,
+				181091E2173A3562000931AB /* UIManager.h */,
+				181091E3173A3563000931AB /* UIManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1945,6 +1960,9 @@
 				77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */,
 				181091D817348C8B000931AB /* BookReaderDefaultsManager.m in Sources */,
 				181091E1173895EE000931AB /* ReadHelpView.m in Sources */,
+				181091E4173A3564000931AB /* UIManager.m in Sources */,
+				181091E7173A40EA000931AB /* UILabel+BookReader.m in Sources */,
+				181091EA173A49F0000931AB /* UIButton+BookReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
