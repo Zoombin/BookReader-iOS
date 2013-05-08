@@ -71,9 +71,9 @@
     for (UIView *view in [self.view subviews]) {
         [view removeFromSuperview];
     }
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
+//    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+//    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
+//    [self.view addSubview:backgroundImage];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
