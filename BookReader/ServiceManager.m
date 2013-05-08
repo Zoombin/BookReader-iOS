@@ -96,7 +96,6 @@ static NSNumber *sUserID;
     parameters[@"check"] = valueDict[@"check"];
     NSString *sign = [NSString stringWithFormat:@"%@%@", parameterValuesString, valueDict[@"key"]];
     parameters[@"sign"] = [sign md532];
-	NSLog(@"parametersparametersparametersparameters = %@", parameters);
     return parameters;
 }
 
