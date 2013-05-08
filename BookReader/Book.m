@@ -82,16 +82,20 @@
 
 - (void)truncate
 {
-	BookManaged *managed = [BookManaged findFirstByAttribute:@"uid" withValue:uid];
-	if (managed) {
-		[managed deleteEntity];
-	}
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		BookManaged *managed = [BookManaged findFirstByAttribute:@"uid" withValue:uid];
+		if (managed) {
+			[managed deleteInContext:localContext];
+		}
+	}];
 	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 }
 
 + (void)truncateAll
 {
-	[BookManaged truncateAll];
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		[BookManaged truncateAllInContext:localContext];
+	}];
 	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 }
 

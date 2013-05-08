@@ -53,17 +53,21 @@
 }
 
 - (void)truncate
-{
-	ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid];
-	if (managed) {
-		[managed deleteEntity];
-	}
+{	
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid];
+		if (managed) {
+			[managed deleteInContext:localContext];
+		}
+	}];
 	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 }
 
 + (void)truncateAll
 {
-	[ChapterManaged truncateAll];
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		[ChapterManaged truncateAllInContext:localContext];
+	}];
 	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 }
 
