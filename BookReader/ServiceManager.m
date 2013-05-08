@@ -479,7 +479,7 @@ static NSNumber *sUserID;
                      withBlock:(void (^)(NSString *, NSString *, NSError *))block
 {
     NSString *methodValue = value ? @"keep.insert" : @"keep.remove";
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"method" : methodValue}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : methodValue}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -498,7 +498,7 @@ static NSNumber *sUserID;
                        andValue:(NSString *)value
                       withBlock:(void (^)(NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"method" : @"keep.auto"}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.auto"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"value"] = value;
@@ -518,7 +518,7 @@ static NSNumber *sUserID;
                 andContent:(NSString *)content
                  withBlock:(void (^)(NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"method" : @"discuss.send"}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"discuss.send"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"content"] = content;
@@ -585,7 +585,7 @@ static NSNumber *sUserID;
 + (void)existsFavouriteWithBookID:(NSString *)bookid
                         withBlock:(void (^)(NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"method" : @"keep.isexists"}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.isexists"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -606,7 +606,7 @@ static NSNumber *sUserID;
                 integral:(NSString *)integral
                  andBook:(NSString *)bookid withBlock:(void (^)(NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"method" : @"user.props"}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"user.props"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"type"] = type;
