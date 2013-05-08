@@ -167,7 +167,7 @@ static NSNumber *sUserID;
                        andNewPassword:(NSString *)newPassword
                             withBlock:(void (^)(NSString *, NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID]}, @{@"oldpwd" : [oldPassword md516]}, @{@"newpwd" : [newPassword md516]}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"oldpwd" : [oldPassword md516]}, @{@"newpwd" : [newPassword md516]}]];
     [[ServiceManager shared] postPath:@"ChangePassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -218,7 +218,7 @@ static NSNumber *sUserID;
 
 + (void)userInfoWithBlock:(void (^)(Member *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID]}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}]];
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         Member *member = nil;
@@ -243,7 +243,7 @@ static NSNumber *sUserID;
     [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
 	static const NSString *iOSFlag = @"40";
     NSString *paymentCode = [NSString stringWithFormat:@"%@_%@_%@",[dateFormatter stringFromDate:[NSDate date]],[self userID], iOSFlag];//潇湘书院的订单号
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID]}, @{@"mount" : payType}, @{@"orderid" : paymentCode}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"mount" : payType}, @{@"orderid" : paymentCode}]];
     [[ServiceManager shared] postPath:@"UserPay.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSString *postsFromResponse = [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding];
         NSLog(@"success=>%@",postsFromResponse);
@@ -261,7 +261,7 @@ static NSNumber *sUserID;
                            andCount:(NSString *)count
                           withBlock:(void (^)(NSArray *, NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID]}, @{@"index" : pageIndex}, @{@"size" : count}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"index" : pageIndex}, @{@"size" : count}]];
     [[ServiceManager shared] postPath:@"RechargeList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -411,7 +411,7 @@ static NSNumber *sUserID;
     if ([self userID] == nil) {
         userid = @0;
     }
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : cataid}, @{@"userid" : userid}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : cataid}, @{@"userid" : userid.stringValue}]];
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -434,7 +434,7 @@ static NSNumber *sUserID;
                              andPrice:(NSString *)price
                             withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID]}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid}, @{@"price" : price}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid}, @{@"price" : price}]];
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
