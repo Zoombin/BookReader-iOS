@@ -91,10 +91,10 @@ static NSNumber *sUserID;
 		[parameters addEntriesFromDictionary:parameterMap];
 		[parameterValuesString appendString:parameterMap.allValues[0]];
 	}
-    [parameterValuesString setString:[[parameterValuesString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] lowercaseString]];
+    NSString *parameterValuesEncodingString = [[parameterValuesString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] lowercaseString];
     NSMutableDictionary *valueDict =  [[self randomCode] mutableCopy];
     parameters[@"check"] = valueDict[@"check"];
-    NSString *sign = [NSString stringWithFormat:@"%@%@", parameterValuesString, valueDict[@"key"]];
+    NSString *sign = [NSString stringWithFormat:@"%@%@", parameterValuesEncodingString, valueDict[@"key"]];
     parameters[@"sign"] = [sign md532];
     return parameters;
 }
