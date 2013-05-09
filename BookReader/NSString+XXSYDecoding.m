@@ -7,7 +7,6 @@
 //
 
 #import "NSString+XXSYDecoding.h"
-#import "NSString+MD5.h"
 
 #define dic @"0123456789ABCDEF"
 

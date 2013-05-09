@@ -24,22 +24,23 @@
     UIButton *findButton;
     UIButton *getCodeButton;
     UIButton *changeButton;
+    
+    UITextField *accountTextField;
+    UITextField *passwordTextField;
+    UITextField *confirmTextField;
+    UITextField *codeTextField;
 }
 @synthesize bFindPassword;
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
 	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
@@ -78,28 +79,12 @@
 {
     [titleLabel setText:@"找回密码"];
     NSArray *placeHolders = @[@"请输入账号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
-    NSArray *tags = @[@ACCOUNT_TEXTFIELD_TAG,@CODE_TEXTFIELD_TAG,@PASSWORD_TEXTFIELD_TAG,@CONFIRM_TEXTFIELD_TAG];
+    NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
     for (int i =0; i<[placeHolders count]; i++) {
         CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
-        UITextField *textField;
-        switch (i) {
-            case 0:
-                textField = [UITextField accountTextFieldWithFrame:frame];
-                break;
-            case 1:
-                textField = [UITextField codeTextFieldWithFrame:frame];
-                break;
-            case 2:
-                textField = [UITextField passwordTextFieldWithFrame:frame];
-                break;
-            case 3:
-                textField = [UITextField passwordTextFieldWithFrame:frame];
-                break;
-            default:
-                break;
-        }
+        UITextField *textField = textFields[i];
+        [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
-        [textField setTag:[tags[i] intValue]];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
         [self.view addSubview:textField];
     }
@@ -123,12 +108,12 @@
 {
     titleLabel.text = @"修改密码";
     NSArray *placeHolders = @[@"请输入旧密码", @"请输入新密码", @"请再次输入新密码"];
-    NSArray *tags = @[@PASSWORD_TEXTFIELD_TAG,@CONFIRM_TEXTFIELD_TAG,@CODE_TEXTFIELD_TAG];
+    NSArray *textFields = @[passwordTextField,confirmTextField,codeTextField];
     for (int i =0; i<[placeHolders count]; i++) {
         CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
-        UITextField *textField = [UITextField passwordTextFieldWithFrame:frame];
+        UITextField *textField = textFields[i];
+        [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
-        [textField setTag:[tags[i] intValue]];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
         [textField setBackgroundColor:[UIColor whiteColor]];
@@ -153,10 +138,6 @@
 #pragma mark FindPassword
 - (void)FindPasswordvalueChanged:(id)sender
 {
-    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:ACCOUNT_TEXTFIELD_TAG];
-    UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
-    UITextField *confirmTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
-    UITextField *codeTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];
     if ([accountTextField.text length]) {
         [getCodeButton setEnabled:YES];
     } else {
@@ -171,11 +152,7 @@
 
 - (void)findPassword
 {
-    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:ACCOUNT_TEXTFIELD_TAG];
-    UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
-    UITextField *confirmTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
-    UITextField *codeTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];
-    if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
+    if (![passwordTextField.text isEqualToString:confirmTextField.text]) {
         [self displayHUDError:nil message:@"两次密码输入不一致"];
         return;
     }
@@ -195,7 +172,6 @@
 
 - (void)getFindPasswordCode
 {
-    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:ACCOUNT_TEXTFIELD_TAG];
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
@@ -214,15 +190,12 @@
 #pragma mark ChangePassword
 - (void)changeButtonClicked
 {
-    UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
-    UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
-    UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];
-    if (![newPasswordTextField.text isEqualToString:confirmPasswordTextField.text]) {
+    if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
         [self displayHUDError:nil message:@"两次密码不一致"];
         return;
     }
     [self displayHUD:@"请稍等..."];
-    [ServiceManager changePasswordWithOldPassword:oldPasswordTextField.text andNewPassword:newPasswordTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
+    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {
@@ -237,10 +210,7 @@
 
 - (void)changePasswordValueChanged:(id)sender
 {
-    UITextField *oldPasswordTextField = (UITextField *)[self.view viewWithTag:PASSWORD_TEXTFIELD_TAG];
-    UITextField *newPasswordTextField = (UITextField *)[self.view viewWithTag:CONFIRM_TEXTFIELD_TAG];
-    UITextField *confirmPasswordTextField = (UITextField *)[self.view viewWithTag:CODE_TEXTFIELD_TAG];
-    if ([oldPasswordTextField.text length]&&[newPasswordTextField.text length]&&[confirmPasswordTextField.text length]) {
+    if ([passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
         [changeButton setEnabled:YES];
     } else {
         [changeButton setEnabled:NO];
