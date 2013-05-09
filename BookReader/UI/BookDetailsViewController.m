@@ -336,12 +336,7 @@
 {
     if ([ServiceManager userID]==nil)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您尚未登录!"
-                                                            message:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil];
-        [alertView show];
+        [self displayHUDError:nil message:@"您尚未登录!"];
         return NO;
     }
     else
