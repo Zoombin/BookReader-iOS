@@ -12,6 +12,10 @@
 + (UIView *)loginBackgroundViewWithFrame:(CGRect)frame
                            andTitle:(NSString *)title;
 
++ (UIView *)changeBackgroundViewWithFrame:(CGRect)frame;
+
++ (UIView *)findBackgroundViewWithFrame:(CGRect)frame;
+
 + (UIView *)userBackgroundViewWithFrame:(CGRect)frame
                                andTitle:(NSString *)title;
 @end

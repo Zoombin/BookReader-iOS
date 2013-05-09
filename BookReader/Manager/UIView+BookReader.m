@@ -37,6 +37,32 @@
     return view;
 }
 
++ (UIView *)changeBackgroundViewWithFrame:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    [view.layer setCornerRadius:4];
+    [view.layer setMasksToBounds:YES];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    
+    UIView *changeMiddleView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, view.bounds.size.width, 140)];
+    [changeMiddleView setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+    [view addSubview:changeMiddleView];
+    return view;
+}
+
++ (UIView *)findBackgroundViewWithFrame:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    [view.layer setCornerRadius:4];
+    [view.layer setMasksToBounds:YES];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    
+    UIView *findMiddleView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, view.bounds.size.width, 170)];
+    [findMiddleView setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+    [view addSubview:findMiddleView];
+    return view;
+}
+
 + (UIView *)userBackgroundViewWithFrame:(CGRect)frame andTitle:(NSString *)title
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];

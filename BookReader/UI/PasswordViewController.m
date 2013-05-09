@@ -11,7 +11,10 @@
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"
+#import "UIView+BookReader.h"
+#import "UIButton+BookReader.h"
 #import "BookReaderDefaultsManager.h"
+
 
 
 #define ACCOUNT_TEXTFIELD_TAG          100
@@ -78,26 +81,28 @@
 - (void)showFindPassword
 {
     [titleLabel setText:@"找回密码"];
-    NSArray *placeHolders = @[@"请输入账号",@"请输入短信验证码", @"请输入新密码", @"请再次输入新密码"];
+    
+    UIView *findPasswordView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 230)];
+    [self.view addSubview:findPasswordView];
+    
+    NSArray *placeHolders = @[@"\t\t请输入账号",@"\t\t请输入短信验证码", @"\t\t请输入新密码", @"\t\t请再次输入新密码"];
     NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
     for (int i =0; i<[placeHolders count]; i++) {
-        CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
+        CGRect frame = CGRectMake(10, 15+40*i, findPasswordView.bounds.size.width-10*2, 30);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
-        [self.view addSubview:textField];
+        [findPasswordView addSubview:textField];
     }
     
-     findButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [findButton setFrame:CGRectMake(30, 234, 100, 30)];
+     findButton = [UIButton createButtonWithFrame:CGRectMake(30, 234, 100, 30)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
-     getCodeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [getCodeButton setFrame:CGRectMake(190, 234, 100, 30)];
+     getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, 234, 100, 30)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -107,21 +112,23 @@
 - (void)showChangePassword
 {
     titleLabel.text = @"修改密码";
-    NSArray *placeHolders = @[@"请输入旧密码", @"请输入新密码", @"请再次输入新密码"];
+    UIView *changePasswordView = [UIView changeBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 200)];
+    [self.view addSubview:changePasswordView];
+    
+    NSArray *placeHolders = @[@"\t\t请输入旧密码", @"\t\t请输入新密码", @"\t\t请再次输入新密码"];
     NSArray *textFields = @[passwordTextField,confirmTextField,codeTextField];
     for (int i =0; i<[placeHolders count]; i++) {
-        CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
+        CGRect frame = CGRectMake(20, 20+40*i, changePasswordView.bounds.size.width-20*2, 30);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
         [textField setBackgroundColor:[UIColor whiteColor]];
-        [self.view addSubview:textField];
+        [changePasswordView addSubview:textField];
     }
     
-     changeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [changeButton setFrame:CGRectMake(30, 200, 100, 30)];
+     changeButton = [UIButton createButtonWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, 200, 80, 30)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];

@@ -10,6 +10,8 @@
 #import "BookReader.h"
 #import "UITextField+BookReader.h"
 #import "ServiceManager.h"
+#import "UIView+BookReader.h"
+#import "UIButton+BookReader.h"
 #import "UIViewController+HUD.h"
 
 #define REGISTER_ACCOUNT_TEXTFIELD_TAG          102
@@ -21,6 +23,10 @@
     UIButton *registerButton;
     UIButton *getCodeButton;
     int emptyCount;
+    UITextField *accountTextField;
+    UITextField *passwordTextField;
+    UITextField *confirmTextField;
+    UITextField *codeTextField;
 }
 
 - (id)init 
@@ -38,6 +44,11 @@
     [super viewDidLoad];
     UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
 	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
@@ -65,42 +76,27 @@
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    NSArray *placeHolders = @[@"请输入账号", @"请输入密码", @"请再次输入密码", @"请输入短信验证码"];
-    NSArray *tags = @[@REGISTER_ACCOUNT_TEXTFIELD_TAG,@REGISTER_PASSWORD_TEXTFIELD_TAG,@REGISTER_CONFIRM_TEXTFIELD_TAG,@REGISTER_CODE_TEXTFIELD_TAG];
+    UIView *signOutView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 230)];
+    [self.view addSubview:signOutView];
+    
+    NSArray *placeHolders = @[@"\t\t请输入账号", @"\t\t请输入密码", @"\t\t请再次输入密码", @"\t\t请输入短信验证码"];
+    NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField];
     for (int i =0; i<[placeHolders count]; i++) {
-        UITextField *textField;
-        CGRect frame = CGRectMake(10, 74+40*i, MAIN_SCREEN.size.width-10*2, 30);
-        switch (i) {
-            case 0:
-                textField = [UITextField accountTextFieldWithFrame:frame];
-                break;
-            case 1:
-                textField = [UITextField passwordTextFieldWithFrame:frame];
-                break;
-            case 2:
-                textField = [UITextField passwordTextFieldWithFrame:frame];
-                break;
-            case 3:
-                textField = [UITextField codeTextFieldWithFrame:frame];
-                break;
-            default:
-                break;
-        }
+        UITextField *textField = textFields[i];
+        CGRect frame = CGRectMake(10, 15+40*i, signOutView.bounds.size.width-10*2, 30);
+        [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
-        [textField setTag:[tags[i] intValue]];
-        [self.view addSubview:textField];
+        [signOutView addSubview:textField];
     }
     
-     registerButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [registerButton setFrame:CGRectMake(30, 234, 100, 30)];
+     registerButton = [UIButton createButtonWithFrame:CGRectMake(30, 234, 100, 30)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setEnabled:NO];
     [self.view addSubview:registerButton];
     
-     getCodeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [getCodeButton setFrame:CGRectMake(190, 234, 100, 30)];
+     getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, 234, 100, 30)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -109,10 +105,6 @@
 
 - (void)valueChanged:(id)sender
 {
-    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
-    UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:REGISTER_PASSWORD_TEXTFIELD_TAG];
-    UITextField *confirmTextField = (UITextField *)[self.view viewWithTag:REGISTER_CONFIRM_TEXTFIELD_TAG];
-    UITextField *codeTextField = (UITextField *)[self.view viewWithTag:REGISTER_CODE_TEXTFIELD_TAG];
     if ([accountTextField.text length]>0) {
         [getCodeButton setEnabled:YES];
     } else {
@@ -133,10 +125,6 @@
 
 - (void)registerButtonClicked
 {
-    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
-    UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:REGISTER_PASSWORD_TEXTFIELD_TAG];
-    UITextField *confirmTextField = (UITextField *)[self.view viewWithTag:REGISTER_CONFIRM_TEXTFIELD_TAG];
-    UITextField *codeTextField = (UITextField *)[self.view viewWithTag:REGISTER_CODE_TEXTFIELD_TAG];
     if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
         [self displayHUDError:nil message:@"两次密码不一致"];
         return;
@@ -158,7 +146,6 @@
 
 - (void)getCode
 {
-    UITextField *accountTextField = (UITextField *)[self.view viewWithTag:REGISTER_ACCOUNT_TEXTFIELD_TAG];
     if ([accountTextField.text length]>0) {
         [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(NSString *result, NSError *error) {
             if (error) {

@@ -101,7 +101,7 @@ static NSNumber *sUserID;
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
                       withBlock:(void (^)(NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}]];
 	parameters[@"username"] = phoneNumber;
     [[ServiceManager shared] postPath:@"PostVerifyCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
