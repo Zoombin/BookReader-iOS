@@ -13,6 +13,7 @@
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIViewController+HUD.h"
+#import "UIColor+BookReader.h"
 
 #define REGISTER_ACCOUNT_TEXTFIELD_TAG          102
 #define REGISTER_PASSWORD_TEXTFIELD_TAG         103
@@ -42,8 +43,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];

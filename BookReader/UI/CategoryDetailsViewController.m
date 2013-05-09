@@ -14,6 +14,7 @@
 #import "BookCell.h"
 #import "Book.h"
 #import "UIViewController+HUD.h"
+#import "UIColor+BookReader.h"
 
 @implementation CategoryDetailsViewController
 {
@@ -37,8 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];

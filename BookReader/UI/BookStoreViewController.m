@@ -16,6 +16,7 @@
 #import "UIViewController+HUD.h"
 
 #import "CategoryDetailsViewController.h"
+#import "UIColor+BookReader.h"
 #import "BookCell.h"
 
 #define RECOMMAND 0
@@ -112,8 +113,7 @@
 {
     [super viewDidLoad];
     shouldRefresh = YES;
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];

@@ -20,6 +20,7 @@
 #import "UIView+BookReader.h"
 #import "UIManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+BookReader.h"
 
 #define ACCOUNT_TEXTFIELD_TAG                   100
 #define PASSWORD_TEXTFIELD_TAG                  101
@@ -34,8 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     
 //    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
 //    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];

@@ -14,6 +14,7 @@
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "BookReaderDefaultsManager.h"
+#import "UIColor+BookReader.h"
 
 
 
@@ -38,8 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];

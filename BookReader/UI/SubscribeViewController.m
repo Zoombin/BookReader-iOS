@@ -14,6 +14,7 @@
 #import "UIViewController+HUD.h"
 #import "BookReaderDefaultsManager.h"
 #import "CoreTextViewController.h"
+#import "UIColor+BookReader.h"
 
 @implementation SubscribeViewController
 {
@@ -38,8 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];

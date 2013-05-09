@@ -17,6 +17,7 @@
 #import "SubscribeViewController.h"
 #import "BookShelfViewController.h"
 #import "BookReaderDefaultsManager.h"
+#import "UIColor+BookReader.h"
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002
@@ -71,8 +72,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage*img =[UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];
+    [self.view setBackgroundColor:[UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];

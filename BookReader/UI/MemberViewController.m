@@ -20,6 +20,7 @@
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+BookReader.h"
     
 
 
@@ -45,8 +46,7 @@
 {
     [super viewDidLoad];
     isLogin = NO;
-    UIImage*img = [UIImage imageNamed:@"main_view_bkg"];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage:img]];    
+    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
