@@ -91,6 +91,7 @@ static NSNumber *sUserID;
 		[parameters addEntriesFromDictionary:parameterMap];
 		[parameterValuesString appendString:parameterMap.allValues[0]];
 	}
+    [parameterValuesString setString:[[parameterValuesString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] lowercaseString]];
     NSMutableDictionary *valueDict =  [[self randomCode] mutableCopy];
     parameters[@"check"] = valueDict[@"check"];
     NSString *sign = [NSString stringWithFormat:@"%@%@", parameterValuesString, valueDict[@"key"]];
