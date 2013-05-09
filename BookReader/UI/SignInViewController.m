@@ -12,7 +12,7 @@
 #import "BookShelfButton.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"
-#import "SignOutViewController.h"
+#import "SignUpViewController.h"
 #import "PasswordViewController.h"
 #import "AppDelegate.h"
 #import "UILabel+BookReader.h"
@@ -122,8 +122,7 @@
 
 - (void)registerButtonClick
 {
-    SignOutViewController *signoutViewController = [[SignOutViewController alloc] init];
-    [self.navigationController pushViewController:signoutViewController animated:YES];
+    [self.navigationController pushViewController:[[SignUpViewController alloc] init] animated:YES];
 }
 
 - (void)loginButtonClicked

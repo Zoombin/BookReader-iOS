@@ -44,7 +44,6 @@
 		1848FC33171F9C3D00E8A3F1 /* BookShelfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
-		186292FE17335B4B00777357 /* SignOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FD17335B4B00777357 /* SignOutViewController.m */; };
 		1888A36E16FC18CF0046DA4C /* toolbar_bottom_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */; };
 		1888A37016FC28A40046DA4C /* toolbar_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */; };
 		1888A37316FC2A3E0046DA4C /* search_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37116FC2A3E0046DA4C /* search_btn_hl.png */; };
@@ -204,6 +203,7 @@
 		77A48819172035AA004F7C5A /* libUMAppNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A487B4172035AA004F7C5A /* libUMAppNetwork.a */; };
 		77A4881A172035AA004F7C5A /* UMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A487B7172035AA004F7C5A /* UMTableViewCell.m */; };
 		77A612D71716635F00934254 /* NSString+XXSYDecoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSYDecoding.m */; };
+		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77EB59761702B8EB004E2C00 /* BookShelfButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EB59751702B8EA004E2C00 /* BookShelfButton.m */; };
 		8B00EBC81664B132005EED81 /* local_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B00EBC51664B132005EED81 /* local_background.png */; };
 		8B00EBC91664B132005EED81 /* local_cellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B00EBC61664B132005EED81 /* local_cellbackground.png */; };
@@ -364,8 +364,6 @@
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		186292FA17325C5300777357 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		186292FC17335B4A00777357 /* SignOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignOutViewController.h; sourceTree = "<group>"; };
-		186292FD17335B4B00777357 /* SignOutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignOutViewController.m; sourceTree = "<group>"; };
 		1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_bottom_bar.png; sourceTree = "<group>"; };
 		1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_top_bar.png; sourceTree = "<group>"; };
 		1888A37116FC2A3E0046DA4C /* search_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_btn_hl.png; sourceTree = "<group>"; };
@@ -655,6 +653,8 @@
 		77A612D51716635F00934254 /* NSString+XXSYDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XXSYDecoding.h"; path = "../NSString+XXSYDecoding.h"; sourceTree = "<group>"; };
 		77A612D61716635F00934254 /* NSString+XXSYDecoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSYDecoding.m"; path = "../NSString+XXSYDecoding.m"; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		77EB59741702B8EA004E2C00 /* BookShelfButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfButton.h; sourceTree = "<group>"; };
 		77EB59751702B8EA004E2C00 /* BookShelfButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfButton.m; sourceTree = "<group>"; };
 		8B00EBC51664B132005EED81 /* local_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = local_background.png; sourceTree = "<group>"; };
@@ -886,8 +886,8 @@
 				180318F1172CDDE200733C58 /* GiftCell.m */,
 				186292F917325C5300777357 /* SignInViewController.h */,
 				186292FA17325C5300777357 /* SignInViewController.m */,
-				186292FC17335B4A00777357 /* SignOutViewController.h */,
-				186292FD17335B4B00777357 /* SignOutViewController.m */,
+				77E039FC173BE7260036614C /* SignUpViewController.h */,
+				77E039FD173BE7260036614C /* SignUpViewController.m */,
 				181091D317339104000931AB /* PasswordViewController.h */,
 				181091D417339104000931AB /* PasswordViewController.m */,
 			);
@@ -1970,7 +1970,6 @@
 				77A1DF871730DF9F002BE306 /* PSTGridLayoutSection.m in Sources */,
 				186292F81732572500777357 /* UITextField+BookReader.m in Sources */,
 				186292FB17325C5300777357 /* SignInViewController.m in Sources */,
-				186292FE17335B4B00777357 /* SignOutViewController.m in Sources */,
 				181091D517339104000931AB /* PasswordViewController.m in Sources */,
 				77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */,
 				77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */,
@@ -1981,6 +1980,7 @@
 				181091EA173A49F0000931AB /* UIButton+BookReader.m in Sources */,
 				181091F1173B54F6000931AB /* UIView+BookReader.m in Sources */,
 				181091F4173B688F000931AB /* UIColor+BookReader.m in Sources */,
+				77E039FE173BE7260036614C /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

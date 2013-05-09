@@ -1,12 +1,12 @@
 //
-//  SignOutViewController.m
+//  SignUpViewController.m
 //  BookReader
 //
 //  Created by 颜超 on 13-5-3.
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "SignOutViewController.h"
+#import "SignUpViewController.h"
 #import "BookReader.h"
 #import "UITextField+BookReader.h"
 #import "ServiceManager.h"
@@ -20,7 +20,7 @@
 #define REGISTER_CONFIRM_TEXTFIELD_TAG          104
 #define REGISTER_CODE_TEXTFIELD_TAG             105
 
-@implementation SignOutViewController {
+@implementation SignUpViewController {
     UIButton *registerButton;
     UIButton *getCodeButton;
     int emptyCount;
