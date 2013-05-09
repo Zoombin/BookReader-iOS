@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "Member.h"
 
-@interface MemberViewController: UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface MemberViewController: UIViewController
 @end

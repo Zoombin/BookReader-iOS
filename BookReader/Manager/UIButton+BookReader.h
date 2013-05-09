@@ -10,4 +10,6 @@
 
 @interface UIButton (BookReader)
 + (UIButton *)createButtonWithFrame:(CGRect)frame;
+
++ (UIButton *)createMemberbuttonFrame:(CGRect)frame;
 @end

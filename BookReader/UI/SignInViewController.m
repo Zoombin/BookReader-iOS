@@ -17,6 +17,7 @@
 #import "AppDelegate.h"
 #import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
+#import "UIView+BookReader.h"
 #import "UIManager.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -56,23 +57,8 @@
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
     
-    UIView *loginBkgView = [[UIView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-5*2, 200)];
-    [loginBkgView.layer setCornerRadius:4];
-    [loginBkgView.layer setMasksToBounds:YES];
-    [loginBkgView setBackgroundColor:[UIColor whiteColor]];
+    UIView *loginBkgView = [UIView loginBackgroundViewWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-5*2, 200) andTitle:@"登录"];
     [self.view addSubview:loginBkgView];
-    
-    UIView *loginMiddleView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, loginBkgView.bounds.size.width, 100)];
-    [loginMiddleView setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-    [loginBkgView addSubview:loginMiddleView];
-    
-    UILabel *loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 80, 30)];
-    [loginLabel setText:@"登录"];
-    [loginLabel setTextAlignment:NSTextAlignmentCenter];
-    [loginLabel setBackgroundColor:[UIColor clearColor]];
-    [loginLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [loginLabel setTextColor:[UIManager hexStringToColor:@"dd8e28"]];
-    [loginBkgView addSubview:loginLabel];
    
     UILabel *accountLabel = [UILabel accountLabelWithFrame:CGRectMake(5, 94, 70, 30)];
     [self.view addSubview:accountLabel];

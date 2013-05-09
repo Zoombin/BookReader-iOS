@@ -35,6 +35,9 @@
 		181091E4173A3564000931AB /* UIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E3173A3563000931AB /* UIManager.m */; };
 		181091E7173A40EA000931AB /* UILabel+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E6173A40EA000931AB /* UILabel+BookReader.m */; };
 		181091EA173A49F0000931AB /* UIButton+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E9173A49F0000931AB /* UIButton+BookReader.m */; };
+		181091ED173B2FEA000931AB /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091EB173B2FEA000931AB /* arrow_down.png */; };
+		181091EE173B2FEA000931AB /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091EC173B2FEA000931AB /* arrow_right.png */; };
+		181091F1173B54F6000931AB /* UIView+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091F0173B54F6000931AB /* UIView+BookReader.m */; };
 		1820F0511728B3D3002670F2 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F0501728B3D3002670F2 /* Book.m */; };
 		1820F05D1728CB40002670F2 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820F05C1728CB40002670F2 /* Chapter.m */; };
 		1848FC33171F9C3D00E8A3F1 /* BookShelfBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */; };
@@ -344,6 +347,10 @@
 		181091E6173A40EA000931AB /* UILabel+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BookReader.m"; sourceTree = "<group>"; };
 		181091E8173A49EF000931AB /* UIButton+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BookReader.h"; sourceTree = "<group>"; };
 		181091E9173A49F0000931AB /* UIButton+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BookReader.m"; sourceTree = "<group>"; };
+		181091EB173B2FEA000931AB /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
+		181091EC173B2FEA000931AB /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
+		181091EF173B54F6000931AB /* UIView+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BookReader.h"; sourceTree = "<group>"; };
+		181091F0173B54F6000931AB /* UIView+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BookReader.m"; sourceTree = "<group>"; };
 		1820F04F1728B3D3002670F2 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		1820F0501728B3D3002670F2 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		1820F05B1728CB40002670F2 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
@@ -897,6 +904,8 @@
 		188FE63716F9A069009561CB /* localBook */ = {
 			isa = PBXGroup;
 			children = (
+				181091EB173B2FEA000931AB /* arrow_down.png */,
+				181091EC173B2FEA000931AB /* arrow_right.png */,
 				18089E3F171BAFC400BCB50E /* local_book_select.png */,
 				1888A3DD1702C1A00046DA4C /* iphone_qqreader_feedback_bg.png */,
 				1888A3CD1702B10D0046DA4C /* bookcity_CataDown.png */,
@@ -1001,6 +1010,8 @@
 				181091E6173A40EA000931AB /* UILabel+BookReader.m */,
 				181091E8173A49EF000931AB /* UIButton+BookReader.h */,
 				181091E9173A49F0000931AB /* UIButton+BookReader.m */,
+				181091EF173B54F6000931AB /* UIView+BookReader.h */,
+				181091F0173B54F6000931AB /* UIView+BookReader.m */,
 			);
 			name = Categories;
 			path = Manager;
@@ -1794,6 +1805,8 @@
 				18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */,
 				77A1DF791730DF9F002BE306 /* HowTo.md in Resources */,
 				181091DB17350289000931AB /* read_sheeppager.png in Resources */,
+				181091ED173B2FEA000931AB /* arrow_down.png in Resources */,
+				181091EE173B2FEA000931AB /* arrow_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1961,6 +1974,7 @@
 				181091E4173A3564000931AB /* UIManager.m in Sources */,
 				181091E7173A40EA000931AB /* UILabel+BookReader.m in Sources */,
 				181091EA173A49F0000931AB /* UIButton+BookReader.m in Sources */,
+				181091F1173B54F6000931AB /* UIView+BookReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

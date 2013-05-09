@@ -15,6 +15,11 @@
 #import "PasswordViewController.h"
 #import "UIViewController+HUD.h"
 #import "BookReaderDefaultsManager.h"
+#import "UIManager.h"
+#import "UIView+BookReader.h"
+#import "UIButton+BookReader.h"
+#import "UILabel+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
     
 
 
@@ -24,6 +29,8 @@
     Member *_member;
     BOOL isLogin;
     SignInViewController *signViewController;
+    UILabel *accountLabel;
+    UILabel *moneyLabel;
 }
 
 - (id)init {
@@ -71,9 +78,6 @@
     for (UIView *view in [self.view subviews]) {
         [view removeFromSuperview];
     }
-//    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-//    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-//    [self.view addSubview:backgroundImage];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
@@ -88,19 +92,31 @@
     if (!isLogin) {
         [APP_DELEGATE switchToRootController:kRootControllerTypeLogin];
     }else {
-        UITableView *infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44) style:UITableViewStyleGrouped];
-        [infoTableView setBackgroundColor:[UIColor clearColor]];
-        [infoTableView setBackgroundView:nil];
-        [infoTableView setDataSource:self];
-        [infoTableView setDelegate:self];
-        [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [self.view addSubview:infoTableView];
+        UIView *userInfoView = [UIView userBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 130) andTitle:@"会员中心"];
+        [self.view addSubview:userInfoView];
         
-        UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [logoutButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-        [logoutButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
-        [logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [logoutButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        accountLabel = [UILabel memberAccountLabelWithFrame:CGRectMake(0, 35, userInfoView.bounds.size.width, 40) andAccountName:_member.name];
+        [userInfoView addSubview:accountLabel];
+        
+        moneyLabel = [UILabel memberUserMoneyLeftWithFrame:CGRectMake(0, 76, userInfoView.bounds.size.width, 40) andMoneyLeft:[_member.coin stringValue]];
+        [userInfoView addSubview:moneyLabel];
+        
+        UIView *fuctionsView = [UIView userBackgroundViewWithFrame:CGRectMake(10, 200,self.view.bounds.size.width-20, 130) andTitle:@"功能列表"];
+        [self.view addSubview:fuctionsView];
+        
+        UIButton *changePassword = [UIButton createMemberbuttonFrame:CGRectMake(0, 35, fuctionsView.bounds.size.width, 40)];
+        [changePassword addTarget:self action:@selector(showChangePasswordView) forControlEvents:UIControlEventTouchUpInside];
+        [changePassword setTitle:@"修改密码" forState:UIControlStateNormal];
+        [fuctionsView addSubview:changePassword];
+        
+        UIButton *myFavButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 76, fuctionsView.bounds.size.width, 40)];
+        [myFavButton addTarget:self action:@selector(showMyFav) forControlEvents:UIControlEventTouchUpInside];
+        [myFavButton setTitle:@"我的收藏" forState:UIControlStateNormal];
+        [fuctionsView addSubview:myFavButton];
+        
+        UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [logoutButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+        [logoutButton setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
         [logoutButton setFrame:CGRectMake(260, 6, 50, 32)];
         [logoutButton setTitle:@"注销" forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -130,62 +146,9 @@
     [self reloadUI];
 }
 
-#pragma mark tableview
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (void)showMyFav
 {
-    if (section==0) {
-        return @"会员中心";
-    }
-    return @"功能列表";
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (section==0) {
-        return 2;
-    }
-    return [fuctionArray count];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40.0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-	if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-        if ([indexPath section]==1) {
-            cell.textLabel.text = fuctionArray[[indexPath row]];
-        }else {
-            if ([indexPath row]==0) {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",@"用户名:",_member.name];
-            }else {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@点",@"余额:",_member.coin];
-            }
-        }
-    }
-	return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([indexPath section]==1) {
-        switch ([indexPath row]) {
-            case 0:
-                [self showChangePasswordView];
-                break;
-            case 1:
-                [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
-                break;
-            default:
-                break;
-        }
-    }
+    [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
 }
 
 - (void)showChangePasswordView

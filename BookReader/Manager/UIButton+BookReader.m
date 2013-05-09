@@ -27,4 +27,17 @@
     UIButton *button = [self initButtonWithFrame:frame];
     return button;
 }
+
++ (UIButton *)createMemberbuttonFrame:(CGRect)frame
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:frame];
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+    return button;
+}
 @end

@@ -11,4 +11,7 @@
 @interface UILabel (BookReader)
 + (UILabel *)accountLabelWithFrame:(CGRect)frame;
 + (UILabel *)passwordLabelWithFrame:(CGRect)frame;
+
++ (UILabel *)memberAccountLabelWithFrame:(CGRect)frame andAccountName:(NSString *)name;
++ (UILabel *)memberUserMoneyLeftWithFrame:(CGRect)frame andMoneyLeft:(NSString *)count;
 @end
