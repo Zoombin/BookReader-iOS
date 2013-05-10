@@ -45,10 +45,6 @@
     confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
-	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
-    
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
     [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
