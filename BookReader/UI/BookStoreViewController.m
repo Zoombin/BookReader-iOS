@@ -10,6 +10,9 @@
 #import "BookReader.h"
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UILabel+BookReader.h"
+#import "UIButton+BookReader.h"
 
 #import "ServiceManager.h"
 #import "BookDetailsViewController.h"
@@ -45,7 +48,9 @@
     BOOL shouldRefresh;
     int currentType;
     
-    NSMutableDictionary *recommandDict;
+    NSMutableArray *recommandArray;
+    
+    NSMutableArray *recommandTitlesArray;
 }
 
 - (id)init
@@ -53,9 +58,10 @@
     self = [super init];
     if (self) {
         // Custom initialization
-        recommandDict = [[NSMutableDictionary alloc] init];
+        recommandArray = [[NSMutableArray alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
+        recommandTitlesArray = [[NSMutableArray alloc] init];
         currentType = RECOMMAND;
         currentPage = 1;
         currentIndex = 1;
@@ -89,13 +95,12 @@
                 [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             }
         }
-        NSArray *buttonName = @[@"推荐", @"排行", @"分类", @"搜索"];
+//        NSArray *buttonName = @[@"推荐", @"排行", @"分类", @"搜索"];
         NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
         NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
         for (int i = 0; i < 4; i++) {
             UIButton *button = (UIButton *)[buttonArrays objectAtIndex:i];
             if (i == 0) {
-                [titleLabel setText:buttonName[0]];
                 [button setImage:[UIImage imageNamed:buttonImageNameDown[0]] forState:UIControlStateNormal];
             }else {
                 [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
@@ -116,13 +121,11 @@
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
-    
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setText:@"书城"];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [self.view addSubview:titleLabel];
     
@@ -157,8 +160,10 @@
     [self initCategoryButton];
     [self initRandButton];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-50-20) style:UITableViewStylePlain];
-    [infoTableView setBackgroundColor:[UIColor clearColor]];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20) style:UITableViewStylePlain];
+    [infoTableView.layer setCornerRadius:4];
+    [infoTableView.layer setMasksToBounds:YES];
+    [infoTableView setBackgroundColor:[UIColor colorWithRed:244.0/255.0 green:240.0/255.0 blue:230.0/255.0 alpha:1.0]];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -237,13 +242,12 @@
 }
 
 - (void)changeButtonImage:(id)sender {
-    NSArray *buttonName = @[@"推荐", @"排行", @"分类", @"搜索"];
+//    NSArray *buttonName = @[@"推荐", @"排行", @"分类", @"搜索"];
     NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
     NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
     for (int i = 0; i < 4; i++) {
         UIButton *button = (UIButton *)[buttonArrays objectAtIndex:i];
         if ([sender tag]==i) {
-            [titleLabel setText:buttonName[i]];
             [button setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateNormal];
         }else {
             [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
@@ -316,7 +320,7 @@
 
 - (void)loadRecommandData
 {
-    [infoTableView setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-50-20)];
+    [infoTableView setFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20)];
     [infoTableView setHidden:NO];
     [self displayHUD:@"加载中..."];
     [ServiceManager getRecommandBooksWithBlock:^(NSArray *resultArray, NSError *error) {
@@ -335,14 +339,21 @@
 - (void)refreshRecommandDataWithArray:(NSArray *)array
 {
     NSString *lastKey = nil;
+    if ([recommandTitlesArray count]>0) {
+        [recommandTitlesArray removeAllObjects];
+        [recommandArray removeAllObjects];
+    }
     for (int i = 0; i < [array count]; i++) {
         Book *book = [array objectAtIndex:i];
+        if (![recommandTitlesArray containsObject:book.recommandTitle]) {
+            [recommandTitlesArray addObject:book.recommandTitle];
+        }
         NSMutableArray *tmpArray;
         if ([lastKey isEqualToString:book.recommandTitle]) {
-            tmpArray = [recommandDict objectForKey:book.recommandTitle];
+            tmpArray = [recommandArray objectAtIndex:[recommandTitlesArray indexOfObject:book.recommandTitle]];
         } else {
             tmpArray = [[NSMutableArray alloc] init];
-            [recommandDict setObject:tmpArray forKey:book.recommandTitle];
+            [recommandArray addObject:tmpArray];
         }
         [tmpArray addObject:book];
         lastKey = book.recommandTitle;
@@ -359,7 +370,7 @@
     }
     if(boolValue==YES){
         [_searchBar setHidden:!boolValue];
-        [infoTableView setFrame:CGRectMake(0, 44+40, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-50-20-40)];
+        [infoTableView setFrame:CGRectMake(5, 44+40, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20-40)];
     }else {
         [_searchBar setHidden:!boolValue];
     }
@@ -404,7 +415,7 @@
         case 1:
             currentType = RANK;
             [self loadDataWithKeyWord:@"" classId:@"0" ranking:@"1" size:@"5" andIndex:1];
-            [infoTableView setFrame:CGRectMake(0, 44+40, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-50-20-40)];
+            [infoTableView setFrame:CGRectMake(5, 44+40, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20-40)];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];
             [categoryView setHidden:YES];
@@ -433,27 +444,39 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (currentType == RECOMMAND) {
-        return [[recommandDict allKeys] count];
+        return [recommandTitlesArray count];
     }
     return 1;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (currentType == RECOMMAND) {
-        for (int i = 0; i<[[recommandDict allKeys] count]; i++) {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (currentType != RECOMMAND) {
+        return 0;
+    }
+    return 30;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (currentType != RECOMMAND) {
+        return nil;
+    }
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
+        for (int i = 0; i<[recommandTitlesArray count]; i++) {
             if (section == i) {
-                return [[recommandDict allKeys] objectAtIndex:i];
+                [label setText:[@"\t\t" stringByAppendingString:[recommandTitlesArray objectAtIndex:i]]];
             }
         }
-    }
-    return nil;
+    [view addSubview:label];
+    return view;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (currentType == RECOMMAND) {
-        for (int i = 0; i<[[recommandDict allKeys] count]; i++) {
+        for (int i = 0; i<[recommandTitlesArray count]; i++) {
             if (section == i) {
-                NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:i]];
+                NSMutableArray *array = [recommandArray objectAtIndex:i];
                 return [array count];
             }
         }
@@ -478,21 +501,21 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (currentType == RECOMMAND) {
         if (cell == nil) {
-            cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-            NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:[indexPath section]]];
+            NSMutableArray *array = [recommandArray objectAtIndex:[indexPath section]];
             if (indexPath.row == 0) {
+                cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }else {
+                cell = [[BookCell alloc] initWithStyle:BookCellStyleSmall reuseIdentifier:@"MyCell"];
                 Book *book = array[indexPath.row];
-                cell.textLabel.text = book.name;
-                cell.detailTextLabel.text = book.author;
+                [(BookCell *)cell setBook:book];
             }
         }
     }
     else {
         if (cell == nil) {
-            cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *book = infoArray[indexPath.row];
             [(BookCell *)cell setBook:book];
         }
@@ -503,7 +526,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Book *book;
     if (currentType == RECOMMAND) {
-        NSMutableArray *array = [recommandDict objectForKey:[[recommandDict allKeys] objectAtIndex:[indexPath section]]];
+        NSMutableArray *array = [recommandArray objectAtIndex:[indexPath section]];
         book = array[indexPath.row];
     } else {
         book = infoArray[indexPath.row];

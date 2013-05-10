@@ -40,9 +40,6 @@
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
     titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
@@ -59,7 +56,7 @@
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-40-20) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-40-20) style:UITableViewStylePlain];
     [infoTableView setBackgroundColor:[UIColor clearColor]];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
@@ -139,7 +136,7 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil) {
-        cell = [[BookCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+        cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
         Book *book = [infoArray objectAtIndex:[indexPath row]];
         [cell setBook:book];
     }

@@ -7,6 +7,7 @@
 //
 
 #import "UILabel+BookReader.h"
+#import "UIManager.h"
 
 @implementation UILabel (BookReader)
 + (UILabel *)initLabelWithFrame:(CGRect)frame
@@ -51,5 +52,19 @@
     [label setTextColor:[UIColor grayColor]];
     [label setText:[NSString stringWithFormat:@"\t\t账号余额:%@",count]];
     return label;
+}
+
++ (UILabel *)bookStoreLabelWithFrame:(CGRect)frame
+{
+    UILabel *label = [self initLabelWithFrame:frame];
+    [label setTextAlignment:NSTextAlignmentLeft];
+    [label setFont:[UIFont boldSystemFontOfSize:17]];
+    [label setTextColor:[UIManager hexStringToColor:@"dd8e28"]];
+    
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(85, 10, 18, 10)];
+    [arrowImageView setImage:[UIImage imageNamed:@"arrow_down"]];
+    [label addSubview:arrowImageView];
+    return label;
+ 
 }
 @end

@@ -11,12 +11,12 @@
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 
-#define bookimageViewFrame      CGRectMake(10, 16, 52, 70)
-#define bookNameLabelFrame      CGRectMake(65, 12, 240, 30)
-#define authorNameLabelFrame    CGRectMake(65, 42, 135, 30)
-#define categoryNameLabelFrame  CGRectMake(65, 72, 135, 30)
+#define bookimageViewFrame      CGRectMake(15, 10, 90, 120)
+#define bookNameLabelFrame      CGRectMake(115, 20, 205, 30)
+#define authorNameLabelFrame    CGRectMake(115, 55, 130, 30)
+#define categoryNameLabelFrame  CGRectMake(115, 90, 130, 30)
 #define locationNameLabelFrame  CGRectMake(MAIN_SCREEN.size.width-100, 42, 110, 30)
-#define LabelTextColor          [UIColor colorWithRed:100.0/255.0 green:50.0/255.0 blue:11.0/255.0 alpha:1.0]
+#define LabelTextColor          [UIColor colorWithRed:84.0/255.0 green:40.0/255.0 blue:10.0/255.0 alpha:1.0]
 
 @implementation BookCell
 {
@@ -27,39 +27,61 @@
     UIImageView *coverView;
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIImageView *cellBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_cellbackground.png"]];
-        [self setBackgroundView:cellBackground];
-        
-        nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
-        [nameLabel setBackgroundColor:[UIColor clearColor]];
-        [nameLabel setTextColor:LabelTextColor];
-        [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
-        [self.contentView addSubview:nameLabel];
-        
-        authorLabel = [[UILabel alloc] initWithFrame:authorNameLabelFrame];
-        [authorLabel setBackgroundColor:[UIColor clearColor]];
-        [authorLabel setFont:[UIFont boldSystemFontOfSize:16]];
-        [authorLabel setTextColor:LabelTextColor];
-        [self.contentView addSubview:authorLabel];
-        
-        progressLabel = [[UILabel alloc] initWithFrame:locationNameLabelFrame];
-        [progressLabel setBackgroundColor:[UIColor clearColor]];
-        [progressLabel setFont:[UIFont boldSystemFontOfSize:10]];
-        [progressLabel setTextColor:LabelTextColor];
-        [self.contentView addSubview:progressLabel];
-        
-        categoryLabel = [[UILabel alloc] initWithFrame:categoryNameLabelFrame];
-        [categoryLabel setBackgroundColor:[UIColor clearColor]];
-        [categoryLabel setFont:[UIFont boldSystemFontOfSize:16]];
-        [categoryLabel setTextColor:LabelTextColor];
-        [self.contentView addSubview:categoryLabel];
+        if (style == BookCellStyleBig) {
+            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.bounds.size.width-20, 140-2)];
+            [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+            [self.contentView addSubview:background];
+            
+            nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
+            [nameLabel setBackgroundColor:[UIColor clearColor]];
+            [nameLabel setTextColor:[UIColor blackColor]];
+            [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
+            [self.contentView addSubview:nameLabel];
+            
+            authorLabel = [[UILabel alloc] initWithFrame:authorNameLabelFrame];
+            [authorLabel setBackgroundColor:[UIColor clearColor]];
+            [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
+            [authorLabel setTextColor:[UIColor grayColor]];
+            [self.contentView addSubview:authorLabel];
+            
+            progressLabel = [[UILabel alloc] initWithFrame:locationNameLabelFrame];
+            [progressLabel setBackgroundColor:[UIColor clearColor]];
+            [progressLabel setFont:[UIFont boldSystemFontOfSize:10]];
+            [progressLabel setTextColor:LabelTextColor];
+            [self.contentView addSubview:progressLabel];
+            
+            categoryLabel = [[UILabel alloc] initWithFrame:categoryNameLabelFrame];
+            [categoryLabel setBackgroundColor:[UIColor clearColor]];
+            [categoryLabel setFont:[UIFont boldSystemFontOfSize:14]];
+            [categoryLabel setTextColor:[UIColor grayColor]];
+            [self.contentView addSubview:categoryLabel];
+            
+            coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
+            [self.contentView addSubview:coverView];
+        } else {
+            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.bounds.size.width-20, 30-2)];
+            [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+            [self.contentView addSubview:background];
+            
+            
+            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 30)];
+            [nameLabel setBackgroundColor:[UIColor clearColor]];
+            [nameLabel setTextColor:[UIColor blackColor]];
+            [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
+            [self.contentView addSubview:nameLabel];
+            
+            authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-120, 0, 100, 30)];
+            [authorLabel setBackgroundColor:[UIColor clearColor]];
+            [authorLabel setTextAlignment:NSTextAlignmentRight];
+            [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
+            [authorLabel setTextColor:[UIColor grayColor]];
+            [self.contentView addSubview:authorLabel];
 
-        coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
-        [self.contentView addSubview:coverView];        
+        }
     }
     return self;
 }
@@ -67,14 +89,11 @@
 - (void)setBook:(Book *)book
 {
     if (book.name) {
-        [nameLabel setText:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"BookName", nil), book.name]];
+        [nameLabel setText:[NSString stringWithFormat:@"%@",book.name]];
     }
     if (book.author) {
-        [authorLabel setText:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"AuthorName", nil), book.author]];
+        [authorLabel setText:[NSString stringWithFormat:@"%@", book.author]];
     }
-//    if (book.progress) {
-//        progressLabel.text = [NSString stringWithFormat:@"%@:%.1f", NSLocalizedString(@"ReadPosition", nil), book.progress.floatValue];
-//    }
     if (book.category) {
         categoryLabel.text = [NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"CategoryName", nil), book.category];
     }
@@ -87,7 +106,7 @@
 
 + (CGFloat)height
 {
-    return 100.0f;
+    return 140.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
