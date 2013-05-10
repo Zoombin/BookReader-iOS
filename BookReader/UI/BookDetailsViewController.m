@@ -14,10 +14,12 @@
 #import "UIImageView+AFNetworking.h"
 #import "GiftViewController.h"
 #import "AppDelegate.h"
+#import "UIButton+BookReader.h"
 #import "SubscribeViewController.h"
 #import "BookShelfViewController.h"
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002
@@ -75,30 +77,30 @@
     [self.view setBackgroundColor:[UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
-    
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [backButton setFrame: CGRectMake(10, 4, 48, 32)];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 }
 
 - (void)initBookDetailUI {
-    UIImageView *bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 54, 70, 100)];
+    UIView *firstBkgView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, self.view.bounds.size.width-5*2, 180)];
+    [firstBkgView.layer setCornerRadius:4];
+    [firstBkgView.layer setMasksToBounds:YES];
+    [firstBkgView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:firstBkgView];
+    
+    UIImageView *bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 90, 120)];
     NSURL *url = [NSURL URLWithString:bookObj.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [tmpImageView setImage:image];
         bookObj.cover = UIImageJPEGRepresentation(image, 1.0);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.view addSubview:tmpImageView];
+            [firstBkgView addSubview:tmpImageView];
         });
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"error: %@", error);
@@ -111,29 +113,38 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
-    NSArray *labelTitles = @[@"书名:", @"作者:", @"类别:", @"字数:", @"更新时间:"];
-    NSArray *labelNames = @[bookObj.name,bookObj.author,bookObj.category,bookObj.words,bookObj.lastUpdate];
+    UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, firstBkgView.bounds.size.width-100, 30)];
+    [bookNameLabel setText:[@"\t\t" stringByAppendingString:bookObj.name]];
+    [bookNameLabel setBackgroundColor:[UIColor clearColor]];
+    [firstBkgView addSubview:bookNameLabel];
+    
+    NSArray *labelTitles = @[@"\t\t作者:\t\t", @"\t\t类别:\t\t", @"\t\t字数:\t\t", @"\t\t更新时间:\t\t"];
+    NSArray *labelNames = @[bookObj.author,bookObj.category,bookObj.words,bookObj.lastUpdate];
     
     for (int i = 0; i<[labelNames count]; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10+90, 54+20*i, 200, 20)];
-        [label setBackgroundColor:[UIColor whiteColor]];
-        [label setFont:[UIFont systemFontOfSize:11]];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 30+20*i, firstBkgView.bounds.size.width-100, 20)];
+        [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+        [label setTextColor:[UIColor grayColor]];
+        [label setFont:[UIFont systemFontOfSize:14]];
         [label setText:[NSString stringWithFormat:@"%@%@",labelTitles[i],labelNames[i]]];
-        [self.view addSubview:label];
+        [firstBkgView addSubview:label];
     }
     //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
     NSArray *buttonTitles = @[@"阅读",@"收藏",@"送钻石",@"送鲜花",@"打赏",@"投月票",@"投评价"];
+    NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
     for (int i=0; i<[buttonTitles count]; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *button = nil;
         if (i>=2) {
-            [button setFrame:CGRectMake(10+300/5*(i-2), 184, 300/5, 20)];
+            button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setFrame:CGRectMake(5*(i-2)+290/5*(i-2), 150, 290/5, 20)];
+            [button setImage:[UIImage imageNamed:imageNames[i-2]] forState:UIControlStateNormal];
         }else {
-            [button setFrame:CGRectMake(20+160*i, 164, 100, 20)];
+            button = [UIButton createButtonWithFrame:CGRectMake(110+100*i, 120, 80, 20)];
+            [button setTitle:buttonTitles[i] forState:UIControlStateNormal];
         }
-        [button setTitle:buttonTitles[i] forState:UIControlStateNormal];
         [button setTag:i];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:button];
+        [firstBkgView addSubview:button];
     }
     if ([ServiceManager userID]!=nil) {
         [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
@@ -150,7 +161,7 @@
         }];
     }
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 204, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height - 204)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 244, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height - 244)];
     [scrollView setContentSize:CGSizeMake(MAIN_SCREEN.size.width, scrollView.frame.size.height*1.8)];
     [scrollView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:scrollView];
