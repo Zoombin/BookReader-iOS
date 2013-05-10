@@ -1,5 +1,5 @@
 //
-//  SignOutViewController.h
+//  SignUpViewController.h
 //  BookReader
 //
 //  Created by 颜超 on 13-5-3.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignOutViewController : UIViewController
+@interface SignUpViewController : UIViewController
 
 @end
