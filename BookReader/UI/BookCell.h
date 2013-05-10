@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Book.h"
 
+typedef enum {
+    BookCellStyleBig,
+    BookCellStyleSmall,
+} BookCellStyle;
+
 @interface BookCell : UITableViewCell
+- (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 + (CGFloat)height;
 - (void)setBook:(Book *)book;
 @end
