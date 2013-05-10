@@ -183,6 +183,8 @@
 				[self removeFav:idx + 1];
 			}
 		}];
+	} else {
+		[self removeFav:idx + 1];
 	}
 }
 
