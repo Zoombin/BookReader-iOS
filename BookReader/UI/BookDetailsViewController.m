@@ -11,6 +11,7 @@
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "Book.h"
+#import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "GiftViewController.h"
 #import "AppDelegate.h"
@@ -167,7 +168,7 @@
         }];
     }
     
-     secondView = [[UIView alloc] initWithFrame:CGRectMake(10, 244 ,self.view.bounds.size.width-10*2 , self.view.bounds.size.height-244-20)];
+    secondView = [[UIView alloc] initWithFrame:CGRectMake(5, 244 ,self.view.bounds.size.width-5*2 , self.view.bounds.size.height-244-20)];
     [secondView.layer setCornerRadius:4];
     [secondView.layer setMasksToBounds:YES];
     [secondView setBackgroundColor:[UIColor whiteColor]];
@@ -191,13 +192,15 @@
     [secondView addSubview:infoTableView];
     [self loadCommitList];
     
-     sendCommitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    sendCommitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [sendCommitButton setFrame:CGRectMake(0, infoTableView.frame.size.height+30, secondView.frame.size.width, 30)];
     [sendCommitButton setTitle:@"发布评论" forState:UIControlStateNormal];
     [sendCommitButton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [secondView addSubview:sendCommitButton];
     
     recommandTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30) style:UITableViewStylePlain];
+    [recommandTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [recommandTableView setBackgroundColor:[UIColor whiteColor]];
     [recommandTableView setDelegate:self];
     [recommandTableView setTag:BOOKRECOMMANDTAG];
     [recommandTableView setDataSource:self];
@@ -206,12 +209,12 @@
     [self loadAuthorOtherBook];
     [self loadSameType];
     
-     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30)];
+    shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30)];
     [shortdescribeTextView setText:bookObj.describe];
     [shortdescribeTextView setEditable:NO];
     [secondView addSubview:shortdescribeTextView];
     
-
+    
 }
 
 - (void)selectTabBar:(id)sender
@@ -460,6 +463,8 @@
     if (tableView.tag == INFOTABLEVIEWTAG)
     {
         return 50;
+    } else if (indexPath.row == 0) {
+        return [BookCell height];
     }
     return 30;
 }
@@ -484,14 +489,21 @@
     } else {
         if (cell == nil)
         {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            BookCellStyle style = BookCellStyleSmall;
+            if (indexPath.row ==0) {
+                style = BookCellStyleBig;
+            }
             if (currentType==AUTHORBOOK)
             {
+                cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
                 Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
-                cell.textLabel.text = obj.name;
+                obj.category = bookObj.category;
+                obj.author = bookObj.author;
+                [(BookCell *)cell setBook:obj];
             } else {
+                cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
                 Book *obj = [sameTypeBookArray objectAtIndex:[indexPath row]];
-                cell.textLabel.text = obj.name;
+                [(BookCell *)cell setBook:obj];
             }
         }
     }

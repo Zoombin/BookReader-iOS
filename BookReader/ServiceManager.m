@@ -544,6 +544,7 @@ static NSNumber *sUserID;
     parameters[@"count"] = count;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
 			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
@@ -567,6 +568,7 @@ static NSNumber *sUserID;
     parameters[@"count"] = count;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
 			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
