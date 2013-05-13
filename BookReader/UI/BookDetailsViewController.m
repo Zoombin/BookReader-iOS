@@ -23,14 +23,20 @@
 
 #define INFOTABLEVIEWTAG     10001
 #define BOOKRECOMMANDTAG     10002
+#define AUTHORBOOK      1
+#define OTHERBOOK       2
 
 @implementation BookDetailsViewController
 {
     NSString *bookid;
     Book *bookObj;
     int currentIndex;
+    int currentType;
+    
     UITextField *commitField;
-    UIScrollView *scrollView;
+    UIView *secondView;
+    UIButton *sendCommitButton;
+    UITextView *shortdescribeTextView;
     UITableView *infoTableView;
     UITableView *recommandTableView;
     
@@ -161,37 +167,76 @@
         }];
     }
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 244, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height - 244)];
-    [scrollView setContentSize:CGSizeMake(MAIN_SCREEN.size.width, scrollView.frame.size.height*1.8)];
-    [scrollView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:scrollView];
+     secondView = [[UIView alloc] initWithFrame:CGRectMake(10, 244 ,self.view.bounds.size.width-10*2 , self.view.bounds.size.height-244-20)];
+    [secondView.layer setCornerRadius:4];
+    [secondView.layer setMasksToBounds:YES];
+    [secondView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:secondView];
     
-    UITextView *shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 0,MAIN_SCREEN.size.width-10*2 , 120)];
-    [shortdescribeTextView setText:bookObj.describe];
-    [shortdescribeTextView setEditable:NO];
-    [scrollView addSubview:shortdescribeTextView];
+    NSArray *btnNames = @[@"简介" ,@"评论" ,@"作者书籍", @"同类推荐"];
+    for (int i = 0; i<[btnNames count]; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [button setFrame:CGRectMake(i*secondView.frame.size.width/4, 0, secondView.frame.size.width/4, 30)];
+        [button setTag:i];
+        [button addTarget:self action:@selector(selectTabBar:) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:btnNames[i] forState:UIControlStateNormal];
+        [secondView addSubview:button];
+    }
+    currentType = AUTHORBOOK;
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 130, MAIN_SCREEN.size.width, 140) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-60) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView setTag:INFOTABLEVIEWTAG];
     [infoTableView setDataSource:self];
-    [scrollView addSubview:infoTableView];
+    [secondView addSubview:infoTableView];
     [self loadCommitList];
     
-    UIButton *sendCommitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [sendCommitButton setFrame:CGRectMake(10, infoTableView.frame.origin.y+infoTableView.frame.size.height, MAIN_SCREEN.size.width-20, 30)];
+     sendCommitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [sendCommitButton setFrame:CGRectMake(0, infoTableView.frame.size.height+30, secondView.frame.size.width, 30)];
     [sendCommitButton setTitle:@"发布评论" forState:UIControlStateNormal];
     [sendCommitButton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:sendCommitButton];
+    [secondView addSubview:sendCommitButton];
     
-    recommandTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, sendCommitButton.frame.origin.y + sendCommitButton.frame.size.height, MAIN_SCREEN.size.width, 140) style:UITableViewStylePlain];
+    recommandTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30) style:UITableViewStylePlain];
     [recommandTableView setDelegate:self];
     [recommandTableView setTag:BOOKRECOMMANDTAG];
     [recommandTableView setDataSource:self];
-    [scrollView addSubview:recommandTableView];
+    [secondView addSubview:recommandTableView];
     
     [self loadAuthorOtherBook];
     [self loadSameType];
+    
+     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30)];
+    [shortdescribeTextView setText:bookObj.describe];
+    [shortdescribeTextView setEditable:NO];
+    [secondView addSubview:shortdescribeTextView];
+    
+
+}
+
+- (void)selectTabBar:(id)sender
+{
+    switch ([sender tag]) {
+        case 0:
+            [secondView bringSubviewToFront:shortdescribeTextView];
+            break;
+        case 1:
+            [secondView bringSubviewToFront:infoTableView];
+            [secondView bringSubviewToFront:sendCommitButton];
+            break;
+        case 2:
+            currentType = AUTHORBOOK;
+            [recommandTableView reloadData];
+            [secondView bringSubviewToFront:recommandTableView];
+            break;
+        case 3:
+            currentType = OTHERBOOK;
+            [recommandTableView reloadData];
+            [secondView bringSubviewToFront:recommandTableView];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)loadAuthorOtherBook
@@ -395,23 +440,18 @@
     {
         return [infoArray count];
     }
-    else if (section == 0)
-    {
-        return [authorBookArray count];
-    }
-    else
-    {
-        return [sameTypeBookArray count];
+    else {
+        if (currentType == AUTHORBOOK) {
+            return [authorBookArray count];
+        } else {
+            return [sameTypeBookArray count];
+        }
     }
     return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (tableView.tag == BOOKRECOMMANDTAG)
-    {
-        return 2;
-    }
     return 1;
 }
 
@@ -422,23 +462,6 @@
         return 50;
     }
     return 30;
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (tableView.tag == BOOKRECOMMANDTAG)
-    {
-        if (section == 0)
-        {
-            return @"作者书籍";
-        }
-        else
-        {
-            return @"同类推荐";
-        }
-    }
-    return @"评论";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -462,7 +485,7 @@
         if (cell == nil)
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-            if ([indexPath section]==0)
+            if (currentType==AUTHORBOOK)
             {
                 Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
                 cell.textLabel.text = obj.name;
@@ -478,7 +501,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == BOOKRECOMMANDTAG)
     {
-        if ([indexPath section] == 0)
+        if (currentType == AUTHORBOOK)
         {
             Book *book = [authorBookArray objectAtIndex:[indexPath row]];
             BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
