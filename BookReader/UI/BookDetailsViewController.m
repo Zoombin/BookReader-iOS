@@ -21,6 +21,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSString+XXSY.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -474,7 +475,7 @@
             Commit *obj = [infoArray objectAtIndex:[indexPath row]];
             UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
             [messageTextView setEditable:NO];
-            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n%@",obj.userName,obj.content,obj.insertTime] stringByReplacingOccurrencesOfString:@"<p>" withString:@""]];
+            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];
             [cell.contentView addSubview:messageTextView];
         }
     } else {

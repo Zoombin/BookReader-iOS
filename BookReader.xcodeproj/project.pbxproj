@@ -207,7 +207,7 @@
 		77A48818172035AA004F7C5A /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A487B3172035AA004F7C5A /* libMobClickLibrary.a */; };
 		77A48819172035AA004F7C5A /* libUMAppNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A487B4172035AA004F7C5A /* libUMAppNetwork.a */; };
 		77A4881A172035AA004F7C5A /* UMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A487B7172035AA004F7C5A /* UMTableViewCell.m */; };
-		77A612D71716635F00934254 /* NSString+XXSYDecoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSYDecoding.m */; };
+		77A612D71716635F00934254 /* NSString+XXSY.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSY.m */; };
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77EB59761702B8EB004E2C00 /* BookShelfButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EB59751702B8EA004E2C00 /* BookShelfButton.m */; };
 		8B00EBC81664B132005EED81 /* local_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B00EBC51664B132005EED81 /* local_background.png */; };
@@ -660,8 +660,8 @@
 		77A487BC172035AA004F7C5A /* UMUFPImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPImageView.h; sourceTree = "<group>"; };
 		77A487BD172035AA004F7C5A /* UMUFPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPTableView.h; sourceTree = "<group>"; };
 		77A487BE172035AA004F7C5A /* UMUFPWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMUFPWebView.h; sourceTree = "<group>"; };
-		77A612D51716635F00934254 /* NSString+XXSYDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XXSYDecoding.h"; path = "../NSString+XXSYDecoding.h"; sourceTree = "<group>"; };
-		77A612D61716635F00934254 /* NSString+XXSYDecoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSYDecoding.m"; path = "../NSString+XXSYDecoding.m"; sourceTree = "<group>"; };
+		77A612D51716635F00934254 /* NSString+XXSY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XXSY.h"; path = "../NSString+XXSY.h"; sourceTree = "<group>"; };
+		77A612D61716635F00934254 /* NSString+XXSY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSY.m"; path = "../NSString+XXSY.m"; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -1024,8 +1024,8 @@
 				77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */,
 				77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */,
 				77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */,
-				77A612D51716635F00934254 /* NSString+XXSYDecoding.h */,
-				77A612D61716635F00934254 /* NSString+XXSYDecoding.m */,
+				77A612D51716635F00934254 /* NSString+XXSY.h */,
+				77A612D61716635F00934254 /* NSString+XXSY.m */,
 				77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */,
 				77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */,
 				77A2D62F171805FC009F2B9F /* UIFont+CoreTextExtensions.h */,
@@ -1894,7 +1894,7 @@
 				1888A3AE17000CE50046DA4C /* BookCell.m in Sources */,
 				77EB59761702B8EB004E2C00 /* BookShelfButton.m in Sources */,
 				1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */,
-				77A612D71716635F00934254 /* NSString+XXSYDecoding.m in Sources */,
+				77A612D71716635F00934254 /* NSString+XXSY.m in Sources */,
 				77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */,
 				77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */,
 				77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */,

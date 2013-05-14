@@ -1,20 +1,24 @@
 //
-//  NSString+XXSYDecoding.m
+//  NSString+XXSY.m
 //  BookReader
 //
 //  Created by zhangbin on 4/11/13.
 //  Copyright (c) 2013 颜超. All rights reserved.
 //
 
-#import "NSString+XXSYDecoding.h"
+#import "NSString+XXSY.h"
 
 #define dic @"0123456789ABCDEF"
 
 
-@implementation NSString (XXSYDecoding)
+@implementation NSString (XXSY)
+- (NSString *)XXSYHandleRedundantTags
+{
+	return [self stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
+}
 
-
-- (NSString *)XXSYDecodingWithKey:(NSString *)key {
+- (NSString *)XXSYDecodingWithKey:(NSString *)key
+{
     NSLog(@"--Start--");
     const char *userkey = [[self class] newDictKey:key];
     NSLog(@"key = %@, userKey = %s", key, userkey);
@@ -49,10 +53,11 @@
     }
 	NSString *debufferString = [[NSString alloc] initWithCString:deBuffer encoding:NSUTF8StringEncoding];
     NSLog(@"---END---");
-    return [[[self class] replaceUnicode:debufferString] stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
+    return [[[self class] replaceUnicode:debufferString] XXSYHandleRedundantTags];
 }
 
-+ (NSString *)replaceUnicode:(NSString *)unicodeStr {
++ (NSString *)replaceUnicode:(NSString *)unicodeStr
+{
     NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
     NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
@@ -65,7 +70,8 @@
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n" withString:@"\n"];
 }
 
-+ (const char *)newDictKey:(NSString *)userkey {
++ (const char *)newDictKey:(NSString *)userkey
+{
     NSString *md5key = userkey;
     md5key = [[md5key md532] uppercaseString];
     NSMutableArray *array = [[NSMutableArray alloc]init];

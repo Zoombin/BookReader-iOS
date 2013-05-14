@@ -18,7 +18,7 @@
 #import "BookManager.h"
 #import "BookReader.h"
 #import "ServiceManager.h"
-#import "NSString+XXSYDecoding.h"
+#import "NSString+XXSY.h"
 #import "BookReaderDefaultsManager.h"
 
 #define REMOTE_MODE

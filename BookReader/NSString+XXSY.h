@@ -1,5 +1,5 @@
 //
-//  NSString+XXSYDecoding.h
+//  NSString+XXSY.h
 //  BookReader
 //
 //  Created by zhangbin on 4/11/13.
@@ -39,8 +39,9 @@
 }
 @end
 
-@interface NSString (XXSYDecoding)
+@interface NSString (XXSY)
 
+- (NSString *)XXSYHandleRedundantTags;
 - (NSString *)XXSYDecodingWithKey:(NSString *)key;
 
 @end
