@@ -14,7 +14,7 @@
 #import "ReadStatusView.h"
 #import "BookReadMenuView.h"
 #import "SubscribeViewController.h"
-#import "NSString+XXSYDecoding.h"
+#import "NSString+XXSY.h"
 #import "Book.h"
 #import "ServiceManager.h"
 #import "BookReaderDefaultsManager.h"

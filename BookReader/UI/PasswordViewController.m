@@ -16,13 +16,6 @@
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
 
-
-
-#define ACCOUNT_TEXTFIELD_TAG          100
-#define PASSWORD_TEXTFIELD_TAG         101
-#define CONFIRM_TEXTFIELD_TAG          102
-#define CODE_TEXTFIELD_TAG             103
-
 @implementation PasswordViewController {
     UILabel *titleLabel;
     UIButton *findButton;

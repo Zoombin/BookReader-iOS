@@ -15,11 +15,6 @@
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
 
-#define REGISTER_ACCOUNT_TEXTFIELD_TAG          102
-#define REGISTER_PASSWORD_TEXTFIELD_TAG         103
-#define REGISTER_CONFIRM_TEXTFIELD_TAG          104
-#define REGISTER_CODE_TEXTFIELD_TAG             105
-
 @implementation SignUpViewController {
     UIButton *registerButton;
     UIButton *getCodeButton;

@@ -22,9 +22,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+BookReader.h"
 
-#define ACCOUNT_TEXTFIELD_TAG                   100
-#define PASSWORD_TEXTFIELD_TAG                  101
-
 @implementation SignInViewController {
     UITextField *accountTextField;
     UITextField *passwordTextField;
@@ -64,7 +61,6 @@
     [self.view addSubview:accountLabel];
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(80, 94, MAIN_SCREEN.size.width-80*2, 30)];
-    [accountTextField setTag:ACCOUNT_TEXTFIELD_TAG];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
@@ -72,7 +68,6 @@
     [self.view addSubview:passwordLabel];
     
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(80, 134, MAIN_SCREEN.size.width-80*2, 30)];
-    [passwordTextField setTag:PASSWORD_TEXTFIELD_TAG];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
     

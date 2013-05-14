@@ -21,9 +21,8 @@
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSString+XXSY.h"
 
-#define INFOTABLEVIEWTAG     10001
-#define BOOKRECOMMANDTAG     10002
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
 
@@ -187,7 +186,6 @@
     
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-60) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
-    [infoTableView setTag:INFOTABLEVIEWTAG];
     [infoTableView setDataSource:self];
     [secondView addSubview:infoTableView];
     [self loadCommitList];
@@ -202,7 +200,6 @@
     [recommandTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [recommandTableView setBackgroundColor:[UIColor whiteColor]];
     [recommandTableView setDelegate:self];
-    [recommandTableView setTag:BOOKRECOMMANDTAG];
     [recommandTableView setDataSource:self];
     [secondView addSubview:recommandTableView];
     
@@ -409,8 +406,7 @@
     [self displayHUD:@"请稍等..."];
     if ([self checkLogin]) {
         [ServiceManager addFavouriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
-            if (!error)
-            {
+            if (!error) {
                 if ([result isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;
                     UIButton *button = (UIButton *)[self.view viewWithTag:1];
@@ -439,11 +435,9 @@
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView.tag == INFOTABLEVIEWTAG)
-    {
+    if (tableView == infoTableView) {
         return [infoArray count];
-    }
-    else {
+    } else {
         if (currentType == AUTHORBOOK) {
             return [authorBookArray count];
         } else {
@@ -460,8 +454,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView.tag == INFOTABLEVIEWTAG)
-    {
+    if (tableView == infoTableView) {
         return 50;
     } else if (indexPath.row == 0) {
         return [BookCell height];
@@ -474,16 +467,15 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
-    if (tableView.tag == INFOTABLEVIEWTAG)
+    if (tableView == infoTableView)
     {
         if (cell == nil)
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             Commit *obj = [infoArray objectAtIndex:[indexPath row]];
-            
             UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
             [messageTextView setEditable:NO];
-            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n%@",obj.userName,obj.content,obj.insertTime] stringByReplacingOccurrencesOfString:@"<p>" withString:@"/n"]];
+            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];
             [cell.contentView addSubview:messageTextView];
         }
     } else {
@@ -493,7 +485,7 @@
             if (indexPath.row ==0) {
                 style = BookCellStyleBig;
             }
-            if (currentType==AUTHORBOOK)
+            if (currentType == AUTHORBOOK)
             {
                 cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
                 Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
@@ -511,20 +503,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.tag == BOOKRECOMMANDTAG)
-    {
-        if (currentType == AUTHORBOOK)
-        {
-            Book *book = [authorBookArray objectAtIndex:[indexPath row]];
-            BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
-            [self.navigationController pushViewController:childViewController animated:YES];
-        }else
-        {
-            Book *book = [sameTypeBookArray objectAtIndex:[indexPath row]];
-            BookDetailsViewController *childViewController = [[BookDetailsViewController alloc]initWithBook:book.uid];
-            [self.navigationController pushViewController:childViewController animated:YES];
-        }
-    }
+	if (tableView == infoTableView) {
+		NSArray *booksArray = currentType == AUTHORBOOK ? authorBookArray : sameTypeBookArray;
+		Book *book = booksArray[indexPath.row];
+		BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
+		[self.navigationController pushViewController:childViewController animated:YES];
+	}
 }
 
 - (void)addFootView
@@ -546,15 +530,11 @@
 - (void)getMore
 {
     [self displayHUD:@"加载中..."];
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
+         if (error) {
              [self displayHUDError:nil message:NETWORK_ERROR];
-         }else
-         {
-             if ([infoArray count]==0)
-             {
+         } else {
+             if ([infoArray count] == 0) {
                  [infoTableView setTableFooterView:nil];
              }
              [infoArray addObjectsFromArray:result];

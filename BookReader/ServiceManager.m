@@ -10,7 +10,7 @@
 #import "AFHTTPClient.h"
 #import "AFHTTPRequestOperation.h"
 #import "AFJSONRequestOperation.h"
-#import "NSString+XXSYDecoding.h"
+#import "NSString+XXSY.h"
 #import "Book.h"
 #import "Chapter.h"
 #import "Member+Setup.h"
