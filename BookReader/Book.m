@@ -12,14 +12,14 @@
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
 @implementation BookManaged
-@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
+@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate;
 @end
 
 
 
 @implementation Book
 
-@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words;
+@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate;
 
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes
 {
@@ -34,6 +34,7 @@
 	book.words = attributes[@"length"];
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
+    book.rDate = [NSDate date];
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -78,6 +79,7 @@
 	managed.describe = describe;
 	managed.recommandID = recommandID;
 	managed.recommandTitle = recommandTitle;
+    managed.rDate = rDate;
 }
 
 - (void)truncate
@@ -171,6 +173,7 @@
 	book.describe = managed.describe;
 	book.recommandID = managed.recommandID;
 	book.recommandTitle = managed.recommandTitle;
+    book.rDate = managed.rDate;
 	return book;
 }
 
@@ -178,5 +181,11 @@
 {
 	NSArray *all = [BookManaged findAllWithPredicate:searchTerm];
 	return [self create:all];
+}
+
++ (NSArray *)findAllAndSortedByDate
+{
+    NSArray *all = [BookManaged findAllSortedBy:@"rDate" ascending:NO];
+    return [self create:all];
 }
 @end

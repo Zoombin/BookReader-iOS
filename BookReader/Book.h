@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSString * recommandTitle;
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSNumber * words;
+@property (nonatomic, retain) NSDate *rDate;
 
 @end
 
@@ -43,6 +44,7 @@
 
 - (BOOL)persisted;//check if exists in database already
 - (NSNumber *)numberOfUnreadChapters;
++ (NSArray *)findAllAndSortedByDate;
 
 @end
 

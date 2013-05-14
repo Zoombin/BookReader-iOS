@@ -8,6 +8,13 @@
 
 #import "GiftCell.h"
 #import "BookReader.h"
+#import "UIButton+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
+
+#define DarkGrayColor   [UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]
+#define lightGrayColor  [UIColor colorWithRed:246.0/255.0 green:243.0/255.0 blue:236.0/255.0 alpha:1.0]
+
+
 
 @implementation GiftCell {
     UITextField *numberTextField;
@@ -15,38 +22,51 @@
     
     NSArray *integralArrays;
     NSMutableArray *keyWordsArray;
+    NSArray *imageNamesArray;
+    
+    UIImageView *keywordImageView;
     
     NSString *currentIntegral;
     NSMutableArray *buttonsArray;
 }
 @synthesize delegate;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style
+    reuseIdentifier:(NSString *)reuseIdentifier
+       andIndexPath:(NSIndexPath *)indexPath
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super init];
     if (self) {
         // Initialization code
         currentValue = @"";
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
         keyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
+        imageNamesArray = @[@"demand",@"flower",@"money",@"monthticket",@"comment"];
         buttonsArray = [[NSMutableArray alloc] init];
         
-        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(10, 8, 50, 25)];
+        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(70, 8, 45, 20)];
         [numberTextField setText:@"1"];
+        [numberTextField.layer setBorderWidth:1];
+        [numberTextField.layer setBorderColor:[UIColor colorWithRed:120.0/255.0 green:65.0/255.0 blue:47.0/255.0 alpha:1.0].CGColor];
         [numberTextField setUserInteractionEnabled:NO];
         [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [numberTextField setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:numberTextField];
     
-        UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(60, 8, 160, 25)];
+        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 70)];
+        [keywordImageView setBackgroundColor:[indexPath section]%2!=0 ? DarkGrayColor:lightGrayColor];
+        [self.contentView addSubview:keywordImageView];
+        
+        [self.contentView setBackgroundColor:[indexPath section]%2==0 ? DarkGrayColor:lightGrayColor];
+        
+        UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(70, 40, 160, 20)];
         [slider setMinimumValue:1];
         [slider setMaximumValue:1000];
         [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:slider];
     
-        UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *sendButton = [UIButton createButtonWithFrame:CGRectMake(MAIN_SCREEN.size.width-45*2, 25, 65, 20)];
         [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue) forControlEvents:UIControlEventTouchUpInside];
-        [sendButton setFrame:CGRectMake(MAIN_SCREEN.size.width-50*2, 8, 80, 30)];
         [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
         [self.contentView addSubview:sendButton];
     }
@@ -67,7 +87,8 @@
             }else {
                 [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             }
-            [button setFrame:CGRectMake(80, 50+25*i, MAIN_SCREEN.size.width-80*2, 25)];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
+            [button setFrame:CGRectMake(10+50*i+i*(self.bounds.size.width-20-50*5)/4, 80, 50, 50)];
             [button setTitle:integralArrays[i] forState:UIControlStateNormal];
             [self.contentView addSubview:button];
             [buttonsArray addObject:button];
@@ -85,12 +106,10 @@
     currentIntegral = [NSString stringWithFormat:@"%d",[sender tag]+1];
     for (int i = 0; i < 5; i++) {
         UIButton *button = [buttonsArray objectAtIndex:i];
-        if (i==[sender tag])
-        {
+        if (i==[sender tag]) {
             [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         }
-        else
-        {
+        else {
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
     }
@@ -107,7 +126,10 @@
 {
     if ([currentValue length]==0) {
         currentValue = value;
-        if ([keyWordsArray indexOfObject:currentValue]==4) {
+        int index = [keyWordsArray indexOfObject:currentValue];
+        NSLog(@"%@",[imageNamesArray objectAtIndex:index]);
+        [keywordImageView setImage:[UIImage imageNamed:[imageNamesArray objectAtIndex:index]]];
+        if (index==4) {
             [self setMonthTicketButtonHidden:NO];
         }
     }

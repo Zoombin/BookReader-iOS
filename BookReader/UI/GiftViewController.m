@@ -13,6 +13,7 @@
 #import "UIViewController+HUD.h"
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation GiftViewController {
     NSString *title;
@@ -61,8 +62,6 @@
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [backButton setFrame: CGRectMake(10, 4, 48, 32)];
@@ -76,7 +75,9 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-20) style:UITableViewStyleGrouped];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-5*2, MAIN_SCREEN.size.height-44-30) style:UITableViewStylePlain];
+    [infoTableView.layer setCornerRadius:4];
+    [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
     [self.view addSubview:infoTableView];
@@ -119,15 +120,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"评价票"]) {
-        return 200;
+        return 140;
     }
-    return 50;
+    return 70;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [newKeyWordsArray objectAtIndex:section];
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return [newKeyWordsArray objectAtIndex:section];
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -140,7 +141,8 @@
     GiftCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil)
     {
-        cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+        cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier andIndexPath:indexPath];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell setValue:[newKeyWordsArray objectAtIndex:[indexPath section]]];
         [cell setDelegate:self];
     }

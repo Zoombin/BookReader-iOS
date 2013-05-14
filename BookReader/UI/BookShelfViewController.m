@@ -78,8 +78,20 @@
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			[self syncFav];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
-		}
+		} else
+        {
+            [self sortBooks];
+        }
 	}
+}
+
+- (void)sortBooks
+{
+    if ([books count]>0) {
+        [books removeAllObjects];
+    }
+    [books addObjectsFromArray:[Book findAllAndSortedByDate]];
+    [booksView reloadData];
 }
 
 - (void)syncFav
@@ -272,6 +284,8 @@
 	if (editing) {
 		bookCell.cellSelected = !bookCell.cellSelected;
 	} else {
+        bookCell.book.rDate = [NSDate date];
+        [bookCell.book persistWithBlock:nil];
 		[self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:bookCell.book andOnline:NO] animated:YES];
 	}
 }

@@ -15,5 +15,6 @@
 
 @interface GiftCell : UITableViewCell
 @property (nonatomic ,weak) id<GiftCellDelegate> delegate;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andIndexPath:(NSIndexPath *)indexPath;
 - (void)setValue:(NSString *)value;
 @end

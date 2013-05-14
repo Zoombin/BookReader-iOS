@@ -12,6 +12,7 @@
         <attribute name="lastUpdate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="rDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recommandID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="recommandTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,7 +29,7 @@
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookManaged" positionX="160" positionY="192" width="128" height="270"/>
+        <element name="BookManaged" positionX="160" positionY="192" width="128" height="285"/>
         <element name="ChapterManaged" positionX="160" positionY="192" width="128" height="165"/>
     </elements>
 </model>

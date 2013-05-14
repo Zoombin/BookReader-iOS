@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
+#import "UIManager.h"
 
 #import "ServiceManager.h"
 #import "BookDetailsViewController.h"
@@ -178,9 +179,15 @@
     
     NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
     for (int i=0; i<[buttonNames count]; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTag:i+1000];
-        [button setFrame:CGRectMake(30, 0+i*30, MAIN_SCREEN.size.width-60, 30)];
+        if (i%2==0) {
+            [button setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:239.0/255.0 blue:230.0/255.0 alpha:1.0]];
+        } else {
+           [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
+        }
+        [button setFrame:CGRectMake(30, 20+i*30, MAIN_SCREEN.size.width-60, 30)];
+        [button setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [categoryView addSubview:button];
