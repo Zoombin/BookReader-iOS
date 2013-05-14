@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PasswordViewController : UIViewController
-
 @property (nonatomic, assign) BOOL bFindPassword;
 @end
