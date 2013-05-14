@@ -61,6 +61,7 @@
         
         UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(70, 40, 160, 20)];
         [slider setMinimumValue:1];
+        [slider setThumbTintColor:[UIColor colorWithRed:203.0/255.0 green:156.0/255.0 blue:133.0/255.0 alpha:1.0]];
         [slider setMaximumValue:1000];
         [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:slider];
@@ -127,7 +128,6 @@
     if ([currentValue length]==0) {
         currentValue = value;
         int index = [keyWordsArray indexOfObject:currentValue];
-        NSLog(@"%@",[imageNamesArray objectAtIndex:index]);
         [keywordImageView setImage:[UIImage imageNamed:[imageNamesArray objectAtIndex:index]]];
         if (index==4) {
             [self setMonthTicketButtonHidden:NO];
