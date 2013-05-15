@@ -524,7 +524,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (tableView == infoTableView) {
+	if (tableView != infoTableView) {
 		NSArray *booksArray = currentType == AUTHORBOOK ? authorBookArray : sameTypeBookArray;
 		Book *book = booksArray[indexPath.row];
 		BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
