@@ -23,6 +23,7 @@
     NSMutableArray *infoArray;
     BOOL bOnline;
 }
+@synthesize delegate;
 
 - (id)initWithBookId:(Book *)book
            andOnline:(BOOL)online;
@@ -154,84 +155,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
-    if (obj.content!=nil) {
-        NSLog(@"书籍已经下载！");
-        obj.bRead = [NSNumber numberWithBool:YES];
-        [obj persistWithBlock:nil];
-        [self pushToCoreTextWithChapterObj:obj];
-    }else {
-        [ServiceManager bookCatalogue:obj.uid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
-            if (error)
-            {
-                
-            }
-            else
-            {
-                if (![code isEqualToString:SUCCESS_FLAG])
-                {
-                    [self chapterSubscribeWithObj:obj];
-                }
-                else
-                {
-                    obj.content = content;
-                    if (!bOnline) {
-                        obj.bRead = [NSNumber numberWithBool:YES];
-                        NSLog(@"本地阅读需要存入数据库");
-                        [obj persistWithBlock:nil];
-                    }
-                    [self pushToCoreTextWithChapterObj:obj];
-                }
-            }
-        }];
+    if ([self.delegate respondsToSelector:@selector(chapterDidSelectAtIndex:)]) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.delegate chapterDidSelectAtIndex:indexPath.row];
     }
 }
 
-- (void)pushToCoreTextWithChapterObj:(Chapter *)obj
-{
-    CoreTextViewController *childViewController = [[CoreTextViewController alloc]initWithBook:bookobj chapter:obj chaptersArray:infoArray andOnline:bOnline];
-    [self.navigationController pushViewController:childViewController animated:YES];
-}
-
-- (void)chapterSubscribeWithObj:(Chapter *)obj
-{
-    if ([ServiceManager userID]!=nil)
-    {
-        [ServiceManager chapterSubscribeWithChapterID:obj.uid book:bookobj.uid author:bookobj.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
-            if (error)
-            {
-                
-            }
-            else
-            {
-                if ([code isEqualToString:SUCCESS_FLAG]) {
-                    obj.bBuy = [NSNumber numberWithBool:YES];
-                    obj.content = content;
-                    if (!bOnline) {
-                        NSLog(@"本地阅读需要存入数据库");
-                        obj.bRead = [NSNumber numberWithBool:YES];
-                        [obj persistWithBlock:nil];
-                    }
-                    [self pushToCoreTextWithChapterObj:obj];
-                    [self showAlertWithMessage:result];
-                } else {
-                    [self showAlertWithMessage:@"无法下载阅读"];
-                }
-                
-            }
-        }];
-    }
-    else
-    {
-        [self showAlertWithMessage:@"您尚未登录"];
-    }
-}
-
-- (void)showAlertWithMessage:(NSString *)message
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-    [alertView show];
-    
-}
 
 @end

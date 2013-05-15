@@ -27,7 +27,10 @@
 @property (nonatomic, retain) NSString * recommandTitle;
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSNumber * words;
-@property (nonatomic, retain) NSDate *rDate;
+@property (nonatomic, retain) NSDate *rDate; //上次阅读时间
+@property (nonatomic, retain) NSNumber *lastReadChapterIndex; //上次阅读章节的index
+@property (nonatomic, retain) NSNumber *bFav;
+@property (nonatomic, retain) NSNumber *bHistory;
 
 @end
 
@@ -41,7 +44,9 @@
 
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes;
 + (NSArray *)booksWithAttributesArray:(NSArray *)array;
++ (NSArray *)booksWithAttributesArray:(NSArray *)array andFav:(BOOL)fav;
 
+- (void)persistWithBlock:(dispatch_block_t)block;
 - (BOOL)persisted;//check if exists in database already
 - (NSNumber *)numberOfUnreadChapters;
 + (NSArray *)findAllAndSortedByDate;

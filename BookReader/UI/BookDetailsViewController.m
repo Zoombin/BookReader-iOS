@@ -23,6 +23,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+XXSY.h"
 #import "UIManager.h"
+#import "CoreTextViewController.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -366,9 +367,9 @@
      }];
 }
 
-- (void)pushToSubscribeView
+- (void)pushToReadView
 {
-    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:bookObj andOnline:YES];
+    CoreTextViewController *childViewController = [[CoreTextViewController alloc] initWithBook:bookObj chapter:nil chaptersArray:nil andOnline:YES];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 
@@ -376,7 +377,7 @@
 {
     switch ([sender tag]) {
         case 0:
-            [self pushToSubscribeView];
+            [self pushToReadView];
             break;
         case 1:
             [self addFav];
@@ -488,10 +489,8 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     
-    if (tableView == infoTableView)
-    {
-        if (cell == nil)
-        {
+    if (tableView == infoTableView) {
+        if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             Commit *obj = [infoArray objectAtIndex:[indexPath row]];
             UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
@@ -500,14 +499,12 @@
             [cell.contentView addSubview:messageTextView];
         }
     } else {
-        if (cell == nil)
-        {
+        if (cell == nil) {
             BookCellStyle style = BookCellStyleSmall;
             if (indexPath.row ==0) {
                 style = BookCellStyleBig;
             }
-            if (currentType == AUTHORBOOK)
-            {
+            if (currentType == AUTHORBOOK) {
                 cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
                 Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
                 obj.category = bookObj.category;

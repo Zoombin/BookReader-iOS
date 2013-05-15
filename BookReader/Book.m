@@ -12,14 +12,14 @@
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
 @implementation BookManaged
-@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate;
+@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate,lastReadChapterIndex,bFav,bHistory;
 @end
 
 
 
 @implementation Book
 
-@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate;
+@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate,lastReadChapterIndex,bFav,bHistory;
 
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes
 {
@@ -35,6 +35,7 @@
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
     book.rDate = [NSDate date];
+    book.lastReadChapterIndex = [NSNumber numberWithInt:0];
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -62,6 +63,18 @@
 	return books;
 }
 
++ (NSArray *)booksWithAttributesArray:(NSArray *)array andFav:(BOOL)fav
+{
+   	NSMutableArray *books = [@[] mutableCopy];
+	for (NSDictionary *attributes in array) {
+		Book *book = [self createBookWithAttributes:attributes];
+        book.bFav = [NSNumber numberWithBool:fav];
+		[books addObject:book];
+	}
+	return books;
+}
+
+
 - (void)sync:(BookManaged *)managed
 {
 	managed.name = name;
@@ -80,6 +93,9 @@
 	managed.recommandID = recommandID;
 	managed.recommandTitle = recommandTitle;
     managed.rDate = rDate;
+    managed.lastReadChapterIndex = lastReadChapterIndex;
+    managed.bFav = bFav;
+    managed.bHistory = bHistory;
 }
 
 - (void)truncate
@@ -174,6 +190,9 @@
 	book.recommandID = managed.recommandID;
 	book.recommandTitle = managed.recommandTitle;
     book.rDate = managed.rDate;
+    book.lastReadChapterIndex = managed.lastReadChapterIndex;
+    book.bFav = managed.bFav;
+    book.bHistory = managed.bHistory;
 	return book;
 }
 

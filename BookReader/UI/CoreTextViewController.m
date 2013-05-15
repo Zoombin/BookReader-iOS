@@ -47,6 +47,8 @@
     NSString *key;
     
     ReadHelpView *helpView;
+    
+    BOOL shouldLoadChapter;
 }
 
 - (id)initWithBook:(Book *)bookObj
@@ -67,12 +69,17 @@
         bOnline = online;
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
+        
         key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[ServiceManager userID]];
         if ([ServiceManager userID]==nil) {
             key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
-        [textString setString:[chapter.content XXSYDecodingWithKey:key]];
-        
+        if (chapterObj!=nil&&[chaptersArray count]>0) {
+            shouldLoadChapter = NO;
+            [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+        } else {
+            shouldLoadChapter = YES;
+        }
         currentFontSize = 19;
         currentFontName = UserDefaultFoundFont;
         currentFont = [self setFontWithName:currentFontName];
@@ -121,6 +128,41 @@
 {
     [super viewDidAppear:animated];
     [self updateContent];
+    if (shouldLoadChapter&&[chaptersArray count]==0) {
+        [self loadChapterData];
+    }
+}
+
+- (void)loadChapterData
+{
+    if (bOnline) {
+        [self chapterDataFromService];
+    } else {
+        NSArray *array = [Chapter chaptersWithBookID:book.uid];
+        if ([array count]>0) {
+            [chaptersArray addObjectsFromArray:array];
+            [self downloadBookWithIndex:[book.lastReadChapterIndex intValue]];
+        }
+        else {
+            [self chapterDataFromService];
+        }
+    }
+}
+
+- (void)chapterDataFromService
+{
+    [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+        if (error) {
+           
+        }
+        else {
+            if ([chaptersArray count]>0) {
+                [chaptersArray removeAllObjects];
+            }
+            [chaptersArray addObjectsFromArray:result];
+            [self downloadBookWithIndex:[book.lastReadChapterIndex intValue]];
+        }
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -490,7 +532,8 @@
 
 - (void)chapterButtonClick
 {
-    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:book andOnline:YES];
+    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:book andOnline:bOnline];
+    [childViewController setDelegate:self];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 
@@ -510,10 +553,13 @@
     [self displayHUD:@"获取内容中..."];
     Chapter *obj = [chaptersArray objectAtIndex:index];
     if (obj.content!=nil) {
+        NSLog(@"已下载");
         [textString setString:[obj.content XXSYDecodingWithKey:key]];
         currentPage = 0;
         chapter = obj;
         obj.bRead = [NSNumber numberWithBool:YES];
+        book.lastReadChapterIndex = [NSNumber numberWithInt:index];
+        [book persistWithBlock:nil];
         [obj persistWithBlock:nil];
         [self updateContent];
         [self hideHUD:YES];
@@ -523,18 +569,17 @@
             {
                 [self displayHUDError:nil message:NETWORK_ERROR];
             }
-            else
-            {
-                if (![code isEqualToString:SUCCESS_FLAG])
-                {
+            else {
+                if (![code isEqualToString:SUCCESS_FLAG]) {
                     [self chapterSubscribeWithObj:obj];
                 }
-                else
-                {
+                else {
                     obj.content = content;
                     obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
                     [obj persistWithBlock:nil];
+                    book.lastReadChapterIndex = [NSNumber numberWithInt:index];
+                    [book persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     currentPage = 0;
                     [self updateContent];
@@ -547,11 +592,9 @@
 
 - (void)chapterSubscribeWithObj:(Chapter *)obj
 {
-    if ([ServiceManager userID]!=nil)
-    {
+    if ([ServiceManager userID]!=nil) {
         [ServiceManager chapterSubscribeWithChapterID:obj.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
-            if (error)
-            {
+            if (error) {
                 [self hideHUD:YES];
             }
             else
@@ -562,6 +605,8 @@
                     obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
                     [obj persistWithBlock:nil];
+                    book.lastReadChapterIndex = [NSNumber numberWithInt:index];
+                    [book persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     currentPage = 0;
                     [self updateContent];
@@ -572,10 +617,14 @@
             }
         }];
     }
-    else
-    {
+    else {
         
     }
+}
+
+- (void)chapterDidSelectAtIndex:(NSInteger)index
+{
+    [self downloadBookWithIndex:index];
 }
 
 @end

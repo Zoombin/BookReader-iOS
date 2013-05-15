@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Book.h"
 
-@interface SubscribeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@protocol SubscribeViewDelegate <NSObject>
+- (void)chapterDidSelectAtIndex:(NSInteger)index;
+@end
+
+@interface SubscribeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate> {
+    
+}
+@property (nonatomic, weak) id<SubscribeViewDelegate> delegate;
 - (id)initWithBookId:(Book *)book
            andOnline:(BOOL)online;
 @end

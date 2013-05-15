@@ -10,8 +10,9 @@
 #import "BookReadMenuView.h"
 #import "Chapter.h"
 #import "Book.h"
+#import "SubscribeViewController.h"
 
-@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate>
+@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate>
 {
     BOOL bFlipV;
     NSInteger startPointX;
