@@ -22,6 +22,7 @@
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+XXSY.h"
+#import "UIManager.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -44,6 +45,11 @@
     NSMutableArray *authorBookArray;
     NSMutableArray *sameTypeBookArray;
     BOOL bFav;
+    
+    UIButton *shortDescribe;
+    UIButton *comment;
+    UIButton *authorBook;
+    UIButton *bookRecommand;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -52,10 +58,14 @@
     if (self) {
         bookid = uid;
         infoArray = [[NSMutableArray alloc] init];
-        
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         bFav = NO;
+        
+        shortDescribe = [UIButton buttonWithType:UIButtonTypeCustom];
+        comment = [UIButton buttonWithType:UIButtonTypeCustom];
+        authorBook = [UIButton buttonWithType:UIButtonTypeCustom];
+        bookRecommand = [UIButton buttonWithType:UIButtonTypeCustom];
         // Custom initialization
     }
     return self;
@@ -174,8 +184,12 @@
     [self.view addSubview:secondView];
     
     NSArray *btnNames = @[@"简介" ,@"评论" ,@"作者书籍", @"同类推荐"];
+    NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommand];
     for (int i = 0; i<[btnNames count]; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *button = btnObjs[i];
+        [button.layer setBorderWidth:0.5];
+        [button.layer setBorderColor: i==0 ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
+        [button setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(i*secondView.frame.size.width/4, 0, secondView.frame.size.width/4, 30)];
         [button setTag:i];
         [button addTarget:self action:@selector(selectTabBar:) forControlEvents:UIControlEventTouchUpInside];
@@ -216,6 +230,13 @@
 
 - (void)selectTabBar:(id)sender
 {
+    
+     NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommand];
+    for (int i = 0; i<4; i++) {
+        UIButton *button = (UIButton *)btnObjs[i];
+        [button.layer setBorderColor:[sender tag]==button.tag ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
+    }
+    
     switch ([sender tag]) {
         case 0:
             [secondView bringSubviewToFront:shortdescribeTextView];
