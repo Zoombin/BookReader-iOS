@@ -20,8 +20,7 @@
 @dynamic cover;
 @dynamic coverURL;
 @dynamic describe;
-@dynamic lastReadChapterIndex;
-@dynamic lastReadIndex;
+@dynamic lastReadChapterID;
 @dynamic lastUpdate;
 @dynamic name;
 @dynamic progress;

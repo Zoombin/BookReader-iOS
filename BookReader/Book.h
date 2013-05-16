@@ -22,8 +22,7 @@
 @property (nonatomic, retain) NSData * cover;
 @property (nonatomic, retain) NSString * coverURL;
 @property (nonatomic, retain) NSString * describe;
-@property (nonatomic, retain) NSNumber * lastReadChapterIndex;
-@property (nonatomic, retain) NSNumber * lastReadIndex;
+@property (nonatomic, retain) NSString * lastReadChapterID;
 @property (nonatomic, retain) NSString * lastUpdate;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * progress;

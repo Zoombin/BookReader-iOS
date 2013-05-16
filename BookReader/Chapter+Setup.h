@@ -7,8 +7,9 @@
 //
 
 #import "Chapter.h"
+#import "ZBManagedObjectDelegate.h"
 
-@interface Chapter (Setup)
+@interface Chapter (Setup) <ZBManagedObjectDelegate>
 
 + (NSArray *)createWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
 + (NSArray *)chaptersWithBookID:(NSString *)bookid;
