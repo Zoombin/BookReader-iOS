@@ -32,6 +32,9 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 
+
+static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
+
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
 @end
 
@@ -66,6 +69,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent:) name:kStartSyncChaptersContentNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -74,30 +78,20 @@
 	if (![ServiceManager userID]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
-		
-		//TODO: load data from database
+		//TODO
+		//switch to history and display history
     } else {
+		//books = [[Book findAllAndSortedByDate] mutableCopy];
+		//[booksView reloadData];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			[self syncFav];
+			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
-		} else
-        {
-            [self sortBooks];
-        }
+		}
 	}
 }
 
-- (void)sortBooks
+- (void)syncBooks
 {
-	[books removeAllObjects];
-	//TODO
-    //[books addObjectsFromArray:[Book findAllAndSortedByDate]];
-    [booksView reloadData];
-}
-
-- (void)syncFav
-{
-	if (![ServiceManager userID]) return;
 	[self displayHUD:@"获取用户书架中..."];
     [ServiceManager userBooksWithSize:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
 		[self hideHUD:YES];
@@ -107,14 +101,14 @@
 			[books removeAllObjects];
 			[books addObjectsFromArray:result];
 			[Book persist:books withBlock:nil];
-			[booksView reloadData];
 			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
 				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
 					if (!error) {
 						[Chapter persist:result withBlock:nil];
 					}
 					if (idx == books.count - 1) {
-						//[self syncChapterContent:0 bookIdx:0];
+						[booksView reloadData];
+						[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
 					}
 				}];
 			}];
@@ -122,23 +116,19 @@
     }];
 }
 
-- (void)syncChapterContent:(NSInteger)idx bookIdx:(NSInteger)bookIdx
+- (void)syncChaptersContent:(id)sender
 {
-	if (bookIdx >= books.count) return;
-	Book *book = books[bookIdx];
-	NSArray *chapters = [Chapter chaptersRelatedToBook:book.uid];
-	if (idx >= chapters.count) return;
-	[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger bookIdx, BOOL *stop) {
-		[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-			[self displayHUD:[NSString stringWithFormat:@"下载中%@:%@", book.name, chapter.name]];
-			[ServiceManager bookCatalogue:book.uid	withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+	NSArray *chapters = [Chapter findAll];//TODO, no need all chapter,just these need to sync
+	[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+		//[self displayHUD:@"下载中"];
+		//dispatch_sync(dispatch_get_main_queue(), ^(void) {
+			[ServiceManager bookCatalogue:chapter.bid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 				chapter.content = content;
-				//TODO
-//				[chapter persistWithBlock:^{
-//					[self syncChapterContent:idx + 1 bookIdx:bookIdx];
-//				}];
+				[chapter persistWithBlock:nil];
+				//[self hideHUD:YES];
+				NSLog(@"idx = %d", idx);
 			}];
-		}];
+		//});
 	}];
 }
 
@@ -312,6 +302,7 @@
 {
 	Book *book = books[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
+	cell.badge = [book countOfUnreadChapters];
 	cell.editing = editing;
 	return cell;
 }
