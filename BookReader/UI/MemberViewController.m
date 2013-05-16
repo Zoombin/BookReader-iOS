@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
+
 #import "MemberViewController.h"
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
@@ -21,7 +22,9 @@
 #import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+BookReader.h"
-    
+#import "Member.h"
+#import "Book+Setup.h"
+#import "Chapter+Setup.h"
 
 
 @implementation MemberViewController
@@ -130,8 +133,8 @@
     //清除个人信息等...
     [ServiceManager deleteUserID];
 	//TODO
-	//[Book truncateAll];
-	//[Chapter truncateAll];
+	[Book truncateAll];
+	[Chapter truncateAll];
     [self reloadUI];
 }
 

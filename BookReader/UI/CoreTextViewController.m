@@ -142,7 +142,7 @@
         [self chapterDataFromService];
     } else {
 		//TODO
-        NSArray *array = [Chapter chaptersWithBookID:book.uid];
+        NSArray *array = [Chapter chaptersRelatedToBook:book.uid];
         if ([array count]>0) {
             [chaptersArray addObjectsFromArray:array];
             [self downloadBookWithIndex:[book.lastReadChapterIndex intValue]];

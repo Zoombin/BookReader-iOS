@@ -84,7 +84,7 @@
     if (bOnline) {
         [self chapterDataFromService];
     } else {
-        NSArray *array = [Chapter chaptersWithBookID:bookobj.uid];
+        NSArray *array = [Chapter chaptersRelatedToBook:bookobj.uid];
         if ([array count]>0)
         {
             [infoArray addObjectsFromArray:array];

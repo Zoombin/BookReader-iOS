@@ -11,18 +11,14 @@
 @protocol ZBManagedObjectDelegate <NSObject>
 
 + (NSManagedObject *)createWithAttributes:(NSDictionary *)attributes;
-+ (NSArray *)createWithAttributesArray:(NSArray *)array;
++ (NSArray *)createWithAttributesArray:(NSArray *)array andExtra:(id)extraInfo;
 
 - (void)persistWithBlock:(dispatch_block_t)block;
 + (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
 
-//- (void)truncate;
-//+ (void)truncateAll;
+- (void)truncate;
++ (void)truncateAll;
 
-//+ (NSArray *)findAll;
-//+ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm;
-
-//- (BOOL)persisted;//check if exists in database already
-//+ (NSArray *)findAllAndSortedByDate;
+//- (BOOL)isPersisted;
 
 @end
