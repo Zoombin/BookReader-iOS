@@ -31,6 +31,7 @@
 @property (nonatomic, retain) NSNumber *lastReadChapterIndex; //上次阅读章节的index
 @property (nonatomic, retain) NSNumber *bFav;
 @property (nonatomic, retain) NSNumber *bHistory;
+@property (nonatomic, retain) NSNumber *lastReadIndex;
 
 @end
 

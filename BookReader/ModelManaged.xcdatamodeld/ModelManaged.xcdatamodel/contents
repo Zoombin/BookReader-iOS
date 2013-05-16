@@ -12,6 +12,7 @@
         <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="describe" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastReadChapterIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastReadIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -32,7 +33,7 @@
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookManaged" positionX="160" positionY="192" width="128" height="330"/>
+        <element name="BookManaged" positionX="160" positionY="192" width="128" height="345"/>
         <element name="ChapterManaged" positionX="160" positionY="192" width="128" height="165"/>
     </elements>
 </model>

@@ -205,9 +205,14 @@
     [secondView addSubview:infoTableView];
     [self loadCommitList];
     
-    sendCommitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [sendCommitButton setFrame:CGRectMake(0, infoTableView.frame.size.height+30, secondView.frame.size.width, 30)];
-    [sendCommitButton setTitle:@"发布评论" forState:UIControlStateNormal];
+    sendCommitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sendCommitButton.layer setBorderWidth:0.5];
+    [sendCommitButton.layer setBorderColor:[UIColor blackColor].CGColor];
+    [sendCommitButton.layer setCornerRadius:4];
+    [sendCommitButton.layer setMasksToBounds:YES];
+    [sendCommitButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [sendCommitButton setFrame:CGRectMake(15, infoTableView.frame.size.height+30, secondView.frame.size.width-15*2, 30)];
+    [sendCommitButton setTitle:@"+评论" forState:UIControlStateNormal];
     [sendCommitButton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [secondView addSubview:sendCommitButton];
     
@@ -477,7 +482,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == infoTableView) {
-        return 50;
+        return 60;
     } else if (indexPath.row == 0) {
         return [BookCell height];
     }
@@ -495,7 +500,7 @@
             Commit *obj = [infoArray objectAtIndex:[indexPath row]];
             UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
             [messageTextView setEditable:NO];
-            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];
+            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];
             [cell.contentView addSubview:messageTextView];
         }
     } else {

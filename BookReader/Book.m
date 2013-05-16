@@ -12,14 +12,14 @@
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
 @implementation BookManaged
-@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate,lastReadChapterIndex,bFav,bHistory;
+@dynamic uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate,lastReadChapterIndex,bFav,bHistory,lastReadIndex;
 @end
 
 
 
 @implementation Book
 
-@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate,lastReadChapterIndex,bFav,bHistory;
+@synthesize uid,author,authorID,autoBuy,category,categoryID,cover,coverURL,describe,lastUpdate,name,progress,recommandID,recommandTitle,words,rDate,lastReadChapterIndex,bFav,bHistory,lastReadIndex;
 
 + (Book *)createBookWithAttributes:(NSDictionary *)attributes
 {
@@ -36,6 +36,7 @@
 	book.categoryID = attributes[@"classId"];
     book.rDate = [NSDate date];
     book.lastReadChapterIndex = [NSNumber numberWithInt:0];
+    book.lastReadIndex = [NSNumber numberWithInt:0];
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -96,6 +97,7 @@
     managed.lastReadChapterIndex = lastReadChapterIndex;
     managed.bFav = bFav;
     managed.bHistory = bHistory;
+    managed.lastReadIndex = lastReadIndex;
 }
 
 - (void)truncate
@@ -193,6 +195,7 @@
     book.lastReadChapterIndex = managed.lastReadChapterIndex;
     book.bFav = managed.bFav;
     book.bHistory = managed.bHistory;
+    book.lastReadIndex = managed.lastReadIndex;
 	return book;
 }
 
