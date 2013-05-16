@@ -29,8 +29,7 @@
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
     book.rDate = [NSDate date];
-    book.lastReadChapterIndex = [NSNumber numberWithInt:0];
-    book.lastReadIndex = [NSNumber numberWithInt:0];
+    book.lastReadChapterID = @"";
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -112,8 +111,7 @@
     book.cover = self.cover;
     book.coverURL = self.coverURL;
     book.describe = self.describe;
-    book.lastReadChapterIndex = self.lastReadChapterIndex;
-    book.lastReadIndex = self.lastReadIndex;
+    book.lastReadChapterID = self.lastReadChapterID;
     book.lastUpdate = self.lastUpdate;
     book.name = self.name;
     book.progress = self.progress;

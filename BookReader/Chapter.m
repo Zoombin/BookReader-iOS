@@ -17,6 +17,7 @@
 @dynamic bVip;
 @dynamic content;
 @dynamic index;
+@dynamic lastReadIndex;
 @dynamic name;
 @dynamic uid;
 

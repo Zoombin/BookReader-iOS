@@ -78,14 +78,15 @@
 - (Chapter *)cloneInContext:(NSManagedObjectContext *)context
 {
 	Chapter *chapter = [Chapter createInContext:context];
-	chapter.uid = self.uid;
-	chapter.bid = self.bid;
-	chapter.name = self.name;
-	chapter.bBuy = self.bBuy;
-	chapter.bRead = self.bRead;
-	chapter.bVip = self.bVip;
-	chapter.content = self.content;
-	chapter.index = self.index;
+    chapter.bBuy = self.bBuy;
+    chapter.bid = self.bid;
+    chapter.bRead = self.bRead;
+    chapter.bVip = self.bVip;
+    chapter.content = self.content;
+    chapter.index = self.index;
+    chapter.lastReadIndex = self.lastReadIndex;
+    chapter.name = self.name;
+    chapter.uid = self.uid;
 	return chapter;
 }
 
