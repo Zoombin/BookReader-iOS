@@ -294,7 +294,6 @@
 		
         //[bookCell.book persistWithBlock:nil];
         [self.navigationController pushViewController:[[CoreTextViewController alloc] initWithBook:bookCell.book chapter:nil chaptersArray:nil andOnline:NO] animated:YES];
-//		[self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:bookCell.book andOnline:NO] animated:YES];
 	}
 }
 

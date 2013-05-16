@@ -72,6 +72,24 @@
     CGColorRef color = textColor.CGColor;
     CFAttributedStringSetAttribute(attrString, range,
                                    kCTForegroundColorAttributeName, color);
+    
+//    CTParagraphStyleSetting lineBreakMode;
+//    CTLineBreakMode lineBreak = kCTLineBreakByCharWrapping; //换行模式
+//    lineBreakMode.spec = kCTParagraphStyleSpecifierLineBreakMode;
+//    lineBreakMode.value = &lineBreak;
+//    lineBreakMode.valueSize = sizeof(CTLineBreakMode);
+    //行间距
+    CTParagraphStyleSetting LineSpacing;
+    CGFloat spacing = 0.0;  //指定间距
+    LineSpacing.spec = kCTParagraphStyleSpecifierLineSpacingAdjustment;
+    LineSpacing.value = &spacing;
+    LineSpacing.valueSize = sizeof(CGFloat);
+    
+    CTParagraphStyleSetting settings[] = {LineSpacing};
+    CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(settings, 1);   //第二个参数为settings的长度
+    
+    CFAttributedStringSetAttribute(attrString, range,
+                                   kCTParagraphStyleAttributeName, paragraphStyle);
 }
 
 - (void) drawRect:(CGRect)rect {

@@ -50,13 +50,14 @@
     ReadHelpView *helpView;
     
     BOOL shouldLoadChapter;
+    BOOL firstEnter;
 }
 
 - (id)initWithBook:(Book *)bookObj
            chapter:(Chapter *)chapterObj
      chaptersArray:(NSArray *)array
          andOnline:(BOOL)online;
- 
+
 {
     self = [super init];
     if (self)
@@ -91,6 +92,7 @@
         
         [self loadUserDefault];
         pagesArray = [[NSMutableArray alloc] init];
+        firstEnter = YES;
     }
     return self;
 }
@@ -155,7 +157,7 @@
 {
     [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
-           
+            
         }
         else {
             if ([chaptersArray count]>0) {
@@ -167,21 +169,53 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //保存阅读进度
+    if ([pagesArray count]>0) {
+        NSRange range = NSRangeFromString([pagesArray objectAtIndex:currentPage]);
+        NSLog(@"%d",range.location);
+        book.lastReadIndex = [NSNumber numberWithInt:range.location];
+        [book persistWithBlock:nil];
+    }
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [self saveUserDefault];
 }
 
+- (void)goToIndexWithLastReadPosition:(NSInteger)location
+{
+    for (int i = 0; i<[pagesArray count]; i++) {
+        NSRange rangeCurrent = NSRangeFromString([pagesArray objectAtIndex:i]);
+        if (i==[pagesArray count]-1) {
+            currentPage = rangeCurrent.location==location ? i : 0;
+            break;
+        }
+        NSRange rangeNext = NSRangeFromString([pagesArray objectAtIndex:i+1]);
+        if (location>=rangeCurrent.location && rangeNext.location>location) {
+            NSLog(@"在第%d页",i);
+            currentPage = i;
+            break;
+        }
+    }
+}
+
 - (void)updateContent {
     if ([pagesArray count]>0) {
         [pagesArray removeAllObjects];
     }
-    [self saveUserDefault];
     currentFont = [self setFontWithName:currentFontName];
     [pagesArray addObjectsFromArray:[self pagesWithString:textString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:currentFont]];
     if (currentPage>=[pagesArray count]) {
         currentPage = [pagesArray count]-1;
+    }
+    if (firstEnter && [textString length]>0) {
+        firstEnter = NO;
+        [self goToIndexWithLastReadPosition:[book.lastReadIndex intValue]];
     }
     [mString setString:[textString substringWithRange:NSRangeFromString([pagesArray objectAtIndex:currentPage])]];
     [self updateStatusPercentage];
@@ -232,7 +266,7 @@
     [BookReaderDefaultsManager setObject:[NSNumber numberWithInteger:currentBackgroundIndex] ForKey:UserDefaultKeyBackground];
 }
 
-#pragma mark- 
+#pragma mark-
 #pragma mark MenuView Delegate
 - (UIFont *)setFontWithName:(NSString *)fontName
 {
@@ -351,7 +385,7 @@
     if ([chapter.index integerValue] == [chaptersArray count] - 1) {
         [self displayHUDError:@"" message:@"最后一章"];
     } else {
-       [self downloadBookWithIndex:[chapter.index integerValue]+1];
+        [self downloadBookWithIndex:[chapter.index integerValue]+1];
     }
 }
 
