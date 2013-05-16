@@ -299,7 +299,7 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         NSMutableArray *bookListsArray = [@[] mutableCopy];
         if ([theObject[@"bookList"] isKindOfClass:[NSArray class]]) {
-			[bookListsArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"]]];
+			[bookListsArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
         }
         if (block) {
             block(bookListsArray, nil);
@@ -318,7 +318,7 @@ static NSNumber *sUserID;
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSArray *bookListArray = [theObject objectForKey:@"bookList"];
         NSMutableArray *resultArray = [@[] mutableCopy];
-		[resultArray addObjectsFromArray:[Book createWithAttributesArray:bookListArray]];
+		[resultArray addObjectsFromArray:[Book createWithAttributesArray:bookListArray andExtra:nil]];
         if (block) {
             block(resultArray, nil);
         }
@@ -391,7 +391,7 @@ static NSNumber *sUserID;
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
-			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
+			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
         }
         if (block) {
             block(resultArray, nil);
@@ -461,7 +461,7 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andFav:YES]];
+		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
         if (block) {
             block(bookList, nil);
         }
@@ -546,7 +546,7 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"]]];
+			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
         }
         if (block) {
             block(resultArray, nil);
@@ -570,7 +570,7 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"]]];
+			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
         }
         if (block) {
             block(resultArray, nil);

@@ -138,12 +138,13 @@
 
 - (void)loadChapterData
 {
-    NSArray *array = [Chapter chaptersWithBookID:book.uid];
-    if ([array count]>0) {
-        [chaptersArray addObjectsFromArray:array];
-        if ([book.lastReadChapterID length]==0) {
-            [self downloadBookWithIndex:0];
-        } else {
+    if (bOnline) {
+        [self chapterDataFromService];
+    } else {
+		//TODO
+        NSArray *array = [Chapter chaptersRelatedToBook:book.uid];
+        if ([array count]>0) {
+            [chaptersArray addObjectsFromArray:array];
             NSArray *chapterObjArray = [Chapter findByAttribute:@"uid" withValue:book.lastReadChapterID];
             int index = 0;
             if ([chapterObjArray count]>0) {
@@ -152,9 +153,9 @@
             }
             [self downloadBookWithIndex:index];
         }
-    }
-    else {
-        [self chapterDataFromService];
+        else {
+            [self chapterDataFromService];
+        }
     }
 }
 

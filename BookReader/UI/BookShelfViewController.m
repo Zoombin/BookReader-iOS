@@ -36,7 +36,7 @@
 @end
 
 @implementation BookShelfViewController {
-    NSMutableArray *books;      //所有的书籍
+    NSMutableArray *books;
     BookShelfHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
@@ -110,21 +110,20 @@
 			[books addObjectsFromArray:result];
 			[Book persist:books withBlock:nil];
 			[booksView reloadData];
-			
-			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
-					if (!error) {
-						//TODO
-						//[Chapter persist:result withBlock:nil];
-					}
-					
-					if (idx == books.count - 1) {
-						//[self syncChapterContent:0 bookIdx:0];
-					}
-				}];
-				
-
-			}];
+			Book *book = books[0];
+			[book truncate];
+//			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
+//				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+//					if (!error) {
+//						//TODO
+//						//[Chapter persist:result withBlock:nil];
+//					}
+//					
+//					if (idx == books.count - 1) {
+//						//[self syncChapterContent:0 bookIdx:0];
+//					}
+//				}];
+//			}];
         }
     }];
 }
@@ -133,7 +132,7 @@
 {
 	if (bookIdx >= books.count) return;
 	Book *book = books[bookIdx];
-	NSArray *chapters = [Chapter chaptersWithBookID:book.uid];
+	NSArray *chapters = [Chapter chaptersRelatedToBook:book.uid];
 	if (idx >= chapters.count) return;
 	[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger bookIdx, BOOL *stop) {
 		[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {

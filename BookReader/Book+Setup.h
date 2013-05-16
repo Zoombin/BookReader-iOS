@@ -11,9 +11,7 @@
 
 @interface Book (Setup) <ZBManagedObjectDelegate>
 
-+ (NSArray *)createWithAttributesArray:(NSArray *)array andFav:(BOOL)fav;
-
-//- (NSNumber *)numberOfUnreadChapters;
-//+ (NSArray *)findAllAndSortedByDate;
+- (NSNumber *)numberOfUnreadChapters;
++ (NSArray *)findAllAndSortedByDate;
 
 @end

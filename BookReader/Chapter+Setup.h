@@ -11,7 +11,6 @@
 
 @interface Chapter (Setup) <ZBManagedObjectDelegate>
 
-+ (NSArray *)createWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
-+ (NSArray *)chaptersWithBookID:(NSString *)bookid;
++ (NSArray *)chaptersRelatedToBook:(NSString *)bookid;
 
 @end

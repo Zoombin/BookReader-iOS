@@ -22,24 +22,21 @@
 	return chapter;
 }
 
-+ (NSArray *)createWithAttributesArray:(NSArray *)array andBookID:(NSString *)bookid;
++ (NSArray *)createWithAttributesArray:(NSArray *)array andExtra:(id)extraInfo
 {
 	NSMutableArray *chapters = [@[] mutableCopy];
     int i = 0;
-	for (NSDictionary *attributes in array)
-    {
+	for (NSDictionary *attributes in array) {
 		Chapter *chapter = (Chapter *)[Chapter createWithAttributes:attributes];
-        chapter.index = [NSNumber numberWithInteger:i];
-        chapter.bid = bookid;
+		chapter.index = @(i);
+		if (extraInfo) {
+			chapter.bid = (NSString *)extraInfo;
+		}
 		[chapters addObject:chapter];
         i++;
 	}
 	return chapters;
-}
 
-+ (NSArray *)chaptersWithBookID:(NSString *)bookid
-{
-    return [Chapter findByAttribute:@"bid" withValue:bookid andOrderBy:@"index" ascending:YES];
 }
 
 - (void)persistWithBlock:(dispatch_block_t)block
@@ -93,62 +90,26 @@
 	return chapter;
 }
 
-//- (void)truncate
-//{
-//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//		ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid];
-//		if (managed) {
-//			[managed deleteInContext:localContext];
-//		}
-//	}];
-//	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
-//}
-//
-//+ (void)truncateAll
-//{
-//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//		[ChapterManaged truncateAllInContext:localContext];
-//	}];
-//	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
-//}
-//
+- (void)truncate
+{
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (persist) {
+			[persist deleteInContext:localContext];
+		}
+	}];
+}
 
-//+ (NSArray *)create:(NSArray *)mangedArray
-//{
-//	NSMutableArray *rtnAll = [@[] mutableCopy];
-//	for (ChapterManaged *manged in mangedArray) {
-//		[rtnAll addObject:[self createWithManaged:manged]];
-//	}
-//	return rtnAll;
-//}
++ (void)truncateAll
+{
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		[Chapter truncateAllInContext:localContext];
+	}];
+}
 
-//+ (NSArray *)findAll
-//{
-//	NSArray *all = [ChapterManaged findAll];
-//	return [self create:all];
-//}
-//
-
-//
-//+ (Chapter *)createWithManaged:(ChapterManaged *)managed
-//{
-//	Chapter *chapter = [[Chapter alloc] init];
-//	chapter.uid = managed.uid;
-//	chapter.bid = managed.bid;
-//	chapter.name = managed.name;
-//	chapter.bBuy = managed.bBuy;
-//	chapter.bRead = managed.bRead;
-//	chapter.bVip = managed.bVip;
-//	chapter.content = managed.content;
-//	chapter.index = managed.index;
-//	return chapter;
-//}
-//
-//+ (NSArray *)findAllWithPredicate:(NSPredicate *)searchTerm
-//{
-//	NSArray *all = [ChapterManaged findAllWithPredicate:searchTerm];
-//	return [self create:all];
-//}
-
++ (NSArray *)chaptersRelatedToBook:(NSString *)bookid
+{
+    return [Chapter findByAttribute:@"bid" withValue:bookid andOrderBy:@"index" ascending:YES];
+}
 
 @end
