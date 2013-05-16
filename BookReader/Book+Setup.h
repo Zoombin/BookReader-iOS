@@ -11,7 +11,7 @@
 
 @interface Book (Setup) <ZBManagedObjectDelegate>
 
-- (NSUInteger)numberOfUnreadChapters;
+- (NSUInteger)countOfUnreadChapters;
 + (NSArray *)findAllAndSortedByDate;
 
 @end

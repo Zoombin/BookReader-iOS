@@ -140,7 +140,7 @@
 	}];
 }
 
-- (NSUInteger)numberOfUnreadChapters
+- (NSUInteger)countOfUnreadChapters
 {
 	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO", self.uid]];
 }
