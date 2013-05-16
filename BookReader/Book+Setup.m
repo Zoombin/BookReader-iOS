@@ -140,9 +140,9 @@
 	}];
 }
 
-- (NSNumber *)numberOfUnreadChapters
+- (NSUInteger)numberOfUnreadChapters
 {
-	return [Chapter numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO", self.uid]];
+	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ and bRead==NO", self.uid]];
 }
 
 + (NSArray *)findAllAndSortedByDate
