@@ -89,9 +89,7 @@
 
 - (void)sortBooks
 {
-    if ([books count]>0) {
-        [books removeAllObjects];
-    }
+	[books removeAllObjects];
 	//TODO
     //[books addObjectsFromArray:[Book findAllAndSortedByDate]];
     [booksView reloadData];
