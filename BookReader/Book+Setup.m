@@ -108,26 +108,26 @@
 - (Book *)cloneInContext:(NSManagedObjectContext *)context
 {
 	Book *book = [Book createInContext:context];
-	book.name = self.name;
-	book.progress = self.progress;
-	book.uid = self.uid;
-	book.author = self.author;
-	book.authorID = self.authorID;
-	book.autoBuy = self.autoBuy;
-	book.cover = self.cover;
-	book.coverURL = self.coverURL;
-	book.category = self.category;
-	book.categoryID = self.categoryID;
-	book.words = self.words;
-	book.lastUpdate = self.lastUpdate;
-	book.describe = self.describe;
-	book.recommandID = self.recommandID;
-	book.recommandTitle = self.recommandTitle;
-	book.rDate = self.rDate;
-	book.lastReadChapterIndex = self.lastReadChapterIndex;
+    book.author = self.author;
+    book.authorID = self.authorID;
+    book.autoBuy = self.autoBuy;
+    book.bFav = self.bFav;
+    book.bHistory = self.bHistory;
+    book.category = self.category;
+    book.categoryID = self.categoryID;
+    book.cover = self.cover;
+    book.coverURL = self.coverURL;
+    book.describe = self.describe;
+    book.lastReadChapterIndex = self.lastReadChapterIndex;
     book.lastReadIndex = self.lastReadIndex;
-	book.bFav = self.bFav;
-	book.bHistory = self.bHistory;
+    book.lastUpdate = self.lastUpdate;
+    book.name = self.name;
+    book.progress = self.progress;
+    book.rDate = self.rDate;
+    book.recommandID = self.recommandID;
+    book.recommandTitle = self.recommandTitle;
+    book.uid = self.uid;
+    book.words = self.words;
 	return book;
 }
 
