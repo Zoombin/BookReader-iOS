@@ -66,10 +66,11 @@
 	dispatch_queue_t callerQueue = dispatch_get_current_queue();
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Book *persist = [Book findFirstByAttribute:@"uid" withValue:self.uid];
+			Book *persist = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
 			if (!persist) {
-				persist = [self cloneInContext:localContext];
+				persist = [Book createInContext:localContext];
 			}
+			[self clone:persist];
 		} completion:^(BOOL success, NSError *error) {
 			dispatch_async(callerQueue, ^(void) {
 				if (block) block();
@@ -84,10 +85,11 @@
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			[array enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-				Book *persist = [Book findFirstByAttribute:@"uid" withValue:book.uid];
+				Book *persist = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
 				if (!persist) {
-					persist = [book cloneInContext:localContext];
+					persist = [Book createInContext:localContext];
 				}
+				[book clone:persist];
 			}];
 		} completion:^(BOOL success, NSError *error) {
 			dispatch_async(callerQueue, ^(void) {
@@ -98,9 +100,8 @@
 }
 
 
-- (Book *)cloneInContext:(NSManagedObjectContext *)context
+- (void)clone:(Book *)book
 {
-	Book *book = [Book createInContext:context];
     book.author = self.author;
     book.authorID = self.authorID;
     book.autoBuy = self.autoBuy;
@@ -120,7 +121,6 @@
     book.recommandTitle = self.recommandTitle;
     book.uid = self.uid;
     book.words = self.words;
-	return book;
 }
 
 - (void)truncate

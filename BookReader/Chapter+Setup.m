@@ -44,10 +44,11 @@
 	dispatch_queue_t callerQueue = dispatch_get_current_queue();
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid];
+			Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
 			if (!persist) {
-				persist = [self cloneInContext:localContext];
+				persist = [Chapter createInContext:localContext];
 			}
+			[self clone:persist];
 		} completion:^(BOOL success, NSError *error) {
 			dispatch_async(callerQueue, ^(void) {
 				if (block) block();
@@ -62,10 +63,11 @@
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			[array enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-				Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid];
+				Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
 				if (!persist) {
-					persist = [chapter cloneInContext:localContext];
+					persist = [Chapter createInContext:localContext];
 				}
+				[chapter clone:persist];
 			}];
 		} completion:^(BOOL success, NSError *error) {
 			dispatch_async(callerQueue, ^(void) {
@@ -75,9 +77,8 @@
 	});
 }
 
-- (Chapter *)cloneInContext:(NSManagedObjectContext *)context
+- (void)clone:(Chapter *)chapter
 {
-	Chapter *chapter = [Chapter createInContext:context];
     chapter.bBuy = self.bBuy;
     chapter.bid = self.bid;
     chapter.bRead = self.bRead;
@@ -87,7 +88,6 @@
     chapter.lastReadIndex = self.lastReadIndex;
     chapter.name = self.name;
     chapter.uid = self.uid;
-	return chapter;
 }
 
 - (void)truncate
