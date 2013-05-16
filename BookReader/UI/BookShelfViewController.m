@@ -108,20 +108,16 @@
 			[books addObjectsFromArray:result];
 			[Book persist:books withBlock:nil];
 			[booksView reloadData];
-			Book *book = books[0];
-			[book truncate];
-//			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-//				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
-//					if (!error) {
-//						//TODO
-//						//[Chapter persist:result withBlock:nil];
-//					}
-//					
-//					if (idx == books.count - 1) {
-//						//[self syncChapterContent:0 bookIdx:0];
-//					}
-//				}];
-//			}];
+			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
+				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+					if (!error) {
+						[Chapter persist:result withBlock:nil];
+					}
+					if (idx == books.count - 1) {
+						//[self syncChapterContent:0 bookIdx:0];
+					}
+				}];
+			}];
         }
     }];
 }
@@ -287,9 +283,7 @@
 		bookCell.cellSelected = !bookCell.cellSelected;
 	} else {
         bookCell.book.rDate = [NSDate date];
-		//TODO
-		
-        //[bookCell.book persistWithBlock:nil];
+        [bookCell.book persistWithBlock:nil];
         [self.navigationController pushViewController:[[CoreTextViewController alloc] initWithBook:bookCell.book chapter:nil chaptersArray:nil andOnline:NO] animated:YES];
 	}
 }
