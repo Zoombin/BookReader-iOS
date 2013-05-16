@@ -42,18 +42,55 @@
     return [Chapter findByAttribute:@"bid" withValue:bookid andOrderBy:@"index" ascending:YES];
 }
 
-//
-//- (void)sync:(ChapterManaged *)managed
-//{
-//	managed.uid = uid;
-//	managed.bid = bid;
-//	managed.name = name;
-//	managed.bBuy = bBuy;
-//	managed.bRead = bRead;
-//	managed.bVip = bVip;
-//	managed.content = content;
-//	managed.index = index;
-//}
+- (void)persistWithBlock:(dispatch_block_t)block
+{
+	dispatch_queue_t callerQueue = dispatch_get_current_queue();
+	dispatch_async(dispatch_get_main_queue(), ^(void) {
+		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+			Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid];
+			if (!persist) {
+				persist = [self cloneInContext:localContext];
+			}
+		} completion:^(BOOL success, NSError *error) {
+			dispatch_async(callerQueue, ^(void) {
+				if (block) block();
+			});
+		}];
+	});
+}
+
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
+{
+	dispatch_queue_t callerQueue = dispatch_get_current_queue();
+	dispatch_async(dispatch_get_main_queue(), ^(void) {
+		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+			[array enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+				Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid];
+				if (!persist) {
+					persist = [chapter cloneInContext:localContext];
+				}
+			}];
+		} completion:^(BOOL success, NSError *error) {
+			dispatch_async(callerQueue, ^(void) {
+				if (block) block();
+			});
+		}];
+	});
+}
+
+- (Chapter *)cloneInContext:(NSManagedObjectContext *)context
+{
+	Chapter *chapter = [Chapter createInContext:context];
+	chapter.uid = self.uid;
+	chapter.bid = self.bid;
+	chapter.name = self.name;
+	chapter.bBuy = self.bBuy;
+	chapter.bRead = self.bRead;
+	chapter.bVip = self.bVip;
+	chapter.content = self.content;
+	chapter.index = self.index;
+	return chapter;
+}
 
 //- (void)truncate
 //{
@@ -74,32 +111,7 @@
 //	[[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 //}
 //
-//- (void)persistWithBlock:(dispatch_block_t)block
-//{
-//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//		ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:uid inContext:localContext];
-//		if (!managed) {
-//			managed = [ChapterManaged createInContext:localContext];
-//		}
-//		[self sync:managed];
-//		if (block) block();
-//	}];
-//}
 
-//+ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
-//{
-//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//		for (Chapter *chapter in array) {
-//			ChapterManaged *managed = [ChapterManaged findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
-//			if (!managed) {
-//				managed = [ChapterManaged createInContext:localContext];
-//			}
-//			[chapter sync:managed];
-//		}
-//		if (block) block();
-//	}];
-//}
-//
 //+ (NSArray *)create:(NSArray *)mangedArray
 //{
 //	NSMutableArray *rtnAll = [@[] mutableCopy];
