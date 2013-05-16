@@ -19,6 +19,4 @@
 - (void)truncate;
 + (void)truncateAll;
 
-//- (BOOL)isPersisted;
-
 @end
