@@ -21,6 +21,7 @@
 @dynamic coverURL;
 @dynamic describe;
 @dynamic lastReadChapterIndex;
+@dynamic lastReadIndex;
 @dynamic lastUpdate;
 @dynamic name;
 @dynamic progress;

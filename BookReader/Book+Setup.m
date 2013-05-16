@@ -29,6 +29,7 @@
 	book.categoryID = attributes[@"classId"];
     book.rDate = [NSDate date];
     book.lastReadChapterIndex = [NSNumber numberWithInt:0];
+    book.lastReadIndex = [NSNumber numberWithInt:0];
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -124,6 +125,7 @@
 	book.recommandTitle = self.recommandTitle;
 	book.rDate = self.rDate;
 	book.lastReadChapterIndex = self.lastReadChapterIndex;
+    book.lastReadIndex = self.lastReadIndex;
 	book.bFav = self.bFav;
 	book.bHistory = self.bHistory;
 	return book;
