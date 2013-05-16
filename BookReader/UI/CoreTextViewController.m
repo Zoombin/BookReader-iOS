@@ -19,7 +19,8 @@
 #import "ServiceManager.h"
 #import "BookReaderDefaultsManager.h"
 #import "ReadHelpView.h"
-
+#import "Book+Setup.h"
+#import "Chapter+Setup.h"
 
 @implementation CoreTextViewController {
     CoreTextView *coreTextView;
@@ -138,6 +139,7 @@
     if (bOnline) {
         [self chapterDataFromService];
     } else {
+		//TODO
         NSArray *array = [Chapter chaptersWithBookID:book.uid];
         if ([array count]>0) {
             [chaptersArray addObjectsFromArray:array];
@@ -559,8 +561,9 @@
         chapter = obj;
         obj.bRead = [NSNumber numberWithBool:YES];
         book.lastReadChapterIndex = [NSNumber numberWithInt:index];
-        [book persistWithBlock:nil];
-        [obj persistWithBlock:nil];
+		//TODO
+        //[book persistWithBlock:nil];
+        //[obj persistWithBlock:nil];
         [self updateContent];
         [self hideHUD:YES];
     }else {
@@ -577,9 +580,10 @@
                     obj.content = content;
                     obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
-                    [obj persistWithBlock:nil];
+					//TODO
+                    //[obj persistWithBlock:nil];
                     book.lastReadChapterIndex = [NSNumber numberWithInt:index];
-                    [book persistWithBlock:nil];
+                    //[book persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     currentPage = 0;
                     [self updateContent];
@@ -604,9 +608,10 @@
                     obj.content = content;
                     obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
-                    [obj persistWithBlock:nil];
+					//TODO
+                    //[obj persistWithBlock:nil];
                     book.lastReadChapterIndex = [NSNumber numberWithInt:index];
-                    [book persistWithBlock:nil];
+                    //[book persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     currentPage = 0;
                     [self updateContent];

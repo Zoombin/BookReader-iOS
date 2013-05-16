@@ -15,6 +15,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
+#import "Chapter+Setup.h"
 
 @implementation SubscribeViewController
 {

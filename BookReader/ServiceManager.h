@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 #import "Member.h"
-#import "Chapter.h"
 #import "Commit.h"
 #import "Pay.h"
-#import "Book.h"
+
 
 #define SUCCESS_FLAG        @"0000"
 #define NETWORK_ERROR        @"网络异常"
 #define USER_ID   @"userid"
 
+
+@class Book;
 @interface ServiceManager : AFHTTPClient
 
 +(ServiceManager *)shared;

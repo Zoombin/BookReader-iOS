@@ -66,7 +66,8 @@
 		}];
     }
     
-    [self setBadge:[[_book numberOfUnreadChapters] integerValue]];
+	//TODO
+    //[self setBadge:[[_book numberOfUnreadChapters] integerValue]];
     
     if (_book.progress) {
         [progressView setProgress:book.progress.floatValue];

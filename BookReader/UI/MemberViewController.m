@@ -129,8 +129,9 @@
     isLogin = NO;
     //清除个人信息等...
     [ServiceManager deleteUserID];
-	[Book truncateAll];
-	[Chapter truncateAll];
+	//TODO
+	//[Book truncateAll];
+	//[Chapter truncateAll];
     [self reloadUI];
 }
 

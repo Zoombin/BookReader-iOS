@@ -14,4 +14,6 @@
 @property (nonatomic, strong) NSNumber * uid;
 @property (nonatomic, strong) NSString * name;
 
++ (Member *)createWithAttributes:(NSDictionary *)attributes;
+
 @end

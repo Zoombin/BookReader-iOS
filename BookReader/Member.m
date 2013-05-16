@@ -15,4 +15,13 @@
 @synthesize uid;
 @synthesize name;
 
++ (Member *)createWithAttributes:(NSDictionary *)attributes
+{
+    Member *member = [[Member alloc] init];
+    member.uid = attributes[@"userid"];
+    member.coin = attributes[@"account"];
+    member.name = attributes[@"username"];
+	return member;
+}
+
 @end

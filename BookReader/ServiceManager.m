@@ -11,10 +11,9 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFJSONRequestOperation.h"
 #import "NSString+XXSY.h"
-#import "Book.h"
-#import "Chapter.h"
-#import "Member+Setup.h"
 #import "BookReaderDefaultsManager.h"
+#import "Chapter+Setup.h"
+#import "Book+Setup.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -300,7 +299,7 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         NSMutableArray *bookListsArray = [@[] mutableCopy];
         if ([theObject[@"bookList"] isKindOfClass:[NSArray class]]) {
-			[bookListsArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
+			[bookListsArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(bookListsArray, nil);
@@ -319,7 +318,7 @@ static NSNumber *sUserID;
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSArray *bookListArray = [theObject objectForKey:@"bookList"];
         NSMutableArray *resultArray = [@[] mutableCopy];
-		[resultArray addObjectsFromArray:[Book booksWithAttributesArray:bookListArray]];
+		[resultArray addObjectsFromArray:[Book createWithAttributesArray:bookListArray]];
         if (block) {
             block(resultArray, nil);
         }
@@ -339,7 +338,7 @@ static NSNumber *sUserID;
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
         NSDictionary *dict = [theObject objectForKey:@"book"];
-        Book *book = [Book createBookWithAttributes:dict];
+        Book *book = (Book *)[Book createWithAttributes:dict];
         if (block) {
             block(book, nil);
         }
@@ -392,7 +391,7 @@ static NSNumber *sUserID;
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
-			[resultArray addObjectsFromArray:[Chapter chaptersWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
+			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andBookID:bookid]];
         }
         if (block) {
             block(resultArray, nil);
@@ -462,7 +461,7 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-		[bookList addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"keepList"] andFav:YES]];
+		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andFav:YES]];
         if (block) {
             block(bookList, nil);
         }
@@ -547,7 +546,7 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
+			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(resultArray, nil);
@@ -571,7 +570,7 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			[resultArray addObjectsFromArray:[Book booksWithAttributesArray:theObject[@"bookList"]]];
+			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"]]];
         }
         if (block) {
             block(resultArray, nil);

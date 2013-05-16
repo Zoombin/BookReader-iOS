@@ -29,6 +29,8 @@
 #import "BRBooksView.h"
 #import "BRBookCell.h"
 #import "BookReaderDefaultsManager.h"
+#import "Book+Setup.h"
+#import "Chapter+Setup.h"
 
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
 @end
@@ -90,7 +92,8 @@
     if ([books count]>0) {
         [books removeAllObjects];
     }
-    [books addObjectsFromArray:[Book findAllAndSortedByDate]];
+	//TODO
+    //[books addObjectsFromArray:[Book findAllAndSortedByDate]];
     [booksView reloadData];
 }
 
@@ -111,7 +114,8 @@
 			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
 				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
 					if (!error) {
-						[Chapter persist:result withBlock:nil];
+						//TODO
+						//[Chapter persist:result withBlock:nil];
 					}
 					
 					if (idx == books.count - 1) {
@@ -136,9 +140,10 @@
 			[self displayHUD:[NSString stringWithFormat:@"下载中%@:%@", book.name, chapter.name]];
 			[ServiceManager bookCatalogue:book.uid	withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 				chapter.content = content;
-				[chapter persistWithBlock:^{
-					[self syncChapterContent:idx + 1 bookIdx:bookIdx];
-				}];
+				//TODO
+//				[chapter persistWithBlock:^{
+//					[self syncChapterContent:idx + 1 bookIdx:bookIdx];
+//				}];
 			}];
 		}];
 	}];
@@ -285,7 +290,9 @@
 		bookCell.cellSelected = !bookCell.cellSelected;
 	} else {
         bookCell.book.rDate = [NSDate date];
-        [bookCell.book persistWithBlock:nil];
+		//TODO
+		
+        //[bookCell.book persistWithBlock:nil];
         [self.navigationController pushViewController:[[CoreTextViewController alloc] initWithBook:bookCell.book chapter:nil chaptersArray:nil andOnline:NO] animated:YES];
 //		[self.navigationController pushViewController:[[SubscribeViewController alloc] initWithBookId:bookCell.book andOnline:NO] animated:YES];
 	}
