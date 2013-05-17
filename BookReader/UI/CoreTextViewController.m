@@ -120,9 +120,9 @@
     helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds];
     [helpView setHidden:YES];
     [self.view addSubview:helpView];
-    if (![BookReaderDefaultsManager objectForKey:UserDefaultKeyFirstLaunch]) {
+    if (![BookReaderDefaultsManager objectForKey:UserDefaultFirstRead]) {
         [helpView setHidden:NO];
-        [BookReaderDefaultsManager setObject:[NSNumber numberWithInt:1] ForKey:UserDefaultKeyFirstLaunch];
+        [BookReaderDefaultsManager setObject:[NSNumber numberWithInt:1] ForKey:UserDefaultFirstRead];
     }
 }
 
