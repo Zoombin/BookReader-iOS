@@ -74,7 +74,7 @@
     }
 	
     if (_book.autoBuy) {
-		self.autoBuy = _book.autoBuy;
+		self.autoBuy = _book.autoBuy.boolValue;
     }
 }
 
