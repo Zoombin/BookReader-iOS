@@ -49,7 +49,6 @@
     Book *book;
     
     NSMutableArray *chaptersArray;
-    NSString *key;
     
     ReadHelpView *helpView;
     
@@ -76,13 +75,9 @@
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
         
-        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@", [ServiceManager userID]];
-        if ([ServiceManager userID] == nil) {
-            key = @"04B6A5985B70DC641B0E98C0F8B221A60";
-        }
         if (chapterObj != nil && [chaptersArray count] >0) {
             shouldLoadChapter = NO;
-            [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+            [textString setString:[chapter.content XXSYDecoding]];
         } else {
             shouldLoadChapter = YES;
         }
@@ -142,10 +137,19 @@
 	
 	NSLog(@"start to read book: %@,  chapter: %@", book, chapter);
 	if (!chapter) {//反正数据库没有，章节列表都没有，应该什么地方出错了，退出。所以书城那里应该先去获取章节目录，存到数据库完毕后再推出这个VC
-		[self.navigationController popViewControllerAnimated:YES];
+		[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
 	} else if (chapter.content == nil) {//有章节目录，但是没内容，需要去网上取章节内容
 		if (chapter.bVip.boolValue) {//如果是收费章节，api不同
-			
+			[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+				if (content && ![content isEqualToString:@""]) {
+					chapter.content = content;
+					[chapter persistWithBlock:^(void) {
+						//解码阅读
+					}];
+				} else {//没订阅到，退出。或者弹出提示
+					[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
+				}
+			}];
 		} else {//普通下载
 			[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 				if (content && ![content isEqualToString:@""]) {
@@ -154,14 +158,12 @@
 						book.lastReadChapterID = chapter.uid;
 						//解码开始阅读
 					}];
-				} else {
-					[self.navigationController popViewControllerAnimated:YES];//没下载到，退出
+				} else {//没下载到
+					[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
 				}
 			}];
 		}
 	}
-	
-	
 	
 //    [self updateContent];
 //    if (shouldLoadChapter && [chaptersArray count] == 0) {
@@ -633,7 +635,7 @@
     Chapter *obj = [chaptersArray objectAtIndex:index];
     if (obj.content!=nil) {
         NSLog(@"已下载");
-        [textString setString:[obj.content XXSYDecodingWithKey:key]];
+        [textString setString:[obj.content XXSYDecoding]];
         [self setPageIndexByChapter:chapter];
         chapter = obj;
         chapter.bRead = [NSNumber numberWithBool:YES];
@@ -657,7 +659,7 @@
                     book.lastReadChapterID = chapter.uid;
                     [chapter persistWithBlock:nil];
                     [book persistWithBlock:nil];
-                    [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+                    [textString setString:[chapter.content XXSYDecoding]];
                     [self setPageIndexByChapter:chapter];
                     [self updateContent];
                     [self hideHUD:YES];
@@ -682,7 +684,7 @@
                     book.lastReadChapterID = chapter.uid;
                     [chapter persistWithBlock:nil];
                     [book persistWithBlock:nil];
-                    [textString setString:[chapter.content XXSYDecodingWithKey:key]];
+                    [textString setString:[chapter.content XXSYDecoding]];
                     [self setPageIndexByChapter:chapter];
                     [self updateContent];
                     [self hideHUD:YES];
