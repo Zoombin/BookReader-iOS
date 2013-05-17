@@ -316,7 +316,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		bookCell.cellSelected = !bookCell.cellSelected;
 	} else {
         bookCell.book.rDate = [NSDate date];
-        [bookCell.book persistWithBlock:nil];
+        [bookCell.book persistWithBlock:nil];//TODO need to this when actually start to read
         [self.navigationController pushViewController:[[CoreTextViewController alloc] initWithBook:bookCell.book chapter:nil chaptersArray:nil andOnline:NO] animated:YES];
 	}
 }

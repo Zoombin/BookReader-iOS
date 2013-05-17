@@ -8,18 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
-#import "Chapter.h"
-#import "Book.h"
 #import "SubscribeViewController.h"
 
+@class Book;
+@class Chapter;
 @interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate>
-{
-    BOOL bFlipV;
-    NSInteger startPointX;
-    NSInteger startPointY;
-}
 - (id)initWithBook:(Book *)bookObj
            chapter:(Chapter *)chapterObj
      chaptersArray:(NSArray *)array
          andOnline:(BOOL)online;
+
+
 @end

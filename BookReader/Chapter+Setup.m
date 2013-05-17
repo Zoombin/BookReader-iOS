@@ -92,7 +92,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"uid = %@, bookID = %@", self.uid, self.bid];
+	return [NSString stringWithFormat:@"(uid=%@, bookID=%@)", self.uid, self.bid];
 }
 
 - (void)truncate

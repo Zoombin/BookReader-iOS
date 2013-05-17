@@ -29,7 +29,6 @@
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
     book.rDate = [NSDate date];
-    book.lastReadChapterID = @"";
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -125,7 +124,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"uid = %@, name = %@", self.uid, self.name];
+	return [NSString stringWithFormat:@"(uid=%@, name=%@)", self.uid, self.name];
 }
 
 - (void)truncate

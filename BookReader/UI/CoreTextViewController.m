@@ -23,6 +23,10 @@
 #import "Chapter+Setup.h"
 
 @implementation CoreTextViewController {
+	BOOL bFlipV;
+    NSInteger startPointX;
+    NSInteger startPointY;
+
     CoreTextView *coreTextView;
     NSMutableArray *pagesArray;
     NSMutableString *mString;
@@ -63,7 +67,7 @@
     if (self)
     {
         book = bookObj;
-        chapter = chapterObj;
+        //chapter = chapterObj;
         currentPage = 0;
         bFlipV = NO;
         mString = [@"" mutableCopy];
@@ -72,11 +76,11 @@
         
         chaptersArray = [[NSMutableArray alloc] initWithArray:array];
         
-        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@",[ServiceManager userID]];
-        if ([ServiceManager userID]==nil) {
+        key = [NSString stringWithFormat:@"04B6A5985B70DC641B0E98C0F8B221A6%@", [ServiceManager userID]];
+        if ([ServiceManager userID] == nil) {
             key = @"04B6A5985B70DC641B0E98C0F8B221A60";
         }
-        if (chapterObj!=nil&&[chaptersArray count]>0) {
+        if (chapterObj != nil && [chaptersArray count] >0) {
             shouldLoadChapter = NO;
             [textString setString:[chapter.content XXSYDecodingWithKey:key]];
         } else {
@@ -130,23 +134,52 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateContent];
-    if (shouldLoadChapter&&[chaptersArray count]==0) {
-        [self loadChapterData];
-    }
+	if (book.lastReadChapterID) {//最近读过
+		chapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", book.lastReadChapterID]];
+	} else {//没读过，从第0章开始
+		chapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=0", book.uid]];
+	}
+	
+	NSLog(@"start to read book: %@,  chapter: %@", book, chapter);
+	if (!chapter) {//反正数据库没有，章节列表都没有，应该什么地方出错了，退出。所以书城那里应该先去获取章节目录，存到数据库完毕后再推出这个VC
+		[self.navigationController popViewControllerAnimated:YES];
+	} else if (chapter.content == nil) {//有章节目录，但是没内容，需要去网上取章节内容
+		if (chapter.bVip.boolValue) {//如果是收费章节，api不同
+			
+		} else {//普通下载
+			[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+				if (content && ![content isEqualToString:@""]) {
+					chapter.content = content;
+					[chapter persistWithBlock:^(void) {
+						book.lastReadChapterID = chapter.uid;
+						//解码开始阅读
+					}];
+				} else {
+					[self.navigationController popViewControllerAnimated:YES];//没下载到，退出
+				}
+			}];
+		}
+	}
+	
+	
+	
+//    [self updateContent];
+//    if (shouldLoadChapter && [chaptersArray count] == 0) {
+//        [self loadChapterData];
+//    }
 }
 
 - (void)loadChapterData
 {
     NSArray *array = [Chapter chaptersRelatedToBook:book.uid];
-    if ([array count]>0) {
+    if ([array count] > 0) {
         NSLog(@"章节目录存在!");
         NSLog(@"%d",[array count]);
         [chaptersArray removeAllObjects];
         [chaptersArray addObjectsFromArray:array];
         NSArray *chapterObjArray = [Chapter findByAttribute:@"uid" withValue:book.lastReadChapterID];
         int index = 0;
-        if ([chapterObjArray count]>0) {
+        if ([chapterObjArray count] > 0) {
             Chapter *tmpObj = [chapterObjArray objectAtIndex:0];
             index = [tmpObj.index intValue];
             chapter = tmpObj;
@@ -161,10 +194,7 @@
 - (void)chapterDataFromService
 {
     [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
-        if (error) {
-            
-        }
-        else {
+        if (!error) {
             [chaptersArray removeAllObjects];
             [Chapter persist:result withBlock:nil];
             [chaptersArray addObjectsFromArray:result];
@@ -220,15 +250,13 @@
 }
 
 - (void)updateContent {
-    if ([pagesArray count]>0) {
-        [pagesArray removeAllObjects];
-    }
+	[pagesArray removeAllObjects];
     currentFont = [self setFontWithName:currentFontName];
     [pagesArray addObjectsFromArray:[self pagesWithString:textString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:currentFont]];
-    if (currentPage>=[pagesArray count]) {
-        currentPage = [pagesArray count]-1;
+    if (currentPage >= [pagesArray count]) {
+        currentPage = [pagesArray count] - 1;
     }
-    if (firstEnter && [textString length]>0) {
+    if (firstEnter && [textString length] > 0) {
         firstEnter = NO;
         [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
     }
@@ -470,7 +498,6 @@
     if (!helpView.hidden) {
         helpView.hidden = YES;
     }
-    //NSLog(@"end ponts x : %f y : %f", endPoint.x, endPoint.y);
     
     if (startPointX == NSIntegerMax || startPointY == NSIntegerMax) {
         return;
@@ -617,11 +644,9 @@
         [self hideHUD:YES];
     }else {
         [ServiceManager bookCatalogue:obj.uid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
-            if (error)
-            {
+            if (error) {
                 [self displayHUDError:nil message:NETWORK_ERROR];
-            }
-            else {
+            } else {
                 if (![code isEqualToString:SUCCESS_FLAG]) {
                     [self chapterSubscribeWithObj:obj];
                 }
@@ -648,9 +673,7 @@
         [ServiceManager chapterSubscribeWithChapterID:obj.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
             if (error) {
                 [self hideHUD:YES];
-            }
-            else
-            {
+            } else {
                 if ([code isEqualToString:SUCCESS_FLAG]) {
                     chapter = obj;
                     chapter.bBuy = [NSNumber numberWithBool:YES];
@@ -668,8 +691,7 @@
                 }
             }
         }];
-    }
-    else {
+    } else {
         
     }
 }
