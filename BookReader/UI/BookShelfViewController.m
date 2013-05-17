@@ -69,7 +69,7 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent:) name:kStartSyncChaptersContentNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,20 +116,34 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
     }];
 }
 
-- (void)syncChaptersContent:(id)sender
+- (void)syncChaptersContent
 {
-	NSArray *chapters = [Chapter findAll];//TODO, no need all chapter,just these need to sync
-	[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+	Chapter *chapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]];
+	if (!chapter) {
+		NSLog(@"syncChaptersContext finished");
+		return;
+	}
+	NSLog(@"find a content nil chapter uid = %@", chapter.uid);
 		//[self displayHUD:@"下载中"];
-		//dispatch_sync(dispatch_get_main_queue(), ^(void) {
-			[ServiceManager bookCatalogue:chapter.bid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+			[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 				chapter.content = content;
 				[chapter persistWithBlock:nil];
 				//[self hideHUD:YES];
-				NSLog(@"idx = %d", idx);
+				[self syncChaptersContent];
 			}];
-		//});
-	}];
+}
+
+- (void)syncAutoSubscribe
+{
+	Chapter *chapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bVip=YES"]];
+	if (chapter) {
+		Book *book = [Book findFirstByAttribute:@"uid" withValue:chapter.uid];
+		if (book.autoBuy.boolValue) {
+			
+		} else {
+			//next a chapter
+		}
+	}
 }
 
 //- (void)subscribeBook:(Chapter *)chapter
