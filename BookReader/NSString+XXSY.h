@@ -42,6 +42,7 @@
 @interface NSString (XXSY)
 
 - (NSString *)XXSYHandleRedundantTags;
+- (NSString *)XXSYDecoding;
 - (NSString *)XXSYDecodingWithKey:(NSString *)key;
 
 @end

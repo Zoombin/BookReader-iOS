@@ -7,14 +7,19 @@
 //
 
 #import "NSString+XXSY.h"
+#import "ServiceManager.h"
 
 #define dic @"0123456789ABCDEF"
-
 
 @implementation NSString (XXSY)
 - (NSString *)XXSYHandleRedundantTags
 {
 	return [self stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
+}
+
+- (NSString *)XXSYDecoding
+{
+	return [self XXSYDecodingWithKey:[ServiceManager XXSYDecodingKey]];
 }
 
 - (NSString *)XXSYDecodingWithKey:(NSString *)key
