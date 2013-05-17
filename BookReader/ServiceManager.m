@@ -21,8 +21,6 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-#define DEFAULF_KEY    @"04B6A5985B70DC641B0E98C0F8B221A6" //用于解密
-
 //#define XXSY_BASE_URL   @"http://10.224.72.188/service/"
 #define XXSY_BASE_URL  @"http://link.xxsy.net/service"
 #define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
