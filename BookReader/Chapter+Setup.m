@@ -90,6 +90,11 @@
     chapter.uid = self.uid;
 }
 
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"uid = %@, bookID = %@", self.uid, self.bid];
+}
+
 - (void)truncate
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {

@@ -19,4 +19,6 @@
 - (void)truncate;
 + (void)truncateAll;
 
+- (NSString *)description;
+
 @end

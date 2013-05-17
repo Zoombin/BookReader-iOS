@@ -111,6 +111,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
         }else {
 			books = [result mutableCopy];
 			[Book persist:books withBlock:^(void) {
+				books = [[Book findAll] mutableCopy];
 				[booksForDisplay removeAllObjects];
 				[booksForDisplay addObjectsFromArray:books];
 				[booksView reloadData];
@@ -125,6 +126,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (books.count <= 0) {
 		NSLog(@"sync chapters finished");
 		[booksView reloadData];
+		[chapters removeAllObjects];
 		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
@@ -151,12 +153,14 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
-		NSLog(@"autoSubscribeOnBooks = %@", autoSubscribeOnBooks);
+		NSLog(@"found %d books autoBuy is ON", autoSubscribeOnBooks.count);
 		[autoSubscribeOnBooks enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
 			[chapters addObjectsFromArray:[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bVip=YES AND content=nil AND bid=%@", book.uid]]];
-			NSLog(@"find some chapters need auto subscribe");
 		}];
-		NSLog(@"find %d chapters", chapters.count);
+		NSLog(@"find %d chapters need subscribe...", chapters.count);
+		for (Chapter *chapter in chapters) {
+			NSLog(@"%@", chapter);
+		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
 		return;
 	}

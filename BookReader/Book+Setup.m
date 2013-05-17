@@ -123,6 +123,11 @@
     book.words = self.words;
 }
 
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"uid = %@, name = %@", self.uid, self.name];
+}
+
 - (void)truncate
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
