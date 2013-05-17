@@ -32,14 +32,17 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 
-
+static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
+static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscribe";
 
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
 @end
 
 @implementation BookShelfViewController {
+	NSMutableArray *booksForDisplay;
     NSMutableArray *books;
+	NSMutableArray *chapters;
     BookShelfHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
@@ -50,7 +53,6 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    books = [[NSMutableArray alloc] init];
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.dataSource = self;
@@ -69,9 +71,18 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent:) name:kStartSyncChaptersContentNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncChaptersNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncChaptersContentNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncAutoSubscribeNotification object:nil];
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -81,8 +92,8 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
 		//TODO
 		//switch to history and display history
     } else {
-		//books = [[Book findAllAndSortedByDate] mutableCopy];
-		//[booksView reloadData];
+		booksForDisplay = [[Book findAllAndSortedByDate] mutableCopy];
+		[booksView reloadData];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
@@ -98,67 +109,95 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
         if (error) {
 			[self displayHUDError:nil message:error.description];
         }else {
-			[books removeAllObjects];
-			[books addObjectsFromArray:result];
-			[Book persist:books withBlock:nil];
-			[books enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-				[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
-					if (!error) {
-						[Chapter persist:result withBlock:nil];
-					}
-					if (idx == books.count - 1) {
-						[booksView reloadData];
-						[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
-					}
-				}];
+			books = [result mutableCopy];
+			[Book persist:books withBlock:^(void) {
+				[booksForDisplay removeAllObjects];
+				[booksForDisplay addObjectsFromArray:books];
+				[booksView reloadData];
+				[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
 			}];
         }
     }];
 }
 
-- (void)syncChaptersContent:(id)sender
+- (void)syncChapters
 {
-	NSArray *chapters = [Chapter findAll];//TODO, no need all chapter,just these need to sync
-	[chapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-		//[self displayHUD:@"下载中"];
-		//dispatch_sync(dispatch_get_main_queue(), ^(void) {
-			[ServiceManager bookCatalogue:chapter.bid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
-				chapter.content = content;
-				[chapter persistWithBlock:nil];
-				//[self hideHUD:YES];
-				NSLog(@"idx = %d", idx);
+	if (books.count <= 0) {
+		NSLog(@"sync chapters finished");
+		[booksView reloadData];
+		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
+		NSLog(@"find %d chapters need download content", chapters.count);
+		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+		return;
+	}
+	Book *book = books[0];
+	[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+		if (!error) {
+			[Chapter persist:result withBlock:^(void) {
+				[books removeObject:book];
+				[self syncChapters];
 			}];
-		//});
+		 } else {
+			[books removeObject:book];
+			 [self syncChapters];
+		 }
 	}];
 }
 
-//- (void)subscribeBook:(Chapter *)chapter
-//         andBookIndex:(NSInteger)bookIndex
-//andCurrentChapterArray:(NSArray *)chaptersArray
-//{
-//    Book *book = [books objectAtIndex:bookIndex];
-//    if ([chapter.bVip boolValue] && chapter.content == nil) {
-//        [ServiceManager chapterSubscribe:userid chapter:chapter.uid book:book.uid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
-//            if (error) {
-//                [self nextBookOrChapterWithChapter:chapter
-//                                  andChaptersArray:chaptersArray
-//                                      andBookIndex:bookIndex];
-//            }
-//            else {
-//                if ([result isEqualToString:SUCCESS_FLAG]) {
-//                    chapter.content = content;
-//                    [self nextBookOrChapterWithChapter:chapter
-//                                      andChaptersArray:chaptersArray
-//                                          andBookIndex:bookIndex];
-//                }else {
-//                    [self nextBookOrChapterWithChapter:chapter
-//                                      andChaptersArray:chaptersArray
-//                                          andBookIndex:bookIndex];
-//                }
-//            }
-//        }];
-//    }
-//}
+- (void)syncChaptersContent
+{
+	if (chapters.count <= 0) {
+		NSLog(@"sync chapters content finished");
+		[booksView reloadData];
+		[chapters removeAllObjects];
+		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
+		NSLog(@"autoSubscribeOnBooks = %@", autoSubscribeOnBooks);
+		[autoSubscribeOnBooks enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
+			[chapters addObjectsFromArray:[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bVip=YES AND content=nil AND bid=%@", book.uid]]];
+			NSLog(@"find some chapters need auto subscribe");
+		}];
+		NSLog(@"find %d chapters", chapters.count);
+		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
+		return;
+	}
+	Chapter *chapter = chapters[0];
+		//NSLog(@"content nil chapter uid = %@", chapter.uid);
+		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+			if (content && ![content isEqualToString:@""]) {
+				chapter.content = content;
+				[chapter persistWithBlock:^(void) {
+					[chapters removeObject:chapter];
+					[self syncChaptersContent];
+				}];
+			} else {
+				[chapters removeObject:chapter];
+				[self syncChaptersContent];
+			}
+		}];
+}
+
+- (void)syncAutoSubscribe
+{
+	if (chapters.count <= 0) {
+		NSLog(@"sync auto subscribe finished");
+//		[booksView reloadData];//TODO:do i need to reloaddata? seems noting need to be changed in UI
+		return;//nothing to do any more
+	}
+	Chapter *chapter = chapters[0];
+	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
+	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+		if (content && ![content isEqualToString:@""]) {
+			chapter.content = content;
+			[chapter persistWithBlock:^(void) {
+				[chapters removeObject:chapter];
+				[self syncAutoSubscribe];
+			}];
+		} else {
+			[chapters removeObject:chapter];
+			[self syncAutoSubscribe];
+		}
+	}];
+}
 
 - (void)removeFav:(NSInteger)idx
 {
@@ -287,6 +326,7 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
 		[self hideHUD:YES];
 		if (!error) {
 			bookCell.book.autoBuy = @(shiftToOnOrOff);
+			[bookCell.book persistWithBlock:nil];
 			bookCell.autoBuy = shiftToOnOrOff;
 		}
 	}];
@@ -295,12 +335,13 @@ static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_c
 #pragma mark - CollectionView
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	return books.count;
+	return booksForDisplay.count;
+	//return books.count;
 }
 
 - (PSTCollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	Book *book = books[indexPath.row];
+	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.badge = [book countOfUnreadChapters];
 	cell.editing = editing;
