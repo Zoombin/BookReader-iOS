@@ -28,6 +28,9 @@
     
     NSString *currentIntegral;
     NSMutableArray *buttonsArray;
+    
+    NSArray *normalImages;
+    NSArray *hlImages;
 }
 @synthesize delegate;
 
@@ -42,6 +45,9 @@
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
         keyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
         imageNamesArray = @[@"demand",@"flower",@"money",@"monthticket",@"comment"];
+        normalImages = @[@"integral_one",@"integral_two",@"integral_three",@"integral_four",@"integral_five"];
+        hlImages = @[@"integral_one_hl",@"integral_two_hl",@"integral_three_hl",@"integral_four_hl",@"integral_five_hl"];
+        
         buttonsArray = [[NSMutableArray alloc] init];
         
         numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(70, 8, 45, 20)];
@@ -78,19 +84,17 @@
 {
     if ([buttonsArray count]==0) {
         for (int i = 0; i< [integralArrays count]; i++) {
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setTag:i];
             [button setHidden:boolValue];
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             if (i==0) {
-                [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:hlImages[i]] forState:UIControlStateNormal]; 
                 currentIntegral = @"1";
             }else {
-                [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:normalImages[i]] forState:UIControlStateNormal];
             }
-            [button.titleLabel setFont:[UIFont systemFontOfSize:12]];
-            [button setFrame:CGRectMake(10+50*i+i*(self.bounds.size.width-20-50*5)/4, 80, 50, 50)];
-            [button setTitle:integralArrays[i] forState:UIControlStateNormal];
+            [button setFrame:CGRectMake(5+50*i+i*(self.bounds.size.width-20-50*5)/4, 80, 50, 50)];
             [self.contentView addSubview:button];
             [buttonsArray addObject:button];
         }
@@ -108,10 +112,10 @@
     for (int i = 0; i < 5; i++) {
         UIButton *button = [buttonsArray objectAtIndex:i];
         if (i==[sender tag]) {
-            [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:hlImages[i]] forState:UIControlStateNormal];
         }
         else {
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:normalImages[i]] forState:UIControlStateNormal];
         }
     }
 }
