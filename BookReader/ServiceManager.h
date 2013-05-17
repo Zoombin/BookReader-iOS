@@ -26,6 +26,7 @@
 + (void)saveUserID:(NSNumber *)userID;
 + (NSNumber *)userID;
 + (void)deleteUserID;
++ (NSString *)XXSYDecodingKey;
 
 #pragma mark - 用户接口
 //短信获取验证码
