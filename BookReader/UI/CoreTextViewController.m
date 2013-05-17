@@ -138,24 +138,23 @@
 
 - (void)loadChapterData
 {
-    if (bOnline) {
+    NSArray *array = [Chapter chaptersRelatedToBook:book.uid];
+    if ([array count]>0) {
+        NSLog(@"章节目录存在!");
+        NSLog(@"%d",[array count]);
+        [chaptersArray removeAllObjects];
+        [chaptersArray addObjectsFromArray:array];
+        NSArray *chapterObjArray = [Chapter findByAttribute:@"uid" withValue:book.lastReadChapterID];
+        int index = 0;
+        if ([chapterObjArray count]>0) {
+            Chapter *tmpObj = [chapterObjArray objectAtIndex:0];
+            index = [tmpObj.index intValue];
+            chapter = tmpObj;
+        }
+        [self downloadBookWithIndex:index];
+    }
+    else {
         [self chapterDataFromService];
-    } else {
-		//TODO
-        NSArray *array = [Chapter chaptersRelatedToBook:book.uid];
-        if ([array count]>0) {
-            [chaptersArray addObjectsFromArray:array];
-            NSArray *chapterObjArray = [Chapter findByAttribute:@"uid" withValue:book.lastReadChapterID];
-            int index = 0;
-            if ([chapterObjArray count]>0) {
-                Chapter *tmpObj = [chapterObjArray objectAtIndex:0];
-                index = [tmpObj.index intValue];
-            }
-            [self downloadBookWithIndex:index];
-        }
-        else {
-            [self chapterDataFromService];
-        }
     }
 }
 
@@ -166,9 +165,7 @@
             
         }
         else {
-            if ([chaptersArray count]>0) {
-                [chaptersArray removeAllObjects];
-            }
+            [chaptersArray removeAllObjects];
             [Chapter persist:result withBlock:nil];
             [chaptersArray addObjectsFromArray:result];
             if([book.lastReadChapterID length]==0) {
@@ -194,6 +191,7 @@
         NSRange range = NSRangeFromString([pagesArray objectAtIndex:currentPage]);
         book.lastReadChapterID = chapter.uid;
         chapter.lastReadIndex = @(range.location);
+        [chapter persistWithBlock:nil];
         [book persistWithBlock:nil];
     }
 }
@@ -402,6 +400,7 @@
     if ([chapter.index integerValue] == [chaptersArray count] - 1) {
         [self displayHUDError:@"" message:@"最后一章"];
     } else {
+        NSLog(@"%@",chapter.index);
         [self downloadBookWithIndex:[chapter.index integerValue]+1];
     }
 }
@@ -610,9 +609,9 @@
         [textString setString:[obj.content XXSYDecodingWithKey:key]];
         [self setPageIndexByChapter:chapter];
         chapter = obj;
-        obj.bRead = [NSNumber numberWithBool:YES];
-        book.lastReadChapterID = obj.uid;
-        [obj persistWithBlock:nil];
+        chapter.bRead = [NSNumber numberWithBool:YES];
+        book.lastReadChapterID = chapter.uid;
+        [chapter persistWithBlock:nil];
         [book persistWithBlock:nil];
         [self updateContent];
         [self hideHUD:YES];
@@ -627,11 +626,11 @@
                     [self chapterSubscribeWithObj:obj];
                 }
                 else {
-                    obj.content = content;
-                    obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
-                    book.lastReadChapterID = obj.uid;
-                    [obj persistWithBlock:nil];
+                    chapter.content = content;
+                    chapter.bRead = [NSNumber numberWithBool:YES];
+                    book.lastReadChapterID = chapter.uid;
+                    [chapter persistWithBlock:nil];
                     [book persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     [self setPageIndexByChapter:chapter];
@@ -653,12 +652,12 @@
             else
             {
                 if ([code isEqualToString:SUCCESS_FLAG]) {
-                    obj.bBuy = [NSNumber numberWithBool:YES];
-                    obj.content = content;
-                    obj.bRead = [NSNumber numberWithBool:YES];
                     chapter = obj;
-                    book.lastReadChapterID = obj.uid;
-                    [obj persistWithBlock:nil];
+                    chapter.bBuy = [NSNumber numberWithBool:YES];
+                    chapter.content = content;
+                    chapter.bRead = [NSNumber numberWithBool:YES];
+                    book.lastReadChapterID = chapter.uid;
+                    [chapter persistWithBlock:nil];
                     [book persistWithBlock:nil];
                     [textString setString:[chapter.content XXSYDecodingWithKey:key]];
                     [self setPageIndexByChapter:chapter];
