@@ -581,15 +581,6 @@
 - (void)addBookMarkButtonPressed
 {
     NSLog(@"添加书签成功");
-    NSMutableString *str = [@"" mutableCopy];
-    for (int i = 0; i<[chaptersArray count]; i++) {
-        Chapter *obj = [chaptersArray objectAtIndex:i];
-       [str appendFormat:@"%@",[obj.content XXSYDecodingWithKey:key]];
-    }
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"info.txt"];
-    [str writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (void)chapterButtonClick
