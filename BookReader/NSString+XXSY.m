@@ -111,7 +111,7 @@
     return [dictKey UTF8String];
 }
 
-- (NSArray*) pagesWithSize:(CGSize)size andFont:(UIFont *)font
+- (NSArray *)pagesWithSize:(CGSize)size andFont:(UIFont *)font
 {
 	
     NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:32];
