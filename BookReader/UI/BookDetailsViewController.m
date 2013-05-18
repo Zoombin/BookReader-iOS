@@ -513,7 +513,6 @@
             if (currentType == AUTHORBOOK) {
                 cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
                 Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
-                obj.category = bookObj.category;
                 obj.author = bookObj.author;
                 [(BookCell *)cell setBook:obj];
             } else {

@@ -55,11 +55,6 @@
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
-    
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
-    
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
