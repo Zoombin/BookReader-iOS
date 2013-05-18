@@ -373,9 +373,10 @@
 }
 
 - (void)pushToReadView
-{
-    CoreTextViewController *childViewController = [[CoreTextViewController alloc] initWithBook:bookObj chapter:nil chaptersArray:nil andOnline:YES];
-    [self.navigationController pushViewController:childViewController animated:YES];
+{	
+    CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+	controller.book = bookObj;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)buttonClicked:(id)sender

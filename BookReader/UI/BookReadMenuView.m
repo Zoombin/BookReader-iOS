@@ -130,13 +130,13 @@
     
     UIButton *fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
-    [fontButonMin addTarget:self action:@selector(fontSizeReduce) forControlEvents:UIControlEventTouchUpInside];
+    [fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMin];
     
     UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width/2, 0, fontView.bounds.size.width/2, 30)];
-    [fontButonMax addTarget:self action:@selector(fontSizeAdd) forControlEvents:UIControlEventTouchUpInside];
+    [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
@@ -222,18 +222,9 @@
     }
 }
 
-- (void)fontSizeAdd
+- (void)fontChanged:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(fontAdd)]) {
-        [self.delegate fontAdd];
-    }
-}
-
-- (void)fontSizeReduce
-{
-    if ([self.delegate respondsToSelector:@selector(fontReduce)]) {
-        [self.delegate fontReduce];
-    }
+	[self.delegate fontChanged:[sender.titleLabel.text isEqualToString:@"A-"] ? YES : NO];
 }
 
 

@@ -22,21 +22,10 @@
 @synthesize font;
 @synthesize textColor;
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        font = [UIFont fontWithName:@"FZLTHJW--GB1-0" size:19];
-        fontSize = 19;
-        textColor = [UIColor blackColor];
-    }
-    return self;
-}
+
 
 - (void)loadMutableFonts {
 	/* load all existing fonts */
-	
 	CTFontCollectionRef collection = CTFontCollectionCreateFromAvailableFonts(NULL);
 	CFArrayRef fonts = CTFontCollectionCreateMatchingFontDescriptors(collection);
 	CFIndex count = CFArrayGetCount(fonts);

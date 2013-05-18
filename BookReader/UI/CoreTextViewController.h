@@ -13,10 +13,5 @@
 @class Book;
 @class Chapter;
 @interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate>
-- (id)initWithBook:(Book *)bookObj
-           chapter:(Chapter *)chapterObj
-     chaptersArray:(NSArray *)array
-         andOnline:(BOOL)online;
-
-
+@property (nonatomic, strong) Book *book;
 @end

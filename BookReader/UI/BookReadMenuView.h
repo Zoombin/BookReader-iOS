@@ -17,8 +17,7 @@
 - (void)nextChapterButtonClick;
 - (void)previousChapterButtonClick;
 
-- (void)fontAdd;
-- (void)fontReduce;
+- (void)fontChanged:(BOOL)reduce;
 - (void)systemFont;
 - (void)foundFont;
 - (void)changeTextColor:(NSString *)textColor;

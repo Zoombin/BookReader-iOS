@@ -10,25 +10,25 @@
 
 @implementation ReadHelpView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andMenuFrame:(CGRect)menuFrame
 {
     self = [super initWithFrame:frame];
+	_menuRect = menuFrame;
     if (self) {
-        // Initialization code
         [self setBackgroundColor:[UIColor blackColor]];
         [self setAlpha:0.8];
         
-        #define LEFT_LABEL_FRAME CGRectMake((self.bounds.size.width/3-24)/2, 0, 24, 50)
-        #define RIGHT_LABEL_FRAME CGRectMake((self.bounds.size.width/3*2)+(self.bounds.size.width/3-24)/2, 0, 24, 50)
-        #define CENTER_LABEL_FRAME CGRectMake(self.bounds.size.width/3+(self.bounds.size.width/3-24)/2, 0, 24, 50)
+		CGRect leftRect = CGRectMake(0, 0, (self.bounds.size.width - _menuRect.size.width) / 2, self.bounds.size.height);
+		CGRect centerRect = CGRectMake((self.bounds.size.width - _menuRect.size.width) / 2, 0, _menuRect.size.width, self.bounds.size.height);
+		CGRect rightRect = CGRectMake((self.bounds.size.width + _menuRect.size.width) / 2, 0, _menuRect.size.width, self.bounds.size.height);
         
-        #define LEFT_LABEL_FRAME_STR NSStringFromCGRect(LEFT_LABEL_FRAME)
-        #define RIGHT_LABEL_FRAME_STR NSStringFromCGRect(RIGHT_LABEL_FRAME)
-        #define CENTER_LABEL_FRAME_STR NSStringFromCGRect(CENTER_LABEL_FRAME)
-        NSArray *noticesArray = @[@"点击左侧往前翻页", @"点击右侧往后翻页", @"中间显示菜单"];
-        NSArray *rectsArray = @[LEFT_LABEL_FRAME_STR,RIGHT_LABEL_FRAME_STR,CENTER_LABEL_FRAME_STR];
-        
-        for (int i =0; i<[noticesArray count]; i++) {
+		NSString *leftRectString = NSStringFromCGRect(leftRect);
+		NSString *centerRectString = NSStringFromCGRect(centerRect);
+		NSString *rightRectString = NSStringFromCGRect(rightRect);
+        NSArray *noticesArray = @[@"点\n击\n左\n侧\n往\n前\n翻\n页",  @"中\n间\n显\n示\n菜\n单", @"点\n击\n右\n侧\n往\n后\n翻\n页"];
+        NSArray *rectsArray = @[leftRectString, centerRectString,rightRectString];
+
+        for (int i = 0; i < [noticesArray count]; i++) {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectFromString(rectsArray[i])];
             [label setFont:[UIFont systemFontOfSize:24]];
             [label setBackgroundColor:[UIColor clearColor]];
@@ -37,7 +37,6 @@
             [label setText:noticesArray[i]];
             label.lineBreakMode = UILineBreakModeWordWrap;
             label.numberOfLines = 0;
-            [label sizeToFit];
             [label setFrame:CGRectMake(label.frame.origin.x, (self.bounds.size.height - label.frame.size.height)/2, label.frame.size.width, label.frame.size.height)];
             [self addSubview:label];
         }
@@ -53,28 +52,25 @@
 	[self removeFromSuperview];
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
     CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.0);
-    
-    // Draw them with a 2.0 stroke width so they are a bit more visible.
+
     CGContextSetLineWidth(context, 2.0);
-    CGContextMoveToPoint(context, self.bounds.size.width/3, self.bounds.size.height/4);
-    CGContextAddLineToPoint(context, self.bounds.size.width/3*2, self.bounds.size.height/4);
-    CGContextAddLineToPoint(context, self.bounds.size.width/3*2, self.bounds.size.height/4*3);
-    CGContextAddLineToPoint(context, self.bounds.size.width/3, self.bounds.size.height/4*3);
-    CGContextAddLineToPoint(context, self.bounds.size.width/3, self.bounds.size.height/4);
+    CGContextMoveToPoint(context, CGRectGetMinX(_menuRect), CGRectGetMinY(_menuRect));
+    CGContextAddLineToPoint(context, CGRectGetMaxX(_menuRect), CGRectGetMinY(_menuRect));
+    CGContextAddLineToPoint(context, CGRectGetMaxX(_menuRect), CGRectGetMaxY(_menuRect));
+    CGContextAddLineToPoint(context, CGRectGetMinX(_menuRect), CGRectGetMaxY(_menuRect));
+    CGContextAddLineToPoint(context, CGRectGetMinX(_menuRect), CGRectGetMinY(_menuRect));
     
-    CGContextMoveToPoint(context, self.bounds.size.width/2, 0);
-    CGContextAddLineToPoint(context, self.bounds.size.width/2, self.bounds.size.height/4);
+    CGContextMoveToPoint(context, self.bounds.size.width / 2, 0);
+    CGContextAddLineToPoint(context, self.bounds.size.width / 2, (self.bounds.size.height - _menuRect.size.height) / 2);
     
-    CGContextMoveToPoint(context, self.bounds.size.width/2, self.bounds.size.height/4*3);
-    CGContextAddLineToPoint(context, self.bounds.size.width/2, self.bounds.size.height);
+    CGContextMoveToPoint(context, self.bounds.size.width / 2, ((self.bounds.size.height + _menuRect.size.height) / 2));
+    CGContextAddLineToPoint(context, self.bounds.size.width / 2, CGRectGetMaxY(self.bounds));
     
     CGContextStrokePath(context);
 }

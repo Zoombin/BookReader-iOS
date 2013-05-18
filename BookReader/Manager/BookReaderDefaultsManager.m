@@ -11,14 +11,6 @@
 static NSArray *colors;
 
 @implementation BookReaderDefaultsManager
-+ (void)reset
-{
-    [self setObject:UserDefaultFontSizeMin ForKey:UserDefaultKeyFontSize];
-    [self setObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
-    [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
-    [self setObject:UserDefaultBrightDefault ForKey:UserDefaultKeyBright];
-    [self setObject:[NSNumber numberWithInteger:13] ForKey:UserDefaultKeyBackground];
-}
 
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index
 {
@@ -37,13 +29,12 @@ static NSArray *colors;
     [UIColor colorWithRed:50.0/255.0 green:62.0/255.0 blue:80.0/255.0 alpha:1.0],
     [UIColor colorWithRed:50.0/255.0 green:53.0/255.0 blue:50.0/255.0 alpha:1.0],
     [UIColor colorWithRed:87.0/255.0 green:103.0/255.0 blue:79.0/255.0 alpha:1.0],
-    [UIColor colorWithRed:185.0/255.0 green:150.0/255.0 blue:75.0/255.0 alpha:1.0],
+	[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
     [UIColor colorWithRed:166.0/255.0 green:137.0/255.0 blue:193.0/255.0 alpha:1.0],
     [UIColor colorWithRed:9.0/255.0 green:14.0/255.0 blue:14.0/255.0 alpha:1.0],];
     }
     return [colors objectAtIndex:index];
 }
-
 
 + (void)setObject:(id)object ForKey:(id)key
 {
@@ -52,6 +43,29 @@ static NSArray *colors;
 
 + (id)objectForKey:(id)key
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	id value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	if (value) {
+		return value;
+	} else {
+		NSString *keyString = (NSString *)key;
+		if ([keyString isEqualToString:UserDefaultKeyFontSize]) {
+			value = UserDefaultFontSizeMin;
+		} else if ([keyString isEqualToString:UserDefaultKeyFontName]) {
+			value = UserDefaultFoundFont;
+		} else if ([keyString isEqualToString:UserDefaultKeyFont]) {
+			NSString *fontName = [self objectForKey:UserDefaultKeyFontName];
+			NSString *fontSize = [self objectForKey:UserDefaultKeyFontSize];
+			return [UIFont fontWithName:fontName size:fontSize.floatValue];
+		} else if ([keyString isEqualToString:UserDefaultKeyTextColor]) {
+			value = UserDefaultTextColorBlack;
+		} else if ([keyString isEqualToString:UserDefaultKeyBright]) {
+			value = @1.0;
+		} else if ([keyString isEqualToString:UserDefaultKeyBackground]) {
+			value = @13;//羊皮纸
+		}
+		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+	return value;
 }
 @end

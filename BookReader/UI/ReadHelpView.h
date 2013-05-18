@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ReadHelpView : UIView
-
+@property (nonatomic, assign) CGRect menuRect;
+- (id)initWithFrame:(CGRect)frame andMenuFrame:(CGRect)menuFrame;
 @end

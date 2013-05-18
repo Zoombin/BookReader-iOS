@@ -10,12 +10,12 @@
 #import <CoreText/CoreText.h>
 #import <Foundation/Foundation.h>
 
-@interface CoreTextView : UIView {
-    
-}
+@interface CoreTextView : UIView
+
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, assign) CGFloat fontSize;
 @property (nonatomic, strong) UIColor *textColor;
+
 - (void)buildTextWithString:(NSString *)string;
 - (void)loadMutableFonts;
 @end
