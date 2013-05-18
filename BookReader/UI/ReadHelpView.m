@@ -40,11 +40,18 @@
             [label sizeToFit];
             [label setFrame:CGRectMake(label.frame.origin.x, (self.bounds.size.height - label.frame.size.height)/2, label.frame.size.width, label.frame.size.height)];
             [self addSubview:label];
-        } 
+        }
+		
+		UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+		[self addGestureRecognizer:tapGestureRecognizer];
     }
     return self;
 }
 
+- (void)dismiss
+{
+	[self removeFromSuperview];
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
