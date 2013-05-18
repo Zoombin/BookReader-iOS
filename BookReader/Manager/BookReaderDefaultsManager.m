@@ -8,7 +8,7 @@
 
 #import "BookReaderDefaultsManager.h"
 
-static NSArray *colorsArray;
+static NSArray *colors;
 
 @implementation BookReaderDefaultsManager
 + (void)reset
@@ -22,8 +22,8 @@ static NSArray *colorsArray;
 
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index
 {
-    if (colorsArray==nil) {
-        colorsArray =
+    if (!colors) {
+        colors =
   @[[UIColor colorWithRed:251.0/255.0 green:249.0/255.0 blue:234.0/255.0 alpha:1.0],
     [UIColor colorWithRed:224.0/255.0 green:236.0/255.0 blue:224.0/255.0 alpha:1.0],
     [UIColor colorWithRed:228.0/255.0 green:237.0/255.0 blue:243.0/255.0 alpha:1.0],
@@ -41,7 +41,7 @@ static NSArray *colorsArray;
     [UIColor colorWithRed:166.0/255.0 green:137.0/255.0 blue:193.0/255.0 alpha:1.0],
     [UIColor colorWithRed:9.0/255.0 green:14.0/255.0 blue:14.0/255.0 alpha:1.0],];
     }
-    return [colorsArray objectAtIndex:index];
+    return [colors objectAtIndex:index];
 }
 
 
