@@ -256,7 +256,7 @@
 - (void)paging
 {
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
-	pagesArray = [[currentChapterString pagesWithSize:coreTextView.frame.size andFont:coreTextView.font] mutableCopy];
+	pagesArray = [[currentChapterString pagesWithFont:coreTextView.font inSize:coreTextView.frame.size] mutableCopy];
 	NSRange range = NSRangeFromString(pagesArray[currentPageIndex]);
 	currentPageString = [[currentChapterString substringWithRange:range] mutableCopy];
 	statusView.percentage.text = [NSString stringWithFormat:@"%.2f%%", [self readPercentage]];
