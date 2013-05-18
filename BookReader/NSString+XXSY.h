@@ -44,5 +44,6 @@
 - (NSString *)XXSYHandleRedundantTags;
 - (NSString *)XXSYDecoding;
 - (NSString *)XXSYDecodingWithKey:(NSString *)key;
+- (NSArray*) pagesWithSize:(CGSize)size andFont:(UIFont *)font;
 
 @end

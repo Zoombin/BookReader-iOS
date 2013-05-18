@@ -8,6 +8,7 @@
 
 #import "NSString+XXSY.h"
 #import "ServiceManager.h"
+#import <CoreText/CoreText.h>
 
 #define dic @"0123456789ABCDEF"
 
@@ -108,6 +109,31 @@
         dictKey = [dictKey stringByAppendingString:kString];
     }
     return [dictKey UTF8String];
+}
+
+- (NSArray*) pagesWithSize:(CGSize)size andFont:(UIFont *)font
+{
+	
+    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:32];
+    CTFontRef fnt = CTFontCreateWithName((__bridge CFStringRef)(font.fontName), font.pointSize,NULL);
+    CFAttributedStringRef str = CFAttributedStringCreate(kCFAllocatorDefault,
+                                                         (CFStringRef)self,
+                                                         (CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)fnt,kCTFontAttributeName,nil]);
+    CTFramesetterRef fs = CTFramesetterCreateWithAttributedString(str);
+    CFRange r = {0,0};
+    CFRange res = {0,0};
+    NSInteger str_len = self.length;
+    do {
+        CTFramesetterSuggestFrameSizeWithConstraints(fs,r, NULL, size, &res);
+        r.location += res.length;
+        NSRange range = NSMakeRange(res.location, res.length);
+		[result addObject:NSStringFromRange(range)];
+    } while(r.location < str_len);
+	
+    CFRelease(fs);
+    CFRelease(str);
+    CFRelease(fnt);
+    return result;
 }
 
 @end

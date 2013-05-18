@@ -13,7 +13,7 @@
 
 - (void)backButtonPressed;
 - (void)addBookMarkButtonPressed;
-- (void)chapterButtonClick;
+- (void)chaptersButtonClicked;
 - (void)nextChapterButtonClick;
 - (void)previousChapterButtonClick;
 
@@ -33,4 +33,5 @@
 
 @property (nonatomic, strong) id<BookReadMenuViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *fontButonMin;
 @end

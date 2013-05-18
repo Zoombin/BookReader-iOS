@@ -128,11 +128,11 @@
     [fontView setBackgroundColor:[UIColor grayColor]];
     [self addSubview:fontView];
     
-    UIButton *fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
-    [fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
-    [fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
-    [fontView addSubview:fontButonMin];
+	_fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
+//    [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
+    [_fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
+    [fontView addSubview:_fontButonMin];
     
     UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width/2, 0, fontView.bounds.size.width/2, 30)];

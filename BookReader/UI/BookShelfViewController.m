@@ -161,7 +161,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Chapter *chapter = chapters[0];
-		//NSLog(@"content nil chapter uid = %@", chapter.uid);
+		NSLog(@"content nil chapter uid = %@", chapter.uid);
 		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				chapter.content = content;

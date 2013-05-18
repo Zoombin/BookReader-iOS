@@ -46,7 +46,6 @@
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
 	
 	currentPageIndex = 0;
-	pagesArray = [[NSMutableArray alloc] init];
 	
 	CGSize size = self.view.bounds.size;
 	
@@ -70,6 +69,7 @@
     menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height-20)];
     [menuView setDelegate:self];
     [menuView setBackgroundColor:[UIColor clearColor]];
+	//TODO:targe
     [self.view addSubview:menuView];
     menuView.hidden = YES;
 
@@ -80,6 +80,9 @@
 		ReadHelpView *helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds andMenuFrame:menuRect];
 		[self.view addSubview:helpView];
 	}
+	
+	coreTextView.alpha = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
+    statusView.alpha = coreTextView.alpha;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -94,38 +97,53 @@
 	NSLog(@"start to read book: %@,  chapter: %@", _book, chapter);
 	if (!chapter) {//反正数据库没有，章节列表都没有，应该什么地方出错了，退出。所以书城那里应该先去获取章节目录，存到数据库完毕后再推出这个VC
 		[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
-	} else if (chapter.content == nil) {//有章节目录，但是没内容，需要去网上取章节内容
-		if (chapter.bVip.boolValue) {//如果是收费章节，api不同
-			[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:_book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
-				if (content && ![content isEqualToString:@""]) {
-					chapter.content = content;
-					[chapter persistWithBlock:^(void) {
-						//解码阅读
-					}];
-				} else {//没订阅到，退出。或者弹出提示
-					[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
-				}
-			}];
-		} else {//普通下载
-			[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
-				if (content && ![content isEqualToString:@""]) {
-					chapter.content = content;
-					[chapter persistWithBlock:^(void) {
-						_book.lastReadChapterID = chapter.uid;
-						//解码开始阅读
-					}];
-				} else {//没下载到
-					[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
-				}
-			}];
-		}
 	}
 	
-//    [self updateContent];
-//    if (shouldLoadChapter && [chaptersArray count] == 0) {
-//        [self loadChapterData];
-//    }
+	if (1) {
+	//if (chapter.content) {
+		currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+		//NSLog(@"currentChapterString = %@", currentChapterString);
+		[self paging];
+		if ([chapter.lastReadIndex integerValue]) {
+			currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
+		} else {
+			currentPageIndex = [self goToIndexWithLastReadPosition:0];
+		}
+	} else {//有章节目录，但是没内容，需要去网上取章节内容
+		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+			if (content && ![content isEqualToString:@""]) {
+				chapter.content = content;
+				[chapter persistWithBlock:^(void) {
+					_book.lastReadChapterID = chapter.uid;
+					currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+					[self paging];
+				}];
+			} else {//没下载到
+				if (error) {
+					;//TODO: alert error
+				} else {
+					;//TODO subscribe
+				}
+			}
+		}];
+		
+		
+	}
 }
+
+//if (chapter.bVip.boolValue) {//如果是收费章节，api不同
+//	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:_book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+//		if (content && ![content isEqualToString:@""]) {
+//			chapter.content = content;
+//			[chapter persistWithBlock:^(void) {
+//				currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+//				[self paging];
+//			}];
+//		} else {//没订阅到，退出。或者弹出提示
+//			[self.navigationController popViewControllerAnimated:YES];//TODO: alertView better
+//		}
+//	}];
+//}
 
 - (void)loadChapterData
 {
@@ -175,7 +193,7 @@
 {
     [super viewWillDisappear:animated];
     //保存阅读进度
-    if ([pagesArray count]>0) {
+    if ([pagesArray count] > 0) {
         NSRange range = NSRangeFromString([pagesArray objectAtIndex:currentPageIndex]);
         _book.lastReadChapterID = chapter.uid;
         chapter.lastReadIndex = @(range.location);
@@ -184,55 +202,77 @@
     }
 }
 
-- (void)goToIndexWithLastReadPosition:(NSInteger)location
+- (NSUInteger)goToIndexWithLastReadPosition:(NSInteger)index
 {
-    for (int i = 0; i<[pagesArray count]; i++) {
-        NSRange rangeCurrent = NSRangeFromString([pagesArray objectAtIndex:i]);
-        if (i==[pagesArray count]-1) {
-            currentPageIndex = rangeCurrent.location==location ? i : 0;
-            break;
-        }
-        NSRange rangeNext = NSRangeFromString([pagesArray objectAtIndex:i+1]);
-        if (location>=rangeCurrent.location && rangeNext.location>location) {
-            NSLog(@"在第%d页",i);
-            currentPageIndex = i;
-            break;
-        }
-    }
+	__block NSUInteger indexCount = 0;
+	__block NSUInteger rtnPageIndex = 0;
+	[pagesArray enumerateObjectsUsingBlock:^(NSString *rangeString, NSUInteger idx, BOOL *stop) {
+		NSRange range = NSRangeFromString(rangeString);
+		indexCount += range.length;
+		if (index <= indexCount) {
+			rtnPageIndex = idx;
+			*stop = YES;
+		}
+	}];
+	if (rtnPageIndex > pagesArray.count - 1) {
+		rtnPageIndex = pagesArray.count - 1;
+	}
+	return rtnPageIndex;
+}
+
+- (void)updateFontSize
+{
+	[self paging];
+}
+
+- (void)updateFontColor
+{
+	NSString *textColorString = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
+    SEL textcolorselector = NSSelectorFromString(textColorString);
+	coreTextView.textColor = [UIColor performSelector:textcolorselector];
+    statusView.title.textColor = [UIColor performSelector:textcolorselector];
+    statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
+	//TODO:need?
+	[coreTextView buildTextWithString:currentPageString];
+	[coreTextView setNeedsDisplay];
+}
+
+- (void)updateFont
+{
+	[self paging];
+}
+
+- (void)updateBackgroundColor
+{
+	
+}
+
+- (void)updateBright
+{
+	
+}
+
+
+- (void)paging
+{
+	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
+	pagesArray = [[currentChapterString pagesWithSize:coreTextView.frame.size andFont:coreTextView.font] mutableCopy];
+	NSRange range = NSRangeFromString(pagesArray[currentPageIndex]);
+	currentPageString = [[currentChapterString substringWithRange:range] mutableCopy];
+	statusView.percentage.text = [NSString stringWithFormat:@"%.2f%%", [self readPercentage]];
+	NSLog(@"currentChapterString = %@", currentChapterString);
+	NSLog(@"currentPageSting = %@", currentPageString);
+	[coreTextView buildTextWithString:currentPageString];
+	[coreTextView setNeedsDisplay];
 }
 
 - (void)updateContent {
-	[pagesArray removeAllObjects];
-	UIFont *font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
-    [pagesArray addObjectsFromArray:[self pagesWithString:currentChapterString size:CGSizeMake(coreTextView.frame.size.width, coreTextView.frame.size.height) font:font]];
+	//TODO
     if (currentPageIndex >= [pagesArray count]) {
         currentPageIndex = [pagesArray count] - 1;
     }
-	
-	if (currentChapterString.length) {
-		if (chapter.lastReadIndex) {
-			[self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
-		} else {
-			[self goToIndexWithLastReadPosition:0];
-		}
-	}
-	
-    [currentPageString setString:[currentChapterString substringWithRange:NSRangeFromString([pagesArray objectAtIndex:currentPageIndex])]];
-    [self updateStatusPercentage];
-    statusView.title.text = chapter.name;
-    coreTextView.fontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] integerValue];
-	NSString *fontName =[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName];
-    coreTextView.font = [UIFont fontWithName:fontName size:coreTextView.fontSize];
-    coreTextView.alpha = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
-    statusView.alpha = coreTextView.alpha;
-    
-	NSString *textColorString = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
-    SEL textcolorselector = NSSelectorFromString(textColorString);
-    coreTextView.textColor = [UIColor performSelector:textcolorselector];
-    statusView.title.textColor = [UIColor performSelector:textcolorselector];
-    statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
-	[coreTextView buildTextWithString:currentPageString];
-	[coreTextView setNeedsDisplay];
+	//TODO
+    //statusView.title.text = chapter.name;//TODO: nextChapter, preChapter
 }
 
 #pragma mark-
@@ -282,63 +322,40 @@
 
 #pragma mark -
 #pragma mark other methods
-
-- (void)updateStatusPercentage
-{
-    if (!statusView)
-    {
-        return;
-    }
-    statusView.percentage.text = [NSString stringWithFormat:@"%.2f%%", [self readPercentage]];
-    if ([pagesArray count]==1)
-    {
-        statusView.percentage.text = @"100.00%";
-    }
-}
-
 - (float)readPercentage
 {
-    if (![pagesArray count])
-    {
-        return 0.0;
-    }
-    float percentage = (float)( (float)(currentPageIndex + 1) / (float)([pagesArray count]) );
-    if (currentPageIndex == 0) {
-        percentage = 0.0;
-    }
-    return percentage * 100.0f;
+	if (pagesArray.count == 0) {
+		return 100.0f;
+	} else if (currentPageIndex == 0) {
+		return 0.0f;
+	}
+	return ((float)(currentPageIndex + 1) / pagesArray.count) * 100.0f;
 }
 
+- (void)previousPage
+{
+    currentPageIndex--;
+    if(currentPageIndex < 0) {
+        currentPageIndex = 0;
+		NSLog(@"no more previous page!");
+        [self previousChapter];
+        return;
+    }
+	[self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
+    [self paging];
+}
 
 - (void)nextPage
 {
     currentPageIndex++;
-    if(currentPageIndex >= [pagesArray count])
-    {
+    if(currentPageIndex > [pagesArray count] - 1) {
         currentPageIndex = [pagesArray count] - 1;
+		NSLog(@"no more next page!");
         [self nextChapter];
-        NSLog(@"no more next!");
         return;
     }
 	[self performTransition:kCATransitionFromRight andType:@"pageCurl"];
-    [self updateContent];
-}
-
-- (void)nextChapter
-{
-    if ([chapter.index integerValue] == [chaptersArray count] - 1) {
-        [self displayHUDError:@"" message:@"最后一章"];
-    } else {
-        NSLog(@"%@",chapter.index);
-        [self downloadBookWithIndex:[chapter.index integerValue]+1];
-    }
-}
-
-- (void)menu
-{
-    startPointX = NSIntegerMax;
-    startPointY = NSIntegerMax;
-	menuView.hidden = NO;
+	[self paging];
 }
 
 - (void)previousChapter
@@ -346,22 +363,38 @@
     if ([chapter.index integerValue] == 0) {
         [self displayHUDError:@"" message:@"此章是第一章"];
     }else {
-        [self downloadBookWithIndex:[chapter.index integerValue]-1];
+		
+        //[self downloadBookWithIndex:[chapter.index integerValue]-1];
     }
 }
 
-- (void)previousPage
+- (void)nextChapter
 {
-    currentPageIndex--;
-    if(currentPageIndex < 0)
-    {
-        currentPageIndex = 0;
-        [self previousChapter];
-        NSLog(@"no more previous!");
-        return;
-    }
-	[self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
-    [self updateContent];
+	Chapter *nextChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=%d", _book.uid, [chapter.index intValue] + 1]];
+	if (!nextChapter) {
+		[self displayHUDError:@"" message:@"最后一章"];
+	} else {
+		if (nextChapter.content == nil) {
+			//[self downloadBookWithIndex:[nextChapter.index integerValue]];
+		} else {
+			chapter = nextChapter;
+			//currentPageIndex = 0;
+			currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+			[self paging];
+			if ([chapter.lastReadIndex integerValue]) {
+				currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
+			} else {
+				currentPageIndex = [self goToIndexWithLastReadPosition:0];
+			}
+		}
+	}
+}
+
+- (void)menu
+{
+    startPointX = NSIntegerMax;
+    startPointY = NSIntegerMax;
+	menuView.hidden = NO;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -403,37 +436,12 @@
 	}
 }
 
-
-- (NSArray*) pagesWithString:(NSString*)string size:(CGSize)size font:(UIFont*)font;
-{
-    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:32];
-    CTFontRef fnt = CTFontCreateWithName((__bridge CFStringRef)(font.fontName), font.pointSize,NULL);
-    CFAttributedStringRef str = CFAttributedStringCreate(kCFAllocatorDefault,
-                                                         (CFStringRef)string,
-                                                         (CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)fnt,kCTFontAttributeName,nil]);
-    CTFramesetterRef fs = CTFramesetterCreateWithAttributedString(str);
-    CFRange r = {0,0};
-    CFRange res = {0,0};
-    NSInteger str_len = [string length];
-    do {
-        CTFramesetterSuggestFrameSizeWithConstraints(fs,r, NULL, size, &res);
-        r.location += res.length;
-        NSRange range = NSMakeRange(res.location, res.length);
-        [result addObject:[NSString stringWithFormat:@"(%d,%d)",range.location,range.length]];
-    } while(r.location < str_len);
-    
-    CFRelease(fs);
-    CFRelease(str);
-    CFRelease(fnt);
-    return result;
-}
-
 //翻页动画
 -(void)performTransition:(NSString *)transitionType andType:(NSString *)type
 {
 	CATransition *transition = [CATransition animation];
 	// Animate over 3/4 of a second
-	transition.duration = 0.75;
+	transition.duration = 0.5;
 	transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = type;
     transition.subtype = transitionType;
@@ -453,7 +461,7 @@
     NSLog(@"添加书签成功");
 }
 
-- (void)chapterButtonClick
+- (void)chaptersButtonClicked
 {
     SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:_book andOnline:YES];//TODO: yes useless
     [childViewController setDelegate:self];
@@ -542,10 +550,10 @@
 
 - (void)setPageIndexByChapter:(Chapter *)obj
 {
-    if ([chapter.lastReadIndex intValue]==0) {
+    if ([chapter.lastReadIndex intValue] == 0) {
         currentPageIndex = 0;
     } else {
-        [self goToIndexWithLastReadPosition:[obj.lastReadIndex intValue]];
+        currentPageIndex = [self goToIndexWithLastReadPosition:[obj.lastReadIndex intValue]];
     }
 }
 
