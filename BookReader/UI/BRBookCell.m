@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "CustomProgressView.h"
 #import "MKNumberBadgeView.h"
+#import "Book+Setup.h"
 
 
 @implementation BRBookCell {
@@ -60,14 +61,15 @@
     } else {
 		UIImageView *imageView = [[UIImageView alloc] init];
 		[imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+			_book.cover = [[NSData alloc] initWithData:UIImagePNGRepresentation(image)];
+			[_book persistWithBlock:nil];
 			self.backgroundView = [[UIImageView alloc] initWithImage:image];
 		} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 			
 		}];
     }
     
-	//TODO
-    //[self setBadge:[[_book numberOfUnreadChapters] integerValue]];
+    [self setBadge:[_book countOfUnreadChapters]];
     
     if (_book.progress) {
         [progressView setProgress:book.progress.floatValue];
