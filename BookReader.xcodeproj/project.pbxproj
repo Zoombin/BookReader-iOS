@@ -40,7 +40,7 @@
 		18089E51171E8ACD00BCB50E /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E50171E8ACC00BCB50E /* SubscribeViewController.m */; };
 		181091D517339104000931AB /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D417339104000931AB /* PasswordViewController.m */; };
 		181091D817348C8B000931AB /* BookReaderDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D717348C8B000931AB /* BookReaderDefaultsManager.m */; };
-		181091DB17350289000931AB /* read_sheeppaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091DA17350289000931AB /* read_sheeppaper.png */; };
+		181091DB17350289000931AB /* read_sheep_paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091DA17350289000931AB /* read_sheep_paper.png */; };
 		181091E1173895EE000931AB /* ReadHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E0173895EC000931AB /* ReadHelpView.m */; };
 		181091E4173A3564000931AB /* UIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E3173A3563000931AB /* UIManager.m */; };
 		181091E7173A40EA000931AB /* UILabel+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E6173A40EA000931AB /* UILabel+BookReader.m */; };
@@ -369,7 +369,7 @@
 		181091D417339104000931AB /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		181091D617348C8B000931AB /* BookReaderDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReaderDefaultsManager.h; sourceTree = "<group>"; };
 		181091D717348C8B000931AB /* BookReaderDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReaderDefaultsManager.m; sourceTree = "<group>"; };
-		181091DA17350289000931AB /* read_sheeppaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_sheeppaper.png; sourceTree = "<group>"; };
+		181091DA17350289000931AB /* read_sheep_paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_sheep_paper.png; sourceTree = "<group>"; };
 		181091DC17374B78000931AB /* BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReader.h; sourceTree = "<group>"; };
 		181091DF173895EA000931AB /* ReadHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadHelpView.h; sourceTree = "<group>"; };
 		181091E0173895EC000931AB /* ReadHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadHelpView.m; sourceTree = "<group>"; };
@@ -864,7 +864,7 @@
 		181091D917350288000931AB /* Read */ = {
 			isa = PBXGroup;
 			children = (
-				181091DA17350289000931AB /* read_sheeppaper.png */,
+				181091DA17350289000931AB /* read_sheep_paper.png */,
 			);
 			path = Read;
 			sourceTree = "<group>";
@@ -1884,7 +1884,7 @@
 				77A48817172035AA004F7C5A /* um_telephone_icon.png in Resources */,
 				18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */,
 				77A1DF791730DF9F002BE306 /* HowTo.md in Resources */,
-				181091DB17350289000931AB /* read_sheeppaper.png in Resources */,
+				181091DB17350289000931AB /* read_sheep_paper.png in Resources */,
 				181091ED173B2FEA000931AB /* arrow_down.png in Resources */,
 				181091EE173B2FEA000931AB /* arrow_right.png in Resources */,
 				18EDD0D5173DB4C900915372 /* gift_comment.png in Resources */,
