@@ -160,6 +160,14 @@
         [colorButton setTitle:textcolorNames[i] forState:UIControlStateNormal];
         [fontView addSubview:colorButton];
     }
+	
+	UITapGestureRecognizer *tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
+	[self addGestureRecognizer:tapGestureReconizer];
+}
+
+- (void)hide
+{
+	self.hidden = YES;
 }
 
 -(void)initBackgroundView

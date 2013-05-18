@@ -34,8 +34,6 @@
     NSMutableArray *pagesArray;
     NSMutableString *currentChapterString;
     NSMutableString *currentPageString;
-    NSString *currentTextColorStr;
-    NSInteger currentBackgroundIndex;
     int currentPageIndex;
     Chapter *chapter;
     NSMutableArray *chaptersArray;
@@ -248,7 +246,6 @@
 
 - (void)backgroundColorChanged:(NSInteger)index
 {
-    currentBackgroundIndex = index;
     [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:index]];
 }
 
@@ -341,7 +338,7 @@
 {
     startPointX = NSIntegerMax;
     startPointY = NSIntegerMax;
-    menuView.hidden = !menuView.hidden;
+	menuView.hidden = NO;
 }
 
 - (void)previousChapter
@@ -355,10 +352,6 @@
 
 - (void)previousPage
 {
-    if (!menuView.hidden) {
-        menuView.hidden = YES;
-        return;
-    }
     currentPageIndex--;
     if(currentPageIndex < 0)
     {
@@ -386,9 +379,9 @@
     if (startPointX == NSIntegerMax || startPointY == NSIntegerMax) {
         return;
     }
-    //swipe
-	if (fabsf(endPoint.x - startPointX) >= 9)
-	{
+    
+	//swipe
+	if (fabsf(endPoint.x - startPointX) >= 9) {
 		if (endPoint.x > startPointX ) {
 			[self previousPage];
 		}else {
@@ -398,7 +391,7 @@
 	}
 	
 	//tap
-	if (CGRectContainsPoint(menuRect, endPoint)){
+	if (CGRectContainsPoint(menuRect, endPoint)) {
 		[self menu];
 		return;
 	}
@@ -407,7 +400,7 @@
 		[self nextPage];
 	} else {
 		[self previousPage];
-	}	
+	}
 }
 
 
