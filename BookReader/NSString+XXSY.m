@@ -25,9 +25,9 @@
 
 - (NSString *)XXSYDecodingWithKey:(NSString *)key
 {
-    NSLog(@"--Start--");
+//    NSLog(@"--Start--");
     const char *userkey = [[self class] newDictKey:key];
-    NSLog(@"key = %@, userKey = %s", key, userkey);
+//    NSLog(@"key = %@, userKey = %s", key, userkey);
     NSInteger length = [self length];
 	char deBuffer[length*2];
     NSInteger count = 0;
@@ -58,7 +58,7 @@
 		}
     }
 	NSString *debufferString = [[NSString alloc] initWithCString:deBuffer encoding:NSUTF8StringEncoding];
-    NSLog(@"---END---");
+//    NSLog(@"---END---");
     return [[[self class] replaceUnicode:debufferString] XXSYHandleRedundantTags];
 }
 
