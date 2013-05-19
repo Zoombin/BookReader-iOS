@@ -39,51 +39,41 @@
 
 - (void)persistWithBlock:(dispatch_block_t)block
 {
-	dispatch_queue_t callerQueue = dispatch_get_current_queue();
-	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
-			if (!persist) {
-				persist = [Chapter createInContext:localContext];
-			}
-			[self clone:persist];
-		} completion:^(BOOL success, NSError *error) {
-			dispatch_async(callerQueue, ^(void) {
-				if (block) block();
-			});
-		}];
-	});
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (!persist) {
+			persist = [Chapter createInContext:localContext];
+		}
+		[self clone:persist];
+	} completion:^(BOOL success, NSError *error) {
+		if (block) block();
+	}];
 }
 
 + (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
 {
-	dispatch_queue_t callerQueue = dispatch_get_current_queue();
-	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			[array enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-				Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
-				if (!persist) {
-					persist = [Chapter createInContext:localContext];
-				}
-				[chapter clone:persist];
-			}];
-		} completion:^(BOOL success, NSError *error) {
-			dispatch_async(callerQueue, ^(void) {
-				if (block) block();
-			});
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		[array enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+			Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+			if (!persist) {
+				persist = [Chapter createInContext:localContext];
+			}
+			[chapter clone:persist];
 		}];
-	});
+	} completion:^(BOOL success, NSError *error) {
+			if (block) block();
+	}];
 }
 
 - (void)clone:(Chapter *)chapter
 {
-    chapter.bBuy = self.bBuy;
+    //chapter.bBuy = self.bBuy;
     chapter.bid = self.bid;
-    chapter.bRead = self.bRead;
+    //chapter.bRead = self.bRead;
     chapter.bVip = self.bVip;
-    chapter.content = self.content;
+    //chapter.content = self.content;
     chapter.index = self.index;
-    chapter.lastReadIndex = self.lastReadIndex;
+    //chapter.lastReadIndex = self.lastReadIndex;
     chapter.name = self.name;
     chapter.uid = self.uid;
 }

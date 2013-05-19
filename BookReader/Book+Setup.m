@@ -61,40 +61,30 @@
 
 - (void)persistWithBlock:(dispatch_block_t)block
 {
-	dispatch_queue_t callerQueue = dispatch_get_current_queue();
-	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Book *persist = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
-			if (!persist) {
-				persist = [Book createInContext:localContext];
-			}
-			[self clone:persist];
-		} completion:^(BOOL success, NSError *error) {
-			dispatch_async(callerQueue, ^(void) {
-				if (block) block();
-			});
-		}];
-	});
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		Book *persist = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (!persist) {
+			persist = [Book createInContext:localContext];
+		}
+		[self clone:persist];
+	} completion:^(BOOL success, NSError *error) {
+		if (block) block();
+	}];
 }
 
 + (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
 {
-	dispatch_queue_t callerQueue = dispatch_get_current_queue();
-	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			[array enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-				Book *persist = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
-				if (!persist) {
-					persist = [Book createInContext:localContext];
-				}
-				[book clone:persist];
-			}];
-		} completion:^(BOOL success, NSError *error) {
-			dispatch_async(callerQueue, ^(void) {
-				if (block) block();
-			});
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		[array enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
+			Book *persist = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+			if (!persist) {
+				persist = [Book createInContext:localContext];
+			}
+			[book clone:persist];
 		}];
-	});
+	} completion:^(BOOL success, NSError *error) {
+		if (block) block();
+	}];
 }
 
 
@@ -104,17 +94,17 @@
     book.authorID = self.authorID;
     book.autoBuy = self.autoBuy;
     book.bFav = self.bFav;
-    book.bHistory = self.bHistory;
+    //book.bHistory = self.bHistory;
     book.category = self.category;
     book.categoryID = self.categoryID;
-    book.cover = self.cover;
+    //book.cover = self.cover;
     book.coverURL = self.coverURL;
     book.describe = self.describe;
-    book.lastReadChapterID = self.lastReadChapterID;
+    //book.lastReadChapterID = self.lastReadChapterID;
     book.lastUpdate = self.lastUpdate;
     book.name = self.name;
-    book.progress = self.progress;
-    book.rDate = self.rDate;
+    //book.progress = self.progress;
+    //book.rDate = self.rDate;
     book.recommandID = self.recommandID;
     book.recommandTitle = self.recommandTitle;
     book.uid = self.uid;
