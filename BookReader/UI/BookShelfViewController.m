@@ -105,13 +105,19 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
         if (error) {
 			[self displayHUDError:nil message:error.description];
         }else {
-			books = [result mutableCopy];
-			[Book persist:books withBlock:^(void) {
-				books = [[Book findAll] mutableCopy];
-				[booksForDisplay removeAllObjects];
-				[booksForDisplay addObjectsFromArray:books];
-				[booksView reloadData];
-				[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
+				NSArray *allBooks = [Book findAllInContext:localContext];
+				for (Book *b in allBooks) {
+					b.bFav = NO;
+				}
+			} completion:^(BOOL success, NSError *error) {
+				books = [result mutableCopy];
+				[Book persist:books withBlock:^(void) {
+					[booksForDisplay removeAllObjects];
+					[booksForDisplay addObjectsFromArray:books];
+					[booksView reloadData];
+					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+				}];
 			}];
         }
     }];
@@ -125,6 +131,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[chapters removeAllObjects];
 		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
+//		NSLog(@"chapters = %@", ((Chapter *)chapters[0]).content);
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
 		return;
 	}
@@ -154,8 +161,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[chapters addObjectsFromArray:[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bVip=YES AND content=nil AND bid=%@", book.uid]]];
 		}];
 		NSLog(@"find %d chapters need subscribe...", chapters.count);
-		for (Chapter *chapter in chapters) {
-			NSLog(@"%@", chapter);
+		for (int i = 0; i < chapters.count; i++) {
+			NSLog(@"%@", chapters[i]);
+			if (i == 0) {
+				NSLog(@"%@", ((Chapter *)(chapters[i])).content);
+			}
 		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
 		return;
@@ -240,7 +250,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksView reloadData];
     }
     else if (type.intValue == kBottomViewButtonRefresh) {
-        //[self refreshUserBooksAndDownload];
+		[self syncBooks];
     }
     else if (type.intValue == kBottomViewButtonShelf) {
         headerView.titleLabel.text = @"我的收藏";
@@ -338,14 +348,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 	return booksForDisplay.count;
-	//return books.count;
 }
 
 - (PSTCollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-	cell.badge = [book countOfUnreadChapters];
 	cell.editing = editing;
 	return cell;
 }
