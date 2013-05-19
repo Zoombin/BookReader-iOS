@@ -43,7 +43,7 @@
 //	[self testApis];
 	
 	//TOTEST: yanchao's account
-	[ServiceManager saveUserID:@(5639339)];	
+	//[ServiceManager saveUserID:@(5639339)];
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	

@@ -24,6 +24,8 @@
 #import "NSString+XXSY.h"
 #import "UIManager.h"
 #import "CoreTextViewController.h"
+#import "Book+Setup.h"
+#import "Chapter+Setup.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -31,7 +33,7 @@
 @implementation BookDetailsViewController
 {
     NSString *bookid;
-    Book *bookObj;
+    Book *book;
     int currentIndex;
     int currentType;
     
@@ -51,6 +53,8 @@
     UIButton *comment;
     UIButton *authorBook;
     UIButton *bookRecommand;
+	
+	UIButton *favoriteButton;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -74,13 +78,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (bookObj == nil) {
+    if (book == nil) {
         [self displayHUD:@"加载中..."];
         [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(Book *obj, NSError *error) {
             if(error) {
                 [self displayHUDError:nil message:NETWORK_ERROR];
+				[self.navigationController popViewControllerAnimated:YES];
             }else {
-                bookObj = obj;
+                book = obj;
                 [self hideHUD:YES];
                 [self initBookDetailUI];
             }
@@ -111,11 +116,11 @@
     [self.view addSubview:firstBkgView];
     
     UIImageView *bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 90, 120)];
-    NSURL *url = [NSURL URLWithString:bookObj.coverURL];
+    NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [tmpImageView setImage:image];
-        bookObj.cover = UIImageJPEGRepresentation(image, 1.0);
+        book.cover = UIImageJPEGRepresentation(image, 1.0);
         dispatch_async(dispatch_get_main_queue(), ^{
             [firstBkgView addSubview:tmpImageView];
         });
@@ -124,19 +129,19 @@
     }];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [titleLabel setText:bookObj.name];
+    [titleLabel setText:book.name];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, firstBkgView.bounds.size.width-100, 30)];
-    [bookNameLabel setText:[@"\t\t" stringByAppendingString:bookObj.name]];
+    [bookNameLabel setText:[@"\t\t" stringByAppendingString:book.name]];
     [bookNameLabel setBackgroundColor:[UIColor clearColor]];
     [firstBkgView addSubview:bookNameLabel];
     
     NSArray *labelTitles = @[@"\t\t作者:\t\t", @"\t\t类别:\t\t", @"\t\t字数:\t\t", @"\t\t更新时间:\t\t"];
-    NSArray *labelNames = @[bookObj.author,bookObj.category,bookObj.words,bookObj.lastUpdate];
+    NSArray *labelNames = @[book.author,book.category,book.words,book.lastUpdate];//TODO: 万一有nil呢？ 随时准备crash是吗? Orz...
     
     for (int i = 0; i<[labelNames count]; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 30+20*i, firstBkgView.bounds.size.width-100, 20)];
@@ -149,9 +154,10 @@
     //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
     NSArray *buttonTitles = @[@"阅读",@"收藏",@"送钻石",@"送鲜花",@"打赏",@"投月票",@"投评价"];
     NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
-    for (int i=0; i<[buttonTitles count]; i++) {
+	NSMutableArray *buttons = [NSMutableArray array];
+    for (int i = 0; i < [buttonTitles count]; i++) {
         UIButton *button = nil;
-        if (i>=2) {
+        if (i >= 2) {
             button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setFrame:CGRectMake(5*(i-2)+290/5*(i-2), 150, 290/5, 20)];
             [button setImage:[UIImage imageNamed:imageNames[i-2]] forState:UIControlStateNormal];
@@ -162,17 +168,20 @@
         [button setTag:i];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [firstBkgView addSubview:button];
+		[buttons addObject:button];
     }
-    if ([ServiceManager userID]!=nil) {
+	
+	favoriteButton = buttons[1];
+	
+    if ([ServiceManager userID] != nil) {
         [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
             if (error) {
                 
             } else {
                 if ([result intValue]==1) {
                     bFav = YES;
-                    UIButton *button = (UIButton *)[self.view viewWithTag:1];
-                    [button setEnabled:NO];
-                    [button setTitle:@"已收藏" forState:UIControlStateNormal];
+					favoriteButton.enabled = NO;
+					[favoriteButton setTitle:@"已收藏" forState:UIControlStateNormal];
                 }
             }
         }];
@@ -227,7 +236,7 @@
     [self loadSameType];
     
     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30)];
-    [shortdescribeTextView setText:bookObj.describe];
+    [shortdescribeTextView setText:book.describe];
     [shortdescribeTextView setEditable:NO];
     [secondView addSubview:shortdescribeTextView];
     
@@ -268,7 +277,7 @@
 
 - (void)loadAuthorOtherBook
 {
-    [ServiceManager otherBooksFromAuthor:bookObj.authorID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
         if (error)
         {
             
@@ -292,7 +301,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommand:bookObj.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookRecommand:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
             
         }
@@ -349,20 +358,11 @@
 
 - (void)loadCommitList
 {
-    if ([infoArray count]>0)
-    {
-        [infoArray removeAllObjects];
-    }
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *result, NSError *error)
-     {
-         if (error)
-         {
-             
-         }
-         else
-         {
-             if ([result count]==10)
-             {
+	[infoArray removeAllObjects];
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
+         if (error){
+         } else {
+             if ([result count] == 10) {
                  [self addFootView];
                  currentIndex++;
              }
@@ -375,43 +375,37 @@
 - (void)pushToReadView
 {	
     CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-	controller.book = bookObj;
+	controller.book = book;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)buttonClicked:(id)sender
 {
-    switch ([sender tag]) {
-        case 0:
-            [self pushToReadView];
-            break;
-        case 1:
-            [self addFav];
-            break;
-        case 2:
-            [self pushToGiftViewWithIndex:@"0"];
-            break;
-        case 3:
-            [self pushToGiftViewWithIndex:@"1"];
-            break;
-        case 4:
-            [self pushToGiftViewWithIndex:@"2"];
-            break;
-        case 5:
-            [self pushToGiftViewWithIndex:@"3"];
-            break;
-        case 6:
-            [self pushToGiftViewWithIndex:@"4"];
-            break;
-        default:
-            break;
-            //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
-    }
+	NSInteger tag = [sender tag];
+	if (tag == 0) {
+		[book persistWithBlock:^(void) {//下载章节目录
+			[self displayHUD:@"获取章节目录..."];
+			[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+				[self hideHUD:YES];
+				if (!error) {
+					[Chapter persist:result withBlock:^(void) {
+						[self pushToReadView];
+					}];
+				} else {
+					[self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
+				}
+			}];
+		}];
+	} else if (tag == 1) {
+		[self addFav];
+	} else {
+		[self pushToGiftViewWithIndex:[@(tag - 2) stringValue]];//1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
+	}
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
     if ([self checkLogin]) {
-        GiftViewController *giftViewController = [[GiftViewController alloc] initWithIndex:index andBookObj:bookObj];
+        GiftViewController *giftViewController = [[GiftViewController alloc] initWithIndex:index andBook:book];
         [self.navigationController pushViewController:giftViewController animated:YES];
     }
 }
@@ -431,18 +425,20 @@
 
 - (void)addFav
 {
-    [self displayHUD:@"请稍等..."];
     if ([self checkLogin]) {
+		[self displayHUD:@"请稍等..."];
         [ServiceManager addFavouriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
             if (!error) {
                 if ([result isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;
-                    UIButton *button = (UIButton *)[self.view viewWithTag:1];
-                    [button setEnabled:NO];
-                    [button setTitle:@"已收藏" forState:UIControlStateNormal];
+					favoriteButton.enabled = YES;
+					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];					
+					book.bFav = @(YES);
+					[book persistWithBlock:^(void) {
+						[self displayHUDError:nil message:resultMessage];
+						[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+					}];
                 }
-                [self displayHUDError:nil message:resultMessage];
-				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
             } else {
                 [self displayHUDError:nil message:NETWORK_ERROR];
             }
@@ -513,7 +509,7 @@
             if (currentType == AUTHORBOOK) {
                 cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
                 Book *obj = [authorBookArray objectAtIndex:[indexPath row]];
-                obj.author = bookObj.author;
+                obj.author = book.author;
                 [(BookCell *)cell setBook:obj];
             } else {
                 cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
@@ -528,8 +524,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (tableView != infoTableView) {
 		NSArray *booksArray = currentType == AUTHORBOOK ? authorBookArray : sameTypeBookArray;
-		Book *book = booksArray[indexPath.row];
-		BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
+		Book *b = booksArray[indexPath.row];
+		BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:b.uid];
 		[self.navigationController pushViewController:childViewController animated:YES];
 	}
 }

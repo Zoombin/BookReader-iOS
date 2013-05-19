@@ -11,5 +11,5 @@
 #import "GiftCell.h"
 
 @interface GiftViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,GiftCellDelegate>
-- (id)initWithIndex:(NSString *)index andBookObj:(Book *)bookObject;
+- (id)initWithIndex:(NSString *)index andBook:(Book *)book;
 @end

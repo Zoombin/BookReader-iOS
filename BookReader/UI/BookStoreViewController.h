@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface BookStoreViewController : UIViewController<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
-- (void)shouldRefresh;
 @end

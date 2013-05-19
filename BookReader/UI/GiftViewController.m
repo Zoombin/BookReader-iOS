@@ -16,7 +16,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation GiftViewController {
-    NSString *title;
     NSString *currentIndex;
     Book *bookObj;
     NSArray *integralArrays;
@@ -26,14 +25,11 @@
     UITableView *infoTableView;
 }
 
-- (id)initWithIndex:(NSString *)index
-         andBookObj:(Book *)bookObject
-{
+- (id)initWithIndex:(NSString *)index andBook:(Book *)book {
     self = [super init];
     if (self) {
-        // Custom initialization
         currentIndex = index;
-        bookObj = bookObject;
+        bookObj = book;
         NSLog(@"==>%@",currentIndex);
         oldKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
         newKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
@@ -43,7 +39,6 @@
         [newKeyWordsArray insertObject:key atIndex:0];
     
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
-        title = oldKeyWordsArray[[index integerValue]];
         //  1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         // 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
     }
@@ -60,11 +55,11 @@
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [backButton setFrame: CGRectMake(10, 4, 48, 32)];
-    [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-    [titleLabel setText:title];
+    [titleLabel setText:@"赠送"];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -101,7 +96,7 @@
                    }];
 }
 
-- (void)backButtonClick
+- (void)backButtonClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -120,11 +115,6 @@
     return 70;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return [newKeyWordsArray objectAtIndex:section];
-//}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 5;
@@ -134,8 +124,7 @@
 {
     static NSString *reuseIdentifier = @"Cell";
     GiftCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier andIndexPath:indexPath];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell setValue:[newKeyWordsArray objectAtIndex:[indexPath section]]];
