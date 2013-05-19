@@ -111,9 +111,8 @@
     return [dictKey UTF8String];
 }
 
-- (NSArray *)pagesWithFont:(CGSize)size inSize:(UIFont *)font
+- (NSArray *)pagesWithFont:(UIFont *)font inSize:(CGSize)size
 {
-	
     NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:32];
     CTFontRef fnt = CTFontCreateWithName((__bridge CFStringRef)(font.fontName), font.pointSize,NULL);
     CFAttributedStringRef str = CFAttributedStringCreate(kCFAllocatorDefault,
