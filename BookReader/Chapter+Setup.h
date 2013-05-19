@@ -12,5 +12,7 @@
 @interface Chapter (Setup) <ZBManagedObjectDelegate>
 
 + (NSArray *)chaptersRelatedToBook:(NSString *)bookid;
+- (Chapter *)previous;
+- (Chapter *)next;
 
 @end

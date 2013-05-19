@@ -105,4 +105,15 @@
     return [Chapter findByAttribute:@"bid" withValue:bookid andOrderBy:@"index" ascending:YES];
 }
 
+- (Chapter *)previous
+{
+	if (self.index.intValue == 0) return nil;
+	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND index = %d", self.bid, self.index.intValue - 1]];
+}
+
+- (Chapter *)next
+{
+	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND index = %d", self.bid, self.index.intValue + 1]];
+}
+
 @end
