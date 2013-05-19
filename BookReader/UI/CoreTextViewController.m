@@ -216,7 +216,6 @@
 	
 }
 
-
 - (void)paging
 {
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
@@ -297,7 +296,12 @@
     if(currentPageIndex < 0) {
         currentPageIndex = 0;
 		NSLog(@"no more previous page!");
-        [self previousChapter];
+		if ([chapter.index intValue] == 0) {
+			[self displayHUDError:@"" message:@"此章是第一章"];
+		} else {
+			[self displayHUDError:@"" message:@"上一章"];
+			[self gotoChapter:[chapter previous]];
+		}
         return;
     }
 	[self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
@@ -310,7 +314,8 @@
     if(currentPageIndex > [pagesArray count] - 1) {
         currentPageIndex = [pagesArray count] - 1;
 		NSLog(@"no more next page!");
-        [self nextChapter];
+		[self displayHUDError:@"" message:@"下一章"];
+		[self gotoChapter:[chapter next]];
         return;
     }
 	[self performTransition:kCATransitionFromRight andType:@"pageCurl"];
@@ -319,53 +324,28 @@
 
 - (void)gotoChapter:(Chapter *)aChapter
 {
-	chapter = aChapter;
-	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		_book.lastReadChapterID = chapter.uid;
-	}];
-	statusView.title.text = chapter.name;
-	currentPageIndex = 0;
-	currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
-	[self paging];
-	if ([chapter.lastReadIndex integerValue]) {
-		currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
-	} else {
-		currentPageIndex = [self goToIndexWithLastReadPosition:0];
+	if (!aChapter) {
+		;//TODO, alert
+	} else if (aChapter.content) {
+		chapter = aChapter;
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			chapter.lastReadIndex = 0;
+			chapter.bRead = @YES;
+			_book.lastReadChapterID = chapter.uid;
 		}];
-	}
-}
-
-- (void)previousChapter
-{
-    if ([chapter.index integerValue] == 0) {
-        [self displayHUDError:@"" message:@"此章是第一章"];
-    }else {
-		Chapter *previousChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=%d", _book.uid, chapter.index.intValue - 1]];
-		if (!previousChapter) {
-			;//TODO, 没有找到，肯定什么地方出错了
+		statusView.title.text = chapter.name;
+		currentPageIndex = 0;
+		currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+		[self paging];
+		if ([chapter.lastReadIndex integerValue]) {
+			currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
 		} else {
-			if (!previousChapter.content) {
-				;//TODO, 没下载到，需要下载
-			} else {
-				[self gotoChapter:previousChapter];
-			}
+			currentPageIndex = [self goToIndexWithLastReadPosition:0];
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				chapter.lastReadIndex = 0;
+			}];
 		}
-    }
-}
-
-- (void)nextChapter
-{
-	Chapter *nextChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=%d", _book.uid, chapter.index.intValue + 1]];
-	if (!nextChapter) {
-		[self displayHUDError:@"" message:@"最后一章"];
-	} else {
-		if (nextChapter.content == nil) {
-			;//
-		} else {
-			[self gotoChapter:nextChapter];
-		}
+	} else if (!aChapter.content) {
+		;//没有内容需要下载
 	}
 }
 
@@ -449,12 +429,12 @@
 
 - (void)previousChapterButtonClick
 {
-    [self previousChapter];
+	[self gotoChapter:[chapter previous]];
 }
 
 - (void)nextChapterButtonClick
 {
-    [self nextChapter];
+	[self gotoChapter:[chapter next]];
 }
 //
 ////订阅和下载
