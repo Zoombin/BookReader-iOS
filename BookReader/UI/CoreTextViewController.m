@@ -334,6 +334,9 @@
 - (void)gotoChapter:(Chapter *)aChapter
 {
 	chapter = aChapter;
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		_book.lastReadChapterID = chapter.uid;
+	}];
 	statusView.title.text = chapter.name;
 	currentPageIndex = 0;
 	currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读

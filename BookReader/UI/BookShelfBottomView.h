@@ -20,11 +20,8 @@ typedef enum {
 @protocol BookShelfBottomViewDelegate <NSObject>
 - (void)bottomButtonClicked:(NSNumber *)type;
 @end
+
 @interface BookShelfBottomView : UIView
-{
-    UIView *bottomViewOne;
-    UIView *bottomViewTwo;
-}
 @property (nonatomic, weak) id<BookShelfBottomViewDelegate> delegate;
 - (void)setEditButtonHidden:(BOOL)hiden;
 @end

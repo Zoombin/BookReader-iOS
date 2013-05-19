@@ -20,6 +20,13 @@
 
 @implementation BookShelfBottomView {
     NSMutableArray *buttonArray;
+	UIView *bottomViewOne;
+    UIView *bottomViewTwo;
+	
+	UIButton *editButton;
+	UIButton *refreshButton;
+	UIButton *historyButton;
+	UIButton *favButton;
 }
 @synthesize delegate;
 
@@ -27,7 +34,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        buttonArray = [[NSMutableArray alloc] init];
         UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44)];
         [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
         [self addSubview:backgroundImage];
@@ -61,6 +67,7 @@
     
     NSAssert(titles.count == rectStrings.count && rectStrings.count == selectorStrings.count && selectorStrings.count == images.count && images.count == highlightedImages.count, @"titles.count, rectStrings.count, selectorStrings.count, images.count, highlightedImages.count can't match each other...");
     
+	buttonArray = [NSMutableArray array];
     for (int i = 0; i < 6; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:titles[i] forState:UIControlStateNormal];
@@ -95,6 +102,11 @@
         }
         [buttonArray addObject:button];
     }
+	
+	editButton = buttonArray[0];
+	refreshButton = buttonArray[1];
+	historyButton = buttonArray[2];
+	favButton = buttonArray[3];
 }
 
 
@@ -134,8 +146,7 @@
 
 - (void)setEditButtonHidden:(BOOL)hiden
 {
-   UIButton *editButton = (UIButton *)[buttonArray objectAtIndex:0];
-   [editButton setHidden:hiden];
+	editButton.hidden = hiden;
 }
 
 - (void)deleteButtonClick {
@@ -143,10 +154,10 @@
 }
 
 - (void)historyButtonClick {
-    UIButton *historyButton = (UIButton *)[buttonArray objectAtIndex:2];
-    [historyButton setHidden:YES];
-    UIButton *shelfButton = (UIButton *)[buttonArray objectAtIndex:3];
-    [shelfButton setHidden:NO];
+	historyButton.hidden = YES;
+	favButton.hidden = NO;
+	editButton.hidden = YES;
+	refreshButton.hidden = YES;
     [self invokeDelegateMethod:kBottomViewButtonBookHistoroy];
 }
 
@@ -155,10 +166,10 @@
 }
 
 - (void)shelfButtonClick {
-    UIButton *historyButton = (UIButton *)[buttonArray objectAtIndex:2];
-    [historyButton setHidden:NO];
-    UIButton *shelfButton = (UIButton *)[buttonArray objectAtIndex:3];
-    [shelfButton setHidden:YES];
+	editButton.hidden = NO;
+	refreshButton.hidden = NO;
+	historyButton.hidden = NO;
+	favButton.hidden = YES;
     [self invokeDelegateMethod:kBottomViewButtonShelf];
 }
 

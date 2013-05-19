@@ -171,7 +171,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Chapter *chapter = chapters[0];
-		NSLog(@"content nil chapter uid = %@", chapter.uid);
+		NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
 		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				chapter.content = content;
@@ -254,9 +254,13 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }
     else if (type.intValue == kBottomViewButtonShelf) {
         headerView.titleLabel.text = @"我的收藏";
+		booksForDisplay = [[Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"bFav=YES"]] mutableCopy];
+		[booksView reloadData];
     }
     else if (type.intValue == kBottomViewButtonBookHistoroy) {
         headerView.titleLabel.text = @"阅读历史";
+		booksForDisplay = [[Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"lastReadChapterID!=nil"]] mutableCopy];
+		[booksView reloadData];
     }
 }
 
