@@ -47,6 +47,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
 	BOOL editing;
+	BOOL displayingHistory;
+	NSMutableArray *needRemoveFavoriteBooks;
 }
 @synthesize layoutStyle;
 
@@ -88,7 +90,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		//TODO
 		//switch to history and display history
     } else {
-		booksForDisplay = [[Book findAllAndSortedByDate] mutableCopy];
+		if (displayingHistory) {
+			booksForDisplay = [[Book findAllHistory] mutableCopy];
+		} else {
+			booksForDisplay = [[Book findAllFavorite] mutableCopy];
+		}
 		[booksView reloadData];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			[self syncBooks];
@@ -99,7 +105,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)syncBooks
 {
-	[self displayHUD:@"获取用户书架中..."];
+	[self displayHUD:@"同步收藏..."];
     [ServiceManager userBooksWithSize:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
 		[self hideHUD:YES];
         if (error) {
@@ -116,6 +122,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					[booksForDisplay removeAllObjects];
 					[booksForDisplay addObjectsFromArray:books];
 					[booksView reloadData];
+					[self displayHUD:@"检查新章节目录..."];
 					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
 				}];
 			}];
@@ -127,6 +134,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	if (books.count <= 0) {
 		NSLog(@"sync chapters finished");
+		[self hideHUD:YES];
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
@@ -209,32 +217,29 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}];
 }
 
-- (void)removeFav:(NSInteger)idx
+
+- (void)syncRemoveFav
 {
-	static NSMutableIndexSet *needRemoveIndexes;
-	if (!needRemoveIndexes) {
-		needRemoveIndexes = [[NSMutableIndexSet alloc] init];
-	}
-	if (idx >= books.count) {
-		[books removeObjectsAtIndexes:needRemoveIndexes];
-		[needRemoveIndexes removeAllIndexes];
-		[booksView reloadData];
-		//TODO: need delete in database
+	if (needRemoveFavoriteBooks.count <= 0) {
+		NSLog(@"no more book need to remove favorite...");
+		[self hideHUD:YES];
 		return;
 	}
-	BRBookCell *bookCell = (BRBookCell *)[booksView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
-	if (bookCell.cellSelected) {
-		[self displayHUD:[NSString stringWithFormat:@"删除收藏:%@", bookCell.book.name]];
-		[ServiceManager addFavouriteWithBookID:bookCell.book.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
-			[self hideHUD:YES];
-			if ([result isEqualToString:SUCCESS_FLAG]) {
-				[needRemoveIndexes addIndex:idx];
-				[self removeFav:idx + 1];
-			}
-		}];
-	} else {
-		[self removeFav:idx + 1];
-	}
+	Book *needRemoveBook = needRemoveFavoriteBooks[0];
+	[ServiceManager addFavouriteWithBookID:needRemoveBook.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
+		if ([result isEqualToString:SUCCESS_FLAG]) {
+			[needRemoveFavoriteBooks removeObject:needRemoveBook];
+			[booksForDisplay removeObject:needRemoveBook];
+			[booksView reloadData];
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				needRemoveBook.bFav = NO;
+			} completion:^(BOOL success, NSError *error) {
+				[self syncRemoveFav];
+			}];
+		} else {
+			[self syncRemoveFav];
+		}
+	}];
 }
 
 - (void)bottomButtonClicked:(NSNumber *)type {
@@ -244,7 +249,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }
     else if (type.intValue == kBottomViewButtonDelete)
     {
-		[self removeFav:0];
+		[self displayHUD:@"删除收藏..."];
+		[self syncRemoveFav];
     } else if (type.intValue == kBottomViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
@@ -254,13 +260,15 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }
     else if (type.intValue == kBottomViewButtonShelf) {
         headerView.titleLabel.text = @"我的收藏";
-		booksForDisplay = [[Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"bFav=YES"]] mutableCopy];
+		booksForDisplay = [[Book findAllFavorite] mutableCopy];
 		[booksView reloadData];
+		displayingHistory = NO;
     }
     else if (type.intValue == kBottomViewButtonBookHistoroy) {
         headerView.titleLabel.text = @"阅读历史";
-		booksForDisplay = [[Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"lastReadChapterID!=nil"]] mutableCopy];
+		booksForDisplay = [[Book findAllHistory] mutableCopy];
 		[booksView reloadData];
+		displayingHistory = YES;
     }
 }
 
@@ -324,6 +332,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	if (editing) {
 		bookCell.cellSelected = !bookCell.cellSelected;
+		if (bookCell.cellSelected) {
+			if (!needRemoveFavoriteBooks) needRemoveFavoriteBooks = [NSMutableArray array];
+			[needRemoveFavoriteBooks addObject:bookCell.book];
+		} else {
+			[needRemoveFavoriteBooks removeObject:bookCell.book];
+		}
 	} else {
         bookCell.book.rDate = [NSDate date];
         [bookCell.book persistWithBlock:nil];//TODO need to this when actually start to read
