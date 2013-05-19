@@ -55,17 +55,26 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
+    [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+    [self.view addSubview:backgroundImage];
+	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
 	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
-		[self loadRemoteView];
+		headerView = [[BookShelfHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+		[headerView setDelegate:self];
+		[self.view addSubview:headerView];
+		
+		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
+		[bottomView setDelegate:self];
+		[self.view addSubview:bottomView];
 		booksView.gridStyle = YES;
 	} else {
 		booksView.gridStyle = NO;
 		//TODO: remote and local should be same style
-		//[self loadLocalView];
 	}
 	[self.view addSubview:booksView];
 	
@@ -284,47 +293,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }
 }
 
-//- (void)loadLocalView {
-//    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:headerImageViewFrame];
-//    [headerImageView setImage:[UIImage imageNamed:@"main_headerbackground.png"]];
-//    [self.view addSubview:headerImageView];
-//    
-//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
-//    [titleLabel setText:NSLocalizedString(@"BookList", nil)];
-//    [titleLabel setTextColor:txtColor];
-//    [titleLabel setBackgroundColor:[UIColor clearColor]];
-//    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-//    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-//    [self.view addSubview:titleLabel];
-//    
-//    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_background.png"]];
-//    UITableView *infoTableView = [[UITableView alloc] initWithFrame:infoTableViewFrame style:UITableViewStylePlain];
-//    [infoTableView setDataSource:self];
-//    [infoTableView setDelegate:self];
-//    [infoTableView setBackgroundView:backgroundView];
-//    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    [self.view addSubview:infoTableView];
-//}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
     }
-}
-
-- (void)loadRemoteView {
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
-    [self.view addSubview:backgroundImage];
-    
-    headerView = [[BookShelfHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [headerView setDelegate:self];
-    [self.view addSubview:headerView];
-    
-    bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
-    [bottomView setDelegate:self];
-    [self.view addSubview:bottomView];
 }
 
 #pragma mark - BRBooksViewDelegate
