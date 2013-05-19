@@ -135,7 +135,7 @@
 
 - (NSUInteger)countOfUnreadChapters
 {
-	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = 0", self.uid]];
+	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND bRead = nil", self.uid]];
 }
 
 + (NSArray *)findAllAndSortedByDate
@@ -143,4 +143,13 @@
     return [Book findAllSortedBy:@"rDate" ascending:NO];
 }
 
++ (NSArray *)findAllFavorite
+{
+	return [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"bFav=YES"]];
+}
+
++ (NSArray *)findAllHistory
+{
+	return [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"lastReadChapterID!=nil"]];
+}
 @end
