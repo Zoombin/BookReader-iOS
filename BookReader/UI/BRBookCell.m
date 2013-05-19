@@ -109,7 +109,7 @@
 {
 	_autoBuy = onOrOff;
 	NSString *onOffString = onOrOff ? @"开" : @"关";
-	[autoBuyButton setTitle:[NSString stringWithFormat:@"自动订阅:%@", onOffString] forState:UIControlStateNormal];
+	[autoBuyButton setTitle:[NSString stringWithFormat:@"自动更新:%@", onOffString] forState:UIControlStateNormal];
 	[autoBuyButton setTitleColor:onOrOff ? [UIColor greenColor] : [UIColor blackColor] forState:UIControlStateNormal];
 }
 
