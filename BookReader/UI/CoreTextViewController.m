@@ -166,19 +166,6 @@
 //    }];
 //}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    //保存阅读进度
-    if ([pagesArray count] > 0) {
-        NSRange range = NSRangeFromString([pagesArray objectAtIndex:currentPageIndex]);
-        _book.lastReadChapterID = chapter.uid;
-        chapter.lastReadIndex = @(range.location);
-        [chapter persistWithBlock:nil];
-        [_book persistWithBlock:nil];
-    }
-}
-
 - (NSUInteger)goToIndexWithLastReadPosition:(NSInteger)index
 {
 	__block NSUInteger indexCount = 0;
@@ -233,13 +220,12 @@
 - (void)paging
 {
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
-	NSLog(@"currentChapterString = %@", currentChapterString);
+	NSAssert(currentChapterString != nil, @"currentChapterString == nil...");
 	pagesArray = [[currentChapterString pagesWithFont:coreTextView.font inSize:coreTextView.frame.size] mutableCopy];
 	NSRange range = NSRangeFromString(pagesArray[currentPageIndex]);
 	currentPageString = [[currentChapterString substringWithRange:range] mutableCopy];
 	statusView.percentage.text = [NSString stringWithFormat:@"%.2f%%", [self readPercentage]];
-	NSLog(@"currentChapterString = %@", currentChapterString);
-	NSLog(@"currentPageSting = %@", currentPageString);
+	NSAssert(currentPageString != nil, @"currentPageString == nil");
 	[coreTextView buildTextWithString:currentPageString];
 	[coreTextView setNeedsDisplay];
 }
@@ -345,6 +331,9 @@
 		currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
 	} else {
 		currentPageIndex = [self goToIndexWithLastReadPosition:0];
+		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+			chapter.lastReadIndex = 0;
+		}];
 	}
 }
 
@@ -511,44 +500,44 @@
 //    }
 //}
 
-- (void)chapterSubscribeWithObj:(Chapter *)obj
-{
-    if ([ServiceManager userID]!=nil) {
-        [ServiceManager chapterSubscribeWithChapterID:obj.uid book:_book.uid author:_book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
-            if (error) {
-                [self hideHUD:YES];
-            } else {
-                if ([code isEqualToString:SUCCESS_FLAG]) {
-                    chapter = obj;
-                    chapter.bBuy = [NSNumber numberWithBool:YES];
-                    chapter.content = content;
-                    chapter.bRead = [NSNumber numberWithBool:YES];
-                    _book.lastReadChapterID = chapter.uid;
-                    [chapter persistWithBlock:nil];
-                    [_book persistWithBlock:nil];
-                    [currentChapterString setString:[chapter.content XXSYDecoding]];
-                    [self setPageIndexByChapter:chapter];
-					//TODO
-                    //[self updateContent];
-                    [self hideHUD:YES];
-                } else {
-                    [self displayHUDError:nil message:@"无法下载阅读"];
-                }
-            }
-        }];
-    } else {
-        
-    }
-}
+//- (void)chapterSubscribeWithObj:(Chapter *)obj
+//{
+//    if ([ServiceManager userID]!=nil) {
+//        [ServiceManager chapterSubscribeWithChapterID:obj.uid book:_book.uid author:_book.authorID andPrice:@"0" withBlock:^(NSString *content,NSString *result,NSString *code,NSError *error) {
+//            if (error) {
+//                [self hideHUD:YES];
+//            } else {
+//                if ([code isEqualToString:SUCCESS_FLAG]) {
+//                    chapter = obj;
+//                    chapter.bBuy = [NSNumber numberWithBool:YES];
+//                    chapter.content = content;
+//                    chapter.bRead = [NSNumber numberWithBool:YES];
+//                    _book.lastReadChapterID = chapter.uid;
+//                    [chapter persistWithBlock:nil];
+//                    [_book persistWithBlock:nil];
+//                    [currentChapterString setString:[chapter.content XXSYDecoding]];
+//                    [self setPageIndexByChapter:chapter];
+//					//TODO
+//                    //[self updateContent];
+//                    [self hideHUD:YES];
+//                } else {
+//                    [self displayHUDError:nil message:@"无法下载阅读"];
+//                }
+//            }
+//        }];
+//    } else {
+//        
+//    }
+//}
 
-- (void)setPageIndexByChapter:(Chapter *)obj
-{
-    if ([chapter.lastReadIndex intValue] == 0) {
-        currentPageIndex = 0;
-    } else {
-        currentPageIndex = [self goToIndexWithLastReadPosition:[obj.lastReadIndex intValue]];
-    }
-}
+//- (void)setPageIndexByChapter:(Chapter *)obj
+//{
+//    if ([chapter.lastReadIndex intValue] == 0) {
+//        currentPageIndex = 0;
+//    } else {
+//        currentPageIndex = [self goToIndexWithLastReadPosition:[obj.lastReadIndex intValue]];
+//    }
+//}
 
 - (void)chapterDidSelectAtIndex:(NSInteger)index
 {
