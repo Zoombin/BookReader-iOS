@@ -57,6 +57,7 @@
     [self.view addSubview:statusView];
     
     statusView.title.text = chapter.name;
+	NSLog(@"status title = %@", chapter.name);
     
     coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, size.width, size.height-40)];
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
@@ -102,7 +103,7 @@
 	if (1) {
 	//if (chapter.content) {
 		currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
-		//NSLog(@"currentChapterString = %@", currentChapterString);
+		NSLog(@"currentChapterString = %@", currentChapterString);
 		[self paging];
 		if ([chapter.lastReadIndex integerValue]) {
 			currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
@@ -256,6 +257,7 @@
 - (void)paging
 {
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
+	NSLog(@"currentChapterString = %@", currentChapterString);
 	pagesArray = [[currentChapterString pagesWithFont:coreTextView.font inSize:coreTextView.frame.size] mutableCopy];
 	NSRange range = NSRangeFromString(pagesArray[currentPageIndex]);
 	currentPageString = [[currentChapterString substringWithRange:range] mutableCopy];
@@ -264,15 +266,6 @@
 	NSLog(@"currentPageSting = %@", currentPageString);
 	[coreTextView buildTextWithString:currentPageString];
 	[coreTextView setNeedsDisplay];
-}
-
-- (void)updateContent {
-	//TODO
-    if (currentPageIndex >= [pagesArray count]) {
-        currentPageIndex = [pagesArray count] - 1;
-    }
-	//TODO
-    //statusView.title.text = chapter.name;//TODO: nextChapter, preChapter
 }
 
 #pragma mark-
@@ -292,7 +285,8 @@
 - (void)changeTextColor:(NSString *)textColor
 {
 	[BookReaderDefaultsManager setObject:textColor ForKey:UserDefaultKeyTextColor];
-    [self updateContent];
+	//TODO
+    //[self updateContent];
 }
 
 - (void)fontChanged:(BOOL)reduce
@@ -305,19 +299,22 @@
 		return;
 	}
 	[BookReaderDefaultsManager setObject:@(currentFontSize) ForKey:UserDefaultKeyFontSize];
-	[self updateContent];
+	//TODO
+	//[self updateContent];
 }
 
 - (void)systemFont
 {
 	[BookReaderDefaultsManager setObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
-    [self updateContent];
+	//TODO
+    //[self updateContent];
 }
 
 - (void)foundFont
 {
 	[BookReaderDefaultsManager setObject:UserDefaultFoundFont ForKey:UserDefaultKeyFontName];
-    [self updateContent];
+	//TODO
+    //[self updateContent];
 }
 
 #pragma mark -
@@ -360,6 +357,7 @@
 
 - (void)previousChapter
 {
+	currentPageIndex = 0;
     if ([chapter.index integerValue] == 0) {
         [self displayHUDError:@"" message:@"此章是第一章"];
     }else {
@@ -370,6 +368,7 @@
 
 - (void)nextChapter
 {
+	currentPageIndex = 0;
 	Chapter *nextChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=%d", _book.uid, [chapter.index intValue] + 1]];
 	if (!nextChapter) {
 		[self displayHUDError:@"" message:@"最后一章"];
@@ -492,7 +491,8 @@
         _book.lastReadChapterID = chapter.uid;
         [chapter persistWithBlock:nil];
         [_book persistWithBlock:nil];
-        [self updateContent];
+		//TODO
+        //[self updateContent];
         [self hideHUD:YES];
     }else {
         [ServiceManager bookCatalogue:obj.uid withBlock:^(NSString *content,NSString *result,NSString *code, NSError *error) {
@@ -511,7 +511,8 @@
                     [_book persistWithBlock:nil];
                     [currentChapterString setString:[chapter.content XXSYDecoding]];
                     [self setPageIndexByChapter:chapter];
-                    [self updateContent];
+					//TODO
+                    //[self updateContent];
                     [self hideHUD:YES];
                 }
             }
@@ -536,7 +537,8 @@
                     [_book persistWithBlock:nil];
                     [currentChapterString setString:[chapter.content XXSYDecoding]];
                     [self setPageIndexByChapter:chapter];
-                    [self updateContent];
+					//TODO
+                    //[self updateContent];
                     [self hideHUD:YES];
                 } else {
                     [self displayHUDError:nil message:@"无法下载阅读"];
