@@ -15,6 +15,7 @@
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
+
 @implementation GiftViewController {
     NSString *currentIndex;
     Book *bookObj;
@@ -72,25 +73,26 @@
 
 - (void)sendButtonClick:(NSDictionary *)value
 {
-    NSString *integral = @"";
-    NSString *count = [value objectForKey:@"count"];
-    NSString *index = [value objectForKey:@"index"];
-    if ([value objectForKey:@"integral"]) {
-        integral = [value objectForKey:@"integral"];
-    }
-    [self displayHUD:@"处理中..."];
-    [ServiceManager giveGiftWithType:index
-                      author:bookObj.authorID
-                       count:count
-                    integral:integral
-                     andBook:bookObj.uid
-                   withBlock:^(NSString *result, NSError *error) {
-                       if (error) {
-                           [self displayHUDError:nil message:NETWORK_ERROR];
-                       }else {
-                           [self displayHUDError:nil message:result];
-                       }
-                   }];
+    NSLog(@"%@",value);
+//    NSString *integral = @"";
+//    NSString *count = [value objectForKey:@"count"];
+//    NSString *index = [value objectForKey:@"index"];
+//    if ([value objectForKey:@"integral"]) {
+//        integral = [value objectForKey:@"integral"];
+//    }
+//    [self displayHUD:@"处理中..."];
+//    [ServiceManager giveGiftWithType:index
+//                      author:bookObj.authorID
+//                       count:count
+//                    integral:integral
+//                     andBook:bookObj.uid
+//                   withBlock:^(NSString *result, NSError *error) {
+//                       if (error) {
+//                           [self displayHUDError:nil message:NETWORK_ERROR];
+//                       }else {
+//                           [self displayHUDError:nil message:result];
+//                       }
+//                   }];
 }
 
 - (void)backButtonClicked
