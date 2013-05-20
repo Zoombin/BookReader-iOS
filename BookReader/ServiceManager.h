@@ -115,7 +115,7 @@
 
 //自动订阅
 + (void)autoSubscribeWithBookID:(NSString *)bookid
-             andValue:(NSString *)value //1:打开 0:关闭
+             On:(BOOL)onOrOff
             withBlock:(void(^)(NSString *,NSError *))block;
 
 //发表评论

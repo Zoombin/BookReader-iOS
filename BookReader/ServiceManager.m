@@ -502,13 +502,13 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)autoSubscribeWithBookID:(NSString *)bookid
-                       andValue:(NSString *)value
+                       On:(BOOL)onOrOff
                       withBlock:(void (^)(NSString *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.auto"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
-    parameters[@"value"] = value;
+    parameters[@"value"] = onOrOff ? @"1" : @"0";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
