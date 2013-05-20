@@ -14,6 +14,7 @@
 #import "UIButton+BookReader.h"
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
+#import "AppDelegate.h"
 
 @implementation SignUpViewController {
     UIButton *registerButton;
@@ -127,7 +128,8 @@
         }else {
             [self displayHUDError:nil message:resultMessage];
             if ([result isEqualToString:SUCCESS_FLAG]) {
-                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+                [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
             } else {
                 
             }
