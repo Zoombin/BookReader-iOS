@@ -15,6 +15,14 @@
     UIView *backgroundView;
     NSArray *textcolorNames;
     NSArray *textcolorArray;
+    
+    UIButton *chaptersListButton;
+    UIButton *lastChapterButton;
+    UIButton *nextChapterButton;
+    UIButton *fontButton;
+    UIButton *backgroundSettingButton;
+    
+    NSMutableArray *bottomViewBtns;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -24,6 +32,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        bottomViewBtns = [[NSMutableArray alloc] init];
         textcolorNames = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
         [self initTopView];
@@ -109,14 +118,19 @@
     for (int i = 0; i <[rectArrays count]; i++) {
         UIButton *button =[UIButton buttonWithType:UIButtonTypeRoundedRect];
         [button setFrame:CGRectFromString([rectArrays objectAtIndex:i])];
-        [button setTag:i];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setBackgroundImage:BUTTON_IMAGE forState:UIControlStateNormal];
         [button setBackgroundImage:BUTTON_HIGHLIGHTED_IMAGE forState:UIControlStateHighlighted];
         [button setTitle:titleArrays[i] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:button];
+        [bottomViewBtns addObject:button];
     }
+    chaptersListButton = bottomViewBtns[0];
+    lastChapterButton = bottomViewBtns[1];
+    fontButton = bottomViewBtns[2];
+    nextChapterButton = bottomViewBtns[3];
+    backgroundSettingButton = bottomViewBtns[4];
     [self addSubview:bottomView];
 }
 
@@ -130,7 +144,6 @@
     
 	_fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
-//    [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [_fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
@@ -250,25 +263,25 @@
     }
 }
 
-- (void)bottomButtonsPressed:(id)sender
+- (void)bottomButtonsPressed:(UIButton *)sender
 {
-    if ([sender tag] ==0 ) {
+    if (sender == chaptersListButton) {
         if ([self.delegate respondsToSelector:@selector(chapterButtonClick)]) {
             [self.delegate performSelector:@selector(chapterButtonClick)];
         }
-    } else if ([sender tag] == 1) {
+    } else if (sender == lastChapterButton) {
         if ([self.delegate respondsToSelector:@selector(previousChapterButtonClick)]) {
             [self.delegate performSelector:@selector(previousChapterButtonClick)];
         }
-    } else if ([sender tag] == 2) {
+    } else if (sender == fontButton) {
         backgroundView.hidden = YES;
         fontView.hidden = !fontView.hidden;
         
-    } else if ([sender tag] == 3) {
+    } else if (sender == nextChapterButton) {
         if ([self.delegate respondsToSelector:@selector(nextChapterButtonClick)]) {
             [self.delegate performSelector:@selector(nextChapterButtonClick)];
         }
-    } else if ([sender tag] == 4) {
+    } else if (sender == backgroundSettingButton) {
         backgroundView.hidden = !backgroundView.hidden;
         fontView.hidden = YES;
     }

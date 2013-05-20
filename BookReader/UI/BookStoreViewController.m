@@ -37,7 +37,7 @@
     
     UISearchBar *_searchBar;
     
-    NSMutableArray *buttonArrays;
+    NSMutableArray *buttonArrays; //4个分类的按钮array
     
     NSMutableArray *infoArray;
     UITableView *infoTableView;
@@ -52,6 +52,17 @@
     NSMutableArray *recommandArray;
     
     NSMutableArray *recommandTitlesArray;
+    
+    UIButton *recommandButton;
+    UIButton *rankButton;
+    UIButton *cataButton;
+    UIButton *searchButton;
+    
+    UIButton *allRankButton;
+    UIButton *newRankButton;
+    UIButton *hotRankButton;
+    
+    NSMutableArray *rankBtns;
 }
 
 - (id)init
@@ -63,6 +74,8 @@
         buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
         recommandTitlesArray = [[NSMutableArray alloc] init];
+        
+        rankBtns = [[NSMutableArray alloc] init];
         currentType = RECOMMAND;
         currentPage = 1;
         currentIndex = 1;
@@ -96,7 +109,6 @@
                 [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             }
         }
-//        NSArray *buttonName = @[@"推荐", @"排行", @"分类", @"搜索"];
         NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
         NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
         for (int i = 0; i < 4; i++) {
@@ -143,12 +155,16 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setTag:i];
         [button setFrame:CGRectMake(i*MAIN_SCREEN.size.width/4, MAIN_SCREEN.size.height-47-20, MAIN_SCREEN.size.width/4, 47)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
     }
+    
+    recommandButton = buttonArrays[0];
+    rankButton = buttonArrays[1];
+    cataButton = buttonArrays[2];
+    searchButton = buttonArrays[3];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, 40)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
@@ -180,7 +196,7 @@
     NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
     for (int i=0; i<[buttonNames count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTag:i+1000];
+        [button setTag:i];
         if (i%2==0) {
             [button setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:239.0/255.0 blue:230.0/255.0 alpha:1.0]];
         } else {
@@ -202,7 +218,6 @@
     NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
     for (int i = 0; i<3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button setTag:i+10000];
         if (i==0) {
             [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         }
@@ -210,7 +225,11 @@
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(i*(MAIN_SCREEN.size.width/3)+0, 0, MAIN_SCREEN.size.width/3, 40)];
         [rankView addSubview:button];
+        [rankBtns addObject:button];
     }
+    allRankButton = rankBtns[0];
+    newRankButton = rankBtns[1];
+    hotRankButton = rankBtns[2];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -248,26 +267,24 @@
     
 }
 
-- (void)changeButtonImage:(id)sender {
-//    NSArray *buttonName = @[@"推荐", @"排行", @"分类", @"搜索"];
+- (void)changeButtonImage:(UIButton *)sender {
     NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
     NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
     for (int i = 0; i < 4; i++) {
         UIButton *button = (UIButton *)[buttonArrays objectAtIndex:i];
-        if ([sender tag]==i) {
-            [button setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateNormal];
+        if (sender == button) {
+            [sender setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateNormal];
         }else {
             [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
         }
     }
 }
 
-- (void)changeRankButtonImage:(id)sender {
+- (void)changeRankButtonImage:(UIButton *)sender {
     for (int i = 0; i<3; i++) {
-        UIButton *button = (UIButton *)[self.view viewWithTag:i+10000];
-        if(button.tag == [sender tag])
-        {
-            [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        UIButton *button = rankBtns[i];
+        if(sender == button) {
+            [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         }else {
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
@@ -318,9 +335,9 @@
 }
 
 - (void)reloadDataByIndex:(id)sender {
-    if (currentPage==[sender tag]-10000+1)
+    if (currentPage==[sender tag]+1)
         return;
-    currentPage = [sender tag]-10000+1;
+    currentPage = [sender tag]+1;
     [self changeRankButtonImage:sender];
     [self loadDataWithKeyWord:@"" classId:@"0" ranking:[NSString stringWithFormat:@"%d",currentPage] size:@"5" andIndex:1];
 }
@@ -389,7 +406,7 @@
     [self.navigationController pushViewController:childViewController animated:YES];
     [childViewController displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                  classID:[NSString stringWithFormat:@"%d",[sender tag]-1000+1]
+                  classID:[NSString stringWithFormat:@"%d",[sender tag]+1]
                   ranking:@"0"
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
@@ -400,17 +417,17 @@
                              [infoArray removeAllObjects];
                          }
                          [infoArray addObjectsFromArray:result];
-                         [childViewController reloadDataWithArray:infoArray andCatagoryId:[sender tag]-1000+1];
+                         [childViewController reloadDataWithArray:infoArray andCatagoryId:[sender tag]+1];
                          currentPage = [sender tag]+1;
                          [childViewController hideHUD:YES];
                      }
                  }];
 }
 
-- (void)buttonClick:(id)sender {
+- (void)buttonClick:(UIButton *)sender {
     [infoTableView setTableFooterView:nil];
     [self changeButtonImage:sender];
-    switch ([sender tag]) {
+    switch ([buttonArrays indexOfObject:sender]) {
         case 0:
             currentType = RECOMMAND;
             [self showSearchBarWithBoolValue:NO];
