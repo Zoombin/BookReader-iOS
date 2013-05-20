@@ -78,34 +78,32 @@
 {
     NSString *md5key = userkey;
     md5key = [[md5key md532] uppercaseString];
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    for (int i = 0; i<[md5key length]; i++) {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [md5key length]; i++) {
         char k = [md5key characterAtIndex:i];
         NSString *kString = [NSString stringWithFormat:@"%c",k];
         if (![array containsObject:kString]) {
             [array addObject:kString];
         }
-        if ([array count]>=16) {
+        if ([array count] == 16) {
             break;
         }
     }
-    NSString *dic = @"0123456789ABCDEF";
-    if ([array count]<16) {
-        for (int i = 0; i<[dic length]; i++) {
-            char k = [dic characterAtIndex:i];
-            NSString *kString = [NSString stringWithFormat:@"%c",k];
+    if ([array count] < 16) {
+        for (int i = 0; i < 16; i++) {
+            NSString *kString = [NSString stringWithFormat:@"%X", i];
             if (![array containsObject:kString]) {
                 [array addObject:kString];
             }
-            if ([array count]>=16) {
+            if ([array count] == 16) {
                 break;
             }
         }
     }
-    NSString *dictKey = @"";
-    for (int i =0; i<[array count]; i++) {
-        NSString  *kString = array[i];
-        dictKey = [dictKey stringByAppendingString:kString];
+	
+    NSMutableString *dictKey = [NSMutableString string];
+    for (int i = 0; i < [array count]; i++) {
+		[dictKey  appendString:array[i]];
     }
     return [dictKey UTF8String];
 }
