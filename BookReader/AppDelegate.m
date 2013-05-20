@@ -20,6 +20,7 @@
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
 #import "BookReaderDefaultsManager.h"
+#import "MobileProbe.h"
 
 #define REMOTE_MODE
 
@@ -44,7 +45,7 @@
 	
 	//TOTEST: yanchao's account
 	//[ServiceManager saveUserID:@(5639339)];
-	
+	[MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
