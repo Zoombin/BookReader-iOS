@@ -104,9 +104,7 @@
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //获取数据信息
-+ (void)userBooksWithSize:(NSString *)size
-         andIndex:(NSString *)index
-        withBlock:(void(^)(NSArray *,NSError *))block;
++ (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
 //收藏书籍
 + (void)addFavoriteWithBookID:(NSString *)bookid

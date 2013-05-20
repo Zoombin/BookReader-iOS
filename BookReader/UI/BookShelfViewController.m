@@ -114,7 +114,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)syncBooks
 {
 	[self displayHUD:@"同步收藏..."];
-    [ServiceManager userBooksWithSize:@"5000" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager userBooksWithBlock:^(NSArray *result, NSError *error) {
 		[self hideHUD:YES];
         if (error) {
 			[self displayHUDError:nil message:error.description];

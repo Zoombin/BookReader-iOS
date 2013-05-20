@@ -459,14 +459,12 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)userBooksWithSize:(NSString *)size
-                 andIndex:(NSString *)index
-                withBlock:(void (^)(NSArray *, NSError *))block
++ (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.get"}]];
     parameters[@"userid"] = [self userID];
-    parameters[@"size"] = size;
-    parameters[@"index"] = index;
+    parameters[@"size"] = @"5000";//客户端请求5000本上限
+    parameters[@"index"] = @"1";//从第一页开始请求
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
