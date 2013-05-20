@@ -104,12 +104,12 @@
                 author:(NSNumber *)authorid
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
-//获取数据信息
+//获取数据信息，用户收藏的书籍
 + (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
-//收藏书籍
+//添加/删除收藏
 + (void)addFavoriteWithBookID:(NSString *)bookid
-       andValue:(BOOL)value
+       On:(BOOL)onOrOff
       withBlock:(void(^)(NSString *,NSString *,NSError *))block;
 
 //自动订阅
@@ -137,6 +137,16 @@
               withBlock:(void(^)(NSString *,NSError *))block;
 
 //用户道具
+typedef NS_ENUM(NSInteger, XXSYGiftType) {
+	XXSYGiftTypeDiamond = 1,
+	XXSYGiftTypeFlower = 2,
+	XXSYGiftTypeAward = 3,
+	XXSYGiftTypeTicket = 4,
+	XXSYGiftTypeComment = 5
+};
+
+#define XXSYGiftTypesMap @{@"钻石" : @(XXSYGiftTypeDiamond), @"鲜花" : @(XXSYGiftTypeFlower), @"打赏" : @(XXSYGiftTypeAward), @"月票" : @(XXSYGiftTypeTicket), @"评价票" : @(XXSYGiftTypeComment)}
+
 + (void)giveGiftWithType:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量

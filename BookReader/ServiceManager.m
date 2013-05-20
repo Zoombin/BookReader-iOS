@@ -479,10 +479,10 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)addFavoriteWithBookID:(NSString *)bookid
-                      andValue:(BOOL)value
+                      On:(BOOL)onOrOff
                      withBlock:(void (^)(NSString *, NSString *, NSError *))block
 {
-    NSString *methodValue = value ? @"keep.insert" : @"keep.remove";
+    NSString *methodValue = onOrOff ? @"keep.insert" : @"keep.remove";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : methodValue}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;

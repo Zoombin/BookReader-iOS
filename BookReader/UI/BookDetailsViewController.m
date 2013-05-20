@@ -447,7 +447,7 @@
 {
     if ([self checkLogin]) {
 		[self displayHUD:@"请稍等..."];
-        [ServiceManager addFavoriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
+        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
             if (!error) {
                 if ([result isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;
