@@ -67,7 +67,6 @@
 
 - (void)clone:(Chapter *)chapter
 {
-    //chapter.bBuy = self.bBuy;
     chapter.bid = self.bid;
     //chapter.bRead = self.bRead;
     chapter.bVip = self.bVip;

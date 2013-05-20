@@ -5,7 +5,6 @@
         <attribute name="authorID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="autoBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bFav" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="bHistory" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="category" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -22,7 +21,6 @@
         <attribute name="words" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Chapter" representedClassName="Chapter" syncable="YES">
-        <attribute name="bBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bVip" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -33,7 +31,7 @@
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="160" positionY="192" width="128" height="330"/>
-        <element name="Chapter" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="Book" positionX="160" positionY="192" width="128" height="315"/>
+        <element name="Chapter" positionX="160" positionY="192" width="128" height="165"/>
     </elements>
 </model>

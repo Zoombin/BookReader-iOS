@@ -11,7 +11,6 @@
 
 @implementation Chapter
 
-@dynamic bBuy;
 @dynamic bid;
 @dynamic bRead;
 @dynamic bVip;

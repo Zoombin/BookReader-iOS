@@ -94,7 +94,6 @@
     book.authorID = self.authorID;
     book.autoBuy = self.autoBuy;
     book.bFav = self.bFav;
-    //book.bHistory = self.bHistory;
     book.category = self.category;
     book.categoryID = self.categoryID;
     //book.cover = self.cover;
