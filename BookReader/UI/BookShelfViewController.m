@@ -211,7 +211,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 	Chapter *chapter = chapters[0];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
-	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID andPrice:@"0" withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
 		if (content && ![content isEqualToString:@""]) {
 			chapter.content = content;
 			[chapter persistWithBlock:^(void) {

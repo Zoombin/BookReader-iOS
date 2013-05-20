@@ -345,7 +345,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommand:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookRecommend:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
             
         }

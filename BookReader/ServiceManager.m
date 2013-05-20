@@ -320,7 +320,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)getRecommandBooksWithBlock:(void (^)(NSArray *, NSError *))block
++ (void)recommendBooksWithBlock:(void (^)(NSArray *, NSError *))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[]];
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -439,10 +439,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                                  book:(NSString *)bookid
                                author:(NSNumber *)authorid
-                             andPrice:(NSString *)price
                             withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid.stringValue}, @{@"price" : price}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid.stringValue}, @{@"price" : @"0"}]];//price is useless, XXSY need update this api
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -541,7 +540,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 
-+ (void)bookRecommand:(NSNumber *)classid
++ (void)bookRecommend:(NSNumber *)classid
              andCount:(NSString *)count
             withBlock:(void (^)(NSArray *, NSError *))block
 {

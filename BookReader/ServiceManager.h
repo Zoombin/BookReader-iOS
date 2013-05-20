@@ -58,12 +58,14 @@
 
 //用户充值
 + (void)payWithType:(NSString *)payType //分为5种 1,2,3,4,5 分别代表0.99$ 1.99$ 4.99$ 9.99$ 19.99$
-      withBlock:(void(^)(NSString *,NSError *))block; //{"result":"0000","count":8400}
-                 //Example:20130108153057_2797792_14 日期_userid_40
+		  withBlock:(void(^)(NSString *,NSError *))block __deprecated;//iOS不需要这个接口了
+//{"result":"0000","count":8400}
+//Example:20130108153057_2797792_14 日期_userid_40
+
 //用户充值记录
 + (void)paymentHistoryWithPageIndex:(NSString *)pageIndex //第几页
               andCount:(NSString *)count        //每页的数目
-             withBlock:(void(^)(NSArray *,NSString *,NSError *))block;
+						  withBlock:(void(^)(NSArray *,NSString *,NSError *))block __deprecated;//iOS不需要这个接口了
 
 #pragma mark - 书城接口
 //获取榜单 分类 搜索的书籍列表
@@ -75,7 +77,7 @@
        withBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取推荐信息
-+ (void)getRecommandBooksWithBlock:(void (^)(NSArray *, NSError *))block;
++ (void)recommendBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取图书详情
 + (void)bookDetailsByBookId:(NSString *)bookid //书的id
@@ -100,7 +102,6 @@
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                   book:(NSString *)bookid
                 author:(NSNumber *)authorid
-                andPrice:(NSString *)price
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
 //获取数据信息
@@ -122,7 +123,7 @@
            withBlock:(void(^)(NSString *,NSError *))block;
 
 //同类推荐
-+ (void)bookRecommand:(NSNumber *)classid //1~11
++ (void)bookRecommend:(NSNumber *)classid //1~11
              andCount:(NSString *)count
             withBlock:(void(^)(NSArray *,NSError *))block;
 

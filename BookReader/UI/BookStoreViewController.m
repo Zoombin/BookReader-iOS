@@ -347,7 +347,7 @@
     [infoTableView setFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20)];
     [infoTableView setHidden:NO];
     [self displayHUD:@"加载中..."];
-    [ServiceManager getRecommandBooksWithBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager recommendBooksWithBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
