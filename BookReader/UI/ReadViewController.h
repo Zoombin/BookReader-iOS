@@ -12,7 +12,6 @@
 #import "ReadView.h"
 #import "ReadMenuView.h"
 #import "ReadStatusView.h"
-#import "HandleGBString.h"
 #import "AdWhirlView.h"
 #import "BookReader.h"
 

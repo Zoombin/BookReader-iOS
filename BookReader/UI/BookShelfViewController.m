@@ -19,7 +19,6 @@
 #import "ReadViewController.h"
 #import "BookManager.h"
 #import "ChapterViewController.h"
-#import "HandleGBString.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
 #import "BookReader.h"
