@@ -54,7 +54,13 @@
     UIButton *authorBook;
     UIButton *bookRecommand;
 	
+    UIButton *readButton;
 	UIButton *favoriteButton;
+    UIButton *giveDemand;
+    UIButton *giveFlower;
+    UIButton *giveMoney;
+    UIButton *giveMonthTicket;
+    UIButton *giveComment;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -71,6 +77,7 @@
         comment = [UIButton buttonWithType:UIButtonTypeCustom];
         authorBook = [UIButton buttonWithType:UIButtonTypeCustom];
         bookRecommand = [UIButton buttonWithType:UIButtonTypeCustom];
+        
         // Custom initialization
     }
     return self;
@@ -154,6 +161,7 @@
     //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
     NSArray *buttonTitles = @[@"阅读",@"收藏",@"送钻石",@"送鲜花",@"打赏",@"投月票",@"投评价"];
     NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
+    NSArray *selStrings = @[@"readButtonClicked:", @"favButtonClicked:", @"buttonClicked:"];
 	NSMutableArray *buttons = [NSMutableArray array];
     for (int i = 0; i < [buttonTitles count]; i++) {
         UIButton *button = nil;
@@ -165,13 +173,18 @@
             button = [UIButton createButtonWithFrame:CGRectMake(110+100*i, 120, 80, 20)];
             [button setTitle:buttonTitles[i] forState:UIControlStateNormal];
         }
-        [button setTag:i];
-        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:NSSelectorFromString(i >= 2 ? selStrings[2] : selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [firstBkgView addSubview:button];
 		[buttons addObject:button];
     }
 	
+    readButton = buttons[0];
 	favoriteButton = buttons[1];
+    giveDemand = buttons[2];
+    giveFlower = buttons[3];
+    giveMoney = buttons[4];
+    giveMonthTicket = buttons[5];
+    giveComment = buttons[6];
 	
     if ([ServiceManager userID] != nil) {
         [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
@@ -201,7 +214,6 @@
         [button.layer setBorderColor: i==0 ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
         [button setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(i*secondView.frame.size.width/4, 0, secondView.frame.size.width/4, 30)];
-        [button setTag:i];
         [button addTarget:self action:@selector(selectTabBar:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:btnNames[i] forState:UIControlStateNormal];
         [secondView addSubview:button];
@@ -243,35 +255,66 @@
     
 }
 
-- (void)selectTabBar:(id)sender
+- (void)readButtonClicked:(id)sender
+{
+   	[book persistWithBlock:^(void) {//下载章节目录
+        [self displayHUD:@"获取章节目录..."];
+        [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+            [self hideHUD:YES];
+            if (!error) {
+                [Chapter persist:result withBlock:^(void) {
+                    [self pushToReadView];
+                }];
+            } else {
+                [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
+            }
+        }];
+    }];
+}
+
+- (void)favButtonClicked:(id)sender
+{
+    [self addFav];
+}
+
+- (void)buttonClicked:(UIButton *)sender
+{
+	NSInteger index = 0;
+    if (sender == giveDemand) {
+        index = 0;
+    } else if (sender == giveFlower) {
+        index = 1;
+    } else if (sender == giveMoney) {
+        index = 2;
+    } else if (sender == giveMonthTicket) {
+        index = 3;
+    } else if (sender == giveComment) {
+        index = 4;
+    }
+    [self pushToGiftViewWithIndex:@(index).stringValue];//1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
+}
+
+- (void)selectTabBar:(UIButton *)sender
 {
     
-     NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommand];
+    NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommand];
     for (int i = 0; i<4; i++) {
         UIButton *button = (UIButton *)btnObjs[i];
-        [button.layer setBorderColor:[sender tag]==button.tag ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
+        [button.layer setBorderColor:sender==button ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
     }
-    
-    switch ([sender tag]) {
-        case 0:
-            [secondView bringSubviewToFront:shortdescribeTextView];
-            break;
-        case 1:
-            [secondView bringSubviewToFront:infoTableView];
-            [secondView bringSubviewToFront:sendCommitButton];
-            break;
-        case 2:
-            currentType = AUTHORBOOK;
-            [recommandTableView reloadData];
-            [secondView bringSubviewToFront:recommandTableView];
-            break;
-        case 3:
-            currentType = OTHERBOOK;
-            [recommandTableView reloadData];
-            [secondView bringSubviewToFront:recommandTableView];
-            break;
-        default:
-            break;
+    if (sender == shortDescribe) {
+        [secondView bringSubviewToFront:shortdescribeTextView];
+    } else if (sender == comment) {
+        [secondView bringSubviewToFront:infoTableView];
+        [secondView bringSubviewToFront:sendCommitButton];
+    } else if (sender == authorBook) {
+        currentType = AUTHORBOOK;
+        [recommandTableView reloadData];
+        [secondView bringSubviewToFront:recommandTableView];
+    } else if (sender == bookRecommand) {
+        currentType = OTHERBOOK;
+        [recommandTableView reloadData];
+        [secondView bringSubviewToFront:recommandTableView];
     }
 }
 
@@ -360,47 +403,23 @@
 {
 	[infoArray removeAllObjects];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
-         if (error){
-         } else {
-             if ([result count] == 10) {
-                 [self addFootView];
-                 currentIndex++;
-             }
-             [infoArray addObjectsFromArray:result];
-             [infoTableView reloadData];
-         }
-     }];
+        if (error){
+        } else {
+            if ([result count] == 10) {
+                [self addFootView];
+                currentIndex++;
+            }
+            [infoArray addObjectsFromArray:result];
+            [infoTableView reloadData];
+        }
+    }];
 }
 
 - (void)pushToReadView
-{	
+{
     CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 	controller.book = book;
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)buttonClicked:(id)sender
-{
-	NSInteger tag = [sender tag];
-	if (tag == 0) {
-		[book persistWithBlock:^(void) {//下载章节目录
-			[self displayHUD:@"获取章节目录..."];
-			[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
-				[self hideHUD:YES];
-				if (!error) {
-					[Chapter persist:result withBlock:^(void) {
-						[self pushToReadView];
-					}];
-				} else {
-					[self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
-				}
-			}];
-		}];
-	} else if (tag == 1) {
-		[self addFav];
-	} else {
-		[self pushToGiftViewWithIndex:[@(tag - 2) stringValue]];//1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
-	}
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
@@ -432,7 +451,7 @@
                 if ([result isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;
 					favoriteButton.enabled = YES;
-					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];					
+					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];
 					book.bFav = @(YES);
 					[book persistWithBlock:^(void) {
 						[self displayHUDError:nil message:resultMessage];
@@ -550,18 +569,18 @@
 {
     [self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
-         if (error) {
-             [self displayHUDError:nil message:NETWORK_ERROR];
-         } else {
-             if ([infoArray count] == 0) {
-                 [infoTableView setTableFooterView:nil];
-             }
-             [infoArray addObjectsFromArray:result];
-             currentIndex++;
-             [infoTableView reloadData];
-             [self hideHUD:YES];
-         }
-     }];
+        if (error) {
+            [self displayHUDError:nil message:NETWORK_ERROR];
+        } else {
+            if ([infoArray count] == 0) {
+                [infoTableView setTableFooterView:nil];
+            }
+            [infoArray addObjectsFromArray:result];
+            currentIndex++;
+            [infoTableView reloadData];
+            [self hideHUD:YES];
+        }
+    }];
 }
 
 @end
