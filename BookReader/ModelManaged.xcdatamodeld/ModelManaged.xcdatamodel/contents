@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Book" representedClassName="Book" syncable="YES">
-        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="author" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="autoBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bFav" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bHistory" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="describe" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="describe" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastReadChapterID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastUpdate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastUpdate" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="rDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recommandID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="recommandTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recommandTitle" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="words" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="words" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Chapter" representedClassName="Chapter" syncable="YES">
         <attribute name="bBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
