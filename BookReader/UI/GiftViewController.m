@@ -20,7 +20,6 @@
     Book *bookObj;
     NSArray *integralArrays;
     
-    NSMutableArray *oldKeyWordsArray;
     NSMutableArray *newKeyWordsArray;
     UITableView *infoTableView;
 }
@@ -31,11 +30,9 @@
         currentIndex = index;
         bookObj = book;
         NSLog(@"==>%@",currentIndex);
-        oldKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
         newKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
-    
-        NSString *key = [oldKeyWordsArray objectAtIndex:[index intValue]];
-        [newKeyWordsArray removeObjectAtIndex:[index intValue]];
+        NSString *key = [newKeyWordsArray objectAtIndex:[index intValue]];
+        [newKeyWordsArray removeObject:key];
         [newKeyWordsArray insertObject:key atIndex:0];
     
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
