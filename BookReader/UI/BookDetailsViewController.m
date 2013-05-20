@@ -188,7 +188,7 @@
     giveComment = buttons[6];
 	
     if ([ServiceManager userID] != nil) {
-        [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
+        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
             if (error) {
                 
             } else {
@@ -447,7 +447,7 @@
 {
     if ([self checkLogin]) {
 		[self displayHUD:@"请稍等..."];
-        [ServiceManager addFavouriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
+        [ServiceManager addFavoriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
             if (!error) {
                 if ([result isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;

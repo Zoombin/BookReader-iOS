@@ -109,7 +109,7 @@
         withBlock:(void(^)(NSArray *,NSError *))block;
 
 //收藏书籍
-+ (void)addFavouriteWithBookID:(NSString *)bookid
++ (void)addFavoriteWithBookID:(NSString *)bookid
        andValue:(BOOL)value
       withBlock:(void(^)(NSString *,NSString *,NSError *))block;
 
@@ -134,7 +134,7 @@
               withBlock:(void(^)(NSArray *,NSError *))block;
 
 //是否在收藏夹
-+ (void)existsFavouriteWithBookID:(NSString *)bookid
++ (void)existsFavoriteWithBookID:(NSString *)bookid
               withBlock:(void(^)(NSString *,NSError *))block;
 
 //用户道具

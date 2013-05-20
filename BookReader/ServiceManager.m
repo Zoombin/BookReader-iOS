@@ -481,7 +481,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)addFavouriteWithBookID:(NSString *)bookid
++ (void)addFavoriteWithBookID:(NSString *)bookid
                       andValue:(BOOL)value
                      withBlock:(void (^)(NSString *, NSString *, NSError *))block
 {
@@ -591,7 +591,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)existsFavouriteWithBookID:(NSString *)bookid
++ (void)existsFavoriteWithBookID:(NSString *)bookid
                         withBlock:(void (^)(NSString *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.isexists"}]];

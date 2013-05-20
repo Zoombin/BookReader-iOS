@@ -234,7 +234,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Book *needRemoveBook = needRemoveFavoriteBooks[0];
-	[ServiceManager addFavouriteWithBookID:needRemoveBook.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
+	[ServiceManager addFavoriteWithBookID:needRemoveBook.uid andValue:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
 		if ([result isEqualToString:SUCCESS_FLAG]) {
 			[needRemoveFavoriteBooks removeObject:needRemoveBook];
 			[booksForDisplay removeObject:needRemoveBook];
