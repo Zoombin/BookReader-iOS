@@ -80,12 +80,12 @@
 + (void)recommendBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取图书详情
-+ (void)bookDetailsByBookId:(NSString *)bookid //书的id
++ (void)bookDetailsByBookId:(NSString *)bookid
                       andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
                      withBlock:(void (^)(Book *,NSError *))block;
 
 //获取评论接口
-+ (void)bookDiccusssListByBookId:(NSString *)bookid //书的id
++ (void)bookDiccusssListByBookId:(NSString *)bookid
                             size:(NSString *)size //每次返回条数
                         andIndex:(NSString *)index //第几页
                        withBlock:(void(^)(NSArray *,NSError *))block;
