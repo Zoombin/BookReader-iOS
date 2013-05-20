@@ -10,8 +10,6 @@
 #import "ServiceManager.h"
 #import <CoreText/CoreText.h>
 
-#define dic @"0123456789ABCDEF"
-
 @implementation NSString (XXSY)
 - (NSString *)XXSYHandleRedundantTags
 {
@@ -91,6 +89,7 @@
             break;
         }
     }
+    NSString *dic = @"0123456789ABCDEF";
     if ([array count]<16) {
         for (int i = 0; i<[dic length]; i++) {
             char k = [dic characterAtIndex:i];
