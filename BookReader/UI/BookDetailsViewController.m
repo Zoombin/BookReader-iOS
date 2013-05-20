@@ -26,6 +26,7 @@
 #import "CoreTextViewController.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "Comment.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -513,7 +514,7 @@
     if (tableView == infoTableView) {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-            Commit *obj = [infoArray objectAtIndex:[indexPath row]];
+            Comment *obj = [infoArray objectAtIndex:[indexPath row]];
             UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
             [messageTextView setEditable:NO];
             [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];

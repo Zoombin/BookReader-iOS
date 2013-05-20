@@ -14,6 +14,9 @@
 #import "BookReaderDefaultsManager.h"
 #import "Chapter+Setup.h"
 #import "Book+Setup.h"
+#import "Member.h"
+#import "Comment.h"
+#import "Pay.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -368,7 +371,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
             NSArray *array = [theObject objectForKey:@"discussList"];
             for (int i =0; i<[array count]; i++) {
                 NSDictionary *tmpDict = [array objectAtIndex:i];
-                Commit *commit = [[Commit alloc] init];
+                Comment *commit = [[Comment alloc] init];
                 commit.bookID = tmpDict[@"bookId"];
                 commit.content = tmpDict[@"content"];
                 commit.commentID = tmpDict[@"id"];

@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
-#import "Member.h"
-#import "Commit.h"
-#import "Pay.h"
-
 
 #define SUCCESS_FLAG        @"0000"
 #define NETWORK_ERROR        @"网络异常"
@@ -19,6 +15,7 @@
 
 
 @class Book;
+@class Member;
 @interface ServiceManager : AFHTTPClient
 
 +(ServiceManager *)shared;
@@ -144,10 +141,10 @@
 + (void)giveGiftWithType:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
-        integral:(NSString *)integral //投评价不能为0 其他为0
+        integral:(NSString *)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
        andBook:(NSString *)bookid
        withBlock:(void(^)(NSString *,NSError *))block;
-//integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
+
 
 #pragma mark -
 

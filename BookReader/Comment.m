@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "Commit.h"
+#import "Comment.h"
 
-@implementation Commit
+@implementation Comment
 @synthesize bookID;
 @synthesize content;
 @synthesize commentID;

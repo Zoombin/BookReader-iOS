@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Commit : NSObject {
+@interface Comment : NSObject {
     NSString *bookID;
     NSString *content;
     NSString *commentID;
