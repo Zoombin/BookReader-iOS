@@ -64,7 +64,7 @@
     [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
-    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height-20)];
+    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height)];
     [menuView setDelegate:self];
     [menuView setBackgroundColor:[UIColor clearColor]];
 	//TODO:targe

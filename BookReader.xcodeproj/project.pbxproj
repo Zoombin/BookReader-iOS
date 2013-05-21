@@ -104,6 +104,10 @@
 		18A0C69E174B24C8003FC599 /* read_prechapter.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C699174B24C8003FC599 /* read_prechapter.png */; };
 		18A0C6A0174B30A9003FC599 /* read_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C69F174B30A9003FC599 /* read_box.png */; };
 		18A0C6A2174B3CF1003FC599 /* read_bar_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A1174B3CF1003FC599 /* read_bar_top.png */; };
+		18A0C6A7174B649C003FC599 /* read_light_increase.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A3174B649C003FC599 /* read_light_increase.png */; };
+		18A0C6A8174B649C003FC599 /* read_light_reduce.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A4174B649C003FC599 /* read_light_reduce.png */; };
+		18A0C6A9174B649C003FC599 /* read_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A5174B649C003FC599 /* read_mark.png */; };
+		18A0C6AA174B649C003FC599 /* read_photo_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A6174B649C003FC599 /* read_photo_box.png */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
@@ -460,6 +464,10 @@
 		18A0C699174B24C8003FC599 /* read_prechapter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_prechapter.png; sourceTree = "<group>"; };
 		18A0C69F174B30A9003FC599 /* read_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_box.png; sourceTree = "<group>"; };
 		18A0C6A1174B3CF1003FC599 /* read_bar_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_bar_top.png; sourceTree = "<group>"; };
+		18A0C6A3174B649C003FC599 /* read_light_increase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_light_increase.png; sourceTree = "<group>"; };
+		18A0C6A4174B649C003FC599 /* read_light_reduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_light_reduce.png; sourceTree = "<group>"; };
+		18A0C6A5174B649C003FC599 /* read_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_mark.png; sourceTree = "<group>"; };
+		18A0C6A6174B649C003FC599 /* read_photo_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_photo_box.png; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -881,6 +889,10 @@
 		181091D917350288000931AB /* Read */ = {
 			isa = PBXGroup;
 			children = (
+				18A0C6A3174B649C003FC599 /* read_light_increase.png */,
+				18A0C6A4174B649C003FC599 /* read_light_reduce.png */,
+				18A0C6A5174B649C003FC599 /* read_mark.png */,
+				18A0C6A6174B649C003FC599 /* read_photo_box.png */,
 				18A0C6A1174B3CF1003FC599 /* read_bar_top.png */,
 				18A0C69F174B30A9003FC599 /* read_box.png */,
 				18A0C695174B24C8003FC599 /* read_background.png */,
@@ -1948,6 +1960,10 @@
 				18A0C69E174B24C8003FC599 /* read_prechapter.png in Resources */,
 				18A0C6A0174B30A9003FC599 /* read_box.png in Resources */,
 				18A0C6A2174B3CF1003FC599 /* read_bar_top.png in Resources */,
+				18A0C6A7174B649C003FC599 /* read_light_increase.png in Resources */,
+				18A0C6A8174B649C003FC599 /* read_light_reduce.png in Resources */,
+				18A0C6A9174B649C003FC599 /* read_mark.png in Resources */,
+				18A0C6AA174B649C003FC599 /* read_photo_box.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

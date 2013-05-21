@@ -24,6 +24,8 @@
     UIButton *backgroundSettingButton;
     
     NSMutableArray *bottomViewBtns;
+    
+    UIImageView *markImageView;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -135,7 +137,7 @@
 - (void) initFontView
 {
     NSLog(@"显示FontView");
-    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-170, MAIN_SCREEN.size.width, 150)];
+    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, MAIN_SCREEN.size.width, 150)];
     [fontView setHidden:YES];
     [fontView setAlpha:0.9];
     [fontView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
@@ -182,19 +184,21 @@
 -(void)initBackgroundView
 {
     NSLog(@"显示BackgroundView");
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-170, MAIN_SCREEN.size.width, 150)];
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, MAIN_SCREEN.size.width, 150)];
     [backgroundView setHidden:YES];
     [backgroundView setAlpha:0.9];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
     [self addSubview:backgroundView];
     
-    UILabel *brightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 50, 30)];
-    [brightLabel setText:@"亮度"];
-    [brightLabel setBackgroundColor:[UIColor clearColor]];
-    [brightLabel setTextAlignment:NSTextAlignmentCenter];
-    [backgroundView addSubview:brightLabel];
+    UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 50, 35)];
+    [brightLeftImageView setImage:[UIImage imageNamed:@"read_light_reduce"]];
+     [backgroundView addSubview:brightLeftImageView];
     
-    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-50, 30)];
+    UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(backgroundView.bounds.size.width-50, 20, 50, 35)];
+    [brightRightImageView setImage:[UIImage imageNamed:@"read_light_increase"]];
+    [backgroundView addSubview:brightRightImageView];
+    
+    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
        brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
@@ -205,24 +209,39 @@
     [brightSlider setMinimumValue:0.5];
     [backgroundView addSubview:brightSlider];
     
-    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, 110)];
-    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*4, 110)];
+    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 50, 35)];
+    [backgroundColorImageView setImage:[UIImage imageNamed:@"read_photo_box"]];
+    [backgroundView addSubview:backgroundColorImageView];
+    
+    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, 70)];
+    [scrollerView setBackgroundColor:[UIColor clearColor]];
+    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*4, 70)];
     [backgroundView addSubview:scrollerView];
+    
+    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
+    
     
     for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/16*3+20*i, 0, backgroundView.bounds.size.width/16*3, backgroundView.bounds.size.width/16*3)];
         [button setTag:i];
         [button.layer setBorderWidth:2];
+        if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue] == i) {
+            [markImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - markImageView.frame.size.width, button.frame.origin.y, markImageView.frame.size.width, markImageView.frame.size.height)];
+        }
         [button.layer setBorderColor:[UIColor brownColor].CGColor];
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
         [scrollerView addSubview:button];
     }
+    [scrollerView addSubview:markImageView];
 }
 
 - (void)backgroundChanged:(id)sender
 {
+    UIButton *button = (UIButton *)sender;
+    [markImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - markImageView.frame.size.width, button.frame.origin.y, markImageView.frame.size.width, markImageView.frame.size.height)];
     if ([self.delegate respondsToSelector:@selector(backgroundColorChanged:)]) {
         [self.delegate backgroundColorChanged:[sender tag]];
     }
