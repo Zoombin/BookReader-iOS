@@ -14,7 +14,6 @@
 @dynamic authorID;
 @dynamic autoBuy;
 @dynamic bFav;
-@dynamic bHistory;
 @dynamic category;
 @dynamic categoryID;
 @dynamic cover;

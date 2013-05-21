@@ -14,6 +14,9 @@
 #import "BookReaderDefaultsManager.h"
 #import "Chapter+Setup.h"
 #import "Book+Setup.h"
+#import "Member.h"
+#import "Comment.h"
+#import "Pay.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -317,7 +320,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)getRecommandBooksWithBlock:(void (^)(NSArray *, NSError *))block
++ (void)recommendBooksWithBlock:(void (^)(NSArray *, NSError *))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[]];
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -368,7 +371,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
             NSArray *array = [theObject objectForKey:@"discussList"];
             for (int i =0; i<[array count]; i++) {
                 NSDictionary *tmpDict = [array objectAtIndex:i];
-                Commit *commit = [[Commit alloc] init];
+                Comment *commit = [[Comment alloc] init];
                 commit.bookID = tmpDict[@"bookId"];
                 commit.content = tmpDict[@"content"];
                 commit.commentID = tmpDict[@"id"];
@@ -436,10 +439,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                                  book:(NSString *)bookid
                                author:(NSNumber *)authorid
-                             andPrice:(NSString *)price
                             withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid.stringValue}, @{@"price" : price}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid.stringValue}, @{@"price" : @"0"}]];//price is useless, XXSY need update this api
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -456,14 +458,12 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)userBooksWithSize:(NSString *)size
-                 andIndex:(NSString *)index
-                withBlock:(void (^)(NSArray *, NSError *))block
++ (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.get"}]];
     parameters[@"userid"] = [self userID];
-    parameters[@"size"] = size;
-    parameters[@"index"] = index;
+    parameters[@"size"] = @"5000";//客户端请求5000本上限
+    parameters[@"index"] = @"1";//从第一页开始请求
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
@@ -478,11 +478,11 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)addFavouriteWithBookID:(NSString *)bookid
-                      andValue:(BOOL)value
++ (void)addFavoriteWithBookID:(NSString *)bookid
+                      On:(BOOL)onOrOff
                      withBlock:(void (^)(NSString *, NSString *, NSError *))block
 {
-    NSString *methodValue = value ? @"keep.insert" : @"keep.remove";
+    NSString *methodValue = onOrOff ? @"keep.insert" : @"keep.remove";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : methodValue}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
@@ -499,13 +499,13 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)autoSubscribeWithBookID:(NSString *)bookid
-                       andValue:(NSString *)value
+                       On:(BOOL)onOrOff
                       withBlock:(void (^)(NSString *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.auto"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
-    parameters[@"value"] = value;
+    parameters[@"value"] = onOrOff ? @"1" : @"0";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -540,7 +540,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 
-+ (void)bookRecommand:(NSNumber *)classid
++ (void)bookRecommend:(NSNumber *)classid
              andCount:(NSString *)count
             withBlock:(void (^)(NSArray *, NSError *))block
 {
@@ -588,7 +588,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)existsFavouriteWithBookID:(NSString *)bookid
++ (void)existsFavoriteWithBookID:(NSString *)bookid
                         withBlock:(void (^)(NSString *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.isexists"}]];

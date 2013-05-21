@@ -16,7 +16,6 @@
 @property (nonatomic, retain) NSNumber * authorID;
 @property (nonatomic, retain) NSNumber * autoBuy;
 @property (nonatomic, retain) NSNumber * bFav;
-@property (nonatomic, retain) NSNumber * bHistory;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSNumber * categoryID;
 @property (nonatomic, retain) NSData * cover;

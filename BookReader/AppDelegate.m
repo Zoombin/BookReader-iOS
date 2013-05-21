@@ -45,12 +45,11 @@
 	
 	//TOTEST: yanchao's account
 	//[ServiceManager saveUserID:@(5639339)];
-	[MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];
+	
+	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
-//    [MobileProbe initWithAppKey:@"cnzz.i_2b0e95094feeefd83f531f5b" channel:@"iOSChannel"];
-//    [MobClick startWithAppkey:UMengAppKey reportPolicy:REALTIME channelId:nil];//友盟初始化
     application.statusBarHidden = NO;
     rootControllers = [@{} mutableCopy];
     BookShelfViewController *bookShelfViewController = [[BookShelfViewController alloc] init];

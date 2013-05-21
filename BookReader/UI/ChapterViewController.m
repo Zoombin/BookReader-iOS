@@ -9,7 +9,6 @@
 #import "ChapterViewController.h"
 #import "AppDelegate.h"
 #import "BookManager.h"
-#import "HandleGBString.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
 #import "BookReader.h"

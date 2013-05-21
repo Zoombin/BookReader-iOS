@@ -26,6 +26,7 @@
 #import "CoreTextViewController.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "Comment.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -187,7 +188,7 @@
     giveComment = buttons[6];
 	
     if ([ServiceManager userID] != nil) {
-        [ServiceManager existsFavouriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
+        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
             if (error) {
                 
             } else {
@@ -344,7 +345,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommand:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookRecommend:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
             
         }
@@ -446,7 +447,7 @@
 {
     if ([self checkLogin]) {
 		[self displayHUD:@"请稍等..."];
-        [ServiceManager addFavouriteWithBookID:bookid andValue:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
+        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
             if (!error) {
                 if ([result isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;
@@ -513,7 +514,7 @@
     if (tableView == infoTableView) {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-            Commit *obj = [infoArray objectAtIndex:[indexPath row]];
+            Comment *obj = [infoArray objectAtIndex:[indexPath row]];
             UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
             [messageTextView setEditable:NO];
             [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];

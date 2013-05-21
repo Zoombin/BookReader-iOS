@@ -31,7 +31,8 @@
         currentIndex = index;
         bookObj = book;
         NSLog(@"==>%@",currentIndex);
-        newKeyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
+        newKeyWordsArray = [XXSYGiftTypesMap.allKeys mutableCopy];
+		NSLog(@"newKeyWordsArray = %@", newKeyWordsArray);
         NSString *key = [newKeyWordsArray objectAtIndex:[index intValue]];
         [newKeyWordsArray removeObject:key];
         [newKeyWordsArray insertObject:key atIndex:0];
@@ -126,7 +127,8 @@
     if (cell == nil) {
         cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier andIndexPath:indexPath];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell setValue:[newKeyWordsArray objectAtIndex:[indexPath section]]];
+		NSLog(@"setValue:newKeyWordsArray  = %@", newKeyWordsArray[indexPath.section]);
+        [cell setValue:newKeyWordsArray[indexPath.section]];
         [cell setDelegate:self];
     }
     return cell;

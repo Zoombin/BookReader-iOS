@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
-#import "Member.h"
-#import "Commit.h"
-#import "Pay.h"
-
 
 #define SUCCESS_FLAG        @"0000"
 #define NETWORK_ERROR        @"网络异常"
@@ -19,6 +15,7 @@
 
 
 @class Book;
+@class Member;
 @interface ServiceManager : AFHTTPClient
 
 +(ServiceManager *)shared;
@@ -61,12 +58,14 @@
 
 //用户充值
 + (void)payWithType:(NSString *)payType //分为5种 1,2,3,4,5 分别代表0.99$ 1.99$ 4.99$ 9.99$ 19.99$
-      withBlock:(void(^)(NSString *,NSError *))block; //{"result":"0000","count":8400}
-                 //Example:20130108153057_2797792_14 日期_userid_40
+		  withBlock:(void(^)(NSString *,NSError *))block __deprecated;//iOS不需要这个接口了
+//{"result":"0000","count":8400}
+//Example:20130108153057_2797792_14 日期_userid_40
+
 //用户充值记录
 + (void)paymentHistoryWithPageIndex:(NSString *)pageIndex //第几页
               andCount:(NSString *)count        //每页的数目
-             withBlock:(void(^)(NSArray *,NSString *,NSError *))block;
+						  withBlock:(void(^)(NSArray *,NSString *,NSError *))block __deprecated;//iOS不需要这个接口了
 
 #pragma mark - 书城接口
 //获取榜单 分类 搜索的书籍列表
@@ -78,15 +77,15 @@
        withBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取推荐信息
-+ (void)getRecommandBooksWithBlock:(void (^)(NSArray *, NSError *))block;
++ (void)recommendBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
 //获取图书详情
-+ (void)bookDetailsByBookId:(NSString *)bookid //书的id
++ (void)bookDetailsByBookId:(NSString *)bookid
                       andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
                      withBlock:(void (^)(Book *,NSError *))block;
 
 //获取评论接口
-+ (void)bookDiccusssListByBookId:(NSString *)bookid //书的id
++ (void)bookDiccusssListByBookId:(NSString *)bookid
                             size:(NSString *)size //每次返回条数
                         andIndex:(NSString *)index //第几页
                        withBlock:(void(^)(NSArray *,NSError *))block;
@@ -103,22 +102,19 @@
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                   book:(NSString *)bookid
                 author:(NSNumber *)authorid
-                andPrice:(NSString *)price
                withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
 
-//获取数据信息
-+ (void)userBooksWithSize:(NSString *)size
-         andIndex:(NSString *)index
-        withBlock:(void(^)(NSArray *,NSError *))block;
+//获取数据信息，用户收藏的书籍
++ (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block;
 
-//收藏书籍
-+ (void)addFavouriteWithBookID:(NSString *)bookid
-       andValue:(BOOL)value
+//添加/删除收藏
++ (void)addFavoriteWithBookID:(NSString *)bookid
+       On:(BOOL)onOrOff
       withBlock:(void(^)(NSString *,NSString *,NSError *))block;
 
 //自动订阅
 + (void)autoSubscribeWithBookID:(NSString *)bookid
-             andValue:(NSString *)value //1:打开 0:关闭
+             On:(BOOL)onOrOff
             withBlock:(void(^)(NSString *,NSError *))block;
 
 //发表评论
@@ -127,7 +123,7 @@
            withBlock:(void(^)(NSString *,NSError *))block;
 
 //同类推荐
-+ (void)bookRecommand:(NSNumber *)classid //1~11
++ (void)bookRecommend:(NSNumber *)classid //1~11
              andCount:(NSString *)count
             withBlock:(void(^)(NSArray *,NSError *))block;
 
@@ -137,17 +133,27 @@
               withBlock:(void(^)(NSArray *,NSError *))block;
 
 //是否在收藏夹
-+ (void)existsFavouriteWithBookID:(NSString *)bookid
++ (void)existsFavoriteWithBookID:(NSString *)bookid
               withBlock:(void(^)(NSString *,NSError *))block;
 
 //用户道具
+typedef NS_ENUM(NSInteger, XXSYGiftType) {
+	XXSYGiftTypeDiamond = 1,
+	XXSYGiftTypeFlower = 2,
+	XXSYGiftTypeAward = 3,
+	XXSYGiftTypeTicket = 4,
+	XXSYGiftTypeComment = 5
+};
+
+#define XXSYGiftTypesMap @{@"钻石" : @(XXSYGiftTypeDiamond), @"鲜花" : @(XXSYGiftTypeFlower), @"打赏" : @(XXSYGiftTypeAward), @"月票" : @(XXSYGiftTypeTicket), @"评价票" : @(XXSYGiftTypeComment)}
+
 + (void)giveGiftWithType:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
-        integral:(NSString *)integral //投评价不能为0 其他为0
+        integral:(NSString *)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
        andBook:(NSString *)bookid
        withBlock:(void(^)(NSString *,NSError *))block;
-//integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
+
 
 #pragma mark -
 

@@ -129,11 +129,11 @@
 
 - (void)setValue:(NSString *)value
 {
-    if ([currentValue length]==0) {
+    if ([currentValue length] == 0) {
         currentValue = value;
         int index = [keyWordsArray indexOfObject:currentValue];
         [keywordImageView setImage:[UIImage imageNamed:[imageNamesArray objectAtIndex:index]]];
-        if (index==4) {
+        if (index == 4) {
             [self setMonthTicketButtonHidden:NO];
         }
     }
@@ -146,7 +146,7 @@
         [tmpDict setObject:numberTextField.text forKey:@"count"];
         NSString *index = [NSString stringWithFormat:@"%d",[keyWordsArray indexOfObject:currentValue]+1];
         [tmpDict setObject:index forKey:@"index"];
-        if ([index intValue] ==5) {
+        if ([index intValue] == 5) {
             [tmpDict setObject:currentIntegral forKey:@"integral"];
             NSLog(@"投评价票");
         }
