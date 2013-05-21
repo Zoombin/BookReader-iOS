@@ -50,8 +50,6 @@
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [backButton setFrame: CGRectMake(10, 4, 48, 32)];
