@@ -16,7 +16,7 @@
 #import "PasswordViewController.h"
 #import "UIViewController+HUD.h"
 #import "BookReaderDefaultsManager.h"
-#import "UIManager.h"
+#import "UIColor+Hex.h"
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
@@ -119,7 +119,7 @@
         
         UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [logoutButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-        [logoutButton setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
+        [logoutButton setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [logoutButton setFrame:CGRectMake(260, 6, 50, 32)];
         [logoutButton setTitle:@"注销" forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];

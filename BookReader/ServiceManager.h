@@ -147,7 +147,7 @@ typedef NS_ENUM(NSInteger, XXSYGiftType) {
 
 #define XXSYGiftTypesMap @{@"钻石" : @(XXSYGiftTypeDiamond), @"鲜花" : @(XXSYGiftTypeFlower), @"打赏" : @(XXSYGiftTypeAward), @"月票" : @(XXSYGiftTypeTicket), @"评价票" : @(XXSYGiftTypeComment)}
 
-+ (void)giveGiftWithType:(NSString *)type    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
++ (void)giveGiftWithType:(NSString *)typeKey    //1:钻石 2:鲜花 3:打赏 4:月票 5:评价票
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
         integral:(NSString *)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看

@@ -18,8 +18,8 @@
 #import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIView+BookReader.h"
-#import "UIManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+Hex.h"
 #import "UIColor+BookReader.h"
 
 @implementation SignInViewController {

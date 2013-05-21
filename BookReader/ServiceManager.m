@@ -606,7 +606,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)giveGiftWithType:(NSString *)type
++ (void)giveGiftWithType:(NSString *)typeKey
                   author:(NSNumber *)authorid
                    count:(NSString *)count
                 integral:(NSString *)integral
@@ -614,8 +614,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"user.props"}]];
     parameters[@"userid"] = [self userID];
-    parameters[@"bookid"] = bookid;
-    parameters[@"type"] = type;
+    parameters[@"bookid"] = bookid;	
+	NSNumber *type = XXSYGiftTypesMap[typeKey];
+    parameters[@"type"] = [type stringValue];
     parameters[@"authorid"] = authorid;
     parameters[@"count"] = count;
     parameters[@"integral"] = integral;

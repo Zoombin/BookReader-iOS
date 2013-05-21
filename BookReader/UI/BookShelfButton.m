@@ -9,7 +9,7 @@
 #import "BookShelfButton.h"
 #import "BookStoreViewController.h"
 #import "AppDelegate.h"
-#import "UIManager.h"
+#import "UIColor+Hex.h"
 
 @implementation BookShelfButton
 
@@ -20,7 +20,7 @@
         [self setTitle:@"书架" forState:UIControlStateNormal];
 //        [self setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
 //        [self setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
-        [self setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
         [self setFrame:CGRectMake(10, 6, 50, 32)];
         [self addTarget:self action:@selector(clicked) forControlEvents:UIControlEventTouchUpInside];

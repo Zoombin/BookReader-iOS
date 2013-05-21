@@ -56,7 +56,7 @@
     [statusView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:statusView];
     
-    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, size.width, size.height-40)];
+    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, size.width, size.height - 40)];
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
 	coreTextView.fontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
 	NSString *textColorString = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
@@ -64,7 +64,7 @@
     [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
-    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height-20)];
+    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height - 20)];
     [menuView setDelegate:self];
     [menuView setBackgroundColor:[UIColor clearColor]];
 	//TODO:targe
@@ -87,6 +87,9 @@
 {
     [super viewDidAppear:animated];
 	Chapter *aChapter;
+	
+	_book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.uid]];
+	
 	if (_book.lastReadChapterID) {//最近读过
 		aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", _book.lastReadChapterID]];
 	} else {//没读过，从第0章开始
@@ -268,15 +271,15 @@
 		[self displayHUDError:@"错误" message:@"获取章节目录失败"];
 		[self performSelector:@selector(pop) withObject:nil afterDelay:1.5];
 	} else {
-		chapter = aChapter;
-		currentPageIndex = 0;
 		if (chapter.content) {
+			currentPageIndex = 0;
+			chapter = aChapter;
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 				chapter.bRead = @(YES);
 				_book.lastReadChapterID = chapter.uid;
 			}];
 			statusView.title.text = chapter.name;
-			currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+			currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];
 			[self paging];
 			if ([chapter.lastReadIndex integerValue]) {
 				currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
@@ -291,18 +294,36 @@
 			[ServiceManager bookCatalogue:aChapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
 				[self hideHUD:YES];
 				if (content && ![content isEqualToString:@""]) {
+					currentPageIndex = 0;
+					chapter = aChapter;
 					chapter.content = content;
 					chapter.bRead = @(YES);
 					[chapter persistWithBlock:^(void) {
-						_book.lastReadChapterID = chapter.uid;//TODO: can't save 
+						_book.lastReadChapterID = chapter.uid;
 						[_book persistWithBlock:^(void) {
-							currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];//解码阅读
+							currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];
 							[self paging];
 						}];
 					}];
-				} else {//没下载到
-					[self displayHUDError:@"错误" message:@"无法获取章节内容"];
-					[self performSelector:@selector(pop) withObject:nil afterDelay:1.5];
+				} else {//没下载到，尝试订阅
+					[self displayHUD:@"获取章节内容..."];
+					[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+						[self hideHUD:YES];
+						if (content && ![content isEqualToString:@""]) {
+							currentPageIndex = 0;
+							chapter = aChapter;
+							chapter.content = content;
+							[chapter persistWithBlock:^(void) {
+								_book.lastReadChapterID = chapter.uid;
+								[_book persistWithBlock:^(void) {
+									currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];
+									[self paging];
+								}];
+							}];
+						} else {
+							[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
+						}
+					}];
 				}
 			}];
 		}

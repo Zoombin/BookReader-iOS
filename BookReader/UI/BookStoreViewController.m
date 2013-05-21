@@ -13,12 +13,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
-#import "UIManager.h"
-
 #import "ServiceManager.h"
 #import "BookDetailsViewController.h"
 #import "UIViewController+HUD.h"
-
+#import "UIColor+Hex.h"
 #import "CategoryDetailsViewController.h"
 #import "UIColor+BookReader.h"
 #import "BookCell.h"
@@ -203,7 +201,7 @@
            [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
         }
         [button setFrame:CGRectMake(30, 20+i*30, MAIN_SCREEN.size.width-60, 30)];
-        [button setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [categoryView addSubview:button];

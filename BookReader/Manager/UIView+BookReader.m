@@ -8,7 +8,7 @@
 
 #import "UIView+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIManager.h"
+#import "UIColor+Hex.h"
 
 @implementation UIView (BookReader)
 + (UIView *)loginBackgroundViewWithFrame:(CGRect)frame andTitle:(NSString *)title
@@ -27,7 +27,7 @@
     [loginLabel setTextAlignment:NSTextAlignmentCenter];
     [loginLabel setBackgroundColor:[UIColor clearColor]];
     [loginLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [loginLabel setTextColor:[UIManager hexStringToColor:@"dd8e28"]];
+    [loginLabel setTextColor:[UIColor hexRGB:0xdd8e28]];
     [view addSubview:loginLabel];
     
     UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(65, 14, 15, 10)];
@@ -75,7 +75,7 @@
     [loginLabel setTextAlignment:NSTextAlignmentCenter];
     [loginLabel setBackgroundColor:[UIColor clearColor]];
     [loginLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [loginLabel setTextColor:[UIManager hexStringToColor:@"dd8e28"]];
+    [loginLabel setTextColor:[UIColor hexRGB:0xdd8e28]];
     [view addSubview:loginLabel];
     
     UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 14, 15, 10)];

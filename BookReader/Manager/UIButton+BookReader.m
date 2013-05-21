@@ -7,14 +7,14 @@
 //
 
 #import "UIButton+BookReader.h"
-#import "UIManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+Hex.h"
 
 @implementation UIButton (BookReader)
 + (UIButton *)initButtonWithFrame:(CGRect)frame
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundColor:[UIManager hexStringToColor:@"c0683a"]];
+    [button setBackgroundColor:[UIColor hexRGB:0xc0683a]];
     [button.layer setCornerRadius:4];
     [button.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [button.layer setMasksToBounds:YES];

@@ -127,7 +127,6 @@
     if (cell == nil) {
         cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier andIndexPath:indexPath];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-		NSLog(@"setValue:newKeyWordsArray  = %@", newKeyWordsArray[indexPath.section]);
         [cell setValue:newKeyWordsArray[indexPath.section]];
         [cell setDelegate:self];
     }

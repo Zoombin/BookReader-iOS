@@ -22,11 +22,11 @@
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+XXSY.h"
-#import "UIManager.h"
 #import "CoreTextViewController.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "Comment.h"
+#import "UIColor+Hex.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -213,7 +213,7 @@
         UIButton *button = btnObjs[i];
         [button.layer setBorderWidth:0.5];
         [button.layer setBorderColor: i==0 ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
-        [button setTitleColor:[UIManager hexStringToColor:@"fbbf90"] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(i*secondView.frame.size.width/4, 0, secondView.frame.size.width/4, 30)];
         [button addTarget:self action:@selector(selectTabBar:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:btnNames[i] forState:UIControlStateNormal];
