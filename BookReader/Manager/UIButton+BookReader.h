@@ -10,6 +10,9 @@
 
 @interface UIButton (BookReader)
 + (UIButton *)createButtonWithFrame:(CGRect)frame;
-
 + (UIButton *)createMemberbuttonFrame:(CGRect)frame;
++ (UIButton *)brownButton:(CGRect)frame;
+
+- (void)setDisabled:(BOOL)disabled;
+
 @end

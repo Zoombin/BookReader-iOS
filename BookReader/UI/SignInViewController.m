@@ -33,11 +33,7 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-    
-//    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
-//    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-//    [self.view addSubview:backgroundImage];
-    
+	
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setText:@"个人中心"];
@@ -74,7 +70,7 @@
      loginButton = [UIButton createButtonWithFrame:CGRectMake(30, 200, 80, 30)];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
-    [loginButton setEnabled:NO];
+	[loginButton setDisabled:YES];
     [self.view addSubview:loginButton];
     
     UIButton *registerButton = [UIButton createButtonWithFrame:CGRectMake(210, 200, 80, 30)];
@@ -91,20 +87,12 @@
     [self.view addSubview:findButton];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    accountTextField.text = @"";
-    passwordTextField.text = @"";
-    [loginButton setEnabled:NO];
-}
-
 - (void)valueChanged:(id)sender
 {
-    if ([accountTextField.text length]&&[passwordTextField.text length]) {
-        [loginButton setEnabled:YES];
+    if ([accountTextField.text length] && [passwordTextField.text length]) {
+        [loginButton setDisabled:NO];
     } else {
-        [loginButton setEnabled:NO];
+        [loginButton setDisabled:YES];
     }
 }
 
@@ -139,13 +127,14 @@
 }
 
 - (void)hidenAllKeyboard {
-    for (int i =0; i<2; i++) {
-        int tag = 100+i;
-        UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
-        if (textField&&[textField isKindOfClass:[UITextField class]]) {
-            [textField resignFirstResponder];
-        }
-    }
+	
+//    for (int i = 0; i < 2; i++) {
+//        int tag = 100 + i;
+//        UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
+//        if (textField && [textField isKindOfClass:[UITextField class]]) {
+//            [textField resignFirstResponder];
+//        }
+//    }
 }
 
 
