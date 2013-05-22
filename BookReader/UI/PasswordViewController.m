@@ -88,13 +88,13 @@
      findButton = [UIButton createButtonWithFrame:CGRectMake(30, 234, 100, 30)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
-    [findButton setEnabled:NO];
+    [findButton setDisabled:YES];
     [self.view addSubview:findButton];
     
      getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, 234, 100, 30)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCodeButton setEnabled:NO];
+    [getCodeButton setDisabled:YES];
     [self.view addSubview:getCodeButton];
 }
 
@@ -119,7 +119,7 @@
     
      changeButton = [UIButton createButtonWithFrame:CGRectMake((self.view.bounds.size.width-80)/2, 200, 80, 30)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [changeButton setEnabled:NO];
+    [changeButton setDisabled:YES];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.view addSubview:changeButton];
  
@@ -135,14 +135,14 @@
 - (void)FindPasswordvalueChanged:(id)sender
 {
     if ([accountTextField.text length]) {
-        [getCodeButton setEnabled:YES];
+        [getCodeButton setDisabled:NO];
     } else {
-        [getCodeButton setEnabled:NO];
+        [getCodeButton setDisabled:YES];
     }
     if ([accountTextField.text length]&&[passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
-        [findButton setEnabled:YES];
+        [findButton setDisabled:NO];
     } else {
-        [findButton setEnabled:NO];
+        [findButton setDisabled:YES];
     }
 }
 
@@ -207,9 +207,9 @@
 - (void)changePasswordValueChanged:(id)sender
 {
     if ([passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
-        [changeButton setEnabled:YES];
+        [changeButton setDisabled:NO];
     } else {
-        [changeButton setEnabled:NO];
+        [changeButton setDisabled:YES];
     }
 }
 

@@ -85,27 +85,27 @@
      registerButton = [UIButton createButtonWithFrame:CGRectMake(30, 234, 100, 30)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [registerButton setEnabled:NO];
+    [registerButton setDisabled:YES];
     [self.view addSubview:registerButton];
     
      getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, 234, 100, 30)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCodeButton setEnabled:NO];
+    [getCodeButton setDisabled:YES];
     [self.view addSubview:getCodeButton];
 }
 
 - (void)valueChanged:(id)sender
 {
     if ([accountTextField.text length]>0) {
-        [getCodeButton setEnabled:YES];
+        [getCodeButton setDisabled:NO];
     } else {
-        [getCodeButton setEnabled:NO];
+        [getCodeButton setDisabled:YES];
     }
     if ([accountTextField.text length]&&[passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
-        [registerButton setEnabled:YES];
+        [registerButton setDisabled:NO];
     } else {
-        [registerButton setEnabled:NO];
+        [registerButton setDisabled:YES];
     }
 }
 

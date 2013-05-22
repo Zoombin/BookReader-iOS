@@ -194,7 +194,7 @@
             } else {
                 if ([result intValue]==1) {
                     bFav = YES;
-					favoriteButton.enabled = NO;
+					[favoriteButton setDisabled:YES];
 					[favoriteButton setTitle:@"已收藏" forState:UIControlStateNormal];
                 }
             }
