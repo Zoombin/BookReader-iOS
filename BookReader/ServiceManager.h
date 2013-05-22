@@ -70,28 +70,28 @@
 #pragma mark - 书城接口
 //获取榜单 分类 搜索的书籍列表
 typedef NS_ENUM(NSInteger, XXSYClassType) {
-	XXSYClassTypeGoBack = 1,
-	XXSYClassTypeOverhead = 2,
-	XXSYClassTypeCity = 3,
-	XXSYClassTypeYouth = 4,
-	XXSYClassTypeMagic = 5,
-    XXSYClassTypeFantasy = 6,
-	XXSYClassTypeWealthy = 7,
-	XXSYClassTypeHistory = 8,
-	XXSYClassTypeAbility = 9,
-    XXSYClassTypeShort = 10,
-	XXSYClassTypeSlash = 11
+	XXSYClassTypeGoBack = 1,//穿越
+	XXSYClassTypeOverhead = 2,//架空
+	XXSYClassTypeCity = 3,//都市
+	XXSYClassTypeYouth = 4,//青春
+	XXSYClassTypeMagic = 5,//魔幻
+    XXSYClassTypeFantasy = 6,//玄幻
+	XXSYClassTypeWealthy = 7,//豪门
+	XXSYClassTypeHistory = 8,//历史
+	XXSYClassTypeAbility = 9,//异能
+    XXSYClassTypeShort = 10,//短篇
+	XXSYClassTypeSlash = 11//耽美
 };
 
 typedef NS_ENUM(NSInteger, XXSYRankType) {
-	XXSYRankTypeAll = 1,
-	XXSYRankTypeNew = 2,
-	XXSYRankTypeHot = 3,
+	XXSYRankTypeAll = 1,//总榜
+	XXSYRankTypeNew = 2,//最新
+	XXSYRankTypeHot = 3,//最热
 };
 
 + (void)books:(NSString *)keyword
-      classID:(XXSYClassType)classid  //分类1~11 穿越,架空,都市,青春,魔幻,玄幻,豪门,历史,异能,短篇,耽美
-      ranking:(XXSYRankType)ranking //1.总榜 2.最新 3.最热
+      classID:(XXSYClassType)classid
+      ranking:(XXSYRankType)ranking
          size:(NSString *)size
         andIndex:(NSString *)index
        withBlock:(void (^)(NSArray *, NSError *))block;
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, XXSYRankType) {
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                   book:(NSString *)bookid
                 author:(NSNumber *)authorid
-               withBlock:(void(^)(NSString *,NSString *,NSString *,NSError *))block; //内容 提示语 提示code
+               withBlock:(void(^)(NSString *content, NSString *errorMessage, NSString *result, NSError *error))block; //内容 提示语 提示code
 
 //获取数据信息，用户收藏的书籍
 + (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block;
@@ -158,16 +158,16 @@ typedef NS_ENUM(NSInteger, XXSYRankType) {
 
 //用户道具
 typedef NS_ENUM(NSInteger, XXSYGiftType) {
-	XXSYGiftTypeDiamond = 1,
-	XXSYGiftTypeFlower = 2,
-	XXSYGiftTypeAward = 3,
-	XXSYGiftTypeTicket = 4,
-	XXSYGiftTypeComment = 5
+	XXSYGiftTypeDiamond = 1,//钻石
+	XXSYGiftTypeFlower = 2,//鲜花
+	XXSYGiftTypeAward = 3,//打赏
+	XXSYGiftTypeTicket = 4,//月票
+	XXSYGiftTypeComment = 5//评价票
 };
 
 #define XXSYGiftTypesMap @{@"钻石" : @(XXSYGiftTypeDiamond), @"鲜花" : @(XXSYGiftTypeFlower), @"打赏" : @(XXSYGiftTypeAward), @"月票" : @(XXSYGiftTypeTicket), @"评价票" : @(XXSYGiftTypeComment)}
 
-+ (void)giveGiftWithType:(NSString *)typeKey    //1:钻石 2:鲜花 3:打赏 4:月票 5:评价票
++ (void)giveGiftWithType:(NSString *)typeKey
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
         integral:(NSString *)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
