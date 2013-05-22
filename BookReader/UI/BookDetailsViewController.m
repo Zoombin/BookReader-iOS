@@ -26,6 +26,7 @@
 #import "Chapter+Setup.h"
 #import "Comment.h"
 #import "UIColor+Hex.h"
+#import "CommentCell.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -72,6 +73,7 @@
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         bFav = NO;
+        currentIndex = 1;
         
         shortDescribe = [UIButton buttonWithType:UIButtonTypeCustom];
         comment = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -344,7 +346,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookRecommend:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
         if (error) {
             
         }
@@ -498,7 +500,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == infoTableView) {
-        return 60;
+        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.frame.size.height;
     } else if (indexPath.row == 0) {
         return [BookCell height];
     }
@@ -512,12 +515,9 @@
     
     if (tableView == infoTableView) {
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            cell = [[CommentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             Comment *obj = [infoArray objectAtIndex:[indexPath row]];
-            UITextView *messageTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
-            [messageTextView setEditable:NO];
-            [messageTextView setText:[[NSString stringWithFormat:@"%@:%@\n\n%@",obj.userName,obj.content,obj.insertTime] XXSYHandleRedundantTags]];
-            [cell.contentView addSubview:messageTextView];
+            [(CommentCell *)cell setComment:obj];
         }
     } else {
         if (cell == nil) {

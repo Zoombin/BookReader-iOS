@@ -31,11 +31,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         if (style == BookCellStyleBig) {
-            NSLog(@"%@",NSStringFromCGRect(self.bounds));
-             NSLog(@"%@",NSStringFromCGRect(self.frame));
-             NSLog(@"%@",NSStringFromCGRect(self.contentView.bounds));
-             NSLog(@"%@",NSStringFromCGRect(self.contentView.frame));
-            
             UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 140-2)];
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
             [self.contentView addSubview:background];
@@ -71,7 +66,6 @@
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
             [self.contentView addSubview:background];
             
-            
             nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 30)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
@@ -84,7 +78,6 @@
             [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
             [authorLabel setTextColor:[UIColor grayColor]];
             [self.contentView addSubview:authorLabel];
-
         }
     }
     return self;

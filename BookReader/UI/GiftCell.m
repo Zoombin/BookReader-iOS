@@ -13,8 +13,6 @@
 #define DarkGrayColor   [UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]
 #define lightGrayColor  [UIColor colorWithRed:246.0/255.0 green:243.0/255.0 blue:236.0/255.0 alpha:1.0]
 
-
-
 @implementation GiftCell {
     UITextField *numberTextField;
     NSString *currentValue;
