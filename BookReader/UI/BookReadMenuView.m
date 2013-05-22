@@ -51,7 +51,7 @@
 
 - (void)initTopView
 {
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width,40)];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
     [topView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[topView bounds]];
     [imageView setImage:[UIImage imageNamed:@"read_bar_top"]];
@@ -75,7 +75,7 @@
     [topView addSubview:backButton];
     
     UIButton *addBookMarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addBookMarkButton setFrame:CGRectMake(MAIN_SCREEN.size.width-buttonOffsetX-48, buttonOffsetY, 48, 32)];
+    [addBookMarkButton setFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-48, buttonOffsetY, 48, 32)];
     [addBookMarkButton setTitle:@"书签" forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
@@ -83,7 +83,7 @@
 
 - (void)initBottomView
 {
-    #define READ_MENU_BOTTOM_VIEW_RECT (CGRectMake(0, MAIN_SCREEN.size.height-20-50, MAIN_SCREEN.size.width, 50))
+    #define READ_MENU_BOTTOM_VIEW_RECT (CGRectMake(0, self.bounds.size.height-50, self.bounds.size.width, 50))
     UIView *bottomView = [[UIView alloc] initWithFrame:READ_MENU_BOTTOM_VIEW_RECT];
     [bottomView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
@@ -94,7 +94,7 @@
     #define BUTTON_HEIGHT 40
     #define BUTTON_NUMBER 5
     
-    #define WIDTH  ((MAIN_SCREEN.size.width)/BUTTON_NUMBER)
+    #define WIDTH  ((self.bounds.size.width)/BUTTON_NUMBER)
     
     #define BUTTON_FRAME_ONE    CGRectMake(0*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
     #define BUTTON_FRAME_TWO    CGRectMake(1*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
@@ -137,7 +137,7 @@
 - (void) initFontView
 {
     NSLog(@"显示FontView");
-    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, MAIN_SCREEN.size.width, 150)];
+    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, self.bounds.size.width, 150)];
     [fontView setHidden:YES];
     [fontView setAlpha:0.9];
     [fontView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
@@ -184,7 +184,7 @@
 -(void)initBackgroundView
 {
     NSLog(@"显示BackgroundView");
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, MAIN_SCREEN.size.width, 150)];
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, self.bounds.size.width, 150)];
     [backgroundView setHidden:YES];
     [backgroundView setAlpha:0.9];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];

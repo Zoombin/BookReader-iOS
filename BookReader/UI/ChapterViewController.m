@@ -28,10 +28,10 @@
     [self.view setBackgroundColor:backgroundColor];
     
     UIImageView *topBarImageView = [[UIImageView alloc] initWithImage:TOP_BAR_IMAGE];
-    [topBarImageView setFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 42)];
+    [topBarImageView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 42)];
     [self.view addSubview:topBarImageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 38)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 38)];
     [titleLabel setText:[NSString stringWithFormat:NSLocalizedString(@"Catalogue", nil)]];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
@@ -61,7 +61,7 @@
         self.chaptersArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersByBookId:bookid]];
         self.chaptersRealName = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersArrayByBookId:bookid]];
         
-        bookMarkTableView = [[UITableView alloc] initWithFrame:CGRectMake(6, 50, MAIN_SCREEN.size.width-12, MAIN_SCREEN.size.height-38-40) style:UITableViewStylePlain];
+        bookMarkTableView = [[UITableView alloc] initWithFrame:CGRectMake(6, 50, self.view.bounds.size.width-12, self.view.bounds.size.height-38-20) style:UITableViewStylePlain];
         [bookMarkTableView setBackgroundColor:[UIColor clearColor]];
         bookMarkTableView.delegate = self;
         bookMarkTableView.dataSource = self;
@@ -97,13 +97,13 @@
         int row = [indexPath row];
         if([indexPath row] <= [chaptersArray count]) {
             UIImageView *backgroundView = [[UIImageView alloc] init];
-            [backgroundView setFrame:CGRectMake(2,2, MAIN_SCREEN.size.width-14, 46)];
+            [backgroundView setFrame:CGRectMake(2,2, self.view.bounds.size.width-14, 46)];
             [backgroundView setImage:[UIImage imageNamed:@"read_settingcellback"]];
             [cell.contentView addSubview:backgroundView];
             
             UILabel *textLabel = [[UILabel alloc] init];
             [textLabel setText:[chaptersRealName objectAtIndex:row]];
-            [textLabel setFrame:CGRectMake(10, 5, MAIN_SCREEN.size.width-20, 40)];
+            [textLabel setFrame:CGRectMake(10, 5, self.view.bounds.size.width-20, 40)];
             [textLabel setBackgroundColor:[UIColor clearColor]];
             [textLabel setFont:[UIFont systemFontOfSize:17.0]];
             [textLabel setTextAlignment:NSTextAlignmentCenter];

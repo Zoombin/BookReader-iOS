@@ -35,7 +35,7 @@
     [self.view setBackgroundColor:backgroundColor];
 
     UIImageView *topBarImageView = [[UIImageView alloc] initWithImage:TOP_BAR_IMAGE];
-    [topBarImageView setFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 42)];
+    [topBarImageView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 42)];
     [self.view addSubview:topBarImageView];
     
 //    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, mainScreenRect.size.width, 38)];
@@ -57,7 +57,7 @@
     
 //    [self.view setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:238.0/255 blue:214.0/255.0 alpha:1.0]];
     
-    bookMarkTableView = [[UITableView alloc] initWithFrame:CGRectMake(6, 58, MAIN_SCREEN.size.width-12, MAIN_SCREEN.size.height-38-40-50) style:UITableViewStylePlain];
+    bookMarkTableView = [[UITableView alloc] initWithFrame:CGRectMake(6, 58, self.view.bounds.size.width-12, self.view.bounds.size.height-38-20-50) style:UITableViewStylePlain];
     [bookMarkTableView setBackgroundColor:[UIColor clearColor]];
     bookMarkTableView.delegate = self;
     bookMarkTableView.dataSource = self;
@@ -133,7 +133,7 @@
                 str = [str stringByAppendingFormat:@"  %@", [bookmarkdict objectForKey:@"context"]];
                 
                 UIImageView *backgroundView = [[UIImageView alloc] init];
-                [backgroundView setFrame:CGRectMake(2,1, MAIN_SCREEN.size.width-14, 54)];
+                [backgroundView setFrame:CGRectMake(2,1, self.view.bounds.size.width-14, 54)];
                 [backgroundView setImage:[UIImage imageNamed:@"read_settingcellback"]];
                 [cell.contentView addSubview:backgroundView];
                 
@@ -141,7 +141,7 @@
                 
                 UILabel *textLabel = [[UILabel alloc] init];
                 [textLabel setText:str];
-                [textLabel setFrame:CGRectMake(10, 15, MAIN_SCREEN.size.width-80, 30)];
+                [textLabel setFrame:CGRectMake(10, 15, self.view.bounds.size.width-80, 30)];
                 [textLabel setBackgroundColor:[UIColor clearColor]];
                 [textLabel setFont:[UIFont systemFontOfSize:12.0]];
                 [backgroundView addSubview:textLabel];
@@ -153,13 +153,13 @@
                 NSString *str = [NSString stringWithFormat:@"%@",[chaptersArray objectAtIndex:row]];
                 
                 UIImageView *backgroundView = [[UIImageView alloc] init];
-                [backgroundView setFrame:CGRectMake(2,2, MAIN_SCREEN.size.width-14, 46)];
+                [backgroundView setFrame:CGRectMake(2,2, self.view.bounds.size.width-14, 46)];
                 [backgroundView setImage:[UIImage imageNamed:@"read_settingcellback"]];
                 [cell.contentView addSubview:backgroundView];
                 
                 UILabel *textLabel = [[UILabel alloc] init];
                 [textLabel setText:[self getChapterName:str]];
-                [textLabel setFrame:CGRectMake(10, 5, MAIN_SCREEN.size.width-20, 40)];
+                [textLabel setFrame:CGRectMake(10, 5, self.view.bounds.size.width-20, 40)];
                 [textLabel setBackgroundColor:[UIColor clearColor]];
                 [textLabel setFont:[UIFont systemFontOfSize:17.0]];
                 [textLabel setTextAlignment:NSTextAlignmentCenter];

@@ -40,7 +40,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     
-    titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+    titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextColor:[UIColor whiteColor]];
@@ -56,7 +56,7 @@
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-40-20) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width-10, self.view.bounds.size.height-40) style:UITableViewStylePlain];
     [infoTableView setBackgroundColor:[UIColor clearColor]];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];

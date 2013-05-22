@@ -14,9 +14,9 @@
 
 #define EDIT_BUTTON_FRAME                      CGRectMake(10, 4, 48, 32)
 #define Finish_BUTTON_FRAME                    CGRectMake(10, 4, 48, 32)
-#define DELETE_BUTTON_FRAME                    CGRectMake(MAIN_SCREEN.size.width-60,4,48,32)
-#define REFRESH_BUTTON_FRAME                 CGRectMake(MAIN_SCREEN.size.width-122,4,48,32)
-#define HISTORY_BUTTON_FRAME                 CGRectMake(MAIN_SCREEN.size.width-72,4,60,32)
+#define DELETE_BUTTON_FRAME                    CGRectMake(self.bounds.size.width-60,4,48,32)
+#define REFRESH_BUTTON_FRAME                 CGRectMake(self.bounds.size.width-122,4,48,32)
+#define HISTORY_BUTTON_FRAME                 CGRectMake(self.bounds.size.width-72,4,60,32)
 
 @implementation BookShelfBottomView {
     NSMutableArray *buttonArray;

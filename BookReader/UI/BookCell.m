@@ -15,7 +15,7 @@
 #define bookNameLabelFrame      CGRectMake(115, 20, 205, 30)
 #define authorNameLabelFrame    CGRectMake(115, 55, 130, 30)
 #define categoryNameLabelFrame  CGRectMake(115, 90, 130, 30)
-#define locationNameLabelFrame  CGRectMake(MAIN_SCREEN.size.width-100, 42, 110, 30)
+#define locationNameLabelFrame  CGRectMake(self.bounds.size.width-100, 42, 110, 30)
 #define LabelTextColor          [UIColor colorWithRed:84.0/255.0 green:40.0/255.0 blue:10.0/255.0 alpha:1.0]
 
 @implementation BookCell

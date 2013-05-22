@@ -34,7 +34,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setText:@"个人中心"];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
@@ -43,7 +43,7 @@
     [self.view addSubview:titleLabel];
     
     UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44)];
+    [hidenKeyboardButton setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-24)];
     [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:hidenKeyboardButton];
     
@@ -56,14 +56,14 @@
     UILabel *accountLabel = [UILabel accountLabelWithFrame:CGRectMake(5, 94, 70, 30)];
     [self.view addSubview:accountLabel];
     
-    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(80, 94, MAIN_SCREEN.size.width-80*2, 30)];
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(80, 94, self.view.bounds.size.width-80*2, 30)];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
     UILabel *passwordLabel = [UILabel passwordLabelWithFrame:CGRectMake(5, 134, 70, 30)];
     [self.view addSubview:passwordLabel];
     
-    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(80, 134, MAIN_SCREEN.size.width-80*2, 30)];
+    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(80, 134, self.view.bounds.size.width-80*2, 30)];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
     

@@ -42,7 +42,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //	[self testApis];
-	
+
 	//TOTEST: yanchao's account
 	//[ServiceManager saveUserID:@(5639339)];
 	
@@ -90,10 +90,10 @@
 }
 
 - (void)createTabBar {
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN.size.height-35-20, MAIN_SCREEN.size.width, 35)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.window.bounds.size.height-35-20, self.window.bounds.size.width, 35)];
     [bottomView setBackgroundColor:[UIColor whiteColor]];
     
-    UIImageView *botomBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 35)];
+    UIImageView *botomBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, 35)];
     [botomBackgroundView setImage:[UIImage imageNamed:@"main_bottombackground.png"]];
     [bottomView addSubview:botomBackgroundView];
     
@@ -102,13 +102,13 @@
     [bookShelfButton setTitleColor:txtColor forState:UIControlStateNormal];
     [bookShelfButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [bookShelfButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    [bookShelfButton setFrame:CGRectMake(3, 4, -6+MAIN_SCREEN.size.width/4, 27)];
+    [bookShelfButton setFrame:CGRectMake(3, 4, -6+self.window.bounds.size.width/4, 27)];
     bookShelfButton.tag = kRootControllerTypeBookShelf;
     [bookShelfButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:bookShelfButton];
     
     UIButton *houseBookButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [houseBookButton setFrame:CGRectMake(MAIN_SCREEN.size.width/2+3, 4, -6+MAIN_SCREEN.size.width/4, 27)];
+    [houseBookButton setFrame:CGRectMake(self.window.bounds.size.width/2+3, 4, -6+self.window.bounds.size.width/4, 27)];
     [houseBookButton setTitleColor:txtColor forState:UIControlStateNormal];
     [houseBookButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [houseBookButton setTitle:NSLocalizedString(@"AppRecommend", nil) forState:UIControlStateNormal];
@@ -122,7 +122,7 @@
     [houseAppButton setTitleColor:txtColor forState:UIControlStateNormal];
     [houseAppButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [houseAppButton setTitle:NSLocalizedString(@"BookStore", nil) forState:UIControlStateNormal];
-    [houseAppButton setFrame:CGRectMake(MAIN_SCREEN.size.width/4+3, 4, -6+MAIN_SCREEN.size.width/4, 27)];
+    [houseAppButton setFrame:CGRectMake(self.window.bounds.size.width/4+3, 4, -6+self.window.bounds.size.width/4, 27)];
     houseAppButton.tag = kRootControllerTypeHouseApp;
     [houseAppButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:houseAppButton];
@@ -132,7 +132,7 @@
     [aboutButton setTitleColor:txtColor forState:UIControlStateNormal];
     [aboutButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [aboutButton setTitle:NSLocalizedString(@"AboutUs", nil) forState:UIControlStateNormal];
-    [aboutButton setFrame:CGRectMake(MAIN_SCREEN.size.width*0.75+3, 4, -6+MAIN_SCREEN.size.width/4, 27)];
+    [aboutButton setFrame:CGRectMake(self.window.bounds.size.width*0.75+3, 4, -6+self.window.bounds.size.width/4, 27)];
     aboutButton.tag = kRootControllerTypeAbout;
     [aboutButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:aboutButton];

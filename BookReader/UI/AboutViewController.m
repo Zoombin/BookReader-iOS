@@ -106,7 +106,7 @@
         } else {
             [textView setText:textEmail];
             [textView sizeToFit];
-            [backgroundImageView setFrame:CGRectMake(15, 0, MAIN_SCREEN.size.width-30, textView.frame.size.height+10)];
+            [backgroundImageView setFrame:CGRectMake(15, 0, self.view.bounds.size.width-30, textView.frame.size.height+10)];
         }
     }
 	return cell;

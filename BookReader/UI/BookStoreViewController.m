@@ -26,7 +26,7 @@
 #define CATAGORY 2
 #define SEARCH 3
 
-#define CHILDVIEW_FRAME   CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-44-50-20)
+#define CHILDVIEW_FRAME   CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44-50)
 @implementation BookStoreViewController
 {
     int currentPage;
@@ -132,7 +132,7 @@
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 44)];
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setText:@"书城"];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -140,7 +140,7 @@
     [titleLabel setTextColor:[UIColor whiteColor]];
     [self.view addSubview:titleLabel];
     
-    UIImageView *bottomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, MAIN_SCREEN.size.height-50-20, MAIN_SCREEN.size.width, 50)];
+    UIImageView *bottomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
     [bottomImage setImage:[UIImage imageNamed:@"iphone_qqreader_feedback_bg"]];
     [self.view addSubview:bottomImage];
     
@@ -153,7 +153,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(i*MAIN_SCREEN.size.width/4, MAIN_SCREEN.size.height-47-20, MAIN_SCREEN.size.width/4, 47)];
+        [button setFrame:CGRectMake(i*self.view.bounds.size.width/4, self.view.bounds.size.height-47, self.view.bounds.size.width/4, 47)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
@@ -164,7 +164,7 @@
     cataButton = buttonArrays[2];
     searchButton = buttonArrays[3];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, 40)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 40)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     [_searchBar setHidden:YES];
@@ -175,7 +175,7 @@
     [self initCategoryButton];
     [self initRandButton];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundColor:[UIColor colorWithRed:244.0/255.0 green:240.0/255.0 blue:230.0/255.0 alpha:1.0]];
@@ -186,7 +186,7 @@
 }
 
 - (void)initCategoryButton {
-    categoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-50-44-20)];
+    categoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-50-44)];
     [categoryView setHidden:YES];
     [categoryView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:categoryView];
@@ -200,7 +200,7 @@
         } else {
            [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
         }
-        [button setFrame:CGRectMake(30, 20+i*30, MAIN_SCREEN.size.width-60, 30)];
+        [button setFrame:CGRectMake(30, 20+i*30, self.view.bounds.size.width-60, 30)];
         [button setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
@@ -209,7 +209,7 @@
 }
 
 - (void)initRandButton {
-    rankView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, MAIN_SCREEN.size.width, 40)];
+    rankView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 40)];
     [rankView setBackgroundColor:[UIColor clearColor]];
     [rankView setHidden:YES];
     [self.view addSubview:rankView];
@@ -221,7 +221,7 @@
         }
         [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(i*(MAIN_SCREEN.size.width/3)+0, 0, MAIN_SCREEN.size.width/3, 40)];
+        [button setFrame:CGRectMake(i*(self.view.bounds.size.width/3)+0, 0, self.view.bounds.size.width/3, 40)];
         [rankView addSubview:button];
         [rankBtns addObject:button];
     }
@@ -342,7 +342,7 @@
 
 - (void)loadRecommendData
 {
-    [infoTableView setFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20)];
+    [infoTableView setFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
     [infoTableView setHidden:NO];
     [self displayHUD:@"加载中..."];
     [ServiceManager recommendBooksWithBlock:^(NSArray *resultArray, NSError *error) {
@@ -392,7 +392,7 @@
     }
     if(boolValue==YES){
         [_searchBar setHidden:!boolValue];
-        [infoTableView setFrame:CGRectMake(5, 44+40, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20-40)];
+        [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
     }else {
         [_searchBar setHidden:!boolValue];
     }
@@ -400,7 +400,7 @@
 
 - (void)buttonClicked:(id)sender {
     CategoryDetailsViewController *childViewController = [[CategoryDetailsViewController alloc]init];
-    [childViewController.view setFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height)];
+    [childViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+20)];
     [self.navigationController pushViewController:childViewController animated:YES];
     [childViewController displayHUD:@"加载中..."];
     [ServiceManager books:@""
@@ -437,7 +437,7 @@
         case 1:
             currentType = RANK;
             [self loadDataWithKeyWord:@"" classId:@"0" ranking:@"1" size:@"5" andIndex:1];
-            [infoTableView setFrame:CGRectMake(5, 44+40, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20-40)];
+            [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];
             [categoryView setHidden:YES];

@@ -77,7 +77,7 @@
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
-    CGSize size = MAIN_SCREEN.size;
+    CGSize size = self.view.bounds.size;
     UIApplication *application = [UIApplication sharedApplication];
     if (UIInterfaceOrientationIsLandscape(interfaceOrientation))
     {

@@ -87,7 +87,7 @@
     hasAd = NO;
     
     // CGRect readViewRect = {0-8, 20-8, 320+8+8, 440+10};
-    CGRect readViewRect = {0-8, 20-8, MAIN_SCREEN.size.width+8+8, MAIN_SCREEN.size.height-30};
+    CGRect readViewRect = {0-8, 20-8, self.view.bounds.size.width+8+8, self.view.bounds.size.height-30};
     
     readView = [[ReadView alloc] initWithFrame:readViewRect];
     [readView setBackgroundColor:[UIColor clearColor]];
@@ -109,7 +109,7 @@
     else
         [self loadAdView];
     
-    statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, 20)];
+    statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
     [statusView setBackgroundColor:[UIColor clearColor]];
     
     self.textTitle = [[BookManager sharedInstance]getBookNameByBookId:currentBookId];
@@ -126,7 +126,7 @@
     else
         bFlipV = NO;
     
-    menuView = [[ReadMenuView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN.size.width, MAIN_SCREEN.size.height-20)];
+    menuView = [[ReadMenuView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     [menuView setDelegate:self];
     menuView.articleTitleLabel.text = [NSString stringWithString:textTitle];
     menuView.articleTitleLabel.textColor = [UIColor whiteColor];
@@ -440,7 +440,7 @@
 
 - (BOOL)pointInMenuTouchX:(float)x andY:(float)y {
 	float pageOffset = currentPageInSpineIndex*readView.bounds.size.width;
-    if (x >= pageOffset+MAIN_SCREEN.size.width/3 && x <= pageOffset+MAIN_SCREEN.size.width/3*2 && y >= MAIN_SCREEN.size.height/3 && y <= MAIN_SCREEN.size.height/3*2) {
+    if (x >= pageOffset+self.view.bounds.size.width/3 && x <= pageOffset+self.view.bounds.size.width/3*2 && y >= self.view.bounds.size.height/3 && y <= self.view.bounds.size.height/3*2) {
         return YES;
     }
     return NO;
@@ -634,7 +634,7 @@
 - (void)loadAdView
 {
     AdWhirlView *adView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-    [adView setFrame:CGRectMake(0, MAIN_SCREEN.size.height-50-20, MAIN_SCREEN.size.width, 50)];
+    [adView setFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
 	adView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
     [self.view addSubview:adView];
 }
@@ -646,8 +646,8 @@
 
 - (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView
 {
-    [adWhirlView setFrame:CGRectMake(0, MAIN_SCREEN.size.height-50-20, MAIN_SCREEN.size.width, 50)];
-    CGRect readViewRect = {0-8, 20-8, MAIN_SCREEN.size.width+8+8, MAIN_SCREEN.size.height-80};
+    [adWhirlView setFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
+    CGRect readViewRect = {0-8, 20-8, self.view.bounds.size.width+8+8, self.view.bounds.size.height-60};
     [self.readView setFrame:readViewRect];
     if (hasAd!=YES) {
         hasAd = YES;

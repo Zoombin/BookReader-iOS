@@ -41,7 +41,7 @@
 
 - (void)initTopView
 {
-    #define READ_MENU_TOP_VIEW_RECT (CGRectMake(0, 0, MAIN_SCREEN.size.width, 40))
+    #define READ_MENU_TOP_VIEW_RECT (CGRectMake(0, 0, self.bounds.size.width, 40))
     UIView *topView = [[UIView alloc] initWithFrame:READ_MENU_TOP_VIEW_RECT];
     [topView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[topView bounds]];
@@ -49,12 +49,12 @@
     [topView addSubview:imageView];
     [self addSubview:topView];
     
-    booknameScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(70, 5, MAIN_SCREEN.size.width-120, 30)];
+    booknameScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(70, 5, self.bounds.size.width-120, 30)];
     [booknameScroll setShowsHorizontalScrollIndicator:NO];
     [booknameScroll setBackgroundColor:[UIColor clearColor]];
     [topView addSubview:booknameScroll];
     
-    articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, MAIN_SCREEN.size.width-120, 25)];
+    articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, self.bounds.size.width-120, 25)];
     articleTitleLabel.textAlignment = NSTextAlignmentCenter;
     articleTitleLabel.textColor = [UIColor whiteColor];
     articleTitleLabel.backgroundColor = [UIColor clearColor];
@@ -81,7 +81,7 @@
     UIButton *addBookMarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addBookMarkButton setImage:image forState:UIControlStateNormal];
     [addBookMarkButton setImage:imageHighlighted forState:UIControlStateHighlighted];
-    [addBookMarkButton setFrame:CGRectMake(MAIN_SCREEN.size.width-buttonOffsetX-image.size.width/2, buttonOffsetY, image.size.width/2, image.size.height/2)];
+    [addBookMarkButton setFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-image.size.width/2, buttonOffsetY, image.size.width/2, image.size.height/2)];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
     
@@ -94,7 +94,7 @@
     
 #define BUTTON_NUMBER 5
     
-#define WIDTH  ((MAIN_SCREEN.size.width)/BUTTON_NUMBER)
+#define WIDTH  ((self.bounds.size.width)/BUTTON_NUMBER)
     
 #define BUTTON_TITLE_1 @"亮度"
 #define BUTTON_TITLE_2 @"模式"
@@ -138,7 +138,7 @@
 #define BUTTON_IMAGE_NIGHT [UIImage imageNamed:@"read_menu_bottom_view_mode_night.png"]
 #define BUTTON_HIGHLIGHTED_IMAGE_NIGHT [UIImage imageNamed:@"read_menu_bottom_view_mode_night_highlighted.png"]
     
-#define READ_MENU_BOTTOM_VIEW_RECT (CGRectMake(0, MAIN_SCREEN.size.height-20-40, MAIN_SCREEN.size.width, 40))
+#define READ_MENU_BOTTOM_VIEW_RECT (CGRectMake(0, self.bounds.size.height-20-40, self.bounds.size.width+20, 40))
     UIView *bottomView = [[UIView alloc] initWithFrame:READ_MENU_BOTTOM_VIEW_RECT];
     [bottomView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
@@ -169,7 +169,7 @@
 
 - (void)initBrightnessView
 {
-    brightnessView = [[UIView alloc] initWithFrame:CGRectMake((MAIN_SCREEN.size.width-320)/2, MAIN_SCREEN.size.height-100, 320, 48)];
+    brightnessView = [[UIView alloc] initWithFrame:CGRectMake((self.bounds.size.width-320)/2, self.bounds.size.height-80, 320, 48)];
     
     UIColor *backgroundColor = [[UIColor alloc] initWithPatternImage:BACKGROUND_IMAGE];
     [brightnessView setBackgroundColor:backgroundColor];
@@ -209,7 +209,7 @@
 
 - (void)initFontView
 {
-    fontView = [[UIView alloc] initWithFrame:CGRectMake((MAIN_SCREEN.size.width-320)/2, MAIN_SCREEN.size.height-100, 320, 48)];
+    fontView = [[UIView alloc] initWithFrame:CGRectMake((self.bounds.size.width-320)/2, self.bounds.size.height-80, 320, 48)];
     
     UIColor *backgroundColor = [[UIColor alloc] initWithPatternImage:BACKGROUND_IMAGE];
     [fontView setBackgroundColor:backgroundColor];

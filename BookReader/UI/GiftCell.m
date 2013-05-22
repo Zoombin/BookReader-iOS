@@ -72,7 +72,7 @@
         [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:slider];
     
-        UIButton *sendButton = [UIButton createButtonWithFrame:CGRectMake(MAIN_SCREEN.size.width-45*2, 25, 65, 20)];
+        UIButton *sendButton = [UIButton createButtonWithFrame:CGRectMake(self.bounds.size.width-45*2, 25, 65, 20)];
         [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue) forControlEvents:UIControlEventTouchUpInside];
         [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
         [self.contentView addSubview:sendButton];
