@@ -174,11 +174,7 @@
         if (error) {
             
         } else {
-            if ([code isEqualToString:SUCCESS_FLAG]) {
-                [self displayHUDError:nil message:@"获取验证码成功"];
-            } else {
-                [self displayHUDError:nil message:@"验证码获取失败"];
-            }
+           [self displayHUDError:nil message:result];
         }
     }];
 }

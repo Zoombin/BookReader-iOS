@@ -28,7 +28,7 @@
 #pragma mark - 用户接口
 //短信获取验证码
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
-                      withBlock:(void (^)(NSString *, NSError *))block;
+                      withBlock:(void (^)(NSString *,NSString *, NSError *))block;
 //短信注册
 + (void)registerByPhoneNumber:(NSString *)phoneNumber     //用户手机号
                    verifyCode:(NSString *)verifyCode
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
 
 //获取图书详情
 + (void)bookDetailsByBookId:(NSString *)bookid
-                      andIntro:(NSString *)intro   //1:返回简介 0:不返回简介
+                      andIntro:(BOOL)intro   //1:返回简介 0:不返回简介
                      withBlock:(void (^)(Book *,NSError *))block;
 
 //获取评论接口
@@ -165,15 +165,25 @@ typedef NS_ENUM(NSInteger, XXSYGiftType) {
 	XXSYGiftTypeComment = 5
 };
 
+typedef NS_ENUM(NSInteger, XXSYIntegralType) {
+	XXSYIntegralTypeWorse = 1,
+	XXSYIntegralTypeBad = 2,
+	XXSYIntegralTypeGood = 3,
+	XXSYIntegralTypeBetter = 4,
+	XXSYIntegralTypeBest = 5
+};
+
 #define XXSYGiftTypesMap @{@"钻石" : @(XXSYGiftTypeDiamond), @"鲜花" : @(XXSYGiftTypeFlower), @"打赏" : @(XXSYGiftTypeAward), @"月票" : @(XXSYGiftTypeTicket), @"评价票" : @(XXSYGiftTypeComment)}
 
-+ (void)giveGiftWithType:(NSString *)typeKey    //1:钻石 2:鲜花 3:打赏 4:月票 5:评价票
++ (void)giveGiftWithType:(XXSYGiftType)typeKey    //1:钻石 2:鲜花 3:打赏 4:月票 5:评价票
         author:(NSNumber *)authorid  //月票没了就没了
            count:(NSString *)count   //送数量
-        integral:(NSString *)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
+        integral:(XXSYIntegralType)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
        andBook:(NSString *)bookid
        withBlock:(void(^)(NSString *,NSError *))block;
 
+//获取系统配置信息
++ (void)systemConfigsWithBlock:(void(^)(NSString *,NSError *))block; //返回的时间单位是分
 
 #pragma mark -
 

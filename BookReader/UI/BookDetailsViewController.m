@@ -89,7 +89,7 @@
     [super viewDidAppear:animated];
     if (book == nil) {
         [self displayHUD:@"加载中..."];
-        [ServiceManager bookDetailsByBookId:bookid andIntro:@"1" withBlock:^(Book *obj, NSError *error) {
+        [ServiceManager bookDetailsByBookId:bookid andIntro:YES withBlock:^(Book *obj, NSError *error) {
             if(error) {
                 [self displayHUDError:nil message:NETWORK_ERROR];
 				[self.navigationController popViewControllerAnimated:YES];
