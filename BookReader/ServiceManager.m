@@ -296,13 +296,13 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)books:(NSString *)keyword
-      classID:(NSString *)classid
-      ranking:(NSString *)ranking
+      classID:(XXSYClassType)classid
+      ranking:(XXSYRankType)ranking
          size:(NSString *)size
         andIndex:(NSString *)index
        withBlock:(void (^)(NSArray *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"keyword" : keyword}, @{@"classid" : classid}, @{@"ranking" : ranking}, @{@"size" : size}, @{@"index" : index}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"keyword" : keyword}, @{@"classid" : @(classid).stringValue}, @{@"ranking" : @(ranking).stringValue}, @{@"size" : size}, @{@"index" : index}]];
     [[ServiceManager shared] postPath:@"Search.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
@@ -540,12 +540,12 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 
-+ (void)bookRecommend:(NSNumber *)classid
++ (void)bookRecommend:(XXSYClassType)classid
              andCount:(NSString *)count
             withBlock:(void (^)(NSArray *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"type.recommend"}]];
-    parameters[@"classid"] = classid;
+    parameters[@"classid"] = @(classid);
     parameters[@"count"] = count;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];

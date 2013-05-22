@@ -232,20 +232,20 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     if ([_searchBar.text length]>0) {
-        [self loadDataWithKeyWord:_searchBar.text classId:@"0" ranking:@"0" size:@"5" andIndex:1];
+        [self loadDataWithKeyWord:_searchBar.text classId:0 ranking:0 size:@"5" andIndex:1];
     }
     [_searchBar resignFirstResponder];
 }
 
 - (void)loadDataWithKeyWord:(NSString *)keyword
                     classId:(NSString *)classid
-                    ranking:(NSString *)rank
+                    ranking:(XXSYRankType)rank
                        size:(NSString *)size
                    andIndex:(NSInteger)index
 {
     currentIndex = 1;
     [self displayHUD:@"加载中..."];
-    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(NSArray *reArray, NSError *error) {
+    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(NSArray *reArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
@@ -291,16 +291,16 @@
 
 - (void)getMore {
     NSString *keyWord = @"";
-    NSString *rankId = @"0";
+    NSInteger rankId = 0;
     if (currentType==RANK) {
-        rankId = [NSString stringWithFormat:@"%d",currentPage];
+        rankId = currentPage;
     } else {
         keyWord = _searchBar.text;
     }
     [self displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                  classID:@"0"
-                  ranking:rankId
+                  classID:0
+                  ranking:currentPage
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {
@@ -337,7 +337,7 @@
         return;
     currentPage = [rankBtns indexOfObject:sender]+1;
     [self changeRankButtonImage:sender];
-    [self loadDataWithKeyWord:@"" classId:@"0" ranking:[NSString stringWithFormat:@"%d",currentPage] size:@"5" andIndex:1];
+    [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"5" andIndex:1];
 }
 
 - (void)loadRecommendData
@@ -404,8 +404,8 @@
     [self.navigationController pushViewController:childViewController animated:YES];
     [childViewController displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                  classID:[NSString stringWithFormat:@"%d",[sender tag]+1]
-                  ranking:@"0"
+                  classID:[sender tag] +1
+                  ranking:0
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {
@@ -436,7 +436,7 @@
             break;
         case 1:
             currentType = RANK;
-            [self loadDataWithKeyWord:@"" classId:@"0" ranking:@"1" size:@"5" andIndex:1];
+            [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankTypeAll size:@"5" andIndex:1];
             [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];

@@ -99,8 +99,8 @@
 {
     [self displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                    classID:[NSString stringWithFormat:@"%d",catagoryId]
-                  ranking:@"0"
+                    classID:catagoryId
+                  ranking:0
                      size:@"5"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {

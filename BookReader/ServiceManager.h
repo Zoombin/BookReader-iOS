@@ -69,9 +69,29 @@
 
 #pragma mark - 书城接口
 //获取榜单 分类 搜索的书籍列表
+typedef NS_ENUM(NSInteger, XXSYClassType) {
+	XXSYClassTypeGoBack = 1,
+	XXSYClassTypeOverhead = 2,
+	XXSYClassTypeCity = 3,
+	XXSYClassTypeYouth = 4,
+	XXSYClassTypeMagic = 5,
+    XXSYClassTypeFantasy = 6,
+	XXSYClassTypeWealthy = 7,
+	XXSYClassTypeHistory = 8,
+	XXSYClassTypeAbility = 9,
+    XXSYClassTypeShort = 10,
+	XXSYClassTypeSlash = 11
+};
+
+typedef NS_ENUM(NSInteger, XXSYRankType) {
+	XXSYRankTypeAll = 1,
+	XXSYRankTypeNew = 2,
+	XXSYRankTypeHot = 3,
+};
+
 + (void)books:(NSString *)keyword
-      classID:(NSString *)classid  //分类1~9 穿越，架空，历史，都市，青春，豪门，魔幻，异能，玄幻
-      ranking:(NSString *)ranking //1.总榜 2.最新 3.最热
+      classID:(XXSYClassType)classid  //分类1~11 穿越,架空,都市,青春,魔幻,玄幻,豪门,历史,异能,短篇,耽美
+      ranking:(XXSYRankType)ranking //1.总榜 2.最新 3.最热
          size:(NSString *)size
         andIndex:(NSString *)index
        withBlock:(void (^)(NSArray *, NSError *))block;
@@ -123,7 +143,7 @@
            withBlock:(void(^)(NSString *,NSError *))block;
 
 //同类推荐
-+ (void)bookRecommend:(NSNumber *)classid //1~11
++ (void)bookRecommend:(XXSYClassType)classid //1~11
              andCount:(NSString *)count
             withBlock:(void(^)(NSArray *,NSError *))block;
 
