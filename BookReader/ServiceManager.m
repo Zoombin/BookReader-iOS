@@ -340,7 +340,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
                       andIntro:(BOOL)intro
                      withBlock:(void (^)(Book *obj, NSError *error))block
 {
-    NSString *introValue = intro == YES ? @"1" : @"0";
+    NSString *introValue = intro ? @"1" : @"0";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"intro" : introValue}]];
     [[ServiceManager shared] postPath:@"GetBookDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
