@@ -48,7 +48,7 @@
 //    return [self pop:2];
 //}
 //
-//+ (NSArray *)testRecommandBooks
+//+ (NSArray *)testRecommendBooks
 //{
 //    return [self pop:3];
 //}

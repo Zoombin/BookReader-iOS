@@ -26,8 +26,8 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * progress;
 @property (nonatomic, retain) NSDate * rDate;
-@property (nonatomic, retain) NSNumber * recommandID;
-@property (nonatomic, retain) NSString * recommandTitle;
+@property (nonatomic, retain) NSNumber * recommendID;
+@property (nonatomic, retain) NSString * recommendTitle;
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSNumber * words;
 

@@ -51,7 +51,7 @@
     [self.view addSubview:headerImageView];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
-    [titleLabel setText:NSLocalizedString(@"AppRecommand", nil)];
+    [titleLabel setText:NSLocalizedString(@"AppRecommend", nil)];
     [titleLabel setTextColor:txtColor];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];

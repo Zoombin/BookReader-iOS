@@ -24,8 +24,8 @@
 @dynamic name;
 @dynamic progress;
 @dynamic rDate;
-@dynamic recommandID;
-@dynamic recommandTitle;
+@dynamic recommendID;
+@dynamic recommendTitle;
 @dynamic uid;
 @dynamic words;
 

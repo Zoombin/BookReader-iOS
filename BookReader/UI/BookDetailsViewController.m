@@ -43,7 +43,7 @@
     UIButton *sendCommitButton;
     UITextView *shortdescribeTextView;
     UITableView *infoTableView;
-    UITableView *recommandTableView;
+    UITableView *recommendTableView;
     
     NSMutableArray *infoArray;
     NSMutableArray *authorBookArray;
@@ -53,7 +53,7 @@
     UIButton *shortDescribe;
     UIButton *comment;
     UIButton *authorBook;
-    UIButton *bookRecommand;
+    UIButton *bookRecommend;
 	
     UIButton *readButton;
 	UIButton *favoriteButton;
@@ -77,7 +77,7 @@
         shortDescribe = [UIButton buttonWithType:UIButtonTypeCustom];
         comment = [UIButton buttonWithType:UIButtonTypeCustom];
         authorBook = [UIButton buttonWithType:UIButtonTypeCustom];
-        bookRecommand = [UIButton buttonWithType:UIButtonTypeCustom];
+        bookRecommend = [UIButton buttonWithType:UIButtonTypeCustom];
         
         // Custom initialization
     }
@@ -208,7 +208,7 @@
     [self.view addSubview:secondView];
     
     NSArray *btnNames = @[@"简介" ,@"评论" ,@"作者书籍", @"同类推荐"];
-    NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommand];
+    NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommend];
     for (int i = 0; i<[btnNames count]; i++) {
         UIButton *button = btnObjs[i];
         [button.layer setBorderWidth:0.5];
@@ -238,12 +238,12 @@
     [sendCommitButton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [secondView addSubview:sendCommitButton];
     
-    recommandTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30) style:UITableViewStylePlain];
-    [recommandTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [recommandTableView setBackgroundColor:[UIColor whiteColor]];
-    [recommandTableView setDelegate:self];
-    [recommandTableView setDataSource:self];
-    [secondView addSubview:recommandTableView];
+    recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30) style:UITableViewStylePlain];
+    [recommendTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [recommendTableView setBackgroundColor:[UIColor whiteColor]];
+    [recommendTableView setDelegate:self];
+    [recommendTableView setDataSource:self];
+    [secondView addSubview:recommendTableView];
     
     [self loadAuthorOtherBook];
     [self loadSameType];
@@ -298,7 +298,7 @@
 - (void)selectTabBar:(UIButton *)sender
 {
     
-    NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommand];
+    NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommend];
     for (int i = 0; i<4; i++) {
         UIButton *button = (UIButton *)btnObjs[i];
         [button.layer setBorderColor:sender==button ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
@@ -310,12 +310,12 @@
         [secondView bringSubviewToFront:sendCommitButton];
     } else if (sender == authorBook) {
         currentType = AUTHORBOOK;
-        [recommandTableView reloadData];
-        [secondView bringSubviewToFront:recommandTableView];
-    } else if (sender == bookRecommand) {
+        [recommendTableView reloadData];
+        [secondView bringSubviewToFront:recommendTableView];
+    } else if (sender == bookRecommend) {
         currentType = OTHERBOOK;
-        [recommandTableView reloadData];
-        [secondView bringSubviewToFront:recommandTableView];
+        [recommendTableView reloadData];
+        [secondView bringSubviewToFront:recommendTableView];
     }
 }
 
@@ -338,7 +338,7 @@
                     [authorBookArray addObject:obj];
                 }
             }
-            [recommandTableView reloadData];
+            [recommendTableView reloadData];
         }
     }];
 }
@@ -361,7 +361,7 @@
                     [sameTypeBookArray addObject:obj];
                 }
             }
-            [recommandTableView reloadData];
+            [recommendTableView reloadData];
         }
     }];
 }

@@ -22,8 +22,8 @@
 	book.autoBuy = attributes[@"auto"];
 	book.name = attributes[@"bookName"];
 	book.category = attributes[@"className"];
-	book.recommandID = attributes[@"recId"];
-	book.recommandTitle = attributes[@"recTitle"];
+	book.recommendID = attributes[@"recId"];
+	book.recommendTitle = attributes[@"recTitle"];
 	book.describe = attributes[@"intro"];
 	book.words = attributes[@"length"];
 	book.lastUpdate = attributes[@"lastUpdateTime"];
@@ -104,8 +104,8 @@
     book.name = self.name;
     //book.progress = self.progress;
     //book.rDate = self.rDate;
-    book.recommandID = self.recommandID;
-    book.recommandTitle = self.recommandTitle;
+    book.recommendID = self.recommendID;
+    book.recommendTitle = self.recommendTitle;
     book.uid = self.uid;
     book.words = self.words;
 }

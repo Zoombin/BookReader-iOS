@@ -21,7 +21,7 @@
 #import "UIColor+BookReader.h"
 #import "BookCell.h"
 
-#define RECOMMAND 0
+#define RECOMMEND 0
 #define RANK 1
 #define CATAGORY 2
 #define SEARCH 3
@@ -47,11 +47,11 @@
     BOOL shouldRefresh;
     int currentType;
     
-    NSMutableArray *recommandArray;
+    NSMutableArray *recommendArray;
     
-    NSMutableArray *recommandTitlesArray;
+    NSMutableArray *recommendTitlesArray;
     
-    UIButton *recommandButton;
+    UIButton *recommendButton;
     UIButton *rankButton;
     UIButton *cataButton;
     UIButton *searchButton;
@@ -68,13 +68,13 @@
     self = [super init];
     if (self) {
         // Custom initialization
-        recommandArray = [[NSMutableArray alloc] init];
+        recommendArray = [[NSMutableArray alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
-        recommandTitlesArray = [[NSMutableArray alloc] init];
+        recommendTitlesArray = [[NSMutableArray alloc] init];
         
         rankBtns = [[NSMutableArray alloc] init];
-        currentType = RECOMMAND;
+        currentType = RECOMMEND;
         currentPage = 1;
         currentIndex = 1;
     }
@@ -89,12 +89,12 @@
 
 - (void)RefreshUI {
     if (shouldRefresh==YES) {
-        currentType = RECOMMAND;
+        currentType = RECOMMEND;
         [infoTableView setTableFooterView:nil];
         [self showSearchBarWithBoolValue:NO];
         [rankView setHidden:YES];
         [categoryView setHidden:YES];
-        [self loadRecommandData];
+        [self loadRecommendData];
         [infoTableView setHidden:NO];
         for (int i = 0; i<3; i++)
         {
@@ -159,7 +159,7 @@
         [buttonArrays addObject:button];
     }
     
-    recommandButton = buttonArrays[0];
+    recommendButton = buttonArrays[0];
     rankButton = buttonArrays[1];
     cataButton = buttonArrays[2];
     searchButton = buttonArrays[3];
@@ -340,7 +340,7 @@
     [self loadDataWithKeyWord:@"" classId:@"0" ranking:[NSString stringWithFormat:@"%d",currentPage] size:@"5" andIndex:1];
 }
 
-- (void)loadRecommandData
+- (void)loadRecommendData
 {
     [infoTableView setFrame:CGRectMake(5, 44, MAIN_SCREEN.size.width-10, MAIN_SCREEN.size.height-44-50-20)];
     [infoTableView setHidden:NO];
@@ -353,32 +353,32 @@
                 [infoArray removeAllObjects];
             }
             [infoArray addObjectsFromArray:resultArray];
-            [self refreshRecommandDataWithArray:infoArray];
+            [self refreshRecommendDataWithArray:infoArray];
         }
     }];
 }
 
-- (void)refreshRecommandDataWithArray:(NSArray *)array
+- (void)refreshRecommendDataWithArray:(NSArray *)array
 {
     NSString *lastKey = nil;
-    if ([recommandTitlesArray count]>0) {
-        [recommandTitlesArray removeAllObjects];
-        [recommandArray removeAllObjects];
+    if ([recommendTitlesArray count]>0) {
+        [recommendTitlesArray removeAllObjects];
+        [recommendArray removeAllObjects];
     }
     for (int i = 0; i < [array count]; i++) {
         Book *book = [array objectAtIndex:i];
-        if (![recommandTitlesArray containsObject:book.recommandTitle]) {
-            [recommandTitlesArray addObject:book.recommandTitle];
+        if (![recommendTitlesArray containsObject:book.recommendTitle]) {
+            [recommendTitlesArray addObject:book.recommendTitle];
         }
         NSMutableArray *tmpArray;
-        if ([lastKey isEqualToString:book.recommandTitle]) {
-            tmpArray = [recommandArray objectAtIndex:[recommandTitlesArray indexOfObject:book.recommandTitle]];
+        if ([lastKey isEqualToString:book.recommendTitle]) {
+            tmpArray = [recommendArray objectAtIndex:[recommendTitlesArray indexOfObject:book.recommendTitle]];
         } else {
             tmpArray = [[NSMutableArray alloc] init];
-            [recommandArray addObject:tmpArray];
+            [recommendArray addObject:tmpArray];
         }
         [tmpArray addObject:book];
-        lastKey = book.recommandTitle;
+        lastKey = book.recommendTitle;
     }
     [infoTableView reloadData];
     [self hideHUD:YES];
@@ -427,11 +427,11 @@
     [self changeButtonImage:sender];
     switch ([buttonArrays indexOfObject:sender]) {
         case 0:
-            currentType = RECOMMAND;
+            currentType = RECOMMEND;
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:YES];
             [categoryView setHidden:YES];
-            [self loadRecommandData];
+            [self loadRecommendData];
             [infoTableView setHidden:NO];
             break;
         case 1:
@@ -465,29 +465,29 @@
 #pragma mark tableview
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (currentType == RECOMMAND) {
-        return [recommandTitlesArray count];
+    if (currentType == RECOMMEND) {
+        return [recommendTitlesArray count];
     }
     return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (currentType != RECOMMAND) {
+    if (currentType != RECOMMEND) {
         return 0;
     }
     return 30;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (currentType != RECOMMAND) {
+    if (currentType != RECOMMEND) {
         return nil;
     }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
-        for (int i = 0; i<[recommandTitlesArray count]; i++) {
+        for (int i = 0; i<[recommendTitlesArray count]; i++) {
             if (section == i) {
-                [label setText:[@"\t\t" stringByAppendingString:[recommandTitlesArray objectAtIndex:i]]];
+                [label setText:[@"\t\t" stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
             }
         }
     [view addSubview:label];
@@ -495,10 +495,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (currentType == RECOMMAND) {
-        for (int i = 0; i<[recommandTitlesArray count]; i++) {
+    if (currentType == RECOMMEND) {
+        for (int i = 0; i<[recommendTitlesArray count]; i++) {
             if (section == i) {
-                NSMutableArray *array = [recommandArray objectAtIndex:i];
+                NSMutableArray *array = [recommendArray objectAtIndex:i];
                 return [array count];
             }
         }
@@ -507,7 +507,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (currentType == RECOMMAND) {
+    if (currentType == RECOMMEND) {
         if (indexPath.row == 0) {
             return [BookCell height];
         }
@@ -521,9 +521,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (currentType == RECOMMAND) {
+    if (currentType == RECOMMEND) {
         if (cell == nil) {
-            NSMutableArray *array = [recommandArray objectAtIndex:[indexPath section]];
+            NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
             if (indexPath.row == 0) {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
                 Book *book = array[indexPath.row];
@@ -547,8 +547,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Book *book;
-    if (currentType == RECOMMAND) {
-        NSMutableArray *array = [recommandArray objectAtIndex:[indexPath section]];
+    if (currentType == RECOMMEND) {
+        NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
         book = array[indexPath.row];
     } else {
         book = infoArray[indexPath.row];

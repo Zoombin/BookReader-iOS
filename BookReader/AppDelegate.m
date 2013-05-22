@@ -111,7 +111,7 @@
     [houseBookButton setFrame:CGRectMake(MAIN_SCREEN.size.width/2+3, 4, -6+MAIN_SCREEN.size.width/4, 27)];
     [houseBookButton setTitleColor:txtColor forState:UIControlStateNormal];
     [houseBookButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [houseBookButton setTitle:NSLocalizedString(@"AppRecommand", nil) forState:UIControlStateNormal];
+    [houseBookButton setTitle:NSLocalizedString(@"AppRecommend", nil) forState:UIControlStateNormal];
     [houseBookButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
     houseBookButton.tag = kRootControllerTypeHouseBook;
     [houseBookButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];

@@ -1,5 +1,5 @@
 //
-//  BookRecommandViewController.m
+//  HouseBookListViewController.m
 //  BookReader
 //
 //  Created by 颜超 on 12-11-26.

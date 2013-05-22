@@ -12,7 +12,7 @@
 
 + (NSArray *)testBooks;
 + (NSArray *)testRankingBooks;
-+ (NSArray *)testRecommandBooks;
++ (NSArray *)testRecommendBooks;
 + (NSArray *)testReachBooks;
 
 @end
