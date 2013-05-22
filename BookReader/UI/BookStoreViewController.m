@@ -333,9 +333,9 @@
 }
 
 - (void)reloadDataByIndex:(id)sender {
-    if (currentPage==[sender tag]+1)
+    if (currentPage==[rankBtns indexOfObject:sender]+1)
         return;
-    currentPage = [sender tag]+1;
+    currentPage = [rankBtns indexOfObject:sender]+1;
     [self changeRankButtonImage:sender];
     [self loadDataWithKeyWord:@"" classId:@"0" ranking:[NSString stringWithFormat:@"%d",currentPage] size:@"5" andIndex:1];
 }
