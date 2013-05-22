@@ -13,7 +13,6 @@
 #import "ReadMenuView.h"
 #import "ReadStatusView.h"
 #import "AdWhirlView.h"
-#import "BookReader.h"
 
 @interface ReadViewController : UIViewController<ReadMenuViewDelegate,AdWhirlDelegate,UIApplicationDelegate ,UIScrollViewDelegate, UITextViewDelegate> {
     ReadView *readView;

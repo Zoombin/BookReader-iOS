@@ -11,6 +11,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BookReader.h"
 
+#define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
+#define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
+#define _mTableViewFrame        CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-50+6)
+#define downloadButtonFrame     CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)
+
 @implementation HouseAppListViewController
 {
     UMUFPTableView *_mTableView;

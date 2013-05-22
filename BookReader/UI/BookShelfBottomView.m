@@ -7,7 +7,6 @@
 //
 
 #import "BookShelfBottomView.h"
-#import "BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define DURATION 0.3   // 动画持续时间(秒)

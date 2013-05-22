@@ -107,6 +107,7 @@
 		18A0C6A8174B649C003FC599 /* read_light_reduce.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A4174B649C003FC599 /* read_light_reduce.png */; };
 		18A0C6A9174B649C003FC599 /* read_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A5174B649C003FC599 /* read_mark.png */; };
 		18A0C6AA174B649C003FC599 /* read_photo_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A6174B649C003FC599 /* read_photo_box.png */; };
+		18A0C6AD174C7F4C003FC599 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C6AC174C7F4C003FC599 /* Reachability.m */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
@@ -466,6 +467,8 @@
 		18A0C6A4174B649C003FC599 /* read_light_reduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_light_reduce.png; sourceTree = "<group>"; };
 		18A0C6A5174B649C003FC599 /* read_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_mark.png; sourceTree = "<group>"; };
 		18A0C6A6174B649C003FC599 /* read_photo_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_photo_box.png; sourceTree = "<group>"; };
+		18A0C6AB174C7F4C003FC599 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		18A0C6AC174C7F4C003FC599 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -937,6 +940,8 @@
 		1888A3A216FFE8050046DA4C /* ServiceManager */ = {
 			isa = PBXGroup;
 			children = (
+				18A0C6AB174C7F4C003FC599 /* Reachability.h */,
+				18A0C6AC174C7F4C003FC599 /* Reachability.m */,
 				1888A3A316FFE8420046DA4C /* ServiceManager.h */,
 				1888A3A416FFE8420046DA4C /* ServiceManager.m */,
 			);
@@ -2133,6 +2138,7 @@
 				779C67291744652600909D6A /* Book.m in Sources */,
 				779C672C17446DCD00909D6A /* ContextManager.m in Sources */,
 				77E3E2F7174B6E6100FCCD91 /* UIColor+Hex.m in Sources */,
+				18A0C6AD174C7F4C003FC599 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

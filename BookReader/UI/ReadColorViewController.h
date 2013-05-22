@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BookReader.h"
 
 @interface ReadColorViewController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
     BOOL bFontColor;

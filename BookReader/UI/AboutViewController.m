@@ -10,6 +10,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BookReader.h"
 
+//---infoTableView---
+#define textViewFrame               CGRectMake(20, 2, self.view.bounds.size.width-40, 78)
+#define backgroundImageViewFrame    CGRectMake(15, 0, textView.frame.size.width+10, textView.frame.size.height+10)
+#define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
+#define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
+#define infoTableViewFrame          CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-85+6)
 
 @implementation AboutViewController {
     UITableView     *infoTableView;

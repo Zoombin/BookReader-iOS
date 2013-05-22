@@ -7,7 +7,6 @@
 //
 
 #import "BookCell.h"
-#import "BookReader.h"
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 

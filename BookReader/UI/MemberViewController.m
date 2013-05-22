@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
 #import "ServiceManager.h"
-#import "BookReader.h"
 #import "SignInViewController.h"
 #import "PasswordViewController.h"
 #import "UIViewController+HUD.h"

@@ -7,13 +7,13 @@
 //
 
 #import "SignUpViewController.h"
-#import "BookReader.h"
 #import "UITextField+BookReader.h"
 #import "ServiceManager.h"
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
+#import "BookReader.h"
 #import "AppDelegate.h"
 
 @implementation SignUpViewController {

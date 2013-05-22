@@ -7,7 +7,6 @@
 //
 
 #import "CategoryDetailsViewController.h"
-#import "BookReader.h"
 #import "AppDelegate.h"
 #import "BookDetailsViewController.h"
 #import "ServiceManager.h"

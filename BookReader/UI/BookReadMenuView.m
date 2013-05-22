@@ -7,7 +7,6 @@
 //
 
 #import "BookReadMenuView.h"
-#import "BookReader.h"
 #import "BookReaderDefaultsManager.h"
 #import <QuartzCore/QuartzCore.h>
 

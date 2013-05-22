@@ -21,6 +21,7 @@
 #import "NSString+XXSY.h"
 #import "BookReaderDefaultsManager.h"
 #import "MobileProbe.h"
+#import "Reachability.h"
 
 #define REMOTE_MODE
 
@@ -42,7 +43,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //	[self testApis];
-
+//    if([Reachability reachabilityWithHostName:@"server"].currentReachabilityStatus == ReachableViaWiFi) {
+//        NSLog(@"WIFI");
+//    } else {
+//        NSLog(@"其他网络");
+//    }
+    
 	//TOTEST: yanchao's account
 	//[ServiceManager saveUserID:@(5639339)];
 	

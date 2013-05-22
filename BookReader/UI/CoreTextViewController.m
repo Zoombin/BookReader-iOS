@@ -10,7 +10,6 @@
 #import "CoreTextView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+HUD.h"
-#import "BookReader.h"
 #import "ReadStatusView.h"
 #import "BookReadMenuView.h"
 #import "SubscribeViewController.h"

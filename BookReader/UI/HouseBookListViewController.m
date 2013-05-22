@@ -13,6 +13,10 @@
 #import "BookReader.h"
 #import "UMTableViewCell.h"
 
+#define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
+#define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
+#define downloadButtonFrame     CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)
+#define infoTableViewFrame          CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-85+6)
 
 @implementation HouseBookListViewController
 {

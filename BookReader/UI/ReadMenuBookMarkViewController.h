@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ReadViewController.h"
-#import "BookReader.h"
 
 @interface ReadMenuBookMarkViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
     UITableView *bookMarkTableView;

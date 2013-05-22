@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BookReader.h"
 
 @interface ReadThemeViewController : UIViewController {
     NSMutableArray *marksMutableArray;

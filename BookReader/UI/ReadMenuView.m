@@ -10,7 +10,6 @@
 #import "ReadMenuDirectoryViewController.h"
 #import "ReadMenuBookMarkViewController.h"
 #import "UserDefaultsManager.h"
-#import "BookReader.h"
 
 #define BACKGROUND_IMAGE [UIImage imageNamed:@"read_menu_brightness_view_background.png"]
 #define MIN_TRACK_IMAGE [UIImage imageNamed:@"read_menu_brightness_slider_min_track_image.png"]

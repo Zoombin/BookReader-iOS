@@ -19,6 +19,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "ReadMoreViewController.h"
+#import "BookReader.h"
 #import "UserDefaultsManager.h"
 #import "ReadThemeViewController.h"
 #import "ReadColorViewController.h"

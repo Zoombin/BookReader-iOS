@@ -7,7 +7,6 @@
 //
 
 #import "GiftCell.h"
-#import "BookReader.h"
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 

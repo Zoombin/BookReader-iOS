@@ -26,6 +26,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ReadThemeViewController.h"
 #import "UserDefaultsManager.h"
+#import "BookReader.h"
 
 @interface ReadThemeViewController ()
 
