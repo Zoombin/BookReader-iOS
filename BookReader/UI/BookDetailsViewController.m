@@ -407,7 +407,7 @@
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *resultArray, NSError *error) {
         if (error){
         } else {
-            if ([result count] == 10) {
+            if ([resultArray count] == 10) {
                 [self addFootView];
                 currentIndex++;
             }
