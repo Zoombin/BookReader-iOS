@@ -32,7 +32,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         if (style == BookCellStyleBig) {
-            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.bounds.size.width-20, 140-2)];
+            NSLog(@"%@",NSStringFromCGRect(self.bounds));
+             NSLog(@"%@",NSStringFromCGRect(self.frame));
+             NSLog(@"%@",NSStringFromCGRect(self.contentView.bounds));
+             NSLog(@"%@",NSStringFromCGRect(self.contentView.frame));
+            
+            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 140-2)];
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
             [self.contentView addSubview:background];
             
@@ -63,7 +68,7 @@
             coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
             [self.contentView addSubview:coverView];
         } else {
-            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.bounds.size.width-20, 30-2)];
+            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 30-2)];
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
             [self.contentView addSubview:background];
             

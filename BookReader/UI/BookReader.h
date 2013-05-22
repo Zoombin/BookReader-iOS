@@ -1,7 +1,3 @@
-#define  MAIN_SCREEN ( [[UIScreen mainScreen] bounds] )
-
-#define SCREEN_SCALE ( (MAIN_SCREEN).size.width == 768 ? 2.4 : 1 )
-
 #define kNeedRefreshBookShelf @"need_refresh_bookshelf"
 
 

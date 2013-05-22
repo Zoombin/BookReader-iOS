@@ -110,6 +110,7 @@
 
 - (void)loginButtonClicked
 {
+    [self hidenAllKeyboard];
     [self displayHUD:@"登录中"];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(Member *member,NSString *result,NSString *resultMessage,NSError *error) {
         if (error) {
@@ -127,14 +128,8 @@
 }
 
 - (void)hidenAllKeyboard {
-	
-//    for (int i = 0; i < 2; i++) {
-//        int tag = 100 + i;
-//        UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
-//        if (textField && [textField isKindOfClass:[UITextField class]]) {
-//            [textField resignFirstResponder];
-//        }
-//    }
+    [accountTextField resignFirstResponder];
+    [passwordTextField resignFirstResponder];
 }
 
 

@@ -152,6 +152,7 @@
         [self displayHUDError:nil message:@"两次密码输入不一致"];
         return;
     }
+    [self hidenAllKeyboard];
     [self displayHUD:@"请稍等..."];
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
@@ -168,6 +169,7 @@
 
 - (void)getFindPasswordCode
 {
+    [self hidenAllKeyboard];
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
         if (error) {
@@ -191,6 +193,7 @@
         return;
     }
     [self displayHUD:@"请稍等..."];
+    [self hidenAllKeyboard];
     [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
@@ -214,13 +217,10 @@
 }
 
 - (void)hidenAllKeyboard {
-    for (int i =0; i<4; i++) {
-        int tag = 100+i;
-        UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
-        if (textField&&[textField isKindOfClass:[UITextField class]]) {
-            [textField resignFirstResponder];
-        }
-    }
+    [accountTextField resignFirstResponder];
+    [confirmTextField resignFirstResponder];
+    [passwordTextField resignFirstResponder];
+    [confirmTextField resignFirstResponder];
 }
 
 @end

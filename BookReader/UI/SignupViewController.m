@@ -121,6 +121,7 @@
         [self displayHUDError:nil message:@"两次密码不一致"];
         return;
     }
+    [self hidenAllKeyboard];
     [self displayHUD:@"注册中..."];
     [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(NSString *result, NSString *resultMessage,NSError *error) {
         if (error) {
@@ -155,13 +156,10 @@
 }
 
 - (void)hidenAllKeyboard {
-    for (int i =0; i<4; i++) {
-        int tag = 102+i;
-        UITextField *textField = (UITextField *)[self.view viewWithTag:tag];
-        if (textField&&[textField isKindOfClass:[UITextField class]]) {
-            [textField resignFirstResponder];
-        }
-    }
+    [accountTextField resignFirstResponder];
+    [passwordTextField resignFirstResponder];
+    [confirmTextField resignFirstResponder];
+    [codeTextField resignFirstResponder];
 }
 
 
