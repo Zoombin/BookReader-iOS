@@ -141,15 +141,11 @@
 - (void)getCode
 {
     if ([accountTextField.text length]>0) {
-        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(NSString *result, NSError *error) {
+        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(NSString *result, NSString *resultMessage,NSError *error) {
             if (error) {
                 
             }else {
-                if ([result isEqualToString:SUCCESS_FLAG]) {
-                    [self displayHUDError:nil message:@"短信发送成功!"];
-                } else {
-                    [self displayHUDError:nil message:@"短信发送失败!"];
-                }
+                [self displayHUDError:nil message:resultMessage];
             }
         }];
     } 

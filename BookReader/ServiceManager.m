@@ -108,7 +108,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
-                      withBlock:(void (^)(NSString *, NSError *))block
+                      withBlock:(void (^)(NSString *,NSString *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}]];
 	parameters[@"username"] = phoneNumber;
@@ -116,11 +116,11 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
         if (block) {
-            block([theObject objectForKey:@"result"],nil);
+            block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(@"", error);
+            block(@"",@"",error);
         }
     }];
 }
@@ -297,7 +297,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)books:(NSString *)keyword
       classID:(XXSYClassType)classid
-      ranking:(XXSYRankType)ranking
+      ranking:(XXSYRankingType)ranking
          size:(NSString *)size
         andIndex:(NSString *)index
        withBlock:(void (^)(NSArray *, NSError *))block
@@ -339,10 +339,11 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)bookDetailsByBookId:(NSString *)bookid
-                      andIntro:(NSString *)intro
+                      andIntro:(BOOL)intro
                      withBlock:(void (^)(Book *, NSError *))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"intro" : intro}]];
+    NSString *introValue = intro == YES ? @"1" : @"0";
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"intro" : introValue}]];
     [[ServiceManager shared] postPath:@"GetBookDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
@@ -606,24 +607,41 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)giveGiftWithType:(NSString *)typeKey
++ (void)giveGiftWithType:(XXSYGiftType)typeKey
                   author:(NSNumber *)authorid
                    count:(NSString *)count
-                integral:(NSString *)integral
+                integral:(XXSYIntegralType)integral
                  andBook:(NSString *)bookid withBlock:(void (^)(NSString *, NSError *))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"user.props"}]];
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;	
-	NSNumber *type = XXSYGiftTypesMap[typeKey];
-    parameters[@"type"] = [type stringValue];
+    parameters[@"type"] = @(typeKey).stringValue;
     parameters[@"authorid"] = authorid;
     parameters[@"count"] = count;
-    parameters[@"integral"] = integral;
+    parameters[@"integral"] = @(integral).stringValue;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
          id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
             block([theObject objectForKey:@"error"], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
++ (void)systemConfigsWithBlock:(void (^)(NSString *, NSError *))block
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+   NSMutableDictionary *parameters = [self commonParameters:@[@{@"yyyyMMdd" : [dateFormatter stringFromDate:[NSDate date]]}]];
+    [parameters removeObjectForKey:@"yyyyMMdd"];
+    [[ServiceManager shared] postPath:@"GetConfigs.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        if (block) {
+            block([theObject description], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
