@@ -297,7 +297,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)books:(NSString *)keyword
       classID:(XXSYClassType)classid
-      ranking:(XXSYRankType)ranking
+      ranking:(XXSYRankingType)ranking
          size:(NSString *)size
         andIndex:(NSString *)index
        withBlock:(void (^)(NSArray *, NSError *))block

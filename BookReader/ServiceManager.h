@@ -83,15 +83,15 @@ typedef NS_ENUM(NSInteger, XXSYClassType) {
 	XXSYClassTypeSlash = 11
 };
 
-typedef NS_ENUM(NSInteger, XXSYRankType) {
-	XXSYRankTypeAll = 1,
-	XXSYRankTypeNew = 2,
-	XXSYRankTypeHot = 3,
+typedef NS_ENUM(NSInteger, XXSYRankingType) {
+	XXSYRankingTypeAll = 1,
+	XXSYRankingTypeNew = 2,
+	XXSYRankingTypeHot = 3,
 };
 
 + (void)books:(NSString *)keyword
       classID:(XXSYClassType)classid  //分类1~11 穿越,架空,都市,青春,魔幻,玄幻,豪门,历史,异能,短篇,耽美
-      ranking:(XXSYRankType)ranking //1.总榜 2.最新 3.最热
+      ranking:(XXSYRankingType)ranking //1.总榜 2.最新 3.最热
          size:(NSString *)size
         andIndex:(NSString *)index
        withBlock:(void (^)(NSArray *, NSError *))block;

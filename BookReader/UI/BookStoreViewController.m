@@ -239,7 +239,7 @@
 
 - (void)loadDataWithKeyWord:(NSString *)keyword
                     classId:(NSString *)classid
-                    ranking:(XXSYRankType)rank
+                    ranking:(XXSYRankingType)rank
                        size:(NSString *)size
                    andIndex:(NSInteger)index
 {
@@ -436,7 +436,7 @@
             break;
         case 1:
             currentType = RANK;
-            [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankTypeAll size:@"5" andIndex:1];
+            [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"5" andIndex:1];
             [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];
