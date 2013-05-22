@@ -32,7 +32,7 @@
 {
     CGRect cellFrame = [self frame];
     cellFrame.origin = CGPointMake(0, 0);
-    [messageLabel setText:[[NSString stringWithFormat:@"%@:%@\n\n%@",comment.userName,comment.content,comment.insertTime] XXSYHandleRedundantTags]];
+    [messageLabel setText:[[NSString stringWithFormat:@"%@:%@\n%@",comment.userName,comment.content,comment.insertTime] XXSYHandleRedundantTags]];
     [messageLabel sizeToFit];
     cellFrame.size.height =  messageLabel.frame.size.height;
     [self setFrame:cellFrame];
