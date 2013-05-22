@@ -97,7 +97,7 @@
 - (void)chapterDataFromService
 {
     [self displayHUD:@"获取书籍目录中..."];
-    [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
         if (error)
         {
             [self hideHUD:YES];
@@ -108,7 +108,7 @@
             if ([infoArray count]>0) {
                 [infoArray removeAllObjects];
             }
-            [infoArray addObjectsFromArray:result];
+            [infoArray addObjectsFromArray:resultArray];
             [infoTableView reloadData];
         }
     }];

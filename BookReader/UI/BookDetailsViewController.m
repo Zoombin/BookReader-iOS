@@ -189,11 +189,11 @@
     giveComment = buttons[6];
 	
     if ([ServiceManager userID] != nil) {
-        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(NSString *result, NSError *error) {
+        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(NSString *value, NSError *error) {
             if (error) {
                 
             } else {
-                if ([result intValue]==1) {
+                if ([value intValue]==1) {
                     bFav = YES;
 					[favoriteButton setDisabled:YES];
 					[favoriteButton setTitle:@"已收藏" forState:UIControlStateNormal];
@@ -261,10 +261,10 @@
 {
    	[book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
-        [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+        [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
             [self hideHUD:YES];
             if (!error) {
-                [Chapter persist:result withBlock:^(void) {
+                [Chapter persist:resultArray withBlock:^(void) {
                     [self pushToReadView];
                 }];
             } else {
@@ -322,7 +322,7 @@
 
 - (void)loadAuthorOtherBook
 {
-    [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(NSArray *resultArray, NSError *error) {
         if (error)
         {
             
@@ -332,8 +332,8 @@
             if ([authorBookArray count]>0) {
                 [authorBookArray removeAllObjects];
             }
-            for (int i = 0 ; i<[result count]; i++) {
-                Book *obj = [result objectAtIndex:i];
+            for (int i = 0 ; i<[resultArray count]; i++) {
+                Book *obj = [resultArray objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue])
                 {
                     [authorBookArray addObject:obj];
@@ -346,7 +346,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommend:book.categoryID andCount:@"5" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookRecommend:book.categoryID andCount:@"5" withBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
             
         }
@@ -355,8 +355,8 @@
             if ([sameTypeBookArray count]>0) {
                 [sameTypeBookArray removeAllObjects];
             }
-            for (int i = 0 ; i<[result count]; i++) {
-                Book *obj = [result objectAtIndex:i];
+            for (int i = 0 ; i<[resultArray count]; i++) {
+                Book *obj = [resultArray objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue])
                 {
                     [sameTypeBookArray addObject:obj];
@@ -386,7 +386,7 @@
 {
     if (buttonIndex==1)
     {
-        [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *result, NSError *error)
+        [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *resultMessage, NSError *error)
          {
              if (error)
              {
@@ -394,7 +394,7 @@
              }
              else
              {
-                 [self showAlertWithMessage:result];
+                 [self showAlertWithMessage:resultMessage];
                  [self loadCommitList];
              }
          }];
@@ -404,14 +404,14 @@
 - (void)loadCommitList
 {
 	[infoArray removeAllObjects];
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *resultArray, NSError *error) {
         if (error){
         } else {
             if ([result count] == 10) {
                 [self addFootView];
                 currentIndex++;
             }
-            [infoArray addObjectsFromArray:result];
+            [infoArray addObjectsFromArray:resultArray];
             [infoTableView reloadData];
         }
     }];
@@ -448,9 +448,9 @@
 {
     if ([self checkLogin]) {
 		[self displayHUD:@"请稍等..."];
-        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(NSString *resultMessage,NSString *result, NSError *error) {
+        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(NSString *code,NSString *resultMessage, NSError *error) {
             if (!error) {
-                if ([result isEqualToString:SUCCESS_FLAG]) {
+                if ([code isEqualToString:SUCCESS_FLAG]) {
                     bFav = YES;
 					favoriteButton.enabled = YES;
 					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];
@@ -568,14 +568,14 @@
 - (void)getMore
 {
     [self displayHUD:@"加载中..."];
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         } else {
             if ([infoArray count] == 0) {
                 [infoTableView setTableFooterView:nil];
             }
-            [infoArray addObjectsFromArray:result];
+            [infoArray addObjectsFromArray:resultArray];
             currentIndex++;
             [infoTableView reloadData];
             [self hideHUD:YES];

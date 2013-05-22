@@ -245,14 +245,14 @@
 {
     currentIndex = 1;
     [self displayHUD:@"加载中..."];
-    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(NSArray *reArray, NSError *error) {
+    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
             if ([infoArray count] > 0) {
                 [infoArray removeAllObjects];
             }
-            [infoArray addObjectsFromArray:reArray];
+            [infoArray addObjectsFromArray:resultArray];
             if ([infoArray count]==5) {
                 [self addFootView];
             }else {
@@ -302,14 +302,14 @@
                   classID:0
                   ranking:currentPage
                      size:@"5"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *resultArray, NSError *error) {
                      if (error) {
                          [self displayHUDError:nil message:NETWORK_ERROR];
                      }else {
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
                          }
-                         [infoArray addObjectsFromArray:result];
+                         [infoArray addObjectsFromArray:resultArray];
                          currentIndex++;
                          [infoTableView reloadData];
                          [self hideHUD:YES];
@@ -407,14 +407,14 @@
                   classID:[sender tag] +1
                   ranking:0
                      size:@"5"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *result, NSError *error) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
                      if (error) {
                          [childViewController displayHUDError:nil message:NETWORK_ERROR];
                      }else {
                          if ([infoArray count]>0) {
                              [infoArray removeAllObjects];
                          }
-                         [infoArray addObjectsFromArray:result];
+                         [infoArray addObjectsFromArray:resultArray];
                          [childViewController reloadDataWithArray:infoArray andCatagoryId:[sender tag]+1];
                          currentPage = [sender tag]+1;
                          [childViewController hideHUD:YES];

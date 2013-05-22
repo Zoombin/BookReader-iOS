@@ -86,11 +86,11 @@
                        count:count
                     integral:integral.integerValue
                      andBook:bookObj.uid
-                   withBlock:^(NSString *result, NSError *error) {
+                   withBlock:^(NSString *resultMessage, NSError *error) {
                        if (error) {
                            [self displayHUDError:nil message:NETWORK_ERROR];
                        }else {
-                           [self displayHUDError:nil message:result];
+                           [self displayHUDError:nil message:resultMessage];
                        }
                    }];
 }

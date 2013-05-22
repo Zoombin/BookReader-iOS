@@ -114,7 +114,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)syncBooks
 {
 	[self displayHUD:@"同步收藏..."];
-    [ServiceManager userBooksWithBlock:^(NSArray *result, NSError *error) {
+    [ServiceManager userBooksWithBlock:^(NSArray *resultArray, NSError *error) {
 		[self hideHUD:YES];
         if (error) {
 			[self displayHUDError:nil message:error.description];
@@ -125,7 +125,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					b.bFav = NO;
 				}
 			} completion:^(BOOL success, NSError *error) {
-				books = [result mutableCopy];
+				books = [resultArray mutableCopy];
 				[Book persist:books withBlock:^(void) {
 					[booksForDisplay removeAllObjects];
 					[booksForDisplay addObjectsFromArray:books];
@@ -152,9 +152,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Book *book = books[0];
-	[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *result, NSError *error) {
+	[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
 		if (!error) {
-			[Chapter persist:result withBlock:^(void) {
+			[Chapter persist:resultArray withBlock:^(void) {
 				[books removeObject:book];
 				[self syncChapters];
 			}];
@@ -188,7 +188,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 	Chapter *chapter = chapters[0];
 		NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
-		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, NSString *code, NSString *resultMessage, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				chapter.content = content;
 				[chapter persistWithBlock:^(void) {
@@ -211,7 +211,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 	Chapter *chapter = chapters[0];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
-	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *resultMessage, NSString *code, NSError *error) {
 		if (content && ![content isEqualToString:@""]) {
 			chapter.content = content;
 			[chapter persistWithBlock:^(void) {
@@ -234,8 +234,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Book *needRemoveBook = needRemoveFavoriteBooks[0];
-	[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(NSString *errorMessage, NSString *result, NSError *error) {
-		if ([result isEqualToString:SUCCESS_FLAG]) {
+	[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(NSString *code, NSString *resultMessage, NSError *error) {
+		if ([code isEqualToString:SUCCESS_FLAG]) {
 			[needRemoveFavoriteBooks removeObject:needRemoveBook];
 			[booksForDisplay removeObject:needRemoveBook];
 			[booksView reloadData];
@@ -324,7 +324,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BOOL shiftToOnOrOff = !bookCell.autoBuy;
 	NSString *message = shiftToOnOrOff ? @"开启订阅..." : @"关闭订阅...";
 		[self displayHUD:message];
-	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(NSString *result, NSError *error) {
+	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(NSString *code, NSError *error) {
 		[self hideHUD:YES];
 		if (!error) {
 			bookCell.book.autoBuy = @(shiftToOnOrOff);

@@ -153,14 +153,14 @@
     }
     [self hidenAllKeyboard];
     [self displayHUD:@"请稍等..."];
-    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
+    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *code, NSString *resultMessage, NSError *error) {
         if (error) {
             
         }else {
             if ([code isEqualToString:SUCCESS_FLAG]) {
-                [self displayHUDError:nil message:result];
+                [self displayHUDError:nil message:resultMessage];
             } else {
-                [self displayHUDError:nil message:result];
+                [self displayHUDError:nil message:resultMessage];
             }
         }
     }];
@@ -170,11 +170,11 @@
 {
     [self hidenAllKeyboard];
     [self displayHUD:@"请稍等..."];
-    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *result, NSString *code, NSError *error) {
+    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *code, NSString *resultMessage, NSError *error) {
         if (error) {
             
         } else {
-           [self displayHUDError:nil message:result];
+           [self displayHUDError:nil message:resultMessage];
         }
     }];
 }
@@ -189,11 +189,11 @@
     }
     [self displayHUD:@"请稍等..."];
     [self hidenAllKeyboard];
-    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(NSString *result,NSString *resultMessage, NSError *error) {
+    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(NSString *code,NSString *resultMessage, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {
-            if ([result isEqualToString:SUCCESS_FLAG]) {
+            if ([code isEqualToString:SUCCESS_FLAG]) {
                 [self displayHUDError:nil message:resultMessage];
             } else {
                 [self displayHUDError:nil message:resultMessage];

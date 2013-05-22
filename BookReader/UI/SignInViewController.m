@@ -112,12 +112,12 @@
 {
     [self hidenAllKeyboard];
     [self displayHUD:@"登录中"];
-    [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(Member *member,NSString *result,NSString *resultMessage,NSError *error) {
+    [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(Member *member,NSString *code,NSString *resultMessage,NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {
             [self hideHUD:YES];
-            if ([result isEqualToString:SUCCESS_FLAG]) {
+            if ([code isEqualToString:SUCCESS_FLAG]) {
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
                 [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
             } else {

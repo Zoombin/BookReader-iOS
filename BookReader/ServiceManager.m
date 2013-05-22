@@ -108,7 +108,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
-                      withBlock:(void (^)(NSString *,NSString *, NSError *))block
+                      withBlock:(void (^)(NSString *code, NSString *resultMessage, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}]];
 	parameters[@"username"] = phoneNumber;
@@ -128,7 +128,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)registerByPhoneNumber:(NSString *)phoneNumber
                    verifyCode:(NSString *)verifyCode
                   andPassword:(NSString *)password
-                    withBlock:(void (^)(NSString *, NSString *,NSError *))block
+                    withBlock:(void (^)(NSString *code, NSString *resultMessage,NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"yzm" : verifyCode}]];
     parameters[@"pwd"] = [password md516];
@@ -150,7 +150,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)loginByPhoneNumber:(NSString *)phoneNumber
                andPassword:(NSString *)password
-                 withBlock:(void (^)(Member *,NSString *,NSString *,NSError *))block
+                 withBlock:(void (^)(Member *member,NSString *code,NSString *resultMessage,NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"pwd" : [password md516]}]];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -173,7 +173,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)changePasswordWithOldPassword:(NSString *)oldPassword
                        andNewPassword:(NSString *)newPassword
-                            withBlock:(void (^)(NSString *, NSString *, NSError *))block
+                            withBlock:(void (^)(NSString *code, NSString *resultMessage, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"oldpwd" : [oldPassword md516]}, @{@"newpwd" : [newPassword md516]}]];
     [[ServiceManager shared] postPath:@"ChangePassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -189,14 +189,14 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)postFindPasswordCode:(NSString *)phoneNumber
-                   withBlock:(void (^)(NSString *, NSString *, NSError *))block
+                   withBlock:(void (^)(NSString *code, NSString *resultMessage, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}]];
     [[ServiceManager shared] postPath:@"PostFindPasswordCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
         if (block) {
-            block([theObject objectForKey:@"error"], [theObject objectForKey:@"result"],nil);
+            block([theObject objectForKey:@"result"], [theObject objectForKey:@"error"],nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -208,14 +208,14 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)findPassword:(NSString *)phoneNumber
           verifyCode:(NSString *)verifyCode
       andNewPassword:(NSString *)newPassword
-           withBlock:(void (^)(NSString *, NSString *, NSError *))block
+           withBlock:(void (^)(NSString *code, NSString *resultMessage, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"yzm" : verifyCode}, @{@"pwd" : [newPassword md516]}]];
     [[ServiceManager shared] postPath:@"FindPassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"success=>%@",theObject);
         if (block) {
-            block([theObject objectForKey:@"error"], [theObject objectForKey:@"result"], nil);
+            block([theObject objectForKey:@"result"], [theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -224,7 +224,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)userInfoWithBlock:(void (^)(Member *, NSError *))block
++ (void)userInfoWithBlock:(void (^)(Member *member, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}]];
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -245,7 +245,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)payWithType:(NSString *)payType
-          withBlock:(void (^)(NSString *, NSError *))block
+          withBlock:(void (^)(NSString *resultMessage, NSError *error))block
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
@@ -254,7 +254,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"mount" : payType}, @{@"orderid" : paymentCode}]];
     [[ServiceManager shared] postPath:@"UserPay.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSString *postsFromResponse = [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding];
-        NSLog(@"success=>%@",postsFromResponse);
         if (block) {
             block([NSString stringWithFormat:@"%@",postsFromResponse], nil);
         }
@@ -267,7 +266,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)paymentHistoryWithPageIndex:(NSString *)pageIndex
                            andCount:(NSString *)count
-                          withBlock:(void (^)(NSArray *, NSString *, NSError *))block
+                          withBlock:(void (^)(NSArray *resultArray, NSString *code, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"index" : pageIndex}, @{@"size" : count}]];
     [[ServiceManager shared] postPath:@"RechargeList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -300,12 +299,11 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
       ranking:(XXSYRankingType)ranking
          size:(NSString *)size
         andIndex:(NSString *)index
-       withBlock:(void (^)(NSArray *, NSError *))block
+       withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"keyword" : keyword}, @{@"classid" : @(classid).stringValue}, @{@"ranking" : @(ranking).stringValue}, @{@"size" : size}, @{@"index" : index}]];
     [[ServiceManager shared] postPath:@"Search.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSMutableArray *bookListsArray = [@[] mutableCopy];
         if ([theObject[@"bookList"] isKindOfClass:[NSArray class]]) {
 			[bookListsArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
@@ -320,7 +318,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)recommendBooksWithBlock:(void (^)(NSArray *, NSError *))block
++ (void)recommendBooksWithBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[]];
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -340,7 +338,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)bookDetailsByBookId:(NSString *)bookid
                       andIntro:(BOOL)intro
-                     withBlock:(void (^)(Book *, NSError *))block
+                     withBlock:(void (^)(Book *obj, NSError *error))block
 {
     NSString *introValue = intro == YES ? @"1" : @"0";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"intro" : introValue}]];
@@ -362,7 +360,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)bookDiccusssListByBookId:(NSString *)bookid
                             size:(NSString *)size
                         andIndex:(NSString *)index
-                       withBlock:(void (^)(NSArray *, NSError *))block
+                       withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"size" : size}, @{@"index" : index}]];
     [[ServiceManager shared] postPath:@"GetDiscuss.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -394,7 +392,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)bookCatalogueList:(NSString *)bookid
           andNewestCataId:(NSString *)cataid
-                withBlock:(void (^)(NSArray *, NSError *))block
+                withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : cataid}]];
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -414,7 +412,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)bookCatalogue:(NSString *)cataid
-            withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block
+            withBlock:(void (^)(NSString *content, NSString *code, NSString *resultMessage, NSError *error))block
 {
     NSNumber *userid = [self userID];
     if ([self userID] == nil) {
@@ -425,9 +423,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
             if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
-               block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil); 
+               block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"result"],[theObject objectForKey:@"error"], nil); 
             }else {
-                block(@"",[theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+                block(@"",[theObject objectForKey:@"result"],[theObject objectForKey:@"error"], nil);
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -440,7 +438,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                                  book:(NSString *)bookid
                                author:(NSNumber *)authorid
-                            withBlock:(void (^)(NSString *, NSString *, NSString *, NSError *))block
+                            withBlock:(void (^)(NSString *content, NSString *resultMessage, NSString *code, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid.stringValue}, @{@"price" : @"0"}]];//price is useless, XXSY need update this api
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -459,7 +457,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)userBooksWithBlock:(void (^)(NSArray *, NSError *))block
++ (void)userBooksWithBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.get"}]];
     parameters[@"userid"] = [self userID];
@@ -481,7 +479,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)addFavoriteWithBookID:(NSString *)bookid
                       On:(BOOL)onOrOff
-                     withBlock:(void (^)(NSString *, NSString *, NSError *))block
+                     withBlock:(void (^)(NSString *code, NSString *resultMessage, NSError *error))block
 {
     NSString *methodValue = onOrOff ? @"keep.insert" : @"keep.remove";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : methodValue}]];
@@ -490,7 +488,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([theObject objectForKey:@"error"],[theObject objectForKey:@"result"], nil);
+            block([theObject objectForKey:@"result"],[theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -501,7 +499,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)autoSubscribeWithBookID:(NSString *)bookid
                        On:(BOOL)onOrOff
-                      withBlock:(void (^)(NSString *, NSError *))block
+                      withBlock:(void (^)(NSString *code, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.auto"}]];
     parameters[@"userid"] = [self userID];
@@ -510,7 +508,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([NSString stringWithFormat:@"%@",theObject], nil);
+            block([theObject objectForKey:@"result"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -521,7 +519,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)disscussWithBookID:(NSString *)bookid
                 andContent:(NSString *)content
-                 withBlock:(void (^)(NSString *, NSError *))block
+                 withBlock:(void (^)(NSString *resultMessage, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"discuss.send"}]];
     parameters[@"userid"] = [self userID];
@@ -543,7 +541,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)bookRecommend:(XXSYClassType)classid
              andCount:(NSString *)count
-            withBlock:(void (^)(NSArray *, NSError *))block
+            withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"type.recommend"}]];
     parameters[@"classid"] = @(classid);
@@ -567,7 +565,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)otherBooksFromAuthor:(NSNumber *)authorid
                andCount:(NSString *)count
-              withBlock:(void (^)(NSArray *, NSError *))block
+              withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"book.authorother"}]];
     parameters[@"authorid"] = authorid;
@@ -590,7 +588,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)existsFavoriteWithBookID:(NSString *)bookid
-                        withBlock:(void (^)(NSString *, NSError *))block
+                        withBlock:(void (^)(NSString *value, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.isexists"}]];
     parameters[@"userid"] = [self userID];
@@ -611,7 +609,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
                   author:(NSNumber *)authorid
                    count:(NSString *)count
                 integral:(XXSYIntegralType)integral
-                 andBook:(NSString *)bookid withBlock:(void (^)(NSString *, NSError *))block
+                 andBook:(NSString *)bookid withBlock:(void (^)(NSString *resultMessage, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"user.props"}]];
     parameters[@"userid"] = [self userID];

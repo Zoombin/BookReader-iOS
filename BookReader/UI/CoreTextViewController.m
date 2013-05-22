@@ -290,7 +290,7 @@
 			}
 		} else {
 			[self displayHUD:@"获取章节内容..."];
-			[ServiceManager bookCatalogue:aChapter.uid withBlock:^(NSString *content, NSString *result, NSString *code, NSError *error) {
+			[ServiceManager bookCatalogue:aChapter.uid withBlock:^(NSString *content, NSString *code, NSString *resultMessage, NSError *error) {
 				[self hideHUD:YES];
 				if (content && ![content isEqualToString:@""]) {
 					currentPageIndex = 0;
@@ -306,7 +306,7 @@
 					}];
 				} else {//没下载到，尝试订阅
 					[self displayHUD:@"获取章节内容..."];
-					[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *errorMessage, NSString *result, NSError *error) {
+					[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *resultMessage, NSString *code, NSError *error) {
 						[self hideHUD:YES];
 						if (content && ![content isEqualToString:@""]) {
 							currentPageIndex = 0;
