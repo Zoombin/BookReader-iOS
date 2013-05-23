@@ -38,6 +38,14 @@
     return textField;
 }
 
++ (UITextField *)passwordConfirmTextFieldWithFrame:(CGRect)frame
+{
+    UITextField *textField = [self customWithFrame:frame];
+    [textField setPlaceholder:@"\t\t请再次输入密码"];
+    [textField setSecureTextEntry:YES];
+    return textField;
+}
+
 + (UITextField *)codeTextFieldWithFrame:(CGRect)frame
 {
     UITextField *textField = [self customWithFrame:frame];

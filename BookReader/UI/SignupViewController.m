@@ -29,12 +29,13 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
+	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
 	
 	CGSize fullSize = self.view.bounds.size;
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
@@ -44,38 +45,34 @@
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
-    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-24)];
-    [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:hidenKeyboardButton];
-    
 	UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame:CGRectMake(10, 6, 50, 32)];;
-
+    [backButton setFrame:CGRectMake(10, 6, 50, 32)];
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    UIView *signOutView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44 ,fullSize.width - 20, 230)];
-    [self.view addSubview:signOutView];
+    UIView *signUpFrameView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44 ,fullSize.width - 20, 230)];
+    [self.view addSubview:signUpFrameView];
     
-    NSArray *placeHolders = @[@"\t\t请输入账号", @"\t\t请输入密码", @"\t\t请再次输入密码", @"\t\t请输入短信验证码"];
     NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField];
-    for (int i =0; i<[placeHolders count]; i++) {
+	
+	CGFloat startY = CGRectGetMinY(signUpFrameView.frame) + 15;
+    for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
-        CGRect frame = CGRectMake(10, 15+40*i, signOutView.bounds.size.width-10*2, 30);
+        CGRect frame = CGRectMake(20, startY, fullSize.width - 40, 30);
         [textField setFrame:frame];
-        [textField setPlaceholder:placeHolders[i]];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
-        [signOutView addSubview:textField];
+		[self.view addSubview:textField];
+		startY += 40;
     }
     
-     registerButton = [UIButton createButtonWithFrame:CGRectMake(30, 234, 100, 30)];
+	startY += 15;
+	registerButton = [UIButton createButtonWithFrame:CGRectMake(30, startY, 100, 30)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setDisabled:YES];
     [self.view addSubview:registerButton];
     
-     getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, 234, 100, 30)];
+	getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, startY, 100, 30)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setDisabled:YES];
@@ -108,7 +105,7 @@
         [self displayHUDError:nil message:@"两次密码不一致"];
         return;
     }
-    [self hidenAllKeyboard];
+    [self hideKeyboard];
     [self displayHUD:@"注册中..."];
     [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(NSString *code, NSString *resultMessage,NSError *error) {
         if (error) {
@@ -138,7 +135,7 @@
     } 
 }
 
-- (void)hidenAllKeyboard {
+- (void)hideKeyboard {
     [accountTextField resignFirstResponder];
     [passwordTextField resignFirstResponder];
     [confirmTextField resignFirstResponder];

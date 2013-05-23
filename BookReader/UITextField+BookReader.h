@@ -11,5 +11,6 @@
 @interface UITextField (BookReader)
 + (UITextField *)accountTextFieldWithFrame:(CGRect)frame;
 + (UITextField *)passwordTextFieldWithFrame:(CGRect)frame;
++ (UITextField *)passwordConfirmTextFieldWithFrame:(CGRect)frame;
 + (UITextField *)codeTextFieldWithFrame:(CGRect)frame;
 @end
