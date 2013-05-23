@@ -81,7 +81,7 @@
     [findButton setTitle:@"忘记了" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
     
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenAllKeyboard)]];
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
 }
 
 - (void)valueChanged:(id)sender
@@ -107,7 +107,7 @@
 
 - (void)loginButtonClicked
 {
-    [self hidenAllKeyboard];
+    [self hideKeyboard];
     [self displayHUD:@"登录中"];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(Member *member,NSString *code,NSString *resultMessage,NSError *error) {
         if (error) {
@@ -124,7 +124,7 @@
     }];
 }
 
-- (void)hidenAllKeyboard {
+- (void)hideKeyboard {
     [accountTextField resignFirstResponder];
     [passwordTextField resignFirstResponder];
 }

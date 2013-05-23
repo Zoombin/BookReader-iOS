@@ -49,7 +49,7 @@
     [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
     [label setFont:[UIFont systemFontOfSize:14]];
     [label setTextColor:[UIColor grayColor]];
-    [label setText:[NSString stringWithFormat:@"\t\t用户名:%@",name]];
+    [label setText:[NSString stringWithFormat:@"用户名:%@",name]];
     return label;
 }
 
@@ -60,7 +60,7 @@
     [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
     [label setFont:[UIFont systemFontOfSize:14]];
     [label setTextColor:[UIColor grayColor]];
-    [label setText:[NSString stringWithFormat:@"\t\t账号余额:%@",count]];
+    [label setText:[NSString stringWithFormat:@"账号余额:%@",count]];
     return label;
 }
 
