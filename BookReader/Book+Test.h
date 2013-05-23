@@ -10,9 +10,9 @@
 
 @interface Book (Test)
 
-+ (NSArray *)testBooks;
-+ (NSArray *)testRankingBooks;
-+ (NSArray *)testRecommendBooks;
-+ (NSArray *)testReachBooks;
+//+ (NSArray *)testBooks;
+//+ (NSArray *)testRankingBooks;
+//+ (NSArray *)testRecommendBooks;
+//+ (NSArray *)testReachBooks;
 
 @end
