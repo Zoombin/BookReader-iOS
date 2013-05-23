@@ -58,8 +58,10 @@
 	CGFloat startY = CGRectGetMinY(signUpFrameView.frame) + 15;
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
-        CGRect frame = CGRectMake(20, startY, fullSize.width - 40, 30);
+        CGRect frame = CGRectMake(40, startY, fullSize.width - 80, 30);
         [textField setFrame:frame];
+		UIImageView *textFieldBackground = [textField backgroundView];
+		[self.view addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
 		[self.view addSubview:textField];
 		startY += 40;
