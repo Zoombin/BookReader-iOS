@@ -49,15 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-	
-    UIButton *backButton = [UIButton navigationBackButton];
-    [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
-    
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setText:@"赠送"];
-    [self.view addSubview:titleLabel];
+    [self setTitle:@"赠送"];
     
     infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-5*2, self.view.bounds.size.height-44-10) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
@@ -89,11 +81,6 @@
                            [self displayHUDError:nil message:message];
                        }
                    }];
-}
-
-- (void)backButtonClicked
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark tableview

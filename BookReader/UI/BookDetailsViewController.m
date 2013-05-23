@@ -106,11 +106,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor mainBackgroundColor]];
-    UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame:CGRectMake(10, 6, 50, 32)];
-    [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
+    [self setTitle:book.name];
 }
 
 - (void)initBookDetailUI {
@@ -132,10 +128,6 @@
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"error: %@", error);
     }];
-    
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setText:book.name];
-    [self.view addSubview:titleLabel];
     
     UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, firstBkgView.bounds.size.width-100, 30)];
     [bookNameLabel setText:[@"\t\t" stringByAppendingString:book.name]];
@@ -464,10 +456,6 @@
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
     [alertView show];
-}
-
-- (void)backButtonClick {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark tableview

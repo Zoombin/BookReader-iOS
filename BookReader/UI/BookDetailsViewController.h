@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRViewController.h"
 
-@interface BookDetailsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate> 
+@interface BookDetailsViewController : BRViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 - (id)initWithBook:(NSString *)uid;
 @end

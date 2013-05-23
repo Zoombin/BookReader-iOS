@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRViewController.h"
 
-@interface SignUpViewController : UIViewController
+@interface SignUpViewController : BRViewController
 @end

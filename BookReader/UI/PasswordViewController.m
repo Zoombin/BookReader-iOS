@@ -38,13 +38,6 @@
     confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
-    UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame:CGRectMake(10, 6, 50, 32)];;
-    [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
-    
-    titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [self.view addSubview:titleLabel];
     
     if (bFindPassword) {
         [self showFindPassword];
@@ -56,7 +49,7 @@
 
 - (void)showFindPassword
 {
-    [titleLabel setText:@"找回密码"];
+    [self setTitle:@"找回密码"];
     
     UIView *findPasswordView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 230)];
     [self.view addSubview:findPasswordView];
@@ -87,7 +80,7 @@
 
 - (void)showChangePassword
 {
-    titleLabel.text = @"修改密码";
+    [self setTitle:@"修改密码"];
     UIView *changePasswordView = [UIView changeBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 200)];
     [self.view addSubview:changePasswordView];
     
@@ -109,11 +102,6 @@
     [changeButton setDisabled:YES];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.view addSubview:changeButton];
-}
-
-- (void)backButtonClicked
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -

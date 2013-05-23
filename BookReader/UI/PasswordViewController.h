@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRViewController.h"
 
-@interface PasswordViewController : UIViewController
+@interface PasswordViewController : BRViewController
 @property (nonatomic, assign) BOOL bFindPassword;
 @end

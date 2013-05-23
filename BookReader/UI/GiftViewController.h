@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Book.h"
 #import "GiftCell.h"
+#import "BRViewController.h"
 
-@interface GiftViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,GiftCellDelegate>
+@interface GiftViewController : BRViewController <UITableViewDataSource,UITableViewDelegate,GiftCellDelegate>
 - (id)initWithIndex:(NSString *)index andBook:(Book *)book;
 @end

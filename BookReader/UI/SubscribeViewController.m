@@ -42,21 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-	// Do any additional setup after loading the view.
-    
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
-    [self.view addSubview:backgroundImage];
-    
-    UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame: CGRectMake(10, 4, 48, 32)];
-    [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
-    
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setText:@"目录"];
-    [self.view addSubview:titleLabel];
+    [self setTitle:@"目录"];
     
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];

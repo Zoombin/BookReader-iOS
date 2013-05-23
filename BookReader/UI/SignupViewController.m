@@ -29,7 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
 	
 	CGSize fullSize = self.view.bounds.size;
@@ -39,14 +38,7 @@
     confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
-    [titleLabel setText:@"注册"];
-    [self.view addSubview:titleLabel];
-    
-	UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame:CGRectMake(10, 6, 50, 32)];
-    [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
+    [self setTitle:@"注册"];
     
     UIView *signUpFrameView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44 ,fullSize.width - 20, 230)];
     [self.view addSubview:signUpFrameView];
@@ -91,12 +83,6 @@
     } else {
         [registerButton setDisabled:YES];
     }
-}
-
-
-- (void)backButtonClicked
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)registerButtonClicked

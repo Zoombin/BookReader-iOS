@@ -32,11 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-	
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setText:@"个人中心"];
-    [self.view addSubview:titleLabel];
+    [self setTitle:@"个人中心"];
+    
+    self.hideBackBtn = YES;
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
