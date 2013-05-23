@@ -196,7 +196,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
         if (block) {
-            block([theObject objectForKey:@"result"], [theObject objectForKey:@"error"],nil);
+            block([theObject objectForKey:@"result"], [theObject objectForKey:@"error"], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
