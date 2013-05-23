@@ -35,7 +35,7 @@
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    
+	self.keyboardUsers = @[accountTextField, passwordTextField, confirmTextField, codeTextField];
     [self setTitle:@"注册"];
     
     UIView *signUpFrameView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44 ,fullSize.width - 20, 230)];
@@ -118,20 +118,5 @@
         }];
     } 
 }
-
-- (void)backgroundTapped
-{
-    [self hideKeyboard];
-}
-
-- (void)hideKeyboard {
-    [accountTextField resignFirstResponder];
-    [passwordTextField resignFirstResponder];
-    [confirmTextField resignFirstResponder];
-    [codeTextField resignFirstResponder];
-}
-
-
-
 
 @end

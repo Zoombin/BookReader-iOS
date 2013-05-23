@@ -36,7 +36,7 @@
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    
+	self.keyboardUsers = @[accountTextField, passwordTextField, confirmTextField, codeTextField];
     
     if (bFindPassword) {
         [self showFindPassword];
@@ -160,7 +160,7 @@
         return;
     }
     [self displayHUD:@"请稍等..."];
-    [self hideKeyboard];
+	[self hideKeyboard];
     [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success,NSString *message, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
@@ -181,18 +181,6 @@
     } else {
         [changeButton setDisabled:YES];
     }
-}
-
-- (void)backgroundTapped
-{
-    [self hideKeyboard];
-}
-
-- (void)hideKeyboard {
-    [accountTextField resignFirstResponder];
-    [confirmTextField resignFirstResponder];
-    [passwordTextField resignFirstResponder];
-    [confirmTextField resignFirstResponder];
 }
 
 @end

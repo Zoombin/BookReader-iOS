@@ -24,7 +24,7 @@
     [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:headerView];
     
-     gesturerecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
+     gesturerecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:gesturerecognier];
 }
 
@@ -42,9 +42,11 @@
     headerView.backButton.hidden = hiden;
 }
 
-- (void)backgroundTapped
+- (void)hideKeyboard
 {
-    
+    for (UIView *user in _keyboardUsers) {
+		[user resignFirstResponder];
+	}
 }
 
 - (void)removeGestureRecognizer

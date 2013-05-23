@@ -59,6 +59,8 @@
     [self.view addSubview:pwdtextFieldBackground];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
+	
+	self.keyboardUsers = @[accountTextField, passwordTextField];
     
      loginButton = [UIButton createButtonWithFrame:CGRectMake(30, 200, 80, 30)];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -119,16 +121,5 @@
         }
     }];
 }
-
-- (void)backgroundTapped
-{
-    [self hideKeyboard];
-}
-
-- (void)hideKeyboard {
-    [accountTextField resignFirstResponder];
-    [passwordTextField resignFirstResponder];
-}
-
 
 @end
