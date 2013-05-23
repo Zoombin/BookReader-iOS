@@ -102,12 +102,12 @@
     [self.view addSubview:readView];
     
     
-    NSString *udid = [[UIDevice currentDevice] uniqueIdentifier];
-    if([udid isEqualToString:UDID_1]) {
-        ;//donothiing, not load adview
-    }
-    else
-        [self loadAdView];
+//    NSString *udid = [[UIDevice currentDevice] uniqueIdentifier];
+//    if([udid isEqualToString:UDID_1]) {
+//        ;//donothiing, not load adview
+//    }
+//    else
+//        [self loadAdView];
     
     statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
     [statusView setBackgroundColor:[UIColor clearColor]];
@@ -306,7 +306,7 @@
 //}
 
 - (void)checkHasBuy:(int)i {
-    if (i>=19&&isBuy==NO) {
+    if (i >= 19 && isBuy == NO) {
         canRead = NO;
     }else {
         canRead = YES;
@@ -314,10 +314,10 @@
 }
 
 - (void)nextPage {
-    if (canRead==NO&&isBuy==NO) {
+    if (!canRead && !isBuy) {
         [self.view setUserInteractionEnabled:NO];
-        NSInteger bookindex = [[BookManager sharedInstance] getIndex:currentBookId];
-        NSString *productId = [NSString stringWithFormat:@"%@",[[PurchaseManager sharedInstance]getProductIdByIndex:bookindex]];
+        //NSInteger bookindex = [[BookManager sharedInstance] getIndex:currentBookId];
+        //NSString *productId = [NSString stringWithFormat:@"%@",[[PurchaseManager sharedInstance]getProductIdByIndex:bookindex]];
         return;
     }
     currentPage++;

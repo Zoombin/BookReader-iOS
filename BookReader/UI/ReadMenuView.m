@@ -25,7 +25,6 @@
 
 @implementation ReadMenuView
 
-@synthesize delegate;
 @synthesize articleTitleLabel;
 
 - (id)initWithFrame:(CGRect)frame
@@ -249,25 +248,25 @@
 
 - (void)backButtonPressed:(id)sender
 {
-    [self perform:@selector(backButtonPressed)];
+	[_delegate backButtonPressed];
 }
 
 
 - (void)addBookMarkButtonPressed:(id)sender
 {
-    [self perform:@selector(addBookMarkButtonPressed)];
+	[_delegate addBookMarkButtonPressed];
 }
 
 - (void)brightnessChanging:(id)sender
 {
     UISlider *slider = (UISlider *)sender;
-    [self perform:@selector(brightnessChanging:) withValue:[NSNumber numberWithFloat:[slider value]]];
+	[_delegate brightnessChanging:@(slider.value)];
 }
 
 - (void)fontSizeChanged:(id)sender
 {
     UISlider *slider = (UISlider *)sender;
-    [self perform:@selector(fontSizeChanged:) withValue:[NSNumber numberWithFloat:[slider value]]];
+	[_delegate fontSizeChanged:@(slider.value)];
 }
 
 - (void)bottomButtonsPressed:(id)sender {
@@ -294,7 +293,7 @@
             [UserDefaultsManager setObject:UserDefaultsValueBackgroundDay forKey:UserDefaultsKeyBackground];
         }
         [self checkModeButton];
-        [self perform:@selector(modeButtonPressed)];
+		[_delegate modeButtonPressed];
     }
     else if(tag == 3) {//font
         if (!fontView) {
@@ -309,10 +308,10 @@
         }
     }
     else if(tag == 4) {//bookmark
-        [self perform:@selector(bookmarkButtonPressed)];
+		[_delegate bookmarkButtonPressed];
     }
     else if(tag == 5) {//more
-        [self perform:@selector(moreButtonPressed)];
+		[_delegate moreButtonPressed];
     }
 }
 
@@ -324,25 +323,6 @@
     else {
         [modeButton setBackgroundImage:BUTTON_IMAGE_2 forState:UIControlStateNormal];
         [modeButton setBackgroundImage:BUTTON_HIGHLIGHTED_IMAGE_2 forState:UIControlStateHighlighted];
-    }
-}
-
-
-- (void)perform:(SEL)aSelector
-{
-    if(delegate) {
-        if([delegate respondsToSelector:aSelector]) {
-            [delegate performSelector:aSelector];
-        }
-    }
-}
-
-- (void)perform:(SEL)aSelector withValue:(NSNumber *)number
-{
-    if(delegate) {
-        if ([delegate respondsToSelector:aSelector]) {
-            [delegate performSelector:aSelector withObject:number];
-        }
     }
 }
 

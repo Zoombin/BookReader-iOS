@@ -21,20 +21,15 @@
 - (void)moreButtonPressed;
 @end
 
-
-
 @interface ReadMenuView : UIView {
-    id<ReadMenuViewDelegate> delegate;
-    
     UIView *brightnessView;
     UIView *fontView;
-    
     UILabel *articleTitleLabel;
     UIScrollView *booknameScroll;
     UIButton *modeButton;
 }
 
-@property (nonatomic, strong) id<ReadMenuViewDelegate> delegate;
+@property (nonatomic, weak) id<ReadMenuViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *articleTitleLabel;
 
 @end
