@@ -39,10 +39,7 @@
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setText:@"注册"];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
 	UIButton *backButton = [UIButton navigationBackButton];

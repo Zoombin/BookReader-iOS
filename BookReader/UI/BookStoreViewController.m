@@ -132,12 +132,8 @@
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	// Do any additional setup after loading the view.
     
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:@"书城"];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [titleLabel setTextColor:[UIColor whiteColor]];
     [self.view addSubview:titleLabel];
     
     UIImageView *bottomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];

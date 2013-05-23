@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BookReader.h"
 #import "UMTableViewCell.h"
+#import "UILabel+BookReader.h"
 
 #define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
 #define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
@@ -32,12 +33,9 @@
     [headerImageView setImage:[UIImage imageNamed:@"main_headerbackground"]];
     [self.view addSubview:headerImageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:titleLabelFrame];
     [titleLabel setText:NSLocalizedString(@"BookStore", nil)];
     [titleLabel setTextColor:txtColor];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [self.view addSubview:titleLabel];
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_background.png"]];

@@ -7,6 +7,7 @@
 //
 
 #import "BookShelfBottomView.h"
+#import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define DURATION 0.3   // 动画持续时间(秒)
@@ -38,11 +39,8 @@
         [self addSubview:backgroundImage];
         [self addButtons];
         
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:frame];
-        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        UILabel *titleLabel = [UILabel titleLableWithFrame:frame];
         [titleLabel setText:@"我的收藏"];
-        [titleLabel setTextColor:[UIColor whiteColor]];
-        [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:titleLabel];
     }
     return self;

@@ -38,15 +38,6 @@
     [topBarImageView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 42)];
     [self.view addSubview:topBarImageView];
     
-//    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, mainScreenRect.size.width, 38)];
-//    [titleLabel setText:[NSString stringWithFormat:@"书签"]];
-//    [titleLabel setTextColor:[UIColor whiteColor]];
-//    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-//    [titleLabel setBackgroundColor:[UIColor clearColor]];
-//    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-//    [self.view addSubview:titleLabel];
-//    [titleLabel release];
-    
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setBackgroundImage:[UIImage imageNamed:@"read_menu_top_view_back_button.png"] forState:UIControlStateNormal];
     [backButton setBackgroundImage:[UIImage imageNamed:@"read_menu_top_view_back_button_highlighted.png"] forState:UIControlStateHighlighted];

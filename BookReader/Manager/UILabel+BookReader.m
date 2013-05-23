@@ -18,6 +18,16 @@
     return label;
 }
 
++ (UILabel *)titleLableWithFrame:(CGRect)frame
+{
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:frame];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    return titleLabel;
+}
+
 + (UILabel *)accountLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [self initLabelWithFrame:frame];

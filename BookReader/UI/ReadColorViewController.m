@@ -25,6 +25,7 @@
 #import "ReadColorViewController.h"
 #import "BookReader.h"
 #import "UserDefaultsManager.h"
+#import "UILabel+BookReader.h"
 
 
 @interface ReadColorViewController ()
@@ -48,7 +49,7 @@
     [topBarImageView setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
     [self.view addSubview:topBarImageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:topBarImageView.frame];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:topBarImageView.frame];
     if (bFontColor) {
         [titleLabel setText:TITLE2];
     }
@@ -57,9 +58,6 @@
     }
 
     [titleLabel setTextColor:txtColor];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:19]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     

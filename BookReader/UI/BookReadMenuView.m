@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BookReaderDefaultsManager.h"
 #import "UIButton+BookReader.h"
+#import "UILabel+BookReader.h"
 
 
 @implementation BookReadMenuView {
@@ -59,11 +60,8 @@
     [topView addSubview:imageView];
     [self addSubview:topView];
     
-    titleLabel = [[UILabel alloc] initWithFrame:topView.bounds];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    titleLabel = [UILabel titleLableWithFrame:topView.bounds];
     [titleLabel setText:@"正文"];
-    titleLabel.textColor = [UIColor whiteColor];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:titleLabel];
     
     static float buttonOffsetX = 10.0;

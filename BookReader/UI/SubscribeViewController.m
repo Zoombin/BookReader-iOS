@@ -14,6 +14,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
+#import "UILabel+BookReader.h"
 #import "Chapter+Setup.h"
 #import "UIButton+BookReader.h"
 
@@ -53,11 +54,8 @@
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:@"目录"];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44) style:UITableViewStylePlain];

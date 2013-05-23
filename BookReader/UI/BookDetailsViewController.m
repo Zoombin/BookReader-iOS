@@ -26,6 +26,7 @@
 #import "Chapter+Setup.h"
 #import "Comment.h"
 #import "UIColor+Hex.h"
+#import "UILabel+BookReader.h"
 #import "CommentCell.h"
 
 #define AUTHORBOOK      1
@@ -132,11 +133,8 @@
         NSLog(@"error: %@", error);
     }];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:book.name];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, firstBkgView.bounds.size.width-100, 30)];

@@ -34,12 +34,8 @@
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
 	
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:@"个人中心"];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -11,6 +11,7 @@
 #import "BookManager.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
+#import "UILabel+BookReader.h"
 #import "BookReader.h"
 
 #define TOP_BAR_IMAGE [UIImage imageNamed:@"read_top_bar.png"]
@@ -31,12 +32,8 @@
     [topBarImageView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 42)];
     [self.view addSubview:topBarImageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 38)];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 38)];
     [titleLabel setText:[NSString stringWithFormat:NSLocalizedString(@"Catalogue", nil)]];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];

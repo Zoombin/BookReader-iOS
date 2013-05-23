@@ -81,11 +81,8 @@
         [view removeFromSuperview];
     }
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:@"个人中心"];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];

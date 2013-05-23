@@ -14,6 +14,7 @@
 #import "UIButton+BookReader.h"
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
+#import "UILabel+BookReader.h"
 
 @implementation PasswordViewController {
     UILabel *titleLabel;
@@ -42,10 +43,7 @@
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-     titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [self.view addSubview:titleLabel];
     
     UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -16,4 +16,5 @@
 + (UILabel *)memberUserMoneyLeftWithFrame:(CGRect)frame andMoneyLeft:(NSString *)count;
 
 + (UILabel *)bookStoreLabelWithFrame:(CGRect)frame;
++ (UILabel *)titleLableWithFrame:(CGRect)frame;
 @end

@@ -11,6 +11,7 @@
 
 
 #import "ReadMenuDirectoryViewController.h"
+#import "UILabel+BookReader.h"
 
 @implementation ReadMenuDirectoryViewController
 
@@ -50,12 +51,8 @@
     UIImageView *topBarImageView = [[UIImageView alloc] initWithImage:TOP_BAR_IMAGE];
     [self.view addSubview:topBarImageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 42)];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, 320, 42)];
     [titleLabel setText:[NSString stringWithFormat:NSLocalizedString(@"Catalogue", nil)]];
-    [titleLabel setTextColor:[UIColor blackColor]];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:titleLabel];
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];

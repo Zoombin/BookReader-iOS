@@ -15,6 +15,7 @@
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
+#import "UILabel+BookReader.h"
 
 @implementation CategoryDetailsViewController
 {
@@ -40,10 +41,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     
-    titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextColor:[UIColor whiteColor]];
+    titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [self.view addSubview:titleLabel];
     
 	UIButton *backButton = [UIButton navigationBackButton];
