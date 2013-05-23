@@ -29,8 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
-	
 	CGSize fullSize = self.view.bounds.size;
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -119,6 +117,11 @@
             }
         }];
     } 
+}
+
+- (void)backgroundTapped
+{
+    [self hideKeyboard];
 }
 
 - (void)hideKeyboard {

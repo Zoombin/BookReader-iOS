@@ -78,8 +78,6 @@
     [findButton setTitleColor:[UIColor colorWithRed:124.0/255.0 green:122.0/255.0 blue:114.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [findButton setTitle:@"忘记了" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
-    
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
 }
 
 - (void)valueChanged:(id)sender
@@ -120,6 +118,11 @@
             }
         }
     }];
+}
+
+- (void)backgroundTapped
+{
+    [self hideKeyboard];
 }
 
 - (void)hideKeyboard {

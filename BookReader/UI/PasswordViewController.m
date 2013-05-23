@@ -44,7 +44,6 @@
     } else {
         [self showChangePassword];
     }
-	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
 }
 
 - (void)showFindPassword
@@ -184,6 +183,11 @@
     } else {
         [changeButton setDisabled:YES];
     }
+}
+
+- (void)backgroundTapped
+{
+    [self hideKeyboard];
 }
 
 - (void)hideKeyboard {

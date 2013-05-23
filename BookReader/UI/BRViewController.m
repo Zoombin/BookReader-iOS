@@ -22,6 +22,8 @@
      headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:headerView];
+    
+   [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)]];
 }
 
 - (void)backButtonClick {
@@ -36,6 +38,11 @@
 - (void)setHideBackBtn:(BOOL)hiden
 {
     headerView.backButton.hidden = hiden;
+}
+
+- (void)backgroundTapped
+{
+    
 }
 
 

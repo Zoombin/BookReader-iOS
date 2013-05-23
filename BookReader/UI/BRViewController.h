@@ -11,4 +11,5 @@
 @interface BRViewController : UIViewController
 
 @property (nonatomic, assign) BOOL hideBackBtn;
+- (void)backgroundTapped;
 @end
