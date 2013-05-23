@@ -48,6 +48,8 @@
     [self.view addSubview:accountLabel];
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(80, 94, self.view.bounds.size.width-80*2, 30)];
+    UIImageView *accounttextFieldBackground = [accountTextField backgroundView];
+    [self.view addSubview:accounttextFieldBackground];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
@@ -55,6 +57,8 @@
     [self.view addSubview:passwordLabel];
     
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(80, 134, self.view.bounds.size.width-80*2, 30)];
+    UIImageView *pwdtextFieldBackground = [passwordTextField backgroundView];
+    [self.view addSubview:pwdtextFieldBackground];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
     

@@ -68,6 +68,8 @@
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
+        UIImageView *textFieldBackground = [textField backgroundView];
+		[findPasswordView addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
         [findPasswordView addSubview:textField];
     }
@@ -98,9 +100,11 @@
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField setPlaceholder:placeHolders[i]];
+        UIImageView *textFieldBackground = [textField backgroundView];
+		[changePasswordView addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
-        [textField setBackgroundColor:[UIColor whiteColor]];
+        [textField setBackgroundColor:[UIColor clearColor]];
         [changePasswordView addSubview:textField];
     }
     
