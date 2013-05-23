@@ -24,6 +24,7 @@
 #import "ReadThemeViewController.h"
 #import "UILabel+BookReader.h"
 #import "ReadColorViewController.h"
+#import "UIColor+BookReader.h"
 
 
 @interface ReadMoreViewController ()
@@ -45,7 +46,7 @@
     
     UILabel *titleLabel = [UILabel titleLableWithFrame:topBarImageView.frame];
     [titleLabel setText:TITLE];
-    [titleLabel setTextColor:txtColor];
+    [titleLabel setTextColor:[UIColor txtColor]];
     [self.view addSubview:titleLabel];
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,7 +85,7 @@
         CGRect rect = cellView.bounds;
         rect.origin.x += 20;
         UILabel *label = [[UILabel alloc] initWithFrame:rect];
-        label.textColor = txtColor;
+        label.textColor = [UIColor txtColor];
         label.textAlignment = UITextAlignmentLeft;
         label.font = [UIFont systemFontOfSize:17.0];
         label.backgroundColor = [UIColor clearColor];
@@ -108,7 +109,7 @@
         
         //[button.layer setBorderColor:[UIColor brownColor].CGColor];
         [button setFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
-        [button setTitleColor:txtColor forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         button.tag = i;
@@ -146,7 +147,7 @@
             
             [button2 setCenter:CGPointMake(250, rect.size.height/2)];
             [button2 setTitle:@"左右" forState:UIControlStateNormal];
-            [button2 setTitleColor:txtColor forState:UIControlStateNormal];
+            [button2 setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
             [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
             [button2 setBackgroundImage:[UIImage imageNamed:@"read_settingbutton_click"] forState:UIControlStateNormal];
             [button2 setBackgroundImage:[UIImage imageNamed:@"read_settingbutton_click"] forState:UIControlStateHighlighted];
@@ -244,7 +245,7 @@
 
 - (void)flipButtonPressed:(id)sender {
     UIButton *button = (UIButton *)sender;
-    [button setTitleColor:txtColor forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
      [button setBackgroundImage:[UIImage imageNamed:@"read_settingbutton_click"] forState:UIControlStateNormal];
     
     if ([button.titleLabel.text isEqualToString:@"上下"]) {

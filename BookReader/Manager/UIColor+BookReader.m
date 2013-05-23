@@ -14,4 +14,10 @@
 {
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_view_bkg"]];
 }
+
++ (UIColor *)txtColor
+{
+    return [UIColor colorWithRed:91.0/255.0 green:33.0/255.0 blue:0.0/255.0 alpha:1.0];  //UI的字体颜色
+
+}
 @end

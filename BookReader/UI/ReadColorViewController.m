@@ -26,6 +26,7 @@
 #import "BookReader.h"
 #import "UserDefaultsManager.h"
 #import "UILabel+BookReader.h"
+#import "UIColor+BookReader.h"
 
 
 @interface ReadColorViewController ()
@@ -57,7 +58,7 @@
         [titleLabel setText:TITLE];
     }
 
-    [titleLabel setTextColor:txtColor];
+    [titleLabel setTextColor:[UIColor txtColor]];
     [self.view addSubview:titleLabel];
     
     

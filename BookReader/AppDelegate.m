@@ -22,6 +22,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "MobileProbe.h"
 #import "Reachability.h"
+#import "UIColor+BookReader.h"
 
 #define REMOTE_MODE
 
@@ -105,7 +106,7 @@
     
     UIButton *bookShelfButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [bookShelfButton setTitle:NSLocalizedString(@"BookList", nil) forState:UIControlStateNormal];
-    [bookShelfButton setTitleColor:txtColor forState:UIControlStateNormal];
+    [bookShelfButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
     [bookShelfButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [bookShelfButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
     [bookShelfButton setFrame:CGRectMake(3, 4, -6+self.window.bounds.size.width/4, 27)];
@@ -115,7 +116,7 @@
     
     UIButton *houseBookButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [houseBookButton setFrame:CGRectMake(self.window.bounds.size.width/2+3, 4, -6+self.window.bounds.size.width/4, 27)];
-    [houseBookButton setTitleColor:txtColor forState:UIControlStateNormal];
+    [houseBookButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
     [houseBookButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [houseBookButton setTitle:NSLocalizedString(@"AppRecommend", nil) forState:UIControlStateNormal];
     [houseBookButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
@@ -125,7 +126,7 @@
     
     UIButton *houseAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [houseAppButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    [houseAppButton setTitleColor:txtColor forState:UIControlStateNormal];
+    [houseAppButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
     [houseAppButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [houseAppButton setTitle:NSLocalizedString(@"BookStore", nil) forState:UIControlStateNormal];
     [houseAppButton setFrame:CGRectMake(self.window.bounds.size.width/4+3, 4, -6+self.window.bounds.size.width/4, 27)];
@@ -135,7 +136,7 @@
     
     UIButton *aboutButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [aboutButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    [aboutButton setTitleColor:txtColor forState:UIControlStateNormal];
+    [aboutButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
     [aboutButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [aboutButton setTitle:NSLocalizedString(@"AboutUs", nil) forState:UIControlStateNormal];
     [aboutButton setFrame:CGRectMake(self.window.bounds.size.width*0.75+3, 4, -6+self.window.bounds.size.width/4, 27)];

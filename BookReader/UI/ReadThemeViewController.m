@@ -28,6 +28,7 @@
 #import "UserDefaultsManager.h"
 #import "BookReader.h"
 #import "UILabel+BookReader.h"
+#import "UIColor+BookReader.h"
 
 @interface ReadThemeViewController ()
 
@@ -48,7 +49,7 @@
     
     UILabel *titleLabel = [UILabel titleLableWithFrame:topBarImageView.frame];
     [titleLabel setText:TITLE];
-    [titleLabel setTextColor:txtColor];
+    [titleLabel setTextColor:[UIColor txtColor]];
     [self.view addSubview:titleLabel];
     
     
@@ -72,7 +73,7 @@
         [button setCenter:CGPointMake([[UIScreen mainScreen] bounds].size.width/2, 150+i*SAFE_BUTTON_IMAGE.size.height/2+i*delta)];
         [button setBackgroundImage:[buttonsImageArray objectAtIndex:i] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitleColor:txtColor forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
         [button setTitle:[nameArray objectAtIndex:i] forState:UIControlStateNormal];
         button.tag = i;
         [self.view addSubview:button];

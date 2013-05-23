@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "BookReader.h"
+#import "UIColor+BookReader.h"
 
 //---infoTableView---
 #define textViewFrame               CGRectMake(20, 2, self.view.bounds.size.width-40, 78)
@@ -34,7 +35,7 @@
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
     [titleLabel setText:NSLocalizedString(@"AboutUs", nil)];
-    [titleLabel setTextColor:txtColor];
+    [titleLabel setTextColor:[UIColor txtColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
@@ -72,7 +73,7 @@
       [label setText:NSLocalizedString(@"Contaceus", nil)];
     }
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setTextColor:txtColor];
+    [label setTextColor:[UIColor txtColor]];
     [label setFont:[UIFont boldSystemFontOfSize:17]];
     [label setBackgroundColor:[UIColor clearColor]];
     [view addSubview:label];
@@ -93,7 +94,7 @@
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:14]];
         
         UILabel *textView = [[UILabel alloc] initWithFrame:textViewFrame];
-        [textView setTextColor:txtColor];
+        [textView setTextColor:[UIColor txtColor]];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setUserInteractionEnabled:NO];
         [textView setFont:[UIFont systemFontOfSize:16]];

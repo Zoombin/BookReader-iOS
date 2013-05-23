@@ -10,4 +10,6 @@
 
 @interface UIColor (BookReader)
 + (UIColor *)mainBackgroundColor;
+
++ (UIColor *)txtColor;
 @end

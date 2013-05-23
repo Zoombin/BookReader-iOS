@@ -13,6 +13,7 @@
 #import "BookReader.h"
 #import "UMTableViewCell.h"
 #import "UILabel+BookReader.h"
+#import "UIColor+BookReader.h"
 
 #define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
 #define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
@@ -35,7 +36,7 @@
     
     UILabel *titleLabel = [UILabel titleLableWithFrame:titleLabelFrame];
     [titleLabel setText:NSLocalizedString(@"BookStore", nil)];
-    [titleLabel setTextColor:txtColor];
+    [titleLabel setTextColor:[UIColor txtColor]];
     [self.view addSubview:titleLabel];
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_background.png"]];
