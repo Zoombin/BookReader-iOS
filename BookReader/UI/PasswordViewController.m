@@ -51,7 +51,7 @@
     } else {
         [self showChangePassword];
     }
-	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenAllKeyboard)]];
+	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)]];
 }
 
 - (void)showFindPassword
@@ -61,13 +61,11 @@
     UIView *findPasswordView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 230)];
     [self.view addSubview:findPasswordView];
     
-    NSArray *placeHolders = @[@"\t\t请输入账号",@"\t\t请输入短信验证码", @"\t\t请输入新密码", @"\t\t请再次输入新密码"];
     NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
-    for (int i =0; i<[placeHolders count]; i++) {
+    for (int i = 0; i < textFields.count; i++) {
         CGRect frame = CGRectMake(10, 15+40*i, findPasswordView.bounds.size.width-10*2, 30);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
-        [textField setPlaceholder:placeHolders[i]];
         UIImageView *textFieldBackground = [textField backgroundView];
 		[findPasswordView addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -93,13 +91,11 @@
     UIView *changePasswordView = [UIView changeBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 200)];
     [self.view addSubview:changePasswordView];
     
-    NSArray *placeHolders = @[@"\t\t请输入旧密码", @"\t\t请输入新密码", @"\t\t请再次输入新密码"];
     NSArray *textFields = @[passwordTextField,confirmTextField,codeTextField];
-    for (int i =0; i<[placeHolders count]; i++) {
+    for (int i = 0; i < textFields.count; i++) {
         CGRect frame = CGRectMake(20, 20+40*i, changePasswordView.bounds.size.width-20*2, 30);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
-        [textField setPlaceholder:placeHolders[i]];
         UIImageView *textFieldBackground = [textField backgroundView];
 		[changePasswordView addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
@@ -113,7 +109,6 @@
     [changeButton setDisabled:YES];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.view addSubview:changeButton];
- 
 }
 
 - (void)backButtonClicked
@@ -143,7 +138,7 @@
         [self displayHUDError:nil message:@"两次密码输入不一致"];
         return;
     }
-    [self hidenAllKeyboard];
+    [self hideKeyboard];
     [self displayHUD:@"请稍等..."];
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
         if (error) {
@@ -160,7 +155,7 @@
 
 - (void)getFindPasswordCode
 {
-    [self hidenAllKeyboard];
+    [self hideKeyboard];
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
         if (error) {
@@ -180,7 +175,7 @@
         return;
     }
     [self displayHUD:@"请稍等..."];
-    [self hidenAllKeyboard];
+    [self hideKeyboard];
     [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success,NSString *message, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
@@ -203,7 +198,7 @@
     }
 }
 
-- (void)hidenAllKeyboard {
+- (void)hideKeyboard {
     [accountTextField resignFirstResponder];
     [confirmTextField resignFirstResponder];
     [passwordTextField resignFirstResponder];
