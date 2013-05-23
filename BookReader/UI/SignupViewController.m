@@ -107,12 +107,12 @@
     }
     [self hideKeyboard];
     [self displayHUD:@"注册中..."];
-    [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(NSString *code, NSString *resultMessage,NSError *error) {
+    [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSString *message,NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
-            [self displayHUDError:nil message:resultMessage];
-            if ([code isEqualToString:SUCCESS_FLAG]) {
+            [self displayHUDError:nil message:message];
+            if (success) {
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
                 [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
             } else {
@@ -125,11 +125,11 @@
 - (void)getCode
 {
     if ([accountTextField.text length]>0) {
-        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(NSString *code, NSString *resultMessage, NSError *error){
+        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(BOOL success, NSString *message, NSError *error){
             if (error) {
                 
             }else {
-                [self displayHUDError:nil message:resultMessage];
+                [self displayHUDError:nil message:message];
             }
         }];
     } 

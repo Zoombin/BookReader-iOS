@@ -182,11 +182,11 @@
     giveComment = buttons[6];
 	
     if ([ServiceManager userID] != nil) {
-        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(NSString *value, NSError *error) {
+        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(BOOL isExist, NSError *error) {
             if (error) {
                 
             } else {
-                if ([value intValue]==1) {
+                if (isExist) {
                     bFav = YES;
 					[favoriteButton setDisabled:YES];
 					[favoriteButton setTitle:@"已收藏" forState:UIControlStateNormal];
@@ -379,7 +379,7 @@
 {
     if (buttonIndex==1)
     {
-        [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *resultMessage, NSError *error)
+        [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error)
          {
              if (error)
              {
@@ -387,7 +387,7 @@
              }
              else
              {
-                 [self showAlertWithMessage:resultMessage];
+                 [self showAlertWithMessage:message];
                  [self loadCommitList];
              }
          }];
@@ -441,15 +441,15 @@
 {
     if ([self checkLogin]) {
 		[self displayHUD:@"请稍等..."];
-        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(NSString *code,NSString *resultMessage, NSError *error) {
+        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(BOOL success,NSString *message, NSError *error) {
             if (!error) {
-                if ([code isEqualToString:SUCCESS_FLAG]) {
+                if (success) {
                     bFav = YES;
 					favoriteButton.enabled = YES;
 					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];
 					book.bFav = @(YES);
 					[book persistWithBlock:^(void) {
-						[self displayHUDError:nil message:resultMessage];
+						[self displayHUDError:nil message:message];
 						[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 					}];
                 }

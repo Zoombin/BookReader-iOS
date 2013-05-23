@@ -145,14 +145,14 @@
     }
     [self hidenAllKeyboard];
     [self displayHUD:@"请稍等..."];
-    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(NSString *code, NSString *resultMessage, NSError *error) {
+    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
         if (error) {
             
         }else {
-            if ([code isEqualToString:SUCCESS_FLAG]) {
-                [self displayHUDError:nil message:resultMessage];
+            if (success) {
+                [self displayHUDError:nil message:message];
             } else {
-                [self displayHUDError:nil message:resultMessage];
+                [self displayHUDError:nil message:message];
             }
         }
     }];
@@ -162,11 +162,11 @@
 {
     [self hidenAllKeyboard];
     [self displayHUD:@"请稍等..."];
-    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(NSString *code, NSString *resultMessage, NSError *error) {
+    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
         if (error) {
             
         } else {
-           [self displayHUDError:nil message:resultMessage];
+           [self displayHUDError:nil message:message];
         }
     }];
 }
@@ -181,14 +181,14 @@
     }
     [self displayHUD:@"请稍等..."];
     [self hidenAllKeyboard];
-    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(NSString *code,NSString *resultMessage, NSError *error) {
+    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success,NSString *message, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {
-            if ([code isEqualToString:SUCCESS_FLAG]) {
-                [self displayHUDError:nil message:resultMessage];
+            if (success) {
+                [self displayHUDError:nil message:message];
             } else {
-                [self displayHUDError:nil message:resultMessage];
+                [self displayHUDError:nil message:message];
             }
         }
     }];
