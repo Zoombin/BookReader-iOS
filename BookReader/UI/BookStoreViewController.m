@@ -129,12 +129,8 @@
 {
     [super viewDidLoad];
     shouldRefresh = YES;
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-	// Do any additional setup after loading the view.
-    
-    titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [titleLabel setText:@"书城"];
-    [self.view addSubview:titleLabel];
+    [self setHideBackBtn:YES];
+    [self setTitle:@"书城"];
     
     UIImageView *bottomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
     [bottomImage setImage:[UIImage imageNamed:@"iphone_qqreader_feedback_bg"]];

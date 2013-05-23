@@ -23,7 +23,6 @@
     NSMutableArray *infoArray;
     int catagoryId;
     int currentIndex;
-    UILabel *titleLabel;
 }
 
 - (id)init
@@ -39,15 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-    
-    titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [self.view addSubview:titleLabel];
-    
-	UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame: CGRectMake(10, 4, 48, 32)];
-    [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backButton];
     
     infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width-10, self.view.bounds.size.height-40) style:UITableViewStylePlain];
     [infoTableView setBackgroundColor:[UIColor clearColor]];
@@ -58,16 +48,11 @@
     [infoTableView reloadData];
 }
 
-- (void)backButtonClick
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)reloadDataWithArray:(NSArray *)array andCatagoryId:(int)cataId
 {
     catagoryId = cataId;
     NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
-    [titleLabel setText:buttonNames[catagoryId-1]];
+    [self setTitle:buttonNames[catagoryId-1]];
     if ([infoArray count]>0) {
         [infoArray removeAllObjects];
     }

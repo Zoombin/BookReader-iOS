@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRViewController.h"
 
-@interface MemberViewController: UIViewController
+@interface MemberViewController: BRViewController
 @end

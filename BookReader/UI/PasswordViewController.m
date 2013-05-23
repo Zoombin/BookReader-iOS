@@ -32,7 +32,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -49,7 +48,6 @@
 - (void)showFindPassword
 {
     [self setTitle:@"找回密码"];
-    
     UIView *findPasswordView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 230)];
     [self.view addSubview:findPasswordView];
     

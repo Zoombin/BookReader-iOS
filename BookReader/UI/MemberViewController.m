@@ -48,7 +48,7 @@
 {
     [super viewDidLoad];
     isLogin = NO;
-    [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
+    [self setHideBackBtn:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
