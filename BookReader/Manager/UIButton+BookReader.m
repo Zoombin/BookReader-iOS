@@ -26,6 +26,17 @@
     return button;
 }
 
++ (UIButton *)navigationBackButton
+{
+	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+	return backButton;
+}
+
 - (void)setDisabled:(BOOL)disabled
 {
 	self.enabled = !disabled;

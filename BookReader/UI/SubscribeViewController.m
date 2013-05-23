@@ -15,6 +15,7 @@
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
 #import "Chapter+Setup.h"
+#import "UIButton+BookReader.h"
 
 @implementation SubscribeViewController
 {
@@ -47,10 +48,7 @@
     [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
     [self.view addSubview:backgroundImage];
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    UIButton *backButton = [UIButton navigationBackButton];
     [backButton setFrame: CGRectMake(10, 4, 48, 32)];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];

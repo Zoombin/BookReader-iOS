@@ -19,34 +19,25 @@
 @implementation SignUpViewController {
     UIButton *registerButton;
     UIButton *getCodeButton;
-    int emptyCount;
     UITextField *accountTextField;
     UITextField *passwordTextField;
     UITextField *confirmTextField;
     UITextField *codeTextField;
 }
 
-- (id)init 
-{
-    self = [super init];
-    if (self) {
-        // Custom initialization
-        emptyCount = 4;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
+	
+	CGSize fullSize = self.view.bounds.size;
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     confirmTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setText:@"注册"];
     [titleLabel setTextColor:[UIColor whiteColor]];
@@ -54,21 +45,17 @@
     [self.view addSubview:titleLabel];
     
     UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-24)];
+    [hidenKeyboardButton setFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-24)];
     [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:hidenKeyboardButton];
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+	UIButton *backButton = [UIButton navigationBackButton];
     [backButton setFrame:CGRectMake(10, 6, 50, 32)];;
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    UIView *signOutView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 230)];
+    UIView *signOutView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44 ,fullSize.width - 20, 230)];
     [self.view addSubview:signOutView];
     
     NSArray *placeHolders = @[@"\t\t请输入账号", @"\t\t请输入密码", @"\t\t请再次输入密码", @"\t\t请输入短信验证码"];
@@ -97,12 +84,12 @@
 
 - (void)valueChanged:(id)sender
 {
-    if ([accountTextField.text length]>0) {
+    if ([accountTextField.text length]) {
         [getCodeButton setDisabled:NO];
     } else {
         [getCodeButton setDisabled:YES];
     }
-    if ([accountTextField.text length]&&[passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
+    if ([accountTextField.text length] && [passwordTextField.text length] && [confirmTextField.text length] && [codeTextField.text length]) {
         [registerButton setDisabled:NO];
     } else {
         [registerButton setDisabled:YES];

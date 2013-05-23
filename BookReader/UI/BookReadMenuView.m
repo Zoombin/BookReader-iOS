@@ -7,8 +7,10 @@
 //
 
 #import "BookReadMenuView.h"
-#import "BookReaderDefaultsManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "BookReaderDefaultsManager.h"
+#import "UIButton+BookReader.h"
+
 
 @implementation BookReadMenuView {
     UIView *fontView;
@@ -67,8 +69,7 @@
     static float buttonOffsetX = 10.0;
     static float buttonOffsetY = 4.0;
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
+	UIButton *backButton = [UIButton navigationBackButton];
     [backButton setFrame: CGRectMake(10, buttonOffsetY, 48, 32)];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backButton];

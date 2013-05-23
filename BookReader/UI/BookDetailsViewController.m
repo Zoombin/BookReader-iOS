@@ -106,13 +106,7 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor mainBackgroundColor]];
-	// Do any additional setup after loading the view.
-    
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton setFrame: CGRectMake(10, 4, 48, 32)];
+    UIButton *backButton = [UIButton navigationBackButton];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 }

@@ -7,12 +7,14 @@
 //
 
 #import "GiftViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "GiftCell.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
 #import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UIButton+BookReader.h"
+
 
 
 @implementation GiftViewController {
@@ -47,12 +49,8 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor: [UIColor mainBackgroundColor]];
-	// Do any additional setup after loading the view.
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [backButton setFrame: CGRectMake(10, 4, 48, 32)];
+	
+    UIButton *backButton = [UIButton navigationBackButton];
     [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     

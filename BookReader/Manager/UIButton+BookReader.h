@@ -15,4 +15,6 @@
 
 - (void)setDisabled:(BOOL)disabled;
 
++ (UIButton *)navigationBackButton;
+
 @end

@@ -14,6 +14,7 @@
 #import "Book.h"
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
+#import "UIButton+BookReader.h"
 
 @implementation CategoryDetailsViewController
 {
@@ -45,12 +46,7 @@
     [titleLabel setTextColor:[UIColor whiteColor]];
     [self.view addSubview:titleLabel];
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
-    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+	UIButton *backButton = [UIButton navigationBackButton];
     [backButton setFrame: CGRectMake(10, 4, 48, 32)];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
