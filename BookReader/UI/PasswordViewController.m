@@ -46,17 +46,12 @@
     titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [self.view addSubview:titleLabel];
     
-    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-24)];
-    [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:hidenKeyboardButton];
-    
     if (bFindPassword) {
         [self showFindPassword];
     } else {
         [self showChangePassword];
     }
-	// Do any additional setup after loading the view.
+	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenAllKeyboard)]];
 }
 
 - (void)showFindPassword

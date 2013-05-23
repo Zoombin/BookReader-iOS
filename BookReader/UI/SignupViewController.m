@@ -13,6 +13,7 @@
 #import "UIButton+BookReader.h"
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
+#import "UILabel+BookReader.h"
 #import "BookReader.h"
 #import "AppDelegate.h"
 
@@ -38,7 +39,7 @@
     confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
     [titleLabel setText:@"注册"];
     [self.view addSubview:titleLabel];
     

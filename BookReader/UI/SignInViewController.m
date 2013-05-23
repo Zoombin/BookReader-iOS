@@ -38,11 +38,6 @@
     [titleLabel setText:@"个人中心"];
     [self.view addSubview:titleLabel];
     
-    UIButton *hidenKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hidenKeyboardButton setFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-24)];
-    [hidenKeyboardButton addTarget:self action:@selector(hidenAllKeyboard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:hidenKeyboardButton];
-    
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
     
@@ -81,6 +76,8 @@
     [findButton setTitleColor:[UIColor colorWithRed:124.0/255.0 green:122.0/255.0 blue:114.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [findButton setTitle:@"忘记了" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
+    
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenAllKeyboard)]];
 }
 
 - (void)valueChanged:(id)sender
