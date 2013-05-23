@@ -43,6 +43,7 @@
 {
     [super viewDidLoad];
     [self setTitle:@"目录"];
+    [self removeGestureRecognizer];
     
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
