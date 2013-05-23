@@ -12,4 +12,5 @@
 
 @property (nonatomic, assign) BOOL hideBackBtn;
 - (void)backgroundTapped;
+- (void)removeGestureRecognizer;
 @end

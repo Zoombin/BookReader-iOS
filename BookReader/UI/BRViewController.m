@@ -12,6 +12,7 @@
 
 @implementation BRViewController {
     BRHeaderView *headerView;
+    UITapGestureRecognizer *gesturerecognier;
 }
 @synthesize hideBackBtn;
 
@@ -23,7 +24,8 @@
     [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:headerView];
     
-   [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)]];
+     gesturerecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
+    [self.view addGestureRecognizer:gesturerecognier];
 }
 
 - (void)backButtonClick {
@@ -43,6 +45,11 @@
 - (void)backgroundTapped
 {
     
+}
+
+- (void)removeGestureRecognizer
+{
+    [self.view removeGestureRecognizer:gesturerecognier];
 }
 
 

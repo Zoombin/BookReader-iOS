@@ -175,6 +175,8 @@
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
+    
+    [self removeGestureRecognizer];
 }
 
 - (void)initCategoryButton {
