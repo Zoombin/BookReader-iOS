@@ -107,6 +107,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor mainBackgroundColor]];
     UIButton *backButton = [UIButton navigationBackButton];
+    [backButton setFrame:CGRectMake(10, 6, 50, 32)];
     [backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
 }
