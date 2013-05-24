@@ -39,8 +39,7 @@
 
 - (void)initTopView
 {
-    #define READ_MENU_TOP_VIEW_RECT (CGRectMake(0, 0, self.bounds.size.width, 40))
-    UIView *topView = [[UIView alloc] initWithFrame:READ_MENU_TOP_VIEW_RECT];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
     [topView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[topView bounds]];
     [imageView setImage:[UIImage imageNamed:@"read_top_bar.png"]];

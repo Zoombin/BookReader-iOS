@@ -27,8 +27,6 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-    
     [super viewDidLoad];
     isbookmark = YES;
     UIColor *backgroundColor = [[UIColor alloc] initWithPatternImage:BACKGROUND_IMAGE];
@@ -45,8 +43,6 @@
     [backButton setFrame:CGRectMake(5, 5, 63, 29)];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
-    
-//    [self.view setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:238.0/255 blue:214.0/255.0 alpha:1.0]];
     
     bookMarkTableView = [[UITableView alloc] initWithFrame:CGRectMake(6, 58, self.view.bounds.size.width-12, self.view.bounds.size.height-38-20-50) style:UITableViewStylePlain];
     [bookMarkTableView setBackgroundColor:[UIColor clearColor]];

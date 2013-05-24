@@ -81,33 +81,28 @@
 
 - (void)initBottomView
 {
-    #define READ_MENU_BOTTOM_VIEW_RECT (CGRectMake(0, self.bounds.size.height-50, self.bounds.size.width, 50))
-    UIView *bottomView = [[UIView alloc] initWithFrame:READ_MENU_BOTTOM_VIEW_RECT];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-50, self.bounds.size.width, 50)];
     [bottomView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
     [imageView setImage:[UIImage imageNamed:@"read_bar"]];
     [bottomView addSubview:imageView];
     
-    #define BUTTON_WIDTH  55
-    #define BUTTON_HEIGHT 40
-    #define BUTTON_NUMBER 5
+    NSInteger BUTTON_WIDTH = 55;
+    NSInteger BUTTON_HEIGHT = 40;
+    NSInteger BUTTON_NUMBER = 5;
+    NSInteger WIDTH = ((self.bounds.size.width)/BUTTON_NUMBER);
     
-    #define WIDTH  ((self.bounds.size.width)/BUTTON_NUMBER)
+    CGRect BUTTON_FRAME_ONE =  CGRectMake(0*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
+    CGRect BUTTON_FRAME_TWO =  CGRectMake(1*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
+    CGRect BUTTON_FRAME_THREE = CGRectMake(2*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
+    CGRect BUTTON_FRAME_FOUR = CGRectMake(3*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
+    CGRect BUTTON_FRAME_FIVE = CGRectMake(4*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
     
-    #define BUTTON_FRAME_ONE    CGRectMake(0*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
-    #define BUTTON_FRAME_TWO    CGRectMake(1*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
-    #define BUTTON_FRAME_THREE  CGRectMake(2*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
-    #define BUTTON_FRAME_FOUR  CGRectMake(3*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
-    #define BUTTON_FRAME_FIVE  CGRectMake(4*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT)
-    
-    #define BUTTON_FRAME_ONE_STR    NSStringFromCGRect(BUTTON_FRAME_ONE)
-    #define BUTTON_FRAME_TWO_STR    NSStringFromCGRect(BUTTON_FRAME_TWO)
-    #define BUTTON_FRAME_THREE_STR  NSStringFromCGRect(BUTTON_FRAME_THREE)
-    #define BUTTON_FRAME_FOUR_STR  NSStringFromCGRect(BUTTON_FRAME_FOUR)
-    #define BUTTON_FRAME_FIVE_STR  NSStringFromCGRect(BUTTON_FRAME_FIVE)
-    
-    #define BUTTON_IMAGE [UIImage imageNamed:@"search_btn"]
-    #define BUTTON_HIGHLIGHTED_IMAGE [UIImage imageNamed:@"search_btn_hl"]
+    NSString *BUTTON_FRAME_ONE_STR =  NSStringFromCGRect(BUTTON_FRAME_ONE);
+    NSString *BUTTON_FRAME_TWO_STR =  NSStringFromCGRect(BUTTON_FRAME_TWO);
+    NSString *BUTTON_FRAME_THREE_STR = NSStringFromCGRect(BUTTON_FRAME_THREE);
+    NSString *BUTTON_FRAME_FOUR_STR = NSStringFromCGRect(BUTTON_FRAME_FOUR);
+    NSString *BUTTON_FRAME_FIVE_STR = NSStringFromCGRect(BUTTON_FRAME_FIVE);
     
     NSArray *rectArrays = @[BUTTON_FRAME_ONE_STR,BUTTON_FRAME_TWO_STR,BUTTON_FRAME_THREE_STR,BUTTON_FRAME_FOUR_STR,BUTTON_FRAME_FIVE_STR];
     NSArray *imagesArray = @[@"read_chapterlist", @"read_prechapter", @"read_font", @"read_nextchapter", @"read_background"];

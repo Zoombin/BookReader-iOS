@@ -26,7 +26,6 @@
 #define CATAGORY 2
 #define SEARCH 3
 
-#define CHILDVIEW_FRAME   CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44-50)
 @implementation BookStoreViewController
 {
     int currentPage;
@@ -292,7 +291,7 @@
         keyWord = _searchBar.text;
     }
     [self displayHUD:@"加载中..."];
-    [ServiceManager books:@""
+    [ServiceManager books:keyWord
                   classID:0
                   ranking:currentPage
                      size:@"5"
@@ -481,7 +480,7 @@
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
         for (int i = 0; i<[recommendTitlesArray count]; i++) {
             if (section == i) {
-                [label setText:[@"\t\t" stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
+                [label setText:[@"  " stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
             }
         }
     [view addSubview:label];

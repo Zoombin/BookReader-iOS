@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "BookShelfHeaderView.h"
+#import "BRHeaderView.h"
 #import "BookShelfBottomView.h"
 //Local
 #import "BookReader.h"

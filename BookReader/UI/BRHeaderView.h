@@ -8,8 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRHeaderView : UIView
+typedef enum {
+    kHeaderViewButtonDelete,
+    kHeaderViewButtonEdit,
+    kHeaderViewButtonFinishEditing,
+    kHeaderViewButtonBookStore,
+    kHeaderViewButtonMember
+}HeaderViewButtonType;
 
+@protocol BookShelfHeaderViewDelegate <NSObject>
+- (void)headerButtonClicked:(NSNumber *)type;
+@end
+
+@interface BRHeaderView : UIView {
+    UIView *headerViewOne;
+    UIView *headerViewTwo;
+}
+@property (nonatomic, weak) id<BookShelfHeaderViewDelegate> delegate;
 @property (nonatomic ,strong) UIButton *backButton;
 @property (nonatomic ,strong) UILabel *titleLabel;
+- (void)addButtons;
 @end

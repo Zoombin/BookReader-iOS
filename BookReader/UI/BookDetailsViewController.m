@@ -130,11 +130,11 @@
     }];
     
     UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, firstBkgView.bounds.size.width-100, 30)];
-    [bookNameLabel setText:[@"\t\t" stringByAppendingString:book.name]];
+    [bookNameLabel setText:[@"  " stringByAppendingString:book.name]];
     [bookNameLabel setBackgroundColor:[UIColor clearColor]];
     [firstBkgView addSubview:bookNameLabel];
     
-    NSArray *labelTitles = @[@"\t\t作者:\t\t", @"\t\t类别:\t\t", @"\t\t字数:\t\t", @"\t\t更新时间:\t\t"];
+    NSArray *labelTitles = @[@"  作者:  ", @"  类别:  ", @"  字数:  ", @"  更新时间:  "];
     NSArray *labelNames = @[book.author,book.category,book.words,book.lastUpdate];//TODO: 万一有nil呢？ 随时准备crash是吗? Orz...
     
     for (int i = 0; i<[labelNames count]; i++) {
@@ -239,7 +239,7 @@
     [shortdescribeTextView setEditable:NO];
     [secondView addSubview:shortdescribeTextView];
     
-    
+    [self removeGestureRecognizer];
 }
 
 - (void)readButtonClicked:(id)sender

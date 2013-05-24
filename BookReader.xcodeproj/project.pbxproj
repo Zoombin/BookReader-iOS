@@ -60,7 +60,6 @@
 		1888A37C16FC4EB60046DA4C /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37816FC4EB60046DA4C /* 2.png */; };
 		1888A37D16FC4EB60046DA4C /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37916FC4EB60046DA4C /* 3.png */; };
 		1888A37E16FC4EB60046DA4C /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37A16FC4EB60046DA4C /* 4.png */; };
-		1888A38116FC689C0046DA4C /* BookShelfHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A38016FC689C0046DA4C /* BookShelfHeaderView.m */; };
 		1888A39016FD4ED40046DA4C /* tabbar_book_library_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A38A16FD4ED40046DA4C /* tabbar_book_library_hl.png */; };
 		1888A39116FD4ED40046DA4C /* tabbar_book_library.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A38B16FD4ED40046DA4C /* tabbar_book_library.png */; };
 		1888A39216FD4ED40046DA4C /* tabbar_book_shelf_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A38C16FD4ED40046DA4C /* tabbar_book_shelf_hl.png */; };
@@ -416,8 +415,6 @@
 		1888A37816FC4EB60046DA4C /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2.png; path = Image/Remote/localBook/2.png; sourceTree = "<group>"; };
 		1888A37916FC4EB60046DA4C /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 3.png; path = Image/Remote/localBook/3.png; sourceTree = "<group>"; };
 		1888A37A16FC4EB60046DA4C /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 4.png; path = Image/Remote/localBook/4.png; sourceTree = "<group>"; };
-		1888A37F16FC689C0046DA4C /* BookShelfHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfHeaderView.h; sourceTree = "<group>"; };
-		1888A38016FC689C0046DA4C /* BookShelfHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfHeaderView.m; sourceTree = "<group>"; };
 		1888A38A16FD4ED40046DA4C /* tabbar_book_library_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_book_library_hl.png; sourceTree = "<group>"; };
 		1888A38B16FD4ED40046DA4C /* tabbar_book_library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_book_library.png; sourceTree = "<group>"; };
 		1888A38C16FD4ED40046DA4C /* tabbar_book_shelf_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_book_shelf_hl.png; sourceTree = "<group>"; };
@@ -970,8 +967,6 @@
 				77EB59751702B8EA004E2C00 /* BookShelfButton.m */,
 				188FE63316F99F72009561CB /* CustomProgressView.h */,
 				188FE63416F99F72009561CB /* CustomProgressView.m */,
-				1888A37F16FC689C0046DA4C /* BookShelfHeaderView.h */,
-				1888A38016FC689C0046DA4C /* BookShelfHeaderView.m */,
 				1888A39C16FD65960046DA4C /* BookStoreViewController.h */,
 				1888A39D16FD65960046DA4C /* BookStoreViewController.m */,
 				1888A39F16FD66520046DA4C /* MemberViewController.h */,
@@ -1196,8 +1191,8 @@
 				8BDB0B02165E04F1008F328A /* ReadThemeViewController.m */,
 				8BDB0AE1165E04F1008F328A /* ReadColorViewController.h */,
 				8BDB0AE2165E04F1008F328A /* ReadColorViewController.m */,
-				8BDB0B00165E04F1008F328A /* ReadStatusView.m */,
 				8BDB0AFF165E04F1008F328A /* ReadStatusView.h */,
+				8BDB0B00165E04F1008F328A /* ReadStatusView.m */,
 				8BDB0B03165E04F1008F328A /* ReadView.h */,
 				8BDB0B04165E04F1008F328A /* ReadView.m */,
 				181091DF173895EA000931AB /* ReadHelpView.h */,
@@ -2037,7 +2032,6 @@
 				8B659F251687EAB200D5126C /* ChapterViewController.m in Sources */,
 				8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */,
 				188FE63516F99F73009561CB /* CustomProgressView.m in Sources */,
-				1888A38116FC689C0046DA4C /* BookShelfHeaderView.m in Sources */,
 				1888A39E16FD65960046DA4C /* BookStoreViewController.m in Sources */,
 				1888A3A116FD66530046DA4C /* MemberViewController.m in Sources */,
 				1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */,

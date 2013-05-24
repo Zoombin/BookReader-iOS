@@ -42,7 +42,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksForDisplay;
     NSMutableArray *books;
 	NSMutableArray *chapters;
-    BookShelfHeaderView *headerView;
+    BRHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
 	BOOL editing;
@@ -63,7 +63,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
 	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
-		headerView = [[BookShelfHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+		headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        [headerView addButtons];
 		[headerView setDelegate:self];
 		[self.view addSubview:headerView];
 		

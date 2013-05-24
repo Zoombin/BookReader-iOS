@@ -18,8 +18,6 @@
     self = [super init];
     if (self) {
         [self setTitle:@"书架" forState:UIControlStateNormal];
-//        [self setBackgroundImage:[UIImage imageNamed:@"search_btn"] forState:UIControlStateNormal];
-//        [self setBackgroundImage:[UIImage imageNamed:@"search_btn_hl"] forState:UIControlStateHighlighted];
         [self setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
         [self setFrame:CGRectMake(10, 6, 50, 32)];
@@ -32,15 +30,5 @@
 {
     [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
 }
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

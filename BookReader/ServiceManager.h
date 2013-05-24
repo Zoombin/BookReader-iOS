@@ -183,7 +183,10 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
                withBlock:(void(^)(NSString *message,NSError *code))block;
 
 //获取系统配置信息
-+ (void)systemConfigsWithBlock:(void(^)(NSString *,NSError *))block; //返回的时间单位是分
++ (void)systemConfigsWithBlock:(void(^)(BOOL success,NSString *autoUpdateDelay,NSString *decodeKey,NSString *keepUpdateDelay,NSError *error))block; //返回的时间单位是分
+//autoUpdatedelay = 180;  自动更新间隔 单位"分"
+//decodeKey = 04B6A5985B70DC641B0E98C0F8B221A6; 解密的key
+//keepUpdateDelay = 10080; 强制更新时间 单位"分"
 
 #pragma mark -
 
