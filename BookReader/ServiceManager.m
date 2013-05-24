@@ -27,7 +27,8 @@
 //#define XXSY_BASE_URL   @"http://10.224.72.188/service/"
 #define XXSY_BASE_URL  @"http://link.xxsy.net/service"
 #define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
-
+#define SUCCESS_FLAG        @"0000"
+#define USER_ID   @"userid"
 
 
 //pwd 是16位小写 sign是32位小写
