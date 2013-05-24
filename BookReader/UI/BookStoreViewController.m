@@ -26,7 +26,6 @@
 #define CATAGORY 2
 #define SEARCH 3
 
-#define CHILDVIEW_FRAME   CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44-50)
 @implementation BookStoreViewController
 {
     int currentPage;

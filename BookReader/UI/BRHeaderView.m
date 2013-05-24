@@ -10,9 +10,6 @@
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
 
-#define MYACCOUNT_BUTTON_FRAME                 CGRectMake(self.bounds.size.width-110,4,48,32)
-#define BOOKSTORE_BUTTON_FRAME                 CGRectMake(self.bounds.size.width-60,4,48,32)
-
 @implementation BRHeaderView
 @synthesize delegate;
 
@@ -32,6 +29,9 @@
 }
 
 - (void)addButtons {
+    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(self.bounds.size.width-110,4,48,32);
+    CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-60,4,48,32);
+    
     UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
     [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
     [self addSubview:topBarImage];

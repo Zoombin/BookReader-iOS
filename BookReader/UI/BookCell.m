@@ -10,12 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 
-#define bookimageViewFrame      CGRectMake(15, 10, 90, 120)
-#define bookNameLabelFrame      CGRectMake(115, 20, 205, 30)
-#define authorNameLabelFrame    CGRectMake(115, 55, 130, 30)
-#define categoryNameLabelFrame  CGRectMake(115, 90, 130, 30)
-#define locationNameLabelFrame  CGRectMake(self.bounds.size.width-100, 42, 110, 30)
-#define LabelTextColor          [UIColor colorWithRed:84.0/255.0 green:40.0/255.0 blue:10.0/255.0 alpha:1.0]
+#define LabelTextColor    [UIColor colorWithRed:84.0/255.0 green:40.0/255.0 blue:10.0/255.0 alpha:1.0]
 
 @implementation BookCell
 {
@@ -31,6 +26,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         if (style == BookCellStyleBig) {
+            CGRect bookimageViewFrame = CGRectMake(15, 10, 90, 120);
+            CGRect bookNameLabelFrame = CGRectMake(115, 20, 205, 30);
+            CGRect authorNameLabelFrame = CGRectMake(115, 55, 130, 30);
+            CGRect categoryNameLabelFrame = CGRectMake(115, 90, 130, 30);
+            CGRect locationNameLabelFrame = CGRectMake(self.bounds.size.width-100, 42, 110, 30);
+            
             UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 140-2)];
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
             [self.contentView addSubview:background];

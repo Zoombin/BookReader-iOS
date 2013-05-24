@@ -12,12 +12,6 @@
 
 #define DURATION 0.3   // 动画持续时间(秒)
 
-#define EDIT_BUTTON_FRAME                      CGRectMake(10, 4, 48, 32)
-#define Finish_BUTTON_FRAME                    CGRectMake(10, 4, 48, 32)
-#define DELETE_BUTTON_FRAME                    CGRectMake(self.bounds.size.width-60,4,48,32)
-#define REFRESH_BUTTON_FRAME                 CGRectMake(self.bounds.size.width-122,4,48,32)
-#define HISTORY_BUTTON_FRAME                 CGRectMake(self.bounds.size.width-72,4,60,32)
-
 @implementation BookShelfBottomView {
     NSMutableArray *buttonArray;
 	UIView *bottomViewOne;
@@ -47,6 +41,12 @@
 }
 
 - (void)addButtons {
+    CGRect EDIT_BUTTON_FRAME = CGRectMake(10, 4, 48, 32);
+    CGRect Finish_BUTTON_FRAME = CGRectMake(10, 4, 48, 32);
+    CGRect DELETE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-60,4,48,32);
+    CGRect REFRESH_BUTTON_FRAME = CGRectMake(self.bounds.size.width-122,4,48,32);
+    CGRect HISTORY_BUTTON_FRAME = CGRectMake(self.bounds.size.width-72,4,60,32);
+    
     bottomViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:bottomViewOne];
     
@@ -58,7 +58,7 @@
     NSArray *rectStrings = @[NSStringFromCGRect(EDIT_BUTTON_FRAME), NSStringFromCGRect(REFRESH_BUTTON_FRAME),NSStringFromCGRect(HISTORY_BUTTON_FRAME),NSStringFromCGRect(HISTORY_BUTTON_FRAME), NSStringFromCGRect(DELETE_BUTTON_FRAME), NSStringFromCGRect(Finish_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"editButtonClick", @"refreshButtonClick", @"historyButtonClick", @"shelfButtonClick", @"deleteButtonClick", @"finishButtonClick"];
     
-#define UIIMAGE(x) [UIImage imageNamed:x]
+    #define UIIMAGE(x) [UIImage imageNamed:x]
     NSArray *images = @[UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn"),UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn")];
     NSArray *highlightedImages = @[UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl")];
     

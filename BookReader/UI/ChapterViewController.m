@@ -14,9 +14,6 @@
 #import "UILabel+BookReader.h"
 #import "BookReader.h"
 
-#define TOP_BAR_IMAGE [UIImage imageNamed:@"read_top_bar.png"]
-#define BACKGROUND_IMAGE [UIImage imageNamed:@"read_more_background.png"]
-
 @implementation ChapterViewController
 @synthesize chaptersArray;
 @synthesize chaptersRealName;
@@ -25,10 +22,10 @@
 {
     [super viewDidLoad];
     bFirstAppeared = YES;
-    UIColor *backgroundColor = [[UIColor alloc] initWithPatternImage:BACKGROUND_IMAGE];
+    UIColor *backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"read_more_background.png"]];
     [self.view setBackgroundColor:backgroundColor];
     
-    UIImageView *topBarImageView = [[UIImageView alloc] initWithImage:TOP_BAR_IMAGE];
+    UIImageView *topBarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"read_top_bar.png"]];
     [topBarImageView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, 42)];
     [self.view addSubview:topBarImageView];
     
