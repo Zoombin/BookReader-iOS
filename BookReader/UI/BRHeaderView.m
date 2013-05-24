@@ -39,9 +39,6 @@
     [_titleLabel setText:@"我的收藏"];
     [self bringSubviewToFront:_titleLabel];
     
-    headerViewOne = [[UIView alloc] initWithFrame:self.frame];
-    [self addSubview:headerViewOne];
-    
     NSArray *titles = @[@"书城", @""];
     NSArray *rectStrings = @[NSStringFromCGRect(BOOKSTORE_BUTTON_FRAME), NSStringFromCGRect(MYACCOUNT_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick"];
@@ -61,7 +58,7 @@
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [headerViewOne addSubview:button];
+        [self addSubview:button];
     }
 }
 

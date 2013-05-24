@@ -21,8 +21,6 @@ typedef enum {
 @end
 
 @interface BRHeaderView : UIView {
-    UIView *headerViewOne;
-    UIView *headerViewTwo;
 }
 @property (nonatomic, weak) id<BookShelfHeaderViewDelegate> delegate;
 @property (nonatomic ,strong) UIButton *backButton;
