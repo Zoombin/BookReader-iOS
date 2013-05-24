@@ -239,7 +239,7 @@
     [shortdescribeTextView setEditable:NO];
     [secondView addSubview:shortdescribeTextView];
     
-    
+    [self removeGestureRecognizer];
 }
 
 - (void)readButtonClicked:(id)sender

@@ -292,7 +292,7 @@
         keyWord = _searchBar.text;
     }
     [self displayHUD:@"加载中..."];
-    [ServiceManager books:@""
+    [ServiceManager books:keyWord
                   classID:0
                   ranking:currentPage
                      size:@"5"
