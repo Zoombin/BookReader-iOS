@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 
-#define SUCCESS_FLAG        @"0000"
+
 #define NETWORK_ERROR        @"网络异常"
-#define USER_ID   @"userid"
+
 
 
 @class Book;
