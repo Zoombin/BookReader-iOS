@@ -481,7 +481,7 @@
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
         for (int i = 0; i<[recommendTitlesArray count]; i++) {
             if (section == i) {
-                [label setText:[@"\t\t" stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
+                [label setText:[@"  " stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
             }
         }
     [view addSubview:label];
