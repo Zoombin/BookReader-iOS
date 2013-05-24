@@ -630,7 +630,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)systemConfigsWithBlock:(void (^)(NSString *, NSError *))block
++ (void)systemConfigsWithBlock:(void (^)(BOOL success,NSString *autoUpdateDelay,NSString *decodeKey,NSString *keepUpdateDelay,NSError *error))block
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
@@ -638,12 +638,18 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [parameters removeObjectForKey:@"yyyyMMdd"];
     [[ServiceManager shared] postPath:@"GetConfigs.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        if (block) {
-            block([theObject description], nil);
+        if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
+            if (block) {
+                block(YES,[[theObject objectForKey:@"settings"] objectForKey:@"autoUpdatedelay"],[[theObject objectForKey:@"settings"] objectForKey:@"decodeKey"], [[theObject objectForKey:@"settings"] objectForKey:@"keepUpdateDelay"],nil);
+            }
+        }else {
+            if (block) {
+                block(NO,@"",@"",@"",nil);
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error);
+            block(nil,@"",@"",@"",error);
         }
     }];
 }
