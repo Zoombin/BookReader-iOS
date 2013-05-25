@@ -278,7 +278,7 @@
 				_book.lastReadChapterID = chapter.uid;
 			}];
 			statusView.title.text = chapter.name;
-			currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];
+			currentChapterString = [[chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue] mutableCopy];
 			[self paging];
 			if ([chapter.lastReadIndex integerValue]) {
 				currentPageIndex = [self goToIndexWithLastReadPosition:[chapter.lastReadIndex intValue]];
@@ -290,7 +290,7 @@
 			}
 		} else {
 			[self displayHUD:@"获取章节内容..."];
-			[ServiceManager bookCatalogue:aChapter.uid withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
+			[ServiceManager bookCatalogue:aChapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
 				[self hideHUD:YES];
 				if (content && ![content isEqualToString:@""]) {
 					currentPageIndex = 0;
@@ -300,7 +300,7 @@
 					[chapter persistWithBlock:^(void) {
 						_book.lastReadChapterID = chapter.uid;
 						[_book persistWithBlock:^(void) {
-							currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];
+							currentChapterString = [[chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue] mutableCopy];
 							[self paging];
 						}];
 					}];
@@ -315,7 +315,7 @@
 							[chapter persistWithBlock:^(void) {
 								_book.lastReadChapterID = chapter.uid;
 								[_book persistWithBlock:^(void) {
-									currentChapterString = [[chapter.content XXSYDecoding] mutableCopy];
+									currentChapterString = [[chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue] mutableCopy];
 									[self paging];
 								}];
 							}];

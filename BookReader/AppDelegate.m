@@ -50,8 +50,9 @@
 //        NSLog(@"其他网络");
 //    }
     
-	//TOTEST: yanchao's account
-	//[ServiceManager saveUserID:@(5639339)];
+	//TOTEST
+	//[ServiceManager saveUserID:@(5639339)];//yanchao
+	//[ServiceManager saveUserID:@(4216157)];//zhangbin
 	
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];

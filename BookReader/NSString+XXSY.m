@@ -16,9 +16,9 @@
 	return [self stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
 }
 
-- (NSString *)XXSYDecoding
+- (NSString *)XXSYDecodingRelatedVIP:(BOOL)vip
 {
-	return [self XXSYDecodingWithKey:[ServiceManager XXSYDecodingKey]];
+	return [self XXSYDecodingWithKey:[ServiceManager XXSYDecodingKeyRelatedUserID:vip]];
 }
 
 - (NSString *)XXSYDecodingWithKey:(NSString *)key

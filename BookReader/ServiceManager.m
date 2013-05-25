@@ -71,9 +71,13 @@ static NSNumber *sUserID;
 
 static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
-+ (NSString *)XXSYDecodingKey
++ (NSString *)XXSYDecodingKeyRelatedUserID:(BOOL)related
 {
-	return [NSString stringWithFormat:@"%@%@", xxsyDecodingKey, [self userID] ? [self userID] : @0];
+	NSNumber *relatedPart = [self userID] ? [self userID] : @0;
+	if (!related) {
+		relatedPart = @0;
+	}
+	return [NSString stringWithFormat:@"%@%@", xxsyDecodingKey, relatedPart];
 }
 
 //获取随机Key和check
@@ -412,13 +416,16 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)bookCatalogue:(NSString *)cataid
++ (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
             withBlock:(void (^)(NSString *content, BOOL success, NSString *message, NSError *error))block
 {
-    NSNumber *userid = [self userID];
+	NSNumber *userid = [self userID];
     if ([self userID] == nil) {
         userid = @0;
     }
+	if (!VIP) {
+		userid = @0;
+	}
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : cataid}, @{@"userid" : userid.stringValue}]];
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];

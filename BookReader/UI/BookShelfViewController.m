@@ -106,7 +106,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		}
 		[booksView reloadData];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			[self syncBooks];
+			//[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 		}
 	}
@@ -189,7 +189,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 	Chapter *chapter = chapters[0];
 		NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
-		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
+		[ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				chapter.content = content;
 				[chapter persistWithBlock:^(void) {
