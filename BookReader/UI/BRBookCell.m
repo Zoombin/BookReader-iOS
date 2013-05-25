@@ -69,8 +69,6 @@
 		}];
     }
     
-    [self setBadge:[_book countOfUnreadChapters]];
-    
     if (_book.progress) {
         [progressView setProgress:book.progress.floatValue];
     }
@@ -97,7 +95,6 @@
 - (void)setBadge:(NSInteger)badge
 {
 	_badge = badge;
-	badgeView.hidden = _badge == 0;
     badgeView.value = _badge;
 }
 

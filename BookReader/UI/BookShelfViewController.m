@@ -178,6 +178,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	if (chapters.count <= 0) {
 		NSLog(@"sync chapters content finished");
+		[self hideHUD:YES];
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
@@ -195,6 +196,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
 		return;
 	}
+	[self displayHUD:@"下载最新章节内容..."];
 	Chapter *chapter = chapters[0];
 		NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
 		[ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
@@ -215,9 +217,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	if (chapters.count <= 0) {
 		NSLog(@"sync auto subscribe finished");
-//		[booksView reloadData];//TODO:do i need to reloaddata? seems noting need to be changed in UI
-		return;//nothing to do any more
+		[self hideHUD:YES];
+		return;
 	}
+	[self displayHUD:@"检查自动更新..."];
 	Chapter *chapter = chapters[0];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
 	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
@@ -357,6 +360,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
+	cell.badge = [book countOfUnreadChapters];
 	return cell;
 }
 
