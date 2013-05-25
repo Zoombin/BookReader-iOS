@@ -234,7 +234,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [ServiceManager saveUserID:member.uid];
         }
         if (block) {
             block(member,nil);
