@@ -396,10 +396,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSString *)cataid
                 withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : cataid}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : @"0"}]];//每次都从头开始更新章节列表
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];

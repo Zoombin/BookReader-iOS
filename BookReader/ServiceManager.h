@@ -110,7 +110,6 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
                        withBlock:(void(^)(NSArray *resultArray,NSError *error))block;
 //章节列表
 + (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSString *)cataid
                 withBlock:(void(^)(NSArray *resultArray,NSError *error))block;
 
 //获取章节内容

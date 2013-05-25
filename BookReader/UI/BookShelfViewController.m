@@ -161,7 +161,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 	Book *book = books[0];
 	[self displayHUD:@"检查新章节目录..."];
-	[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
+	[ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
 		if (!error) {
 			[Chapter persist:resultArray withBlock:^(void) {
 				[books removeObject:book];
