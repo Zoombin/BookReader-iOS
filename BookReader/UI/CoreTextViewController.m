@@ -270,7 +270,7 @@
 		[self displayHUDError:@"错误" message:@"获取章节目录失败"];
 		[self performSelector:@selector(pop) withObject:nil afterDelay:1.5];
 	} else {
-		if (chapter.content) {
+		if (aChapter.content) {
 			currentPageIndex = 0;
 			chapter = aChapter;
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
