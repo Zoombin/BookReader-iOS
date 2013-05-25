@@ -30,6 +30,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "Reachability.h"
 
 static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
@@ -48,6 +49,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BOOL editing;
 	BOOL displayingHistory;
 	NSMutableArray *needRemoveFavoriteBooks;
+	UIAlertView *wifiAlert;
 }
 @synthesize layoutStyle;
 
@@ -106,7 +108,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		}
 		[booksView reloadData];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			//[self syncBooks];
+			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 		}
 	}
@@ -131,7 +133,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					[booksForDisplay removeAllObjects];
 					[booksForDisplay addObjectsFromArray:books];
 					[booksView reloadData];
-					[self displayHUD:@"检查新章节目录..."];
 					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
 				}];
 			}];
@@ -148,11 +149,18 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[chapters removeAllObjects];
 		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
-//		NSLog(@"chapters = %@", ((Chapter *)chapters[0]).content);
-		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+		if([Reachability reachabilityWithHostName:@"server"].currentReachabilityStatus == ReachableViaWiFi) {
+			NSLog(@"WIFI");
+			[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+		} else {
+			NSLog(@"其他网络");
+			wifiAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"当前使用的不是WiFi网络，更新章节内容将消耗较多的流量，是否更新？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"更新", nil];
+			[wifiAlert show];
+		}
 		return;
 	}
 	Book *book = books[0];
+	[self displayHUD:@"检查新章节目录..."];
 	[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
 		if (!error) {
 			[Chapter persist:resultArray withBlock:^(void) {
@@ -295,9 +303,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+	if (alertView == wifiAlert && buttonIndex == 1) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+	} else if (alertView != wifiAlert && buttonIndex == 0) {
         [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
     }
+	
 }
 
 #pragma mark - BRBooksViewDelegate

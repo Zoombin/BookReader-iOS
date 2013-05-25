@@ -21,7 +21,6 @@
 #import "NSString+XXSY.h"
 #import "BookReaderDefaultsManager.h"
 #import "MobileProbe.h"
-#import "Reachability.h"
 #import "UIColor+BookReader.h"
 
 #define REMOTE_MODE
@@ -44,14 +43,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //	[self testApis];
-//    if([Reachability reachabilityWithHostName:@"server"].currentReachabilityStatus == ReachableViaWiFi) {
-//        NSLog(@"WIFI");
-//    } else {
-//        NSLog(@"其他网络");
-//    }
     
 	//TOTEST
-	//[ServiceManager saveUserID:@(5639339)];//yanchao
+	[ServiceManager saveUserID:@(5639339)];//yanchao
 	//[ServiceManager saveUserID:@(4216157)];//zhangbin
 	
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
