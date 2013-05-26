@@ -30,6 +30,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "Reachability.h"
 
 static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
@@ -48,6 +49,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BOOL editing;
 	BOOL displayingHistory;
 	NSMutableArray *needRemoveFavoriteBooks;
+	UIAlertView *wifiAlert;
 }
 @synthesize layoutStyle;
 
@@ -131,7 +133,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					[booksForDisplay removeAllObjects];
 					[booksForDisplay addObjectsFromArray:books];
 					[booksView reloadData];
-					[self displayHUD:@"检查新章节目录..."];
 					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
 				}];
 			}];
@@ -148,12 +149,19 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[chapters removeAllObjects];
 		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
-//		NSLog(@"chapters = %@", ((Chapter *)chapters[0]).content);
-		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+		if([Reachability reachabilityWithHostName:@"server"].currentReachabilityStatus == ReachableViaWiFi) {
+			NSLog(@"WIFI");
+			[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+		} else {
+			NSLog(@"其他网络");
+			wifiAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"当前使用的不是WiFi网络，更新章节内容将消耗较多的流量，是否更新？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"更新", nil];
+			[wifiAlert show];
+		}
 		return;
 	}
 	Book *book = books[0];
-	[ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
+	[self displayHUD:@"检查新章节目录..."];
+	[ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
 		if (!error) {
 			[Chapter persist:resultArray withBlock:^(void) {
 				[books removeObject:book];
@@ -170,6 +178,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	if (chapters.count <= 0) {
 		NSLog(@"sync chapters content finished");
+		[self hideHUD:YES];
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
@@ -187,9 +196,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
 		return;
 	}
+	[self displayHUD:@"下载最新章节内容..."];
 	Chapter *chapter = chapters[0];
 		NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
-		[ServiceManager bookCatalogue:chapter.uid withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
+		[ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				chapter.content = content;
 				[chapter persistWithBlock:^(void) {
@@ -207,9 +217,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	if (chapters.count <= 0) {
 		NSLog(@"sync auto subscribe finished");
-//		[booksView reloadData];//TODO:do i need to reloaddata? seems noting need to be changed in UI
-		return;//nothing to do any more
+		[self hideHUD:YES];
+		return;
 	}
+	[self displayHUD:@"检查自动更新..."];
 	Chapter *chapter = chapters[0];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
 	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
@@ -295,9 +306,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+	if (alertView == wifiAlert && buttonIndex == 1) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+	} else if (alertView != wifiAlert && buttonIndex == 0) {
         [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
     }
+	
 }
 
 #pragma mark - BRBooksViewDelegate
@@ -346,6 +360,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
+	cell.badge = [book countOfUnreadChapters];
 	return cell;
 }
 

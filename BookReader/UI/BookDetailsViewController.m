@@ -246,13 +246,14 @@
 {
    	[book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
-        [ServiceManager bookCatalogueList:book.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
-            [self hideHUD:YES];
+        [ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
             if (!error) {
                 [Chapter persist:resultArray withBlock:^(void) {
-                    [self pushToReadView];
+					[self hideHUD:YES];
+					[self pushToReadView];
                 }];
             } else {
+				[self hideHUD:YES];
                 [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
             }
         }];

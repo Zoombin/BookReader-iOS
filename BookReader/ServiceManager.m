@@ -49,6 +49,7 @@ static NSNumber *sUserID;
 + (void)saveUserID:(NSNumber *)userID
 {
 	sUserID = userID;
+	NSLog(@"saveUserID: %@", userID);
     [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:USER_ID];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -70,9 +71,13 @@ static NSNumber *sUserID;
 
 static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
-+ (NSString *)XXSYDecodingKey
++ (NSString *)XXSYDecodingKeyRelatedUserID:(BOOL)related
 {
-	return [NSString stringWithFormat:@"%@%@", xxsyDecodingKey, [self userID] ? [self userID] : @0];
+	NSNumber *relatedPart = [self userID] ? [self userID] : @0;
+	if (!related) {
+		relatedPart = @0;
+	}
+	return [NSString stringWithFormat:@"%@%@", xxsyDecodingKey, relatedPart];
 }
 
 //获取随机Key和check
@@ -233,7 +238,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
-            [ServiceManager saveUserID:member.uid];
         }
         if (block) {
             block(member,nil);
@@ -392,10 +396,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSString *)cataid
                 withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : cataid}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : @"0"}]];//每次都从头开始更新章节列表
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
@@ -412,13 +415,16 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)bookCatalogue:(NSString *)cataid
++ (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
             withBlock:(void (^)(NSString *content, BOOL success, NSString *message, NSError *error))block
 {
-    NSNumber *userid = [self userID];
+	NSNumber *userid = [self userID];
     if ([self userID] == nil) {
         userid = @0;
     }
+	if (!VIP) {
+		userid = @0;
+	}
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : cataid}, @{@"userid" : userid.stringValue}]];
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];

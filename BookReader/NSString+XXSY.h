@@ -42,7 +42,7 @@
 @interface NSString (XXSY)
 
 - (NSString *)XXSYHandleRedundantTags;
-- (NSString *)XXSYDecoding;
+- (NSString *)XXSYDecodingRelatedVIP:(BOOL)vip;
 - (NSString *)XXSYDecodingWithKey:(NSString *)key;
 - (NSArray*) pagesWithFont:(UIFont *)font inSize:(CGSize)size;
 

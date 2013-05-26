@@ -23,8 +23,7 @@
 + (void)saveUserID:(NSNumber *)userID;
 + (NSNumber *)userID;
 + (void)deleteUserID;
-+ (NSString *)XXSYDecodingKey;
-
++ (NSString *)XXSYDecodingKeyRelatedUserID:(BOOL)related;
 #pragma mark - 用户接口
 //短信获取验证码
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
@@ -111,11 +110,10 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
                        withBlock:(void(^)(NSArray *resultArray,NSError *error))block;
 //章节列表
 + (void)bookCatalogueList:(NSString *)bookid
-          andNewestCataId:(NSString *)cataid
                 withBlock:(void(^)(NSArray *resultArray,NSError *error))block;
 
 //获取章节内容
-+ (void)bookCatalogue:(NSString *)cataid
++ (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
             withBlock:(void(^)(NSString *content, BOOL success, NSString *message, NSError *error))block; //内容 提示语 提示code
 
 //章节订阅

@@ -80,7 +80,7 @@
 - (void)chapterDataFromService
 {
     [self displayHUD:@"获取书籍目录中..."];
-    [ServiceManager bookCatalogueList:bookobj.uid andNewestCataId:@"0" withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager bookCatalogueList:bookobj.uid withBlock:^(NSArray *resultArray, NSError *error) {
         if (error)
         {
             [self hideHUD:YES];
