@@ -13,11 +13,6 @@
 #import "UILabel+BookReader.h"
 #import "UIColor+BookReader.h"
 
-#define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
-#define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
-#define _mTableViewFrame        CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-50+6)
-#define downloadButtonFrame     CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)
-
 @implementation HouseAppListViewController
 {
     UMUFPTableView *_mTableView;
@@ -53,17 +48,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:headerImageViewFrame];
+    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerImageView setImage:[UIImage imageNamed:@"main_headerbackground"]];
     [self.view addSubview:headerImageView];
     
-    UILabel *titleLabel = [UILabel titleLableWithFrame:titleLabelFrame];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:NSLocalizedString(@"AppRecommend", nil)];
     [titleLabel setTextColor:[UIColor txtColor]];
     [self.view addSubview:titleLabel];
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_background.png"]];
-    _mTableView = [[UMUFPTableView alloc] initWithFrame:_mTableViewFrame style:UITableViewStylePlain appkey:UMengAppKey slotId:nil currentViewController:self];
+    _mTableView = [[UMUFPTableView alloc] initWithFrame: CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-50+6) style:UITableViewStylePlain appkey:UMengAppKey slotId:nil currentViewController:self];
     _mTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _mTableView.delegate = self;
     _mTableView.dataSource = self;
@@ -129,7 +124,7 @@
             [cell setBackgroundView:cellBackground];
             
             UIButton *downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [downloadButton setFrame:downloadButtonFrame];
+            [downloadButton setFrame:CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)];
             [downloadButton setTag:[indexPath section]];
             [downloadButton.layer setCornerRadius:4];
             [downloadButton.layer setMasksToBounds:YES];
@@ -152,7 +147,7 @@
             [cell setBackgroundView:cellBackground];
             
             UIButton *downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [downloadButton setFrame:downloadButtonFrame];
+            [downloadButton setFrame:CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)];
             [downloadButton setTag:[indexPath section]];
             [downloadButton.layer setCornerRadius:4];
             [downloadButton.layer setMasksToBounds:YES];

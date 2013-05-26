@@ -15,11 +15,6 @@
 #import "UILabel+BookReader.h"
 #import "UIColor+BookReader.h"
 
-#define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
-#define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
-#define downloadButtonFrame     CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)
-#define infoTableViewFrame          CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-85+6)
-
 @implementation HouseBookListViewController
 {
     UITableView     *infoTableView;
@@ -30,17 +25,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:headerImageViewFrame];
+    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerImageView setImage:[UIImage imageNamed:@"main_headerbackground"]];
     [self.view addSubview:headerImageView];
     
-    UILabel *titleLabel = [UILabel titleLableWithFrame:titleLabelFrame];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:NSLocalizedString(@"BookStore", nil)];
     [titleLabel setTextColor:[UIColor txtColor]];
     [self.view addSubview:titleLabel];
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"local_background.png"]];
-    infoTableView = [[UITableView alloc] initWithFrame:infoTableViewFrame style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-85+6) style:UITableViewStylePlain];
     [infoTableView setBackgroundColor:[UIColor clearColor]];
     [infoTableView setBackgroundView:backgroundView];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -96,7 +91,7 @@
             [cell setBackgroundView:cellBackground];
             
             UIButton *downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [downloadButton setFrame:downloadButtonFrame];
+            [downloadButton setFrame:CGRectMake(self.view.bounds.size.width-60, 5, 50, 25)];
             [downloadButton.layer setCornerRadius:4];
             [downloadButton.layer setMasksToBounds:YES];
             [downloadButton setUserInteractionEnabled:NO];

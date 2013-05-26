@@ -11,13 +11,6 @@
 #import "BookReader.h"
 #import "UIColor+BookReader.h"
 
-//---infoTableView---
-#define textViewFrame               CGRectMake(20, 2, self.view.bounds.size.width-40, 78)
-#define backgroundImageViewFrame    CGRectMake(15, 0, textView.frame.size.width+10, textView.frame.size.height+10)
-#define headerImageViewFrame    CGRectMake(0, 0, self.view.bounds.size.width, 44)
-#define titleLabelFrame         CGRectMake(0, 0, self.view.bounds.size.width, 44)
-#define infoTableViewFrame          CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-85+6)
-
 @implementation AboutViewController {
     UITableView     *infoTableView;
 }
@@ -29,11 +22,11 @@
     [self.view addSubview:backgroundView];
     
     
-    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:headerImageViewFrame];
+    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerImageView setImage:[UIImage imageNamed:@"main_headerbackground"]];
     [self.view addSubview:headerImageView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:NSLocalizedString(@"AboutUs", nil)];
     [titleLabel setTextColor:[UIColor txtColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
@@ -41,7 +34,7 @@
     [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [self.view addSubview:titleLabel];
     
-    infoTableView = [[UITableView alloc] initWithFrame:infoTableViewFrame style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame: CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-85+6) style:UITableViewStylePlain];
     [infoTableView setBackgroundColor:[UIColor clearColor]];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
@@ -93,7 +86,7 @@
 		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:14]];
         
-        UILabel *textView = [[UILabel alloc] initWithFrame:textViewFrame];
+        UILabel *textView = [[UILabel alloc] initWithFrame:CGRectMake(20, 2, self.view.bounds.size.width-40, 78)];
         [textView setTextColor:[UIColor txtColor]];
         [textView setBackgroundColor:[UIColor clearColor]];
         [textView setUserInteractionEnabled:NO];
@@ -102,7 +95,7 @@
         [textView setNumberOfLines:0];
         [cell.contentView addSubview:textView];
         
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:backgroundImageViewFrame];
+        UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, textView.frame.size.width+10, textView.frame.size.height+10)];
         [backgroundImageView setImage:[UIImage imageNamed:@"setting_cellbackground.png"]];
         [backgroundImageView setAlpha:0.7];
         [backgroundImageView.layer setCornerRadius:6];
