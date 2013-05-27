@@ -69,7 +69,7 @@
 //    lineBreakMode.valueSize = sizeof(CTLineBreakMode);
     //行间距
     CTParagraphStyleSetting LineSpacing;
-    CGFloat spacing = 0.0;  //指定间距
+    CGFloat spacing = 10.0;  //指定间距
     LineSpacing.spec = kCTParagraphStyleSpecifierLineSpacingAdjustment;
     LineSpacing.value = &spacing;
     LineSpacing.valueSize = sizeof(CGFloat);

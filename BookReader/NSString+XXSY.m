@@ -115,6 +115,20 @@
     CFAttributedStringRef str = CFAttributedStringCreate(kCFAllocatorDefault,
                                                          (CFStringRef)self,
                                                          (CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)fnt,kCTFontAttributeName,nil]);
+    
+   //TODO:增加行间距
+    CFRange range = CFRangeMake(0, CFStringGetLength((CFStringRef)str));
+    CTParagraphStyleSetting LineSpacing;
+    CGFloat spacing = 10.0;  //指定间距
+    LineSpacing.spec = kCTParagraphStyleSpecifierLineSpacingAdjustment;
+    LineSpacing.value = &spacing;
+    LineSpacing.valueSize = sizeof(CGFloat);
+    CTParagraphStyleSetting settings[] = {LineSpacing};
+    CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(settings, 1);   //第二个参数为settings的长度
+    CFAttributedStringSetAttribute((CFMutableAttributedStringRef)str, range,
+                                   kCTParagraphStyleAttributeName, paragraphStyle);
+    
+    
     CTFramesetterRef fs = CTFramesetterCreateWithAttributedString(str);
     CFRange r = {0,0};
     CFRange res = {0,0};
