@@ -53,8 +53,8 @@
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		1888A36E16FC18CF0046DA4C /* toolbar_bottom_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */; };
 		1888A37016FC28A40046DA4C /* toolbar_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */; };
-		1888A37316FC2A3E0046DA4C /* search_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37116FC2A3E0046DA4C /* search_btn_hl.png */; };
-		1888A37416FC2A3E0046DA4C /* search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37216FC2A3E0046DA4C /* search_btn.png */; };
+		1888A37316FC2A3E0046DA4C /* universal_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37116FC2A3E0046DA4C /* universal_btn_hl.png */; };
+		1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37216FC2A3E0046DA4C /* universal_btn.png */; };
 		1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37516FC3C600046DA4C /* main_view_bkg.png */; };
 		1888A37B16FC4EB60046DA4C /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37716FC4EB60046DA4C /* 1.png */; };
 		1888A37C16FC4EB60046DA4C /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37816FC4EB60046DA4C /* 2.png */; };
@@ -404,15 +404,15 @@
 		181091F2173B688C000931AB /* UIColor+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BookReader.h"; sourceTree = "<group>"; };
 		181091F3173B688D000931AB /* UIColor+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BookReader.m"; sourceTree = "<group>"; };
 		1848FC31171F9C3D00E8A3F1 /* BookShelfBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfBottomView.h; sourceTree = "<group>"; };
-		1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfBottomView.m; sourceTree = "<group>"; };
+		1848FC32171F9C3D00E8A3F1 /* BookShelfBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BookShelfBottomView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		186292FA17325C5300777357 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_bottom_bar.png; sourceTree = "<group>"; };
 		1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_top_bar.png; sourceTree = "<group>"; };
-		1888A37116FC2A3E0046DA4C /* search_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_btn_hl.png; sourceTree = "<group>"; };
-		1888A37216FC2A3E0046DA4C /* search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_btn.png; sourceTree = "<group>"; };
+		1888A37116FC2A3E0046DA4C /* universal_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = universal_btn_hl.png; sourceTree = "<group>"; };
+		1888A37216FC2A3E0046DA4C /* universal_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = universal_btn.png; sourceTree = "<group>"; };
 		1888A37516FC3C600046DA4C /* main_view_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_view_bkg.png; sourceTree = "<group>"; };
 		1888A37716FC4EB60046DA4C /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = Image/Remote/localBook/1.png; sourceTree = "<group>"; };
 		1888A37816FC4EB60046DA4C /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2.png; path = Image/Remote/localBook/2.png; sourceTree = "<group>"; };
@@ -1053,8 +1053,8 @@
 				1888A38F16FD4ED40046DA4C /* tabbar_pandora_box.png */,
 				1888A37516FC3C600046DA4C /* main_view_bkg.png */,
 				1888A36D16FC18CF0046DA4C /* toolbar_bottom_bar.png */,
-				1888A37116FC2A3E0046DA4C /* search_btn_hl.png */,
-				1888A37216FC2A3E0046DA4C /* search_btn.png */,
+				1888A37116FC2A3E0046DA4C /* universal_btn_hl.png */,
+				1888A37216FC2A3E0046DA4C /* universal_btn.png */,
 				1888A36F16FC28A40046DA4C /* toolbar_top_bar.png */,
 				188FE63816F9A069009561CB /* localbook_progress_background.png */,
 				188FE63916F9A069009561CB /* localbook_progress_front.png */,
@@ -1916,8 +1916,8 @@
 				188FE63B16F9A069009561CB /* localbook_progress_front.png in Resources */,
 				1888A36E16FC18CF0046DA4C /* toolbar_bottom_bar.png in Resources */,
 				1888A37016FC28A40046DA4C /* toolbar_top_bar.png in Resources */,
-				1888A37316FC2A3E0046DA4C /* search_btn_hl.png in Resources */,
-				1888A37416FC2A3E0046DA4C /* search_btn.png in Resources */,
+				1888A37316FC2A3E0046DA4C /* universal_btn_hl.png in Resources */,
+				1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */,
 				1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */,
 				1888A37B16FC4EB60046DA4C /* 1.png in Resources */,
 				1888A37C16FC4EB60046DA4C /* 2.png in Resources */,

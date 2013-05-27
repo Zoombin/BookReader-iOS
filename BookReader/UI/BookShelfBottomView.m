@@ -59,8 +59,8 @@
     NSArray *selectorStrings = @[@"editButtonClick", @"refreshButtonClick", @"historyButtonClick", @"shelfButtonClick", @"deleteButtonClick", @"finishButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn"),UIIMAGE(@"search_btn"), UIIMAGE(@"search_btn")];
-    NSArray *highlightedImages = @[UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl"), UIIMAGE(@"search_btn_hl")];
+    NSArray *images = @[UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"),UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn")];
+    NSArray *highlightedImages = @[UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl")];
     
     NSAssert(titles.count == rectStrings.count && rectStrings.count == selectorStrings.count && selectorStrings.count == images.count && images.count == highlightedImages.count, @"titles.count, rectStrings.count, selectorStrings.count, images.count, highlightedImages.count can't match each other...");
     
