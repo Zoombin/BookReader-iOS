@@ -184,6 +184,7 @@
     [categoryView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:categoryView];
     
+    CGRect frame = CGRectMake(30, 20, self.view.bounds.size.width-60, 30);
     NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
     for (int i=0; i<[buttonNames count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -193,7 +194,10 @@
         } else {
            [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
         }
-        [button setFrame:CGRectMake(30, 20+i*30, self.view.bounds.size.width-60, 30)];
+        if (i!=0) {
+            frame = CGRectMake(30, CGRectGetMaxY(frame), frame.size.width, frame.size.height);
+        }
+        [button setFrame:frame];
         [button setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
@@ -207,6 +211,7 @@
     [rankView setHidden:YES];
     [self.view addSubview:rankView];
     NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
+    CGRect frame = CGRectMake(0*(self.view.bounds.size.width/3)+0, 0, self.view.bounds.size.width/3, 40);
     for (int i = 0; i<3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         if (i==0) {
@@ -214,7 +219,10 @@
         }
         [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(i*(self.view.bounds.size.width/3)+0, 0, self.view.bounds.size.width/3, 40)];
+        if (i!=0) {
+            frame = CGRectMake(CGRectGetMaxX(frame), 0, frame.size.width, frame.size.height);
+        }
+        [button setFrame:frame];
         [rankView addSubview:button];
         [rankBtns addObject:button];
     }

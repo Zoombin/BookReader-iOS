@@ -159,9 +159,14 @@
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
     
+    CGRect frame = CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*0, 100, fontView.bounds.size.width/[textcolorArray count], 30);
+    
     for (int i =0 ; i < [textcolorArray count]; i++) {
         UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [colorButton setFrame:CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*i, 100, fontView.bounds.size.width/[textcolorArray count], 30)];
+        if (i!=0) {
+            frame = CGRectMake(CGRectGetMaxX(frame), 100, frame.size.width, frame.size.height);
+        }
+        [colorButton setFrame:frame];
         [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
         [colorButton setTag:i];
         [colorButton setTitle:textcolorNames[i] forState:UIControlStateNormal];
@@ -214,10 +219,14 @@
     markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
     
+    CGRect frame = CGRectMake(0, 0, backgroundView.bounds.size.width/16*3, backgroundView.bounds.size.width/16*3);
     
     for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(0+i*backgroundView.bounds.size.width/16*3+20*i, 0, backgroundView.bounds.size.width/16*3, backgroundView.bounds.size.width/16*3)];
+        if (i!=0) {
+            frame = CGRectMake(CGRectGetMaxX(frame)+20, 0, frame.size.width, frame.size.height);
+        }
+        [button setFrame:frame];
         [button setTag:i];
         [button.layer setBorderWidth:2];
         if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue] == i) {
