@@ -119,7 +119,7 @@
     UIImageView *bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 90, 120)];
     NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
-    [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [tmpImageView setImage:image];
         book.cover = UIImageJPEGRepresentation(image, 1.0);
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -98,7 +98,11 @@
     if (book.cover) {
         coverView.image = [UIImage imageWithData:book.cover];
     } else if (book.coverURL) {
-        [coverView setImageWithURL:[NSURL URLWithString:book.coverURL]];
+       [coverView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            [coverView setImage:image];  
+       } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+           
+       }];
     }
 }
 

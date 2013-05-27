@@ -60,10 +60,11 @@
 		self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:_book.cover]];
     } else {
 		UIImageView *imageView = [[UIImageView alloc] init];
+        self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_placeholder"]];
 		[imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
 			_book.cover = [[NSData alloc] initWithData:UIImagePNGRepresentation(image)];
 			[_book persistWithBlock:nil];
-			self.backgroundView = [[UIImageView alloc] initWithImage:image];
+			[(UIImageView *)self.backgroundView setImage:image];
 		} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 			
 		}];
