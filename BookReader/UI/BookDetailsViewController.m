@@ -27,6 +27,7 @@
 #import "Comment.h"
 #import "UIColor+Hex.h"
 #import "UILabel+BookReader.h"
+#import "UIView+BookReader.h"
 #import "CommentCell.h"
 
 #define AUTHORBOOK      1
@@ -532,17 +533,7 @@
 
 - (void)addFootView
 {
-    UIView *footview = [[UIView alloc]initWithFrame:CGRectMake(-4, 0, 316, 26)];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(-4, 0, 316, 26)];
-    [button setBackgroundColor:[UIColor clearColor]];
-    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [button setTitle:@"查看更多..." forState:UIControlStateNormal];
-    [button.titleLabel setTextAlignment:UITextAlignmentCenter];
-    [button addTarget:self action:@selector(getMore) forControlEvents:UIControlEventTouchUpInside];
-    [footview addSubview:button];
+    UIView *footview = [UIView tableViewFootView:CGRectMake(-4, 0, 316, 26) andSel:NSSelectorFromString(@"getMore") andTarget:self];
     [infoTableView setTableFooterView:footview];
 }
 

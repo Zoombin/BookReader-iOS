@@ -18,4 +18,5 @@
 
 + (UIView *)userBackgroundViewWithFrame:(CGRect)frame
                                andTitle:(NSString *)title;
++ (UIView *)tableViewFootView:(CGRect)frame andSel:(SEL)selector andTarget:(id)target;
 @end

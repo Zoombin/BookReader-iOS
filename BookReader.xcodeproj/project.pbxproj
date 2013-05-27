@@ -375,7 +375,7 @@
 		18063FC71745BB5500744A12 /* integral_two_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_two_hl.png; sourceTree = "<group>"; };
 		18063FC81745BB5500744A12 /* integral_two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_two.png; sourceTree = "<group>"; };
 		18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailsViewController.h; sourceTree = "<group>"; };
-		18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailsViewController.m; sourceTree = "<group>"; };
+		18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CategoryDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		18089E3F171BAFC400BCB50E /* local_book_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = local_book_select.png; sourceTree = "<group>"; };
 		18089E43171BD5E400BCB50E /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNumberBadgeView.h; sourceTree = "<group>"; };
 		18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNumberBadgeView.m; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 		1888A38F16FD4ED40046DA4C /* tabbar_pandora_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_pandora_box.png; sourceTree = "<group>"; };
 		1888A39A16FD59690046DA4C /* tabbar_baritem_hl_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_baritem_hl_bg.png; sourceTree = "<group>"; };
 		1888A39C16FD65960046DA4C /* BookStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStoreViewController.h; sourceTree = "<group>"; };
-		1888A39D16FD65960046DA4C /* BookStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStoreViewController.m; sourceTree = "<group>"; };
+		1888A39D16FD65960046DA4C /* BookStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BookStoreViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1888A39F16FD66520046DA4C /* MemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberViewController.h; sourceTree = "<group>"; };
 		1888A3A016FD66520046DA4C /* MemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberViewController.m; sourceTree = "<group>"; };
 		1888A3A316FFE8420046DA4C /* ServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceManager.h; sourceTree = "<group>"; };
@@ -451,7 +451,7 @@
 		1888A3D41702B10D0046DA4C /* bookcity_SearchUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookcity_SearchUp.png; sourceTree = "<group>"; };
 		1888A3DD1702C1A00046DA4C /* iphone_qqreader_feedback_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone_qqreader_feedback_bg.png; sourceTree = "<group>"; };
 		1888A3DF1702DE440046DA4C /* BookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
-		1888A3E01702DE450046DA4C /* BookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailsViewController.m; sourceTree = "<group>"; };
+		1888A3E01702DE450046DA4C /* BookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BookDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		188AC57C1714139900FC012B /* source.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = source.txt; sourceTree = SOURCE_ROOT; };
 		188FE62616F84510009561CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		188FE62816F8453E009561CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
