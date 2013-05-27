@@ -8,6 +8,7 @@
 
 #import "GiftCell.h"
 #import "UIButton+BookReader.h"
+#import "ServiceManager.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define DarkGrayColor   [UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]
@@ -40,7 +41,7 @@
         // Initialization code
         currentValue = @"";
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
-        keyWordsArray = [NSMutableArray arrayWithObjects:@"钻石",@"鲜花",@"打赏",@"月票",@"评价票", nil];
+        keyWordsArray = [[NSMutableArray alloc] initWithArray:XXSYGiftTypesMap.allKeys];
         imageNamesArray = @[@"demand",@"flower",@"money",@"monthticket",@"comment"];
         normalImages = @[@"integral_one",@"integral_two",@"integral_three",@"integral_four",@"integral_five"];
         hlImages = @[@"integral_one_hl",@"integral_two_hl",@"integral_three_hl",@"integral_four_hl",@"integral_five_hl"];

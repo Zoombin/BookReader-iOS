@@ -145,12 +145,11 @@
         [label setText:[NSString stringWithFormat:@"%@%@",labelTitles[i],labelNames[i]]];
         [firstBkgView addSubview:label];
     }
-    //1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
-    NSArray *buttonTitles = @[@"阅读",@"收藏",@"送钻石",@"送鲜花",@"打赏",@"投月票",@"投评价"];
+    NSArray *buttonTitles = @[@"阅读",@"收藏"];
     NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
     NSArray *selStrings = @[@"readButtonClicked:", @"favButtonClicked:", @"buttonClicked:"];
 	NSMutableArray *buttons = [NSMutableArray array];
-    for (int i = 0; i < [buttonTitles count]; i++) {
+    for (int i = 0; i < 7; i++) {
         UIButton *button = nil;
         if (i >= 2) {
             button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -279,7 +278,7 @@
     } else if (sender == giveComment) {
         index = 4;
     }
-    [self pushToGiftViewWithIndex:@(index).stringValue];//1:送钻石 2:送鲜花 3:打赏 4:月票 5:投评价
+    [self pushToGiftViewWithIndex:@(index).stringValue];
 }
 
 - (void)selectTabBar:(UIButton *)sender
