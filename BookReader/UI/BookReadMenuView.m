@@ -25,6 +25,9 @@
     UIButton *fontButton;
     UIButton *backgroundSettingButton;
     
+    UIButton *defaultFontButton;
+    UIButton *foundFontButton;
+    
     NSMutableArray *bottomViewBtns;
     
     UIImageView *markImageView;
@@ -138,6 +141,7 @@
     
 	_fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
+    [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [_fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
@@ -147,17 +151,23 @@
     [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
-    UIButton *defaultFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+     defaultFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [defaultFontButton setFrame:CGRectMake(0, 30, fontView.bounds.size.width, 30)];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
     [defaultFontButton setTitle:@"系统默认字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-    UIButton *foundFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+     foundFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [foundFontButton setFrame:CGRectMake(0, 60, fontView.bounds.size.width, 30)];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
+    
+    if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:[BookReaderDefaultsManager objectForKey:UserDefaultFoundFont]]) {
+        [foundFontButton setEnabled:NO];
+    } else {
+        [defaultFontButton setEnabled:NO];
+    }
     
     CGRect frame = CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*0, 100, fontView.bounds.size.width/[textcolorArray count], 30);
     
@@ -271,6 +281,8 @@
 
 - (void)systemFontChange
 {
+    [defaultFontButton setEnabled:NO];
+    [foundFontButton setEnabled:YES];
     if ([self.delegate respondsToSelector:@selector(systemFont)]) {
         [self.delegate systemFont];
     }
@@ -278,6 +290,8 @@
 
 - (void)foundFontChange
 {
+    [defaultFontButton setEnabled:YES];
+    [foundFontButton setEnabled:NO];
     if ([self.delegate respondsToSelector:@selector(foundFont)]) {
         [self.delegate foundFont];
     }

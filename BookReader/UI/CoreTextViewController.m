@@ -60,6 +60,8 @@
 	coreTextView.fontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
 	NSString *textColorString = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
 	coreTextView.textColor = [UIColor performSelector:NSSelectorFromString(textColorString)];
+    statusView.title.textColor = [UIColor performSelector:NSSelectorFromString(textColorString)];
+    statusView.percentage.textColor = [UIColor performSelector:NSSelectorFromString(textColorString)];
     [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
@@ -133,9 +135,7 @@
 	coreTextView.textColor = [UIColor performSelector:textcolorselector];
     statusView.title.textColor = [UIColor performSelector:textcolorselector];
     statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
-	//TODO:need?
-	[coreTextView buildTextWithString:currentPageString];
-	[coreTextView setNeedsDisplay];
+	[self paging];
 }
 
 - (void)updateFont
@@ -156,6 +156,7 @@
 - (void)paging
 {
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
+    coreTextView.fontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
 	NSAssert(currentChapterString != nil, @"currentChapterString == nil...");
 	pagesArray = [[currentChapterString pagesWithFont:coreTextView.font inSize:coreTextView.frame.size] mutableCopy];
 	NSRange range = NSRangeFromString(pagesArray[currentPageIndex]);
@@ -183,36 +184,32 @@
 - (void)changeTextColor:(NSString *)textColor
 {
 	[BookReaderDefaultsManager setObject:textColor ForKey:UserDefaultKeyTextColor];
-	//TODO
-    //[self updateContent];
+	[self updateFontColor];
 }
 
 - (void)fontChanged:(BOOL)reduce
 {
 	CGFloat currentFontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
 	currentFontSize += reduce ? -1 : 1;
-	if (currentFontSize < UserDefaultFontSizeMin.floatValue && currentFontSize > UserDefaultFontSizeMax.floatValue) {
+	if (currentFontSize < UserDefaultFontSizeMin.floatValue || currentFontSize > UserDefaultFontSizeMax.floatValue) {
 		NSString *errorMessage = [NSString stringWithFormat:@"字体已达到最%@", reduce ? @"小" : @"大"];
 		[self displayHUDError:nil message:errorMessage];
 		return;
 	}
 	[BookReaderDefaultsManager setObject:@(currentFontSize) ForKey:UserDefaultKeyFontSize];
-	//TODO
-	//[self updateContent];
+	[self updateFontSize];
 }
 
 - (void)systemFont
 {
 	[BookReaderDefaultsManager setObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
-	//TODO
-    //[self updateContent];
+    [self updateFont];
 }
 
 - (void)foundFont
 {
 	[BookReaderDefaultsManager setObject:UserDefaultFoundFont ForKey:UserDefaultKeyFontName];
-	//TODO
-    //[self updateContent];
+    [self updateFont];
 }
 
 #pragma mark -
