@@ -21,8 +21,6 @@
 @implementation GiftViewController {
     NSString *currentIndex;
     Book *bookObj;
-    NSArray *integralArrays;
-    
     NSMutableArray *newKeyWordsArray;
     UITableView *infoTableView;
 }
@@ -38,7 +36,6 @@
         NSString *key = [newKeyWordsArray objectAtIndex:[index intValue]];
         [newKeyWordsArray removeObject:key];
         [newKeyWordsArray insertObject:key atIndex:0];
-        integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
     }
     return self;
 }
