@@ -81,11 +81,40 @@
         comment = [UIButton buttonWithType:UIButtonTypeCustom];
         authorBook = [UIButton buttonWithType:UIButtonTypeCustom];
         bookRecommend = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+        if([MFMessageComposeViewController canSendText]) {
+            messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+        }
         // Custom initialization
     }
     return self;
 }
+
+- (void)smsShareButtonClicked:(id)sender {
+    if([MFMessageComposeViewController canSendText]) {
+        messageComposeViewController.messageComposeDelegate = self;
+        NSString *message =  [NSString stringWithFormat:@"书名:%@ 作者:%@ 下载地址:http://www.xxsy.net",book.name,book.author];
+        [messageComposeViewController setBody:[NSString stringWithString:message]];
+        [self presentModalViewController:messageComposeViewController animated:YES];
+    }
+    else {
+        [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
+    }
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+	switch (result) {
+		case MessageComposeResultCancelled:
+			break;
+		case MessageComposeResultSent:
+			break;
+		case MessageComposeResultFailed:
+			break;
+		default:
+			break;
+	}
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -146,21 +175,22 @@
         [label setText:[NSString stringWithFormat:@"%@%@",labelTitles[i],labelNames[i]]];
         [firstBkgView addSubview:label];
     }
-    NSArray *buttonTitles = @[@"阅读",@"收藏"];
+    NSArray *buttonTitles = @[@"阅读",@"收藏",@"分享"];
     NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
-    NSArray *selStrings = @[@"readButtonClicked:", @"favButtonClicked:", @"buttonClicked:"];
+    NSArray *selStrings = @[@"readButtonClicked:", @"favButtonClicked:", @"smsShareButtonClicked:", @"buttonClicked:"];
 	NSMutableArray *buttons = [NSMutableArray array];
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         UIButton *button = nil;
-        if (i >= 2) {
+        if (i >= 3) {
             button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setFrame:CGRectMake(5*(i-2)+290/5*(i-2), 150, 290/5, 20)];
-            [button setImage:[UIImage imageNamed:imageNames[i-2]] forState:UIControlStateNormal];
+            [button setFrame:CGRectMake(5*(i-3)+290/5*(i-3), 150, 290/5, 20)];
+            [button setImage:[UIImage imageNamed:imageNames[i-3]] forState:UIControlStateNormal];
         }else {
-            button = [UIButton createButtonWithFrame:CGRectMake(110+100*i, 120, 80, 20)];
+            button = [UIButton createButtonWithFrame:CGRectMake(110+70*i, 120, 50, 20)];
             [button setTitle:buttonTitles[i] forState:UIControlStateNormal];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:10]];
         }
-        [button addTarget:self action:NSSelectorFromString(i >= 2 ? selStrings[2] : selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:NSSelectorFromString(i >= 3 ? selStrings[3] : selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [firstBkgView addSubview:button];
 		[buttons addObject:button];
     }

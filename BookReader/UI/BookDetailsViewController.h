@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface BookDetailsViewController : BRViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface BookDetailsViewController : BRViewController <MFMessageComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate> {
+    MFMessageComposeViewController *messageComposeViewController;
+}
 - (id)initWithBook:(NSString *)uid;
 @end
