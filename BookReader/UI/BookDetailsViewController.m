@@ -323,8 +323,8 @@
     if (sender == shortDescribe) {
         [secondView bringSubviewToFront:shortdescribeTextView];
     } else if (sender == comment) {
-        [secondView bringSubviewToFront:infoTableView];
         [secondView bringSubviewToFront:sendCommitButton];
+        [secondView bringSubviewToFront:infoTableView];
     } else if (sender == authorBook) {
         currentType = AUTHORBOOK;
         [recommendTableView reloadData];
