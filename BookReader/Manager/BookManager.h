@@ -61,4 +61,6 @@
 
 //获取章节信息(已被处理 不包含zjid字段)
 - (NSMutableArray *)getchaptersArrayByBookId:(NSString *)bookid;//获取处理过的章节名；
+
++ (void)saveBookAndChapter;
 @end

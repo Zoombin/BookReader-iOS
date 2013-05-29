@@ -146,4 +146,68 @@
     return result;
 }
 
+/*
+ 作用:截取从value1到value2之间的字符串
+ str:要处理的字符串
+ value1:左边匹配字符串
+ value2:右边匹配字符串
+ 返回值:需要的字符串
+ */
++ (NSString *)str:(NSString *)str
+          value1:(NSString *)value1
+          value2:(NSString *)value2{
+    //i:左边匹配字符串在str中的下标
+    int i;
+    //j:右边匹配字符串在str1中的下标
+    int j;
+    //该类可以通过value1匹配字符串
+    NSRange range1 = [str rangeOfString:value1];
+    //判断range1是否匹配到字符串
+    if(range1.length>0){
+        //把其转换为NSString
+        NSString *result1 = NSStringFromRange(range1);
+        i = [self indexByValue:result1];
+        //原因:加上匹配字符串的长度从而获得正确的下标
+        i = i+[value1 length];
+    }else {
+        return @"";
+    }
+    
+    //通过下标，删除下标以前的字符
+    NSString *str1 = [str substringFromIndex:i];
+    NSRange range2 = [str1 rangeOfString:value2];
+    if(range2.length>0){
+        NSString *result2 = NSStringFromRange(range2);
+        j = [self indexByValue:result2];
+    }else {
+        return @"";
+    }
+    
+    NSString *str2 = [str1 substringToIndex:j];
+    return str2;
+}
+
+/*
+ str:得到的range类的集合
+ 过滤获得的匹配信息
+ 返回值:返回下标
+ */
++ (int)indexByValue:(NSString *)str{
+    //使用NSMutableString类，它可以实现追加
+    NSMutableString *value = [[NSMutableString alloc] initWithFormat:@""];
+    NSString *colum2 = @"";
+    int j = 0;
+    //遍历出下标值
+    for(int i=1;i<[str length];i++){
+        NSString *colum1 = [str substringFromIndex:i];
+        [value appendString:colum2];
+        colum2 = [colum1 substringToIndex:1];
+        if([colum2 isEqualToString:@","]){
+            j = [value intValue];
+            break;
+        }
+    }
+    return j;
+}
+
 @end

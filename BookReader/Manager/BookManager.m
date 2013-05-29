@@ -10,6 +10,10 @@
 
 #import "BookManager.h"
 #import "BookReader.h"
+#import "Book+Setup.h"
+#import "Chapter+Setup.h"
+#import "NSString+XXSY.h"
+#import "ContextManager.h"
 
 @implementation BookManager
 static BookManager *bookmanager;
@@ -489,6 +493,46 @@ static NSDictionary *booksDictionary;
 
 - (NSInteger)getIndex:(NSString *)bookid {
     return [[self getAllBookId] indexOfObject:bookid];
+}
+
++ (void)saveBookAndChapter
+{
+    NSArray *bookidArray = [[NSArray alloc] initWithArray:[[BookManager sharedInstance] getAllBookId]];
+    for (int i = 0; i<[bookidArray count]; i++) {
+        NSString *bookID = [bookidArray objectAtIndex:i];
+        NSString *bookName = [[BookManager sharedInstance] getBookNameByBookId:bookID];
+        NSString *authorName = [[BookManager sharedInstance] getBookNameByBookId:bookID];
+        NSDictionary *dict = @{@"bookName": bookName,@"authorName": authorName,@"bookId" :@(bookID.integerValue)};
+        Book *book = (Book *)[Book createWithAttributes:dict];
+        book.bFav = [NSNumber numberWithBool:YES];
+        book.cover = [[BookManager sharedInstance] getBookImageDataWithBookId:bookID];
+        [book persistWithBlock:nil];
+        [self saveChapterBookID:bookID];
+    }
+}
+
++ (void)saveChapterBookID:(NSString *)bookid
+{
+    NSArray *chaptersNameArray = [[BookManager sharedInstance] getchaptersByBookId:bookid];
+    NSMutableString *content = [@"" mutableCopy];
+    [content setString:[[BookManager sharedInstance] getTextWithBookId:bookid]];
+    NSMutableArray *chapterObjArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i< [chaptersNameArray count]; i++) {
+        Chapter *chapter = [Chapter createInContext:[ContextManager memoryOnlyContext]];
+        chapter.name = chaptersNameArray[i];
+        chapter.bid = bookid;
+        chapter.uid = [NSString stringWithFormat:@"%@%d",bookid,i];
+        chapter.bVip = [NSNumber numberWithBool:NO];
+        chapter.index = @(i);
+        if (i == [chaptersNameArray count]-1) {
+            NSRange range = [content rangeOfString:chaptersNameArray[i]];
+            chapter.content = [content substringFromIndex:range.location + range.length];
+        } else {
+            chapter.content = [NSString str:content value1:chaptersNameArray[i] value2:chaptersNameArray[i+1]];
+        }
+        [chapterObjArray addObject:chapter];
+    }
+    [Chapter persist:chapterObjArray withBlock:nil];
 }
 
 
