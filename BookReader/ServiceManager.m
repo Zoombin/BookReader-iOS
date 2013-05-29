@@ -62,6 +62,28 @@ static NSNumber *sUserID;
 	return sUserID;
 }
 
++ (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name
+{
+    [[NSUserDefaults standardUserDefaults] setObject:money forKey:USER_MONEY];
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:USER_NAME];
+}
+
++ (Member *)userInfo
+{
+    Member *member = [[Member alloc] init];
+    member.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME];
+    member.coin = [[NSUserDefaults standardUserDefaults] objectForKey:USER_MONEY];
+    member.uid = sUserID;
+    return member;
+}
+
++ (void)deleteUserInfo
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_MONEY];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_NAME];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 + (void)deleteUserID
 {
 	sUserID = nil;

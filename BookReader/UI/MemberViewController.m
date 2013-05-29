@@ -57,12 +57,14 @@
     if ([ServiceManager userID] != nil) {
         [ServiceManager userInfoWithBlock:^(Member *member, NSError *error) {
             if (error) {
-                isLogin = NO;
+                isLogin = YES;
+                _member = [ServiceManager userInfo];
                 [self reloadUI];
             }
             else {
                 isLogin = YES;
                 _member = member;
+                [ServiceManager saveUserInfo:member.coin andName:member.name];
                 [self reloadUI];
             }
         }];
@@ -128,6 +130,7 @@
     isLogin = NO;
     //清除个人信息等...
     [ServiceManager deleteUserID];
+    [ServiceManager deleteUserInfo];
 	//TODO
 	[Book truncateAll];
 	[Chapter truncateAll];

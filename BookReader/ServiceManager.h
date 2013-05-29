@@ -12,7 +12,8 @@
 
 #define NETWORK_ERROR        @"网络异常"
 
-
+#define USER_MONEY       @"usermoney"
+#define USER_NAME        @"username"
 
 @class Book;
 @class Member;
@@ -21,8 +22,11 @@
 +(ServiceManager *)shared;
 
 + (void)saveUserID:(NSNumber *)userID;
++ (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name;
 + (NSNumber *)userID;
++ (Member *)userInfo;
 + (void)deleteUserID;
++ (void)deleteUserInfo;
 + (NSString *)XXSYDecodingKeyRelatedUserID:(BOOL)related;
 #pragma mark - 用户接口
 //短信获取验证码
