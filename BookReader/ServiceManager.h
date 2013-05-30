@@ -182,7 +182,7 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
                    count:(NSString *)count   //送数量
                 integral:(XXSYIntegralType)integral //投评价不能为0 其他为0, //integral 积分 1:不知所云 2:随便看看 3:值得一看 4:不容错过 5:经典必看
                  andBook:(NSString *)bookid
-               withBlock:(void(^)(NSString *message,NSError *code))block;
+               withBlock:(void(^)(NSString *message,NSError *error))block;
 
 //获取系统配置信息
 + (void)systemConfigsWithBlock:(void(^)(BOOL success,NSString *autoUpdateDelay,NSString *decodeKey,NSString *keepUpdateDelay,NSError *error))block; //返回的时间单位是分
@@ -190,6 +190,10 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
 //decodeKey = 04B6A5985B70DC641B0E98C0F8B221A6; 解密的key
 //keepUpdateDelay = 10080; 强制更新时间 单位"分"
 
+//安卓充值
++ (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void(^)(NSString *result,NSError *error))block; __deprecated;//iOS不需要这个接口了
+
++ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block; __deprecated;//iOS不需要这个接口了
 #pragma mark -
 
 @end

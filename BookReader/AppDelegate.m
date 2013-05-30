@@ -45,11 +45,18 @@
 //	[self testApis];
     
 	//TOTEST
-	//[ServiceManager saveUserID:@(5639339)];//yanchao
+	[ServiceManager saveUserID:@(5639339)];//yanchao
 	//[ServiceManager saveUserID:@(4216157)];//zhangbin
-	[ServiceManager saveUserID:@(5639348)];//ton of fav books
-	
-	
+//	[ServiceManager saveUserID:@(5639348)];//ton of fav books
+//	[ServiceManager androidPayWithType:@"2" andPhoneNum:@"13862090556" andCount:@"200" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {
+//        if (error) {
+//            NSLog(@"%@",error);
+//        }
+//    }];
+//    [ServiceManager godStatePayCardNum:@"981301623806121" andCardPassword:@"9809849707937394320" andCount:@"5000" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {
+//        
+//    }];
+//
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	

@@ -25,7 +25,8 @@
 #include <string.h>
 
 //#define XXSY_BASE_URL   @"http://10.224.72.188/service/"
-#define XXSY_BASE_URL  @"http://link.xxsy.net/service"
+//#define XXSY_BASE_URL  @"http://link.xxsy.net/service"
+#define XXSY_BASE_URL @"http://pay.xxsy.net/Client/"
 #define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
 #define SUCCESS_FLAG        @"0000"
 #define USER_ID   @"userid"
@@ -679,6 +680,51 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
             block(nil,@"",@"",@"",error);
+        }
+    }];
+}
+
++ (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,channel,@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
+    NSLog(@"%@",signString);
+    NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : channel,@"username" :name,@"sign" : [signString md532],@"mobile" :num};
+    NSLog(@"%@",parameters);
+    [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
+            if (block) {
+                block(@"",nil);
+            }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
+    NSLog(@"%@",signString);
+    NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : @"5",@"username" :name,@"sign" : [signString md532], @"cardNo" : cardNum, @"cardPassword" :password};
+    NSLog(@"%@",parameters);
+    
+    [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"%@",operation.request.URL);
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",[theObject objectForKey:@"error"]);
+        NSLog(@"%@",theObject);
+        if (block) {
+            block(@"",nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil,error);
         }
     }];
 }
