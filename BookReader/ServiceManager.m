@@ -25,8 +25,8 @@
 #include <string.h>
 
 //#define XXSY_BASE_URL   @"http://10.224.72.188/service/"
-//#define XXSY_BASE_URL  @"http://link.xxsy.net/service"
-#define XXSY_BASE_URL @"http://pay.xxsy.net/Client/"
+#define XXSY_BASE_URL  @"http://link.xxsy.net/service"
+//#define XXSY_BASE_URL @"http://pay.xxsy.net/Client/"
 #define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
 #define SUCCESS_FLAG        @"0000"
 #define USER_ID   @"userid"
