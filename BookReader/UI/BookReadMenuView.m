@@ -153,14 +153,21 @@
 	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
     [_fontButonMin setFrame:CGRectMake(50, 60, fontView.bounds.size.width/5, 30)];
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
+    [_fontButonMin setImage:[UIImage imageNamed:@"font_reduce"] forState:UIControlStateNormal];
     [_fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
     UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeCustom];
     [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width-30*3, 60, fontView.bounds.size.width/5, 30)];
+    [fontButonMax setImage:[UIImage imageNamed:@"font_add"] forState:UIControlStateNormal];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
+    
+    UILabel *fontChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_fontButonMin.frame), 60, CGRectGetMinX(fontButonMax.frame) - CGRectGetMaxX(_fontButonMin.frame), 30)];
+    [fontChangeLabel setText:@"字体大小"];
+    [fontChangeLabel setTextAlignment:NSTextAlignmentCenter];
+    [fontView addSubview:fontChangeLabel];
     
      defaultFontButton = [UIButton fontButton:CGRectMake(50, 20, fontView.bounds.size.width/3, 30)];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
@@ -182,7 +189,7 @@
     
     for (int i =0 ; i < [textcolorArray count]; i++) {
         UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect frame = CGRectMake(50+i*(40+10), 95, 40, 40);
+        CGRect frame = CGRectMake(50+i*(40+10), 100, 40, 40);
         [colorButton setFrame:frame];
         [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
         SEL textcolorselector = NSSelectorFromString(textcolorArray[i]);
