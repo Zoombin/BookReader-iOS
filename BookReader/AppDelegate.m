@@ -45,7 +45,7 @@
 //	[self testApis];
     
 	//TOTEST
-	[ServiceManager saveUserID:@(5639339)];//yanchao
+//	[ServiceManager saveUserID:@(5639339)];//yanchao
 	//[ServiceManager saveUserID:@(4216157)];//zhangbin
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
 //	[ServiceManager androidPayWithType:@"2" andPhoneNum:@"13862090556" andCount:@"200" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {

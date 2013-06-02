@@ -70,6 +70,17 @@
     return button;
 }
 
++ (UIButton *)fontButton:(CGRect)frame
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:frame];
+    [button setBackgroundImage:[UIImage imageNamed:@"font_select"] forState:UIControlStateDisabled];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    return button;
+}
+
 + (UIButton *)brownButton:(CGRect)frame
 {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

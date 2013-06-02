@@ -16,7 +16,6 @@
 @implementation BookReadMenuView {
     UIView *fontView;
     UIView *backgroundView;
-    NSArray *textcolorNames;
     NSArray *textcolorArray;
     
     UIButton *chaptersListButton;
@@ -31,6 +30,7 @@
     NSMutableArray *bottomViewBtns;
     
     UIImageView *markImageView;
+    UIImageView *textColorMarkImageView;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -41,7 +41,6 @@
     if (self) {
         // Initialization code
         bottomViewBtns = [[NSMutableArray alloc] init];
-        textcolorNames = @[@"黑色",@"蓝色",@"棕色",@"绿色",@"红色"];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
         [self initTopView];
         [self initBottomView];
@@ -139,26 +138,36 @@
     [fontView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
     [self addSubview:fontView];
     
-	_fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_fontButonMin setFrame:CGRectMake(0, 0, fontView.bounds.size.width/2, 30)];
+    UIImageView *fontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 32, 30)];
+    [fontImageView setImage:[UIImage imageNamed:@"font"]];
+    [fontView addSubview:fontImageView];
+    
+    UIImageView *fontSizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 60, 32, 30)];
+    [fontSizeImageView setImage:[UIImage imageNamed:@"font_size"]];
+    [fontView addSubview:fontSizeImageView];
+    
+    UIImageView *fontColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 32, 30)];
+    [fontColorImageView setImage:[UIImage imageNamed:@"font_color"]];
+    [fontView addSubview:fontColorImageView];
+    
+	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_fontButonMin setFrame:CGRectMake(50, 60, fontView.bounds.size.width/5, 30)];
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [_fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
-    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width/2, 0, fontView.bounds.size.width/2, 30)];
+    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeCustom];
+    [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width-30*3, 60, fontView.bounds.size.width/5, 30)];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
-     defaultFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [defaultFontButton setFrame:CGRectMake(0, 30, fontView.bounds.size.width, 30)];
+     defaultFontButton = [UIButton fontButton:CGRectMake(50, 20, fontView.bounds.size.width/3, 30)];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
-    [defaultFontButton setTitle:@"系统默认字体" forState:UIControlStateNormal];
+    [defaultFontButton setTitle:@"默认字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-     foundFontButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [foundFontButton setFrame:CGRectMake(0, 60, fontView.bounds.size.width, 30)];
+     foundFontButton = [UIButton fontButton:CGRectMake(fontView.bounds.size.width-fontView.bounds.size.width/3-30, 20, fontView.bounds.size.width/3, 30)];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
@@ -168,20 +177,23 @@
     } else {
         [defaultFontButton setEnabled:NO];
     }
-    
-    CGRect frame = CGRectMake(0+fontView.bounds.size.width/[textcolorArray count]*0, 100, fontView.bounds.size.width/[textcolorArray count], 30);
+    textColorMarkImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [textColorMarkImageView setImage:[UIImage imageNamed:@"read_mark"]];
     
     for (int i =0 ; i < [textcolorArray count]; i++) {
-        UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        if (i!=0) {
-            frame = CGRectMake(CGRectGetMaxX(frame), 100, frame.size.width, frame.size.height);
-        }
+        UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGRect frame = CGRectMake(50+i*(40+10), 95, 40, 40);
         [colorButton setFrame:frame];
         [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
+        SEL textcolorselector = NSSelectorFromString(textcolorArray[i]);
+        [colorButton setBackgroundColor:[UIColor performSelector:textcolorselector]];
         [colorButton setTag:i];
-        [colorButton setTitle:textcolorNames[i] forState:UIControlStateNormal];
+        if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor] isEqualToString:textcolorArray[i]]) {
+            [textColorMarkImageView setFrame:colorButton.frame];
+        }
         [fontView addSubview:colorButton];
-    }	
+    }
+	[fontView addSubview:textColorMarkImageView];
 }
 
 - (void)hide
@@ -198,14 +210,6 @@
     [backgroundView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
     [self addSubview:backgroundView];
     
-    UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 50, 35)];
-    [brightLeftImageView setImage:[UIImage imageNamed:@"read_light_reduce"]];
-     [backgroundView addSubview:brightLeftImageView];
-    
-    UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(backgroundView.bounds.size.width-50, 20, 50, 35)];
-    [brightRightImageView setImage:[UIImage imageNamed:@"read_light_increase"]];
-    [backgroundView addSubview:brightRightImageView];
-    
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
@@ -217,19 +221,27 @@
     [brightSlider setMinimumValue:0.5];
     [backgroundView addSubview:brightSlider];
     
-    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 50, 35)];
+    UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 20, 32, 30)];
+    [brightLeftImageView setImage:[UIImage imageNamed:@"read_light_reduce"]];
+    [backgroundView addSubview:brightLeftImageView];
+    
+    UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(brightSlider.frame) + 10, 20, 32, 30)];
+    [brightRightImageView setImage:[UIImage imageNamed:@"read_light_increase"]];
+    [backgroundView addSubview:brightRightImageView];
+    
+    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 90, 32, 30)];
     [backgroundColorImageView setImage:[UIImage imageNamed:@"read_photo_box"]];
     [backgroundView addSubview:backgroundColorImageView];
     
     UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, 70)];
     [scrollerView setBackgroundColor:[UIColor clearColor]];
-    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*4, 70)];
+    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*3.5, 70)];
     [backgroundView addSubview:scrollerView];
     
-    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+
+    CGRect frame = CGRectMake(0, 0, backgroundView.bounds.size.width/20*3, backgroundView.bounds.size.width/20*3);
+    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
-    
-    CGRect frame = CGRectMake(0, 0, backgroundView.bounds.size.width/16*3, backgroundView.bounds.size.width/16*3);
     
     for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -238,11 +250,9 @@
         }
         [button setFrame:frame];
         [button setTag:i];
-        [button.layer setBorderWidth:2];
         if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue] == i) {
             [markImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - markImageView.frame.size.width, button.frame.origin.y, markImageView.frame.size.width, markImageView.frame.size.height)];
         }
-        [button.layer setBorderColor:[UIColor brownColor].CGColor];
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
         [scrollerView addSubview:button];
@@ -268,6 +278,8 @@
 
 - (void)colorChanged:(id)sender
 {
+    UIButton *button = (UIButton *)sender;
+    [textColorMarkImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - textColorMarkImageView.frame.size.width, button.frame.origin.y, textColorMarkImageView.frame.size.width, textColorMarkImageView.frame.size.height)];
     if ([self.delegate respondsToSelector:@selector(changeTextColor:)]) {
         [self.delegate changeTextColor:textcolorArray[[sender tag]]];
     }
