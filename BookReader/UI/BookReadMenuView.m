@@ -220,7 +220,9 @@
     [self addSubview:backgroundView];
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
-    [brightSlider setThumbImage:[UIImage imageNamed:@"slider_round"] forState:UIControlStateNormal];
+    [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]]; 
+     [brightSlider setMinimumTrackTintColor:[UIColor colorWithRed:43.0/255.0 green:25.0/255.0 blue:16.0/255.0 alpha:1.0]];
+     [brightSlider setThumbImage:[UIImage imageNamed:@"slider_round"] forState:UIControlStateNormal];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
        brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
