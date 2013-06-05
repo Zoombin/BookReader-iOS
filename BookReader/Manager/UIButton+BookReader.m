@@ -30,8 +30,8 @@
 {
 	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"universal_btn"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"universal_btn_hl"] forState:UIControlStateHighlighted];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"universal_btn_hl"] forState:UIControlStateHighlighted];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
 	return backButton;

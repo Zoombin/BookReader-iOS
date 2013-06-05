@@ -117,6 +117,10 @@
 		18A7FEEB175AEE7B00F97099 /* font_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FEEA175AEE7B00F97099 /* font_select.png */; };
 		18A7FEEE175AFAD500F97099 /* font_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FEEC175AFAD500F97099 /* font_add.png */; };
 		18A7FEEF175AFAD500F97099 /* font_reduce.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FEED175AFAD500F97099 /* font_reduce.png */; };
+		18A7FF35175F248800F97099 /* read_highlight_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF34175F248800F97099 /* read_highlight_btn.png */; };
+		18A7FF38175F264100F97099 /* bookreader_universal_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF36175F264100F97099 /* bookreader_universal_btn.png */; };
+		18A7FF39175F264100F97099 /* nav_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF37175F264100F97099 /* nav_header.png */; };
+		18A7FF3D175F275300F97099 /* slider_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF3B175F275300F97099 /* slider_round.png */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
@@ -493,6 +497,10 @@
 		18A7FEEA175AEE7B00F97099 /* font_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font_select.png; sourceTree = "<group>"; };
 		18A7FEEC175AFAD500F97099 /* font_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font_add.png; sourceTree = "<group>"; };
 		18A7FEED175AFAD500F97099 /* font_reduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font_reduce.png; sourceTree = "<group>"; };
+		18A7FF34175F248800F97099 /* read_highlight_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_highlight_btn.png; sourceTree = "<group>"; };
+		18A7FF36175F264100F97099 /* bookreader_universal_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookreader_universal_btn.png; sourceTree = "<group>"; };
+		18A7FF37175F264100F97099 /* nav_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_header.png; sourceTree = "<group>"; };
+		18A7FF3B175F275300F97099 /* slider_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_round.png; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -922,6 +930,10 @@
 		181091D917350288000931AB /* Read */ = {
 			isa = PBXGroup;
 			children = (
+				18A7FF3B175F275300F97099 /* slider_round.png */,
+				18A7FF36175F264100F97099 /* bookreader_universal_btn.png */,
+				18A7FF37175F264100F97099 /* nav_header.png */,
+				18A7FF34175F248800F97099 /* read_highlight_btn.png */,
 				18A7FEEC175AFAD500F97099 /* font_add.png */,
 				18A7FEED175AFAD500F97099 /* font_reduce.png */,
 				18A7FEEA175AEE7B00F97099 /* font_select.png */,
@@ -2025,6 +2037,10 @@
 				18A7FEEB175AEE7B00F97099 /* font_select.png in Resources */,
 				18A7FEEE175AFAD500F97099 /* font_add.png in Resources */,
 				18A7FEEF175AFAD500F97099 /* font_reduce.png in Resources */,
+				18A7FF35175F248800F97099 /* read_highlight_btn.png in Resources */,
+				18A7FF38175F264100F97099 /* bookreader_universal_btn.png in Resources */,
+				18A7FF39175F264100F97099 /* nav_header.png in Resources */,
+				18A7FF3D175F275300F97099 /* slider_round.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

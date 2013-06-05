@@ -58,7 +58,7 @@
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
     [topView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[topView bounds]];
-    [imageView setImage:[UIImage imageNamed:@"read_bar_top"]];
+    [imageView setImage:[UIImage imageNamed:@"nav_header"]];
     [topView addSubview:imageView];
     [self addSubview:topView];
     
@@ -76,6 +76,8 @@
     
     UIButton *addBookMarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [addBookMarkButton setFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-48, buttonOffsetY, 48, 32)];
+    [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
+    [addBookMarkButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [addBookMarkButton setTitle:@"书签" forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
@@ -218,6 +220,7 @@
     [self addSubview:backgroundView];
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
+    [brightSlider setThumbImage:[UIImage imageNamed:@"slider_round"] forState:UIControlStateNormal];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
        brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
