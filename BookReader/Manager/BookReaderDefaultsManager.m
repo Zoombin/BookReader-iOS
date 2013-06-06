@@ -16,7 +16,8 @@ static NSArray *colors;
 {
     if (!colors) {
         colors =
-  @[[UIColor colorWithRed:251.0/255.0 green:249.0/255.0 blue:234.0/255.0 alpha:1.0],
+  @[[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
+    [UIColor colorWithRed:251.0/255.0 green:249.0/255.0 blue:234.0/255.0 alpha:1.0],
     [UIColor colorWithRed:224.0/255.0 green:236.0/255.0 blue:224.0/255.0 alpha:1.0],
     [UIColor colorWithRed:228.0/255.0 green:237.0/255.0 blue:243.0/255.0 alpha:1.0],
     [UIColor colorWithRed:245.0/255.0 green:251.0/255.0 blue:255.0/255.0 alpha:1.0],
@@ -29,7 +30,6 @@ static NSArray *colors;
     [UIColor colorWithRed:50.0/255.0 green:62.0/255.0 blue:80.0/255.0 alpha:1.0],
     [UIColor colorWithRed:50.0/255.0 green:53.0/255.0 blue:50.0/255.0 alpha:1.0],
     [UIColor colorWithRed:87.0/255.0 green:103.0/255.0 blue:79.0/255.0 alpha:1.0],
-	[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
     [UIColor colorWithRed:166.0/255.0 green:137.0/255.0 blue:193.0/255.0 alpha:1.0],
     [UIColor colorWithRed:9.0/255.0 green:14.0/255.0 blue:14.0/255.0 alpha:1.0],];
     }
@@ -61,7 +61,7 @@ static NSArray *colors;
 		} else if ([keyString isEqualToString:UserDefaultKeyBright]) {
 			value = @1.0;
 		} else if ([keyString isEqualToString:UserDefaultKeyBackground]) {
-			value = @13;//羊皮纸
+			value = @0;//羊皮纸
 		}
 		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
 		[[NSUserDefaults standardUserDefaults] synchronize];
