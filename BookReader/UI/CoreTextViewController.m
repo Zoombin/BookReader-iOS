@@ -348,6 +348,10 @@
     if (startPointX == NSIntegerMax || startPointY == NSIntegerMax) {
         return;
     }
+    if (!menuView.hidden) {
+        menuView.hidden = YES;
+        return;
+    }
     
 	//swipe
 	if (fabsf(endPoint.x - startPointX) >= 9) {
