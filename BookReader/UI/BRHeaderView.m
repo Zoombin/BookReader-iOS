@@ -18,6 +18,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
+        [topBarImage setImage:[UIImage imageNamed:@"nav_header"]];
+        [self addSubview:topBarImage];
+        
         _backButton = [UIButton navigationBackButton];
         [_backButton setFrame:CGRectMake(10, 6, 50, 32)];
         [self addSubview:_backButton];
