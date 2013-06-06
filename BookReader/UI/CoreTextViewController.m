@@ -208,6 +208,7 @@
 
 - (void)backgroundColorChanged:(NSInteger)index
 {
+    [BookReaderDefaultsManager setObject:@(index) ForKey:UserDefaultKeyBackground];
     [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:index]];
 }
 

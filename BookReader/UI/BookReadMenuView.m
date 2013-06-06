@@ -265,7 +265,7 @@
     UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, backgroundView.bounds.size.width/20*3)];
     [scrollerView setBackgroundColor:[UIColor clearColor]];
     [scrollerView setDelegate:self];
-    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*4, backgroundView.bounds.size.width/20*3)];
+    [scrollerView setContentSize:CGSizeMake(scrollerView.bounds.size.width*4, scrollerView.bounds.size.width/20*3)];
     [backgroundView addSubview:scrollerView];
     
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(50, scrollerView.frame.origin.y+scrollerView.frame.size.height, scrollerView.frame.size.width, 30)];
@@ -282,10 +282,15 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i!=0) {
             frame = CGRectMake(CGRectGetMaxX(frame)+20, 0, frame.size.width, frame.size.height);
+            if (i%4==0) {
+                int k = i/4;
+                frame.origin.x = k *scrollerView.frame.size.width;
+            }
         }
         [button setFrame:frame];
         [button setTag:i];
         if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue] == i) {
+            [scrollerView scrollRectToVisible:CGRectMake(frame.origin.x, 0, frame.size.width, frame.size.height) animated:NO];
             [markImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - markImageView.frame.size.width, button.frame.origin.y, markImageView.frame.size.width, markImageView.frame.size.height)];
         }
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
