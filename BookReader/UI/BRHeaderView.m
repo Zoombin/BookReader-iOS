@@ -36,10 +36,6 @@
     CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(self.bounds.size.width-110,4,48,32);
     CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-60,4,48,32);
     
-    UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
-    [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
-    [self addSubview:topBarImage];
-    
     [_titleLabel setText:@"我的收藏"];
     [self bringSubviewToFront:_titleLabel];
     

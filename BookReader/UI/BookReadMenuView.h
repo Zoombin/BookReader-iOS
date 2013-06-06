@@ -16,6 +16,7 @@
 - (void)chaptersButtonClicked;
 - (void)nextChapterButtonClick;
 - (void)previousChapterButtonClick;
+- (void)shareButtonClicked;
 
 - (void)fontChanged:(BOOL)reduce;
 - (void)systemFont;
