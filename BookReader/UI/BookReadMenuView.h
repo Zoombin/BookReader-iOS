@@ -27,7 +27,7 @@
 
 @end
 
-@interface BookReadMenuView : UIView {
+@interface BookReadMenuView : UIView<UIScrollViewDelegate> {
     id<BookReadMenuViewDelegate> delegate;
     UILabel *titleLabel;
 }

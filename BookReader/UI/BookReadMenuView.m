@@ -31,6 +31,8 @@
     
     UIImageView *markImageView;
     UIImageView *textColorMarkImageView;
+    
+    UIPageControl *pageControl;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -260,10 +262,16 @@
     [backgroundColorImageView setImage:[UIImage imageNamed:@"read_photo_box"]];
     [backgroundView addSubview:backgroundColorImageView];
     
-    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, 70)];
+    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, backgroundView.bounds.size.width/20*3)];
     [scrollerView setBackgroundColor:[UIColor clearColor]];
-    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*3.5, 70)];
+    [scrollerView setDelegate:self];
+    [scrollerView setContentSize:CGSizeMake(backgroundView.bounds.size.width*4, backgroundView.bounds.size.width/20*3)];
     [backgroundView addSubview:scrollerView];
+    
+    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(50, scrollerView.frame.origin.y+scrollerView.frame.size.height, scrollerView.frame.size.width, 30)];
+    [pageControl setCurrentPage:0];
+    [pageControl setNumberOfPages:4];
+    [backgroundView addSubview:pageControl];
     
 
     CGRect frame = CGRectMake(0, 0, backgroundView.bounds.size.width/20*3, backgroundView.bounds.size.width/20*3);
@@ -285,6 +293,13 @@
         [scrollerView addSubview:button];
     }
     [scrollerView addSubview:markImageView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    pageControl.currentPage = page;
 }
 
 - (void)backgroundChanged:(id)sender
