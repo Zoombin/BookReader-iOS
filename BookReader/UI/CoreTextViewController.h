@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
 #import "SubscribeViewController.h"
+#import <MessageUI/MessageUI.h>
 
 @class Book;
 @class Chapter;
-@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate>
+@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate,MFMessageComposeViewControllerDelegate> {
+    MFMessageComposeViewController *messageComposeViewController; 
+}
 @property (nonatomic, strong) Book *book;
 @end
