@@ -12,7 +12,6 @@
 
 #import "ReadMenuBookMarkViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "BookManager.h"
 
 @implementation ReadMenuBookMarkViewController
 
@@ -52,8 +51,8 @@
     [self.view addSubview:bookMarkTableView];
     currentRow = NSIntegerMax;
     
-    self.bookmarkArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getBookMarkArrayByBookId:bookid]];
-    self.chaptersArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersByBookId:bookid]];
+//    self.bookmarkArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getBookMarkArrayByBookId:bookid]];
+//    self.chaptersArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersByBookId:bookid]];
     
     
     
@@ -197,7 +196,7 @@
 
 - (void)confirmDelete {
     if (currentRow != NSIntegerMax) {
-        [[BookManager sharedInstance]deleteBookMarkWithBookid:bookid andObject:[bookmarkArray objectAtIndex:currentRow]];
+//        [[BookManager sharedInstance]deleteBookMarkWithBookid:bookid andObject:[bookmarkArray objectAtIndex:currentRow]];
         [bookmarkArray removeObjectAtIndex:currentRow];
         [self.bookMarkTableView reloadData];
         currentRow = NSIntegerMax;

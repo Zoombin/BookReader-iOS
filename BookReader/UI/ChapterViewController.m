@@ -8,7 +8,6 @@
 
 #import "ChapterViewController.h"
 #import "AppDelegate.h"
-#import "BookManager.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
 #import "UILabel+BookReader.h"
@@ -47,13 +46,13 @@
     [super viewDidAppear:animated];
     if (bFirstAppeared) { //如果是第一次进入章节界面,则加载数据
         [self registIapObservers];
-        bought = [[[BookManager sharedInstance]getBookInfoById:bookid] objectForKey:BOUGHT_FLAG];
-        
-        NSDictionary *tempDict = [[BookManager sharedInstance]getBookInfoById:bookid];
-        
-        [bookMarkTableView setContentOffset:CGPointMake(320, 50*[[tempDict objectForKey:BEFORE_READ_CHAPTER] intValue]) animated:YES];
-        self.chaptersArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersByBookId:bookid]];
-        self.chaptersRealName = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersArrayByBookId:bookid]];
+//        bought = [[[BookManager sharedInstance]getBookInfoById:bookid] objectForKey:BOUGHT_FLAG];
+//        
+//        NSDictionary *tempDict = [[BookManager sharedInstance]getBookInfoById:bookid];
+//        
+//        [bookMarkTableView setContentOffset:CGPointMake(320, 50*[[tempDict objectForKey:BEFORE_READ_CHAPTER] intValue]) animated:YES];
+//        self.chaptersArray = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersByBookId:bookid]];
+//        self.chaptersRealName = [NSMutableArray arrayWithArray:[[BookManager sharedInstance]getchaptersArrayByBookId:bookid]];
         
         bookMarkTableView = [[UITableView alloc] initWithFrame:CGRectMake(6, 50, self.view.bounds.size.width-12, self.view.bounds.size.height-38-20) style:UITableViewStylePlain];
         [bookMarkTableView setBackgroundColor:[UIColor clearColor]];
@@ -103,11 +102,11 @@
             [textLabel setTextAlignment:NSTextAlignmentCenter];
             [backgroundView addSubview:textLabel];
             
-            NSDictionary *tempDict = [[BookManager sharedInstance]getBookInfoById:bookid];
-            if ([[tempDict objectForKey:BEFORE_READ_CHAPTER] intValue]==[indexPath row]) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                currentIndex = [indexPath row];
-            }
+//            NSDictionary *tempDict = [[BookManager sharedInstance]getBookInfoById:bookid];
+//            if ([[tempDict objectForKey:BEFORE_READ_CHAPTER] intValue]==[indexPath row]) {
+//                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                currentIndex = [indexPath row];
+//            }
         }
     }
     return cell;
@@ -125,48 +124,48 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     currentIndex=indexPath.row;
-    NSInteger bookindex = [[BookManager sharedInstance] getIndex:bookid];
-    NSString *productId = [NSString stringWithFormat:@"%@",[[PurchaseManager sharedInstance]getProductIdByIndex:bookindex]];
-    if ([[PurchaseManager sharedInstance]checkFreeOrNot] == NO) {
-        if (indexPath.row>=19&&[bought isEqualToString:@"0"]&&[productId length]>0) {
-            [bookMarkTableView setUserInteractionEnabled:NO];
-            return;
-        }
-    }
-    if(![[[[BookManager sharedInstance]getBookInfoById:bookid] objectForKey:BEFORE_READ_CHAPTER] isEqualToString:[NSString stringWithFormat:@"%d",[indexPath row]]]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"Aren't the Same", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Read", nil) otherButtonTitles:NSLocalizedString(@"don't read", nil), nil];
-        [alertView show];
-    }else {
-        [[BookManager sharedInstance]saveValueWithBookId:bookid andKey:BEFORE_READ_CHAPTER andValue:[NSString stringWithFormat:@"%d",currentIndex]];
-        ReadViewController *controller = [[ReadViewController alloc] initWithBookUID:bookid andShouldMoveToNew:YES andMoveIndex:[chaptersArray objectAtIndex:currentIndex] andNewText:nil];
-        //controller.isBuy = [isBuy isEqualToString:@"1"]?YES:NO;
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex==0) {
-        [[BookManager sharedInstance]saveValueWithBookId:bookid andKey:BEFORE_READ_CHAPTER andValue:[NSString stringWithFormat:@"%d",currentIndex]];
-        ReadViewController *controller = [[ReadViewController alloc] initWithBookUID:bookid andShouldMoveToNew:YES andMoveIndex:[chaptersArray objectAtIndex:currentIndex] andNewText:nil];
-        //controller.isBuy = [isBuy isEqualToString:@"1"]?YES:NO;
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-}
-
-//##############################################
-//接收从app store抓取回来的产品，显示在表格上
-- (void)getedProds:(NSNotification*)notification
-{
-    NSLog(@"通过NSNotificationCenter收到信息：%@,", [notification object]);
-}
-
--(void) receivedProducts:(NSNotification*)notification
-{
-    products_ = [[NSArray alloc] initWithArray:[notification object]];
-    if (!products_ || [products_ count] == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"Can't get product list", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil] ;
-        [alert show];
-    }
+//    NSInteger bookindex = [[BookManager sharedInstance] getIndex:bookid];
+//    NSString *productId = [NSString stringWithFormat:@"%@",[[PurchaseManager sharedInstance]getProductIdByIndex:bookindex]];
+//    if ([[PurchaseManager sharedInstance]checkFreeOrNot] == NO) {
+//        if (indexPath.row>=19&&[bought isEqualToString:@"0"]&&[productId length]>0) {
+//            [bookMarkTableView setUserInteractionEnabled:NO];
+//            return;
+//        }
+//    }
+//    if(![[[[BookManager sharedInstance]getBookInfoById:bookid] objectForKey:BEFORE_READ_CHAPTER] isEqualToString:[NSString stringWithFormat:@"%d",[indexPath row]]]) {
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"Aren't the Same", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Read", nil) otherButtonTitles:NSLocalizedString(@"don't read", nil), nil];
+//        [alertView show];
+//    }else {
+//        [[BookManager sharedInstance]saveValueWithBookId:bookid andKey:BEFORE_READ_CHAPTER andValue:[NSString stringWithFormat:@"%d",currentIndex]];
+//        ReadViewController *controller = [[ReadViewController alloc] initWithBookUID:bookid andShouldMoveToNew:YES andMoveIndex:[chaptersArray objectAtIndex:currentIndex] andNewText:nil];
+//        //controller.isBuy = [isBuy isEqualToString:@"1"]?YES:NO;
+//        [self.navigationController pushViewController:controller animated:YES];
+//    }
+//}
+//
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+//    if (buttonIndex==0) {
+//        [[BookManager sharedInstance]saveValueWithBookId:bookid andKey:BEFORE_READ_CHAPTER andValue:[NSString stringWithFormat:@"%d",currentIndex]];
+//        ReadViewController *controller = [[ReadViewController alloc] initWithBookUID:bookid andShouldMoveToNew:YES andMoveIndex:[chaptersArray objectAtIndex:currentIndex] andNewText:nil];
+//        //controller.isBuy = [isBuy isEqualToString:@"1"]?YES:NO;
+//        [self.navigationController pushViewController:controller animated:YES];
+//    }
+//}
+//
+////##############################################
+////接收从app store抓取回来的产品，显示在表格上
+//- (void)getedProds:(NSNotification*)notification
+//{
+//    NSLog(@"通过NSNotificationCenter收到信息：%@,", [notification object]);
+//}
+//
+//-(void) receivedProducts:(NSNotification*)notification
+//{
+//    products_ = [[NSArray alloc] initWithArray:[notification object]];
+//    if (!products_ || [products_ count] == 0) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"Can't get product list", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil] ;
+//        [alert show];
+//    }
 }
 
 // 注册IapHander的监听器，并不是所有监听器都需要注册，
@@ -236,7 +235,7 @@
 {
     NSString *proIdentifier = [notification object];
     [self showAlertWithMsg:[NSString stringWithFormat:@"%@，%@：%@",NSLocalizedString(@"Purchase Successed",nil),NSLocalizedString(@"Product Id",nil),proIdentifier]];
-    [[BookManager sharedInstance] saveValueWithBookId:bookid andKey:BOUGHT_FLAG andValue:@"1"];
+//    [[BookManager sharedInstance] saveValueWithBookId:bookid andKey:BOUGHT_FLAG andValue:@"1"];
     bought = @"1";
     [self postNotification];
     [bookMarkTableView setUserInteractionEnabled:YES];

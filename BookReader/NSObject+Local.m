@@ -1,33 +1,26 @@
 //
-//  BookManager.m
+//  NSObject+Local.m
 //  BookReader
 //
-//  Created by 颜超 on 12-11-23.
-//  Copyright (c) 2012年 颜超. All rights reserved.
+//  Created by 颜超 on 13-6-6.
+//  Copyright (c) 2013年 颜超. All rights reserved.
 //
+
 
 #define  GroupNum   9
 
-#import "BookManager.h"
 #import "BookReader.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "NSString+XXSY.h"
 #import "ContextManager.h"
+#import "NSObject+Local.h"
 
-@implementation BookManager
-static BookManager *bookmanager;
+@implementation NSObject (Local)
 static NSDictionary *booksDictionary;
 
-+(BookManager *)sharedInstance {
-    if (!bookmanager) {
-        bookmanager = [[BookManager alloc] init];
-    }
-    return bookmanager;
-}
-
 //get these ids from bundle resource not documents
-- (NSArray *)getAllBookId {
++ (NSArray *)getAllBookId {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book"];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:nil];
@@ -35,17 +28,17 @@ static NSDictionary *booksDictionary;
     return [NSArray arrayWithArray:fileList];
 }
 
-- (NSDictionary *)getBookInfoById:(NSString *)uid {
++ (NSDictionary *)getBookInfoById:(NSString *)uid {
     return [[self getBooks] objectForKey:uid];
 }
 
-- (void)saveValueWithBookId:(NSString *)bookid andKey:(NSString *)key andValue:(NSString *)value {
++ (void)saveValueWithBookId:(NSString *)bookid andKey:(NSString *)key andValue:(NSString *)value {
     NSMutableDictionary *currentbookDict = [[self getBooks] objectForKey:bookid];
     [currentbookDict setObject:value forKey:key];
     [self saveBooks];
 }
 
-- (NSDictionary *)getBooks
++ (NSDictionary *)getBooks
 {
     if(booksDictionary == nil) {
         booksDictionary = [[NSDictionary alloc] initWithContentsOfFile:[self plistPath]];
@@ -53,7 +46,7 @@ static NSDictionary *booksDictionary;
     return booksDictionary;
 }
 
-- (void)saveBooks
++ (void)saveBooks
 {
     if(booksDictionary != nil) {
         [booksDictionary writeToFile:[self plistPath] atomically:YES];
@@ -61,7 +54,7 @@ static NSDictionary *booksDictionary;
 }
 
 
-- (NSString *)plistPath
++ (NSString *)plistPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -87,7 +80,7 @@ static NSDictionary *booksDictionary;
     return rtn;
 }
 
-- (void)saveBookMarkWithBookId:(NSString *)bookid andContext:(NSString *)context andBookMarkIdx:(NSString *)bookIdx andBookMarkPercentage:(NSString *)percentage
++ (void)saveBookMarkWithBookId:(NSString *)bookid andContext:(NSString *)context andBookMarkIdx:(NSString *)bookIdx andBookMarkPercentage:(NSString *)percentage
 {
     NSMutableDictionary *currentbookDict = [[self getBooks] objectForKey:bookid];
     NSMutableArray *bookMarkArray = [currentbookDict objectForKey:BOOKMARK];
@@ -100,20 +93,20 @@ static NSDictionary *booksDictionary;
     [self saveBooks];
 }
 
-- (NSArray *)getBookMarkArrayByBookId:(NSString *)bookid {
++ (NSArray *)getBookMarkArrayByBookId:(NSString *)bookid {
     NSMutableDictionary *currentbookDict = [[self getBooks] objectForKey:bookid];
     NSMutableArray *bookMarkArray = [currentbookDict objectForKey:BOOKMARK];
     return bookMarkArray;
 }
 
-- (void)deleteBookMarkWithBookid:(NSString *)bookid andObject:(id)object {
++ (void)deleteBookMarkWithBookid:(NSString *)bookid andObject:(id)object {
     NSMutableDictionary *currentbookDict = [[self getBooks] objectForKey:bookid];
     NSMutableArray *bookMarkArray = [currentbookDict objectForKey:BOOKMARK];
     [bookMarkArray removeObject:object];
     [self saveBooks];
 }
 
-- (BOOL)checkHasExistWithBookId:(NSString *)bookid andBookIdx:(NSString *)bookidx {
++ (BOOL)checkHasExistWithBookId:(NSString *)bookid andBookIdx:(NSString *)bookidx {
     NSMutableDictionary *currentbookDict = [[self getBooks] objectForKey:bookid];
     NSMutableArray *bookMarkArray = [currentbookDict objectForKey:BOOKMARK];
     if ([bookMarkArray count]==0) {
@@ -130,7 +123,7 @@ static NSDictionary *booksDictionary;
     return NO;
 }
 
-- (NSString *)getTextWithBookId:(NSString *)bookid {
++ (NSString *)getTextWithBookId:(NSString *)bookid {
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%@/book",bookid];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:@"txt"];//
     NSData *data = [NSData dataWithContentsOfFile:documentDir];
@@ -138,7 +131,7 @@ static NSDictionary *booksDictionary;
     return txt;
 }
 
-- (NSString *)getAuthorNameByBookId:(NSString *)bookid {
++ (NSString *)getAuthorNameByBookId:(NSString *)bookid {
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%@/info",bookid];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:@"txt"];//
     NSData *data = [NSData dataWithContentsOfFile:documentDir];
@@ -146,7 +139,7 @@ static NSDictionary *booksDictionary;
     return [[txt componentsSeparatedByString:@"\n"] objectAtIndex:1];
 }
 
-- (NSString *)getBookNameByBookId:(NSString *)bookid {
++ (NSString *)getBookNameByBookId:(NSString *)bookid {
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%@/info",bookid];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:@"txt"];//
     NSData *data = [NSData dataWithContentsOfFile:documentDir];
@@ -154,7 +147,7 @@ static NSDictionary *booksDictionary;
     return [[txt componentsSeparatedByString:@"\n"] objectAtIndex:0];
 }
 
-- (NSData *)getBookImageDataWithBookId:(NSString *)bookid {
++ (NSData *)getBookImageDataWithBookId:(NSString *)bookid {
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%@",bookid];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:nil];//
     NSData *data = nil;
@@ -170,7 +163,7 @@ static NSDictionary *booksDictionary;
     return data;
 }
 
-- (NSMutableArray *)getchaptersByBookId:(NSString *)bookid {
++ (NSMutableArray *)getchaptersByBookId:(NSString *)bookid {
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%@/zjinfo",bookid];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:@"txt"];//
     NSData *data = [NSData dataWithContentsOfFile:documentDir];
@@ -185,7 +178,7 @@ static NSDictionary *booksDictionary;
     return array;
 }
 
-- (NSMutableArray *)getchaptersArrayByBookId:(NSString *)bookid {
++ (NSMutableArray *)getchaptersArrayByBookId:(NSString *)bookid {
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%@/zjinfo",bookid];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:@"txt"];//
     NSData *data = [NSData dataWithContentsOfFile:documentDir];
@@ -201,7 +194,7 @@ static NSDictionary *booksDictionary;
     return array;
 }
 
-- (NSString *)getChapterName:(NSString *)chaptername {
++ (NSString *)getChapterName:(NSString *)chaptername {
     NSString *flagString = @"章节名:";
     NSRange range = [chaptername rangeOfString:flagString];
     if(range.location == NSNotFound) {
@@ -214,14 +207,14 @@ static NSDictionary *booksDictionary;
 }
 
 //检测书是否缺资料，如果缺的话就不打包了。
--(void)checkError {
++ (void)checkError {
     NSString *infoStr = @"";
     NSFileManager *fileManager = [NSFileManager defaultManager];
     int num = 10;
     NSString *pathName = [NSString stringWithFormat:@"BookDoc/Book/%d",num];
     NSString *documentDir = [[NSBundle mainBundle] pathForResource:pathName ofType:nil];//
     NSArray *fileList = [NSArray arrayWithArray:[fileManager contentsOfDirectoryAtPath:documentDir error:nil]];
-    NSLog(@"----");
+    NSLog(@"开始");
     for (int j = 0; j<[fileList count]; j++) {//count 代表要几本书一组
         NSString *documentName = [fileList objectAtIndex:j];
         
@@ -281,7 +274,7 @@ static NSDictionary *booksDictionary;
             }
         }
     }
-    NSLog(@"---");
+    NSLog(@"结束");
     NSLog(@"检查完毕！");
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -370,7 +363,7 @@ static NSDictionary *booksDictionary;
                 if(groupIdx >= groups)
                     groupIdx = 0;
             }
-//            NSLog(@"分给第%d组: %@", groupIdx, [books objectAtIndex:rand]);
+            //            NSLog(@"分给第%d组: %@", groupIdx, [books objectAtIndex:rand]);
         }
     }
     
@@ -401,7 +394,7 @@ static NSDictionary *booksDictionary;
                 if(groupIdx >= groups)
                     groupIdx = 0;
             }
-//            NSLog(@"分给第%d组: %@", groupIdx, [deltaBooks objectAtIndex:rand]); 
+            //            NSLog(@"分给第%d组: %@", groupIdx, [deltaBooks objectAtIndex:rand]);
         }
     }
 }
@@ -410,7 +403,7 @@ static NSDictionary *booksDictionary;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     NSString *folderPath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d",index]];
-//    NSArray *folderArray = [NSArray arrayWithArray:[fileManager contentsOfDirectoryAtPath:folderPath error:nil]];
+    //    NSArray *folderArray = [NSArray arrayWithArray:[fileManager contentsOfDirectoryAtPath:folderPath error:nil]];
     if (![fileManager fileExistsAtPath:folderPath]) {
         [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:NO attributes:nil error:nil];
     }
@@ -451,7 +444,7 @@ static NSDictionary *booksDictionary;
     [zjif writeToFile:kzjifPath atomically:YES];
 }
 
-- (void)createTxtInfo {
++ (void)createTxtInfo {
     NSArray *array = [NSArray arrayWithArray:[self getAllBookId]];
     NSMutableString *infoStr = [NSMutableString stringWithString:@"此合集包括下列书籍：\n"];
     for (int i = 0; i<[array count]; i++) {
@@ -461,7 +454,7 @@ static NSDictionary *booksDictionary;
         bookname = [bookname stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         bookname = [bookname stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         bookname = [NSString stringWithFormat:@"《%@》", bookname];
-
+        
         [infoStr appendString:bookname];
         
         //assume the max length of book name is 11, if less than 11, than append "Chinese space" to make length equals 11
@@ -482,7 +475,7 @@ static NSDictionary *booksDictionary;
         authorname = [authorname stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         authorname = [authorname stringByReplacingOccurrencesOfString:@"\r" withString:@""];
         authorname = [NSString stringWithFormat:@"作者：%@\n",authorname];
-
+        
         [infoStr appendString:authorname];
     }
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -491,21 +484,21 @@ static NSDictionary *booksDictionary;
     [infoStr writeToFile:plistPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
-- (NSInteger)getIndex:(NSString *)bookid {
++ (NSInteger)getIndex:(NSString *)bookid {
     return [[self getAllBookId] indexOfObject:bookid];
 }
 
 + (void)saveBookAndChapter
 {
-    NSArray *bookidArray = [[NSArray alloc] initWithArray:[[BookManager sharedInstance] getAllBookId]];
+    NSArray *bookidArray = [[NSArray alloc] initWithArray:[self getAllBookId]];
     for (int i = 0; i<[bookidArray count]; i++) {
         NSString *bookID = [bookidArray objectAtIndex:i];
-        NSString *bookName = [[BookManager sharedInstance] getBookNameByBookId:bookID];
-        NSString *authorName = [[BookManager sharedInstance] getBookNameByBookId:bookID];
+        NSString *bookName = [self getBookNameByBookId:bookID];
+        NSString *authorName = [self getBookNameByBookId:bookID];
         NSDictionary *dict = @{@"bookName": bookName,@"authorName": authorName,@"bookId" :@(bookID.integerValue)};
         Book *book = (Book *)[Book createWithAttributes:dict];
         book.bFav = [NSNumber numberWithBool:YES];
-        book.cover = [[BookManager sharedInstance] getBookImageDataWithBookId:bookID];
+        book.cover = [self getBookImageDataWithBookId:bookID];
         [book persistWithBlock:nil];
         [self saveChapterBookID:bookID];
     }
@@ -513,9 +506,9 @@ static NSDictionary *booksDictionary;
 
 + (void)saveChapterBookID:(NSString *)bookid
 {
-    NSArray *chaptersNameArray = [[BookManager sharedInstance] getchaptersByBookId:bookid];
+    NSArray *chaptersNameArray = [self getchaptersByBookId:bookid];
     NSMutableString *content = [@"" mutableCopy];
-    [content setString:[[BookManager sharedInstance] getTextWithBookId:bookid]];
+    [content setString:[self getTextWithBookId:bookid]];
     NSMutableArray *chapterObjArray = [[NSMutableArray alloc] init];
     for (int i = 0; i< [chaptersNameArray count]; i++) {
         Chapter *chapter = [Chapter createInContext:[ContextManager memoryOnlyContext]];
@@ -555,3 +548,4 @@ static NSDictionary *booksDictionary;
 //然后这个大数组循环发给每一组
 
 @end
+

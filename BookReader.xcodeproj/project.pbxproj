@@ -121,6 +121,7 @@
 		18A7FF38175F264100F97099 /* bookreader_universal_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF36175F264100F97099 /* bookreader_universal_btn.png */; };
 		18A7FF39175F264100F97099 /* nav_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF37175F264100F97099 /* nav_header.png */; };
 		18A7FF3D175F275300F97099 /* slider_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF3B175F275300F97099 /* slider_round.png */; };
+		18A7FF42176087C900F97099 /* NSObject+Local.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7FF41176087C900F97099 /* NSObject+Local.m */; };
 		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
 		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
 		18ABAF37172517C200ED02C6 /* Book+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF34172517C200ED02C6 /* Book+Test.m */; };
@@ -358,7 +359,6 @@
 		8BF7472E166DF0D90079E464 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472D166DF0D90079E464 /* Security.framework */; };
 		8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472F166DF0DF0079E464 /* MessageUI.framework */; };
 		8BF74732166DF0E50079E464 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF74731166DF0E50079E464 /* SystemConfiguration.framework */; };
-		8BF84D5E165F72C800D46D9B /* BookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF84D5D165F72C800D46D9B /* BookManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -501,6 +501,8 @@
 		18A7FF36175F264100F97099 /* bookreader_universal_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookreader_universal_btn.png; sourceTree = "<group>"; };
 		18A7FF37175F264100F97099 /* nav_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_header.png; sourceTree = "<group>"; };
 		18A7FF3B175F275300F97099 /* slider_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_round.png; sourceTree = "<group>"; };
+		18A7FF40176087C900F97099 /* NSObject+Local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Local.h"; sourceTree = "<group>"; };
+		18A7FF41176087C900F97099 /* NSObject+Local.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Local.m"; sourceTree = "<group>"; };
 		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
 		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -888,8 +890,6 @@
 		8BF7472D166DF0D90079E464 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8BF7472F166DF0DF0079E464 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8BF74731166DF0E50079E464 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8BF84D5C165F72C800D46D9B /* BookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookManager.h; sourceTree = "<group>"; };
-		8BF84D5D165F72C800D46D9B /* BookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -985,6 +985,8 @@
 				77B01C1C175090B2004E426C /* Mark.m */,
 				77B01C1E175090E2004E426C /* Mark+Setup.h */,
 				77B01C1F175090E2004E426C /* Mark+Setup.m */,
+				18A7FF40176087C900F97099 /* NSObject+Local.h */,
+				18A7FF41176087C900F97099 /* NSObject+Local.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1798,8 +1800,6 @@
 			children = (
 				8BDB0B97165E0522008F328A /* UserDefaultsManager.h */,
 				8BDB0B98165E0522008F328A /* UserDefaultsManager.m */,
-				8BF84D5C165F72C800D46D9B /* BookManager.h */,
-				8BF84D5D165F72C800D46D9B /* BookManager.m */,
 				8B3C3AAF16B2814F00C8468D /* PurchaseManager.h */,
 				8B3C3AB016B2814F00C8468D /* PurchaseManager.m */,
 				181091D617348C8B000931AB /* BookReaderDefaultsManager.h */,
@@ -2081,7 +2081,6 @@
 				8BDB0B28165E04F2008F328A /* HouseAppListViewController.m in Sources */,
 				8BDB0B29165E04F2008F328A /* AboutViewController.m in Sources */,
 				8BDB0B99165E0522008F328A /* UserDefaultsManager.m in Sources */,
-				8BF84D5E165F72C800D46D9B /* BookManager.m in Sources */,
 				8BEA22C5166320FD00AB4DDF /* HouseBookListViewController.m in Sources */,
 				8B659F251687EAB200D5126C /* ChapterViewController.m in Sources */,
 				8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */,
@@ -2215,6 +2214,7 @@
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
 				77B01C1D175090B2004E426C /* Mark.m in Sources */,
 				77B01C20175090E2004E426C /* Mark+Setup.m in Sources */,
+				18A7FF42176087C900F97099 /* NSObject+Local.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

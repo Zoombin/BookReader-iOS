@@ -8,7 +8,6 @@
 
 #import "HouseBookListViewController.h"
 #import "AppDelegate.h"
-#import "BookManager.h"
 #import <QuartzCore/QuartzCore.h>
 #import "BookReader.h"
 #import "UMTableViewCell.h"

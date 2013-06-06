@@ -17,7 +17,6 @@
 #import "Book.h"
 //Local
 #import "ReadViewController.h"
-#import "BookManager.h"
 #import "ChapterViewController.h"
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
