@@ -22,22 +22,21 @@
     </entity>
     <entity name="Chapter" representedClassName="Chapter" syncable="YES">
         <attribute name="bid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bVip" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="index" optional="YES" attributeType="Integer 16" syncable="YES"/>
-        <attribute name="lastReadIndex" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="lastReadIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Mark" representedClassName="Mark" syncable="YES">
         <attribute name="chapterID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reference" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="startWordIndex" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="startWordIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="160" positionY="192" width="128" height="315"/>
-        <element name="Chapter" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Chapter" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Mark" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

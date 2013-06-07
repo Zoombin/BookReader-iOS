@@ -12,7 +12,6 @@
 @implementation Chapter
 
 @dynamic bid;
-@dynamic bRead;
 @dynamic bVip;
 @dynamic content;
 @dynamic index;

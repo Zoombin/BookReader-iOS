@@ -13,7 +13,6 @@
 @interface Chapter : NSManagedObject
 
 @property (nonatomic, retain) NSString * bid;
-@property (nonatomic, retain) NSNumber * bRead;
 @property (nonatomic, retain) NSNumber * bVip;
 @property (nonatomic, retain) NSString * content;
 @property (nonatomic, retain) NSNumber * index;

@@ -134,7 +134,7 @@
 
 - (NSUInteger)countOfUnreadChapters
 {
-	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND bRead = nil", self.uid]];
+	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", self.uid]];
 }
 
 + (NSArray *)findAllAndSortedByDate

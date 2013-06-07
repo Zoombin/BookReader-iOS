@@ -132,18 +132,16 @@
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
 {
 	NSInteger index = position ? position.intValue : 0;
-	__block NSUInteger indexCount = 0;
-	__block NSUInteger rtnPageIndex = 0;
-	[pages enumerateObjectsUsingBlock:^(NSString *rangeString, NSUInteger idx, BOOL *stop) {
-		NSRange range = NSRangeFromString(rangeString);
+	NSLog(@"index = %d", index);
+	NSUInteger indexCount = 0;
+	NSUInteger rtnPageIndex = 0;
+	for (int i = 0; i < pages.count; i++) {
+		NSRange range = NSRangeFromString(pages[i]);
 		indexCount += range.length;
-		if (index <= indexCount) {
-			rtnPageIndex = idx;
-			*stop = YES;
+		if (index < indexCount) {
+			rtnPageIndex = i;
+			break;
 		}
-	}];
-	if (rtnPageIndex > pages.count - 1) {
-		rtnPageIndex = pages.count - 1;
 	}
 	return rtnPageIndex;
 }
@@ -196,9 +194,8 @@
 	[coreTextView buildTextWithString:currentPageString];
 	[coreTextView setNeedsDisplay];
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		chapter.lastReadIndex = @(10);
-		//Chapter *aChapter = [Chapter findFirstInContext:localContext];
-		//aChapter.lastReadIndex = @(range.location);
+		chapter.lastReadIndex = @(range.location);
+		NSLog(@"set lastReadIndex = %@", chapter.lastReadIndex);
 	}];
 }
 
@@ -309,12 +306,13 @@
 		chapter = aChapter;
 		currentChapterString = [chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue];
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			chapter.bRead = @(YES);
 			_book.lastReadChapterID = chapter.uid;
 		}];
-		statusView.title.text = chapter.name;
-		currentPageIndex = [self goToIndexWithLastReadPosition:chapter.lastReadIndex];
+		statusView.title.text = [NSString stringWithFormat:@"(%d) %@", chapter.index.intValue + 1, chapter.name];
+		NSLog(@"get lastReadIndex = %@", chapter.lastReadIndex);
 		[self paging];
+		currentPageIndex = [self goToIndexWithLastReadPosition:chapter.lastReadIndex];
+		NSLog(@"currentPageIndex = %d", currentPageIndex);
 		[self updateCurrentPageContent];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
