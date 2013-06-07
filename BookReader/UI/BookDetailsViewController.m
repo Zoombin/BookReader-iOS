@@ -175,7 +175,7 @@
         [label setText:[NSString stringWithFormat:@"%@%@",labelTitles[i],labelNames[i]]];
         [firstBkgView addSubview:label];
     }
-    NSArray *buttonTitles = @[@"阅读",@"收藏",@"分享"];
+    NSArray *buttonTitles = @[@"阅读",@"收藏",@"推荐"];
     NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
     NSArray *selStrings = @[@"readButtonClicked:", @"favButtonClicked:", @"smsShareButtonClicked:", @"buttonClicked:"];
 	NSMutableArray *buttons = [NSMutableArray array];

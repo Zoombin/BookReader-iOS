@@ -88,7 +88,7 @@
     [shareButton setFrame:CGRectMake(addBookMarkButton.frame.origin.x-48, buttonOffsetY, 48, 32)];
     [shareButton setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
     [shareButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [shareButton setTitle:@"分享" forState:UIControlStateNormal];
+    [shareButton setTitle:@"推荐" forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(messageShare) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:shareButton];
 }
