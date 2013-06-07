@@ -148,7 +148,6 @@
 
 - (void) initFontView
 {
-    NSLog(@"显示FontView");
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, self.bounds.size.width, 150)];
     [fontView setHidden:YES];
     [fontView setAlpha:0.9];
@@ -227,7 +226,6 @@
 
 -(void)initBackgroundView
 {
-    NSLog(@"显示BackgroundView");
     backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, self.bounds.size.width, 150)];
     [backgroundView setHidden:YES];
     [backgroundView setAlpha:0.9];
