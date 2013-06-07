@@ -8,15 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReadStatusView : UIView {
-    UILabel *title;
-    UILabel *percentage;
-    UIScrollView *booknameScroll;
-}
-
+@interface ReadStatusView : UIView
 @property (nonatomic, strong)UILabel *title;
 @property (nonatomic, strong)UILabel *percentage;
-@property (nonatomic, strong)UIScrollView *booknameScroll;
 @end
 
 
