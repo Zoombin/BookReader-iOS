@@ -128,14 +128,12 @@
     NSArray *rectArrays = @[BUTTON_FRAME_ONE_STR,BUTTON_FRAME_TWO_STR,BUTTON_FRAME_THREE_STR,BUTTON_FRAME_FOUR_STR,BUTTON_FRAME_FIVE_STR];
     NSArray *imagesArray = @[@"read_chapterlist", @"read_prechapter", @"read_font", @"read_nextchapter", @"read_background"];
     for (int i = 0; i <[rectArrays count]; i++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectFromString([rectArrays objectAtIndex:i])];
-        [imageView setImage:[UIImage imageNamed:@"read_box"]];
-        [bottomView addSubview:imageView];
-        
+        NSString *hlImageName = [imagesArray[i] stringByAppendingString:@"_hl"];
         UIButton *button =[UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(imageView.frame.origin.x+5, imageView.frame.origin.y+5, 45, 30)];
+        [button setFrame:CGRectFromString(rectArrays[i])];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:imagesArray[i]] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:hlImageName] forState:UIControlStateHighlighted];
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:button];
         [bottomViewBtns addObject:button];

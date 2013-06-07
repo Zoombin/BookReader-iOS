@@ -36,6 +36,8 @@
     CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(self.bounds.size.width-110,4,48,32);
     CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-60,4,48,32);
     
+    [_backButton setHidden:YES];
+    
     [_titleLabel setText:@"我的收藏"];
     [self bringSubviewToFront:_titleLabel];
     

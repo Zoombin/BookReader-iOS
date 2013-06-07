@@ -14,7 +14,7 @@
 #import "Chapter+Setup.h"
 #import "NSString+XXSY.h"
 #import "ContextManager.h"
-#import "NSObject+Local.h"
+#import "Book+Local.h"
 
 @implementation NSObject (Local)
 static NSDictionary *booksDictionary;
