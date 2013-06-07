@@ -33,8 +33,8 @@
 }
 
 - (void)addButtons {
-    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(self.bounds.size.width-10-50,5,50,32);
-    CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(10,5,50,32);
+    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(10,5,50,32);
+    CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-10-50,5,50,32);
     
     [_backButton setHidden:YES];
     

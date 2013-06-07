@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _title = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, frame.size.width - 60, frame.size.height)];
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width - 60, frame.size.height)];
 		_title.backgroundColor = [UIColor clearColor];
         _title.textAlignment = UITextAlignmentLeft;
 		_title.font = [UIFont systemFontOfSize:12];
