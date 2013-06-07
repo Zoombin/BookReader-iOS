@@ -70,7 +70,7 @@
     chapter.bid = self.bid;
     //chapter.bRead = self.bRead;
     chapter.bVip = self.bVip;
-    chapter.content = self.content;
+    //chapter.content = self.content;
     chapter.index = self.index;
     //chapter.lastReadIndex = self.lastReadIndex;
     chapter.name = self.name;
