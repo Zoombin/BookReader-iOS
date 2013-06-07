@@ -261,6 +261,7 @@
     UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, backgroundView.bounds.size.width/20*3)];
     [scrollerView setBackgroundColor:[UIColor clearColor]];
     [scrollerView setDelegate:self];
+	scrollerView.pagingEnabled = YES;
     [scrollerView setContentSize:CGSizeMake(scrollerView.bounds.size.width*4, scrollerView.bounds.size.width/20*3)];
     [backgroundView addSubview:scrollerView];
     
