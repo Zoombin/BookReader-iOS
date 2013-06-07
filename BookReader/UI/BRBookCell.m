@@ -82,7 +82,7 @@
 - (void)setEditing:(BOOL)editing
 {
     _editing = editing;
-	[badgeView setAlpha:editing ? 0.0 : 1.0];
+	badgeView.hidden = editing;
 	autoBuyButton.hidden = !_editing;
     if (!editing) {
         [self setCellSelected:NO];
