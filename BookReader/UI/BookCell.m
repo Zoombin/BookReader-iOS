@@ -17,7 +17,7 @@
     UILabel *nameLabel;
     UILabel *authorLabel;
     UILabel *categoryLabel;
-    UIImageView *coverView;
+	UIImageView *coverView;
 }
 
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -29,7 +29,6 @@
             CGRect bookNameLabelFrame = CGRectMake(115, 20, 205, 30);
             CGRect authorNameLabelFrame = CGRectMake(115, 55, 130, 30);
             CGRect categoryNameLabelFrame = CGRectMake(115, 90, 130, 30);
-            CGRect locationNameLabelFrame = CGRectMake(self.bounds.size.width-100, 42, 110, 30);
             
             UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 140-2)];
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
@@ -91,11 +90,13 @@
     if (book.cover) {
         coverView.image = [UIImage imageWithData:book.cover];
     } else if (book.coverURL) {
-       [coverView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-            [coverView setImage:image];  
-       } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-           
-       }];
+		coverView.image = [UIImage imageNamed:@"book_placeholder"];
+		UIImageView *imageView = [[UIImageView alloc] init];
+		[imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+			coverView.image = image;
+		} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+		   
+		}];
     }
 }
 

@@ -165,6 +165,8 @@
 		18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		773B39A116CF229C00AAAF28 /* BookDoc in Resources */ = {isa = PBXBuildFile; fileRef = 773B39A016CF229C00AAAF28 /* BookDoc */; };
+		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
+		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C67261744652500909D6A /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C67251744652500909D6A /* Chapter.m */; };
@@ -373,7 +375,6 @@
 		8BF7472C166DF0D40079E464 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472B166DF0D40079E464 /* MediaPlayer.framework */; };
 		8BF7472E166DF0D90079E464 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472D166DF0D90079E464 /* Security.framework */; };
 		8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472F166DF0DF0079E464 /* MessageUI.framework */; };
-		8BF74732166DF0E50079E464 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF74731166DF0E50079E464 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -576,6 +577,8 @@
 		18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReadMenuView.m; sourceTree = "<group>"; };
 		7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBManagedObjectDelegate.h; sourceTree = "<group>"; };
 		773B39A016CF229C00AAAF28 /* BookDoc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BookDoc; sourceTree = "<group>"; };
+		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
@@ -918,7 +921,6 @@
 		8BF7472B166DF0D40079E464 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8BF7472D166DF0D90079E464 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8BF7472F166DF0DF0079E464 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		8BF74731166DF0E50079E464 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -926,7 +928,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BF74732166DF0E50079E464 /* SystemConfiguration.framework in Frameworks */,
+				778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */,
+				7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */,
 				8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */,
 				188FE67416FB003F009561CB /* CoreData.framework in Frameworks */,
 				8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */,
@@ -1679,6 +1682,8 @@
 		8BDB0AB4165E03BB008F328A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7780154F1762222B005296DD /* SystemConfiguration.framework */,
+				7780154D17622204005296DD /* MobileCoreServices.framework */,
 				188FE67316FB003F009561CB /* CoreData.framework */,
 				8B0371C116AD219100DFE776 /* CFNetwork.framework */,
 				8BF591A316A7A25D00C25984 /* StoreKit.framework */,
@@ -1688,7 +1693,6 @@
 				8B22BC54167EBBA900A2B316 /* libz.dylib */,
 				8B8A967D166DF9B0004549FA /* CoreAudio.framework */,
 				8B8A967B166DF9A2004549FA /* AudioToolbox.framework */,
-				8BF74731166DF0E50079E464 /* SystemConfiguration.framework */,
 				8BF7472F166DF0DF0079E464 /* MessageUI.framework */,
 				8BF7472D166DF0D90079E464 /* Security.framework */,
 				8BF7472B166DF0D40079E464 /* MediaPlayer.framework */,
@@ -2398,9 +2402,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Library/AdNetworkLibs/AdMob\"",
 					"\"$(SRCROOT)/Library/UMengSDK\"",
-					"\"$(SRCROOT)/Library/MobileProbe_iOS\"",
-					"\"$(SRCROOT)/Libraries/MagicalRecord/Project Files/iOS App Unit Tests/Frameworks/OCMockLibrary\"",
-					"\"$(SRCROOT)/Libraries/MagicalRecord/Project Files/Mac App Unit Tests/Frameworks/OCMockLibrary\"",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
 				);
 				OTHER_LDFLAGS = "";
@@ -2436,9 +2437,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Library/AdNetworkLibs/AdMob\"",
 					"\"$(SRCROOT)/Library/UMengSDK\"",
-					"\"$(SRCROOT)/Library/MobileProbe_iOS\"",
-					"\"$(SRCROOT)/Libraries/MagicalRecord/Project Files/iOS App Unit Tests/Frameworks/OCMockLibrary\"",
-					"\"$(SRCROOT)/Libraries/MagicalRecord/Project Files/Mac App Unit Tests/Frameworks/OCMockLibrary\"",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
 				);
 				OTHER_LDFLAGS = "";
