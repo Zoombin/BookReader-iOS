@@ -90,7 +90,6 @@
 		1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3E01702DE450046DA4C /* BookDetailsViewController.m */; };
 		188AC57D1714139900FC012B /* source.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188AC57C1714139900FC012B /* source.txt */; };
 		188FE62716F84510009561CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188FE62516F84510009561CB /* Localizable.strings */; };
-		188FE63516F99F73009561CB /* CustomProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FE63416F99F72009561CB /* CustomProgressView.m */; };
 		188FE63A16F9A069009561CB /* localbook_progress_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FE63816F9A069009561CB /* localbook_progress_background.png */; };
 		188FE63B16F9A069009561CB /* localbook_progress_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FE63916F9A069009561CB /* localbook_progress_front.png */; };
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
@@ -481,8 +480,6 @@
 		188AC57C1714139900FC012B /* source.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = source.txt; sourceTree = SOURCE_ROOT; };
 		188FE62616F84510009561CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		188FE62816F8453E009561CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		188FE63316F99F72009561CB /* CustomProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomProgressView.h; sourceTree = "<group>"; };
-		188FE63416F99F72009561CB /* CustomProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomProgressView.m; sourceTree = "<group>"; };
 		188FE63816F9A069009561CB /* localbook_progress_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbook_progress_background.png; sourceTree = "<group>"; };
 		188FE63916F9A069009561CB /* localbook_progress_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbook_progress_front.png; sourceTree = "<group>"; };
 		188FE67316FB003F009561CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1057,8 +1054,6 @@
 				18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */,
 				77EB59741702B8EA004E2C00 /* BookShelfButton.h */,
 				77EB59751702B8EA004E2C00 /* BookShelfButton.m */,
-				188FE63316F99F72009561CB /* CustomProgressView.h */,
-				188FE63416F99F72009561CB /* CustomProgressView.m */,
 				1888A39C16FD65960046DA4C /* BookStoreViewController.h */,
 				1888A39D16FD65960046DA4C /* BookStoreViewController.m */,
 				1888A39F16FD66520046DA4C /* MemberViewController.h */,
@@ -2148,7 +2143,6 @@
 				8BEA22C5166320FD00AB4DDF /* HouseBookListViewController.m in Sources */,
 				8B659F251687EAB200D5126C /* ChapterViewController.m in Sources */,
 				8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */,
-				188FE63516F99F73009561CB /* CustomProgressView.m in Sources */,
 				1888A39E16FD65960046DA4C /* BookStoreViewController.m in Sources */,
 				1888A3A116FD66530046DA4C /* MemberViewController.m in Sources */,
 				1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */,
