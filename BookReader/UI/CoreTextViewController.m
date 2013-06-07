@@ -196,7 +196,8 @@
 	[coreTextView buildTextWithString:currentPageString];
 	[coreTextView setNeedsDisplay];
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		chapter.lastReadIndex = @(range.location);
+		Chapter *aChapter = [Chapter findFirstInContext:localContext];
+		aChapter.lastReadIndex = @(range.location);
 	}];
 }
 
@@ -320,26 +321,17 @@
 		[ServiceManager bookCatalogue:aChapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				[self hideHUD:YES];
-				currentReadIndex = currentPageIndex = 0;
-				currentChapterString = [content XXSYDecodingRelatedVIP:chapter.bVip.boolValue];
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					chapter.bRead = @(YES);
 					chapter.content = content;
-					_book.lastReadChapterID = chapter.uid;
-					[self paging];
-					[self updateCurrentPageContent];
+					[self gotoChapter:chapter];
 				}];
 			} else {//没下载到，尝试订阅
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
 					[self hideHUD:YES];
 					if (content && ![content isEqualToString:@""]) {
-						currentReadIndex = currentPageIndex = 0;
-						currentChapterString = [content XXSYDecodingRelatedVIP:chapter.bVip.boolValue];
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 							chapter.content = content;
-							_book.lastReadChapterID = chapter.uid;
-							[self paging];
-							[self updateCurrentPageContent];
+							[self gotoChapter:chapter];
 						}];
 					} else {
 						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
