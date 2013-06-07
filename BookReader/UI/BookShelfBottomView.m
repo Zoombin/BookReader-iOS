@@ -29,7 +29,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44)];
-        [backgroundImage setImage:[UIImage imageNamed:@"toolbar_top_bar"]];
+        [backgroundImage setImage:[UIImage imageNamed:@"nav_header"]];
         [self addSubview:backgroundImage];
         [self addButtons];
         
@@ -41,11 +41,12 @@
 }
 
 - (void)addButtons {
-    CGRect EDIT_BUTTON_FRAME = CGRectMake(10, 4, 48, 32);
-    CGRect Finish_BUTTON_FRAME = CGRectMake(10, 4, 48, 32);
-    CGRect DELETE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-60,4,48,32);
-    CGRect REFRESH_BUTTON_FRAME = CGRectMake(self.bounds.size.width-122,4,48,32);
-    CGRect HISTORY_BUTTON_FRAME = CGRectMake(self.bounds.size.width-72,4,60,32);
+    float BUTTON_WIDTH = (self.frame.size.width-10)/3;
+    CGRect EDIT_BUTTON_FRAME = CGRectMake(self.bounds.size.width-BUTTON_WIDTH-5, 2, BUTTON_WIDTH, 40);
+    CGRect Finish_BUTTON_FRAME = CGRectMake(self.bounds.size.width-BUTTON_WIDTH-5, 2, BUTTON_WIDTH, 40);
+    CGRect DELETE_BUTTON_FRAME = CGRectMake(5,2,BUTTON_WIDTH,40);
+    CGRect REFRESH_BUTTON_FRAME = CGRectMake(5,2,BUTTON_WIDTH,40);
+    CGRect HISTORY_BUTTON_FRAME = CGRectMake(CGRectGetMaxX(REFRESH_BUTTON_FRAME),2,BUTTON_WIDTH,40);
     
     bottomViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:bottomViewOne];
@@ -54,20 +55,16 @@
     [self addSubview:bottomViewTwo];
     [bottomViewTwo setHidden:YES];
     
-    NSArray *titles = @[@"编辑", @"更新", @"阅读历史", @"我的收藏" ,@"删除", @"完成"];
     NSArray *rectStrings = @[NSStringFromCGRect(EDIT_BUTTON_FRAME), NSStringFromCGRect(REFRESH_BUTTON_FRAME),NSStringFromCGRect(HISTORY_BUTTON_FRAME),NSStringFromCGRect(HISTORY_BUTTON_FRAME), NSStringFromCGRect(DELETE_BUTTON_FRAME), NSStringFromCGRect(Finish_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"editButtonClick", @"refreshButtonClick", @"historyButtonClick", @"shelfButtonClick", @"deleteButtonClick", @"finishButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"),UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn")];
-    NSArray *highlightedImages = @[UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl")];
-    
-    NSAssert(titles.count == rectStrings.count && rectStrings.count == selectorStrings.count && selectorStrings.count == images.count && images.count == highlightedImages.count, @"titles.count, rectStrings.count, selectorStrings.count, images.count, highlightedImages.count can't match each other...");
+    NSArray *images = @[UIIMAGE(@"edit_btn"), UIIMAGE(@"update_btn"), UIIMAGE(@"history_btn"), UIIMAGE(@"fav_btn"),UIIMAGE(@"delete_btn"), UIIMAGE(@"finish_btn")];
+    NSArray *highlightedImages = @[UIIMAGE(@"edit_btn_hl"), UIIMAGE(@"update_btn_hl"), UIIMAGE(@"history_btn_hl"), UIIMAGE(@"fav_btn_hl"), UIIMAGE(@"delete_btn_hl"), UIIMAGE(@"finish_btn_hl")];
     
 	buttonArray = [NSMutableArray array];
     for (int i = 0; i < 6; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setBackgroundImage:images[i] forState:UIControlStateNormal];
         [button setBackgroundImage:highlightedImages[i] forState:UIControlStateHighlighted];
         [button setTag:i];
@@ -75,21 +72,7 @@
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        if ([titles[i] isEqualToString:@"完成"]) {
-            [button setBackgroundColor:[UIColor greenColor]];
-            [button.layer setCornerRadius:6];
-            [button.layer setBorderWidth:1.0];
-            [button.layer setBorderColor:[UIColor grayColor].CGColor];
-            [button.layer setMasksToBounds:YES];
-            [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-            [bottomViewTwo addSubview:button];
-        } else if ([titles[i] isEqualToString:@"删除"]) {
-            [button setBackgroundColor:[UIColor redColor]];
-            [button.layer setCornerRadius:6];
-            [button.layer setBorderWidth:1.0];
-            [button.layer setBorderColor:[UIColor grayColor].CGColor];
-            [button.layer setMasksToBounds:YES];
-            [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        if (i==4||i==5) {
             [bottomViewTwo addSubview:button];
         } else {
             [bottomViewOne addSubview:button];
