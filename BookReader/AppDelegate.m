@@ -57,7 +57,7 @@
 //    }];
 //
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+	//[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
