@@ -22,7 +22,6 @@
 @dynamic lastReadChapterID;
 @dynamic lastUpdate;
 @dynamic name;
-@dynamic progress;
 @dynamic rDate;
 @dynamic recommendID;
 @dynamic recommendTitle;

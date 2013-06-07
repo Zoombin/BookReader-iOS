@@ -16,7 +16,6 @@
 {
     UILabel *nameLabel;
     UILabel *authorLabel;
-    UILabel *progressLabel;
     UILabel *categoryLabel;
     UIImageView *coverView;
 }
@@ -47,13 +46,7 @@
             [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
             [authorLabel setTextColor:[UIColor grayColor]];
             [self.contentView addSubview:authorLabel];
-            
-            progressLabel = [[UILabel alloc] initWithFrame:locationNameLabelFrame];
-            [progressLabel setBackgroundColor:[UIColor clearColor]];
-            [progressLabel setFont:[UIFont boldSystemFontOfSize:10]];
-            [progressLabel setTextColor:LabelTextColor];
-            [self.contentView addSubview:progressLabel];
-            
+                        
             categoryLabel = [[UILabel alloc] initWithFrame:categoryNameLabelFrame];
             [categoryLabel setBackgroundColor:[UIColor clearColor]];
             [categoryLabel setFont:[UIFont boldSystemFontOfSize:14]];

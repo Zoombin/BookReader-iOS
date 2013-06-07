@@ -102,7 +102,6 @@
     //book.lastReadChapterID = self.lastReadChapterID;
     book.lastUpdate = self.lastUpdate;
     book.name = self.name;
-    //book.progress = self.progress;
     //book.rDate = self.rDate;
     book.recommendID = self.recommendID;
     book.recommendTitle = self.recommendTitle;

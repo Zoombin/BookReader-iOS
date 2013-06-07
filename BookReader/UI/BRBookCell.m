@@ -9,13 +9,11 @@
 #import "BRBookCell.h"
 #import "Book.h"
 #import "UIImageView+AFNetworking.h"
-#import "CustomProgressView.h"
 #import "MKNumberBadgeView.h"
 #import "Book+Setup.h"
 
 
 @implementation BRBookCell {
-	CustomProgressView *progressView;
 	UIImageView *selectedMark;
 	MKNumberBadgeView *badgeView;
 	UIButton *autoBuyButton;
@@ -24,10 +22,6 @@
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
-        progressView = [[CustomProgressView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bounds), self.bounds.size.width, 8)];
-		progressView.hidden = YES;
-        [self addSubview:progressView];
-        
         selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 		selectedMark.center = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds));
 		[selectedMark setImage:[UIImage imageNamed:@"local_book_select.png"]];
@@ -69,11 +63,7 @@
 			
 		}];
     }
-    
-    if (_book.progress) {
-        [progressView setProgress:book.progress.floatValue];
-    }
-	
+
     if (_book.autoBuy) {
 		self.autoBuy = _book.autoBuy.boolValue;
     }
