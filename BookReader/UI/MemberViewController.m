@@ -82,6 +82,9 @@
     for (UIView *view in [self.view subviews]) {
         [view removeFromSuperview];
     }
+    UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    [topBarImage setImage:[UIImage imageNamed:@"nav_header"]];
+    [self.view addSubview:topBarImage];
     
     UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [titleLabel setText:@"个人中心"];

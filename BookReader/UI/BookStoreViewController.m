@@ -97,17 +97,6 @@
         [categoryView setHidden:YES];
         [self loadRecommendData];
         [infoTableView setHidden:NO];
-        for (int i = 0; i<3; i++)
-        {
-            UIButton *button = (UIButton *)[self.view viewWithTag:i+10000];
-            if (i==0)
-            {
-                [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-            }else
-            {
-                [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            }
-        }
         NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
         NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
         for (int i = 0; i < 4; i++) {
@@ -122,7 +111,8 @@
     }
 }
 
-- (void)shouldRefresh {
+- (void)shouldRefresh
+{
     shouldRefresh = YES;
 }
 
@@ -134,7 +124,7 @@
     [self setTitle:@"书城"];
     
     UIImageView *bottomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
-    [bottomImage setImage:[UIImage imageNamed:@"iphone_qqreader_feedback_bg"]];
+    [bottomImage setImage:[UIImage imageNamed:@"nav_header"]];
     [self.view addSubview:bottomImage];
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
@@ -146,7 +136,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(i*self.view.bounds.size.width/4, self.view.bounds.size.height-47, self.view.bounds.size.width/4, 47)];
+        [button setFrame:CGRectMake(i*self.view.bounds.size.width/4, self.view.bounds.size.height-48, self.view.bounds.size.width/4, 46)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
