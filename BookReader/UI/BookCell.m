@@ -26,9 +26,9 @@
     if (self) {
         if (style == BookCellStyleBig) {
             CGRect bookimageViewFrame = CGRectMake(15, 5, 45, 60);
-            CGRect bookNameLabelFrame = CGRectMake(75, 5, 205, 15);
-            CGRect authorNameLabelFrame = CGRectMake(75, 22, 130, 15);
-            CGRect categoryNameLabelFrame = CGRectMake(75, 39, 130, 15);
+            CGRect bookNameLabelFrame = CGRectMake(75, 8, 205, 15);
+            CGRect authorNameLabelFrame = CGRectMake(75, 35, 130, 15);
+            CGRect categoryNameLabelFrame = CGRectMake(75, 50, 130, 15);
             
             nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
@@ -55,10 +55,6 @@
             [sperateLine setBackgroundColor:[UIColor blackColor]];
             [self addSubview:sperateLine];
         } else {
-            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 30-2)];
-            [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-            [self.contentView addSubview:background];
-            
             nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 30)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
@@ -71,6 +67,10 @@
             [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
             [authorLabel setTextColor:[UIColor grayColor]];
             [self.contentView addSubview:authorLabel];
+            
+            UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 29, self.contentView.frame.size.width-30, 0.5)];
+            [sperateLine setBackgroundColor:[UIColor blackColor]];
+            [self addSubview:sperateLine];
         }
     }
     return self;

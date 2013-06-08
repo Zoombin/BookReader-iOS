@@ -149,6 +149,7 @@
 - (void)updateFontSize
 {
 	[self paging];
+    [self updateCurrentPageContent];
 }
 
 - (void)updateFontColor
@@ -159,11 +160,13 @@
     statusView.title.textColor = [UIColor performSelector:textcolorselector];
     statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
 	[self paging];
+    [self updateCurrentPageContent];
 }
 
 - (void)updateFont
 {
 	[self paging];
+    [self updateCurrentPageContent];
 }
 
 - (void)updateBackgroundColor

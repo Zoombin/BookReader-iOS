@@ -70,10 +70,10 @@
     [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont boldSystemFontOfSize:17]];
     [label setTextColor:[UIColor hexRGB:0xdd8e28]];
-    
-    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(85, 10, 18, 10)];
-    [arrowImageView setImage:[UIImage imageNamed:@"arrow_down"]];
-    [label addSubview:arrowImageView];
+//    
+//    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(85, 10, 18, 10)];
+//    [arrowImageView setImage:[UIImage imageNamed:@"arrow_down"]];
+//    [label addSubview:arrowImageView];
     return label;
  
 }
