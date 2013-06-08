@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRHeaderView.h"
 
 @interface BRViewController : UIViewController
 
@@ -16,6 +17,7 @@
 
 - (void)hideKeyboard;
 - (void)removeGestureRecognizer;
+- (BRHeaderView *)BRHeaderView;
 
 
 @end

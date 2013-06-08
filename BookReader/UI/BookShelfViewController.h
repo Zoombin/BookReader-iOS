@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "BRHeaderView.h"
 #import "BookShelfBottomView.h"
+#import "BRViewController.h"
 //Local
 #import "BookReader.h"
 #import <StoreKit/StoreKit.h>
@@ -21,7 +22,7 @@ typedef enum {
 }BookShelfLayoutStyle;
 
 
-@interface BookShelfViewController : UIViewController
+@interface BookShelfViewController : BRViewController
 
 @property (nonatomic, assign) BookShelfLayoutStyle layoutStyle;
 @end

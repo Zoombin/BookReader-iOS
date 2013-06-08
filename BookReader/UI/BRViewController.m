@@ -28,6 +28,11 @@
     [self.view addGestureRecognizer:gesturerecognier];
 }
 
+- (BRHeaderView *)BRHeaderView
+{
+    return headerView;
+}
+
 - (void)backButtonClick {
     [self.navigationController popViewControllerAnimated:YES];
 }

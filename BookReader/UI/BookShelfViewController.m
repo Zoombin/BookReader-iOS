@@ -54,6 +54,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self removeGestureRecognizer];
 	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
     [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
     [self.view addSubview:backgroundImage];
@@ -63,10 +64,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
 	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
-		headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-        [headerView addButtons];
-		[headerView setDelegate:self];
-		[self.view addSubview:headerView];
+        [[self BRHeaderView] addButtons];
+        [[self BRHeaderView] setDelegate:self];
 		
 		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
 		[bottomView setDelegate:self];
