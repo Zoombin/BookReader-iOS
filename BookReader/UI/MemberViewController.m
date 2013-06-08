@@ -24,6 +24,7 @@
 #import "Member.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "BookReader.h"
 
 
 @implementation MemberViewController
@@ -130,14 +131,22 @@
 
 - (void)logoutButtonClicked
 {
-    isLogin = NO;
-    //清除个人信息等...
-    [ServiceManager deleteUserID];
-    [ServiceManager deleteUserInfo];
-	//TODO
-	[Book truncateAll];
-	[Chapter truncateAll];
-    [self reloadUI];
+	stopAllSync = YES;
+	[self displayHUD:@"正在注销"];
+	[self performSelector:@selector(logout) withObject:nil afterDelay:2];
+}
+
+- (void)logout
+{
+	isLogin = NO;
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		[ServiceManager deleteUserID];
+		[ServiceManager deleteUserInfo];
+		[Book truncateAll];
+		[Chapter truncateAll];
+		[self reloadUI];
+		[self hideHUD:YES];
+	}];
 }
 
 - (void)backButtonClicked

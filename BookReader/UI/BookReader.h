@@ -29,3 +29,6 @@
 
 //#define M_CNZZ_COM	@"cnzz.i_2b0e95094feeefd83f531f5b"
 #define M_CNZZ_COM	@"cnzz.i_eldciu2z9sr5ro3wl3c0i4a0"//3013
+
+
+BOOL stopAllSync;

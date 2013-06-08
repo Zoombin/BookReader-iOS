@@ -108,12 +108,14 @@
     [self hideKeyboard];
     [self displayHUD:@"登录中"];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(Member *member,BOOL success,NSString *message,NSError *error) {
+		passwordTextField.text = @"";
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {
-            [self hideHUD:YES];
             if (success) {
+				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] synchronize];
                 [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
             } else {
                 [self displayHUDError:nil message:message];
