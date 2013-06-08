@@ -24,4 +24,5 @@ typedef enum {
 @interface BookShelfBottomView : UIView
 @property (nonatomic, weak) id<BookShelfBottomViewDelegate> delegate;
 - (void)setEditButtonHidden:(BOOL)hiden;
+- (void)historyButtonClick;
 @end

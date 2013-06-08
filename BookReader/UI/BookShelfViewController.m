@@ -96,8 +96,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (![ServiceManager userID]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
-		//TODO
-		//switch to history and display history
+		[bottomView historyButtonClick];
     } else {
 		if (displayingHistory) {
 			booksForDisplay = [[Book findAllHistory] mutableCopy];
@@ -108,6 +107,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
+			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
 	}
 }
