@@ -18,40 +18,27 @@
 #import "UILabel+BookReader.h"
 #import "Chapter+Setup.h"
 #import "UIButton+BookReader.h"
+#import "Book.h"
 
 #define BOOKMARK  0
 #define CHAPTER 1
 
 @implementation SubscribeViewController
 {
-    Book *bookobj;
     UITableView *infoTableView;
     NSMutableArray *infoArray;
     NSMutableArray *chapterArray;
     NSMutableArray *bookmarkArray;
     NSInteger currentMode;
-    BOOL bOnline;
-}
-@synthesize delegate;
-
-- (id)initWithBookId:(Book *)book
-           andOnline:(BOOL)online;
-{
-    self = [super init];
-    if (self) {
-        bookobj = book;
-        infoArray = [[NSMutableArray alloc] init];
-        chapterArray = [[NSMutableArray alloc] init];
-        bookmarkArray = [[NSMutableArray alloc] init];
-        bOnline = online;
-        currentMode = CHAPTER;
-    }
-    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	infoArray = [[NSMutableArray alloc] init];
+	chapterArray = [[NSMutableArray alloc] init];
+	bookmarkArray = [[NSMutableArray alloc] init];
+	currentMode = CHAPTER;
     [self setTitle:@"目录"];
     [self removeGestureRecognizer];
     
@@ -60,8 +47,8 @@
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width-110,4,48,32);
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width-60,4,48,32);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 110, 4, 48, 32);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, 4, 48, 32);
     NSArray *titles = @[@"目录", @"书签"];
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chapterButtonClick", @"bookmarkButtonClick"];
@@ -102,49 +89,19 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([chapterArray count]==0) {
+    if ([chapterArray count] == 0) {
         [self loadChapterData];
     }
 }
 
 - (void)loadChapterData
 {
-    if (bOnline) {
-        [self chapterDataFromService];
-    } else {
-        NSArray *array = [Chapter chaptersRelatedToBook:bookobj.uid];
-        if ([array count]>0)
-        {
-            [chapterArray addObjectsFromArray:array];
-            infoArray = chapterArray;
-            [infoTableView reloadData];
-        }
-        else
-        {
-            [self chapterDataFromService];
-        }
-    }
-}
-
-- (void)chapterDataFromService
-{
-    [self displayHUD:@"获取书籍目录中..."];
-    [ServiceManager bookCatalogueList:bookobj.uid withBlock:^(NSArray *resultArray, NSError *error) {
-        if (error)
-        {
-            [self hideHUD:YES];
-        }
-        else
-        {
-            [self hideHUD:YES];
-            if ([chapterArray count]>0) {
-                [chapterArray removeAllObjects];
-            }
-            [chapterArray addObjectsFromArray:resultArray];
-            infoArray = chapterArray;
-            [infoTableView reloadData];
-        }
-    }];
+	NSArray *array = [Chapter chaptersRelatedToBook:_book.uid];
+	if (array.count > 0) {
+		[chapterArray addObjectsFromArray:array];
+		infoArray = chapterArray;
+		[infoTableView reloadData];
+	}
 }
 
 - (void)backButtonClick
@@ -167,20 +124,17 @@
 {
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
         if (currentMode == CHAPTER) {
-            Chapter *obj = [infoArray objectAtIndex:[indexPath row]];
-            cell.textLabel.text = obj.name;
-            if (obj.content!=nil) {
-                cell.textLabel.textColor = [UIColor blueColor];
-            }
+            Chapter *obj = [infoArray objectAtIndex:indexPath.row];
+            cell.textLabel.text = [NSString stringWithFormat:@"(%d) %@", indexPath.row + 1, obj.name];
+			if (obj.lastReadIndex != nil) {
+				cell.textLabel.textColor = [UIColor blueColor];
+			}
             [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
-            NSString *vipString = @"";
-            vipString = [obj.bVip boolValue] ? @"v" : @"";
             cell.detailTextLabel.textColor = [UIColor redColor];
-            cell.detailTextLabel.text = vipString;
+            cell.detailTextLabel.text = [obj.bVip boolValue] ? @"v" : @"";
         } else {
             Mark *obj = [infoArray objectAtIndex:[indexPath row]];
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
@@ -193,9 +147,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (currentMode == CHAPTER) {
-        if ([self.delegate respondsToSelector:@selector(chapterDidSelectAtIndex:)]) {
+        if ([_delegate respondsToSelector:@selector(chapterDidSelectAtIndex:)]) {
             [self.navigationController popViewControllerAnimated:YES];
-            [self.delegate chapterDidSelectAtIndex:indexPath.row];
+            [_delegate chapterDidSelectAtIndex:indexPath.row];
         }
     } else {
         

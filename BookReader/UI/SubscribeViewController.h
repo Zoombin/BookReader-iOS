@@ -7,17 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
 #import "BRViewController.h"
 
 @protocol SubscribeViewDelegate <NSObject>
 - (void)chapterDidSelectAtIndex:(NSInteger)index;
 @end
 
-@interface SubscribeViewController : BRViewController<UITableViewDataSource,UITableViewDelegate> {
-    
-}
+@class Book;
+@interface SubscribeViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) id<SubscribeViewDelegate> delegate;
-- (id)initWithBookId:(Book *)book
-           andOnline:(BOOL)online;
+@property (nonatomic, strong) Book *book;
 @end
