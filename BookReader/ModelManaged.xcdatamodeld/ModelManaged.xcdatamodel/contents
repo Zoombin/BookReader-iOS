@@ -6,7 +6,7 @@
         <attribute name="autoBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bFav" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="category" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
-        <attribute name="categoryID" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="categoryID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="describe" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
@@ -14,7 +14,7 @@
         <attribute name="lastUpdate" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="recommendID" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="recommendID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="recommendTitle" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="words" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
