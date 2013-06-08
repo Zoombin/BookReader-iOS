@@ -17,6 +17,7 @@
 #import "UIButton+BookReader.h"
 #import "UIView+BookReader.h"
 #import "UILabel+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation CategoryDetailsViewController
 {
@@ -40,8 +41,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width-10, self.view.bounds.size.height-40) style:UITableViewStylePlain];
-    [infoTableView setBackgroundColor:[UIColor clearColor]];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 50, self.view.bounds.size.width-10, self.view.bounds.size.height-54) style:UITableViewStylePlain];
+    [infoTableView setBackgroundColor:[UIColor colorWithRed:244.0/255.0 green:240.0/255.0 blue:230.0/255.0 alpha:1.0]];
+    [infoTableView.layer setCornerRadius:5];
+    [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -60,7 +63,7 @@
         [infoArray removeAllObjects];
     }
     [infoArray addObjectsFromArray:array];
-    if ([infoArray count]==5) {
+    if ([infoArray count]==7) {
         UIView *footview = [UIView tableViewFootView:CGRectMake(-4, 0, 316, 26) andSel:NSSelectorFromString(@"getMore") andTarget:self];
         [infoTableView setTableFooterView:footview];
     }
@@ -73,7 +76,7 @@
     [ServiceManager books:@""
                     classID:catagoryId
                   ranking:0
-                     size:@"5"
+                     size:@"7"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
                      if (error) {
                          [self displayHUDError:nil message:NETWORK_ERROR];

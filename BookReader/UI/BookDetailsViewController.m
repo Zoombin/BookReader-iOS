@@ -182,7 +182,7 @@
         UIButton *button = nil;
         if (i >= 3) {
             button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setFrame:CGRectMake(5*(i-3)+290/5*(i-3), 150, 290/5, 20)];
+            [button setFrame:CGRectMake(5*(i-3)+290/5*(i-3), 150, 290/5, 30)];
             [button setImage:[UIImage imageNamed:imageNames[i-3]] forState:UIControlStateNormal];
         }else {
             button = [UIButton createButtonWithFrame:CGRectMake(110+70*i, 120, 50, 20)];

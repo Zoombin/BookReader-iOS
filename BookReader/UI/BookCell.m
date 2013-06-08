@@ -25,35 +25,35 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         if (style == BookCellStyleBig) {
-            CGRect bookimageViewFrame = CGRectMake(15, 10, 90, 120);
-            CGRect bookNameLabelFrame = CGRectMake(115, 20, 205, 30);
-            CGRect authorNameLabelFrame = CGRectMake(115, 55, 130, 30);
-            CGRect categoryNameLabelFrame = CGRectMake(115, 90, 130, 30);
-            
-            UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 140-2)];
-            [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-            [self.contentView addSubview:background];
+            CGRect bookimageViewFrame = CGRectMake(15, 5, 45, 60);
+            CGRect bookNameLabelFrame = CGRectMake(75, 5, 205, 15);
+            CGRect authorNameLabelFrame = CGRectMake(75, 22, 130, 15);
+            CGRect categoryNameLabelFrame = CGRectMake(75, 39, 130, 15);
             
             nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
-            [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
+            [nameLabel setFont:[UIFont boldSystemFontOfSize:14]];
             [self.contentView addSubview:nameLabel];
             
             authorLabel = [[UILabel alloc] initWithFrame:authorNameLabelFrame];
             [authorLabel setBackgroundColor:[UIColor clearColor]];
-            [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
+            [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
             [authorLabel setTextColor:[UIColor grayColor]];
             [self.contentView addSubview:authorLabel];
                         
             categoryLabel = [[UILabel alloc] initWithFrame:categoryNameLabelFrame];
             [categoryLabel setBackgroundColor:[UIColor clearColor]];
-            [categoryLabel setFont:[UIFont boldSystemFontOfSize:14]];
+            [categoryLabel setFont:[UIFont boldSystemFontOfSize:12]];
             [categoryLabel setTextColor:[UIColor grayColor]];
             [self.contentView addSubview:categoryLabel];
             
             coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
             [self.contentView addSubview:coverView];
+            
+            UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 69, self.contentView.frame.size.width-30, 0.5)];
+            [sperateLine setBackgroundColor:[UIColor blackColor]];
+            [self addSubview:sperateLine];
         } else {
             UIView *background = [[UIView alloc] initWithFrame:CGRectMake(5, 1, self.contentView.frame.size.width-20, 30-2)];
             [background setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
@@ -102,7 +102,7 @@
 
 + (CGFloat)height
 {
-    return 140.0f;
+    return 70.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

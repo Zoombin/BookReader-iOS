@@ -209,12 +209,12 @@
 }
 
 - (void)initRandButton {
-    rankView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 40)];
+    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width/9, 40);
+    rankView = [[UIView alloc]initWithFrame: CGRectMake(self.view.bounds.size.width/3 *2, 0, self.view.bounds.size.width/3, 40)];
     [rankView setBackgroundColor:[UIColor clearColor]];
     [rankView setHidden:YES];
     [self.view addSubview:rankView];
     NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
-    CGRect frame = CGRectMake(0*(self.view.bounds.size.width/3)+0, 0, self.view.bounds.size.width/3, 40);
     for (int i = 0; i<3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         if (i==0) {
@@ -236,7 +236,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     if ([_searchBar.text length]>0) {
-        [self loadDataWithKeyWord:_searchBar.text classId:0 ranking:0 size:@"5" andIndex:1];
+        [self loadDataWithKeyWord:_searchBar.text classId:0 ranking:0 size:@"6" andIndex:1];
     }
     [_searchBar resignFirstResponder];
 }
@@ -257,7 +257,7 @@
                 [infoArray removeAllObjects];
             }
             [infoArray addObjectsFromArray:resultArray];
-            if ([infoArray count]==5) {
+            if ([infoArray count]==6) {
                 [self addFootView];
             }else {
                 [infoTableView setTableFooterView:nil];
@@ -305,7 +305,7 @@
     [ServiceManager books:keyWord
                   classID:0
                   ranking:currentPage
-                     size:@"5"
+                     size:@"6"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *resultArray, NSError *error) {
                      if (error) {
                          [self displayHUDError:nil message:NETWORK_ERROR];
@@ -331,7 +331,7 @@
         return;
     currentPage = [rankBtns indexOfObject:sender]+1;
     [self changeRankButtonImage:sender];
-    [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"5" andIndex:1];
+    [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
 }
 
 - (void)loadRecommendData
@@ -388,6 +388,7 @@
         [_searchBar setHidden:!boolValue];
         [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
     }else {
+        [infoTableView setFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
         [_searchBar setHidden:!boolValue];
     }
 }
@@ -400,7 +401,7 @@
     [ServiceManager books:@""
                   classID:[sender tag] +1
                   ranking:0
-                     size:@"5"
+                     size:@"7"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
                      if (error) {
                          [childViewController displayHUDError:nil message:NETWORK_ERROR];
@@ -430,8 +431,7 @@
             break;
         case 1:
             currentType = RANK;
-            [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"5" andIndex:1];
-            [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
+            [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];
             [categoryView setHidden:YES];
