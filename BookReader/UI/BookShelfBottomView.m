@@ -42,11 +42,11 @@
 
 - (void)addButtons {
     float BUTTON_WIDTH = (self.frame.size.width-10)/3;
-    CGRect EDIT_BUTTON_FRAME = CGRectMake(self.bounds.size.width-BUTTON_WIDTH-5, 2, BUTTON_WIDTH, 40);
     CGRect Finish_BUTTON_FRAME = CGRectMake(self.bounds.size.width-BUTTON_WIDTH-5, 2, BUTTON_WIDTH, 40);
     CGRect DELETE_BUTTON_FRAME = CGRectMake(5,2,BUTTON_WIDTH,40);
     CGRect REFRESH_BUTTON_FRAME = CGRectMake(5,2,BUTTON_WIDTH,40);
-    CGRect HISTORY_BUTTON_FRAME = CGRectMake(CGRectGetMaxX(REFRESH_BUTTON_FRAME),2,BUTTON_WIDTH,40);
+    CGRect EDIT_BUTTON_FRAME = CGRectMake(CGRectGetMaxX(REFRESH_BUTTON_FRAME), 2, BUTTON_WIDTH, 40);
+    CGRect HISTORY_BUTTON_FRAME = CGRectMake(self.bounds.size.width-BUTTON_WIDTH-5,2,BUTTON_WIDTH,40);
     
     bottomViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:bottomViewOne];
