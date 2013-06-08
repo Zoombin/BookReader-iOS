@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
 
+@class Mark;
+@class Book;
 @protocol SubscribeViewDelegate <NSObject>
-- (void)chapterDidSelectAtIndex:(NSInteger)index;
+- (void)didSelect:(id)selected;
 @end
 
-@class Book;
 @interface SubscribeViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) id<SubscribeViewDelegate> delegate;
 @property (nonatomic, strong) Book *book;

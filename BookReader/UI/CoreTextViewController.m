@@ -19,6 +19,8 @@
 #import "ReadHelpView.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "Mark+Setup.h"
+#import "Mark.h"
 
 @implementation CoreTextViewController {
     NSInteger startPointX;
@@ -125,7 +127,7 @@
 	}
 	
 	NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
-	[self gotoChapter:aChapter];
+	[self gotoChapter:aChapter withReadIndex:nil];
 }
 
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
@@ -264,7 +266,7 @@
 			[self displayHUDError:@"" message:@"此章是第一章"];
 		} else {
 			[self displayHUDError:@"" message:@"上一章"];
-			[self gotoChapter:[chapter previous]];
+			[self gotoChapter:[chapter previous] withReadIndex:nil];
 		}
         return;
     }
@@ -279,7 +281,7 @@
         currentPageIndex = [pages count] - 1;
 		NSLog(@"no more next page!");
 		[self displayHUDError:@"" message:@"下一章"];
-		[self gotoChapter:[chapter next]];
+		[self gotoChapter:[chapter next] withReadIndex:nil];
         return;
     }
 	[self updateCurrentPageContent];
@@ -291,7 +293,7 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)gotoChapter:(Chapter *)aChapter
+- (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex
 {
 	if (!aChapter) {
 		[self displayHUDError:@"错误" message:@"获取章节目录失败"];
@@ -306,7 +308,8 @@
 		}];
 		statusView.title.text = [NSString stringWithFormat:@"(%d) %@", chapter.index.intValue + 1, chapter.name];
 		[self paging];
-		currentPageIndex = [self goToIndexWithLastReadPosition:chapter.lastReadIndex];
+		NSNumber *startReadIndex = readIndex ? readIndex : chapter.lastReadIndex;
+		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
 		[self updateCurrentPageContent];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
@@ -315,15 +318,14 @@
 				[self hideHUD:YES];
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 					aChapter.content = content;
-					[self gotoChapter:aChapter];
+					[self gotoChapter:aChapter withReadIndex:nil];
 				}];
 			} else {//没下载到，尝试订阅
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
-					//[self hideHUD:YES];
 					if (content && ![content isEqualToString:@""]) {
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 							aChapter.content = content;
-							[self gotoChapter:aChapter];
+							[self gotoChapter:aChapter withReadIndex:nil];
 						}];
 					} else {
 						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
@@ -406,7 +408,20 @@
 
 - (void)addBookMarkButtonPressed
 {
-    NSLog(@"添加书签成功");
+    [self displayHUDError:@"" message:@"添加书签成功"];
+	NSRange range = NSRangeFromString(pages[currentPageIndex]);
+	range.length = 15;
+	NSString *reference = [currentChapterString substringWithRange:range];
+	reference = [reference stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+	reference = [reference stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+		Mark *mark = [Mark createInContext:localContext];
+		mark.chapterID = chapter.uid;
+		mark.reference = reference;
+		mark.startWordIndex = @(range.location);
+	}];
+	
+	
 }
 
 - (void)chaptersButtonClicked
@@ -419,18 +434,25 @@
 
 - (void)previousChapterButtonClick
 {
-	[self gotoChapter:[chapter previous]];
+	[self gotoChapter:[chapter previous] withReadIndex:nil];
 }
 
 - (void)nextChapterButtonClick
 {
-	[self gotoChapter:[chapter next]];
+	[self gotoChapter:[chapter next] withReadIndex:nil];
 }
 
-- (void)chapterDidSelectAtIndex:(NSInteger)index
+#pragma mark - 
+- (void)didSelect:(id)selected
 {
-	NSLog(@"select a chapter frome chaptersList");
-	[self gotoChapter:[chapter brotherWithIndex:index]];
+	if ([selected isKindOfClass:[Chapter class]]) {
+		[self gotoChapter:selected withReadIndex:nil];
+	} else if ([selected isKindOfClass:[Mark class]]){
+		NSLog(@"selected a mark");
+		Mark *mark = (Mark *)selected;
+		Chapter *aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", mark.chapterID]];
+		[self gotoChapter:aChapter withReadIndex:mark.startWordIndex];
+	}
 }
 
 @end
