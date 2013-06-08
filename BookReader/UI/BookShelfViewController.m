@@ -41,7 +41,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksForDisplay;
     NSMutableArray *books;
 	NSMutableArray *chapters;
-    BRHeaderView *headerView;
     BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
 	BOOL editing;
@@ -282,13 +281,13 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[self syncBooks];
     }
     else if (type.intValue == kBottomViewButtonShelf) {
-        headerView.titleLabel.text = @"我的收藏";
+        [self BRHeaderView].titleLabel.text = @"我的收藏";
 		booksForDisplay = [[Book findAllFavorite] mutableCopy];
 		[booksView reloadData];
 		displayingHistory = NO;
     }
     else if (type.intValue == kBottomViewButtonBookHistoroy) {
-        headerView.titleLabel.text = @"阅读历史";
+        [self BRHeaderView].titleLabel.text = @"阅读历史";
 		booksForDisplay = [[Book findAllHistory] mutableCopy];
 		[booksView reloadData];
 		displayingHistory = YES;
