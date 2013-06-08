@@ -169,16 +169,6 @@
     [self updateCurrentPageContent];
 }
 
-- (void)updateBackgroundColor
-{
-	
-}
-
-- (void)updateBright
-{
-	
-}
-
 - (void)paging
 {
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
