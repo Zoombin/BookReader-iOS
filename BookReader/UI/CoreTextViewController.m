@@ -12,7 +12,6 @@
 #import "UIViewController+HUD.h"
 #import "ReadStatusView.h"
 #import "BookReadMenuView.h"
-#import "SubscribeViewController.h"
 #import "NSString+XXSY.h"
 #import "Book.h"
 #import "ServiceManager.h"
@@ -132,7 +131,6 @@
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
 {
 	NSInteger index = position ? position.intValue : 0;
-	NSLog(@"index = %d", index);
 	NSUInteger indexCount = 0;
 	NSUInteger rtnPageIndex = 0;
 	for (int i = 0; i < pages.count; i++) {
@@ -195,7 +193,6 @@
 	[coreTextView setNeedsDisplay];
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		chapter.lastReadIndex = @(range.location);
-		NSLog(@"set lastReadIndex = %@", chapter.lastReadIndex);
 	}];
 }
 
@@ -296,23 +293,20 @@
 
 - (void)gotoChapter:(Chapter *)aChapter
 {
-	chapter = aChapter;
-	if (!chapter) {
+	if (!aChapter) {
 		[self displayHUDError:@"错误" message:@"获取章节目录失败"];
 		[self performSelector:@selector(pop) withObject:nil afterDelay:1.5];
 		return;
 	}
-	if (chapter.content) {
+	if (aChapter.content) {
 		chapter = aChapter;
 		currentChapterString = [chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue];
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			_book.lastReadChapterID = chapter.uid;
 		}];
 		statusView.title.text = [NSString stringWithFormat:@"(%d) %@", chapter.index.intValue + 1, chapter.name];
-		NSLog(@"get lastReadIndex = %@", chapter.lastReadIndex);
 		[self paging];
 		currentPageIndex = [self goToIndexWithLastReadPosition:chapter.lastReadIndex];
-		NSLog(@"currentPageIndex = %d", currentPageIndex);
 		[self updateCurrentPageContent];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
@@ -320,16 +314,16 @@
 			if (content && ![content isEqualToString:@""]) {
 				[self hideHUD:YES];
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					chapter.content = content;
-					[self gotoChapter:chapter];
+					aChapter.content = content;
+					[self gotoChapter:aChapter];
 				}];
 			} else {//没下载到，尝试订阅
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
-					[self hideHUD:YES];
+					//[self hideHUD:YES];
 					if (content && ![content isEqualToString:@""]) {
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-							chapter.content = content;
-							[self gotoChapter:chapter];
+							aChapter.content = content;
+							[self gotoChapter:aChapter];
 						}];
 					} else {
 						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
@@ -417,9 +411,10 @@
 
 - (void)chaptersButtonClicked
 {
-    SubscribeViewController *childViewController = [[SubscribeViewController alloc] initWithBookId:_book andOnline:YES];//TODO: yes useless
-    [childViewController setDelegate:self];
-    [self.navigationController pushViewController:childViewController animated:YES];
+    SubscribeViewController *controller = [[SubscribeViewController alloc] init];
+    controller.delegate = self;
+	controller.book = _book;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)previousChapterButtonClick
@@ -435,7 +430,7 @@
 - (void)chapterDidSelectAtIndex:(NSInteger)index
 {
 	NSLog(@"select a chapter frome chaptersList");
-    //[self downloadBookWithIndex:index];
+	[self gotoChapter:[chapter brotherWithIndex:index]];
 }
 
 @end

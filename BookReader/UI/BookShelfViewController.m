@@ -22,7 +22,6 @@
 #import "PurchaseManager.h"
 #import "BookReader.h"
 #import "CoreTextViewController.h"
-#import "SubscribeViewController.h"
 #import "BookCell.h"
 #import "BRBooksView.h"
 #import "BRBookCell.h"
