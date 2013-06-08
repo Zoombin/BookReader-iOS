@@ -148,6 +148,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
+		if (!chapters.count) {
+			return;
+		}
 		NSLog(@"find %d chapters need download content", chapters.count);
 		if([Reachability reachabilityWithHostName:@"server"].currentReachabilityStatus == ReachableViaWiFi) {
 			NSLog(@"WIFI");
