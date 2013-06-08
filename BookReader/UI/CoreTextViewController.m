@@ -322,7 +322,6 @@
 				}];
 			} else {//没下载到，尝试订阅
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
-					//[self hideHUD:YES];
 					if (content && ![content isEqualToString:@""]) {
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 							aChapter.content = content;
