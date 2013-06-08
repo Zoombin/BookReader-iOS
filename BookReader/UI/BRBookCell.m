@@ -22,9 +22,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
-        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-		selectedMark.center = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds));
-		[selectedMark setImage:[UIImage imageNamed:@"local_book_select.png"]];
+        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+		[selectedMark setImage:[UIImage imageNamed:@"book_checkmark"]];
 		selectedMark.hidden = YES;
         [self addSubview:selectedMark];
         
@@ -34,10 +33,8 @@
         [self addSubview:badgeView];
         
 		autoBuyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-		autoBuyButton.backgroundColor = [UIColor grayColor];
-		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 50, self.bounds.size.width, 30);
-		autoBuyButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-		autoBuyButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 30, self.bounds.size.width, 30);
+        [autoBuyButton setBackgroundImage:[UIImage imageNamed:@"autobuy_off"] forState:UIControlStateNormal];
 		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:autoBuyButton];
 		
@@ -100,9 +97,7 @@
 - (void)setAutoBuy:(BOOL)onOrOff
 {
 	_autoBuy = onOrOff;
-	NSString *onOffString = onOrOff ? @"开" : @"关";
-	[autoBuyButton setTitle:[NSString stringWithFormat:@"自动更新:%@", onOffString] forState:UIControlStateNormal];
-	[autoBuyButton setTitleColor:onOrOff ? [UIColor greenColor] : [UIColor blackColor] forState:UIControlStateNormal];
+    [autoBuyButton setBackgroundImage:[UIImage imageNamed:onOrOff ? @"autobuy_on" : @"autobuy_off"] forState:UIControlStateNormal];
 }
 
 @end
