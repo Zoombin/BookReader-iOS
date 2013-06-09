@@ -12,6 +12,10 @@
 
 #define LabelTextColor    [UIColor colorWithRed:84.0/255.0 green:40.0/255.0 blue:10.0/255.0 alpha:1.0]
 
+#define BigCellHeight 70.0f
+#define SmallCellHeight 30.0f
+#define OtherCellHeight 40.0f
+
 @implementation BookCell
 {
     UILabel *nameLabel;
@@ -19,6 +23,7 @@
     UILabel *categoryLabel;
 	UIImageView *coverView;
 	BookCellStyle myStyle;
+	CGFloat height;
 }
 
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -27,6 +32,7 @@
     self = [super initWithStyle:myStyle reuseIdentifier:reuseIdentifier];
     if (self) {
         if (style == BookCellStyleBig) {
+			height = BigCellHeight;
             CGRect bookimageViewFrame = CGRectMake(15, 5, 45, 60);
             CGRect bookNameLabelFrame = CGRectMake(75, 8, 205, 15);
             CGRect authorNameLabelFrame = CGRectMake(75, 35, 130, 15);
@@ -52,11 +58,8 @@
             
             coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
             [self.contentView addSubview:coverView];
-            
-            UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 69, self.contentView.frame.size.width-30, 0.5)];
-            [sperateLine setBackgroundColor:[UIColor blackColor]];
-            [self addSubview:sperateLine];
         } else if (myStyle == BookCellStyleSmall){
+			height = SmallCellHeight;
             nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 30)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
@@ -69,11 +72,8 @@
             [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
             [authorLabel setTextColor:[UIColor blackColor]];
             [self.contentView addSubview:authorLabel];
-            
-            UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 29, self.contentView.frame.size.width-30, 0.5)];
-            [sperateLine setBackgroundColor:[UIColor blackColor]];
-            [self addSubview:sperateLine];
-        } else {//分类界面
+		} else {//分类界面
+			height = OtherCellHeight;
             nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 12, 200, 20)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
@@ -83,11 +83,10 @@
             UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-40, 10, 12, 18)];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self addSubview:catagoryImage];
-            
-            UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 39, self.contentView.frame.size.width-30, 0.5)];
-            [sperateLine setBackgroundColor:[UIColor blackColor]];
-            [self addSubview:sperateLine];
         }
+		UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10, height, self.contentView.frame.size.width - 30, 1)];
+		[separateLine setBackgroundColor:[UIColor blackColor]];
+		[self addSubview:separateLine];
     }
     return self;
 }
@@ -123,14 +122,9 @@
 
 - (CGFloat)height
 {
-	if (myStyle == BookCellStyleBig) {
-		return 70.0f;
-	} else if (myStyle == BookCellStyleSmall) {
-		return 30.0f;
-	} else {
-		return 40.0f;
-	}
+	return height;
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
