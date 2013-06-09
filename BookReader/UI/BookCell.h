@@ -18,6 +18,7 @@ typedef enum {
 @interface BookCell : UITableViewCell
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setBook:(Book *)book;
-- (void)setCatagoryName:(NSString *)name;
+- (void)setTextLableText:(NSString *)name;
 - (CGFloat)height;
+- (void)hidenArrow:(BOOL)hiden;
 @end

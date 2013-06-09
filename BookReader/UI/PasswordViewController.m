@@ -95,18 +95,18 @@
     [passwordTextField setPlaceholder:@"请输入旧密码"];
     [confirmTextField setPlaceholder:@"请输入新密码"];
     for (int i = 0; i < textFields.count; i++) {
-        CGRect frame = CGRectMake(30, 20+40*i, fullSize.width-30*2, 40);
+        CGRect frame = CGRectMake(30,44+20+50*i, fullSize.width-30*2, 40);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
         [textField setBackgroundColor:[UIColor clearColor]];
-        [backgroundView addSubview:textField];
+        [self.view addSubview:textField];
     }
     
-     changeButton = [UIButton createButtonWithFrame:CGRectMake(30, 200, backgroundView.bounds.size.width-30*2, 30)];
+     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 210, fullSize.width-30*2, 40)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [changeButton setDisabled:YES];
+    [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.view addSubview:changeButton];
 }
@@ -187,9 +187,9 @@
 - (void)changePasswordValueChanged:(id)sender
 {
     if ([passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
-        [changeButton setDisabled:NO];
+        [changeButton setEnabled:YES];
     } else {
-        [changeButton setDisabled:YES];
+        [changeButton setEnabled:NO];
     }
 }
 

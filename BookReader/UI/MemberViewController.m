@@ -25,6 +25,7 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "BookReader.h"
+#import "BookCell.h"
 
 
 @implementation MemberViewController
@@ -35,6 +36,8 @@
     SignInViewController *signViewController;
     UILabel *accountLabel;
     UILabel *moneyLabel;
+    
+    UITableView *memberTableView;
 }
 
 - (id)init {
@@ -50,6 +53,7 @@
     [super viewDidLoad];
     isLogin = NO;
     [self setHideBackBtn:YES];
+    [self removeGestureRecognizer];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -97,34 +101,16 @@
     if (!isLogin) {
         [APP_DELEGATE switchToRootController:kRootControllerTypeLogin];
     }else {
-        UIView *userInfoView = [UIView userBackgroundViewWithFrame:CGRectMake(10, 44,self.view.bounds.size.width-20, 130) andTitle:@"会员中心"];
-        [self.view addSubview:userInfoView];
+        memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56) style:UITableViewStylePlain];
+        [memberTableView setDelegate:self];
+        [memberTableView setDataSource:self];
+        [memberTableView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
+        [memberTableView.layer setCornerRadius:5];
+        [memberTableView.layer setMasksToBounds:YES];
+        [memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [self.view addSubview:memberTableView];
         
-        accountLabel = [UILabel memberAccountLabelWithFrame:CGRectMake(0, 35, userInfoView.bounds.size.width, 40) andAccountName:_member.name];
-        [userInfoView addSubview:accountLabel];
-        
-        moneyLabel = [UILabel memberUserMoneyLeftWithFrame:CGRectMake(0, 76, userInfoView.bounds.size.width, 40) andMoneyLeft:[_member.coin stringValue]];
-        [userInfoView addSubview:moneyLabel];
-        
-        UIView *fuctionsView = [UIView userBackgroundViewWithFrame:CGRectMake(10, 200,self.view.bounds.size.width-20, 130) andTitle:@"功能列表"];
-        [self.view addSubview:fuctionsView];
-        
-        UIButton *changePassword = [UIButton buttonWithType:UIButtonTypeCustom];
-        [changePassword setFrame:CGRectMake(0, 35, fuctionsView.bounds.size.width, 40)];
-        [changePassword addTarget:self action:@selector(showChangePasswordView) forControlEvents:UIControlEventTouchUpInside];
-        [changePassword setTitle:@"修改密码" forState:UIControlStateNormal];
-        [fuctionsView addSubview:changePassword];
-        
-        UIButton *myFavButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [myFavButton setFrame:CGRectMake(0, 35, fuctionsView.bounds.size.width, 40)];
-        [myFavButton addTarget:self action:@selector(showMyFav) forControlEvents:UIControlEventTouchUpInside];
-        [myFavButton setTitle:@"我的收藏" forState:UIControlStateNormal];
-        [fuctionsView addSubview:myFavButton];
-        
-        UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [logoutButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
-        [logoutButton setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
-        [logoutButton setFrame:CGRectMake(260, 6, 50, 32)];
+        UIButton *logoutButton = [UIButton custumButtonWithFrame:CGRectMake(260, 6, 50, 32)];
         [logoutButton setTitle:@"注销" forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:logoutButton];
@@ -173,6 +159,58 @@
     PasswordViewController *passwordViewController = [[PasswordViewController alloc] init];
     passwordViewController.bFindPassword = NO;
     [self.navigationController pushViewController:passwordViewController animated:YES];
+}
+
+#pragma mark tableview
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *reuseIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil) {
+        cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
+        [(BookCell *)cell setTextLableText:@"1"];
+        switch (indexPath.row) {
+            case 0:
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@",_member.name]];
+                [(BookCell *)cell hidenArrow:YES];
+                break;
+            case 1:
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"余额 : %@",_member.coin]];
+                [(BookCell *)cell hidenArrow:YES];
+                break;
+            case 2:
+                [(BookCell *)cell setTextLableText:@"修改密码"];
+                break;
+            case 3:
+                [(BookCell *)cell setTextLableText:@"我的收藏"];
+                break;
+            default:
+                break;
+        }
+    }
+    return cell;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+	return [cell height];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 2) {
+        [self showChangePasswordView];
+    } else if (indexPath.row == 3) {
+        [self showMyFav];
+    }
 }
 
 
