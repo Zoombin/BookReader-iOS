@@ -111,12 +111,22 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
 		[cell.textLabel setFont:[UIFont systemFontOfSize:16]];
 		cell.textLabel.textColor = [UIColor blueColor];
         if (bBookmarks) {
 			Mark *mark = [infoArray objectAtIndex:indexPath.row];
             cell.textLabel.text = mark.reference;
+			cell.detailTextLabel.textColor = [UIColor blackColor];
+			cell.detailTextLabel.font = [UIFont systemFontOfSize:10];
+			cell.detailTextLabel.text = mark.chapterName;
+			UILabel *progress = [[UILabel alloc] initWithFrame:cell.contentView.frame];
+			progress.backgroundColor = [UIColor clearColor];
+			progress.textAlignment = UITextAlignmentRight;
+			progress.font = cell.detailTextLabel.font;
+			progress.textColor = cell.detailTextLabel.textColor;
+			progress.text = [NSString stringWithFormat:@"%.2f%%", mark.progress.floatValue];
+			[cell.contentView addSubview:progress];
         } else {
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
             cell.textLabel.text = [NSString stringWithFormat:@"(%d) %@", indexPath.row + 1, chapter.name];

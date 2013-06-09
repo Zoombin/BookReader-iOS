@@ -30,12 +30,14 @@
     </entity>
     <entity name="Mark" representedClassName="Mark" syncable="YES">
         <attribute name="chapterID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="chapterName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reference" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startWordIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="160" positionY="192" width="128" height="300"/>
         <element name="Chapter" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="Mark" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Mark" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>
