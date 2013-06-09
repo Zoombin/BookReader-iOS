@@ -102,7 +102,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [BookCell height];
+	BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+	return [cell height];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

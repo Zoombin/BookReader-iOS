@@ -18,11 +18,13 @@
     UILabel *authorLabel;
     UILabel *categoryLabel;
 	UIImageView *coverView;
+	BookCellStyle myStyle;
 }
 
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	myStyle = style;
+    self = [super initWithStyle:myStyle reuseIdentifier:reuseIdentifier];
     if (self) {
         if (style == BookCellStyleBig) {
             CGRect bookimageViewFrame = CGRectMake(15, 5, 45, 60);
@@ -54,7 +56,7 @@
             UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 69, self.contentView.frame.size.width-30, 0.5)];
             [sperateLine setBackgroundColor:[UIColor blackColor]];
             [self addSubview:sperateLine];
-        } else if (style == BookCellStyleSmall){
+        } else if (myStyle == BookCellStyleSmall){
             nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 30)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
@@ -71,7 +73,7 @@
             UIView *sperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 29, self.contentView.frame.size.width-30, 0.5)];
             [sperateLine setBackgroundColor:[UIColor blackColor]];
             [self addSubview:sperateLine];
-        } else {
+        } else {//分类界面
             nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 12, 200, 20)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
@@ -119,11 +121,16 @@
     }
 }
 
-+ (CGFloat)height
+- (CGFloat)height
 {
-    return 70.0f;
+	if (myStyle == BookCellStyleBig) {
+		return 70.0f;
+	} else if (myStyle == BookCellStyleSmall) {
+		return 30.0f;
+	} else {
+		return 40.0f;
+	}
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

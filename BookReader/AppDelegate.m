@@ -37,6 +37,15 @@
     //string = @"393558745974";
 	NSString *decodedString = [string XXSYDecodingWithKey:@"522601"];
     NSLog(@"==>%@",[decodedString substringToIndex:decodedString.length]);
+	
+//	[ServiceManager androidPayWithType:@"2" andPhoneNum:@"13862090556" andCount:@"200" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {
+//        if (error) {
+//            NSLog(@"%@",error);
+//        }
+//    }];
+//    [ServiceManager godStatePayCardNum:@"981301623806121" andCardPassword:@"9809849707937394320" andCount:@"5000" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {
+//
+//    }];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -45,20 +54,11 @@
     
 	//TOTEST
 //	[ServiceManager saveUserID:@(5639339)];//yanchao
-	//[ServiceManager saveUserID:@(4216157)];//zhangbin
+//	[ServiceManager saveUserID:@(4216157)];//zhangbin
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
-//	[ServiceManager androidPayWithType:@"2" andPhoneNum:@"13862090556" andCount:@"200" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {
-//        if (error) {
-//            NSLog(@"%@",error);
-//        }
-//    }];
-//    [ServiceManager godStatePayCardNum:@"981301623806121" andCardPassword:@"9809849707937394320" andCount:@"5000" andUserName:@"13862090556" WithBlock:^(NSString *result, NSError *error) {
-//        
-//    }];
-//
-	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
-	//[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
+	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
     rootControllers = [@{} mutableCopy];
