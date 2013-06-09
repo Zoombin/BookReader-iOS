@@ -18,6 +18,7 @@
 #import "UILabel+BookReader.h"
 #import "Chapter+Setup.h"
 #import "UIButton+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
 #import "Book.h"
 
 @implementation SubscribeViewController
@@ -25,6 +26,8 @@
     UITableView *infoTableView;
     NSMutableArray *infoArray;
 	BOOL bBookmarks;
+    UIButton *chapterlistBtn;
+    UIButton *bookmarkBtn;
 }
 
 - (void)viewDidLoad
@@ -32,31 +35,34 @@
     [super viewDidLoad];
     [self removeGestureRecognizer];
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-44) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 44, self.view.bounds.size.width-8, self.view.bounds.size.height-44) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
+    [infoTableView.layer setCornerRadius:5];
+    [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 110, 4, 48, 32);
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, 4, 48, 32);
-    NSArray *titles = @[@"目录", @"书签"];
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 110, 6, 48, 28);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, 6, 48, 28);
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
     
-#define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"universal_btn"), UIIMAGE(@"universal_btn"), ];
-    NSArray *highlightedImages = @[UIIMAGE(@"universal_btn_hl"), UIIMAGE(@"universal_btn_hl")];
+    #define UIIMAGE(x) [UIImage imageNamed:x]
+    NSArray *images = @[UIIMAGE(@"chapterlist_btn"), UIIMAGE(@"bookmark_btn"), ];
+    NSArray *disbleImages = @[UIIMAGE(@"chapterlist_btn_hl"), UIIMAGE(@"bookmark_btn_hl")];
     
     for (int i = 0; i < 2; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setBackgroundImage:images[i] forState:UIControlStateNormal];
-        [button setBackgroundImage:highlightedImages[i] forState:UIControlStateHighlighted];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setFrame: CGRectFromString(rectStrings[i])];
+        [button setBackgroundImage:disbleImages[i] forState:UIControlStateDisabled];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
+        if (i==0) {
+            chapterlistBtn =  button;
+        } else {
+            bookmarkBtn = button;
+        }
     }
 }
 
@@ -64,6 +70,8 @@
 {
     self.title = @"目录";
 	bBookmarks = NO;
+    [chapterlistBtn setEnabled:NO];
+    [bookmarkBtn setEnabled:YES];
 	infoArray = [[Chapter chaptersRelatedToBook:_book.uid] mutableCopy];
 	[infoTableView reloadData];
 }
@@ -72,6 +80,8 @@
 {
     self.title = @"书签";
 	bBookmarks = YES;
+    [chapterlistBtn setEnabled:YES];
+    [bookmarkBtn setEnabled:NO];
 	NSArray *chapters = [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", _book.uid]];
 	NSMutableArray *marks = [NSMutableArray array];
 	for (Chapter *chapter in chapters) {
