@@ -41,7 +41,6 @@
     UITableView *infoTableView;
     
     UIView *rankView;
-    UIView *searchView;
     
     BOOL shouldRefresh;
     int currentType;
@@ -93,7 +92,6 @@
     if (shouldRefresh==YES) {
         currentType = RECOMMEND;
         [infoTableView setTableFooterView:nil];
-        [self showSearchBarWithBoolValue:NO];
         [rankView setHidden:YES];
         [self loadRecommendData];
         [infoTableView setHidden:NO];
@@ -148,13 +146,11 @@
     cataButton = buttonArrays[2];
     searchButton = buttonArrays[3];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 40)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
-    [_searchBar setHidden:YES];
     _searchBar.tintColor = [UIColor blackColor];
     [_searchBar setPlaceholder:@"请输入书名作者"];
-    [self.view addSubview:_searchBar];
     
     [self initRandButton];
     
@@ -170,7 +166,7 @@
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
-    
+
     gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [backgroundView addGestureRecognizer:gestureRecognizer];
     
@@ -183,7 +179,7 @@
 
 - (void)initRandButton {
     CGRect frame = CGRectMake(0, 10, self.view.bounds.size.width/9, 20);
-    rankView = [[UIView alloc]initWithFrame: CGRectMake(self.view.bounds.size.width/3 *2, 0, self.view.bounds.size.width/3, 40)];
+    rankView = [[UIView alloc]initWithFrame: CGRectMake(-5+(self.view.bounds.size.width/3 *2), 0, self.view.bounds.size.width/3, 40)];
     [rankView setBackgroundColor:[UIColor clearColor]];
     [rankView setHidden:YES];
     [self.view addSubview:rankView];
@@ -356,21 +352,6 @@
     [self hideHUD:YES];
 }
 
-- (void)showSearchBarWithBoolValue:(BOOL)boolValue
-{
-    if ([infoArray count] > 0) {
-        [infoArray removeAllObjects];
-        [infoTableView reloadData];
-    }
-    if(boolValue==YES){
-        [_searchBar setHidden:!boolValue];
-        [infoTableView setFrame:CGRectMake(5, 44+40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50-40)];
-    }else {
-        [infoTableView setFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
-        [_searchBar setHidden:!boolValue];
-    }
-}
-
 - (void)loadCatagoryDataWithIndex:(NSInteger)index {
     CategoryDetailsViewController *childViewController = [[CategoryDetailsViewController alloc]init];
     [childViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+20)];
@@ -396,37 +377,40 @@
 }
 
 - (void)buttonClick:(UIButton *)sender {
+    [infoArray removeAllObjects];
     [infoTableView setTableFooterView:nil];
     [self changeButtonImage:sender];
     switch ([buttonArrays indexOfObject:sender]) {
         case 0:
             currentType = RECOMMEND;
+            [infoTableView setTableHeaderView:nil];
             [[self BRHeaderView].titleLabel setText:@"推荐"];
-            [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:YES];
             [self loadRecommendData];
             [infoTableView setHidden:NO];
             break;
         case 1:
             currentType = RANK;
+            [infoTableView setTableHeaderView:nil];
             [[self BRHeaderView].titleLabel setText:@"排行"];
             [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
-            [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];
             [infoTableView setHidden:NO];
             break;
         case 2:
             currentType = CATAGORY;
+            [infoTableView setTableHeaderView:nil];
             [[self BRHeaderView].titleLabel setText:@"分类"];
-            [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:YES];
+            [infoTableView reloadData];
             break;
         case 3:
             currentType = SEARCH;
+            [infoTableView setTableHeaderView:_searchBar];
             [[self BRHeaderView].titleLabel setText:@"搜索"];
-            [self showSearchBarWithBoolValue:YES];
             [rankView setHidden:YES];
             [infoTableView setHidden:NO];
+            [infoTableView reloadData];
             break;
         default:
             break;
@@ -519,8 +503,10 @@
     } else {
         if (cell == nil) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
+            if ([infoArray count]>0) {
             Book *book = infoArray[indexPath.row];
             [(BookCell *)cell setBook:book];
+            }
         }
     }
     return cell;
