@@ -510,13 +510,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == infoTableView) {
-        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-        return cell.frame.size.height;
-    } else if (indexPath.row == 0) {
-        return [BookCell height];
-    }
-    return 30;
+	if (tableView == infoTableView) {
+		BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		return [cell height];
+	}
+	return 30;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -533,7 +531,7 @@
     } else {
         if (cell == nil) {
             BookCellStyle style = BookCellStyleSmall;
-            if (indexPath.row ==0) {
+            if (indexPath.row == 0) {
                 style = BookCellStyleBig;
             }
             if (currentType == AUTHORBOOK) {

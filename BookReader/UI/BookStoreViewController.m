@@ -450,7 +450,8 @@
     return view;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (currentType == RECOMMEND) {
         for (int i = 0; i<[recommendTitlesArray count]; i++) {
             if (section == i) {
@@ -464,21 +465,14 @@
     return [infoArray count];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (currentType == RECOMMEND) {
-        if (indexPath.row == 0) {
-            return [BookCell height];
-        }
-        else {
-            return 30;
-        }
-    } else if (currentType == CATAGORY) {
-        return 40;
-    }
-    return [BookCell height];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+	return [cell height];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (currentType == RECOMMEND) {
