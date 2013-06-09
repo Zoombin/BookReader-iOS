@@ -49,10 +49,11 @@
 - (void)showFindPassword
 {
     [self setTitle:@"找回密码"];
+    
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor whiteColor]];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
     NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
@@ -87,7 +88,7 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor whiteColor]];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
     NSArray *textFields = @[passwordTextField,confirmTextField,codeTextField];

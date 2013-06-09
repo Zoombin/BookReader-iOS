@@ -23,7 +23,11 @@
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];
     [textField setFont:[UIFont systemFontOfSize:14]];
     [textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [textField setBackgroundColor:[UIColor clearColor]];
+    [textField setBackgroundColor:[UIColor whiteColor]];
+    [textField.layer setBorderWidth:0.5];
+    [textField.layer setBorderColor:[UIColor grayColor].CGColor];
+    [textField.layer setCornerRadius:5];
+    [textField.layer setMasksToBounds:YES];
     return textField;
 }
 
