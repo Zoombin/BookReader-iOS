@@ -68,12 +68,8 @@
 {
     UILabel *label = [self initLabelWithFrame:frame];
     [label setTextAlignment:NSTextAlignmentLeft];
-    [label setFont:[UIFont boldSystemFontOfSize:17]];
-    [label setTextColor:[UIColor hexRGB:0xdd8e28]];
-//    
-//    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(85, 10, 18, 10)];
-//    [arrowImageView setImage:[UIImage imageNamed:@"arrow_down"]];
-//    [label addSubview:arrowImageView];
+    [label setFont:[UIFont boldSystemFontOfSize:18]];
+    [label setTextColor:[UIColor whiteColor]];
     return label;
  
 }

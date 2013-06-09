@@ -195,7 +195,7 @@
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
     
-    if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:[BookReaderDefaultsManager objectForKey:UserDefaultFoundFont]]) {
+    if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:UserDefaultFoundFont]) {
         [foundFontButton setEnabled:NO];
     } else {
         [defaultFontButton setEnabled:NO];

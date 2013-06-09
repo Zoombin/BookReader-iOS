@@ -41,7 +41,6 @@
     UITableView *infoTableView;
     
     UIView *rankView;
-    UIView *categoryView;
     UIView *searchView;
     
     BOOL shouldRefresh;
@@ -62,6 +61,7 @@
     
     NSMutableArray *rankBtns;
     UITapGestureRecognizer *gestureRecognizer;
+    NSArray *catagoryNames;
 }
 
 - (id)init
@@ -69,6 +69,7 @@
     self = [super init];
     if (self) {
         // Custom initialization
+        catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
         recommendArray = [[NSMutableArray alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
@@ -94,9 +95,9 @@
         [infoTableView setTableFooterView:nil];
         [self showSearchBarWithBoolValue:NO];
         [rankView setHidden:YES];
-        [categoryView setHidden:YES];
         [self loadRecommendData];
         [infoTableView setHidden:NO];
+        [[self BRHeaderView].titleLabel setText:@"推荐"];
         NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
         NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
         for (int i = 0; i < 4; i++) {
@@ -155,7 +156,6 @@
     [_searchBar setPlaceholder:@"请输入书名作者"];
     [self.view addSubview:_searchBar];
     
-    [self initCategoryButton];
     [self initRandButton];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
@@ -165,7 +165,7 @@
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
-    [infoTableView setBackgroundColor:[UIColor colorWithRed:244.0/255.0 green:240.0/255.0 blue:230.0/255.0 alpha:1.0]];
+    [infoTableView setBackgroundColor:[UIColor whiteColor]];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -181,49 +181,25 @@
     [_searchBar resignFirstResponder];
 }
 
-- (void)initCategoryButton {
-    categoryView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, self.view.bounds.size.height-50-44)];
-    [categoryView setHidden:YES];
-    [categoryView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:categoryView];
-    
-    CGRect frame = CGRectMake(30, 20, self.view.bounds.size.width-60, 30);
-    NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
-    for (int i=0; i<[buttonNames count]; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTag:i];
-        if (i%2==0) {
-            [button setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:239.0/255.0 blue:230.0/255.0 alpha:1.0]];
-        } else {
-           [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-        }
-        if (i!=0) {
-            frame = CGRectMake(30, CGRectGetMaxY(frame), frame.size.width, frame.size.height);
-        }
-        [button setFrame:frame];
-        [button setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitle:buttonNames[i] forState:UIControlStateNormal];
-        [categoryView addSubview:button];
-    }
-}
-
 - (void)initRandButton {
-    CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width/9, 40);
+    CGRect frame = CGRectMake(0, 10, self.view.bounds.size.width/9, 20);
     rankView = [[UIView alloc]initWithFrame: CGRectMake(self.view.bounds.size.width/3 *2, 0, self.view.bounds.size.width/3, 40)];
     [rankView setBackgroundColor:[UIColor clearColor]];
     [rankView setHidden:YES];
     [self.view addSubview:rankView];
     NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
+    NSArray *imagesArray = @[@"all_btn" , @"new_btn", @"hot_btn"];
     for (int i = 0; i<3; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i==0) {
-            [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:@"all_btn_hl"] forState:UIControlStateNormal];
+        } else {
+            [button setBackgroundImage:[UIImage imageNamed:imagesArray[i]] forState:UIControlStateNormal];
         }
-        [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
         if (i!=0) {
-            frame = CGRectMake(CGRectGetMaxX(frame), 0, frame.size.width, frame.size.height);
+            frame = CGRectMake(CGRectGetMaxX(frame), 10, frame.size.width, frame.size.height);
         }
         [button setFrame:frame];
         [rankView addSubview:button];
@@ -283,12 +259,14 @@
 }
 
 - (void)changeRankButtonImage:(UIButton *)sender {
+    NSArray *highlightImages = @[@"all_btn_hl", @"new_btn_hl", @"hot_btn_hl"];
+    NSArray *images = @[@"all_btn", @"new_btn", @"hot_btn"];
     for (int i = 0; i<3; i++) {
         UIButton *button = rankBtns[i];
         if(sender == button) {
-            [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            [sender setBackgroundImage:[UIImage imageNamed:highlightImages[i]] forState:UIControlStateNormal];
         }else {
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
         }
     }
 }
@@ -393,13 +371,13 @@
     }
 }
 
-- (void)buttonClicked:(id)sender {
+- (void)loadCatagoryDataWithIndex:(NSInteger)index {
     CategoryDetailsViewController *childViewController = [[CategoryDetailsViewController alloc]init];
     [childViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+20)];
     [self.navigationController pushViewController:childViewController animated:YES];
     [childViewController displayHUD:@"加载中..."];
     [ServiceManager books:@""
-                  classID:[sender tag] +1
+                  classID:index + 1
                   ranking:0
                      size:@"7"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
@@ -410,8 +388,8 @@
                              [infoArray removeAllObjects];
                          }
                          [infoArray addObjectsFromArray:resultArray];
-                         [childViewController reloadDataWithArray:infoArray andCatagoryId:[sender tag]+1];
-                         currentPage = [sender tag]+1;
+                         [childViewController reloadDataWithArray:infoArray andCatagoryId:index+1];
+                         currentPage = index +1;
                          [childViewController hideHUD:YES];
                      }
                  }];
@@ -423,32 +401,31 @@
     switch ([buttonArrays indexOfObject:sender]) {
         case 0:
             currentType = RECOMMEND;
+            [[self BRHeaderView].titleLabel setText:@"推荐"];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:YES];
-            [categoryView setHidden:YES];
             [self loadRecommendData];
             [infoTableView setHidden:NO];
             break;
         case 1:
             currentType = RANK;
+            [[self BRHeaderView].titleLabel setText:@"排行"];
             [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:NO];
-            [categoryView setHidden:YES];
             [infoTableView setHidden:NO];
             break;
         case 2:
             currentType = CATAGORY;
+            [[self BRHeaderView].titleLabel setText:@"分类"];
             [self showSearchBarWithBoolValue:NO];
             [rankView setHidden:YES];
-            [categoryView setHidden:NO];
-            [infoTableView setHidden:YES];
             break;
         case 3:
             currentType = SEARCH;
+            [[self BRHeaderView].titleLabel setText:@"搜索"];
             [self showSearchBarWithBoolValue:YES];
             [rankView setHidden:YES];
-            [categoryView setHidden:YES];
             [infoTableView setHidden:NO];
             break;
         default:
@@ -478,13 +455,13 @@
         return nil;
     }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
-    [view setBackgroundColor:[UIColor colorWithRed:56.0/255.0 green:210.0/255.0 blue:107.0/255.0 alpha:1.0]];
+    [view setBackgroundColor:[UIColor colorWithRed:142.0/255.0 green:196.0/255.0 blue:102.0/255.0 alpha:1.0]];
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
-        for (int i = 0; i<[recommendTitlesArray count]; i++) {
-            if (section == i) {
-                [label setText:[@"  " stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
-            }
+    for (int i = 0; i<[recommendTitlesArray count]; i++) {
+        if (section == i) {
+            [label setText:[@"  " stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
         }
+    }
     [view addSubview:label];
     return view;
 }
@@ -497,6 +474,8 @@
                 return [array count];
             }
         }
+    } else if (currentType == CATAGORY) {
+        return [catagoryNames count];
     }
     return [infoArray count];
 }
@@ -509,6 +488,8 @@
         else {
             return 30;
         }
+    } else if (currentType == CATAGORY) {
+        return 40;
     }
     return [BookCell height];
 }
@@ -530,7 +511,12 @@
             }
         }
     }
-    else {
+    else if (currentType == CATAGORY){
+        if (cell == nil) {
+            cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
+            [(BookCell *)cell setCatagoryName:catagoryNames[[indexPath row]]];
+        }
+    } else {
         if (cell == nil) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *book = infoArray[indexPath.row];
@@ -541,15 +527,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Book *book;
-    if (currentType == RECOMMEND) {
-        NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
-        book = array[indexPath.row];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (currentType != CATAGORY) {
+        Book *book;
+        if (currentType == RECOMMEND) {
+            NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
+            book = array[indexPath.row];
+        } else {
+            book = infoArray[indexPath.row];
+        }
+        BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
+        [self.navigationController pushViewController:childViewController animated:YES];
     } else {
-        book = infoArray[indexPath.row];
+        [self loadCatagoryDataWithIndex:indexPath.row];
     }
-    BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
-    [self.navigationController pushViewController:childViewController animated:YES];
 }
 
 @end

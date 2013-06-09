@@ -12,10 +12,12 @@
 typedef enum {
     BookCellStyleBig,
     BookCellStyleSmall,
+    BookCellStyleCatagory,
 } BookCellStyle;
 
 @interface BookCell : UITableViewCell
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 + (CGFloat)height;
 - (void)setBook:(Book *)book;
+- (void)setCatagoryName:(NSString *)name;
 @end
