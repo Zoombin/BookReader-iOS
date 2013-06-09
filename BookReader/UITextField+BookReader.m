@@ -21,7 +21,7 @@
 + (UITextField *)customWithFrame:(CGRect)frame
 {
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];
-    [textField setFont:[UIFont systemFontOfSize:14]];
+    [textField setFont:[UIFont systemFontOfSize:17]];
     [textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [textField setBackgroundColor:[UIColor whiteColor]];
     [textField.layer setBorderWidth:0.5];

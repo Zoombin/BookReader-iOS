@@ -503,7 +503,7 @@
     else if (currentType == CATAGORY){
         if (cell == nil) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
-            [(BookCell *)cell setCatagoryName:catagoryNames[[indexPath row]]];
+            [(BookCell *)cell setTextLableText:catagoryNames[[indexPath row]]];
         }
     } else {
         if (cell == nil) {

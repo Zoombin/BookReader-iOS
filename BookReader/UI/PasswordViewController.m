@@ -49,8 +49,9 @@
 - (void)showFindPassword
 {
     [self setTitle:@"找回密码"];
+    CGSize fullSize = self.view.bounds.size;
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, fullSize.width-8, fullSize.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
@@ -60,22 +61,20 @@
     int k = 0;
     for (int i = 0; i < textFields.count; i++) {
         k = i>1 ? i+1 : i;
-        CGRect frame = CGRectMake(20, 15+40*k, backgroundView.bounds.size.width-20*2, 30);
+        CGRect frame = CGRectMake(30, 44+15+50*k, fullSize.width-30*2, 40);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
-        UIImageView *textFieldBackground = [textField backgroundView];
-		[backgroundView addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
-        [backgroundView addSubview:textField];
+        [self.view addSubview:textField];
     }
     
-     findButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 260, backgroundView.bounds.size.width-30*2, 30)];
+     findButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 310, fullSize.width-30*2, 40)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
-     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 140, backgroundView.bounds.size.width-30*2, 30)];
+     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 160, fullSize.width-30*2, 40)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -84,8 +83,9 @@
 
 - (void)showChangePassword
 {
+    CGSize fullSize = self.view.bounds.size;
     [self setTitle:@"修改密码"];
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, fullSize.width-8, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
@@ -95,20 +95,18 @@
     [passwordTextField setPlaceholder:@"请输入旧密码"];
     [confirmTextField setPlaceholder:@"请输入新密码"];
     for (int i = 0; i < textFields.count; i++) {
-        CGRect frame = CGRectMake(20, 20+40*i, backgroundView.bounds.size.width-20*2, 30);
+        CGRect frame = CGRectMake(30,44+20+50*i, fullSize.width-30*2, 40);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
-        UIImageView *textFieldBackground = [textField backgroundView];
-		[backgroundView addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
         [textField setBackgroundColor:[UIColor clearColor]];
-        [backgroundView addSubview:textField];
+        [self.view addSubview:textField];
     }
     
-     changeButton = [UIButton createButtonWithFrame:CGRectMake(30, 200, 250, 30)];
+     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 210, fullSize.width-30*2, 40)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [changeButton setDisabled:YES];
+    [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.view addSubview:changeButton];
 }
@@ -189,9 +187,9 @@
 - (void)changePasswordValueChanged:(id)sender
 {
     if ([passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
-        [changeButton setDisabled:NO];
+        [changeButton setEnabled:YES];
     } else {
-        [changeButton setDisabled:YES];
+        [changeButton setEnabled:NO];
     }
 }
 

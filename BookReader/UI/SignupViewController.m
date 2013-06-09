@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	CGSize fullSize = self.view.bounds.size;
+    CGSize fullSize = self.view.bounds.size;
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -39,7 +39,7 @@
 	self.keyboardUsers = @[accountTextField, passwordTextField, confirmTextField, codeTextField];
     [self setTitle:@"注册"];
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, fullSize.width-8, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
@@ -47,26 +47,27 @@
     
     NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField];
 	
+
 	CGFloat startY = CGRectGetMinY(backgroundView.frame) + 15;
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
-        CGRect frame = CGRectMake(40, startY, fullSize.width - 80, 40);
+        if (i==2) {
+            startY +=50;
+        }
+        CGRect frame = CGRectMake(30, startY, fullSize.width-30*2, 40);
         [textField setFrame:frame];
-		UIImageView *textFieldBackground = [textField backgroundView];
-		[self.view addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
 		[self.view addSubview:textField];
 		startY += 50;
     }
-    
-	startY += 15;
-	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(40, startY, fullSize.width - 80, 40)];
+
+	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY, fullSize.width-30*2, 40)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setEnabled:NO];
     [self.view addSubview:registerButton];
     
-	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(40, startY+60, fullSize.width - 80, 40)];
+	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY-150, fullSize.width-30*2, 40)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
