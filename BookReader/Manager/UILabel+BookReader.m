@@ -22,7 +22,7 @@
 {
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:frame];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    [titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     return titleLabel;
