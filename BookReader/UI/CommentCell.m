@@ -54,4 +54,9 @@
     [self setFrame:cellFrame];
 }
 
+- (CGFloat)height
+{
+   return self.frame.size.height;
+}
+
 @end

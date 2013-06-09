@@ -510,10 +510,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (tableView == infoTableView) {
+	if (tableView != infoTableView) {
 		BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell height];
-	}
+	} else {
+        CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		return [cell height];
+    }
 	return 30;
 }
 

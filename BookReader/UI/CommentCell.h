@@ -12,4 +12,5 @@
 @interface CommentCell : UITableViewCell
 
 - (void)setComment:(Comment *)comment;
+- (CGFloat)height;
 @end
