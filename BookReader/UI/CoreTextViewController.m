@@ -428,12 +428,21 @@
 
 - (void)previousChapterButtonClick
 {
+	if (chapter.index.intValue == 0) {
+		[self displayHUDError:@"" message:@"此章是第一章"];
+		return;
+	}
 	[self gotoChapter:[chapter previous] withReadIndex:nil];
 }
 
 - (void)nextChapterButtonClick
 {
-	[self gotoChapter:[chapter next] withReadIndex:nil];
+	Chapter *aChapter = [chapter next];
+	if (!aChapter) {
+		[self displayHUDError:@"" message:@"此章是最后一章"];
+		return;
+	}
+	[self gotoChapter:aChapter withReadIndex:nil];
 }
 
 #pragma mark - 
