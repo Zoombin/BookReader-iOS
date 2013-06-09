@@ -13,6 +13,8 @@
 @interface Mark : NSManagedObject
 
 @property (nonatomic, retain) NSString * chapterID;
+@property (nonatomic, retain) NSString * chapterName;
+@property (nonatomic, retain) NSNumber * progress;
 @property (nonatomic, retain) NSNumber * startWordIndex;
 @property (nonatomic, retain) NSString * reference;
 

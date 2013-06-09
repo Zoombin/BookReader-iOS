@@ -12,6 +12,8 @@
 @implementation Mark
 
 @dynamic chapterID;
+@dynamic chapterName;
+@dynamic progress;
 @dynamic startWordIndex;
 @dynamic reference;
 

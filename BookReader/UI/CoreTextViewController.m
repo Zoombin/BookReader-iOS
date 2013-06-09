@@ -404,15 +404,21 @@
 {
     [self displayHUDError:@"" message:@"添加书签成功"];
 	NSRange range = NSRangeFromString(pages[currentPageIndex]);
-	range.length = 15;
-	NSString *reference = [currentChapterString substringWithRange:range];
-	reference = [reference stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+	NSString *reference = [currentChapterString substringFromIndex:range.location];
+	NSLog(@"before referenct = %@", reference);
 	reference = [reference stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+	reference = [reference stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+	reference = [reference stringByReplacingOccurrencesOfString:@"　" withString:@""];//chinese space
+	reference = [reference stringByReplacingOccurrencesOfString:@" " withString:@""];
+	reference = [reference substringToIndex:40];
+	NSLog(@"referenct = %@", reference);
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		Mark *mark = [Mark createInContext:localContext];
 		mark.chapterID = chapter.uid;
+		mark.chapterName = chapter.name;
 		mark.reference = reference;
 		mark.startWordIndex = @(range.location);
+		mark.progress = @([self readPercentage]);
 	}];
 	
 	
