@@ -9,6 +9,7 @@
 #import "BookShelfBottomView.h"
 #import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ServiceManager.h"
 
 #define DURATION 0.3   // 动画持续时间(秒)
 
@@ -146,6 +147,11 @@
 }
 
 - (void)shelfButtonClick {
+	if (![ServiceManager userID]) {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+		[alertView show];
+		return;
+	}
 	editButton.hidden = NO;
 	refreshButton.hidden = NO;
 	historyButton.hidden = NO;
