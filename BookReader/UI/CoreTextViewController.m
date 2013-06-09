@@ -309,16 +309,17 @@
 		[ServiceManager bookCatalogue:aChapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				[self hideHUD:YES];
+				[self gotoChapter:aChapter withReadIndex:nil];
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 					aChapter.content = content;
-					[self gotoChapter:aChapter withReadIndex:nil];
 				}];
 			} else {//没下载到，尝试订阅
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
 					if (content && ![content isEqualToString:@""]) {
+						chapter.content = content;
+						[self gotoChapter:aChapter withReadIndex:nil];
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 							aChapter.content = content;
-							[self gotoChapter:aChapter withReadIndex:nil];
 						}];
 					} else {
 						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
