@@ -29,6 +29,7 @@
     
     NSArray *normalImages;
     NSArray *hlImages;
+    UISlider *_slider;
 }
 @synthesize delegate;
 
@@ -48,34 +49,61 @@
         
         buttonsArray = [[NSMutableArray alloc] init];
         
-        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(70, 8, 45, 20)];
+        UIButton *reductBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [reductBtn setBackgroundImage:[UIImage imageNamed:@"gift_reduce"] forState:UIControlStateNormal];
+        [reductBtn setTitle:@"-" forState:UIControlStateNormal];
+        [reductBtn addTarget:self action:@selector(reductBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [reductBtn setFrame:CGRectMake(70, 12, 40, 21)];
+        [self.contentView addSubview:reductBtn];
+        
+        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 12, 80, 20)];
         [numberTextField setText:@"1"];
-        [numberTextField.layer setBorderWidth:1];
+        [numberTextField.layer setBorderWidth:0.5];
         [numberTextField.layer setBorderColor:[UIColor colorWithRed:120.0/255.0 green:65.0/255.0 blue:47.0/255.0 alpha:1.0].CGColor];
         [numberTextField setUserInteractionEnabled:NO];
         [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [numberTextField setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:numberTextField];
+        
+        UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [addBtn setBackgroundImage:[UIImage imageNamed:@"gift_add"] forState:UIControlStateNormal];
+        [addBtn setTitle:@"+" forState:UIControlStateNormal];
+        [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [addBtn setFrame:CGRectMake(190, 12, 40, 21)];
+        [self.contentView addSubview:addBtn];
     
         keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 70)];
-        [keywordImageView setBackgroundColor:[indexPath section]%2!=0 ? DarkGrayColor:lightGrayColor];
         [self.contentView addSubview:keywordImageView];
         
-        [self.contentView setBackgroundColor:[indexPath section]%2==0 ? DarkGrayColor:lightGrayColor];
-        
-        UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(70, 40, 160, 20)];
-        [slider setMinimumValue:1];
-        [slider setThumbTintColor:[UIColor colorWithRed:203.0/255.0 green:156.0/255.0 blue:133.0/255.0 alpha:1.0]];
-        [slider setMaximumValue:1000];
-        [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-        [self.contentView addSubview:slider];
+         _slider = [[UISlider alloc]initWithFrame:CGRectMake(70, 44, 160, 20)];
+        [_slider setMinimumValue:1];
+        [_slider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
+        [_slider setMinimumTrackTintColor:[UIColor colorWithRed:43.0/255.0 green:25.0/255.0 blue:16.0/255.0 alpha:1.0]];
+        [_slider setThumbTintColor:[UIColor colorWithRed:203.0/255.0 green:156.0/255.0 blue:133.0/255.0 alpha:1.0]];
+        [_slider setMaximumValue:1000];
+        [_slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:_slider];
     
-        UIButton *sendButton = [UIButton createButtonWithFrame:CGRectMake(self.bounds.size.width-45*2, 25, 65, 20)];
+        UIButton *sendButton = [UIButton createButtonWithFrame:CGRectMake(self.bounds.size.width-75, 25, 55, 35)];
         [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue) forControlEvents:UIControlEventTouchUpInside];
         [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
         [self.contentView addSubview:sendButton];
     }
     return self;
+}
+
+- (void)addBtnClicked
+{
+    _slider.value = _slider.value + 1;
+    int k = _slider.value;
+    [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
+}
+
+- (void)reductBtnClicked
+{
+    _slider.value = _slider.value - 1;
+    int k = _slider.value;
+    [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
 }
 
 - (void)setMonthTicketButtonHidden:(BOOL)boolValue

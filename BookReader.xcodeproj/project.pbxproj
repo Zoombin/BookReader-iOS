@@ -25,6 +25,8 @@
 		1804C3161764BB2D00B0AD28 /* bookdetail_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1804C3151764BB2D00B0AD28 /* bookdetail_btn.png */; };
 		1804C3181764BFF500B0AD28 /* recommandtofriend.png in Resources */ = {isa = PBXBuildFile; fileRef = 1804C3171764BFF500B0AD28 /* recommandtofriend.png */; };
 		1804C31A1764C4F000B0AD28 /* comment_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1804C3191764C4F000B0AD28 /* comment_btn.png */; };
+		1804C31D1764CA7600B0AD28 /* gift_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1804C31B1764CA7600B0AD28 /* gift_add.png */; };
+		1804C31E1764CA7600B0AD28 /* gift_reduce.png in Resources */ = {isa = PBXBuildFile; fileRef = 1804C31C1764CA7600B0AD28 /* gift_reduce.png */; };
 		18063FC91745BB5500744A12 /* integral_five_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18063FBF1745BB5500744A12 /* integral_five_hl.png */; };
 		18063FCA1745BB5500744A12 /* integral_five.png in Resources */ = {isa = PBXBuildFile; fileRef = 18063FC01745BB5500744A12 /* integral_five.png */; };
 		18063FCB1745BB5500744A12 /* integral_four_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18063FC11745BB5500744A12 /* integral_four_hl.png */; };
@@ -414,6 +416,8 @@
 		1804C3151764BB2D00B0AD28 /* bookdetail_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookdetail_btn.png; sourceTree = "<group>"; };
 		1804C3171764BFF500B0AD28 /* recommandtofriend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recommandtofriend.png; sourceTree = "<group>"; };
 		1804C3191764C4F000B0AD28 /* comment_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_btn.png; sourceTree = "<group>"; };
+		1804C31B1764CA7600B0AD28 /* gift_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift_add.png; sourceTree = "<group>"; };
+		1804C31C1764CA7600B0AD28 /* gift_reduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift_reduce.png; sourceTree = "<group>"; };
 		18063FBF1745BB5500744A12 /* integral_five_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_five_hl.png; sourceTree = "<group>"; };
 		18063FC01745BB5500744A12 /* integral_five.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_five.png; sourceTree = "<group>"; };
 		18063FC11745BB5500744A12 /* integral_four_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_four_hl.png; sourceTree = "<group>"; };
@@ -1240,6 +1244,8 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				1804C31B1764CA7600B0AD28 /* gift_add.png */,
+				1804C31C1764CA7600B0AD28 /* gift_reduce.png */,
 				1804C3191764C4F000B0AD28 /* comment_btn.png */,
 				1804C3171764BFF500B0AD28 /* recommandtofriend.png */,
 				1804C3151764BB2D00B0AD28 /* bookdetail_btn.png */,
@@ -2188,6 +2194,8 @@
 				1804C3161764BB2D00B0AD28 /* bookdetail_btn.png in Resources */,
 				1804C3181764BFF500B0AD28 /* recommandtofriend.png in Resources */,
 				1804C31A1764C4F000B0AD28 /* comment_btn.png in Resources */,
+				1804C31D1764CA7600B0AD28 /* gift_add.png in Resources */,
+				1804C31E1764CA7600B0AD28 /* gift_reduce.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
