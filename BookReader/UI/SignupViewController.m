@@ -42,7 +42,7 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor whiteColor]];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
     NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField];
@@ -50,23 +50,23 @@
 	CGFloat startY = CGRectGetMinY(backgroundView.frame) + 15;
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
-        CGRect frame = CGRectMake(40, startY, fullSize.width - 80, 30);
+        CGRect frame = CGRectMake(40, startY, fullSize.width - 80, 40);
         [textField setFrame:frame];
 		UIImageView *textFieldBackground = [textField backgroundView];
 		[self.view addSubview:textFieldBackground];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
 		[self.view addSubview:textField];
-		startY += 40;
+		startY += 50;
     }
     
 	startY += 15;
-	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY, 250, 30)];
+	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(40, startY, fullSize.width - 80, 40)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setEnabled:NO];
     [self.view addSubview:registerButton];
     
-	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY+50, 250, 30)];
+	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(40, startY+60, fullSize.width - 80, 40)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];

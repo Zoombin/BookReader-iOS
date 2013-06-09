@@ -47,41 +47,31 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor whiteColor]];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
-    UILabel *accountLabel = [UILabel accountLabelWithFrame:CGRectMake(5, 74, 70, 30)];
-    [self.view addSubview:accountLabel];
-    
-    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(80, 74, self.view.bounds.size.width-60*2, 30)];
-    UIImageView *accounttextFieldBackground = [accountTextField backgroundView];
-    [self.view addSubview:accounttextFieldBackground];
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(40, 74, backgroundView.bounds.size.width-40*2, 40)];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
-    UILabel *passwordLabel = [UILabel passwordLabelWithFrame:CGRectMake(5, 114, 70, 30)];
-    [self.view addSubview:passwordLabel];
-    
-    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(80, 114, self.view.bounds.size.width-60*2, 30)];
-    UIImageView *pwdtextFieldBackground = [passwordTextField backgroundView];
-    [self.view addSubview:pwdtextFieldBackground];
+    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(40, 124, backgroundView.bounds.size.width-40*2, 40)];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
 	
 	self.keyboardUsers = @[accountTextField, passwordTextField];
     
-    loginButton = [UIButton createMemberbuttonFrame:CGRectMake(35, 160, 250, 30)];
+    loginButton = [UIButton createMemberbuttonFrame:CGRectMake(40, 180, backgroundView.bounds.size.width-40*2, 40)];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 	[loginButton setEnabled:NO];
     [self.view addSubview:loginButton];
     
     UIButton *findButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findButton setFrame:CGRectMake(35, 200, 250, 30)];
+    [findButton setFrame:CGRectMake(40, 230, backgroundView.bounds.size.width-40*2, 30)];
     [findButton addTarget:self action:@selector(findButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [findButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [findButton setTitleColor:[UIColor colorWithRed:124.0/255.0 green:122.0/255.0 blue:114.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [findButton setTitle:@"忘记密码点这里" forState:UIControlStateNormal];
+    [findButton setTitle:@"密码忘记点这里" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
 }
 
