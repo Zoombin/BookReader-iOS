@@ -119,9 +119,17 @@
 
 - (void)logoutButtonClicked
 {
-	stopAllSync = YES;
-	[self displayHUD:@"正在注销"];
-	[self performSelector:@selector(logout) withObject:nil afterDelay:2];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否注销?" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0) {
+        stopAllSync = YES;
+        [self displayHUD:@"正在注销"];
+        [self performSelector:@selector(logout) withObject:nil afterDelay:2];
+    }
 }
 
 - (void)logout
