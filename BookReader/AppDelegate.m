@@ -56,9 +56,9 @@
 //	[ServiceManager saveUserID:@(5639339)];//yanchao
 //	[ServiceManager saveUserID:@(4216157)];//zhangbin
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
+//	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
     rootControllers = [@{} mutableCopy];

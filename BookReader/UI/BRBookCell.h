@@ -24,6 +24,4 @@
 @property (nonatomic, assign) BOOL autoBuy;
 @property (nonatomic, assign) NSInteger badge;
 
-
-
 @end

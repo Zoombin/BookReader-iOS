@@ -33,7 +33,7 @@
 	
 	PSUICollectionViewFlowLayout *_gridLayout = [[PSUICollectionViewFlowLayout alloc] init];
 	_gridLayout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-	_gridLayout.itemSize = CGSizeMake(72, 99);
+	_gridLayout.itemSize = CGSizeMake(70, 89);
 	_gridLayout.minimumInteritemSpacing = 11;
 	_gridLayout.minimumLineSpacing = 20;
 	_gridLayout.sectionInset = UIEdgeInsetsMake(10, 20, 0, 30);
