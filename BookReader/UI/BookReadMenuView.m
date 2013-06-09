@@ -222,6 +222,7 @@
 - (void)hide
 {
 	self.hidden = YES;
+    [self hidenAllMenu];
 }
 
 -(void)initBackgroundView
@@ -390,6 +391,12 @@
     if ([self.delegate respondsToSelector:@selector(addBookMarkButtonPressed)]) {
         [self.delegate performSelector:@selector(addBookMarkButtonPressed)];
     }
+}
+
+- (void)hidenAllMenu
+{
+    backgroundView.hidden = YES;
+    fontView.hidden = YES;
 }
 
 @end

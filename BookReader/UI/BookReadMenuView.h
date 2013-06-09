@@ -35,4 +35,5 @@
 @property (nonatomic, strong) id<BookReadMenuViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *fontButonMin;
+- (void)hidenAllMenu;
 @end

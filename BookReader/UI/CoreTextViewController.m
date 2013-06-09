@@ -354,6 +354,7 @@
     }
     if (!menuView.hidden) {
         menuView.hidden = YES;
+        [menuView hidenAllMenu];
         return;
     }
     
