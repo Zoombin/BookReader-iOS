@@ -16,6 +16,7 @@
 #import "UILabel+BookReader.h"
 #import "BookReader.h"
 #import "AppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation SignUpViewController {
     UIButton *registerButton;
@@ -38,12 +39,15 @@
 	self.keyboardUsers = @[accountTextField, passwordTextField, confirmTextField, codeTextField];
     [self setTitle:@"注册"];
     
-    UIView *signUpFrameView = [UIView findBackgroundViewWithFrame:CGRectMake(10, 44 ,fullSize.width - 20, 230)];
-    [self.view addSubview:signUpFrameView];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56)];
+    [backgroundView.layer setCornerRadius:5];
+    [backgroundView.layer setMasksToBounds:YES];
+    [backgroundView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:backgroundView];
     
     NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField];
 	
-	CGFloat startY = CGRectGetMinY(signUpFrameView.frame) + 15;
+	CGFloat startY = CGRectGetMinY(backgroundView.frame) + 15;
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
         CGRect frame = CGRectMake(40, startY, fullSize.width - 80, 30);
@@ -56,30 +60,30 @@
     }
     
 	startY += 15;
-	registerButton = [UIButton createButtonWithFrame:CGRectMake(30, startY, 100, 30)];
+	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY, 250, 30)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [registerButton setDisabled:YES];
+    [registerButton setEnabled:NO];
     [self.view addSubview:registerButton];
     
-	getCodeButton = [UIButton createButtonWithFrame:CGRectMake(190, startY, 100, 30)];
+	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY+50, 250, 30)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCodeButton setDisabled:YES];
+    [getCodeButton setEnabled:NO];
     [self.view addSubview:getCodeButton];
 }
 
 - (void)valueChanged:(id)sender
 {
     if ([accountTextField.text length]) {
-        [getCodeButton setDisabled:NO];
+        [getCodeButton setEnabled:YES];
     } else {
-        [getCodeButton setDisabled:YES];
+        [getCodeButton setEnabled:NO];
     }
     if ([accountTextField.text length] && [passwordTextField.text length] && [confirmTextField.text length] && [codeTextField.text length]) {
-        [registerButton setDisabled:NO];
+        [registerButton setEnabled:YES];
     } else {
-        [registerButton setDisabled:YES];
+        [registerButton setEnabled:NO];
     }
 }
 

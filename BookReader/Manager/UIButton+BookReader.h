@@ -11,11 +11,11 @@
 @interface UIButton (BookReader)
 + (UIButton *)createButtonWithFrame:(CGRect)frame;
 + (UIButton *)createMemberbuttonFrame:(CGRect)frame;
-+ (UIButton *)brownButton:(CGRect)frame;
 + (UIButton *)fontButton:(CGRect)frame;
 
 - (void)setDisabled:(BOOL)disabled;
 
 + (UIButton *)navigationBackButton;
++ (UIButton *)custumButtonWithFrame:(CGRect)frame;
 
 @end

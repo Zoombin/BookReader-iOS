@@ -30,10 +30,19 @@
 	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
-//    [backButton setBackgroundImage:[UIImage imageNamed:@"universal_btn_hl"] forState:UIControlStateHighlighted];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
 	return backButton;
+}
+
++ (UIButton *)custumButtonWithFrame:(CGRect)frame
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:frame];
+    [button setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];
+	return button;
 }
 
 - (void)setDisabled:(BOOL)disabled
@@ -59,13 +68,10 @@
 + (UIButton *)createMemberbuttonFrame:(CGRect)frame
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    button.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [button setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-	[button setFrame:frame];
+    [button setFrame:frame];
+    [button setBackgroundImage:[UIImage imageNamed:@"member_btn"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"member_btn_hl"] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:@"member_btn_disable"] forState:UIControlStateDisabled];
     return button;
 }
 
@@ -80,9 +86,4 @@
     return button;
 }
 
-+ (UIButton *)brownButton:(CGRect)frame
-{
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-	return button;
-}
 @end

@@ -109,12 +109,14 @@
         UIView *fuctionsView = [UIView userBackgroundViewWithFrame:CGRectMake(10, 200,self.view.bounds.size.width-20, 130) andTitle:@"功能列表"];
         [self.view addSubview:fuctionsView];
         
-        UIButton *changePassword = [UIButton createMemberbuttonFrame:CGRectMake(0, 35, fuctionsView.bounds.size.width, 40)];
+        UIButton *changePassword = [UIButton buttonWithType:UIButtonTypeCustom];
+        [changePassword setFrame:CGRectMake(0, 35, fuctionsView.bounds.size.width, 40)];
         [changePassword addTarget:self action:@selector(showChangePasswordView) forControlEvents:UIControlEventTouchUpInside];
         [changePassword setTitle:@"修改密码" forState:UIControlStateNormal];
         [fuctionsView addSubview:changePassword];
         
-        UIButton *myFavButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 76, fuctionsView.bounds.size.width, 40)];
+        UIButton *myFavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [myFavButton setFrame:CGRectMake(0, 35, fuctionsView.bounds.size.width, 40)];
         [myFavButton addTarget:self action:@selector(showMyFav) forControlEvents:UIControlEventTouchUpInside];
         [myFavButton setTitle:@"我的收藏" forState:UIControlStateNormal];
         [fuctionsView addSubview:myFavButton];

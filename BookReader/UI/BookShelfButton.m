@@ -20,7 +20,6 @@
         [self setTitle:@"书架" forState:UIControlStateNormal];
         [self setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [self setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
         [self setFrame:CGRectMake(10, 6, 50, 32)];
         [self addTarget:self action:@selector(clicked) forControlEvents:UIControlEventTouchUpInside];
