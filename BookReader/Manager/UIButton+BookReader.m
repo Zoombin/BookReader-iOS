@@ -17,7 +17,6 @@
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundColor:[UIColor hexRGB:EnabledColorHex]];
-	//[button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
 	button.showsTouchWhenHighlighted = YES;
     [button.layer setCornerRadius:4];
     [button.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];

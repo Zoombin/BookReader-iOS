@@ -34,6 +34,8 @@
     UILabel       *titleLabel;
     
     UISearchBar *_searchBar;
+    UIButton *_headerSearchButton;
+    UIView      *tableViewHeader;
     
     NSMutableArray *buttonArrays; //4个分类的按钮array
     
@@ -146,12 +148,21 @@
     cataButton = buttonArrays[2];
     searchButton = buttonArrays[3];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
+    tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
+    [tableViewHeader setBackgroundColor:[UIColor clearColor]];
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-80, 40)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
     [_searchBar setPlaceholder:@"请输入书名作者"];
+    [tableViewHeader addSubview:_searchBar];
     
+    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-70, 5, 50, 30)];
+    [_headerSearchButton addTarget:self action:@selector(searchBarSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerSearchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    [tableViewHeader addSubview:_headerSearchButton];
+ 
     [self initRandButton];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
@@ -406,7 +417,7 @@
             break;
         case 3:
             currentType = SEARCH;
-            [infoTableView setTableHeaderView:_searchBar];
+            [infoTableView setTableHeaderView:tableViewHeader];
             [[self BRHeaderView].titleLabel setText:@"搜索"];
             [rankView setHidden:YES];
             [infoTableView setHidden:NO];
