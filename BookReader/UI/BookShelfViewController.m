@@ -34,7 +34,7 @@ static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
 static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscribe";
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSUICollectionViewDataSource, BRBooksViewDelegate>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
 @end
 
 @implementation BookShelfViewController {
@@ -47,6 +47,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BOOL displayingHistory;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *wifiAlert;
+	NSMutableArray *bookshelfViews;
 }
 @synthesize layoutStyle;
 
@@ -60,12 +61,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	booksView.delegate = self;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
 	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
         [[self BRHeaderView] addButtons];
         [[self BRHeaderView] setDelegate:self];
-		
 		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
 		[bottomView setDelegate:self];
 		[self.view addSubview:bottomView];
@@ -357,6 +358,19 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 #pragma mark - CollectionView
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+	if (booksForDisplay.count != bookshelfViews.count) {
+		for (UIView *view in bookshelfViews) {
+			[view removeFromSuperview];
+		}
+		bookshelfViews = [NSMutableArray array];
+		for (int i = 0; i < booksForDisplay.count; i++) {
+			UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
+			imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, 69);
+			//[booksView addSubview:imageView];
+			//[booksView sendSubviewToBack:imageView];
+			[bookshelfViews addObject:imageView];
+		}
+	}
 	return booksForDisplay.count;
 }
 
@@ -366,7 +380,29 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.badge = [book countOfUnreadChapters];
 	cell.editing = editing;
+//	if (indexPath.row == 0) {
+//		UIImageView *bookshelfView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
+//		bookshelfView.frame = CGRectMake(0, CGRectGetMaxY(cell.frame) - 20, booksView.frame.size.width, 69);
+//		//[booksView addSubview:bookshelfView];
+//		//[booksView sendSubviewToBack:bookshelfView];
+//		[booksView insertSubview:bookshelfView belowSubview:cell];
+//	}
+//	[booksView.backgroundView bringSubviewToFront:cell.backgroundView];
+//	[booksView.backgroundView bringSubviewToFront:cell.contentView];
+//	[booksView bringSubviewToFront:cell];
+//	[booksView bringSubviewToFront:cell.contentView];
+//	[booksView bringSubviewToFront:cell.backgroundView];
 	return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
+}
+
+- (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(PSTCollectionViewScrollPosition)scrollPosition animated:(BOOL)animated
+{
+	
 }
 
 @end
