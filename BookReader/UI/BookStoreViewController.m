@@ -155,7 +155,7 @@
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
-    [_searchBar setPlaceholder:@"请输入书名作者"];
+    [_searchBar setPlaceholder:@"请输入关键字"];
     [tableViewHeader addSubview:_searchBar];
     
     _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-70, 5, 50, 30)];
