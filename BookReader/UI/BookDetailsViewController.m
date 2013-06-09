@@ -55,14 +55,14 @@
     UIButton *comment;
     UIButton *authorBook;
     UIButton *bookRecommend;
-	
-    UIButton *readButton;
-	UIButton *favoriteButton;
-    UIButton *giveDemand;
-    UIButton *giveFlower;
-    UIButton *giveMoney;
-    UIButton *giveMonthTicket;
-    UIButton *giveComment;
+    
+    UILabel *authorNameLabel;
+    UILabel *catagoryNameLabel;
+    UILabel *wordsLabel;
+    UILabel *lastUpdateLabel;
+    UIImageView *bookCover;
+    
+    UIButton *favButton;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -136,71 +136,98 @@
 {
     [super viewDidLoad];
     [self setTitle:book.name];
+     CGSize fullSize = self.view.bounds.size; 
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, fullSize.width-8, self.view.bounds.size.height-56)];
+    [backgroundView.layer setCornerRadius:5];
+    [backgroundView.layer setMasksToBounds:YES];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
+    [self.view addSubview:backgroundView];
+    
+     bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 54, 70, 100)];
+    [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
+    [self.view addSubview:bookCover];
+    
+    UIButton *recommand = [UIButton buttonWithType:UIButtonTypeCustom];
+    [recommand setBackgroundImage:[UIImage imageNamed:@"recommandtofriend"] forState:UIControlStateNormal];
+    [recommand setFrame:CGRectMake(CGRectGetMinX(bookCover.frame), CGRectGetMaxY(bookCover.frame)-25, 70, 25)];
+    [recommand.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [recommand addTarget:self action:@selector(smsShareButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [recommand setTitle:@"推荐给好友" forState:UIControlStateNormal];
+    [self.view addSubview:recommand];
+    
+    UIButton *readButton = [UIButton custumButtonWithFrame:CGRectMake(fullSize.width-100, 6, 48, 32)];
+    [readButton setTitle:@"阅读" forState:UIControlStateNormal];
+    [readButton addTarget:self action:@selector(readButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:readButton];
+    
+    favButton = [UIButton custumButtonWithFrame:CGRectMake(CGRectGetMaxX(readButton.frame), 6, 48, 32)];
+    [favButton setTitle:@"收藏" forState:UIControlStateNormal];
+    [favButton addTarget:self action:@selector(favButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:favButton];
+
+    NSArray *labelTitles = @[@"作者:",@"类别:",@"字数:",@"更新时间:"];
+    NSMutableArray *labelsArray = [NSMutableArray array];
+    for (int i = 0; i<[labelTitles count]; i++) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 75+20*i,fullSize.width-100, 20)];
+        [label setBackgroundColor:[UIColor clearColor]];
+        [label setTextColor:[UIColor grayColor]];
+        [label setFont:[UIFont systemFontOfSize:14]];
+        [label setText:labelTitles[i]];
+        [self.view addSubview:label];
+        [labelsArray addObject:label];
+    }
+    authorNameLabel = labelsArray[0];
+    catagoryNameLabel = labelsArray[1];
+    wordsLabel = labelsArray[2];
+    lastUpdateLabel = labelsArray[3];
+    
+    NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
+    NSArray *hightImages = @[@"gift_demand_hl" , @"gift_flower_hl" ,@"gift_money_hl" ,@"gift_monthticket_hl" ,@"gift_comment_hl"];
+    for (int i = 0; i < 5; i++) {
+        UIButton *button = nil;
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectMake(8*(i+1)+(backgroundView.frame.size.width-6*8)/5*(i), 120, (backgroundView.frame.size.width-6*8)/5, 25)];
+        [button setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:hightImages[i]] forState:UIControlStateHighlighted];
+        [button setTag:i];
+        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [backgroundView addSubview:button];
+    }
+    
+    UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10, 155, backgroundView.frame.size.width - 20, 0.5)];
+    [separateLine setBackgroundColor:[UIColor blackColor]];
+    [backgroundView addSubview:separateLine];
 }
 
 - (void)initBookDetailUI {
-    UIView *firstBkgView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, self.view.bounds.size.width-5*2, 180)];
-    [firstBkgView.layer setCornerRadius:4];
-    [firstBkgView.layer setMasksToBounds:YES];
-    [firstBkgView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:firstBkgView];
+    self.title = @"图书详情";
+    CGSize fullSize = self.view.bounds.size; 
     
-    UIImageView *bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 90, 120)];
     NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [tmpImageView setImage:image];
         book.cover = UIImageJPEGRepresentation(image, 1.0);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [firstBkgView addSubview:tmpImageView];
-        });
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"error: %@", error);
     }];
     
-    UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, firstBkgView.bounds.size.width-100, 30)];
+    UILabel *bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 44, fullSize.width-100, 30)];
     [bookNameLabel setText:[@"  " stringByAppendingString:book.name]];
     [bookNameLabel setBackgroundColor:[UIColor clearColor]];
-    [firstBkgView addSubview:bookNameLabel];
+    [self.view addSubview:bookNameLabel];
     
-    NSArray *labelTitles = @[@"  作者:  ", @"  类别:  ", @"  字数:  ", @"  更新时间:  "];
-    NSArray *labelNames = @[book.author,book.category,book.words,book.lastUpdate];//TODO: 万一有nil呢？ 随时准备crash是吗? Orz...
-    
-    for (int i = 0; i<[labelNames count]; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 30+20*i, firstBkgView.bounds.size.width-100, 20)];
-        [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-        [label setTextColor:[UIColor grayColor]];
-        [label setFont:[UIFont systemFontOfSize:14]];
-        [label setText:[NSString stringWithFormat:@"%@%@",labelTitles[i],labelNames[i]]];
-        [firstBkgView addSubview:label];
+    NSString *authorName = [@"作者: " stringByAppendingString:book.author];
+    NSString *catagoryName = [@"类别: " stringByAppendingString:book.category];
+    NSString *words = [@"字数: " stringByAppendingString:[book.words stringValue]];
+    NSString *lastUpdate = [@"更新时间: " stringByAppendingString:book.lastUpdate];
+    NSArray *labelTitles = @[authorName,catagoryName,words,lastUpdate];
+    NSArray *labels = @[authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel];
+    for (int i = 0; i<[labels count]; i++) {
+        UILabel *label = (UILabel *)labels[i];
+        [label setText:labelTitles[i]];
+        [self.view addSubview:label];
     }
-    NSArray *buttonTitles = @[@"阅读",@"收藏",@"推荐"];
-    NSArray *imageNames = @[@"gift_demand" , @"gift_flower" ,@"gift_money" ,@"gift_monthticket" ,@"gift_comment"];
-    NSArray *selStrings = @[@"readButtonClicked:", @"favButtonClicked:", @"smsShareButtonClicked:", @"buttonClicked:"];
-	NSMutableArray *buttons = [NSMutableArray array];
-    for (int i = 0; i < 8; i++) {
-        UIButton *button = nil;
-        if (i >= 3) {
-            button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setFrame:CGRectMake(5*(i-3)+290/5*(i-3), 150, 290/5, 30)];
-            [button setImage:[UIImage imageNamed:imageNames[i-3]] forState:UIControlStateNormal];
-        }else {
-            button = [UIButton createButtonWithFrame:CGRectMake(110+70*i, 120, 50, 20)];
-            [button setTitle:buttonTitles[i] forState:UIControlStateNormal];
-            [button.titleLabel setFont:[UIFont systemFontOfSize:10]];
-        }
-        [button addTarget:self action:NSSelectorFromString(i >= 3 ? selStrings[3] : selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [firstBkgView addSubview:button];
-		[buttons addObject:button];
-    }
-	
-    readButton = buttons[0];
-	favoriteButton = buttons[1];
-    giveDemand = buttons[2];
-    giveFlower = buttons[3];
-    giveMoney = buttons[4];
-    giveMonthTicket = buttons[5];
-    giveComment = buttons[6];
 	
     if ([ServiceManager userID] != nil) {
         [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(BOOL isExist, NSError *error) {
@@ -209,53 +236,57 @@
             } else {
                 if (isExist) {
                     bFav = YES;
-					[favoriteButton setDisabled:YES];
-					[favoriteButton setTitle:@"已收藏" forState:UIControlStateNormal];
+					[favButton setEnabled:NO];
+					[favButton setTitle:@"已收藏" forState:UIControlStateNormal];
                 }
             }
         }];
     }
     
     secondView = [[UIView alloc] initWithFrame:CGRectMake(5, 244 ,self.view.bounds.size.width-5*2 , self.view.bounds.size.height-244-20)];
-    [secondView.layer setCornerRadius:4];
+    [secondView.layer setCornerRadius:5];
     [secondView.layer setMasksToBounds:YES];
-    [secondView setBackgroundColor:[UIColor whiteColor]];
+    [secondView.layer setBorderColor:[UIColor blackColor].CGColor];
+    [secondView.layer setBorderWidth:0.5];
+    [secondView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:secondView];
     
     NSArray *btnNames = @[@"简介" ,@"评论" ,@"作者书籍", @"同类推荐"];
     NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommend];
     for (int i = 0; i<[btnNames count]; i++) {
         UIButton *button = btnObjs[i];
-        [button.layer setBorderWidth:0.5];
-        [button.layer setBorderColor: i==0 ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
-        [button setTitleColor:[UIColor hexRGB:0xfbbf90] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(i*secondView.frame.size.width/4, 0, secondView.frame.size.width/4, 30)];
+        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        if (i==0) {
+            [button setBackgroundImage:[UIImage imageNamed:@"bookdetail_btn"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        } else {
+            [button setBackgroundImage:nil forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
+        [button setFrame:CGRectMake(20+i*(self.view.frame.size.width-40)/4, 214, (self.view.frame.size.width-40)/4, 30)];
         [button addTarget:self action:@selector(selectTabBar:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:btnNames[i] forState:UIControlStateNormal];
-        [secondView addSubview:button];
+        [self.view addSubview:button];
     }
     currentType = AUTHORBOOK;
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-60) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView setDataSource:self];
     [secondView addSubview:infoTableView];
     [self loadCommitList];
     
     sendCommitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sendCommitButton.layer setBorderWidth:0.5];
-    [sendCommitButton.layer setBorderColor:[UIColor blackColor].CGColor];
-    [sendCommitButton.layer setCornerRadius:4];
-    [sendCommitButton.layer setMasksToBounds:YES];
     [sendCommitButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [sendCommitButton setFrame:CGRectMake(15, infoTableView.frame.size.height+30, secondView.frame.size.width-15*2, 30)];
-    [sendCommitButton setTitle:@"+评论" forState:UIControlStateNormal];
+    [sendCommitButton setFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height-50, 60, 50)];
+    [sendCommitButton setBackgroundImage:[UIImage imageNamed:@"comment_btn"] forState:UIControlStateNormal];
     [sendCommitButton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [secondView addSubview:sendCommitButton];
+    [self.view addSubview:sendCommitButton];
+    [sendCommitButton setHidden:YES];
     
-    recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30) style:UITableViewStylePlain];
+    recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height) style:UITableViewStylePlain];
     [recommendTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [recommendTableView setBackgroundColor:[UIColor whiteColor]];
+    [recommendTableView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [recommendTableView setDelegate:self];
     [recommendTableView setDataSource:self];
     [secondView addSubview:recommendTableView];
@@ -263,9 +294,10 @@
     [self loadAuthorOtherBook];
     [self loadSameType];
     
-    shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30,secondView.frame.size.width , secondView.frame.size.height-30)];
+    shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height)];
     [shortdescribeTextView setText:book.describe];
     [shortdescribeTextView setEditable:NO];
+    [shortdescribeTextView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [secondView addSubview:shortdescribeTextView];
     
     [self removeGestureRecognizer];
@@ -296,33 +328,28 @@
 
 - (void)buttonClicked:(UIButton *)sender
 {
-	NSInteger index = 0;
-    if (sender == giveDemand) {
-        index = 0;
-    } else if (sender == giveFlower) {
-        index = 1;
-    } else if (sender == giveMoney) {
-        index = 2;
-    } else if (sender == giveMonthTicket) {
-        index = 3;
-    } else if (sender == giveComment) {
-        index = 4;
-    }
-    [self pushToGiftViewWithIndex:@(index).stringValue];
+    [self pushToGiftViewWithIndex:@(sender.tag).stringValue];
 }
 
 - (void)selectTabBar:(UIButton *)sender
 {
-    
+    [sendCommitButton setHidden:YES];
     NSArray *btnObjs = @[shortDescribe, comment ,authorBook, bookRecommend];
     for (int i = 0; i<4; i++) {
         UIButton *button = (UIButton *)btnObjs[i];
-        [button.layer setBorderColor:sender==button ? [UIColor clearColor].CGColor : [UIColor blackColor].CGColor];
+        if (sender == button) {
+            [button setBackgroundImage:[UIImage imageNamed:@"bookdetail_btn"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        } else {
+            [button setBackgroundImage:nil forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
     }
     if (sender == shortDescribe) {
         [secondView bringSubviewToFront:shortdescribeTextView];
     } else if (sender == comment) {
-        [secondView bringSubviewToFront:sendCommitButton];
+        [self.view bringSubviewToFront:sendCommitButton];
+        [sendCommitButton setHidden:NO];
         [secondView bringSubviewToFront:infoTableView];
     } else if (sender == authorBook) {
         currentType = AUTHORBOOK;
@@ -467,8 +494,8 @@
             if (!error) {
                 if (success) {
                     bFav = YES;
-					favoriteButton.enabled = YES;
-					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];
+//					favoriteButton.enabled = YES;
+//					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];
 					book.bFav = @(YES);
 					[book persistWithBlock:^(void) {
 						[self displayHUDError:nil message:message];
