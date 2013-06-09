@@ -91,9 +91,11 @@
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
+    
     NSArray *textFields = @[passwordTextField,confirmTextField,codeTextField];
     [passwordTextField setPlaceholder:@"请输入旧密码"];
     [confirmTextField setPlaceholder:@"请输入新密码"];
+    [codeTextField setPlaceholder:@"请再次输入新密码"];
     for (int i = 0; i < textFields.count; i++) {
         CGRect frame = CGRectMake(15, 44+20+50*i, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
