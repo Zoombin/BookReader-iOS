@@ -61,20 +61,20 @@
     int k = 0;
     for (int i = 0; i < textFields.count; i++) {
         k = i>1 ? i+1 : i;
-        CGRect frame = CGRectMake(30, 44+15+50*k, fullSize.width-30*2, 40);
+        CGRect frame = CGRectMake(15, 44+15+50*k, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
         [self.view addSubview:textField];
     }
     
-     findButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 310, fullSize.width-30*2, 40)];
+     findButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 310, fullSize.width-15*2, 40)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
-     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 160, fullSize.width-30*2, 40)];
+     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 160, fullSize.width-15*2, 40)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -95,7 +95,7 @@
     [passwordTextField setPlaceholder:@"请输入旧密码"];
     [confirmTextField setPlaceholder:@"请输入新密码"];
     for (int i = 0; i < textFields.count; i++) {
-        CGRect frame = CGRectMake(30,44+20+50*i, fullSize.width-30*2, 40);
+        CGRect frame = CGRectMake(15, 44+20+50*i, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
         [textField setFrame:frame];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
@@ -104,7 +104,7 @@
         [self.view addSubview:textField];
     }
     
-     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, 210, fullSize.width-30*2, 40)];
+     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 210, fullSize.width-15*2, 40)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];

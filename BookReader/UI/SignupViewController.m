@@ -54,20 +54,20 @@
         if (i==2) {
             startY +=50;
         }
-        CGRect frame = CGRectMake(30, startY, fullSize.width-30*2, 40);
+        CGRect frame = CGRectMake(15, startY, fullSize.width-15*2, 40);
         [textField setFrame:frame];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
 		[self.view addSubview:textField];
 		startY += 50;
     }
 
-	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY, fullSize.width-30*2, 40)];
+	registerButton = [UIButton createMemberbuttonFrame:CGRectMake(15, startY, fullSize.width-15*2, 40)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setEnabled:NO];
     [self.view addSubview:registerButton];
     
-	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(30, startY-150, fullSize.width-30*2, 40)];
+	getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(15, startY-150, fullSize.width-15*2, 40)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
