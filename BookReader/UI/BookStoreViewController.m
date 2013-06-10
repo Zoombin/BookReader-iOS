@@ -21,6 +21,7 @@
 #import "UIColor+BookReader.h"
 #import "UIView+BookReader.h"
 #import "BookCell.h"
+#import "BookReaderDefaultsManager.h"
 
 #define RECOMMEND 0
 #define RANK 1
@@ -63,6 +64,9 @@
     NSMutableArray *rankBtns;
     UITapGestureRecognizer *gestureRecognizer;
     NSArray *catagoryNames;
+    
+    NSArray *hotkeyNames;
+    NSMutableArray *hotkeyBtns;
 }
 
 - (id)init
@@ -71,6 +75,8 @@
     if (self) {
         // Custom initialization
         catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
+        hotkeyNames = @[@"武侠",@"穿越",@"重生",@"总裁",@"玄幻",@"经典",@"天才",@"医生",@"经理",@"老板"];
+        hotkeyBtns = [NSMutableArray array];
         recommendArray = [[NSMutableArray alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
@@ -239,6 +245,11 @@
             if ([infoArray count] > 0) {
                 [infoArray removeAllObjects];
             }
+            if ([resultArray count]>0) {
+                [self hidenAllHotKeyBtn];
+            } else if(currentType == SEARCH&&[resultArray count]==0) {
+                [self showhotkeyButton];
+            }
             [infoArray addObjectsFromArray:resultArray];
             if ([infoArray count]==6) {
                 [self addFootView];
@@ -388,6 +399,7 @@
 }
 
 - (void)buttonClick:(UIButton *)sender {
+    [self hidenAllHotKeyBtn];
     [infoArray removeAllObjects];
     [infoTableView setTableFooterView:nil];
     [self changeButtonImage:sender];
@@ -422,6 +434,7 @@
             [rankView setHidden:YES];
             [infoTableView setHidden:NO];
             [infoTableView reloadData];
+            [self showhotkeyButton];
             break;
         default:
             break;
@@ -532,6 +545,61 @@
     } else {
         [self loadCatagoryDataWithIndex:indexPath.row];
     }
+}
+
+//显示热词
+- (void)showhotkeyButton {
+    [self hidenAllHotKeyBtn];
+    NSArray *cgrectArr = [self randomRect:hotkeyNames.count];
+    for (int i=0; i<[cgrectArr count]; i++) {
+        NSString *cgrectstring = [cgrectArr objectAtIndex:i];
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tmpButton setFrame:CGRectFromString(cgrectstring)];
+        [tmpButton setTitle:hotkeyNames[i] forState:UIControlStateNormal];
+        [tmpButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+        [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [infoTableView addSubview:tmpButton];
+        [hotkeyBtns addObject:tmpButton];
+    }
+}
+
+- (void)hidenAllHotKeyBtn
+{
+    for (UIButton *button in hotkeyBtns) {
+        [button removeFromSuperview];
+    }
+}
+
+- (void)hotkeybuttonClick:(id)sender
+{
+    UIButton *button = (UIButton *)sender;
+    _searchBar.text = button.titleLabel.text;
+    [self searchBarSearchButtonClicked:_searchBar];
+}
+
+- (NSArray *)randomRect:(int)rectCount {
+    NSMutableArray *rectArray = [NSMutableArray array];
+    while([rectArray count] < rectCount) {
+        int x =arc4random()%220+15;    //随机坐标x
+        int y = arc4random()%220+100;//随机坐标y
+        CGRect rect = CGRectMake(x, y, 80, 30);
+        if ([rectArray count] == 0) {
+            [rectArray addObject:NSStringFromCGRect(rect)];
+            continue;
+        }
+        BOOL bIntersects = NO;
+        for (int i = 0; i < [rectArray count]; ++i) {
+            CGRect tmpRect = CGRectFromString([rectArray objectAtIndex:i]);
+            if (CGRectIntersectsRect(rect, tmpRect)) {
+                bIntersects = YES;
+            }
+        }
+        if (bIntersects == NO) {
+            [rectArray addObject:NSStringFromCGRect(rect)];
+        }
+    }
+    return rectArray;
 }
 
 @end

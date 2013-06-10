@@ -221,44 +221,5 @@
     }
 }
 
-//显示热词
-- (void)showhotkeyButton {
-    NSArray *cgrectArr = [self randomRect:10];
-    for (int i=0; i<[cgrectArr count]; i++) {
-        NSString *cgrectstring = [cgrectArr objectAtIndex:i];
-        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tmpButton setFrame:CGRectFromString(cgrectstring)];
-        [tmpButton setTag:i];
-        [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [tmpButton setAlpha:0.8];
-        [self.view addSubview:tmpButton];
-    }
-}
-
-- (NSArray *)randomRect:(int)rectCount {
-    NSMutableArray *rectArray = [NSMutableArray array];
-    while([rectArray count] < rectCount) {
-        int x =arc4random()%220+15;    //随机坐标x
-        int y = arc4random()%220+100;//随机坐标y
-        CGRect rect = CGRectMake(x, y, 80, 30);
-        if ([rectArray count] == 0) {
-            [rectArray addObject:NSStringFromCGRect(rect)];
-            continue;
-        }
-        BOOL bIntersects = NO;
-        for (int i = 0; i < [rectArray count]; ++i) {
-            CGRect tmpRect = CGRectFromString([rectArray objectAtIndex:i]);
-            if (CGRectIntersectsRect(rect, tmpRect)) {
-                //NSLog(@"rect = %@, tmpRect = %@", NSStringFromCGRect(rect), NSStringFromCGRect(tmpRect));
-                bIntersects = YES;
-            }
-        }
-        if (bIntersects == NO) {
-            [rectArray addObject:NSStringFromCGRect(rect)];
-        }
-    }
-    return rectArray;
-}
-
 
 @end
