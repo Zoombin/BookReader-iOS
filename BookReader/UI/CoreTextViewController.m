@@ -198,6 +198,7 @@
 	[BookReaderDefaultsManager setObject:@(slider.value) ForKey:UserDefaultKeyBright];
     coreTextView.alpha = slider.value;
     statusView.alpha = slider.value;
+    [[UIScreen mainScreen] setBrightness:[slider value]];
 }
 
 - (void)backgroundColorChanged:(NSInteger)index

@@ -50,24 +50,24 @@
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
-    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(15, 74, fullSize.width-15*2, 40)];
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(15, 74, fullSize.width-15*2, 50)];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
-    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(15, 124, fullSize.width-15*2, 40)];
+    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(15, 144, fullSize.width-15*2, 50)];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
 	
 	self.keyboardUsers = @[accountTextField, passwordTextField];
     
-    loginButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 180, fullSize.width-15*2, 40)];
+    loginButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 214, fullSize.width-15*2, 50)];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 	[loginButton setEnabled:NO];
     [self.view addSubview:loginButton];
     
     UIButton *findButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findButton setFrame:CGRectMake(40, 230, fullSize.width-40*2, 30)];
+    [findButton setFrame:CGRectMake(40, 274, fullSize.width-40*2, 30)];
     [findButton addTarget:self action:@selector(findButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [findButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [findButton setTitleColor:[UIColor colorWithRed:124.0/255.0 green:122.0/255.0 blue:114.0/255.0 alpha:1.0] forState:UIControlStateNormal];

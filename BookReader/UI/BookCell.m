@@ -34,10 +34,10 @@
     if (self) {
         if (style == BookCellStyleBig) {
 			height = BigCellHeight;
-            CGRect bookimageViewFrame = CGRectMake(15, 5, 45, 60);
+            CGRect bookimageViewFrame = CGRectMake(15, 5, 90/2, 115/2);
             CGRect bookNameLabelFrame = CGRectMake(75, 8, 205, 15);
-            CGRect authorNameLabelFrame = CGRectMake(75, 35, 130, 15);
-            CGRect categoryNameLabelFrame = CGRectMake(75, 50, 130, 15);
+            CGRect authorNameLabelFrame = CGRectMake(75, 33, 130, 15);
+            CGRect categoryNameLabelFrame = CGRectMake(75, 48, 130, 15);
             
             nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
@@ -70,7 +70,7 @@
             authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-120, 0, 100, 30)];
             [authorLabel setBackgroundColor:[UIColor clearColor]];
             [authorLabel setTextAlignment:NSTextAlignmentRight];
-            [authorLabel setFont:[UIFont boldSystemFontOfSize:14]];
+            [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
             [authorLabel setTextColor:[UIColor blackColor]];
             [self.contentView addSubview:authorLabel];
 		} else {//分类界面
