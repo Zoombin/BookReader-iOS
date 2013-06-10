@@ -58,27 +58,47 @@
     [self.view addSubview:backgroundView];
     
     NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
-    int k = 0;
+//    int k = 0;
     for (int i = 0; i < textFields.count; i++) {
-        k = i>1 ? i+1 : i;
-        CGRect frame = CGRectMake(15, 44+15+50*k, fullSize.width-15*2, 40);
+//        k = i>1 ? i+1 : i;
+//        CGRect frame = CGRectMake(15, 44+15+50*k, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
-        [textField setFrame:frame];
+//        [textField setFrame:frame];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
         [self.view addSubview:textField];
     }
+    NSLog(@"%@",textFields);
     
-     findButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 310, fullSize.width-15*2, 40)];
+     findButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 0, 0, 0)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
-     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 160, fullSize.width-15*2, 40)];
+     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 0, 0, 0)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
     [self.view addSubview:getCodeButton];
+    
+    float startX = 15;
+    float startY = CGRectGetMinY(backgroundView.frame) + 15;
+    float width = fullSize.width - 15 * 2;
+    float height = 50;
+    float distance = 10;
+    CGRect rect = CGRectMake(startX, startY, width, height);
+    accountTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(accountTextField.bounds) + distance;
+    codeTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance;
+    getCodeButton.frame = rect;
+    rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
+    passwordTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
+    confirmTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
+    findButton.frame = rect;
+    rect.origin.y += CGRectGetMaxY(findButton.bounds) + distance;
 }
 
 - (void)showChangePassword
@@ -97,20 +117,36 @@
     [confirmTextField setPlaceholder:@"请输入新密码"];
     [codeTextField setPlaceholder:@"请再次输入新密码"];
     for (int i = 0; i < textFields.count; i++) {
-        CGRect frame = CGRectMake(15, 44+20+50*i, fullSize.width-15*2, 40);
+//        CGRect frame = CGRectMake(15, 44+20+50*i, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
-        [textField setFrame:frame];
+//        [textField setFrame:frame];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
         [textField setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:textField];
     }
     
-     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(15, 210, fullSize.width-15*2, 40)];
+     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 0, 0, 0)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
     [self.view addSubview:changeButton];
+    
+    float startX = 15;
+    float startY = CGRectGetMinY(backgroundView.frame) + 20;
+    float width = fullSize.width - 15 * 2;
+    float height = 50;
+    float distance = 10;
+    CGRect rect = CGRectMake(startX, startY, width, height);
+    passwordTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
+    confirmTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
+    codeTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance;
+    changeButton.frame = rect;
+    rect.origin.y += CGRectGetMaxY(changeButton.bounds) + distance;
+    
 }
 
 #pragma mark -
