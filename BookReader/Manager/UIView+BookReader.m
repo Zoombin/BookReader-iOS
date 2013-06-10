@@ -24,7 +24,7 @@
     
     UILabel *loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 80, 30)];
     [loginLabel setText:title];
-    [loginLabel setTextAlignment:NSTextAlignmentCenter];
+    [loginLabel setTextAlignment:UITextAlignmentCenter];
     [loginLabel setBackgroundColor:[UIColor clearColor]];
     [loginLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [loginLabel setTextColor:[UIColor hexRGB:0xdd8e28]];
@@ -72,7 +72,7 @@
     
     UILabel *loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 80, 30)];
     [loginLabel setText:title];
-    [loginLabel setTextAlignment:NSTextAlignmentCenter];
+    [loginLabel setTextAlignment:UITextAlignmentCenter];
     [loginLabel setBackgroundColor:[UIColor clearColor]];
     [loginLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [loginLabel setTextColor:[UIColor hexRGB:0xdd8e28]];

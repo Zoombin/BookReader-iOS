@@ -30,7 +30,7 @@
     [titleLabel setText:NSLocalizedString(@"AboutUs", nil)];
     [titleLabel setTextColor:[UIColor txtColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [self.view addSubview:titleLabel];
     
@@ -65,7 +65,7 @@
     }else {
       [label setText:NSLocalizedString(@"Contaceus", nil)];
     }
-    [label setTextAlignment:NSTextAlignmentLeft];
+    [label setTextAlignment:UITextAlignmentLeft];
     [label setTextColor:[UIColor txtColor]];
     [label setFont:[UIFont boldSystemFontOfSize:17]];
     [label setBackgroundColor:[UIColor clearColor]];
