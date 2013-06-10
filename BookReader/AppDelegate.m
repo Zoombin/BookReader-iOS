@@ -57,7 +57,7 @@
 //	[ServiceManager saveUserID:@(4216157)];//zhangbin
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
 //	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
-	
+	[BookReaderDefaultsManager saveOriginBright];
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
@@ -184,17 +184,20 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [BookReaderDefaultsManager restoreOriginBright];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [BookReaderDefaultsManager saveOriginBright];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [BookReaderDefaultsManager restoreOriginBright];
 	[MagicalRecord cleanUp];
 }
 

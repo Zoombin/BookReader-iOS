@@ -9,6 +9,7 @@
 #import "BookReaderDefaultsManager.h"
 
 static NSArray *colors;
+static float brightValue;
 
 @implementation BookReaderDefaultsManager
 
@@ -39,6 +40,16 @@ static NSArray *colors;
 + (void)setObject:(id)object ForKey:(id)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+}
+
++ (void)restoreOriginBright
+{
+    [[UIScreen mainScreen] setBrightness:brightValue];
+}
+
++ (void)saveOriginBright
+{
+    brightValue = [[UIScreen mainScreen] brightness];
 }
 
 + (id)objectForKey:(id)key

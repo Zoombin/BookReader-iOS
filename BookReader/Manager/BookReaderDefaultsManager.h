@@ -36,4 +36,6 @@
 + (void)setObject:(id)object ForKey:(id)key;
 + (id)objectForKey:(id)key;
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index;
++ (void)restoreOriginBright;
++ (void)saveOriginBright;
 @end

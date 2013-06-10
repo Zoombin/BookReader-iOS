@@ -274,7 +274,6 @@
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView setDataSource:self];
-    [infoTableView setUserInteractionEnabled:NO];
     [infoTableView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [secondView addSubview:infoTableView];
@@ -291,7 +290,6 @@
     recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height) style:UITableViewStylePlain];
     [recommendTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [recommendTableView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
-    [recommendTableView setUserInteractionEnabled:NO];
     [recommendTableView setDelegate:self];
     [recommendTableView setDataSource:self];
     [secondView addSubview:recommendTableView];
@@ -302,7 +300,7 @@
     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height)];
     [shortdescribeTextView setText:book.describe];
     [shortdescribeTextView setFont:[UIFont systemFontOfSize:17]];
-    [shortdescribeTextView setUserInteractionEnabled:NO];
+    [shortdescribeTextView setEditable:NO];
     [shortdescribeTextView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [secondView addSubview:shortdescribeTextView];
     
@@ -351,11 +349,7 @@
             [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         }
     }
-    [infoTableView setUserInteractionEnabled:YES];
-    [recommendTableView setUserInteractionEnabled:YES];
     if (sender == shortDescribe) {
-        [infoTableView setUserInteractionEnabled:NO];
-        [recommendTableView setUserInteractionEnabled:NO];
         [secondView bringSubviewToFront:shortdescribeTextView];
     } else if (sender == comment) {
         [self.view bringSubviewToFront:sendCommitButton];
