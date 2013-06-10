@@ -297,7 +297,6 @@
 		77A4881A172035AA004F7C5A /* UMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A487B7172035AA004F7C5A /* UMTableViewCell.m */; };
 		77A612D71716635F00934254 /* NSString+XXSY.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSY.m */; };
 		77B01C1D175090B2004E426C /* Mark.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B01C1C175090B2004E426C /* Mark.m */; };
-		77B01C20175090E2004E426C /* Mark+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B01C1F175090E2004E426C /* Mark+Setup.m */; };
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77E3E2F7174B6E6100FCCD91 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E3E2F6174B6E6100FCCD91 /* UIColor+Hex.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
@@ -847,8 +846,6 @@
 		77A612D61716635F00934254 /* NSString+XXSY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSY.m"; path = "../NSString+XXSY.m"; sourceTree = "<group>"; };
 		77B01C1B175090B2004E426C /* Mark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
 		77B01C1C175090B2004E426C /* Mark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mark.m; sourceTree = "<group>"; };
-		77B01C1E175090E2004E426C /* Mark+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Mark+Setup.h"; sourceTree = "<group>"; };
-		77B01C1F175090E2004E426C /* Mark+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Mark+Setup.m"; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -1087,8 +1084,6 @@
 				779C672B17446DCD00909D6A /* ContextManager.m */,
 				77B01C1B175090B2004E426C /* Mark.h */,
 				77B01C1C175090B2004E426C /* Mark.m */,
-				77B01C1E175090E2004E426C /* Mark+Setup.h */,
-				77B01C1F175090E2004E426C /* Mark+Setup.m */,
 				18A7FF40176087C900F97099 /* Book+Local.h */,
 				18A7FF41176087C900F97099 /* Book+Local.m */,
 			);
@@ -2387,7 +2382,6 @@
 				18A0C6B3174DEDAB003FC599 /* BRViewController.m in Sources */,
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
 				77B01C1D175090B2004E426C /* Mark.m in Sources */,
-				77B01C20175090E2004E426C /* Mark+Setup.m in Sources */,
 				18A7FF42176087C900F97099 /* Book+Local.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
