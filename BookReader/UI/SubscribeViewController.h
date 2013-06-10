@@ -18,4 +18,5 @@
 @interface SubscribeViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) id<SubscribeViewDelegate> delegate;
 @property (nonatomic, strong) Book *book;
+@property (nonatomic, strong) NSString *currentChapterID;
 @end

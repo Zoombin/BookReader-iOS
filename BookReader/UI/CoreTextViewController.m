@@ -428,6 +428,7 @@
 - (void)chaptersButtonClicked
 {
     SubscribeViewController *controller = [[SubscribeViewController alloc] init];
+    controller.currentChapterID = chapter.uid;
     controller.delegate = self;
 	controller.book = _book;
     [self.navigationController pushViewController:controller animated:YES];

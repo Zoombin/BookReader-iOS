@@ -143,6 +143,9 @@
 			if (chapter.lastReadIndex == nil) {
 				cell.textLabel.textColor = [UIColor blackColor];
 			}
+            if (chapter.uid == _currentChapterID) {
+                cell.textLabel.textColor = [UIColor redColor];
+            }
             cell.detailTextLabel.textColor = [UIColor redColor];
             cell.detailTextLabel.text = [chapter.bVip boolValue] ? @"v" : @"";
         }

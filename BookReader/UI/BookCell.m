@@ -75,13 +75,13 @@
             [self.contentView addSubview:authorLabel];
 		} else {//分类界面
 			height = OtherCellHeight;
-            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 12, 200, 20)];
+            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 12, 200, 20)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
-            [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
+            [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
             [self.contentView addSubview:nameLabel];
             
-             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-40, 10, 12, 18)];
+             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-50, 10, 12, 18)];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self addSubview:catagoryImage];
         }
