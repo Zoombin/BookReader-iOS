@@ -11,8 +11,9 @@
 #import "UIColor+Hex.h"
 
 #define EnabledColorHex 0xc0683a
-
+static float duration = 0;
 @implementation UIButton (BookReader)
+
 + (UIButton *)initButtonWithFrame:(CGRect)frame
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -65,14 +66,15 @@
     return button;
 }
 
-+ (UIButton *)createMemberbuttonFrame:(CGRect)frame
+- (void)cooldownButtonFrame:(CGRect)frame andEnableCooldown:(BOOL)cooldown
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setFrame:frame];
-    [button setBackgroundImage:[UIImage imageNamed:@"member_btn"] forState:UIControlStateNormal];
-    [button setBackgroundImage:[UIImage imageNamed:@"member_btn_hl"] forState:UIControlStateHighlighted];
-    [button setBackgroundImage:[UIImage imageNamed:@"member_btn_disable"] forState:UIControlStateDisabled];
-    return button;
+    [self setFrame:frame];
+    [self setBackgroundImage:[UIImage imageNamed:@"member_btn"] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage imageNamed:@"member_btn_hl"] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage imageNamed:@"member_btn_disable"] forState:UIControlStateDisabled];
+    if (cooldown) {
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
+    }
 }
 
 + (UIButton *)fontButton:(CGRect)frame
@@ -84,6 +86,36 @@
     [button setBackgroundColor:[UIColor whiteColor]];
     [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
     return button;
+}
+
+- (void)startCoolDownDuration:(NSTimeInterval)delay
+{
+    duration = delay;
+    [self setEnabled:NO];
+}
+
+- (void)refresh
+{
+    if (duration == 0) {
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
+        return;
+    }
+    NSLog(@"%f",duration);
+    duration--;
+    NSString *newTitle = self.titleLabel.text;
+    NSRange range = [newTitle rangeOfString:@"("];
+    if (range.location != NSNotFound) {
+        newTitle = [newTitle substringToIndex:range.location];
+    }
+    if (duration <= 0) {
+        [self setEnabled:YES];
+        [self setTitle:newTitle forState:UIControlStateNormal];
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
+    } else {
+        newTitle = [NSString stringWithFormat:@"%@(%d)",newTitle,(int)duration];
+        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
+        [self setTitle:newTitle forState:UIControlStateNormal];
+    }
 }
 
 @end

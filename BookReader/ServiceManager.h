@@ -14,6 +14,7 @@
 
 #define USER_MONEY       @"usermoney"
 #define USER_NAME        @"username"
+#define LASTRECEIVECODE  @"vercode"
 
 @class Book;
 @class Member;

@@ -10,10 +10,11 @@
 
 @interface UIButton (BookReader)
 + (UIButton *)createButtonWithFrame:(CGRect)frame;
-+ (UIButton *)createMemberbuttonFrame:(CGRect)frame;
+- (void)cooldownButtonFrame:(CGRect)frame andEnableCooldown:(BOOL)cooldown;
 + (UIButton *)fontButton:(CGRect)frame;
 
 - (void)setDisabled:(BOOL)disabled;
+- (void)startCoolDownDuration:(NSTimeInterval)delay;
 
 + (UIButton *)navigationBackButton;
 + (UIButton *)custumButtonWithFrame:(CGRect)frame;

@@ -69,13 +69,15 @@
     }
     NSLog(@"%@",textFields);
     
-     findButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 0, 0, 0)];
+    findButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [findButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
-     getCodeButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 0, 0, 0)];
+    getCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [getCodeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:YES];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -117,16 +119,15 @@
     [confirmTextField setPlaceholder:@"请输入新密码"];
     [codeTextField setPlaceholder:@"请再次输入新密码"];
     for (int i = 0; i < textFields.count; i++) {
-//        CGRect frame = CGRectMake(15, 44+20+50*i, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
-//        [textField setFrame:frame];
         [textField addTarget:self action:@selector(changePasswordValueChanged:) forControlEvents:UIControlEventAllEditingEvents];
         [textField setSecureTextEntry:YES];
         [textField setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:textField];
     }
     
-     changeButton = [UIButton createMemberbuttonFrame:CGRectMake(0, 0, 0, 0)];
+    changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [changeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
@@ -189,6 +190,7 @@
 - (void)getFindPasswordCode
 {
     [self hideKeyboard];
+//    [getCodeButton startCoolDownDuration:20];
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
         if (error) {

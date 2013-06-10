@@ -60,7 +60,8 @@
 	
 	self.keyboardUsers = @[accountTextField, passwordTextField];
     
-    loginButton = [UIButton createMemberbuttonFrame:CGRectMake(15, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-15*2, 50)];
+    loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [loginButton cooldownButtonFrame:CGRectMake(15, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-15*2, 50) andEnableCooldown:NO];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 	[loginButton setEnabled:NO];
