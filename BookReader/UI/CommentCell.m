@@ -41,7 +41,7 @@
         [messageLabel setLineBreakMode:NSLineBreakByCharWrapping];
         [self.contentView addSubview:messageLabel];
         
-        background = [[UIView alloc] initWithFrame:CGRectMake(10, self.contentView.frame.size.height, self.contentView.frame.size.width - 15, 0.5)];
+        background = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(messageLabel.frame)-1, self.contentView.frame.size.width - 15, 0.5)];
 		[background setBackgroundColor:[UIColor blackColor]];
 		[self addSubview:background];
     }
@@ -56,8 +56,8 @@
     [timeLabel setText:comment.insertTime];
     [messageLabel setText:[comment.content XXSYHandleRedundantTags]];
     [messageLabel sizeToFit];
-    cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height+10;
-    [background setFrame:CGRectMake(10, cellFrame.size.height, background.frame.size.width-15, 0.5)];
+    cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height;
+    [background setFrame:CGRectMake(10, CGRectGetMaxY(messageLabel.frame)-1, background.frame.size.width-15, 0.5)];
     [self setFrame:cellFrame];
 }
 
