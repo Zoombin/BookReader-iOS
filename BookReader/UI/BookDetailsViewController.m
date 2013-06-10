@@ -143,13 +143,13 @@
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
-     bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 54, 70, 100)];
+     bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 54, 90/1.2, 115/1.2)];
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [self.view addSubview:bookCover];
     
     UIButton *recommand = [UIButton buttonWithType:UIButtonTypeCustom];
     [recommand setBackgroundImage:[UIImage imageNamed:@"recommandtofriend"] forState:UIControlStateNormal];
-    [recommand setFrame:CGRectMake(CGRectGetMinX(bookCover.frame), CGRectGetMaxY(bookCover.frame)-25, 70, 25)];
+    [recommand setFrame:CGRectMake(CGRectGetMinX(bookCover.frame), CGRectGetMaxY(bookCover.frame)-25, bookCover.frame.size.width, 25)];
     [recommand.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [recommand addTarget:self action:@selector(smsShareButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [recommand setTitle:@"推荐给好友" forState:UIControlStateNormal];
@@ -168,7 +168,7 @@
     NSArray *labelTitles = @[@"作者:",@"类别:",@"字数:",@"更新时间:"];
     NSMutableArray *labelsArray = [NSMutableArray array];
     for (int i = 0; i<[labelTitles count]; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 75+20*i,fullSize.width-100, 20)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(100, 85+15*i,fullSize.width-100, 15)];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextColor:[UIColor grayColor]];
         [label setFont:[UIFont systemFontOfSize:14]];
@@ -244,7 +244,7 @@
         }];
     }
     
-    secondView = [[UIView alloc] initWithFrame:CGRectMake(5, 244 ,self.view.bounds.size.width-5*2 , self.view.bounds.size.height-235-20)];
+    secondView = [[UIView alloc] initWithFrame:CGRectMake(5, 234 ,self.view.bounds.size.width-5*2 , self.view.bounds.size.height-225-20)];
     [secondView.layer setCornerRadius:5];
     [secondView.layer setMasksToBounds:YES];
     [secondView.layer setBorderColor:[UIColor blackColor].CGColor];
@@ -264,7 +264,7 @@
             [button setBackgroundImage:nil forState:UIControlStateNormal];
             [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         }
-        [button setFrame:CGRectMake(20+i*(self.view.frame.size.width-40)/4, 214, (self.view.frame.size.width-40)/4, 30)];
+        [button setFrame:CGRectMake(20+i*(self.view.frame.size.width-40)/4, 204, (self.view.frame.size.width-40)/4, 30)];
         [button addTarget:self action:@selector(selectTabBar:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:btnNames[i] forState:UIControlStateNormal];
         [self.view addSubview:button];
