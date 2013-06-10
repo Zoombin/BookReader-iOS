@@ -52,7 +52,7 @@
     [topView addSubview:booknameScroll];
     
     articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, self.bounds.size.width-120, 25)];
-    articleTitleLabel.textAlignment = NSTextAlignmentCenter;
+    articleTitleLabel.textAlignment = UITextAlignmentCenter;
     articleTitleLabel.textColor = [UIColor whiteColor];
     articleTitleLabel.backgroundColor = [UIColor clearColor];
     [booknameScroll addSubview:articleTitleLabel];

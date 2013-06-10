@@ -69,7 +69,7 @@
             
             authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-120, 0, 100, 30)];
             [authorLabel setBackgroundColor:[UIColor clearColor]];
-            [authorLabel setTextAlignment:NSTextAlignmentRight];
+            [authorLabel setTextAlignment:UITextAlignmentRight];
             [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
             [authorLabel setTextColor:[UIColor blackColor]];
             [self.contentView addSubview:authorLabel];

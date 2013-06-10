@@ -25,11 +25,11 @@
         nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.contentView.frame.size.width-20, 20)];
         [nameLabel setBackgroundColor:[UIColor clearColor]];
         [nameLabel setFont:[UIFont systemFontOfSize:12]];
-        [nameLabel setTextAlignment:NSTextAlignmentLeft];
+        [nameLabel setTextAlignment:UITextAlignmentLeft];
         [self.contentView addSubview:nameLabel];
         
         timeLabel = [[UILabel alloc] initWithFrame:nameLabel.frame];
-        [timeLabel setTextAlignment:NSTextAlignmentRight];
+        [timeLabel setTextAlignment:UITextAlignmentRight];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [timeLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:timeLabel];

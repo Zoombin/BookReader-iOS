@@ -13,7 +13,7 @@
 + (UILabel *)initLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    [label setTextAlignment:NSTextAlignmentRight];
+    [label setTextAlignment:UITextAlignmentRight];
     [label setBackgroundColor:[UIColor clearColor]];
     return label;
 }
@@ -24,7 +24,7 @@
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     return titleLabel;
 }
 
@@ -45,7 +45,7 @@
 + (UILabel *)memberAccountLabelWithFrame:(CGRect)frame andAccountName:(NSString *)name
 {
     UILabel *label = [self initLabelWithFrame:frame];
-    [label setTextAlignment:NSTextAlignmentLeft];
+    [label setTextAlignment:UITextAlignmentLeft];
     [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
     [label setFont:[UIFont systemFontOfSize:14]];
     [label setTextColor:[UIColor grayColor]];
@@ -56,7 +56,7 @@
 + (UILabel *)memberUserMoneyLeftWithFrame:(CGRect)frame andMoneyLeft:(NSString *)count
 {
     UILabel *label = [self initLabelWithFrame:frame];
-    [label setTextAlignment:NSTextAlignmentLeft];
+    [label setTextAlignment:UITextAlignmentLeft];
     [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
     [label setFont:[UIFont systemFontOfSize:14]];
     [label setTextColor:[UIColor grayColor]];
@@ -67,7 +67,7 @@
 + (UILabel *)bookStoreLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [self initLabelWithFrame:frame];
-    [label setTextAlignment:NSTextAlignmentLeft];
+    [label setTextAlignment:UITextAlignmentLeft];
     [label setFont:[UIFont boldSystemFontOfSize:18]];
     [label setTextColor:[UIColor whiteColor]];
     return label;

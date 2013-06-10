@@ -182,7 +182,7 @@
     
     UILabel *fontChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_fontButonMin.frame), 60, CGRectGetMinX(fontButonMax.frame) - CGRectGetMaxX(_fontButonMin.frame), 30)];
     [fontChangeLabel setText:@"字体大小"];
-    [fontChangeLabel setTextAlignment:NSTextAlignmentCenter];
+    [fontChangeLabel setTextAlignment:UITextAlignmentCenter];
     [fontView addSubview:fontChangeLabel];
     
     defaultFontButton = [UIButton fontButton:CGRectMake(50, 20, fontView.bounds.size.width/3, 30)];

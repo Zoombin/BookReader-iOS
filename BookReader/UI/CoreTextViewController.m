@@ -19,7 +19,6 @@
 #import "ReadHelpView.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
-#import "Mark+Setup.h"
 #import "Mark.h"
 
 @implementation CoreTextViewController {

@@ -74,7 +74,7 @@
     textView = [[UITextView alloc] initWithFrame:CGRectMake(0, topBarImageView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, 100)];
     textView.text = TEXT;
     textView.backgroundColor = [UIColor clearColor];
-    textView.textAlignment = NSTextAlignmentLeft;
+    textView.textAlignment = UITextAlignmentLeft;
     textView.textColor = [UIColor blackColor];
     textView.font = [UIFont systemFontOfSize:15.0];
     textView.userInteractionEnabled = NO;

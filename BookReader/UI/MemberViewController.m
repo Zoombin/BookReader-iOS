@@ -26,6 +26,7 @@
 #import "Chapter+Setup.h"
 #import "BookReader.h"
 #import "BookCell.h"
+#import "Mark.h"
 
 
 @implementation MemberViewController
@@ -140,6 +141,7 @@
 		[ServiceManager deleteUserInfo];
 		[Book truncateAll];
 		[Chapter truncateAll];
+		[Mark truncateAll];
 		[self reloadUI];
 		[self hideHUD:YES];
 	}];

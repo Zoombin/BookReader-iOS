@@ -99,7 +99,7 @@
             [textLabel setFrame:CGRectMake(10, 5, self.view.bounds.size.width-20, 40)];
             [textLabel setBackgroundColor:[UIColor clearColor]];
             [textLabel setFont:[UIFont systemFontOfSize:17.0]];
-            [textLabel setTextAlignment:NSTextAlignmentCenter];
+            [textLabel setTextAlignment:UITextAlignmentCenter];
             [backgroundView addSubview:textLabel];
             
 //            NSDictionary *tempDict = [[BookManager sharedInstance]getBookInfoById:bookid];
