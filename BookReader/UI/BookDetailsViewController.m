@@ -226,6 +226,7 @@
     for (int i = 0; i<[labels count]; i++) {
         UILabel *label = (UILabel *)labels[i];
         [label setText:labelTitles[i]];
+        [label setTextColor:[UIColor blackColor]];
         [self.view addSubview:label];
     }
 	
@@ -243,7 +244,7 @@
         }];
     }
     
-    secondView = [[UIView alloc] initWithFrame:CGRectMake(5, 244 ,self.view.bounds.size.width-5*2 , self.view.bounds.size.height-244-20)];
+    secondView = [[UIView alloc] initWithFrame:CGRectMake(5, 244 ,self.view.bounds.size.width-5*2 , self.view.bounds.size.height-235-20)];
     [secondView.layer setCornerRadius:5];
     [secondView.layer setMasksToBounds:YES];
     [secondView.layer setBorderColor:[UIColor blackColor].CGColor];
@@ -273,6 +274,8 @@
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView setDataSource:self];
+    [infoTableView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
+    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [secondView addSubview:infoTableView];
     [self loadCommitList];
     
@@ -296,6 +299,7 @@
     
     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0,secondView.frame.size.width , secondView.frame.size.height)];
     [shortdescribeTextView setText:book.describe];
+    [shortdescribeTextView setFont:[UIFont systemFontOfSize:17]];
     [shortdescribeTextView setEditable:NO];
     [shortdescribeTextView setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:245.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [secondView addSubview:shortdescribeTextView];
