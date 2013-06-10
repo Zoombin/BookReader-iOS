@@ -121,10 +121,10 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
-		[cell.textLabel setFont:[UIFont systemFontOfSize:16]];
-		cell.textLabel.textColor = [UIColor blueColor];
         if (bBookmarks) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
+            cell.textLabel.textColor = [UIColor blueColor];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
 			Mark *mark = [infoArray objectAtIndex:indexPath.row];
             cell.textLabel.text = mark.reference;
 			cell.detailTextLabel.textColor = [UIColor blackColor];
@@ -138,13 +138,20 @@
 			progress.text = [NSString stringWithFormat:@"%.2f%%", mark.progress.floatValue];
 			[cell.contentView addSubview:progress];
         } else {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            cell.textLabel.text = @"";
+            UILabel *chapterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.contentView.frame.origin.y-3, cell.contentView.frame.size.width - 30, cell.contentView.frame.size.height-3)];
+            [chapterNameLabel setBackgroundColor:[UIColor clearColor]];
+            [cell.contentView addSubview:chapterNameLabel];
+            chapterNameLabel.textColor = [UIColor blueColor];
+            
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
-            cell.textLabel.text = [NSString stringWithFormat:@"(%d) %@", indexPath.row + 1, chapter.name];
+            chapterNameLabel.text = [NSString stringWithFormat:@"(%d) %@", indexPath.row + 1, chapter.name];
 			if (chapter.lastReadIndex == nil) {
-				cell.textLabel.textColor = [UIColor blackColor];
+				chapterNameLabel.textColor = [UIColor blackColor];
 			}
             if (chapter.uid == _currentChapterID) {
-                cell.textLabel.textColor = [UIColor redColor];
+                chapterNameLabel.textColor = [UIColor redColor];
             }
             cell.detailTextLabel.textColor = [UIColor redColor];
             cell.detailTextLabel.text = [chapter.bVip boolValue] ? @"v" : @"";
