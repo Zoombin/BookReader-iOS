@@ -50,7 +50,7 @@
         [self initBackgroundView];
         UITapGestureRecognizer *tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
         [self addGestureRecognizer:tapGestureReconizer];
-
+        
     }
     return self;
 }
@@ -185,12 +185,12 @@
     [fontChangeLabel setTextAlignment:NSTextAlignmentCenter];
     [fontView addSubview:fontChangeLabel];
     
-     defaultFontButton = [UIButton fontButton:CGRectMake(50, 20, fontView.bounds.size.width/3, 30)];
+    defaultFontButton = [UIButton fontButton:CGRectMake(50, 20, fontView.bounds.size.width/3, 30)];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
     [defaultFontButton setTitle:@"默认字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-     foundFontButton = [UIButton fontButton:CGRectMake(fontView.bounds.size.width-fontView.bounds.size.width/3-30, 20, fontView.bounds.size.width/3, 30)];
+    foundFontButton = [UIButton fontButton:CGRectMake(fontView.bounds.size.width-fontView.bounds.size.width/3-30, 20, fontView.bounds.size.width/3, 30)];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
@@ -234,14 +234,14 @@
     [self addSubview:backgroundView];
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
-    [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]]; 
-     [brightSlider setMinimumTrackTintColor:[UIColor colorWithRed:43.0/255.0 green:25.0/255.0 blue:16.0/255.0 alpha:1.0]];
-     [brightSlider setThumbImage:[UIImage imageNamed:@"slider_round"] forState:UIControlStateNormal];
+    [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
+    [brightSlider setMinimumTrackTintColor:[UIColor colorWithRed:43.0/255.0 green:25.0/255.0 blue:16.0/255.0 alpha:1.0]];
+    [brightSlider setThumbImage:[UIImage imageNamed:@"slider_round"] forState:UIControlStateNormal];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
-       brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
+        brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     } else {
-       brightSlider.value = 1;
+        brightSlider.value = 1;
     }
     [brightSlider setMaximumValue:1];
     [brightSlider setMinimumValue:0];
@@ -271,11 +271,12 @@
     [pageControl setNumberOfPages:4];
     [backgroundView addSubview:pageControl];
     
-
+    
     CGRect frame = CGRectMake(0, 0, backgroundView.bounds.size.width/20*3, backgroundView.bounds.size.width/20*3);
     markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
     
+    NSInteger currentIndex = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue];
     for (int i=0; i<16; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i!=0) {
@@ -287,14 +288,15 @@
         }
         [button setFrame:frame];
         [button setTag:i];
-        if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue] == i) {
-            [scrollerView scrollRectToVisible:CGRectMake(frame.origin.x, 0, frame.size.width, frame.size.height) animated:NO];
-            [markImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - markImageView.frame.size.width, button.frame.origin.y, markImageView.frame.size.width, markImageView.frame.size.height)];
-        }
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
+        if (currentIndex == i) {
+            [self backgroundChanged:button];
+        }
         [scrollerView addSubview:button];
     }
+    NSInteger currentPage = currentIndex / 4;
+    scrollerView.contentOffset = CGPointMake(scrollerView.frame.size.width * currentPage, scrollerView.contentOffset.y);
     [scrollerView addSubview:markImageView];
 }
 
