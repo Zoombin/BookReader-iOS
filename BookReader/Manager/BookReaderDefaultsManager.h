@@ -26,7 +26,7 @@
 
 //字体颜色
 #define UserDefaultTextColorBlack @"blackColor"
-#define UserDefaultTextColorRed @"redColor"
+#define UserDefaultTextColorWhite @"whiteColor"
 #define UserDefaultTextColorGreen @"greenColor"
 #define UserDefaultTextColorBlue @"blueColor"
 #define UserDefaultTextColorBrown @"brownColor"

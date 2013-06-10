@@ -43,7 +43,7 @@
     if (self) {
         // Initialization code
         bottomViewBtns = [[NSMutableArray alloc] init];
-        textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorRed];
+        textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorWhite];
         [self initTopView];
         [self initBottomView];
         [self initFontView];

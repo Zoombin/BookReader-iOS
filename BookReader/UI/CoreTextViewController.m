@@ -35,8 +35,6 @@
     NSInteger currentPageIndex;
     Chapter *chapter;
 	NSString *currentChapterString;
-    
-    float brightValue;
 }
 
 - (void)shareButtonClicked
@@ -69,7 +67,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    brightValue = [UIScreen mainScreen].brightness;
     if([MFMessageComposeViewController canSendText]) {
         messageComposeViewController = [[MFMessageComposeViewController alloc] init];
     }
@@ -111,7 +108,9 @@
 		ReadHelpView *helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds andMenuFrame:menuRect];
 		[self.view addSubview:helpView];
 	}
-	[[UIScreen mainScreen] setBrightness:[[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue]];
+	
+	coreTextView.alpha = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
+    statusView.alpha = coreTextView.alpha;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -197,7 +196,8 @@
 - (void)brightChanged:(UISlider *)slider
 {
 	[BookReaderDefaultsManager setObject:@(slider.value) ForKey:UserDefaultKeyBright];
-    [[UIScreen mainScreen] setBrightness:[slider value]];
+    coreTextView.alpha = slider.value;
+    statusView.alpha = slider.value;
 }
 
 - (void)backgroundColorChanged:(NSInteger)index
@@ -399,7 +399,6 @@
 - (void)backButtonPressed
 {
     [self.navigationController popViewControllerAnimated:YES];
-    [BookReaderDefaultsManager restoreOriginBright];
 }
 
 - (void)addBookMarkButtonPressed
