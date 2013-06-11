@@ -67,6 +67,7 @@
     
     NSArray *hotkeyNames;
     NSMutableArray *hotkeyBtns;
+	NSArray *hotwordsColors;
 }
 
 - (id)init
@@ -76,6 +77,8 @@
         // Custom initialization
         catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
         hotkeyNames = @[@"武侠",@"穿越",@"重生",@"总裁",@"玄幻",@"经典",@"天才",@"医生",@"经理",@"老板"];
+		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
+
         hotkeyBtns = [NSMutableArray array];
         recommendArray = [[NSMutableArray alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
@@ -551,14 +554,14 @@
 - (void)showhotkeyButton {
     [self hidenAllHotKeyBtn];
     NSArray *cgrectArr = [self randomRect:hotkeyNames.count];
-    for (int i=0; i<[cgrectArr count]; i++) {
+    for (int i = 0; i < [cgrectArr count]; i++) {
         NSString *cgrectstring = [cgrectArr objectAtIndex:i];
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tmpButton setFrame:CGRectFromString(cgrectstring)];
         [tmpButton setTitle:hotkeyNames[i] forState:UIControlStateNormal];
-        NSInteger colorIndex = arc4random()%15;
-        [tmpButton setTitleColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIndex] forState:UIControlStateNormal];
-        [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+        NSInteger colorIndex = arc4random() % hotwordsColors.count;
+        [tmpButton setTitleColor:hotwordsColors[colorIndex] forState:UIControlStateNormal];
+        [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:arc4random() % 10 + 15]];
         [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [infoTableView addSubview:tmpButton];
         [hotkeyBtns addObject:tmpButton];
