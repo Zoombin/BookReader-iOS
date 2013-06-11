@@ -556,7 +556,8 @@
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tmpButton setFrame:CGRectFromString(cgrectstring)];
         [tmpButton setTitle:hotkeyNames[i] forState:UIControlStateNormal];
-        [tmpButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        NSInteger colorIndex = arc4random()%15;
+        [tmpButton setTitleColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIndex] forState:UIControlStateNormal];
         [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
         [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [infoTableView addSubview:tmpButton];
