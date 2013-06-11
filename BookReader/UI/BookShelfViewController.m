@@ -47,7 +47,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BOOL displayingHistory;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *wifiAlert;
-	NSMutableArray *bookshelfViews;
+	BOOL syncing;
+	NSMutableArray *booksStandViews;
+	CGFloat startYOfStandView;
+	CGFloat standViewsDistance;
+	UIImageView *backgroundImage;
 }
 @synthesize layoutStyle;
 
@@ -55,9 +59,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [super viewDidLoad];
     [self removeGestureRecognizer];
-	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
-    [backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
-    [self.view addSubview:backgroundImage];
+	booksStandViews = [NSMutableArray array];
+	
+	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
+	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+	[self.view addSubview:backgroundImage];
 	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -82,6 +88,25 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
 
+- (void)createStandViews:(NSInteger)number
+{
+//	NSLog(@"create stand views");
+//	for (UIImageView *standView in booksStandViews) {
+//		[standView removeFromSuperview];
+//	}
+//	[booksStandViews removeAllObjects];
+//	startYOfStandView = 133;
+//	standViewsDistance = 109;
+//	for (int i = 0; i < number; i++) {
+//		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
+//		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 69);
+//		[booksStandViews addObject:standView];
+//		[self.view addSubview:standView];
+//		[self.view sendSubviewToBack:standView];
+//		[self.view sendSubviewToBack:backgroundImage];
+//	}
+}
+
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncChaptersNotification object:nil];
@@ -100,6 +125,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			displayingHistory = NO;
 			stopAllSync = NO;
+			syncing = YES;
 			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 			[[NSUserDefaults standardUserDefaults] synchronize];
@@ -118,10 +144,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (stopAllSync) return;
 	[self displayHUD:@"同步收藏..."];
     [ServiceManager userBooksWithBlock:^(NSArray *resultArray, NSError *error) {
-		[self hideHUD:YES];
         if (error) {
 			[self displayHUDError:nil message:error.description];
-        }else {
+        } else {
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
 				NSArray *allBooks = [Book findAllInContext:localContext];
 				for (Book *b in allBooks) {
@@ -224,6 +249,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (chapters.count <= 0) {
 		NSLog(@"sync auto subscribe finished");
 		//[self hideHUD:YES];
+		syncing = NO;
 		return;
 	}
 	//[self displayHUD:@"检查自动更新..."];
@@ -282,7 +308,13 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksView reloadData];
     }
     else if (type.intValue == kBottomViewButtonRefresh) {
-		[self syncBooks];
+		if (!syncing) {
+			syncing = YES;
+			[self syncBooks];
+			NSLog(@"begin sync");
+		} else {
+			NSLog(@"already syncing");
+		}
     }
     else if (type.intValue == kBottomViewButtonShelf) {
         [self BRHeaderView].titleLabel.text = @"我的收藏";
@@ -358,19 +390,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 #pragma mark - CollectionView
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	if (booksForDisplay.count != bookshelfViews.count) {
-		for (UIView *view in bookshelfViews) {
-			[view removeFromSuperview];
-		}
-		bookshelfViews = [NSMutableArray array];
-		for (int i = 0; i < booksForDisplay.count; i++) {
-			UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
-			imageView.frame = CGRectMake(0, 0, self.view.frame.size.width, 69);
-			//[booksView addSubview:imageView];
-			//[booksView sendSubviewToBack:imageView];
-			[bookshelfViews addObject:imageView];
-		}
-	}
+	[self createStandViews:MAX(5, (int)ceil(booksForDisplay.count / 3) )];
 	return booksForDisplay.count;
 }
 
@@ -380,29 +400,15 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.badge = [book countOfUnreadChapters];
 	cell.editing = editing;
-//	if (indexPath.row == 0) {
-//		UIImageView *bookshelfView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
-//		bookshelfView.frame = CGRectMake(0, CGRectGetMaxY(cell.frame) - 20, booksView.frame.size.width, 69);
-//		//[booksView addSubview:bookshelfView];
-//		//[booksView sendSubviewToBack:bookshelfView];
-//		[booksView insertSubview:bookshelfView belowSubview:cell];
-//	}
-//	[booksView.backgroundView bringSubviewToFront:cell.backgroundView];
-//	[booksView.backgroundView bringSubviewToFront:cell.contentView];
-//	[booksView bringSubviewToFront:cell];
-//	[booksView bringSubviewToFront:cell.contentView];
-//	[booksView bringSubviewToFront:cell.backgroundView];
 	return cell;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
+//	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
+//	for (int i = 0; i < booksStandViews.count; i++) {
+//		UIImageView *standView = booksStandViews[i];
+//		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView - scrollView.contentOffset.y, standView.frame.size.width, standView.frame.size.height);
+//	}
 }
-
-- (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(PSTCollectionViewScrollPosition)scrollPosition animated:(BOOL)animated
-{
-	
-}
-
 @end
