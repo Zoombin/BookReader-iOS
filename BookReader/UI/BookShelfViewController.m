@@ -90,21 +90,21 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)createStandViews:(NSInteger)number
 {
-//	NSLog(@"create stand views");
-//	for (UIImageView *standView in booksStandViews) {
-//		[standView removeFromSuperview];
-//	}
-//	[booksStandViews removeAllObjects];
-//	startYOfStandView = 133;
-//	standViewsDistance = 109;
-//	for (int i = 0; i < number; i++) {
-//		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
-//		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 69);
-//		[booksStandViews addObject:standView];
-//		[self.view addSubview:standView];
-//		[self.view sendSubviewToBack:standView];
-//		[self.view sendSubviewToBack:backgroundImage];
-//	}
+	NSLog(@"create stand views");
+	for (UIImageView *standView in booksStandViews) {
+		[standView removeFromSuperview];
+	}
+	[booksStandViews removeAllObjects];
+	startYOfStandView = 133;
+	standViewsDistance = 109;
+	for (int i = 0; i < number; i++) {
+		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
+		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 69);
+		[booksStandViews addObject:standView];
+		[self.view addSubview:standView];
+		[self.view sendSubviewToBack:standView];
+		[self.view sendSubviewToBack:backgroundImage];
+	}
 }
 
 - (void)dealloc
@@ -406,9 +406,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 //	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
-//	for (int i = 0; i < booksStandViews.count; i++) {
-//		UIImageView *standView = booksStandViews[i];
-//		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView - scrollView.contentOffset.y, standView.frame.size.width, standView.frame.size.height);
-//	}
+	for (int i = 0; i < booksStandViews.count; i++) {
+		UIImageView *standView = booksStandViews[i];
+		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView - scrollView.contentOffset.y, standView.frame.size.width, standView.frame.size.height);
+	}
 }
 @end
