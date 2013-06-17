@@ -67,7 +67,6 @@
     rootControllers[@(kRootControllerTypeMember)] = [[MemberViewController alloc] init];
     rootControllers[@(kRootControllerTypeLogin)] = [[SignInViewController alloc] init];
 #else
-    //[[BookManager sharedInstance] createTxtInfo];//扫描作者信息和书名到Documents下面，用于iTunes Connect
     rootControllers[@(kRootControllerTypeHouseBook)] = [[HouseBookListViewController alloc] init];
     rootControllers[@(kRootControllerTypeHouseApp)] = [[HouseAppListViewController alloc] init];
     rootControllers[@(kRootControllerTypeAbout)] = [[AboutViewController alloc] init];

@@ -39,6 +39,7 @@
 //+ (void)copyFile;
 
 //创建所有的书籍的信息的方法(格式为txt)
+//扫描作者信息和书名到Documents下面，用于iTunes Connect
 + (void)createTxtInfo;
 
 //通过BookId来知道此书位于第几本
