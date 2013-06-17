@@ -29,7 +29,7 @@
 
 - (void)clicked
 {
-    [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
+    [APP_DELEGATE gotoRootController:kRootControllerTypeBookShelf];
 }
 
 @end

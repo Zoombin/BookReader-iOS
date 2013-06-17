@@ -100,7 +100,7 @@
     [self.view addSubview:bookShelfButton];
     
     if (!isLogin) {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeLogin];
+        [APP_DELEGATE gotoRootController:kRootControllerTypeLogin];
     }else {
         memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56) style:UITableViewStylePlain];
         [memberTableView setDelegate:self];
@@ -161,7 +161,7 @@
 
 - (void)showMyFav
 {
-    [APP_DELEGATE switchToRootController:kRootControllerTypeBookShelf];
+    [APP_DELEGATE gotoRootController:kRootControllerTypeBookShelf];
 }
 
 - (void)showChangePasswordView

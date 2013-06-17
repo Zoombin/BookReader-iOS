@@ -29,22 +29,23 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "Reachability.h"
+#import "BookReader.h"
+#import "BRHeaderView.h"
+
 
 static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
 static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscribe";
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
 @end
 
 @implementation BookShelfViewController {
 	NSMutableArray *booksForDisplay;
     NSMutableArray *books;
 	NSMutableArray *chapters;
-//    BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
 	BOOL editing;
-	BOOL displayingHistory;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *wifiAlert;
 	BOOL syncing;
@@ -53,7 +54,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	CGFloat standViewsDistance;
 	UIImageView *backgroundImage;
 }
-@synthesize layoutStyle;
 
 - (void)viewDidLoad
 {
@@ -70,14 +70,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.delegate = self;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
-	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
-        [[self BRHeaderView] addButtons];
-        [[self BRHeaderView] setDelegate:self];
-		booksView.gridStyle = YES;
-	} else {
-		booksView.gridStyle = NO;
-		//TODO: remote and local should be same style
-	}
+	[[self BRHeaderView] addButtons];
+	[[self BRHeaderView] setDelegate:self];
+	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
@@ -96,11 +91,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	standViewsDistance = 109;
 	for (int i = 0; i < number; i++) {
 		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
-		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 69);
+		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 27);
 		[booksStandViews addObject:standView];
 		[self.view addSubview:standView];
 		[self.view sendSubviewToBack:standView];
-		[self.view sendSubviewToBack:backgroundImage];
+//		[self.view sendSubviewToBack:backgroundImage];
 	}
 }
 
@@ -117,25 +112,23 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (![ServiceManager userID]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
-		[self showBooks];
     } else {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			displayingHistory = NO;
 			stopAllSync = NO;
-			syncing = YES;
 			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
-        [self showBooks];
-		[booksView reloadData];
 	}
+	[self showBooks];
+	[booksView reloadData];
 }
 
 - (void)syncBooks
 {
 	if (stopAllSync) return;
-	[self displayHUD:@"同步收藏..."];
+	//[self displayHUD:@"同步收藏..."];
+	syncing = YES;
     [ServiceManager userBooksWithBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
 			[self displayHUDError:nil message:error.description];
@@ -182,7 +175,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Book *book = books[0];
-	[self displayHUD:@"检查新章节目录..."];
+	//[self displayHUD:@"检查新章节目录..."];
+	syncing = YES;
 	[ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
 		if (!error) {
 			[Chapter persist:resultArray withBlock:^(void) {
@@ -201,7 +195,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (stopAllSync) return;
 	if (chapters.count <= 0) {
 		NSLog(@"sync chapters content finished");
-		//[self hideHUD:YES];
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
@@ -219,21 +212,22 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
 		return;
 	}
-	//[self displayHUD:@"下载最新章节内容..."];
 	Chapter *chapter = chapters[0];
-    NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
-    [ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
-        if (content && ![content isEqualToString:@""]) {
-            chapter.content = content;
-            [chapter persistWithBlock:^(void) {
-                [chapters removeObject:chapter];
-                [self syncChaptersContent];
-            }];
-        } else {
-            [chapters removeObject:chapter];
-            [self syncChaptersContent];
-        }
-    }];
+	NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
+	//[self displayHUD:@"检查自动更新中..."];
+	syncing = YES;
+	[ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
+		if (content && ![content isEqualToString:@""]) {
+			chapter.content = content;
+			[chapter persistWithBlock:^(void) {
+				[chapters removeObject:chapter];
+				[self syncChaptersContent];
+			}];
+		} else {
+			[chapters removeObject:chapter];
+			[self syncChaptersContent];
+		}
+	}];
 }
 
 - (void)syncAutoSubscribe
@@ -241,12 +235,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (stopAllSync) return;
 	if (chapters.count <= 0) {
 		NSLog(@"sync auto subscribe finished");
-		//[self hideHUD:YES];
 		syncing = NO;
+		[self hideHUD:YES];
 		return;
 	}
-	//[self displayHUD:@"检查自动更新..."];
 	Chapter *chapter = chapters[0];
+	//[self displayHUD:@"自动更新中..."];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
 	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
 		if (content && ![content isEqualToString:@""]) {
@@ -289,40 +283,40 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)showBooks
 {
-    booksForDisplay = [[Book findAllFavorite] mutableCopy];
+    booksForDisplay = [[Book findAll] mutableCopy];
     [booksView reloadData];
-    displayingHistory = NO;
 }
-
-
 - (void)headerButtonClicked:(NSNumber *)type
 {
-    if (type.intValue == kHeaderViewButtonBookStore)
-    {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeBookStore];
-    }
-    else if (type.intValue == kHeaderViewButtonMember)
-    {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
-    }else if (type.intValue == kHeaderViewButtonEdit) {
+    if (type.intValue == kHeaderViewButtonBookStore) {
+        [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+    } else if (type.intValue == kHeaderViewButtonMember) {
+        [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+    } else if (type.intValue == kHeaderViewButtonEdit) {
 		editing = YES;
 		[booksView reloadData];
-    }
-    else if (type.intValue == kHeaderViewButtonDelete) {
+    } else if (type.intValue == kHeaderViewButtonDelete) {
 		[self displayHUD:@"删除收藏..."];
 		[self syncRemoveFav];
-    }else if (type.intValue == kHeaderViewButtonFinishEditing) {
+    } else if (type.intValue == kHeaderViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
-    }else if (type.intValue == kHeaderViewButtonRefresh) {
+    } else if (type.intValue == kHeaderViewButtonRefresh) {
 		if (!syncing) {
-			syncing = YES;
 			[self syncBooks];
 			NSLog(@"begin sync");
 		} else {
+			[self displayHUD:@"开始自动更新..."];
+			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:3];
+			[self displayHUDError:@"" message:@"开始更新..."];
 			NSLog(@"already syncing");
 		}
     }
+}
+
+- (void)dismissHUD
+{
+	[self hideHUD:YES];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -330,7 +324,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (alertView == wifiAlert && buttonIndex == 1) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
 	} else if (alertView != wifiAlert && buttonIndex == 0) {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+        [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
     }
 	
 }

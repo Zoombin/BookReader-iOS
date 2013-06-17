@@ -114,7 +114,7 @@
             [self displayHUDError:nil message:message];
             if (success) {
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
-                [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+                [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
             } else {
                 
             }

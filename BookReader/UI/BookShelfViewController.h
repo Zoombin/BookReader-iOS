@@ -8,21 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "BRHeaderView.h"
-#import "BookShelfBottomView.h"
 #import "BRViewController.h"
-//Local
-#import "BookReader.h"
-#import <StoreKit/StoreKit.h>
-
-
-typedef enum {
-    kBookShelfLayoutStyleShelfLike,
-    kBookShelfLayoutStyleTableList
-}BookShelfLayoutStyle;
-
 
 @interface BookShelfViewController : BRViewController
-
-@property (nonatomic, assign) BookShelfLayoutStyle layoutStyle;
 @end
