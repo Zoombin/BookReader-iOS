@@ -112,7 +112,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (![ServiceManager userID]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
-		[self showBooks];
     } else {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			stopAllSync = NO;
@@ -120,9 +119,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
-        [self showBooks];
-		[booksView reloadData];
 	}
+	[self showBooks];
+	[booksView reloadData];
 }
 
 - (void)syncBooks
@@ -284,7 +283,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)showBooks
 {
-    booksForDisplay = [[Book findAllFavorite] mutableCopy];
+    booksForDisplay = [[Book findAll] mutableCopy];
     [booksView reloadData];
 }
 

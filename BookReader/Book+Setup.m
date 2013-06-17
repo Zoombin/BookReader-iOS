@@ -135,19 +135,4 @@
 {
 	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", self.uid]];
 }
-
-+ (NSArray *)findAllAndSortedByDate
-{
-    return [Book findAllSortedBy:@"rDate" ascending:NO];
-}
-
-+ (NSArray *)findAllFavorite
-{
-	return [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"bFav=YES"]];
-}
-
-+ (NSArray *)findAllHistory
-{
-	return [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"lastReadChapterID!=nil"]];
-}
 @end
