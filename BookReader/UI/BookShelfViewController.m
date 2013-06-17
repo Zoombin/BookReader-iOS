@@ -51,7 +51,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksStandViews;
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
-	UIImageView *backgroundImage;
+//	UIImageView *backgroundImage;
 }
 @synthesize layoutStyle;
 
@@ -61,9 +61,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     [self removeGestureRecognizer];
 	booksStandViews = [NSMutableArray array];
 	
-	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
-	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
-	[self.view addSubview:backgroundImage];
+//	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
+//	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+//	[self.view addSubview:backgroundImage];
 	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -99,11 +99,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	standViewsDistance = 109;
 	for (int i = 0; i < number; i++) {
 		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
-		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 69);
+		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 27);
 		[booksStandViews addObject:standView];
 		[self.view addSubview:standView];
 		[self.view sendSubviewToBack:standView];
-		[self.view sendSubviewToBack:backgroundImage];
+//		[self.view sendSubviewToBack:backgroundImage];
 	}
 }
 
@@ -125,7 +125,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			displayingHistory = NO;
 			stopAllSync = NO;
-			syncing = YES;
 			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 			[[NSUserDefaults standardUserDefaults] synchronize];
@@ -142,7 +141,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)syncBooks
 {
 	if (stopAllSync) return;
-	[self displayHUD:@"同步收藏..."];
+	//[self displayHUD:@"同步收藏..."];
+	syncing = YES;
     [ServiceManager userBooksWithBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
 			[self displayHUDError:nil message:error.description];
@@ -189,7 +189,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		return;
 	}
 	Book *book = books[0];
-	[self displayHUD:@"检查新章节目录..."];
+	//[self displayHUD:@"检查新章节目录..."];
+	syncing = YES;
 	[ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
 		if (!error) {
 			[Chapter persist:resultArray withBlock:^(void) {
@@ -208,7 +209,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (stopAllSync) return;
 	if (chapters.count <= 0) {
 		NSLog(@"sync chapters content finished");
-		//[self hideHUD:YES];
 		[booksView reloadData];
 		[chapters removeAllObjects];
 		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
@@ -226,21 +226,22 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
 		return;
 	}
-	//[self displayHUD:@"下载最新章节内容..."];
 	Chapter *chapter = chapters[0];
-		NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
-		[ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
-			if (content && ![content isEqualToString:@""]) {
-				chapter.content = content;
-				[chapter persistWithBlock:^(void) {
-					[chapters removeObject:chapter];
-					[self syncChaptersContent];
-				}];
-			} else {
+	NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
+	//[self displayHUD:@"检查自动更新中..."];
+	syncing = YES;
+	[ServiceManager bookCatalogue:chapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
+		if (content && ![content isEqualToString:@""]) {
+			chapter.content = content;
+			[chapter persistWithBlock:^(void) {
 				[chapters removeObject:chapter];
 				[self syncChaptersContent];
-			}
-		}];
+			}];
+		} else {
+			[chapters removeObject:chapter];
+			[self syncChaptersContent];
+		}
+	}];
 }
 
 - (void)syncAutoSubscribe
@@ -248,12 +249,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (stopAllSync) return;
 	if (chapters.count <= 0) {
 		NSLog(@"sync auto subscribe finished");
-		//[self hideHUD:YES];
 		syncing = NO;
+		[self hideHUD:YES];
 		return;
 	}
-	//[self displayHUD:@"检查自动更新..."];
 	Chapter *chapter = chapters[0];
+	//[self displayHUD:@"自动更新中..."];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
 	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(NSString *content, NSString *message, BOOL success, NSError *error) {
 		if (content && ![content isEqualToString:@""]) {
@@ -309,10 +310,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }
     else if (type.intValue == kBottomViewButtonRefresh) {
 		if (!syncing) {
-			syncing = YES;
 			[self syncBooks];
 			NSLog(@"begin sync");
 		} else {
+			[self displayHUD:@"开始自动更新..."];
+			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:3];
+			//[self displayHUDError:@"" message:@"更新..."];
 			NSLog(@"already syncing");
 		}
     }
@@ -328,6 +331,11 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksView reloadData];
 		displayingHistory = YES;
     }
+}
+
+- (void)dismissHUD
+{
+	[self hideHUD:YES];
 }
 
 - (void)headerButtonClicked:(NSNumber *)type
