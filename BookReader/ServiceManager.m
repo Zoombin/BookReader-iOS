@@ -349,8 +349,10 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 + (void)recommendBooksWithBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[]];
+    [parameters setObject:@(1).stringValue forKey:@"type"];
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         NSArray *bookListArray = [theObject objectForKey:@"bookList"];
         NSMutableArray *resultArray = [@[] mutableCopy];
 		[resultArray addObjectsFromArray:[Book createWithAttributesArray:bookListArray andExtra:nil]];
@@ -493,14 +495,17 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     parameters[@"userid"] = [self userID];
     parameters[@"size"] = @"5000";//客户端请求5000本上限
     parameters[@"index"] = @"1";//从第一页开始请求
+    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
+        NSLog(@"%@",theObject);
 		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
         if (block) {
             block(bookList, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@",error.description);
         if (block) {
             block(nil, error);
         }
