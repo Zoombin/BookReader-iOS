@@ -29,6 +29,9 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "Reachability.h"
+#import "BookReader.h"
+#import "BRHeaderView.h"
+
 
 static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
@@ -43,7 +46,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *chapters;
 	BRBooksView *booksView;
 	BOOL editing;
-	BOOL displayingHistory;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *wifiAlert;
 	BOOL syncing;
@@ -113,18 +115,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[self showBooks];
     } else {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			displayingHistory = NO;
 			stopAllSync = NO;
 			[self syncBooks];
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
         [self showBooks];
-//		if (displayingHistory) {
-//			[bottomView historyButtonClick];
-//		} else {
-//			[bottomView shelfButtonClick];
-//		}
 		[booksView reloadData];
 	}
 }
@@ -290,73 +286,31 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     booksForDisplay = [[Book findAllFavorite] mutableCopy];
     [booksView reloadData];
-    displayingHistory = NO;
-}
-
-- (void)bottomButtonClicked:(NSNumber *)type {
-//    if (type.intValue == kBottomViewButtonEdit) {
-//		editing = YES;
-//		[booksView reloadData];
-//    }
-//    else if (type.intValue == kBottomViewButtonDelete)
-//    {
-//		[self displayHUD:@"删除收藏..."];
-//		[self syncRemoveFav];
-//    } else if (type.intValue == kBottomViewButtonFinishEditing) {
-//		editing = NO;
-//		[booksView reloadData];
-//    }
-//    else if (type.intValue == kBottomViewButtonRefresh) {
-//		if (!syncing) {
-//			syncing = YES;
-//			[self syncBooks];
-//			NSLog(@"begin sync");
-//		} else {
-//			NSLog(@"already syncing");
-//		}
-//    }
-//    else if (type.intValue == kBottomViewButtonShelf) {
-//        [self BRHeaderView].titleLabel.text = @"我的收藏";
-//		booksForDisplay = [[Book findAllFavorite] mutableCopy];
-//		[booksView reloadData];
-//		displayingHistory = NO;
-//    }
-//    else if (type.intValue == kBottomViewButtonBookHistoroy) {
-//        [self BRHeaderView].titleLabel.text = @"阅读历史";
-//		booksForDisplay = [[Book findAllHistory] mutableCopy];
-//		[booksView reloadData];
-//		displayingHistory = YES;
-//    }
 }
 
 - (void)headerButtonClicked:(NSNumber *)type
 {
-    if (type.intValue == kHeaderViewButtonBookStore)
-    {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeBookStore];
-    }
-    else if (type.intValue == kHeaderViewButtonMember)
-    {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
-    }else if (type.intValue == kHeaderViewButtonEdit) {
+    if (type.intValue == kHeaderViewButtonBookStore) {
+        [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+    } else if (type.intValue == kHeaderViewButtonMember) {
+        [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+    } else if (type.intValue == kHeaderViewButtonEdit) {
 		editing = YES;
 		[booksView reloadData];
-    }
-    else if (type.intValue == kHeaderViewButtonDelete)
-    {
+    } else if (type.intValue == kHeaderViewButtonDelete) {
 		[self displayHUD:@"删除收藏..."];
 		[self syncRemoveFav];
-    }else if (type.intValue == kHeaderViewButtonFinishEditing) {
+    } else if (type.intValue == kHeaderViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
-    }else if (type.intValue == kHeaderViewButtonRefresh) {
+    } else if (type.intValue == kHeaderViewButtonRefresh) {
 		if (!syncing) {
 			[self syncBooks];
 			NSLog(@"begin sync");
 		} else {
 			[self displayHUD:@"开始自动更新..."];
 			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:3];
-			//[self displayHUDError:@"" message:@"更新..."];
+			[self displayHUDError:@"" message:@"开始更新..."];
 			NSLog(@"already syncing");
 		}
     }
@@ -372,7 +326,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (alertView == wifiAlert && buttonIndex == 1) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
 	} else if (alertView != wifiAlert && buttonIndex == 0) {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+        [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
     }
 	
 }

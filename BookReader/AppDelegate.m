@@ -73,7 +73,7 @@
     rootControllers[@(kRootControllerTypeAbout)] = [[AboutViewController alloc] init];
 #endif
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self switchToRootController:kRootControllerTypeBookShelf];
+    [self gotoRootController:kRootControllerTypeBookShelf];
 #ifndef REMOTE_MODE
     [self createTabBar];
 #endif
@@ -135,10 +135,10 @@
 - (void)bottomButtonTapped:(id)sender
 {
     UIButton *button = (UIButton *)sender;
-    [self switchToRootController:(RootControllerType)button.tag];
+    [self gotoRootController:(RootControllerType)button.tag];
 }
 
-- (void)switchToRootController:(RootControllerType)type
+- (void)gotoRootController:(RootControllerType)type
 {
     UIViewController *controller = rootControllers[@(type)];
     navController = [[UINavigationController alloc] initWithRootViewController:controller];

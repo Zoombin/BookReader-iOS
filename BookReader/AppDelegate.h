@@ -24,5 +24,5 @@ typedef enum {
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)switchToRootController:(RootControllerType)type;
+- (void)gotoRootController:(RootControllerType)type;
 @end

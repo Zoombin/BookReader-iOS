@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "BRHeaderView.h"
 #import "BRViewController.h"
-#import "BookReader.h"
-#import <StoreKit/StoreKit.h>
-
 
 @interface BookShelfViewController : BRViewController
 @end

@@ -110,7 +110,7 @@
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-                [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+                [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
             } else {
                 [self displayHUDError:nil message:message];
             }

@@ -28,6 +28,7 @@
 #import "UILabel+BookReader.h"
 #import "UIView+BookReader.h"
 #import "CommentCell.h"
+#import "BookReader.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -498,8 +499,6 @@
             if (!error) {
                 if (success) {
                     bFav = YES;
-//					favoriteButton.enabled = YES;
-//					[favoriteButton setTitle:@"已经收藏" forState:UIControlStateNormal];
 					book.bFav = @(YES);
 					[book persistWithBlock:^(void) {
 						[self displayHUDError:nil message:message];
