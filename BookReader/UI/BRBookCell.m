@@ -15,8 +15,10 @@
 
 @implementation BRBookCell {
 	UIImageView *selectedMark;
+    UIImageView *autoBuyMark;
 	MKNumberBadgeView *badgeView;
 	UIButton *autoBuyButton;
+    UILabel *nameLabel;
 	UIImageView *cover;
 }
 
@@ -37,11 +39,19 @@
         [badgeView setHideWhenZero:YES];
         [self.contentView addSubview:badgeView];
         
+        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds) + 5);
+        [autoBuyMark setBackgroundColor:[UIColor clearColor]];
+        [self.contentView addSubview:autoBuyMark];
+        
 		autoBuyButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 26, self.bounds.size.width, 30);
         [autoBuyButton setBackgroundImage:[UIImage imageNamed:@"autobuy_off"] forState:UIControlStateNormal];
 		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
 		[self.contentView addSubview:autoBuyButton];
+        
+        nameLabel = [[UILabel alloc] initWithFrame:autoBuyButton.frame];
+        [self.contentView addSubview:nameLabel];
 				
 		self.autoBuy = NO;
 		self.badge = 0;
@@ -66,6 +76,7 @@
 		}];
     }
 
+    nameLabel.text = _book.name;
     if (_book.autoBuy) {
 		self.autoBuy = _book.autoBuy.boolValue;
     }
@@ -80,6 +91,8 @@
         [self setCellSelected:NO];
     }
 	self.alpha = _editing ? 0.5 : 1.0;
+    nameLabel.hidden = _editing ? YES : NO;
+    autoBuyMark.hidden = _editing ? YES : NO;
 //	self.backgroundView.alpha = _editing ? 0.5 : 1.0;
 }
 
@@ -102,6 +115,7 @@
 - (void)setAutoBuy:(BOOL)onOrOff
 {
 	_autoBuy = onOrOff;
+    [autoBuyMark setBackgroundColor:onOrOff ? [UIColor blueColor] : [UIColor redColor]];
     [autoBuyButton setBackgroundImage:[UIImage imageNamed:onOrOff ? @"autobuy_on" : @"autobuy_off"] forState:UIControlStateNormal];
 }
 

@@ -13,7 +13,8 @@ typedef enum {
     kHeaderViewButtonEdit,
     kHeaderViewButtonFinishEditing,
     kHeaderViewButtonBookStore,
-    kHeaderViewButtonMember
+    kHeaderViewButtonMember,
+    kHeaderViewButtonRefresh
 }HeaderViewButtonType;
 
 @protocol BookShelfHeaderViewDelegate <NSObject>

@@ -10,7 +10,10 @@
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
 
-@implementation BRHeaderView
+@implementation BRHeaderView {
+    UIView *headerViewOne;
+    UIView *headerViewTwo;
+}
 @synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
@@ -33,30 +36,45 @@
 }
 
 - (void)addButtons {
-    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(10,5,50,32);
     CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-10-50,5,50,32);
+    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(BOOKSTORE_BUTTON_FRAME.origin.x-50,5,50,32);
+    
+    CGRect EDIT_BUTTON_FRAME = CGRectMake(10, 5, 50, 32);
+    CGRect UPDATE_BUTTON_FRAME = CGRectMake(EDIT_BUTTON_FRAME.origin.x+50, 5, 50, 32);
+    CGRect FINISH_BUTTON_FRAME = EDIT_BUTTON_FRAME;
+    CGRect DELETE_BUTTON_FRAME = BOOKSTORE_BUTTON_FRAME;
+    
+    headerViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [self addSubview:headerViewOne];
+    
+    headerViewTwo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [self addSubview:headerViewTwo];
+    [headerViewTwo setHidden:YES];
     
     [_backButton setHidden:YES];
-    
     [_titleLabel setText:@"我的收藏"];
     [self bringSubviewToFront:_titleLabel];
     
-    NSArray *titles = @[@"书城", @"会员"];
-    NSArray *rectStrings = @[NSStringFromCGRect(BOOKSTORE_BUTTON_FRAME), NSStringFromCGRect(MYACCOUNT_BUTTON_FRAME)];
-    NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick"];
+    NSArray *titles = @[@"书城", @"会员", @"编辑", @"更新",@"完成",@"删除"];
+    NSArray *rectStrings = @[NSStringFromCGRect(BOOKSTORE_BUTTON_FRAME), NSStringFromCGRect(MYACCOUNT_BUTTON_FRAME),NSStringFromCGRect(EDIT_BUTTON_FRAME),NSStringFromCGRect(UPDATE_BUTTON_FRAME),NSStringFromCGRect(FINISH_BUTTON_FRAME),NSStringFromCGRect(DELETE_BUTTON_FRAME)];
+    NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick",@"eButtonClick",@"uButtonClick",@"fButtonClick",@"dButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"bookreader_universal_btn"), UIIMAGE(@"bookreader_universal_btn"), ];
+    NSArray *images = @[UIIMAGE(@"bookreader_universal_btn")];
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < [rectStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button setBackgroundImage:images[i] forState:UIControlStateNormal];
+        [button setBackgroundImage:images[0] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont systemFontOfSize:17]];
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
+        if (i<4) {
+           [headerViewOne addSubview:button];  
+        } else {
+           [headerViewTwo addSubview:button];
+        }
     }
 }
 
@@ -66,6 +84,26 @@
 
 - (void)mButtonClick {
     [self invokeDelegateMethod:kHeaderViewButtonMember];
+}
+
+- (void)eButtonClick {
+    [headerViewOne setHidden:YES];
+    [headerViewTwo setHidden:NO];
+    [self invokeDelegateMethod:kHeaderViewButtonEdit];
+}
+
+- (void)uButtonClick {
+    [self invokeDelegateMethod:kHeaderViewButtonRefresh];
+}
+
+- (void)fButtonClick {
+    [headerViewOne setHidden:NO];
+    [headerViewTwo setHidden:YES];
+    [self invokeDelegateMethod:kHeaderViewButtonFinishEditing];
+}
+
+- (void)dButtonClick {
+    [self invokeDelegateMethod:kHeaderViewButtonDelete];
 }
 
 - (void)invokeDelegateMethod:(HeaderViewButtonType)type {

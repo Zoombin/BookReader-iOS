@@ -41,7 +41,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksForDisplay;
     NSMutableArray *books;
 	NSMutableArray *chapters;
-    BookShelfBottomView *bottomView;
+//    BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
 	BOOL editing;
 	BOOL displayingHistory;
@@ -51,7 +51,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksStandViews;
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
-//	UIImageView *backgroundImage;
+	UIImageView *backgroundImage;
 }
 @synthesize layoutStyle;
 
@@ -60,12 +60,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     [super viewDidLoad];
     [self removeGestureRecognizer];
 	booksStandViews = [NSMutableArray array];
+	CGSize fullSize = self.view.bounds.size;
+	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
+	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+	[self.view addSubview:backgroundImage];
 	
-//	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
-//	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
-//	[self.view addSubview:backgroundImage];
-	
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectInset(self.view.bounds, 0, 44)];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -73,9 +73,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
         [[self BRHeaderView] addButtons];
         [[self BRHeaderView] setDelegate:self];
-		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
-		[bottomView setDelegate:self];
-		[self.view addSubview:bottomView];
+//		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
+//		[bottomView setDelegate:self];
+//		[self.view addSubview:bottomView];
 		booksView.gridStyle = YES;
 	} else {
 		booksView.gridStyle = NO;
@@ -120,7 +120,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (![ServiceManager userID]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
-		[bottomView historyButtonClick];
+		[self showBooks];
     } else {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			displayingHistory = NO;
@@ -129,11 +129,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
-		if (displayingHistory) {
-			[bottomView historyButtonClick];
-		} else {
-			[bottomView shelfButtonClick];
-		}
+        [self showBooks];
+//		if (displayingHistory) {
+//			[bottomView historyButtonClick];
+//		} else {
+//			[bottomView shelfButtonClick];
+//		}
 		[booksView reloadData];
 	}
 }
@@ -197,10 +198,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 				[books removeObject:book];
 				[self syncChapters];
 			}];
-		 } else {
+        } else {
 			[books removeObject:book];
-			 [self syncChapters];
-		 }
+            [self syncChapters];
+        }
 	}];
 }
 
@@ -295,20 +296,70 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}];
 }
 
+- (void)showBooks
+{
+    booksForDisplay = [[Book findAllFavorite] mutableCopy];
+    [booksView reloadData];
+    displayingHistory = NO;
+}
+
 - (void)bottomButtonClicked:(NSNumber *)type {
-    if (type.intValue == kBottomViewButtonEdit) {
+//    if (type.intValue == kBottomViewButtonEdit) {
+//		editing = YES;
+//		[booksView reloadData];
+//    }
+//    else if (type.intValue == kBottomViewButtonDelete)
+//    {
+//		[self displayHUD:@"删除收藏..."];
+//		[self syncRemoveFav];
+//    } else if (type.intValue == kBottomViewButtonFinishEditing) {
+//		editing = NO;
+//		[booksView reloadData];
+//    }
+//    else if (type.intValue == kBottomViewButtonRefresh) {
+//		if (!syncing) {
+//			syncing = YES;
+//			[self syncBooks];
+//			NSLog(@"begin sync");
+//		} else {
+//			NSLog(@"already syncing");
+//		}
+//    }
+//    else if (type.intValue == kBottomViewButtonShelf) {
+//        [self BRHeaderView].titleLabel.text = @"我的收藏";
+//		booksForDisplay = [[Book findAllFavorite] mutableCopy];
+//		[booksView reloadData];
+//		displayingHistory = NO;
+//    }
+//    else if (type.intValue == kBottomViewButtonBookHistoroy) {
+//        [self BRHeaderView].titleLabel.text = @"阅读历史";
+//		booksForDisplay = [[Book findAllHistory] mutableCopy];
+//		[booksView reloadData];
+//		displayingHistory = YES;
+//    }
+}
+
+- (void)headerButtonClicked:(NSNumber *)type
+{
+    if (type.intValue == kHeaderViewButtonBookStore)
+    {
+        [APP_DELEGATE switchToRootController:kRootControllerTypeBookStore];
+    }
+    else if (type.intValue == kHeaderViewButtonMember)
+    {
+        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
+    }else if (type.intValue == kHeaderViewButtonEdit) {
 		editing = YES;
 		[booksView reloadData];
     }
-    else if (type.intValue == kBottomViewButtonDelete)
+    else if (type.intValue == kHeaderViewButtonDelete)
     {
 		[self displayHUD:@"删除收藏..."];
 		[self syncRemoveFav];
-    } else if (type.intValue == kBottomViewButtonFinishEditing) {
+    }else if (type.intValue == kHeaderViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
-    }
-    else if (type.intValue == kBottomViewButtonRefresh) {
+    }else if (type.intValue == kHeaderViewButtonRefresh) {
 		if (!syncing) {
 			[self syncBooks];
 			NSLog(@"begin sync");
@@ -336,18 +387,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)dismissHUD
 {
 	[self hideHUD:YES];
-}
-
-- (void)headerButtonClicked:(NSNumber *)type
-{
-    if (type.intValue == kHeaderViewButtonBookStore)
-    {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeBookStore];
-    }
-    else if (type.intValue == kHeaderViewButtonMember)
-    {
-        [APP_DELEGATE switchToRootController:kRootControllerTypeMember];
-    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -384,7 +423,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	BOOL shiftToOnOrOff = !bookCell.autoBuy;
 	NSString *message = shiftToOnOrOff ? @"开启订阅..." : @"关闭订阅...";
-		[self displayHUD:message];
+    [self displayHUD:message];
 	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(BOOL success, NSError *error) {
 		[self hideHUD:YES];
 		if (!error) {
@@ -413,7 +452,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
+    //	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
 	for (int i = 0; i < booksStandViews.count; i++) {
 		UIImageView *standView = booksStandViews[i];
 		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView - scrollView.contentOffset.y, standView.frame.size.width, standView.frame.size.height);
