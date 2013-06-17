@@ -40,7 +40,7 @@
         [badgeView setHideWhenZero:YES];
         [self.contentView addSubview:badgeView];
         
-        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
         autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds) + 5);
         [autoBuyMark setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:autoBuyMark];
@@ -53,10 +53,10 @@
         
         nameLabel = [[UILabel alloc] initWithFrame:autoBuyButton.frame];
         [nameLabel setBackgroundColor:[UIColor colorWithRed:78.0/255.0 green:129.0/255.0 blue:172.0/255.0 alpha:1.0]];
-        [nameLabel setAlpha:0.8];
+        [nameLabel setAlpha:0.9];
         [nameLabel setTextColor:[UIColor whiteColor]];
         [nameLabel setTextAlignment:NSTextAlignmentCenter];
-        [nameLabel setFont:[UIFont systemFontOfSize:14]];
+        [nameLabel setFont:[UIFont boldSystemFontOfSize:14]];
         [self.contentView addSubview:nameLabel];
 				
 		self.autoBuy = NO;
@@ -82,7 +82,9 @@
 		}];
     }
 
-    nameLabel.text = [_book.name length]>=4 ? [_book.name substringToIndex:4] : _book.name;
+	if (_book.name) {
+		nameLabel.text = [_book.name substringToIndex:MIN(_book.name.length, 4)];
+	}
     if (_book.autoBuy) {
 		self.autoBuy = _book.autoBuy.boolValue;
     }
