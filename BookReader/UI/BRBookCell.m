@@ -40,8 +40,8 @@
         [badgeView setHideWhenZero:YES];
         [self.contentView addSubview:badgeView];
         
-        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
-        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds) + 5);
+        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds) + 10, CGRectGetMinY(self.bounds) + 10);
         [autoBuyMark setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:autoBuyMark];
         
