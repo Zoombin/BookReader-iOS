@@ -34,14 +34,13 @@ static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
 static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
 static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscribe";
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,BookShelfBottomViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
 @end
 
 @implementation BookShelfViewController {
 	NSMutableArray *booksForDisplay;
     NSMutableArray *books;
 	NSMutableArray *chapters;
-//    BookShelfBottomView *bottomView;
 	BRBooksView *booksView;
 	BOOL editing;
 	BOOL displayingHistory;
@@ -53,7 +52,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	CGFloat standViewsDistance;
 	UIImageView *backgroundImage;
 }
-@synthesize layoutStyle;
 
 - (void)viewDidLoad
 {
@@ -70,17 +68,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.delegate = self;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
-	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
-        [[self BRHeaderView] addButtons];
-        [[self BRHeaderView] setDelegate:self];
-//		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
-//		[bottomView setDelegate:self];
-//		[self.view addSubview:bottomView];
-		booksView.gridStyle = YES;
-	} else {
-		booksView.gridStyle = NO;
-		//TODO: remote and local should be same style
-	}
+	[[self BRHeaderView] addButtons];
+	[[self BRHeaderView] setDelegate:self];
+	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
@@ -369,18 +359,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			//[self displayHUDError:@"" message:@"更新..."];
 			NSLog(@"already syncing");
 		}
-    }
-    else if (type.intValue == kBottomViewButtonShelf) {
-        [self BRHeaderView].titleLabel.text = @"我的收藏";
-		booksForDisplay = [[Book findAllFavorite] mutableCopy];
-		[booksView reloadData];
-		displayingHistory = NO;
-    }
-    else if (type.intValue == kBottomViewButtonBookHistoroy) {
-        [self BRHeaderView].titleLabel.text = @"阅读历史";
-		booksForDisplay = [[Book findAllHistory] mutableCopy];
-		[booksView reloadData];
-		displayingHistory = YES;
     }
 }
 
