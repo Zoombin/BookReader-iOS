@@ -57,39 +57,21 @@
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
     rootControllers = [@{} mutableCopy];
-    BookShelfViewController *bookShelfViewController = [[BookShelfViewController alloc] init];
-    rootControllers[@(kRootControllerTypeBookShelf)] = bookShelfViewController;
+    rootControllers[@(kRootControllerTypeBookShelf)] = [[BookShelfViewController alloc] init];
 #ifdef REMOTE_MODE
-    bookShelfViewController.layoutStyle = kBookShelfLayoutStyleShelfLike;
-    
-    BookStoreViewController *bookStoreViewController = [[BookStoreViewController alloc] init];
-    rootControllers[@(kRootControllerTypeBookStore)] = bookStoreViewController;
-    
-    MemberViewController *memberViewController = [[MemberViewController alloc] init];
-    rootControllers[@(kRootControllerTypeMember)] = memberViewController;
-    
-    SignInViewController *signinViewController = [[SignInViewController alloc] init];
-    rootControllers[@(kRootControllerTypeLogin)] = signinViewController;
+    rootControllers[@(kRootControllerTypeBookStore)] = [[BookStoreViewController alloc] init];
+    rootControllers[@(kRootControllerTypeMember)] = [[MemberViewController alloc] init];
+    rootControllers[@(kRootControllerTypeLogin)] = [[SignInViewController alloc] init];
 #else
     //[[BookManager sharedInstance] createTxtInfo];//扫描作者信息和书名到Documents下面，用于iTunes Connect
-    
-    bookShelfViewController.layoutStyle = kBookShelfLayoutStyleTableList;
-    
-    HouseBookListViewController *houseBookListViewController = [[HouseBookListViewController alloc] init];
-    rootControllers[@(kRootControllerTypeHouseBook)] = houseBookListViewController;
-    
-    HouseAppListViewController *houseAppListViewController = [[HouseAppListViewController alloc] init];
-    rootControllers[@(kRootControllerTypeHouseApp)] = houseAppListViewController;
-    
-    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
-    rootControllers[@(kRootControllerTypeAbout)] = aboutViewController;
+    rootControllers[@(kRootControllerTypeHouseBook)] = [[HouseBookListViewController alloc] init];
+    rootControllers[@(kRootControllerTypeHouseApp)] = [[HouseAppListViewController alloc] init];
+    rootControllers[@(kRootControllerTypeAbout)] = [[AboutViewController alloc] init];
 #endif
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self switchToRootController:kRootControllerTypeBookShelf];
 #ifndef REMOTE_MODE
