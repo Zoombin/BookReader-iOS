@@ -15,6 +15,7 @@
 @property (nonatomic, retain) NSString * author;
 @property (nonatomic, retain) NSNumber * authorID;
 @property (nonatomic, retain) NSNumber * autoBuy;
+@property (nonatomic, retain) NSNumber * bCover;
 @property (nonatomic, retain) NSNumber * bFav;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSNumber * categoryID;
@@ -24,10 +25,10 @@
 @property (nonatomic, retain) NSString * lastReadChapterID;
 @property (nonatomic, retain) NSString * lastUpdate;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSDate * rDate;
 @property (nonatomic, retain) NSNumber * recommendID;
 @property (nonatomic, retain) NSString * recommendTitle;
 @property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) NSDate * updateDate;
 @property (nonatomic, retain) NSNumber * words;
 
 @end

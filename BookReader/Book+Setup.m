@@ -28,6 +28,8 @@
 	book.words = attributes[@"length"];
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
+	book.updateDate = [NSDate date];
+	book.bCover = attributes[@"cover"];
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -42,7 +44,7 @@
 	
 	if (book.uid) {
 		book.coverURL = [NSString stringWithFormat:@"%@%@.jpg", XXSY_IMAGE_URL, book.uid];
-	}	
+	}
 	return book;
 }
 
@@ -93,6 +95,7 @@
     book.author = self.author;
     book.authorID = self.authorID;
     book.autoBuy = self.autoBuy;
+	book.bCover = self.bCover;
     book.bFav = self.bFav;
     book.category = self.category;
     book.categoryID = self.categoryID;
@@ -106,6 +109,7 @@
     book.recommendID = self.recommendID;
     book.recommendTitle = self.recommendTitle;
     book.uid = self.uid;
+	//book.updateDate = self.updateDate;
     book.words = self.words;
 }
 

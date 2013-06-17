@@ -283,7 +283,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)showBooks
 {
-    booksForDisplay = [[Book findAll] mutableCopy];
+    booksForDisplay = [[Book findAllSortedBy:@"updateDate" ascending:NO] mutableCopy];
     [booksView reloadData];
 }
 - (void)headerButtonClicked:(NSNumber *)type
@@ -342,7 +342,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		}
         [[self BRHeaderView] deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
 	} else {
-        bookCell.book.rDate = [NSDate date];
         [bookCell.book persistWithBlock:nil];//TODO need to this when actually start to read
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 		controller.book = bookCell.book;

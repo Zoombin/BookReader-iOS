@@ -4,6 +4,7 @@
         <attribute name="author" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorID" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="autoBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="bCover" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bFav" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="category" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
@@ -13,10 +14,10 @@
         <attribute name="lastReadChapterID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="rDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recommendID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="recommendTitle" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updateDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="words" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
     <entity name="Chapter" representedClassName="Chapter" syncable="YES">
@@ -36,7 +37,7 @@
         <attribute name="startWordIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="160" positionY="192" width="128" height="300"/>
+        <element name="Book" positionX="160" positionY="192" width="128" height="315"/>
         <element name="Chapter" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Mark" positionX="160" positionY="192" width="128" height="120"/>
     </elements>

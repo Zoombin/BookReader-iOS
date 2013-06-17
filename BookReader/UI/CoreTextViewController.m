@@ -297,6 +297,7 @@
 		currentChapterString = [chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue];
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			_book.lastReadChapterID = chapter.uid;
+			_book.updateDate = [NSDate date];
 		}];
 		statusView.title.text = [NSString stringWithFormat:@"(%d) %@", chapter.index.intValue + 1, chapter.name];
 		[self paging];

@@ -13,6 +13,7 @@
 @dynamic author;
 @dynamic authorID;
 @dynamic autoBuy;
+@dynamic bCover;
 @dynamic bFav;
 @dynamic category;
 @dynamic categoryID;
@@ -22,10 +23,10 @@
 @dynamic lastReadChapterID;
 @dynamic lastUpdate;
 @dynamic name;
-@dynamic rDate;
 @dynamic recommendID;
 @dynamic recommendTitle;
 @dynamic uid;
+@dynamic updateDate;
 @dynamic words;
 
 @end
