@@ -73,9 +73,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	if (layoutStyle == kBookShelfLayoutStyleShelfLike) {
         [[self BRHeaderView] addButtons];
         [[self BRHeaderView] setDelegate:self];
-//		bottomView = [[BookShelfBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.bounds) - 44, self.view.bounds.size.width, 44)];
-//		[bottomView setDelegate:self];
-//		[self.view addSubview:bottomView];
 		booksView.gridStyle = YES;
 	} else {
 		booksView.gridStyle = NO;
@@ -131,11 +128,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
         [self showBooks];
-//		if (displayingHistory) {
-//			[bottomView historyButtonClick];
-//		} else {
-//			[bottomView shelfButtonClick];
-//		}
 		[booksView reloadData];
 	}
 }
@@ -302,41 +294,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     displayingHistory = NO;
 }
 
-- (void)bottomButtonClicked:(NSNumber *)type {
-//    if (type.intValue == kBottomViewButtonEdit) {
-//		editing = YES;
-//		[booksView reloadData];
-//    }
-//    else if (type.intValue == kBottomViewButtonDelete)
-//    {
-//		[self displayHUD:@"删除收藏..."];
-//		[self syncRemoveFav];
-//    } else if (type.intValue == kBottomViewButtonFinishEditing) {
-//		editing = NO;
-//		[booksView reloadData];
-//    }
-//    else if (type.intValue == kBottomViewButtonRefresh) {
-//		if (!syncing) {
-//			syncing = YES;
-//			[self syncBooks];
-//			NSLog(@"begin sync");
-//		} else {
-//			NSLog(@"already syncing");
-//		}
-//    }
-//    else if (type.intValue == kBottomViewButtonShelf) {
-//        [self BRHeaderView].titleLabel.text = @"我的收藏";
-//		booksForDisplay = [[Book findAllFavorite] mutableCopy];
-//		[booksView reloadData];
-//		displayingHistory = NO;
-//    }
-//    else if (type.intValue == kBottomViewButtonBookHistoroy) {
-//        [self BRHeaderView].titleLabel.text = @"阅读历史";
-//		booksForDisplay = [[Book findAllHistory] mutableCopy];
-//		[booksView reloadData];
-//		displayingHistory = YES;
-//    }
-}
 
 - (void)headerButtonClicked:(NSNumber *)type
 {
@@ -351,8 +308,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		editing = YES;
 		[booksView reloadData];
     }
-    else if (type.intValue == kHeaderViewButtonDelete)
-    {
+    else if (type.intValue == kHeaderViewButtonDelete) {
 		[self displayHUD:@"删除收藏..."];
 		[self syncRemoveFav];
     }else if (type.intValue == kHeaderViewButtonFinishEditing) {
@@ -390,6 +346,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		} else {
 			[needRemoveFavoriteBooks removeObject:bookCell.book];
 		}
+        [[self BRHeaderView] deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
 	} else {
         bookCell.book.rDate = [NSDate date];
         [bookCell.book persistWithBlock:nil];//TODO need to this when actually start to read

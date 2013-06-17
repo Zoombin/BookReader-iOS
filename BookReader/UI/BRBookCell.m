@@ -29,7 +29,8 @@
 		cover.frame = CGRectMake(0, 0, 70, 89);
 		[self.contentView addSubview:cover];
 		
-        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        selectedMark.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
 		[selectedMark setImage:[UIImage imageNamed:@"book_checkmark"]];
 		selectedMark.hidden = YES;
         [self.contentView addSubview:selectedMark];
@@ -51,6 +52,11 @@
 		[self.contentView addSubview:autoBuyButton];
         
         nameLabel = [[UILabel alloc] initWithFrame:autoBuyButton.frame];
+        [nameLabel setBackgroundColor:[UIColor colorWithRed:78.0/255.0 green:129.0/255.0 blue:172.0/255.0 alpha:1.0]];
+        [nameLabel setAlpha:0.8];
+        [nameLabel setTextColor:[UIColor whiteColor]];
+        [nameLabel setTextAlignment:NSTextAlignmentCenter];
+        [nameLabel setFont:[UIFont systemFontOfSize:14]];
         [self.contentView addSubview:nameLabel];
 				
 		self.autoBuy = NO;
@@ -76,7 +82,7 @@
 		}];
     }
 
-    nameLabel.text = _book.name;
+    nameLabel.text = [_book.name length]>=4 ? [_book.name substringToIndex:4] : _book.name;
     if (_book.autoBuy) {
 		self.autoBuy = _book.autoBuy.boolValue;
     }
@@ -115,7 +121,7 @@
 - (void)setAutoBuy:(BOOL)onOrOff
 {
 	_autoBuy = onOrOff;
-    [autoBuyMark setBackgroundColor:onOrOff ? [UIColor blueColor] : [UIColor redColor]];
+    [autoBuyMark setImage:onOrOff ? [UIImage imageNamed:@"refresh_mark"] : nil];
     [autoBuyButton setBackgroundImage:[UIImage imageNamed:onOrOff ? @"autobuy_on" : @"autobuy_off"] forState:UIControlStateNormal];
 }
 

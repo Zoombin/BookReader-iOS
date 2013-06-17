@@ -13,6 +13,8 @@
 @implementation BRHeaderView {
     UIView *headerViewOne;
     UIView *headerViewTwo;
+    UIImageView *topBarImage;
+    UIButton *deleteButton;
 }
 @synthesize delegate;
 
@@ -21,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
+         topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
         [topBarImage setImage:[UIImage imageNamed:@"nav_header"]];
         [self addSubview:topBarImage];
         
@@ -36,11 +38,12 @@
 }
 
 - (void)addButtons {
-    CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-10-50,5,50,32);
-    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(BOOKSTORE_BUTTON_FRAME.origin.x-50,5,50,32);
+    [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
+    CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-10-50,3,50,32);
+    CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(BOOKSTORE_BUTTON_FRAME.origin.x-50,3,50,32);
     
-    CGRect EDIT_BUTTON_FRAME = CGRectMake(10, 5, 50, 32);
-    CGRect UPDATE_BUTTON_FRAME = CGRectMake(EDIT_BUTTON_FRAME.origin.x+50, 5, 50, 32);
+    CGRect EDIT_BUTTON_FRAME = CGRectMake(10, 3, 50, 32);
+    CGRect UPDATE_BUTTON_FRAME = CGRectMake(EDIT_BUTTON_FRAME.origin.x+50, 3, 50, 32);
     CGRect FINISH_BUTTON_FRAME = EDIT_BUTTON_FRAME;
     CGRect DELETE_BUTTON_FRAME = BOOKSTORE_BUTTON_FRAME;
     
@@ -52,61 +55,72 @@
     [headerViewTwo setHidden:YES];
     
     [_backButton setHidden:YES];
-    [_titleLabel setText:@"我的收藏"];
     [self bringSubviewToFront:_titleLabel];
     
-    NSArray *titles = @[@"书城", @"会员", @"编辑", @"更新",@"完成",@"删除"];
+//    NSArray *titles = @[@"书城", @"会员", @"编辑", @"更新",@"完成",@"删除"];
     NSArray *rectStrings = @[NSStringFromCGRect(BOOKSTORE_BUTTON_FRAME), NSStringFromCGRect(MYACCOUNT_BUTTON_FRAME),NSStringFromCGRect(EDIT_BUTTON_FRAME),NSStringFromCGRect(UPDATE_BUTTON_FRAME),NSStringFromCGRect(FINISH_BUTTON_FRAME),NSStringFromCGRect(DELETE_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick",@"eButtonClick",@"uButtonClick",@"fButtonClick",@"dButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"bookreader_universal_btn")];
+    NSArray *images = @[UIIMAGE(@"bookstore_btn"),UIIMAGE(@"shelf_member_btn"),UIIMAGE(@"edit_btn"),UIIMAGE(@"refresh_btn"),UIIMAGE(@"finish_btn"),UIIMAGE(@"delete_btn")];
 
     for (int i = 0; i < [rectStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button setBackgroundImage:images[0] forState:UIControlStateNormal];
+        [button setBackgroundImage:images[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont systemFontOfSize:17]];
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        if (i<4) {
-           [headerViewOne addSubview:button];  
-        } else {
-           [headerViewTwo addSubview:button];
+        [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
+        if (i == 5) {
+            [button setBackgroundImage:[UIImage imageNamed:@"delete_btn_disable"] forState:UIControlStateDisabled];
+            [button setEnabled:NO];
+            deleteButton = button;
         }
     }
 }
 
-- (void)bButtonClick {
+- (void)deleteButtonEnable:(BOOL)enable
+{
+    [deleteButton setEnabled:enable];
+}
+
+- (void)bButtonClick
+{
     [self invokeDelegateMethod:kHeaderViewButtonBookStore];
 }
 
-- (void)mButtonClick {
+- (void)mButtonClick
+{
     [self invokeDelegateMethod:kHeaderViewButtonMember];
 }
 
-- (void)eButtonClick {
+- (void)eButtonClick
+{
     [headerViewOne setHidden:YES];
     [headerViewTwo setHidden:NO];
     [self invokeDelegateMethod:kHeaderViewButtonEdit];
 }
 
-- (void)uButtonClick {
+- (void)uButtonClick
+{
     [self invokeDelegateMethod:kHeaderViewButtonRefresh];
 }
 
-- (void)fButtonClick {
+- (void)fButtonClick
+{
     [headerViewOne setHidden:NO];
     [headerViewTwo setHidden:YES];
     [self invokeDelegateMethod:kHeaderViewButtonFinishEditing];
 }
 
-- (void)dButtonClick {
+- (void)dButtonClick
+{
     [self invokeDelegateMethod:kHeaderViewButtonDelete];
 }
 
-- (void)invokeDelegateMethod:(HeaderViewButtonType)type {
+- (void)invokeDelegateMethod:(HeaderViewButtonType)type
+{
     if ([self.delegate respondsToSelector:@selector(headerButtonClicked:)]) {
         [self.delegate performSelector:@selector(headerButtonClicked:) withObject:@(type)];
     }

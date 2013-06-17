@@ -27,4 +27,5 @@ typedef enum {
 @property (nonatomic ,strong) UIButton *backButton;
 @property (nonatomic ,strong) UILabel *titleLabel;
 - (void)addButtons;
+- (void)deleteButtonEnable:(BOOL)enable;
 @end
