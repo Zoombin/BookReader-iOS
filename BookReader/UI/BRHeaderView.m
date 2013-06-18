@@ -71,9 +71,9 @@
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         if (i == 1) {
-            [button setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
-        }else if (i == 3) {
             [button setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
+        }else if (i == 3) {
+            [button setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
         }
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
