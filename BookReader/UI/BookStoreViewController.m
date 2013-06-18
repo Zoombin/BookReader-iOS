@@ -173,8 +173,6 @@
     [_headerSearchButton addTarget:self action:@selector(searchBarSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_headerSearchButton setTitle:@"搜索" forState:UIControlStateNormal];
     [tableViewHeader addSubview:_headerSearchButton];
- 
-    [self initRandButton];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
@@ -188,6 +186,8 @@
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
+    
+    [self initRandButton];
 
     gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [backgroundView addGestureRecognizer:gestureRecognizer];
@@ -200,24 +200,22 @@
 }
 
 - (void)initRandButton {
-    CGRect frame = CGRectMake(0, 10, self.view.bounds.size.width/9, 20);
-    rankView = [[UIView alloc]initWithFrame: CGRectMake(-5+(self.view.bounds.size.width/3 *2), 0, self.view.bounds.size.width/3, 40)];
-    [rankView setBackgroundColor:[UIColor clearColor]];
-    [rankView setHidden:YES];
-    [self.view addSubview:rankView];
-    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
+    rankView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, infoTableView.bounds.size.width, 50)];
+    [rankView setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:233.0/255.0 alpha:1.0]];
+    float width = (rankView.bounds.size.width - 60)/3;
+    CGRect frame = CGRectMake(30, 10, width, 30);
+//    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
     NSArray *imagesArray = @[@"all_btn" , @"new_btn", @"hot_btn"];
-    for (int i = 0; i<3; i++) {
+    for (int i = 0; i < 3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i==0) {
             [button setBackgroundImage:[UIImage imageNamed:@"all_btn_hl"] forState:UIControlStateNormal];
         } else {
             [button setBackgroundImage:[UIImage imageNamed:imagesArray[i]] forState:UIControlStateNormal];
         }
-        [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
         if (i!=0) {
-            frame = CGRectMake(CGRectGetMaxX(frame), 10, frame.size.width, frame.size.height);
+            frame = CGRectMake(CGRectGetMaxX(frame), 10, width, frame.size.height);
         }
         [button setFrame:frame];
         [rankView addSubview:button];
@@ -434,7 +432,7 @@
             break;
         case 1:
             currentType = RANK;
-            [infoTableView setTableHeaderView:nil];
+            [infoTableView setTableHeaderView:rankView];
             [[self BRHeaderView].titleLabel setText:@"排行"];
             [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
             [rankView setHidden:NO];

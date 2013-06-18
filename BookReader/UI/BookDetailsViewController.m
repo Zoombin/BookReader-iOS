@@ -122,6 +122,7 @@
         [self displayHUD:@"加载中..."];
         [ServiceManager bookDetailsByBookId:bookid andIntro:YES withBlock:^(Book *obj, NSError *error) {
             if(error) {
+                NSLog(@"%@",error);
                 [self displayHUDError:nil message:NETWORK_ERROR];
 				[self.navigationController popViewControllerAnimated:YES];
             }else {

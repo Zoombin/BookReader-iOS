@@ -10,9 +10,9 @@
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 
-#define LabelTextColor    [UIColor colorWithRed:84.0/255.0 green:40.0/255.0 blue:10.0/255.0 alpha:1.0]
+#define LabelTextColor    [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:117.0/255.0 alpha:1.0]
 
-#define BigCellHeight 70.0f
+#define BigCellHeight 90.0f
 #define SmallCellHeight 30.0f
 #define OtherCellHeight 40.0f
 
@@ -34,10 +34,10 @@
     if (self) {
         if (style == BookCellStyleBig) {
 			height = BigCellHeight;
-            CGRect bookimageViewFrame = CGRectMake(15, 5, 90/2, 115/2);
-            CGRect bookNameLabelFrame = CGRectMake(75, 8, 205, 15);
-            CGRect authorNameLabelFrame = CGRectMake(75, 33, 130, 15);
-            CGRect categoryNameLabelFrame = CGRectMake(75, 48, 130, 15);
+            CGRect bookimageViewFrame = CGRectMake(15, 12, 90/1.8, 115/1.8);
+            CGRect bookNameLabelFrame = CGRectMake(75, 15, 205, 15);
+            CGRect authorNameLabelFrame = CGRectMake(75, 35, 130, 15);
+            CGRect categoryNameLabelFrame = CGRectMake(75, 55, 130, 15);
             
             nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
@@ -48,13 +48,13 @@
             authorLabel = [[UILabel alloc] initWithFrame:authorNameLabelFrame];
             [authorLabel setBackgroundColor:[UIColor clearColor]];
             [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
-            [authorLabel setTextColor:[UIColor blackColor]];
+            [authorLabel setTextColor:LabelTextColor];
             [self.contentView addSubview:authorLabel];
                         
             categoryLabel = [[UILabel alloc] initWithFrame:categoryNameLabelFrame];
             [categoryLabel setBackgroundColor:[UIColor clearColor]];
             [categoryLabel setFont:[UIFont boldSystemFontOfSize:12]];
-            [categoryLabel setTextColor:[UIColor blackColor]];
+            [categoryLabel setTextColor:LabelTextColor];
             [self.contentView addSubview:categoryLabel];
             
             coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
@@ -85,8 +85,8 @@
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self addSubview:catagoryImage];
         }
-		UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10, height, self.contentView.frame.size.width - 30, 1)];
-		[separateLine setBackgroundColor:[UIColor blackColor]];
+		UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.contentView.frame.size.width - 10, 1)];
+		[separateLine setBackgroundColor:[UIColor lightGrayColor]];
 		[self addSubview:separateLine];
     }
     return self;
@@ -110,10 +110,10 @@
         [nameLabel setText:[NSString stringWithFormat:@"%@",book.name]];
     }
     if (book.author) {
-        [authorLabel setText:[NSString stringWithFormat:@"%@", book.author]];
+        [authorLabel setText:[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AuthorName", nil),book.author]];
     }
     if (book.category) {
-        categoryLabel.text = [NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"CategoryName", nil), book.category];
+        categoryLabel.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CategoryName", nil), book.category];
     }
     if (book.cover) {
         coverView.image = [UIImage imageWithData:book.cover];
