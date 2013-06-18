@@ -9,14 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (BookReader)
-+ (UIView *)loginBackgroundViewWithFrame:(CGRect)frame
-                           andTitle:(NSString *)title;
-
-+ (UIView *)changeBackgroundViewWithFrame:(CGRect)frame;
-
-+ (UIView *)findBackgroundViewWithFrame:(CGRect)frame;
-
-+ (UIView *)userBackgroundViewWithFrame:(CGRect)frame
-                               andTitle:(NSString *)title;
 + (UIView *)tableViewFootView:(CGRect)frame andSel:(SEL)selector andTarget:(id)target;
 @end

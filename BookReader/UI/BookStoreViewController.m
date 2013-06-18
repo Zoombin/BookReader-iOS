@@ -133,20 +133,21 @@
     [self setHideBackBtn:YES];
     [self setTitle:@"书城"];
     
-    UIImageView *bottomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
-    [bottomImage setImage:[UIImage imageNamed:@"nav_header"]];
-    [self.view addSubview:bottomImage];
+    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, self.view.bounds.size.width, 50)];
+    [bottomView setImage:[UIImage imageNamed:@"bookstore_bottom_bar"]];
+    [self.view addSubview:bottomView];
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
     
-    NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
-    NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
+    NSArray *buttonImageNameUp = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
+    NSArray *buttonImageNameDown = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
+    float width = ((bottomView.frame.size.width-40)/4);
     for (int i=0; i<[buttonImageNameDown count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
-        [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(i*self.view.bounds.size.width/4, self.view.bounds.size.height-48, self.view.bounds.size.width/4, 46)];
+        [button setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
+        [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
+        [button setFrame:CGRectMake(8*(i+1)+i*width, self.view.bounds.size.height-48, width, 46)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
@@ -156,6 +157,7 @@
     rankButton = buttonArrays[1];
     cataButton = buttonArrays[2];
     searchButton = buttonArrays[3];
+    [recommendButton setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[0]] forState:UIControlStateNormal];
     
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
@@ -401,7 +403,22 @@
                  }];
 }
 
+- (void)refreshBottomButton:(UIButton *)sender
+{
+    NSArray *buttonImageNameUp = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
+    NSArray *buttonImageNameDown = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
+    for (int i = 0; i < [buttonArrays count]; i++) {
+        UIButton *button = [buttonArrays objectAtIndex:i];
+        if (sender == button) {
+            [sender setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateNormal];
+        } else {
+            [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
+        }
+    }
+}
+
 - (void)buttonClick:(UIButton *)sender {
+    [self refreshBottomButton:sender];
     [self hidenAllHotKeyBtn];
     [infoArray removeAllObjects];
     [infoTableView setTableFooterView:nil];

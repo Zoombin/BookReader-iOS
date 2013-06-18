@@ -24,7 +24,7 @@
     if (self) {
         // Initialization code
          topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
-        [topBarImage setImage:[UIImage imageNamed:@"nav_header"]];
+        [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
         [self addSubview:topBarImage];
         
         _backButton = [UIButton navigationBackButton];
