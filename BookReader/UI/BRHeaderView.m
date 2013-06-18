@@ -57,23 +57,24 @@
     [_backButton setHidden:YES];
     [self bringSubviewToFront:_titleLabel];
     
-//    NSArray *titles = @[@"书城", @"会员", @"编辑", @"更新",@"完成",@"删除"];
+    NSArray *titles = @[@"书城", @"", @"编辑", @"",@"完成",@"删除"];//会员 更新
     NSArray *rectStrings = @[NSStringFromCGRect(BOOKSTORE_BUTTON_FRAME), NSStringFromCGRect(MYACCOUNT_BUTTON_FRAME),NSStringFromCGRect(EDIT_BUTTON_FRAME),NSStringFromCGRect(UPDATE_BUTTON_FRAME),NSStringFromCGRect(FINISH_BUTTON_FRAME),NSStringFromCGRect(DELETE_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick",@"eButtonClick",@"uButtonClick",@"fButtonClick",@"dButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"bookstore_btn"),UIIMAGE(@"shelf_member_btn"),UIIMAGE(@"edit_btn"),UIIMAGE(@"refresh_btn"),UIIMAGE(@"finish_btn"),UIIMAGE(@"delete_btn")];
+    NSArray *images = @[UIIMAGE(@"universal_btn_r"),UIIMAGE(@"shelf_member_btn"),UIIMAGE(@"universal_btn_l"),UIIMAGE(@"refresh_btn"),UIIMAGE(@"universal_btn"),UIIMAGE(@"universal_btn")];
 
     for (int i = 0; i < [rectStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setBackgroundImage:images[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:17]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
         if (i == 5) {
-            [button setBackgroundImage:[UIImage imageNamed:@"delete_btn_disable"] forState:UIControlStateDisabled];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
             [button setEnabled:NO];
             deleteButton = button;
         }
