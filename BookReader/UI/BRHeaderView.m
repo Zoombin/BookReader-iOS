@@ -62,7 +62,7 @@
     NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick",@"eButtonClick",@"uButtonClick",@"fButtonClick",@"dButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"universal_btn_r"),UIIMAGE(@"shelf_member_btn"),UIIMAGE(@"universal_btn_l"),UIIMAGE(@"refresh_btn"),UIIMAGE(@"universal_btn"),UIIMAGE(@"universal_btn")];
+    NSArray *images = @[UIIMAGE(@"universal_btn_r"),UIIMAGE(@"universal_btn_l"),UIIMAGE(@"universal_btn_l"),UIIMAGE(@"universal_btn_r"),UIIMAGE(@"universal_btn"),UIIMAGE(@"universal_btn")];
 
     for (int i = 0; i < [rectStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -70,6 +70,11 @@
         [button setBackgroundImage:images[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        if (i == 1) {
+            [button setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
+        }else if (i == 3) {
+            [button setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
+        }
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
