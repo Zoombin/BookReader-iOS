@@ -20,7 +20,7 @@
 @class Member;
 @interface ServiceManager : AFHTTPClient
 
-+(ServiceManager *)shared;
++ (ServiceManager *)shared;
 
 + (void)saveUserID:(NSNumber *)userID;
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name;
