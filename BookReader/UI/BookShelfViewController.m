@@ -302,6 +302,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		editing = NO;
 		[booksView reloadData];
     } else if (type.intValue == kHeaderViewButtonRefresh) {
+		if (![ServiceManager userID]) return;
 		if (!syncing) {
 			[self syncBooks];
 			NSLog(@"begin sync");

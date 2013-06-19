@@ -100,7 +100,7 @@
     }
 	self.alpha = _editing ? 0.5 : 1.0;
     nameLabel.hidden = _editing;
-    autoBuyMark.hidden = _editing;
+    //autoBuyMark.hidden = _editing;
 }
 
 - (void)setCellSelected:(BOOL)selected
