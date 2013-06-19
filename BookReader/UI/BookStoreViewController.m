@@ -177,7 +177,7 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
@@ -335,7 +335,6 @@
 
 - (void)loadRecommendData
 {
-    [infoTableView setFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
     [infoTableView setHidden:NO];
     [self displayHUD:@"加载中..."];
     [ServiceManager recommendBooksWithBlock:^(NSArray *resultArray, NSError *error) {
