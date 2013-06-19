@@ -55,6 +55,7 @@
 //	[ServiceManager saveUserID:@(5639339)];//yanchao
 //	[ServiceManager saveUserID:@(4216157)];//zhangbin
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
+    [ServiceManager recommandDefaultBookwithBlock:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];

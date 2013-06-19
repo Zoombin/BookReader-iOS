@@ -61,9 +61,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     [self removeGestureRecognizer];
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
-	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
-	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
-	[self.view addSubview:backgroundImage];
+//	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
+//	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+//	[self.view addSubview:backgroundImage];
 	
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;

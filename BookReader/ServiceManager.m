@@ -739,6 +739,25 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
++ (void)recommandDefaultBookwithBlock:(void (^)(NSArray *, NSError *))block
+{
+    NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"keep.recommend"}]];
+    [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSMutableArray *bookList = [@[] mutableCopy];
+        NSLog(@"%@",theObject);
+		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
+        if (block) {
+            block(bookList, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@",error.description);
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
 ////获取IP地址
 + (NSString *)ipAddress
 {

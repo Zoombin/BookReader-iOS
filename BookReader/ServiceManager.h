@@ -159,6 +159,9 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
 + (void)existsFavoriteWithBookID:(NSString *)bookid
               withBlock:(void(^)(BOOL isExist,NSError *error))block;
 
+//默认推荐书籍
++ (void)recommandDefaultBookwithBlock:(void(^)(NSArray *resultArray,NSError *error))block;
+
 //用户道具
 typedef NS_ENUM(NSInteger, XXSYGiftType) {
 	XXSYGiftTypeDiamond = 1,//钻石

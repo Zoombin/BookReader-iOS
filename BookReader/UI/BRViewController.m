@@ -20,6 +20,11 @@
 {
     [super viewDidLoad];
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
+    CGSize fullSize = self.view.bounds.size;
+	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
+	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+	[self.view addSubview:backgroundImage];
+    
      headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:headerView];
