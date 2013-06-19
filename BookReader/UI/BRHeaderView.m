@@ -28,7 +28,7 @@
         [self addSubview:topBarImage];
         
         _backButton = [UIButton navigationBackButton];
-        [_backButton setFrame:CGRectMake(10, 6, 50, 32)];
+        [_backButton setFrame:CGRectMake(10, 3, 50, 32)];
         [self addSubview:_backButton];
         
         _titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.bounds.size.width, 44)];
@@ -38,7 +38,6 @@
 }
 
 - (void)addButtons {
-    [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
     CGRect BOOKSTORE_BUTTON_FRAME = CGRectMake(self.bounds.size.width-10-50,3,50,32);
     CGRect MYACCOUNT_BUTTON_FRAME = CGRectMake(BOOKSTORE_BUTTON_FRAME.origin.x-50,3,50,32);
     
@@ -62,24 +61,18 @@
     NSArray *selectorStrings = @[@"bButtonClick", @"mButtonClick",@"eButtonClick",@"uButtonClick",@"fButtonClick",@"dButtonClick"];
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"universal_btn_r"),UIIMAGE(@"universal_btn_l"),UIIMAGE(@"universal_btn_l"),UIIMAGE(@"universal_btn_r"),UIIMAGE(@"universal_btn"),UIIMAGE(@"universal_btn")];
-
+    NSArray *styles = @[@(BookReaderButtonStyleRight),@(BookReaderButtonStyleLeft),@(BookReaderButtonStyleLeft),@(BookReaderButtonStyleRight),@(BookReaderButtonStyleNormal),@(BookReaderButtonStyleNormal)];
     for (int i = 0; i < [rectStrings count]; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *button = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[i]) andStyle:[styles[i] intValue]];
         [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button setBackgroundImage:images[i] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         if (i == 1) {
             [button setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
         }else if (i == 3) {
             [button setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
         }
-        [button setFrame: CGRectFromString(rectStrings[i])];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
         if (i == 5) {
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
             [button setEnabled:NO];
             deleteButton = button;
         }

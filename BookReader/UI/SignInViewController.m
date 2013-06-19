@@ -39,7 +39,7 @@
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
     
-    UIButton *registerButton = [UIButton custumButtonWithFrame:CGRectMake(fullSize.width-55, 6, 50, 32)];
+    UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
     [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [self.view addSubview:registerButton];

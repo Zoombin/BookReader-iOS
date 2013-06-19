@@ -157,12 +157,12 @@
     [recommand setTitle:@"推荐给好友" forState:UIControlStateNormal];
     [self.view addSubview:recommand];
     
-    UIButton *readButton = [UIButton custumButtonWithFrame:CGRectMake(fullSize.width-100, 6, 48, 32)];
+    UIButton *readButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-100, 3, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [readButton setTitle:@"阅读" forState:UIControlStateNormal];
     [readButton addTarget:self action:@selector(readButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:readButton];
     
-    favButton = [UIButton custumButtonWithFrame:CGRectMake(CGRectGetMaxX(readButton.frame), 6, 48, 32)];
+    favButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMaxX(readButton.frame), 3, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [favButton setTitle:@"收藏" forState:UIControlStateNormal];
     [favButton addTarget:self action:@selector(favButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:favButton];

@@ -69,7 +69,7 @@
     [self addSubview:titleLabel];
     
     static float buttonOffsetX = 10.0;
-    static float buttonOffsetY = 4.0;
+    static float buttonOffsetY = 3.0;
     
 	UIButton *backButton = [UIButton navigationBackButton];
     [backButton setFrame: CGRectMake(10, buttonOffsetY, 48, 32)];

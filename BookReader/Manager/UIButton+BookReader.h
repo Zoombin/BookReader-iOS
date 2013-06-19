@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    BookReaderButtonStyleLeft = 0,
+    BookReaderButtonStyleRight = 1,
+    BookReaderButtonStyleNormal = 2
+}BookReaderButtonStyle;
+
 @interface UIButton (BookReader)
++ (UIButton *)addButtonWithFrame:(CGRect)frame andStyle:(BookReaderButtonStyle)style;
+
 + (UIButton *)createButtonWithFrame:(CGRect)frame;
 - (void)cooldownButtonFrame:(CGRect)frame andEnableCooldown:(BOOL)cooldown;
 + (UIButton *)fontButton:(CGRect)frame;
@@ -17,6 +25,5 @@
 - (void)startCoolDownDuration:(NSTimeInterval)delay;
 
 + (UIButton *)navigationBackButton;
-+ (UIButton *)custumButtonWithFrame:(CGRect)frame;
 
 @end

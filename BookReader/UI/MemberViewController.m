@@ -89,7 +89,7 @@
         [view removeFromSuperview];
     }
     UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [topBarImage setImage:[UIImage imageNamed:@"nav_header"]];
+    [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
     [self.view addSubview:topBarImage];
     
     UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
@@ -111,7 +111,7 @@
         [memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [self.view addSubview:memberTableView];
         
-        UIButton *logoutButton = [UIButton custumButtonWithFrame:CGRectMake(260, 6, 50, 32)];
+        UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(260, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
         [logoutButton setTitle:@"注销" forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:logoutButton];
