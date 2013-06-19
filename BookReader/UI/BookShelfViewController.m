@@ -52,7 +52,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksStandViews;
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
-	UIImageView *backgroundImage;
+//	UIImageView *backgroundImage;
 }
 
 - (void)viewDidLoad
@@ -95,7 +95,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksStandViews addObject:standView];
 		[self.view addSubview:standView];
 		[self.view sendSubviewToBack:standView];
-		[self.view sendSubviewToBack:backgroundImage];
+		[self.view sendSubviewToBack:[self backgroundImage]];
 	}
 }
 

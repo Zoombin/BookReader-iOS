@@ -13,6 +13,7 @@
 @implementation BRViewController {
     BRHeaderView *headerView;
     UITapGestureRecognizer *gesturerecognier;
+    UIImageView *backgroundImage;
 }
 @synthesize hideBackBtn;
 
@@ -21,7 +22,7 @@
     [super viewDidLoad];
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
     CGSize fullSize = self.view.bounds.size;
-	UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
+	 backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
 	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
 	[self.view addSubview:backgroundImage];
     
@@ -31,6 +32,11 @@
     
      gesturerecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:gesturerecognier];
+}
+
+- (UIImageView *)backgroundImage
+{
+    return backgroundImage;
 }
 
 - (BRHeaderView *)BRHeaderView
