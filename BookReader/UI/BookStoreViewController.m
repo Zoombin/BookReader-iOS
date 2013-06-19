@@ -574,8 +574,9 @@
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tmpButton setFrame:CGRectFromString(cgrectstring)];
         [tmpButton setTitle:hotkeyNames[i] forState:UIControlStateNormal];
-        [tmpButton setTitleColor:[UIColor colorWithRed:177.0/255.0 green:103.0/255.0 blue:36.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        NSInteger colorIndex = arc4random() % hotwordsColors.count;
+        [tmpButton setTitleColor:hotwordsColors[colorIndex] forState:UIControlStateNormal];
+        [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:arc4random() % 10 + 15]];
         [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [infoTableView addSubview:tmpButton];
         [hotkeyBtns addObject:tmpButton];
