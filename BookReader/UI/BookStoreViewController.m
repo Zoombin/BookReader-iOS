@@ -480,7 +480,7 @@
         return nil;
     }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
-    [view setBackgroundColor:[UIColor colorWithRed:142.0/255.0 green:196.0/255.0 blue:102.0/255.0 alpha:1.0]];
+    [view setBackgroundColor:[UIColor colorWithRed:190.0/255.0 green:174.0/255.0 blue:135.0/255.0 alpha:1.0]];
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
     for (int i = 0; i<[recommendTitlesArray count]; i++) {
         if (section == i) {
