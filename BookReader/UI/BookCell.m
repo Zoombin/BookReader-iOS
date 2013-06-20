@@ -25,6 +25,7 @@
 	BookCellStyle myStyle;
     UIImageView *catagoryImage;
 	CGFloat height;
+    UIView *separateLine;
 }
 
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -67,7 +68,7 @@
             [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
             [self.contentView addSubview:nameLabel];
             
-            authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-120, 0, 100, 30)];
+            authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-142, 0, 100, 30)];
             [authorLabel setBackgroundColor:[UIColor clearColor]];
             [authorLabel setTextAlignment:UITextAlignmentRight];
             [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
@@ -85,12 +86,14 @@
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self addSubview:catagoryImage];
         }
-		UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.contentView.frame.size.width - 10, 1)];
+		separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.contentView.frame.size.width - 10, 1)];
 		[separateLine setBackgroundColor:[UIColor lightGrayColor]];
 		[self addSubview:separateLine];
     }
     return self;
 }
+
+
 
 - (void)setTextLableText:(NSString *)name
 {
@@ -102,6 +105,11 @@
     if (catagoryImage) {
         [catagoryImage setHidden:hiden];
     }
+}
+
+- (void)separateLineColor:(UIColor *)color
+{
+    [separateLine setBackgroundColor:color];
 }
 
 - (void)setBook:(Book *)book

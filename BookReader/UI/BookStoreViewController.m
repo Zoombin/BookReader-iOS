@@ -44,6 +44,7 @@
     UITableView *infoTableView;
     
     UIView *rankView;
+    UIView *catagoryView;
     
     BOOL shouldRefresh;
     int currentType;
@@ -148,7 +149,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(20*(i+1)+i*width, self.view.bounds.size.height-48, width, 42)];
+        [button setFrame:CGRectMake(20*(i+1)+i*width, self.view.bounds.size.height-48, width, 46)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
@@ -163,22 +164,31 @@
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-80, 40)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-100, 40)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
     [_searchBar setPlaceholder:@"请输入关键字"];
+    UITextField *searchField;
+	NSUInteger numViews = [_searchBar.subviews count];
+	for(int i = 0; i < numViews; i++) {
+		if([[_searchBar.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) { //conform?
+			searchField = [_searchBar.subviews objectAtIndex:i];
+            [searchField setBorderStyle:UITextBorderStyleRoundedRect];
+		}
+	}
+    [_searchBar layoutSubviews];
     [tableViewHeader addSubview:_searchBar];
     
-    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-70, 5, 50, 30)];
+    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-90, 5, 45, 30)];
     [_headerSearchButton addTarget:self action:@selector(searchBarSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [_headerSearchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    [_headerSearchButton setBackgroundImage:[UIImage imageNamed:@"bookstore_search_btn"] forState:UIControlStateNormal];
     [tableViewHeader addSubview:_headerSearchButton];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(20, 44, self.view.bounds.size.width-40, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
@@ -188,12 +198,56 @@
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
     
+    catagoryView = [[UIView alloc] initWithFrame:infoTableView.frame];
+    [catagoryView setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:235.0/255.0 blue:237.0/255.0 alpha:1.0]];
+    [self showCatagoryViewBtn];
+    [self.view addSubview:catagoryView];
+    
+    catagoryView.hidden = YES;
+    
     [self initRandButton];
     
     gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [backgroundView addGestureRecognizer:gestureRecognizer];
     
     [self removeGestureRecognizer];
+}
+
+- (void)showCatagoryViewBtn
+{
+    int k = 0;
+    int offSet = (catagoryView.frame.size.width) - (130 *2);
+    
+    UIColor *backGroundColor = [UIColor colorWithRed:225.0/255.0 green:223.0/255.0 blue:213.0/255.0 alpha:1.0];
+    UIView *leftBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 28, 130, 3+(51*6))];
+    [leftBackGroundView.layer setCornerRadius:5];
+    [leftBackGroundView setBackgroundColor:backGroundColor];
+    [catagoryView addSubview:leftBackGroundView];
+    
+    UIView *rightBackGroundView = [[UIView alloc] initWithFrame:CGRectMake((130+offSet), 28, 130, 3+(51*5))];
+    [rightBackGroundView.layer setCornerRadius:5];
+    [rightBackGroundView setBackgroundColor:backGroundColor];
+    [catagoryView addSubview:rightBackGroundView];
+    
+    
+    for (int i = 0; i < [catagoryNames count]; i++) {
+        if (i%2==0&&i!=0) {
+            k++;
+        }
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:catagoryNames[i] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setBackgroundColor:backGroundColor];
+        [button setFrame:CGRectMake((130+offSet) *(i%2 ==0 ? 0 :1), 30+ 51 *k, 130, 50)];
+        [button setTag:i];
+        [button addTarget:self action:@selector(loadCatagoryDataWithIndex:) forControlEvents:UIControlEventTouchUpInside];
+        [catagoryView addSubview:button];
+        if (i!=9&i!=10) {
+        UIView *separteLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(button.frame), CGRectGetMaxY(button.frame), 130, 1)];
+        [separteLine setBackgroundColor:[UIColor whiteColor]];
+        [catagoryView addSubview:separteLine];
+        }
+    }
 }
 
 - (void)hideKeyboard {
@@ -203,8 +257,8 @@
 - (void)initRandButton {
     rankView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, infoTableView.bounds.size.width, 50)];
     [rankView setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:233.0/255.0 alpha:1.0]];
-    float width = (rankView.bounds.size.width - 60)/3;
-    CGRect frame = CGRectMake(30, 10, width, 30);
+    float width = (rankView.bounds.size.width - 40)/3;
+    CGRect frame = CGRectMake(20, 10, width, 30);
     //    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
     NSArray *imagesArray = @[@"all_btn" , @"new_btn", @"hot_btn"];
     for (int i = 0; i < 3; i++) {
@@ -381,7 +435,8 @@
     [self hideHUD:YES];
 }
 
-- (void)loadCatagoryDataWithIndex:(NSInteger)index {
+- (void)loadCatagoryDataWithIndex:(id)sender {
+    NSInteger index = [sender tag];
     CategoryDetailsViewController *childViewController = [[CategoryDetailsViewController alloc]init];
     [childViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+20)];
     [self.navigationController pushViewController:childViewController animated:YES];
@@ -420,6 +475,7 @@
 }
 
 - (void)buttonClick:(UIButton *)sender {
+    catagoryView.hidden = YES;
     [self refreshBottomButton:sender];
     [self hidenAllHotKeyBtn];
     [infoArray removeAllObjects];
@@ -444,6 +500,7 @@
             break;
         case 2:
             currentType = CATAGORY;
+            catagoryView.hidden = NO;
             [infoTableView setTableHeaderView:nil];
             [[self BRHeaderView].titleLabel setText:@"分类"];
             [rankView setHidden:YES];
@@ -505,8 +562,6 @@
                 return [array count];
             }
         }
-    } else if (currentType == CATAGORY) {
-        return [catagoryNames count];
     }
     return [infoArray count];
 }
@@ -533,16 +588,14 @@
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }
+            [cell.contentView setBackgroundColor:[UIColor colorWithRed:226.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:1.0]];
+            [(BookCell *)cell separateLineColor:[UIColor whiteColor]];
         }
     }
-    else if (currentType == CATAGORY){
-        if (cell == nil) {
-            cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
-            [(BookCell *)cell setTextLableText:catagoryNames[[indexPath row]]];
-        }
-    } else {
+    else if (currentType != CATAGORY){
         if (cell == nil) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
+            [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             if ([infoArray count]>0) {
                 Book *book = infoArray[indexPath.row];
                 [(BookCell *)cell setBook:book];
@@ -564,8 +617,6 @@
         }
         BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
         [self.navigationController pushViewController:childViewController animated:YES];
-    } else {
-        [self loadCatagoryDataWithIndex:indexPath.row];
     }
 }
 
@@ -604,8 +655,8 @@
 - (NSArray *)randomRect:(int)rectCount {
     NSMutableArray *rectArray = [NSMutableArray array];
     while([rectArray count] < rectCount) {
-        int x =arc4random()%220+15;    //随机坐标x
-        int y = arc4random()%220+100;//随机坐标y
+        int x =arc4random()%200+15;    //随机坐标x
+        int y = arc4random()%200+100;//随机坐标y
         CGRect rect = CGRectMake(x, y, 80, 30);
         if ([rectArray count] == 0) {
             [rectArray addObject:NSStringFromCGRect(rect)];

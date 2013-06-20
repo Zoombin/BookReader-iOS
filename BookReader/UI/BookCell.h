@@ -21,4 +21,5 @@ typedef enum {
 - (void)setTextLableText:(NSString *)name;
 - (CGFloat)height;
 - (void)hidenArrow:(BOOL)hiden;
+- (void)separateLineColor:(UIColor *)color;
 @end

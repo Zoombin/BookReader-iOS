@@ -67,7 +67,6 @@
 		18169629176FF87400E33C3C /* shelf_member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
-		1888A37316FC2A3E0046DA4C /* universal_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37116FC2A3E0046DA4C /* universal_btn_hl.png */; };
 		1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37216FC2A3E0046DA4C /* universal_btn.png */; };
 		1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37516FC3C600046DA4C /* main_view_bkg.png */; };
 		1888A39E16FD65960046DA4C /* BookStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A39D16FD65960046DA4C /* BookStoreViewController.m */; };
@@ -147,6 +146,8 @@
 		18B0D4B71764A42400F169E8 /* gift_money_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4B21764A42300F169E8 /* gift_money_hl.png */; };
 		18B0D4B81764A42400F169E8 /* gift_monthticket_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4B31764A42400F169E8 /* gift_monthticket_hl.png */; };
 		18B5C9C917717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */; };
+		18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */; };
+		18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */; };
 		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
 		18BA0AA1176FFE1600DFE9B3 /* bookstore_cata_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */; };
 		18BA0AA2176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */; };
@@ -486,7 +487,6 @@
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		186292FA17325C5300777357 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		1888A37116FC2A3E0046DA4C /* universal_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = universal_btn_hl.png; sourceTree = "<group>"; };
 		1888A37216FC2A3E0046DA4C /* universal_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = universal_btn.png; sourceTree = "<group>"; };
 		1888A37516FC3C600046DA4C /* main_view_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_view_bkg.png; sourceTree = "<group>"; };
 		1888A39C16FD65960046DA4C /* BookStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStoreViewController.h; sourceTree = "<group>"; };
@@ -591,6 +591,8 @@
 		18B0D4B21764A42300F169E8 /* gift_money_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift_money_hl.png; sourceTree = "<group>"; };
 		18B0D4B31764A42400F169E8 /* gift_monthticket_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift_monthticket_hl.png; sourceTree = "<group>"; };
 		18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone_qqreader_Center_icon_bg@2x.png"; sourceTree = "<group>"; };
+		18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_search_btn.png; sourceTree = "<group>"; };
+		18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_search_btn@2x.png"; sourceTree = "<group>"; };
 		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_cata_hl.png; sourceTree = "<group>"; };
 		18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_cata_hl@2x.png"; sourceTree = "<group>"; };
@@ -1194,7 +1196,6 @@
 				1888A3C11701634C0046DA4C /* nav_bookstorebtn.png */,
 				1888A3C21701634C0046DA4C /* nav_private.png */,
 				1888A37516FC3C600046DA4C /* main_view_bkg.png */,
-				1888A37116FC2A3E0046DA4C /* universal_btn_hl.png */,
 				1888A37216FC2A3E0046DA4C /* universal_btn.png */,
 			);
 			path = localBook;
@@ -1255,6 +1256,8 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */,
+				18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */,
 				18BA0AB51770294E00DFE9B3 /* all_btn_hl@2x.png */,
 				18BA0AB61770294E00DFE9B3 /* all_btn@2x.png */,
 				18BA0AB71770294E00DFE9B3 /* hot_btn_hl@2x.png */,
@@ -2093,7 +2096,6 @@
 				8B453D1D16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png in Resources */,
 				773B39A116CF229C00AAAF28 /* BookDoc in Resources */,
 				188FE62716F84510009561CB /* Localizable.strings in Resources */,
-				1888A37316FC2A3E0046DA4C /* universal_btn_hl.png in Resources */,
 				1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */,
 				1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */,
 				1888A3C31701634C0046DA4C /* nav_bookstorebtn.png in Resources */,
@@ -2246,6 +2248,8 @@
 				18BA0AC9177069F700DFE9B3 /* universal_btn_r@2x.png in Resources */,
 				18BA0ACA177069F700DFE9B3 /* universal_btn@2x.png in Resources */,
 				18B5C9C917717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png in Resources */,
+				18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */,
+				18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
