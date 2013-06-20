@@ -348,10 +348,11 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
-+ (void)recommendBooksWithBlock:(void (^)(NSArray *resultArray, NSError *error))block
++ (void)recommendBooksIndex:(NSInteger)index
+                  WithBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[]];
-    [parameters setObject:@(2).stringValue forKey:@"type"];
+    [parameters setObject:@(index).stringValue forKey:@"type"];
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);

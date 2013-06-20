@@ -78,7 +78,7 @@
         catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
         hotkeyNames = @[@"武侠",@"穿越",@"重生",@"总裁",@"玄幻",@"经典",@"天才",@"医生",@"经理",@"老板"];
 		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
-
+        
         hotkeyBtns = [NSMutableArray array];
         recommendArray = [[NSMutableArray alloc] init];
         buttonArrays = [[NSMutableArray alloc] init];
@@ -104,7 +104,7 @@
         currentType = RECOMMEND;
         [infoTableView setTableFooterView:nil];
         [rankView setHidden:YES];
-        [self loadRecommendData];
+        [self loadRecommendDataWithIndex:1];
         [infoTableView setHidden:NO];
         [[self BRHeaderView].titleLabel setText:@"推荐"];
         NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
@@ -189,7 +189,7 @@
     [self.view addSubview:infoTableView];
     
     [self initRandButton];
-
+    
     gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [backgroundView addGestureRecognizer:gestureRecognizer];
     
@@ -205,7 +205,7 @@
     [rankView setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:233.0/255.0 alpha:1.0]];
     float width = (rankView.bounds.size.width - 60)/3;
     CGRect frame = CGRectMake(30, 10, width, 30);
-//    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
+    //    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
     NSArray *imagesArray = @[@"all_btn" , @"new_btn", @"hot_btn"];
     for (int i = 0; i < 3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -334,21 +334,25 @@
     [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
 }
 
-- (void)loadRecommendData
+- (void)loadRecommendDataWithIndex:(NSInteger)index
 {
+    if (index==1) {
+        [self displayHUD:@"加载中..."];
+        [infoArray removeAllObjects];
+    }
     [infoTableView setHidden:NO];
-    [self displayHUD:@"加载中..."];
-    [ServiceManager recommendBooksWithBlock:^(NSArray *resultArray, NSError *error) {
-        if (error) {
-            [self displayHUDError:nil message:NETWORK_ERROR];
-        }else {
-            if ([infoArray count]>0) {
-                [infoArray removeAllObjects];
-            }
-            [infoArray addObjectsFromArray:resultArray];
-            [self refreshRecommendDataWithArray:infoArray];
-        }
-    }];
+    [ServiceManager recommendBooksIndex:index
+                              WithBlock:^(NSArray *resultArray, NSError *error) {
+                                  if (error) {
+                                      [self displayHUDError:nil message:NETWORK_ERROR];
+                                  }else {
+                                      [infoArray addObjectsFromArray:resultArray];
+                                      [self refreshRecommendDataWithArray:infoArray];
+                                      if (index<=5) {
+                                          [self loadRecommendDataWithIndex:index+1];
+                                      }
+                                  }
+                              }];
 }
 
 - (void)refreshRecommendDataWithArray:(NSArray *)array
@@ -427,7 +431,7 @@
             [infoTableView setTableHeaderView:nil];
             [[self BRHeaderView].titleLabel setText:@"推荐"];
             [rankView setHidden:YES];
-            [self loadRecommendData];
+            [self loadRecommendDataWithIndex:1];
             [infoTableView setHidden:NO];
             break;
         case 1:
@@ -540,8 +544,8 @@
         if (cell == nil) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             if ([infoArray count]>0) {
-            Book *book = infoArray[indexPath.row];
-            [(BookCell *)cell setBook:book];
+                Book *book = infoArray[indexPath.row];
+                [(BookCell *)cell setBook:book];
             }
         }
     }

@@ -101,7 +101,8 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
        withBlock:(void (^)(NSArray *resultArray, NSError *error))block;
 
 //获取推荐信息
-+ (void)recommendBooksWithBlock:(void (^)(NSArray *resultArray, NSError *error))block;
++ (void)recommendBooksIndex:(NSInteger)index
+                  WithBlock:(void (^)(NSArray *resultArray, NSError *error))block;
 
 //获取图书详情
 + (void)bookDetailsByBookId:(NSString *)bookid
