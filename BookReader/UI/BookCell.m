@@ -84,11 +84,11 @@
             
              catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-30, 14, 6, 12)];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
-            [self addSubview:catagoryImage];
+            [self.contentView addSubview:catagoryImage];
         }
-		separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.contentView.frame.size.width - 10, 1)];
+		separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height-1, self.contentView.frame.size.width - 10, 1)];
 		[separateLine setBackgroundColor:[UIColor lightGrayColor]];
-		[self addSubview:separateLine];
+		[self.contentView addSubview:separateLine];
     }
     return self;
 }
