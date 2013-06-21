@@ -69,6 +69,8 @@
     NSArray *hotkeyNames;
     NSMutableArray *hotkeyBtns;
 	NSArray *hotwordsColors;
+    
+    BOOL isLoading;
 }
 
 - (id)init
@@ -76,6 +78,7 @@
     self = [super init];
     if (self) {
         // Custom initialization
+        isLoading = NO;
         catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
         hotkeyNames = @[@"武侠",@"穿越",@"重生",@"总裁",@"玄幻",@"经典",@"天才",@"医生",@"经理",@"老板"];
 		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
@@ -371,6 +374,7 @@
                          [infoArray addObjectsFromArray:resultArray];
                          currentIndex++;
                          [infoTableView reloadData];
+                         isLoading = NO;
                          [self hideHUD:YES];
                      }
                  }];
@@ -681,8 +685,11 @@
 {
     if (currentType==RANK||currentType==SEARCH) {
         if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
-            NSLog(@"可刷新");
-            [self getMore];
+            if (!isLoading) {
+                isLoading = YES;
+                NSLog(@"可刷新");
+                [self getMore];
+            }
         }
     }
 }

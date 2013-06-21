@@ -50,7 +50,6 @@ static NSNumber *sUserID;
 + (void)saveUserID:(NSNumber *)userID
 {
 	sUserID = userID;
-	NSLog(@"saveUserID: %@", userID);
     [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:USER_ID];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -143,7 +142,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 	parameters[@"username"] = phoneNumber;
     [[ServiceManager shared] postPath:@"PostVerifyCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         if (block) {
             block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG] ? YES :NO,[theObject objectForKey:@"error"],nil);
         }
@@ -184,7 +182,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"pwd" : [password md516]}]];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         Member *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [Member createWithAttributes:theObject[@"user"]];
@@ -223,7 +220,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}]];
     [[ServiceManager shared] postPath:@"PostFindPasswordCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         if (block) {
             block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG] ? YES :NO, [theObject objectForKey:@"error"], nil);
         }
@@ -242,7 +238,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"yzm" : verifyCode}, @{@"pwd" : [newPassword md516]}]];
     [[ServiceManager shared] postPath:@"FindPassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"success=>%@",theObject);
         if (block) {
             block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG] ? YES :NO, [theObject objectForKey:@"error"], nil);
         }
@@ -330,10 +325,8 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
        withBlock:(void (^)(NSArray *resultArray, NSError *error))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"keyword" : keyword}, @{@"classid" : @(classid).stringValue}, @{@"ranking" : @(ranking).stringValue}, @{@"size" : size}, @{@"index" : index}]];
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Search.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSMutableArray *bookListsArray = [@[] mutableCopy];
         if ([theObject[@"bookList"] isKindOfClass:[NSArray class]]) {
 			[bookListsArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
@@ -355,7 +348,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [parameters setObject:@(index).stringValue forKey:@"type"];
     [[ServiceManager shared] postPath:@"GetRecommend.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSArray *bookListArray = [theObject objectForKey:@"bookList"];
         NSMutableArray *resultArray = [@[] mutableCopy];
 		[resultArray addObjectsFromArray:[Book createWithAttributesArray:bookListArray andExtra:nil]];
@@ -375,10 +367,8 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 {
     NSString *introValue = intro ? @"1" : @"0";
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"intro" : introValue}]];
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"GetBookDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSMutableDictionary *dict = [theObject objectForKey:@"book"];
         [dict setObject:theObject[@"props"] forKey:@"props"];
         Book *book = (Book *)[Book createWithAttributes:dict];
@@ -481,7 +471,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 	parameters[@"noctx"] = @"0";
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         if (block) {
             if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
                 block([[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"],YES, nil);
@@ -502,17 +491,14 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     parameters[@"userid"] = [self userID];
     parameters[@"size"] = @"5000";//客户端请求5000本上限
     parameters[@"index"] = @"1";//从第一页开始请求
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-        NSLog(@"%@",theObject);
 		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
         if (block) {
             block(bookList, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@",error.description);
         if (block) {
             block(nil, error);
         }
@@ -568,7 +554,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     parameters[@"bookid"] = bookid;
     parameters[@"content"] = content;
 //    parameters[@"ip"] = [self ipAddress];
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -591,7 +576,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     parameters[@"count"] = count;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
 			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
@@ -615,7 +599,6 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     parameters[@"count"] = count;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
 			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
@@ -702,12 +685,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,channel,@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
-    NSLog(@"%@",signString);
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : channel,@"username" :name,@"sign" : [signString md532],@"mobile" :num};
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
             if (block) {
                 block(@"",nil);
             }
@@ -723,15 +703,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
-    NSLog(@"%@",signString);
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : @"5",@"username" :name,@"sign" : [signString md532], @"cardNo" : cardNum, @"cardPassword" :password};
-    NSLog(@"%@",parameters);
-    
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"%@",operation.request.URL);
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",[theObject objectForKey:@"error"]);
-        NSLog(@"%@",theObject);
         if (block) {
             block(@"",nil);
         }
@@ -748,13 +722,11 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-        NSLog(@"%@",theObject);
 		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
         if (block) {
             block(bookList, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@",error.description);
         if (block) {
             block(nil, error);
         }

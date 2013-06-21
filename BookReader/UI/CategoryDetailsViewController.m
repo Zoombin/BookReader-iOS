@@ -25,12 +25,14 @@
     NSMutableArray *infoArray;
     int catagoryId;
     int currentIndex;
+    BOOL isLoading;
 }
 
 - (id)init
 {
     self = [super init];
     if (self) {
+        isLoading = NO;
         currentIndex = 1;
         catagoryId = 0;
         infoArray = [[NSMutableArray alloc] init];
@@ -89,6 +91,7 @@
                              [infoTableView setTableFooterView:nil];
                          }
                          [self hideHUD:YES];
+                         isLoading = NO;
                      }
                  }];
     
@@ -97,8 +100,11 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
-        NSLog(@"可刷新");
-        [self getMore];
+        if (!isLoading) {
+            isLoading = YES;
+            NSLog(@"可刷新");
+            [self getMore];
+        }
     }
 }
 
