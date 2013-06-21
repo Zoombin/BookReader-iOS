@@ -29,7 +29,7 @@
     BookReadMenuView *menuView;
 	CGRect menuRect;
 	CGRect nextRect;
-
+    
     NSMutableArray *pages;
     NSInteger currentPageIndex;
     Chapter *chapter;
@@ -99,7 +99,7 @@
 	//TODO:targe
     [self.view addSubview:menuView];
     menuView.hidden = YES;
-
+    
 	//if (YES) {//TOTEST
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:UserDefaultKeyNotFirstRead]) {
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:UserDefaultKeyNotFirstRead];
@@ -115,18 +115,20 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	Chapter *aChapter;
-	
-	_book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.uid]];
-	
-	if (_book.lastReadChapterID) {//最近读过
-		aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", _book.lastReadChapterID]];
-	} else {//没读过，从第0章开始
-		aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=0", _book.uid]];
-	}
-	
-	NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
-	[self gotoChapter:aChapter withReadIndex:nil];
+    if (!self.bDetail) {
+        Chapter *aChapter;
+        
+        _book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.uid]];
+        
+        if (_book.lastReadChapterID) {//最近读过
+            aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", _book.lastReadChapterID]];
+        } else {//没读过，从第0章开始
+            aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=0", _book.uid]];
+        }
+        
+        NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
+        [self gotoChapter:aChapter withReadIndex:nil];
+    }
 }
 
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
@@ -453,7 +455,7 @@
 	[self gotoChapter:aChapter withReadIndex:nil];
 }
 
-#pragma mark - 
+#pragma mark -
 - (void)didSelect:(id)selected
 {
 	if ([selected isKindOfClass:[Chapter class]]) {

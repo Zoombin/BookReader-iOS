@@ -30,6 +30,7 @@
 #import "CommentCell.h"
 #import "BookShelfButton.h"
 #import "BookReader.h"
+#import "Mark.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -47,18 +48,21 @@
     UIView *authorBookView;
     
     UITextField *commitField;
-    UIView *secondView;
     UIButton *sendCommitButton;
     UITextView *shortdescribeTextView;
     UITableView *infoTableView;
     UITableView *shortInfoTableView;
     UITableView *recommendTableView;
     UITableView *authorBookTableView;
+    UITableView *chapterListTableView;
+    
+    NSMutableArray *headerBtnsArray;
     
     NSMutableArray *infoArray;
     NSMutableArray *shortInfoArray;
     NSMutableArray *authorBookArray;
     NSMutableArray *sameTypeBookArray;
+    NSMutableArray *chapterArray;
     BOOL bFav;
     
     UIButton *shortDescribe;
@@ -79,6 +83,7 @@
     UILabel *diamondLabel;
     UILabel *rewardLabel;
     
+    UIView *commitHeaderView;
     UIImageView *bookCover;
     
     UIButton *favButton;
@@ -93,6 +98,8 @@
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         shortInfoArray = [[NSMutableArray alloc] init];
+        headerBtnsArray = [[NSMutableArray alloc] init];
+        chapterArray = [[NSMutableArray alloc] init];
         bFav = NO;
         currentIndex = 1;
         
@@ -153,28 +160,48 @@
     }
 }
 
-- (void)coverButtonClicked
+- (void)coverButtonClicked:(id)sender
 {
     NSLog(@"封面");
+    [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:coverView];
 }
 
-- (void)chapterButtonClicked
+- (void)chapterButtonClicked:(id)sender
 {
     NSLog(@"章节");
+    if ([chapterArray count]==0) {
+        [self loadChapterList];
+    }
+    [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:chapterListView];
 }
 
-- (void)commentButtonClicked
+- (void)commentButtonClicked:(id)sender
 {
     NSLog(@"评论");
+    [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:commentView];
 }
 
-- (void)authorButtonClicked
+- (void)authorButtonClicked:(id)sender
 {
     NSLog(@"作者书籍");
+    [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:authorBookView];
+}
+
+- (void)refreshBtnWithButton:(id)sender
+{
+    [commitField resignFirstResponder];
+    for (int i = 0; i < [headerBtnsArray count]; i ++) {
+        UIButton *btn = [headerBtnsArray objectAtIndex:i];
+        if (sender != btn) {
+            [btn setTitleColor:[UIColor colorWithRed:138.0/255.0 green:124.0/255.0 blue:105.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        } else {
+            [btn setTitleColor:[UIColor colorWithRed:192.0/255.0 green:106.0/255.0 blue:46.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void)viewDidLoad
@@ -182,7 +209,7 @@
     [super viewDidLoad];
     [self setTitle:book.name];
     CGSize fullSize = self.view.bounds.size;
-    CGRect modelViewFrame = CGRectMake(4, 46 + 30, fullSize.width-8, self.view.bounds.size.height-56 - 30);
+    CGRect modelViewFrame = CGRectMake(4, 46 + 30, fullSize.width-8, self.view.bounds.size.height - 56 - 25);
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
@@ -216,19 +243,21 @@
         }
     }
     [self.view bringSubviewToFront:coverView];
- 
-    NSArray *selectors =  @[@"coverButtonClicked",@"chapterButtonClicked",@"commentButtonClicked",@"authorButtonClicked"];
+    
+    NSArray *selectors =  @[@"coverButtonClicked:",@"chapterButtonClicked:",@"commentButtonClicked:",@"authorButtonClicked:"];
     NSInteger width = (fullSize.width-8)/4;
     NSArray *tabbarStrings = @[@"封面",@"目录",@"书评",@"作者作品"];
     for (int i = 0; i<[tabbarStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor grayColor]];
+        [button setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]];
         [button addTarget:self action:NSSelectorFromString(selectors[i]) forControlEvents:UIControlEventTouchUpInside];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(4 + width * i, 46, width, 30)];
         [self.view addSubview:button];
+        [headerBtnsArray addObject:button];
     }
+    [self refreshBtnWithButton:headerBtnsArray[0]];
     
     bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 90/1.2, 115/1.2)];
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
@@ -286,7 +315,7 @@
     [commentTitle setText:@"\t\t评论"];
     [coverView addSubview:commentTitle];
     
-     shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 200) style:UITableViewStylePlain];
+    shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 200) style:UITableViewStylePlain];
     [shortInfoTableView setDelegate:self];
     [shortInfoTableView setDataSource:self];
     [shortInfoTableView setBackgroundColor:[UIColor clearColor]];
@@ -315,7 +344,33 @@
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [commentView addSubview:infoTableView];
     
-
+    UIView *commentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, infoTableView.frame.size.width, 50)];
+    [commentHeaderView setBackgroundColor:[UIColor clearColor]];
+    
+    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 6, 200, 38)];
+    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [commitField.layer setCornerRadius:5];
+    [commitField setDelegate:self];
+    [commitField setReturnKeyType:UIReturnKeyDone];
+    [commitField.layer setBorderColor:[UIColor blackColor].CGColor];
+    [commitField.layer setBorderWidth:0.5];
+    [commitField setBackgroundColor:[UIColor whiteColor]];
+    [commentHeaderView addSubview:commitField];
+    
+    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(commentView.bounds.size.width-80, 6, 60, 38)];
+    [sendCommitbutton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [sendCommitbutton setTitle:@"发表" forState:UIControlStateNormal];
+    [sendCommitbutton setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
+    [commentHeaderView addSubview:sendCommitbutton];
+    
+    [infoTableView setTableHeaderView:commentHeaderView];
+    
+    chapterListTableView = [[UITableView alloc]initWithFrame:chapterListView.bounds style:UITableViewStylePlain];
+    [chapterListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [chapterListTableView setBackgroundColor:[UIColor clearColor]];
+    [chapterListTableView setDelegate:self];
+    [chapterListTableView setDataSource:self];
+    [chapterListView addSubview:chapterListTableView];
     
     authorBookTableView = [[UITableView alloc]initWithFrame:authorBookView.bounds style:UITableViewStylePlain];
     [authorBookTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -373,17 +428,38 @@
         }];
     }
     
-   
+    
     [self loadShortCommitList];
     [self loadCommitList];
     
-
+    
     
     [shortdescribeTextView setText:book.describe];
     
     [self loadAuthorOtherBook];
     [self loadSameType];
     [self removeGestureRecognizer];
+}
+
+- (void)loadChapterList
+{
+    [book persistWithBlock:^(void) {//下载章节目录
+        [self displayHUD:@"获取章节目录..."];
+        [ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
+            if (!error) {
+                [Chapter persist:resultArray withBlock:^(void) {
+					[self hideHUD:YES];
+                    [chapterArray removeAllObjects];
+					[chapterArray addObjectsFromArray:resultArray];
+                    NSLog(@"%@",chapterArray);
+                    [chapterListTableView reloadData];
+                }];
+            } else {
+				[self hideHUD:YES];
+                [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
+            }
+        }];
+    }];
 }
 
 - (void)readButtonClicked:(id)sender
@@ -461,38 +537,30 @@
     }];
 }
 
-- (void)sendCommitButtonClicked
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if ([self checkLogin] == NO)
-        return;
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请输入评论内容"
-                                                    message:@"评论内容在此输入"
-                                                   delegate:self
-                                          cancelButtonTitle:@"取消"
-                                          otherButtonTitles:@"发送", nil];
-    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 45, 260, 25)];
-    [commitField setBackgroundColor:[UIColor whiteColor]];
-    [alert addSubview:commitField];
-    [alert show];
+    [self sendCommitButtonClicked];
+    return YES;
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)sendCommitButtonClicked
 {
-    if (buttonIndex==1)
-    {
-        [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error)
-         {
-             if (error)
-             {
-                 
-             }
-             else
-             {
-                 [self showAlertWithMessage:message];
-                 [self loadCommitList];
-             }
-         }];
+    [commitField resignFirstResponder];
+    if ([self checkLogin] == NO) {
+        return;
     }
+    [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error)
+     {
+         if (error)
+         {
+             
+         }
+         else
+         {
+             [self showAlertWithMessage:message];
+             [self loadCommitList];
+         }
+     }];
 }
 
 - (void)loadShortCommitList
@@ -527,6 +595,16 @@
     CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 	controller.book = book;
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)pushToReadViewWithChapter:(Chapter *)obj
+{
+    CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+	controller.book = book;
+    controller.bDetail = YES;
+    [controller gotoChapter:obj withReadIndex:nil];
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
@@ -587,9 +665,9 @@
         return [shortInfoArray count];
     } else if (tableView == recommendTableView) {
         return [sameTypeBookArray count];
-    }
-    else if (tableView == authorBookTableView){
-        
+    } else if (tableView == chapterListTableView) {
+        return [chapterArray count];
+    } else if (tableView == authorBookTableView){
         return [authorBookArray count];
     }
     return 0;
@@ -602,10 +680,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (tableView == recommendTableView) {
-		BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-		return [cell height];
-	} else if (tableView == infoTableView||tableView == shortInfoTableView){
+    if (tableView == infoTableView||tableView == shortInfoTableView){
         CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell height];
     } else {
@@ -634,6 +709,15 @@
             Comment *obj = [shortInfoArray objectAtIndex:[indexPath row]];
             [(CommentCell *)cell setComment:obj];
         }
+    } else if (tableView == chapterListTableView) {
+        if (cell == nil) {
+            cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
+            [(BookCell *)cell setTextLableText:obj.name];
+            cell.detailTextLabel.textColor = [UIColor redColor];
+            cell.detailTextLabel.text = [obj.bVip boolValue] ? @"v" : @"";
+        }
     }
     else {
         if (cell == nil) {
@@ -658,7 +742,9 @@
 		Book *b = booksArray[indexPath.row];
 		BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:b.uid];
 		[self.navigationController pushViewController:childViewController animated:YES];
-	}
+	} else if (tableView == chapterListTableView) {
+        [self pushToReadViewWithChapter:chapterArray[indexPath.row]];
+    }
 }
 
 - (void)addFootView

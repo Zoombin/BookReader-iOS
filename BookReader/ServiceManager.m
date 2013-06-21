@@ -567,7 +567,8 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"content"] = content;
-    parameters[@"ip"] = [self ipAddress];
+//    parameters[@"ip"] = [self ipAddress];
+    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {

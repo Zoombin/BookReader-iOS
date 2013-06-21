@@ -82,7 +82,7 @@
             [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
             [self.contentView addSubview:nameLabel];
             
-             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-50, 10, 12, 18)];
+             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-30, 14, 6, 12)];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self addSubview:catagoryImage];
         }
@@ -119,6 +119,9 @@
     }
     if (book.author) {
         [authorLabel setText:[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AuthorName", nil),book.author]];
+        if (myStyle == BookCellStyleSmall) {
+            authorLabel.text = book.author;
+        }
     }
     if (book.category) {
         categoryLabel.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CategoryName", nil), book.category];

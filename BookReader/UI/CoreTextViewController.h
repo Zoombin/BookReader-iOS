@@ -17,4 +17,6 @@
     MFMessageComposeViewController *messageComposeViewController; 
 }
 @property (nonatomic, strong) Book *book;
+@property (nonatomic, assign) BOOL bDetail;
+- (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex;
 @end
