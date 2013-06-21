@@ -65,6 +65,8 @@
 		18169627176FF87400E33C3C /* refresh_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961C176FF87400E33C3C /* refresh_btn@2x.png */; };
 		18169628176FF87400E33C3C /* refresh_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961D176FF87400E33C3C /* refresh_mark@2x.png */; };
 		18169629176FF87400E33C3C /* shelf_member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */; };
+		1824787E1774215E00AB1C81 /* yellow_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1824787C1774215E00AB1C81 /* yellow_btn.png */; };
+		1824787F1774215E00AB1C81 /* yellow_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1824787D1774215E00AB1C81 /* yellow_btn@2x.png */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37216FC2A3E0046DA4C /* universal_btn.png */; };
@@ -148,6 +150,7 @@
 		18B5C9C917717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */; };
 		18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */; };
 		18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */; };
+		18B5C9D01773DD72004AAA16 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C9CF1773DD71004AAA16 /* Book.m */; };
 		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
 		18BA0AA1176FFE1600DFE9B3 /* bookstore_cata_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */; };
 		18BA0AA2176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */; };
@@ -208,7 +211,6 @@
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C67261744652500909D6A /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C67251744652500909D6A /* Chapter.m */; };
-		779C67291744652600909D6A /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C67281744652600909D6A /* Book.m */; };
 		779C672C17446DCD00909D6A /* ContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* ContextManager.m */; };
 		77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */; };
 		77A1DB941730DF0A002BE306 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */; };
@@ -483,6 +485,8 @@
 		1816961C176FF87400E33C3C /* refresh_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh_btn@2x.png"; sourceTree = "<group>"; };
 		1816961D176FF87400E33C3C /* refresh_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh_mark@2x.png"; sourceTree = "<group>"; };
 		1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shelf_member_btn@2x.png"; sourceTree = "<group>"; };
+		1824787C1774215E00AB1C81 /* yellow_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_btn.png; sourceTree = "<group>"; };
+		1824787D1774215E00AB1C81 /* yellow_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellow_btn@2x.png"; sourceTree = "<group>"; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -593,6 +597,8 @@
 		18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone_qqreader_Center_icon_bg@2x.png"; sourceTree = "<group>"; };
 		18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_search_btn.png; sourceTree = "<group>"; };
 		18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_search_btn@2x.png"; sourceTree = "<group>"; };
+		18B5C9CE1773DD71004AAA16 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		18B5C9CF1773DD71004AAA16 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_cata_hl.png; sourceTree = "<group>"; };
 		18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_cata_hl@2x.png"; sourceTree = "<group>"; };
@@ -659,8 +665,6 @@
 		779C6722174461F000909D6A /* Chapter+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chapter+Setup.m"; sourceTree = "<group>"; };
 		779C67241744652500909D6A /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
 		779C67251744652500909D6A /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
-		779C67271744652600909D6A /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
-		779C67281744652600909D6A /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		779C672A17446DCD00909D6A /* ContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextManager.h; sourceTree = "<group>"; };
 		779C672B17446DCD00909D6A /* ContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextManager.m; sourceTree = "<group>"; };
 		77A1DB8F1730DF0A002BE306 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+Appearance.h"; path = "BookReader/MBProgressHUD+Appearance.h"; sourceTree = SOURCE_ROOT; };
@@ -1078,8 +1082,6 @@
 				18ABAF301724FB1D00ED02C6 /* Member.h */,
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
-				779C67271744652600909D6A /* Book.h */,
-				779C67281744652600909D6A /* Book.m */,
 				779C67241744652500909D6A /* Chapter.h */,
 				779C67251744652500909D6A /* Chapter.m */,
 				7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */,
@@ -1093,6 +1095,8 @@
 				77B01C1C175090B2004E426C /* Mark.m */,
 				18A7FF40176087C900F97099 /* Book+Local.h */,
 				18A7FF41176087C900F97099 /* Book+Local.m */,
+				18B5C9CE1773DD71004AAA16 /* Book.h */,
+				18B5C9CF1773DD71004AAA16 /* Book.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1256,6 +1260,8 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				1824787C1774215E00AB1C81 /* yellow_btn.png */,
+				1824787D1774215E00AB1C81 /* yellow_btn@2x.png */,
 				18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */,
 				18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */,
 				18BA0AB51770294E00DFE9B3 /* all_btn_hl@2x.png */,
@@ -2250,6 +2256,8 @@
 				18B5C9C917717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png in Resources */,
 				18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */,
 				18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */,
+				1824787E1774215E00AB1C81 /* yellow_btn.png in Resources */,
+				1824787F1774215E00AB1C81 /* yellow_btn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2412,7 +2420,6 @@
 				779C6720174461DB00909D6A /* Book+Setup.m in Sources */,
 				779C6723174461F000909D6A /* Chapter+Setup.m in Sources */,
 				779C67261744652500909D6A /* Chapter.m in Sources */,
-				779C67291744652600909D6A /* Book.m in Sources */,
 				779C672C17446DCD00909D6A /* ContextManager.m in Sources */,
 				77E3E2F7174B6E6100FCCD91 /* UIColor+Hex.m in Sources */,
 				18A0C6AD174C7F4C003FC599 /* Reachability.m in Sources */,
@@ -2421,6 +2428,7 @@
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
 				77B01C1D175090B2004E426C /* Mark.m in Sources */,
 				18A7FF42176087C900F97099 /* Book+Local.m in Sources */,
+				18B5C9D01773DD72004AAA16 /* Book.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

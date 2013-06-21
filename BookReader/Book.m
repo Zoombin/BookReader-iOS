@@ -2,11 +2,12 @@
 //  Book.m
 //  BookReader
 //
-//  Created by zhangbin on 5/16/13.
-//  Copyright (c) 2013 颜超. All rights reserved.
+//  Created by 颜超 on 13-6-21.
+//  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
 #import "Book.h"
+
 
 @implementation Book
 
@@ -15,6 +16,7 @@
 @dynamic autoBuy;
 @dynamic bCover;
 @dynamic bFav;
+@dynamic bFinish;
 @dynamic category;
 @dynamic categoryID;
 @dynamic cover;
@@ -28,5 +30,13 @@
 @dynamic uid;
 @dynamic updateDate;
 @dynamic words;
+@dynamic lastChapterName;
+@dynamic bVip;
+@dynamic diamond;
+@dynamic comment;
+@dynamic commentPersons;
+@dynamic reward;
+@dynamic rewardPersons;
+@dynamic flower;
 
 @end

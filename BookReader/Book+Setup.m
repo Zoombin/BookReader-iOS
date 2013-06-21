@@ -22,14 +22,25 @@
 	book.autoBuy = attributes[@"auto"];
 	book.name = attributes[@"bookName"];
 	book.category = attributes[@"className"];
+    book.bVip = attributes[@"isVip"];
 	book.recommendID = attributes[@"recId"];
 	book.recommendTitle = attributes[@"recTitle"];
 	book.describe = attributes[@"intro"];
 	book.words = attributes[@"length"];
+    book.lastChapterName = attributes[@"lastChapterName"];
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
 	book.updateDate = [NSDate date];
 	book.bCover = attributes[@"cover"];
+    book.bFinish = attributes[@"undone"];
+    if (attributes[@"props"]) {
+        book.comment = attributes[@"props"][@"comment"];
+        book.commentPersons = attributes[@"props"][@"commentPersons"];
+        book.diamond = attributes[@"props"][@"diamond"];
+        book.flower = attributes[@"props"][@"flower"];
+        book.reward = attributes[@"props"][@"reward"];
+        book.rewardPersons = attributes[@"props"][@"rewardPersons"];
+    }
 	if (attributes[@"bookId"]) {
 		book.uid = [attributes[@"bookId"] stringValue];
 	} else if (attributes[@"bookid"]) {
@@ -97,17 +108,26 @@
     book.autoBuy = self.autoBuy;
 	book.bCover = self.bCover;
     book.bFav = self.bFav;
+    book.bVip = self.bVip;
+    book.bFinish = self.bFinish;
     book.category = self.category;
     book.categoryID = self.categoryID;
+    book.comment = self.comment;
+    book.commentPersons = self.commentPersons;
     //book.cover = self.cover;
     book.coverURL = self.coverURL;
     book.describe = self.describe;
+    book.diamond = self.diamond;
+    book.flower = self.flower;
+    book.lastChapterName = self.lastChapterName;
     //book.lastReadChapterID = self.lastReadChapterID;
     book.lastUpdate = self.lastUpdate;
     book.name = self.name;
     //book.rDate = self.rDate;
     book.recommendID = self.recommendID;
     book.recommendTitle = self.recommendTitle;
+    book.reward = self.reward;
+    book.rewardPersons = self.rewardPersons;
     book.uid = self.uid;
 	//book.updateDate = self.updateDate;
     book.words = self.words;

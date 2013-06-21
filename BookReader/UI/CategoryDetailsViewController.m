@@ -42,7 +42,7 @@
     [super viewDidLoad];
     
     infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 50, self.view.bounds.size.width-10, self.view.bounds.size.height-54) style:UITableViewStylePlain];
-    [infoTableView setBackgroundColor:[UIColor whiteColor]];
+    [infoTableView setBackgroundColor:[UIColor clearColor]];
     [infoTableView.layer setCornerRadius:5];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setDataSource:self];

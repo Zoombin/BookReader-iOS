@@ -149,7 +149,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(20*(i+1)+i*width, self.view.bounds.size.height-48, width, 46)];
+        [button setFrame:CGRectMake(20*(i+1)+i*width, self.view.bounds.size.height-48, width, 50)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
@@ -168,13 +168,14 @@
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
-    [_searchBar setPlaceholder:@"请输入关键字"];
+    [_searchBar setPlaceholder:@"请输入书名、作者"];
     UITextField *searchField;
 	NSUInteger numViews = [_searchBar.subviews count];
 	for(int i = 0; i < numViews; i++) {
 		if([[_searchBar.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) { //conform?
 			searchField = [_searchBar.subviews objectAtIndex:i];
             [searchField setBorderStyle:UITextBorderStyleRoundedRect];
+            searchField.leftView = nil;
 		}
 	}
     [_searchBar layoutSubviews];
@@ -260,11 +261,11 @@
     float width = (rankView.bounds.size.width - 40)/3;
     CGRect frame = CGRectMake(20, 10, width, 30);
     //    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
-    NSArray *imagesArray = @[@"all_btn" , @"new_btn", @"hot_btn"];
+    NSArray *imagesArray = @[@"all_btn_hl" , @"new_btn_hl", @"hot_btn_hl"];
     for (int i = 0; i < 3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i==0) {
-            [button setBackgroundImage:[UIImage imageNamed:@"all_btn_hl"] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:@"all_btn"] forState:UIControlStateNormal];
         } else {
             [button setBackgroundImage:[UIImage imageNamed:imagesArray[i]] forState:UIControlStateNormal];
         }
@@ -335,8 +336,8 @@
 }
 
 - (void)changeRankButtonImage:(UIButton *)sender {
-    NSArray *highlightImages = @[@"all_btn_hl", @"new_btn_hl", @"hot_btn_hl"];
-    NSArray *images = @[@"all_btn", @"new_btn", @"hot_btn"];
+    NSArray *highlightImages = @[@"all_btn", @"new_btn", @"hot_btn"];
+    NSArray *images = @[@"all_btn_hl", @"new_btn_hl", @"hot_btn_hl"];
     for (int i = 0; i<3; i++) {
         UIButton *button = rankBtns[i];
         if(sender == button) {
