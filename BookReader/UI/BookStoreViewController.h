@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
 
-@interface BookStoreViewController : BRViewController<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface BookStoreViewController : BRViewController<UIScrollViewDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 @end

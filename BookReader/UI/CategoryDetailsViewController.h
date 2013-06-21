@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
 
-@interface CategoryDetailsViewController : BRViewController<UITableViewDataSource,UITableViewDelegate>
+@interface CategoryDetailsViewController : BRViewController<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 - (void)reloadDataWithArray:(NSArray *)array andCatagoryId:(int)cataId;
 @end

@@ -94,6 +94,14 @@
     
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
+        NSLog(@"可刷新");
+        [self getMore];
+    }
+}
+
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

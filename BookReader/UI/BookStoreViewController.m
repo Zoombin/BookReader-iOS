@@ -244,9 +244,9 @@
         [button addTarget:self action:@selector(loadCatagoryDataWithIndex:) forControlEvents:UIControlEventTouchUpInside];
         [catagoryView addSubview:button];
         if (i!=9&i!=10) {
-        UIView *separteLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(button.frame), CGRectGetMaxY(button.frame), 130, 1)];
-        [separteLine setBackgroundColor:[UIColor whiteColor]];
-        [catagoryView addSubview:separteLine];
+            UIView *separteLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(button.frame), CGRectGetMaxY(button.frame), 130, 1)];
+            [separteLine setBackgroundColor:[UIColor whiteColor]];
+            [catagoryView addSubview:separteLine];
         }
     }
 }
@@ -675,6 +675,16 @@
         }
     }
     return rectArray;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (currentType==RANK||currentType==SEARCH) {
+        if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
+            NSLog(@"可刷新");
+            [self getMore];
+        }
+    }
 }
 
 @end
