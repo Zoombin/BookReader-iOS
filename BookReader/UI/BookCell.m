@@ -13,7 +13,7 @@
 #define LabelTextColor    [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:117.0/255.0 alpha:1.0]
 
 #define BigCellHeight 90.0f
-#define SmallCellHeight 30.0f
+#define SmallCellHeight 40.0f
 #define OtherCellHeight 40.0f
 
 @implementation BookCell
@@ -62,13 +62,13 @@
             [self.contentView addSubview:coverView];
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
-            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 30)];
+            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 200, 30)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
             [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
             [self.contentView addSubview:nameLabel];
             
-            authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-142, 0, 100, 30)];
+            authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-142, 5, 100, 30)];
             [authorLabel setBackgroundColor:[UIColor clearColor]];
             [authorLabel setTextAlignment:UITextAlignmentRight];
             [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
