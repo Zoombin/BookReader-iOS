@@ -6,25 +6,25 @@
         <attribute name="autoBuy" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bCover" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="bFav" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="bFinish" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bVip" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="bFinish" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bVip" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="category" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
-        <attribute name="comment" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="commentPersons" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="comment" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="commentPersons" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="cover" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="describe" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
-        <attribute name="diamond" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="flower" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="lastChapterName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="diamond" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="flower" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastChapterName" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastReadChapterID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recommendID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="recommendTitle" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reward" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="rewardPersons" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="reward" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="rewardPersons" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updateDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="words" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>

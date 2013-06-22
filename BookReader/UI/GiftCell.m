@@ -21,15 +21,19 @@
     NSArray *integralArrays;
     NSMutableArray *keyWordsArray;
     NSArray *imageNamesArray;
+    NSArray *rewardNum;
     
     UIImageView *keywordImageView;
     
     NSString *currentIntegral;
     NSMutableArray *buttonsArray;
+    NSMutableArray *rewardBtnsArray;
     
-    NSArray *normalImages;
-    NSArray *hlImages;
     UISlider *_slider;
+    UILabel *leftNumLabel;
+    UILabel *rightNumLabel;
+    UIButton *reductBtn;
+    UIButton *addBtn;
 }
 @synthesize delegate;
 
@@ -44,48 +48,64 @@
         integralArrays = @[@"不知所云",@"随便看看",@"值得一看",@"不容错过",@"经典必看"];
         keyWordsArray = [[NSMutableArray alloc] initWithArray:XXSYGiftTypesMap.allKeys];
         imageNamesArray = @[@"demand",@"flower",@"money",@"monthticket",@"comment"];
-        normalImages = @[@"integral_one",@"integral_two",@"integral_three",@"integral_four",@"integral_five"];
-        hlImages = @[@"integral_one_hl",@"integral_two_hl",@"integral_three_hl",@"integral_four_hl",@"integral_five_hl"];
-        
+        rewardNum = @[@"188",@"388",@"888",@"1888",@"8888"];
+
         buttonsArray = [[NSMutableArray alloc] init];
+        rewardBtnsArray = [[NSMutableArray alloc] init];
         
-        UIButton *reductBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [reductBtn setBackgroundImage:[UIImage imageNamed:@"gift_reduce"] forState:UIControlStateNormal];
+         reductBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [reductBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [reductBtn setTitle:@"-" forState:UIControlStateNormal];
         [reductBtn addTarget:self action:@selector(reductBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [reductBtn setFrame:CGRectMake(70, 12, 40, 21)];
+        [reductBtn setFrame:CGRectMake(70, 12, 40, 20)];
         [self.contentView addSubview:reductBtn];
         
         numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 12, 80, 20)];
         [numberTextField setText:@"1"];
-        [numberTextField.layer setBorderWidth:0.5];
-        [numberTextField.layer setBorderColor:[UIColor colorWithRed:120.0/255.0 green:65.0/255.0 blue:47.0/255.0 alpha:1.0].CGColor];
+        [numberTextField.layer setBorderWidth:1.0];
+        [numberTextField.layer setBorderColor:[UIColor colorWithRed:193.0/255.0 green:157.0/255.0 blue:85.0/255.0 alpha:1.0].CGColor];
         [numberTextField setUserInteractionEnabled:NO];
         [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [numberTextField setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:numberTextField];
         
-        UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addBtn setBackgroundImage:[UIImage imageNamed:@"gift_add"] forState:UIControlStateNormal];
+         addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [addBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [addBtn setTitle:@"+" forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [addBtn setFrame:CGRectMake(190, 12, 40, 21)];
+        [addBtn setFrame:CGRectMake(190, 12, 40, 20)];
         [self.contentView addSubview:addBtn];
     
         keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 70)];
         [self.contentView addSubview:keywordImageView];
         
-         _slider = [[UISlider alloc]initWithFrame:CGRectMake(70, 44, 160, 20)];
+        leftNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 44, 10, 20)];
+        [leftNumLabel setText:@"1"];
+        [leftNumLabel setTextColor:[UIColor grayColor]];
+        [leftNumLabel setFont:[UIFont systemFontOfSize:14]];
+        [leftNumLabel setBackgroundColor:[UIColor clearColor]];
+        [self.contentView addSubview:leftNumLabel];
+        
+         _slider = [[UISlider alloc]initWithFrame:CGRectMake(80, 44, 120, 20)];
         [_slider setMinimumValue:1];
-        [_slider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
-        [_slider setMinimumTrackTintColor:[UIColor colorWithRed:43.0/255.0 green:25.0/255.0 blue:16.0/255.0 alpha:1.0]];
-        [_slider setThumbTintColor:[UIColor colorWithRed:203.0/255.0 green:156.0/255.0 blue:133.0/255.0 alpha:1.0]];
-        [_slider setMaximumValue:1000];
+        [_slider setMaximumTrackTintColor:[UIColor colorWithRed:56.0/255.0 green:28.0/255.0 blue:15.0/255.0 alpha:1.0]];
+        [_slider setMinimumTrackTintColor:[UIColor colorWithRed:212.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0]];
+        [_slider setThumbTintColor:[UIColor colorWithRed:212.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0]];
+        [_slider setMaximumValue:10000];
         [_slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:_slider];
+        
+         rightNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 44, 40, 20)];
+        [rightNumLabel setText:@"10000"];
+        [rightNumLabel setTextColor:[UIColor grayColor]];
+        [rightNumLabel setFont:[UIFont systemFontOfSize:14]];
+        [rightNumLabel setBackgroundColor:[UIColor clearColor]];
+        [self.contentView addSubview:rightNumLabel];
     
-        UIButton *sendButton = [UIButton createButtonWithFrame:CGRectMake(self.bounds.size.width-75, 25, 55, 35)];
+        UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sendButton setFrame:CGRectMake(self.bounds.size.width-70, 25, 45, 35)];
         [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue) forControlEvents:UIControlEventTouchUpInside];
+        [sendButton setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
         [self.contentView addSubview:sendButton];
     }
@@ -106,21 +126,74 @@
     [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
 }
 
+- (void)setRewardButtonHidden:(BOOL)boolValue
+{
+    if ([rewardBtnsArray count]==0) {
+        leftNumLabel.hidden = YES;
+        rightNumLabel.hidden = YES;
+        _slider.hidden = YES;
+        reductBtn.hidden = YES;
+        addBtn.hidden = YES;
+        numberTextField.hidden = YES;
+        float width = (self.contentView.frame.size.width - 120 - 10 - 10*4)/3;
+        for (int i = 0; i< 5; i++) {
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setTag:i];
+            [button setHidden:boolValue];
+            [button addTarget:self action:@selector(rewardbuttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [button setTitle:rewardNum[i] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithRed:202.0/255.0 green:118.0/255.0 blue:24.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor whiteColor]];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+            if (i==0) {
+                [button.layer setBorderColor:[UIColor colorWithRed:190.0/255.0 green:96.0/255.0 blue:37.0/255.0 alpha:1.0].CGColor];
+                [button.layer setBorderWidth:2.0];
+            }else {
+                [button.layer setBorderColor:[UIColor grayColor].CGColor];
+                [button.layer setBorderWidth:1.0];
+            }
+            if (i > 2) {
+                [button setFrame:CGRectMake(60 + 10 * (i-2) +  width * (i-3), 45, width, 30)];
+            } else {
+                [button setFrame:CGRectMake(60 + 10 * (i+1) + width * i, 5, width, 30)];
+            }
+            [self.contentView addSubview:button];
+            [buttonsArray addObject:button];
+        }
+    } else {
+        for (int i = 0; i<[rewardBtnsArray count]; i++) {
+            UIButton *button = [rewardBtnsArray objectAtIndex:i];
+            [button setHidden:boolValue];
+        }
+    }
+}
+
 - (void)setMonthTicketButtonHidden:(BOOL)boolValue
 {
     if ([buttonsArray count]==0) {
+        float width = (self.contentView.frame.size.width - 10 - 10*4)/3;
         for (int i = 0; i< [integralArrays count]; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             [button setTag:i];
             [button setHidden:boolValue];
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [button setTitle:integralArrays[i] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithRed:202.0/255.0 green:118.0/255.0 blue:24.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor whiteColor]];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
             if (i==0) {
-                [button setImage:[UIImage imageNamed:hlImages[i]] forState:UIControlStateNormal]; 
+                [button.layer setBorderColor:[UIColor colorWithRed:190.0/255.0 green:96.0/255.0 blue:37.0/255.0 alpha:1.0].CGColor];
+                [button.layer setBorderWidth:2.0];
                 currentIntegral = @"1";
             }else {
-                [button setImage:[UIImage imageNamed:normalImages[i]] forState:UIControlStateNormal];
+                [button.layer setBorderColor:[UIColor grayColor].CGColor];
+                [button.layer setBorderWidth:1.0];
             }
-            [button setFrame:CGRectMake(5+50*i+i*(self.bounds.size.width-20-50*5)/4, 80, 50, 50)];
+            if (i > 2) {
+                [button setFrame:CGRectMake(10 * (i-2) + width * (i-3), 80+40, width, 30)];
+            } else {
+                [button setFrame:CGRectMake(10 * (i+1) + width * i, 80, width, 30)];
+            }
             [self.contentView addSubview:button];
             [buttonsArray addObject:button];
         }
@@ -132,16 +205,34 @@
     }
 }
 
+- (void)rewardbuttonClicked:(id)sender
+{
+    numberTextField.text = [(UIButton *)sender titleLabel].text;
+    for (int i = 0; i < 5; i++) {
+        UIButton *button = [buttonsArray objectAtIndex:i];
+        if (i==[sender tag]) {
+            [button.layer setBorderColor:[UIColor colorWithRed:190.0/255.0 green:96.0/255.0 blue:37.0/255.0 alpha:1.0].CGColor];
+            [button.layer setBorderWidth:2.0];
+        }
+        else {
+            [button.layer setBorderColor:[UIColor grayColor].CGColor];
+            [button.layer setBorderWidth:1.0];
+        }
+    }
+}
+
 - (void)buttonClicked:(id)sender
 {
     currentIntegral = [NSString stringWithFormat:@"%d",[sender tag]+1];
     for (int i = 0; i < 5; i++) {
         UIButton *button = [buttonsArray objectAtIndex:i];
         if (i==[sender tag]) {
-            [button setImage:[UIImage imageNamed:hlImages[i]] forState:UIControlStateNormal];
+            [button.layer setBorderColor:[UIColor colorWithRed:190.0/255.0 green:96.0/255.0 blue:37.0/255.0 alpha:1.0].CGColor];
+            [button.layer setBorderWidth:2.0];
         }
         else {
-            [button setImage:[UIImage imageNamed:normalImages[i]] forState:UIControlStateNormal];
+            [button.layer setBorderColor:[UIColor grayColor].CGColor];
+            [button.layer setBorderWidth:1.0];
         }
     }
 }
@@ -159,9 +250,18 @@
         currentValue = value;
         int index = [keyWordsArray indexOfObject:currentValue];
         [keywordImageView setImage:[UIImage imageNamed:[imageNamesArray objectAtIndex:index]]];
-        if (index == 4) {
-            [self setMonthTicketButtonHidden:NO];
+        if (index == 2) {
+            numberTextField.text = rewardNum[0];
+            [self setRewardButtonHidden:NO];
+        }else if (index == 3) {
+            rightNumLabel.text = @"100";
+            _slider.maximumValue = 100;
         }
+        else if (index == 4) {
+            rightNumLabel.text = @"100";
+            _slider.maximumValue = 100;
+           [self setMonthTicketButtonHidden:NO];
+       } 
     }
 }
 
