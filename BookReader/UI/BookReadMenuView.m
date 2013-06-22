@@ -76,18 +76,12 @@
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backButton];
     
-    UIButton *addBookMarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addBookMarkButton setFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-48, buttonOffsetY, 48, 32)];
-    [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
-    [addBookMarkButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [addBookMarkButton setTitle:@"书签" forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
     
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setFrame:CGRectMake(addBookMarkButton.frame.origin.x-48, buttonOffsetY, 48, 32)];
-    [shareButton setBackgroundImage:[UIImage imageNamed:@"bookreader_universal_btn"] forState:UIControlStateNormal];
-    [shareButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    UIButton *shareButton = [UIButton addButtonWithFrame:CGRectMake(addBookMarkButton.frame.origin.x-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [shareButton setTitle:@"推荐" forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(messageShare) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:shareButton];
