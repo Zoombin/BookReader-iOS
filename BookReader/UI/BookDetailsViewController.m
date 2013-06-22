@@ -219,7 +219,7 @@
         switch (i) {
             case 0:
                 coverView = [[UIScrollView alloc] initWithFrame:modelViewFrame];
-                [coverView setContentSize:CGSizeMake(coverView.frame.size.width, coverView.frame.size.height * 2)];
+                [coverView setContentSize:CGSizeMake(coverView.frame.size.width, coverView.frame.size.height * 2.5)];
                 [coverView setBackgroundColor:[UIColor whiteColor]];
                 [self.view addSubview:coverView];
                 break;
