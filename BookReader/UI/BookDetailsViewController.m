@@ -180,6 +180,9 @@
 - (void)commentButtonClicked:(id)sender
 {
     NSLog(@"评论");
+    if ([infoArray count]==0) {
+        [self loadCommitList];
+    }
     [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:commentView];
 }
@@ -187,6 +190,9 @@
 - (void)authorButtonClicked:(id)sender
 {
     NSLog(@"作者书籍");
+    if ([authorBookArray count]==0) {
+      [self loadAuthorOtherBook];
+    }
     [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:authorBookView];
 }
@@ -430,13 +436,11 @@
     
     
     [self loadShortCommitList];
-    [self loadCommitList];
     
     
     
     [shortdescribeTextView setText:book.describe];
     
-    [self loadAuthorOtherBook];
     [self loadSameType];
     [self removeGestureRecognizer];
 }
