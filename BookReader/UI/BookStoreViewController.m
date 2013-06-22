@@ -359,7 +359,7 @@
     } else {
         keyWord = _searchBar.text;
     }
-    [self displayHUD:@"加载中..."];
+//    [self displayHUD:@"加载中..."];
     [ServiceManager books:keyWord
                   classID:0
                   ranking:currentPage
@@ -375,7 +375,7 @@
                          currentIndex++;
                          [infoTableView reloadData];
                          isLoading = NO;
-                         [self hideHUD:YES];
+//                         [self hideHUD:YES];
                      }
                  }];
 }
@@ -684,7 +684,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (currentType==RANK||currentType==SEARCH) {
-        if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
+        if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 100) {
             if (!isLoading) {
                 isLoading = YES;
                 NSLog(@"可刷新");

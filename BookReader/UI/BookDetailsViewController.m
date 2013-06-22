@@ -766,7 +766,7 @@
 
 - (void)getMore
 {
-    [self displayHUD:@"加载中..."];
+//    [self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
@@ -778,7 +778,7 @@
             currentIndex++;
             [infoTableView reloadData];
             bLoading = NO;
-            [self hideHUD:YES];
+//            [self hideHUD:YES];
         }
     }];
 }
@@ -786,7 +786,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (bCommit) {
-        if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
+        if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 70) {
             if (!bLoading) {
                 bLoading = YES;
                 NSLog(@"可刷新");

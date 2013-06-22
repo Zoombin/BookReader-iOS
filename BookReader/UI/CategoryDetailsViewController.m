@@ -74,7 +74,7 @@
 
 - (void)getMore
 {
-    [self displayHUD:@"加载中..."];
+//    [self displayHUD:@"加载中..."];
     [ServiceManager books:@""
                     classID:catagoryId
                   ranking:0
@@ -90,7 +90,7 @@
                          }else {
                              [infoTableView setTableFooterView:nil];
                          }
-                         [self hideHUD:YES];
+//                         [self hideHUD:YES];
                          isLoading = NO;
                      }
                  }];
@@ -99,7 +99,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
+    if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 100) {
         if (!isLoading) {
             isLoading = YES;
             NSLog(@"可刷新");
