@@ -66,7 +66,6 @@
     BOOL bFav;
     BOOL bLoading;
     BOOL bCommit;
-    float coverViewHeight;
     
     UIButton *shortDescribe;
     UIButton *comment;
@@ -395,8 +394,6 @@
     [authorBookTableView setDelegate:self];
     [authorBookTableView setDataSource:self];
     [authorBookView addSubview:authorBookTableView];
-    
-    coverViewHeight = 100;
 }
 
 - (void)refreshCoverViewFrame
@@ -405,6 +402,7 @@
     [shortInfoTableView setFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320)];
     [recommendTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [recommendTableView setFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260)];
+    [coverView setContentSize:CGSizeMake(coverView.frame.size.width, CGRectGetMaxY(recommendTableView.frame))];
 }
 
 - (void)initBookDetailUI {
