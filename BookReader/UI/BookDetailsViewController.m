@@ -64,6 +64,8 @@
     NSMutableArray *sameTypeBookArray;
     NSMutableArray *chapterArray;
     BOOL bFav;
+    BOOL bLoading;
+    BOOL bCommit;
     
     UIButton *shortDescribe;
     UIButton *comment;
@@ -101,6 +103,8 @@
         headerBtnsArray = [[NSMutableArray alloc] init];
         chapterArray = [[NSMutableArray alloc] init];
         bFav = NO;
+        bLoading = NO;
+        bCommit = NO;
         currentIndex = 1;
         
         shortDescribe = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -163,6 +167,7 @@
 - (void)coverButtonClicked:(id)sender
 {
     NSLog(@"封面");
+    bCommit = NO;
     [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:coverView];
 }
@@ -180,6 +185,7 @@
 - (void)commentButtonClicked:(id)sender
 {
     NSLog(@"评论");
+    bCommit = YES;
     if ([infoArray count]==0) {
         [self loadCommitList];
     }
@@ -190,8 +196,9 @@
 - (void)authorButtonClicked:(id)sender
 {
     NSLog(@"作者书籍");
+    bCommit = NO;
     if ([authorBookArray count]==0) {
-      [self loadAuthorOtherBook];
+        [self loadAuthorOtherBook];
     }
     [self refreshBtnWithButton:sender];
     [self.view bringSubviewToFront:authorBookView];
@@ -770,9 +777,23 @@
             [infoArray addObjectsFromArray:resultArray];
             currentIndex++;
             [infoTableView reloadData];
+            bLoading = NO;
             [self hideHUD:YES];
         }
     }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (bCommit) {
+        if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + 70) {
+            if (!bLoading) {
+                bLoading = YES;
+                NSLog(@"可刷新");
+                [self getMore];
+            }
+        }
+    }
 }
 
 @end
