@@ -400,6 +400,8 @@
 {
     [commentTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [shortInfoTableView setFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320)];
+    [shortInfoTableView reloadData];
+    NSLog(@"%f",shortInfoTableView.contentSize.height);
     [recommendTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [recommendTableView setFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260)];
     [coverView setContentSize:CGSizeMake(coverView.frame.size.width, CGRectGetMaxY(recommendTableView.frame))];
@@ -809,6 +811,15 @@
             }
         }
     }
+}
+
+- (CGFloat)tableViewHeight
+{
+    CGRect theFrame = shortInfoTableView.frame;
+    shortInfoTableView.frame = CGRectZero;
+    shortInfoTableView.frame = theFrame;
+    [shortInfoTableView layoutIfNeeded];
+    return [shortInfoTableView contentSize].height;
 }
 
 @end
