@@ -215,7 +215,7 @@
     [super viewDidLoad];
     [self setTitle:book.name];
     CGSize fullSize = self.view.bounds.size;
-    CGRect modelViewFrame = CGRectMake(4, 46 + 30, fullSize.width-8, self.view.bounds.size.height - 56 - 25);
+    CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width-10, self.view.bounds.size.height - 56 - 25);
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
@@ -251,7 +251,7 @@
     [self.view bringSubviewToFront:coverView];
     
     NSArray *selectors =  @[@"coverButtonClicked:",@"chapterButtonClicked:",@"commentButtonClicked:",@"authorButtonClicked:"];
-    NSInteger width = (fullSize.width-8)/4;
+    NSInteger width = (fullSize.width-10)/4;
     NSArray *tabbarStrings = @[@"封面",@"目录",@"书评",@"作者作品"];
     for (int i = 0; i<[tabbarStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -259,7 +259,7 @@
         [button setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]];
         [button addTarget:self action:NSSelectorFromString(selectors[i]) forControlEvents:UIControlEventTouchUpInside];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(4 + width * i, 46, width, 30)];
+        [button setFrame:CGRectMake(5 + width * i, 46, width, 30)];
         [self.view addSubview:button];
         [headerBtnsArray addObject:button];
     }
