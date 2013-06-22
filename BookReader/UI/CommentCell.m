@@ -22,7 +22,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.contentView.frame.size.width-30, 20)];
+        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, self.contentView.frame.size.width-30-6, 20)];
         [nameLabel setBackgroundColor:[UIColor clearColor]];
         [nameLabel setFont:[UIFont systemFontOfSize:12]];
         [nameLabel setTextAlignment:UITextAlignmentLeft];
@@ -34,7 +34,7 @@
         [timeLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:timeLabel];
         
-        messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 25, self.contentView.frame.size.width-20, self.contentView.frame.size.height-20)];
+        messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width-30-6, self.contentView.frame.size.height-20)];
         [messageLabel setFont:[UIFont systemFontOfSize:14]];
         [messageLabel setBackgroundColor:[UIColor clearColor]];
         [messageLabel setNumberOfLines:0];

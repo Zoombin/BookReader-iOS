@@ -328,7 +328,7 @@
     [commentTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [commentTitle.layer setBorderWidth:0.5];
     [commentTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [commentTitle setText:@"\t\t评论"];
+    [commentTitle setText:@"\t\t书评"];
     [coverView addSubview:commentTitle];
     
     shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320) style:UITableViewStylePlain];
