@@ -66,6 +66,7 @@
     BOOL bFav;
     BOOL bLoading;
     BOOL bCommit;
+    float coverViewHeight;
     
     UIButton *shortDescribe;
     UIButton *comment;
@@ -79,6 +80,9 @@
     UILabel *lastChapterLabel;
     UILabel *bVipLabel;
     UILabel *bFinishLabel;
+    
+    UILabel *commentTitle;
+    UILabel *recommendTitle;
     
     UILabel *commentLabel;
     UILabel *flowerLabel;
@@ -232,7 +236,7 @@
         switch (i) {
             case 0:
                 coverView = [[UIScrollView alloc] initWithFrame:modelViewFrame];
-                [coverView setContentSize:CGSizeMake(coverView.frame.size.width, coverView.frame.size.height * 2.5)];
+                [coverView setContentSize:CGSizeMake(coverView.frame.size.width, coverView.frame.size.height * 3)];
                 [coverView setBackgroundColor:[UIColor whiteColor]];
                 [self.view addSubview:coverView];
                 break;
@@ -314,13 +318,13 @@
         [coverView addSubview:button];
     }
     
-    shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(favButton.frame)+10, coverView.frame.size.width-5 * 2, 100)];
+    shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(favButton.frame)+10, coverView.frame.size.width-5 * 2, 150)];
     [shortdescribeTextView setEditable:NO];
     [shortdescribeTextView setFont:[UIFont systemFontOfSize:15]];
     [shortdescribeTextView setBackgroundColor:[UIColor clearColor]];
     [coverView addSubview:shortdescribeTextView];
     
-    UILabel *commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
+     commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [commentTitle setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:245.0/255.0 blue:238.0/255.0 alpha:1.0]];
     [commentTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [commentTitle.layer setBorderWidth:0.5];
@@ -328,14 +332,14 @@
     [commentTitle setText:@"\t\t评论"];
     [coverView addSubview:commentTitle];
     
-    shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 200) style:UITableViewStylePlain];
+    shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320) style:UITableViewStylePlain];
     [shortInfoTableView setDelegate:self];
     [shortInfoTableView setDataSource:self];
     [shortInfoTableView setBackgroundColor:[UIColor clearColor]];
     [shortInfoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [coverView addSubview:shortInfoTableView];
     
-    UILabel *recommendTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
+     recommendTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [recommendTitle setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:245.0/255.0 blue:238.0/255.0 alpha:1.0]];
     [recommendTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [recommendTitle.layer setBorderWidth:0.5];
@@ -343,7 +347,7 @@
     [recommendTitle setText:@"\t\t推荐"];
     [coverView addSubview:recommendTitle];
     
-    recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 210) style:UITableViewStylePlain];
+    recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260) style:UITableViewStylePlain];
     [recommendTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [recommendTableView setBackgroundColor:[UIColor clearColor]];
     [recommendTableView setDelegate:self];
@@ -391,12 +395,20 @@
     [authorBookTableView setDelegate:self];
     [authorBookTableView setDataSource:self];
     [authorBookView addSubview:authorBookTableView];
+    
+    coverViewHeight = 100;
+}
+
+- (void)refreshCoverViewFrame
+{
+    [commentTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
+    [shortInfoTableView setFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320)];
+    [recommendTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
+    [recommendTableView setFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260)];
 }
 
 - (void)initBookDetailUI {
     self.title = @"图书详情";
-    CGSize fullSize = self.view.bounds.size;
-    
     NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -447,6 +459,11 @@
     
     
     [shortdescribeTextView setText:book.describe];
+    CGFloat height = shortdescribeTextView.contentSize.height;
+    CGRect rect = shortdescribeTextView.frame;
+    rect.size.height = height;
+    [shortdescribeTextView setFrame:rect];
+    [self refreshCoverViewFrame];
     
     [self loadSameType];
     [self removeGestureRecognizer];
