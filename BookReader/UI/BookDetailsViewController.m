@@ -399,9 +399,7 @@
 - (void)refreshCoverViewFrame
 {
     [commentTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
-    [shortInfoTableView setFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320)];
-    [shortInfoTableView reloadData];
-    NSLog(@"%f",shortInfoTableView.contentSize.height);
+    [shortInfoTableView setFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, shortInfoTableView.contentSize.height)];
     [recommendTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [recommendTableView setFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260)];
     [coverView setContentSize:CGSizeMake(coverView.frame.size.width, CGRectGetMaxY(recommendTableView.frame))];
@@ -454,7 +452,7 @@
     }
     
     
-    [self loadShortCommitList];
+   
     
     
     
@@ -463,8 +461,8 @@
     CGRect rect = shortdescribeTextView.frame;
     rect.size.height = height;
     [shortdescribeTextView setFrame:rect];
-    [self refreshCoverViewFrame];
     
+    [self loadShortCommitList];
     [self loadSameType];
     [self removeGestureRecognizer];
 }
@@ -598,6 +596,7 @@
         } else {
             [shortInfoArray addObjectsFromArray:resultArray];
             [shortInfoTableView reloadData];
+            [self refreshCoverViewFrame];
         }
     }];
 }
