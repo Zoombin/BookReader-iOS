@@ -10,7 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 
-#define LabelTextColor    [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:117.0/255.0 alpha:1.0]
+#define LabelTextColor    [UIColor colorWithRed:162.0/255.0 green:160.0/255.0 blue:147.0/255.0 alpha:1.0]
 
 #define BigCellHeight 90.0f
 #define SmallCellHeight 40.0f

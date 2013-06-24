@@ -547,7 +547,7 @@
         return nil;
     }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
-    [view setBackgroundColor:[UIColor colorWithRed:190.0/255.0 green:174.0/255.0 blue:135.0/255.0 alpha:1.0]];
+    [view setBackgroundColor:[UIColor colorWithRed:189.0/255.0 green:173.0/255.0 blue:136.0/255.0 alpha:0.7]];
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
     for (int i = 0; i<[recommendTitlesArray count]; i++) {
         if (section == i) {
@@ -593,7 +593,7 @@
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }
-            [cell.contentView setBackgroundColor:[UIColor colorWithRed:226.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:1.0]];
+            [cell.contentView setBackgroundColor:[UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:0.7]];
             [(BookCell *)cell separateLineColor:[UIColor whiteColor]];
         }
     }
