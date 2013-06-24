@@ -102,12 +102,13 @@
     if (!isLogin) {
         [APP_DELEGATE gotoRootController:kRootControllerTypeLogin];
     }else {
-        memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(4, 46, self.view.bounds.size.width-8, self.view.bounds.size.height-56) style:UITableViewStylePlain];
+        memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width-10, self.view.bounds.size.height-50) style:UITableViewStyleGrouped];
         [memberTableView setDelegate:self];
         [memberTableView setDataSource:self];
         [memberTableView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
         [memberTableView.layer setCornerRadius:5];
         [memberTableView.layer setMasksToBounds:YES];
+        [memberTableView setBackgroundView:nil];
         [memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [self.view addSubview:memberTableView];
         
@@ -174,7 +175,12 @@
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 2;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
 }
 
 
@@ -184,24 +190,21 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
         cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
-        [(BookCell *)cell setTextLableText:@"1"];
-        switch (indexPath.row) {
-            case 0:
+        [(BookCell *)cell separateLineColor:[UIColor clearColor]];
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
                 [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@",_member.name]];
                 [(BookCell *)cell hidenArrow:YES];
-                break;
-            case 1:
+            } else {
                 [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"余额 : %@",_member.coin]];
                 [(BookCell *)cell hidenArrow:YES];
-                break;
-            case 2:
+            }
+        } else {
+            if (indexPath.row == 0) {
                 [(BookCell *)cell setTextLableText:@"修改密码"];
-                break;
-            case 3:
+            } else {
                 [(BookCell *)cell setTextLableText:@"我的收藏"];
-                break;
-            default:
-                break;
+            }
         }
     }
     return cell;
@@ -216,9 +219,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 2) {
+    if (indexPath.section == 0) {
+        return;
+    }
+    if (indexPath.row == 0) {
         [self showChangePasswordView];
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 1) {
         [self showMyFav];
     }
 }
