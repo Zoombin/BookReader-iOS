@@ -57,10 +57,10 @@
         [reductBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [reductBtn setTitle:@"-" forState:UIControlStateNormal];
         [reductBtn addTarget:self action:@selector(reductBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [reductBtn setFrame:CGRectMake(70, 12, 40, 20)];
+        [reductBtn setFrame:CGRectMake(70, 22, 40, 20)];
         [self.contentView addSubview:reductBtn];
         
-        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 12, 80, 20)];
+        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 22, 80, 20)];
         [numberTextField setText:@"1"];
         [numberTextField.layer setBorderWidth:1.0];
         [numberTextField.layer setBorderColor:[UIColor colorWithRed:193.0/255.0 green:157.0/255.0 blue:85.0/255.0 alpha:1.0].CGColor];
@@ -73,20 +73,20 @@
         [addBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [addBtn setTitle:@"+" forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [addBtn setFrame:CGRectMake(190, 12, 40, 20)];
+        [addBtn setFrame:CGRectMake(190, 22, 40, 20)];
         [self.contentView addSubview:addBtn];
     
-        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 70)];
+        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, 60, 70)];
         [self.contentView addSubview:keywordImageView];
         
-        leftNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 44, 10, 20)];
+        leftNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 54, 10, 20)];
         [leftNumLabel setText:@"1"];
         [leftNumLabel setTextColor:[UIColor grayColor]];
         [leftNumLabel setFont:[UIFont systemFontOfSize:14]];
         [leftNumLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:leftNumLabel];
         
-         _slider = [[UISlider alloc]initWithFrame:CGRectMake(80, 44, 120, 20)];
+         _slider = [[UISlider alloc]initWithFrame:CGRectMake(80, 54, 120, 20)];
         [_slider setMinimumValue:1];
         [_slider setMaximumTrackTintColor:[UIColor colorWithRed:56.0/255.0 green:28.0/255.0 blue:15.0/255.0 alpha:1.0]];
         [_slider setMinimumTrackTintColor:[UIColor colorWithRed:212.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0]];
@@ -95,7 +95,7 @@
         [_slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:_slider];
         
-         rightNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 44, 40, 20)];
+         rightNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 54, 40, 20)];
         [rightNumLabel setText:@"10000"];
         [rightNumLabel setTextColor:[UIColor grayColor]];
         [rightNumLabel setFont:[UIFont systemFontOfSize:14]];
@@ -153,9 +153,9 @@
                 [button.layer setBorderWidth:1.0];
             }
             if (i > 2) {
-                [button setFrame:CGRectMake(60 + 10 * (i-2) +  width * (i-3), 45, width, 30)];
+                [button setFrame:CGRectMake(60 + 10 * (i-2) +  width * (i-3), 55, width, 30)];
             } else {
-                [button setFrame:CGRectMake(60 + 10 * (i+1) + width * i, 5, width, 30)];
+                [button setFrame:CGRectMake(60 + 10 * (i+1) + width * i, 15, width, 30)];
             }
             [self.contentView addSubview:button];
             [buttonsArray addObject:button];
@@ -190,9 +190,9 @@
                 [button.layer setBorderWidth:1.0];
             }
             if (i > 2) {
-                [button setFrame:CGRectMake(10 * (i-2) + width * (i-3), 80+40, width, 30)];
+                [button setFrame:CGRectMake(10 * (i-2) + width * (i-3), 100+40, width, 30)];
             } else {
-                [button setFrame:CGRectMake(10 * (i+1) + width * i, 80, width, 30)];
+                [button setFrame:CGRectMake(10 * (i+1) + width * i, 100, width, 30)];
             }
             [self.contentView addSubview:button];
             [buttonsArray addObject:button];
