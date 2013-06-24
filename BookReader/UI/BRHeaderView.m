@@ -74,7 +74,8 @@
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
         if (i == 5) {
-            [button setEnabled:NO];
+            [button setUserInteractionEnabled:NO];
+            [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             deleteButton = button;
         }
     }
@@ -82,7 +83,8 @@
 
 - (void)deleteButtonEnable:(BOOL)enable
 {
-    [deleteButton setEnabled:enable];
+    [deleteButton setUserInteractionEnabled:enable];
+    [deleteButton setTitleColor:enable ? [UIColor whiteColor] : [UIColor grayColor] forState:UIControlStateNormal];
 }
 
 - (void)bButtonClick
