@@ -73,6 +73,8 @@ static float duration = 0;
 - (void)cooldownButtonFrame:(CGRect)frame andEnableCooldown:(BOOL)cooldown
 {
     [self setFrame:frame];
+    [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [self setBackgroundImage:[UIImage imageNamed:@"member_btn"] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage imageNamed:@"member_btn_hl"] forState:UIControlStateHighlighted];
     [self setBackgroundImage:[UIImage imageNamed:@"member_btn_disable"] forState:UIControlStateDisabled];

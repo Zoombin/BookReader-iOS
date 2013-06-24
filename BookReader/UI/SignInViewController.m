@@ -44,24 +44,24 @@
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [self.view addSubview:registerButton];
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(4, 46, fullSize.width-8, self.view.bounds.size.height-56)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width-10, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
     [self.view addSubview:backgroundView];
     
-    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(15, 74, fullSize.width-15*2, 50)];
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(25, 74, fullSize.width-25*2, 50)];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
-    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(15, CGRectGetMaxY(accountTextField.frame) + 10, fullSize.width-15*2, 50)];
+    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(25, CGRectGetMaxY(accountTextField.frame) + 10, fullSize.width-25*2, 50)];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
 	
 	self.keyboardUsers = @[accountTextField, passwordTextField];
     
     loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginButton cooldownButtonFrame:CGRectMake(15, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-15*2, 50) andEnableCooldown:NO];
+    [loginButton cooldownButtonFrame:CGRectMake(25, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-25*2, 50) andEnableCooldown:NO];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 	[loginButton setEnabled:NO];

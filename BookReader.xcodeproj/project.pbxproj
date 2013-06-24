@@ -67,6 +67,14 @@
 		18169629176FF87400E33C3C /* shelf_member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */; };
 		1824787E1774215E00AB1C81 /* yellow_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1824787C1774215E00AB1C81 /* yellow_btn.png */; };
 		1824787F1774215E00AB1C81 /* yellow_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1824787D1774215E00AB1C81 /* yellow_btn@2x.png */; };
+		1839EF531777D9B00049F258 /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4B1777D9B00049F258 /* comment@2x.png */; };
+		1839EF541777D9B00049F258 /* demand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4C1777D9B00049F258 /* demand@2x.png */; };
+		1839EF551777D9B00049F258 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4D1777D9B00049F258 /* flower@2x.png */; };
+		1839EF561777D9B00049F258 /* member_btn_disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4E1777D9B00049F258 /* member_btn_disable@2x.png */; };
+		1839EF571777D9B00049F258 /* member_btn_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4F1777D9B00049F258 /* member_btn_hl@2x.png */; };
+		1839EF581777D9B00049F258 /* member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF501777D9B00049F258 /* member_btn@2x.png */; };
+		1839EF591777D9B00049F258 /* money@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF511777D9B00049F258 /* money@2x.png */; };
+		1839EF5A1777D9B00049F258 /* monthticket@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF521777D9B00049F258 /* monthticket@2x.png */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A37216FC2A3E0046DA4C /* universal_btn.png */; };
@@ -487,6 +495,14 @@
 		1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shelf_member_btn@2x.png"; sourceTree = "<group>"; };
 		1824787C1774215E00AB1C81 /* yellow_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_btn.png; sourceTree = "<group>"; };
 		1824787D1774215E00AB1C81 /* yellow_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellow_btn@2x.png"; sourceTree = "<group>"; };
+		1839EF4B1777D9B00049F258 /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@2x.png"; sourceTree = "<group>"; };
+		1839EF4C1777D9B00049F258 /* demand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demand@2x.png"; sourceTree = "<group>"; };
+		1839EF4D1777D9B00049F258 /* flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower@2x.png"; sourceTree = "<group>"; };
+		1839EF4E1777D9B00049F258 /* member_btn_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "member_btn_disable@2x.png"; sourceTree = "<group>"; };
+		1839EF4F1777D9B00049F258 /* member_btn_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "member_btn_hl@2x.png"; sourceTree = "<group>"; };
+		1839EF501777D9B00049F258 /* member_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "member_btn@2x.png"; sourceTree = "<group>"; };
+		1839EF511777D9B00049F258 /* money@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "money@2x.png"; sourceTree = "<group>"; };
+		1839EF521777D9B00049F258 /* monthticket@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monthticket@2x.png"; sourceTree = "<group>"; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1260,6 +1276,14 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				1839EF4B1777D9B00049F258 /* comment@2x.png */,
+				1839EF4C1777D9B00049F258 /* demand@2x.png */,
+				1839EF4D1777D9B00049F258 /* flower@2x.png */,
+				1839EF4E1777D9B00049F258 /* member_btn_disable@2x.png */,
+				1839EF4F1777D9B00049F258 /* member_btn_hl@2x.png */,
+				1839EF501777D9B00049F258 /* member_btn@2x.png */,
+				1839EF511777D9B00049F258 /* money@2x.png */,
+				1839EF521777D9B00049F258 /* monthticket@2x.png */,
 				1824787C1774215E00AB1C81 /* yellow_btn.png */,
 				1824787D1774215E00AB1C81 /* yellow_btn@2x.png */,
 				18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */,
@@ -2258,6 +2282,14 @@
 				18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */,
 				1824787E1774215E00AB1C81 /* yellow_btn.png in Resources */,
 				1824787F1774215E00AB1C81 /* yellow_btn@2x.png in Resources */,
+				1839EF531777D9B00049F258 /* comment@2x.png in Resources */,
+				1839EF541777D9B00049F258 /* demand@2x.png in Resources */,
+				1839EF551777D9B00049F258 /* flower@2x.png in Resources */,
+				1839EF561777D9B00049F258 /* member_btn_disable@2x.png in Resources */,
+				1839EF571777D9B00049F258 /* member_btn_hl@2x.png in Resources */,
+				1839EF581777D9B00049F258 /* member_btn@2x.png in Resources */,
+				1839EF591777D9B00049F258 /* money@2x.png in Resources */,
+				1839EF5A1777D9B00049F258 /* monthticket@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
