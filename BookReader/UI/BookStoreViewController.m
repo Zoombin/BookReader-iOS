@@ -263,14 +263,28 @@
     [rankView setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:233.0/255.0 alpha:1.0]];
     float width = (rankView.bounds.size.width - 40)/3;
     CGRect frame = CGRectMake(20, 10, width, 30);
-    //    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
-    NSArray *imagesArray = @[@"all_btn_hl" , @"new_btn_hl", @"hot_btn_hl"];
+    
+    UIView *rankBtnBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(18, 8, rankView.bounds.size.width - 36, 34)];
+    [rankBtnBackGroundView.layer setCornerRadius:5];
+    [rankBtnBackGroundView.layer setMasksToBounds:YES];
+    [rankBtnBackGroundView.layer setBorderColor:[UIColor colorWithRed:206.0/255.0 green:195.0/255.0 blue:173.0/255.0 alpha:1.0].CGColor];
+    [rankBtnBackGroundView.layer setBorderWidth:0.5];
+    [rankBtnBackGroundView setBackgroundColor:[UIColor colorWithRed:223.0/255.0 green:211.0/255.0 blue:187.0/255.0 alpha:1.0]];
+    [rankView addSubview:rankBtnBackGroundView];
+    
+    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
+//    NSArray *imagesArray = @[@"all_btn_hl" , @"new_btn_hl", @"hot_btn_hl"];
     for (int i = 0; i < 3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:buttonNames[i] forState:UIControlStateNormal];
+        [button.layer setCornerRadius:5];
+        [button.layer setMasksToBounds:YES];
+        [button setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
         if (i==0) {
-            [button setBackgroundImage:[UIImage imageNamed:@"all_btn"] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor whiteColor]];
         } else {
-            [button setBackgroundImage:[UIImage imageNamed:imagesArray[i]] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor clearColor]];
         }
         [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
         if (i!=0) {
@@ -339,14 +353,12 @@
 }
 
 - (void)changeRankButtonImage:(UIButton *)sender {
-    NSArray *highlightImages = @[@"all_btn", @"new_btn", @"hot_btn"];
-    NSArray *images = @[@"all_btn_hl", @"new_btn_hl", @"hot_btn_hl"];
     for (int i = 0; i<3; i++) {
         UIButton *button = rankBtns[i];
         if(sender == button) {
-            [sender setBackgroundImage:[UIImage imageNamed:highlightImages[i]] forState:UIControlStateNormal];
+            [sender setBackgroundColor:[UIColor whiteColor]];
         }else {
-            [button setBackgroundImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+            [button setBackgroundColor:[UIColor clearColor]];
         }
     }
 }
