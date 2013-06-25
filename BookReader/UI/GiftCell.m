@@ -63,6 +63,7 @@
         numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 22, 80, 20)];
         [numberTextField setText:@"1"];
         [numberTextField.layer setBorderWidth:1.0];
+        [numberTextField setTextAlignment:NSTextAlignmentCenter];
         [numberTextField.layer setBorderColor:[UIColor colorWithRed:193.0/255.0 green:157.0/255.0 blue:85.0/255.0 alpha:1.0].CGColor];
         [numberTextField setUserInteractionEnabled:NO];
         [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
