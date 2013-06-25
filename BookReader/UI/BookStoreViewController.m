@@ -192,7 +192,7 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height-44-50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(20, 44, self.view.bounds.size.width-40, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, 44, self.view.bounds.size.width-16, self.view.bounds.size.height-44-50) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
@@ -220,15 +220,15 @@
 - (void)showCatagoryViewBtn
 {
     int k = 0;
-    int offSet = (catagoryView.frame.size.width) - (130 *2);
+    int offSet = (catagoryView.frame.size.width-20) - (130 *2);
     
     UIColor *backGroundColor = [UIColor colorWithRed:225.0/255.0 green:223.0/255.0 blue:213.0/255.0 alpha:1.0];
-    UIView *leftBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 28, 130, 3+(51*6))];
+    UIView *leftBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(10, 28, 130, 3+(51*6))];
     [leftBackGroundView.layer setCornerRadius:5];
     [leftBackGroundView setBackgroundColor:backGroundColor];
     [catagoryView addSubview:leftBackGroundView];
     
-    UIView *rightBackGroundView = [[UIView alloc] initWithFrame:CGRectMake((130+offSet), 28, 130, 3+(51*5))];
+    UIView *rightBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(10+(130+offSet), 28, 130, 3+(51*5))];
     [rightBackGroundView.layer setCornerRadius:5];
     [rightBackGroundView setBackgroundColor:backGroundColor];
     [catagoryView addSubview:rightBackGroundView];
@@ -242,7 +242,7 @@
         [button setTitle:catagoryNames[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setBackgroundColor:backGroundColor];
-        [button setFrame:CGRectMake((130+offSet) *(i%2 ==0 ? 0 :1), 30+ 51 *k, 130, 50)];
+        [button setFrame:CGRectMake(10+(130+offSet) *(i%2 ==0 ? 0 :1), 30+ 51 *k, 130, 50)];
         [button setTag:i];
         [button addTarget:self action:@selector(loadCatagoryDataWithIndex:) forControlEvents:UIControlEventTouchUpInside];
         [catagoryView addSubview:button];
@@ -605,8 +605,9 @@
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }
-            [cell.contentView setBackgroundColor:[UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:0.7]];
-            [(BookCell *)cell separateLineColor:[UIColor whiteColor]];
+//            [cell.contentView setBackgroundColor:[UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:0.7]];
+            [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+            [(BookCell *)cell separateLineColor:[UIColor lightGrayColor]];
         }
     }
     else if (currentType != CATAGORY){
