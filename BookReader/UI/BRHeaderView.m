@@ -32,7 +32,7 @@
         [self addSubview:_backButton];
         
         _titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.bounds.size.width, 44)];
-        [_titleLabel setFont:[UIFont systemFontOfSize:15]];
+//        [_titleLabel setFont:[UIFont systemFontOfSize:17]];
         [self addSubview:_titleLabel];
     }
     return self;
