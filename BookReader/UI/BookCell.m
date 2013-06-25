@@ -76,7 +76,7 @@
             [self.contentView addSubview:authorLabel];
 		} else {//分类界面
 			height = OtherCellHeight;
-            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 12, 220, 20)];
+            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 12, 250, 20)];
             [nameLabel setBackgroundColor:[UIColor clearColor]];
             [nameLabel setTextColor:[UIColor blackColor]];
             [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];

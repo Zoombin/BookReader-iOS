@@ -742,6 +742,12 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
             [(BookCell *)cell setTextLableText:obj.name];
+            [(BookCell *)cell hidenArrow:YES];
+            
+            UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-35, 14, 6, 12)];
+            [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
+            [cell.contentView addSubview:catagoryImage];
+            
             cell.detailTextLabel.textColor = [UIColor redColor];
             cell.detailTextLabel.text = [obj.bVip boolValue] ? @"v" : @"";
         }
