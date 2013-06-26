@@ -14,13 +14,20 @@
 
 
 @implementation BookReadMenuView {
-    UIView *fontView;
-    UIView *backgroundView;
+    UIView *fontView;//字体
+    UIView *backgroundView;//背景色
+    UIView *brightView;//亮度
     NSArray *textcolorArray;
     
     UIButton *chaptersListButton;
-    UIButton *lastChapterButton;
-    UIButton *nextChapterButton;
+    UIButton *shareButton;
+    UIButton *commitButton;
+    UIButton *horizontalButton;
+    UIButton *brightButton;
+    UIButton *backgroundButton;
+    UIButton *fontSetButton;
+    UIButton *resetButton;
+    
     UIButton *fontButton;
     UIButton *backgroundSettingButton;
     
@@ -33,6 +40,8 @@
     UIImageView *textColorMarkImageView;
     
     UIPageControl *pageControl;
+    
+    UIView *bottomView;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -48,6 +57,7 @@
         [self initBottomView];
         [self initFontView];
         [self initBackgroundView];
+        [self initBrightView];
         UITapGestureRecognizer *tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
         [self addGestureRecognizer:tapGestureReconizer];
         
@@ -81,10 +91,29 @@
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
     
-    UIButton *shareButton = [UIButton addButtonWithFrame:CGRectMake(addBookMarkButton.frame.origin.x-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
-    [shareButton setTitle:@"推荐" forState:UIControlStateNormal];
-    [shareButton addTarget:self action:@selector(messageShare) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:shareButton];
+    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(addBookMarkButton.frame.origin.x-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    [nextChapterButton setTitle:@"下一章" forState:UIControlStateNormal];
+    [nextChapterButton addTarget:self action:@selector(nextChapter) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:nextChapterButton];
+    
+    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(backButton.frame.origin.x+48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    [lastChapterButton setTitle:@"上一章" forState:UIControlStateNormal];
+    [lastChapterButton addTarget:self action:@selector(preChapter) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:lastChapterButton];
+}
+
+- (void)nextChapter
+{
+    if ([self.delegate respondsToSelector:@selector(nextChapterButtonClick)]) {
+        [self.delegate nextChapterButtonClick];
+    }
+}
+
+- (void)preChapter
+{
+    if ([self.delegate respondsToSelector:@selector(previousChapterButtonClick)]) {
+        [self.delegate previousChapterButtonClick];
+    }
 }
 
 - (void)messageShare
@@ -96,53 +125,42 @@
 
 - (void)initBottomView
 {
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-50, self.bounds.size.width, 50)];
+     bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
     [bottomView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
     [imageView setImage:[UIImage imageNamed:@"read_bar"]];
     [bottomView addSubview:imageView];
     
-    NSInteger BUTTON_WIDTH = 55;
-    NSInteger BUTTON_HEIGHT = 40;
-    NSInteger BUTTON_NUMBER = 5;
-    NSInteger WIDTH = ((self.bounds.size.width)/BUTTON_NUMBER);
-    
-    CGRect BUTTON_FRAME_ONE =  CGRectMake(0*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-    CGRect BUTTON_FRAME_TWO =  CGRectMake(1*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-    CGRect BUTTON_FRAME_THREE = CGRectMake(2*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-    CGRect BUTTON_FRAME_FOUR = CGRectMake(3*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-    CGRect BUTTON_FRAME_FIVE = CGRectMake(4*WIDTH+(WIDTH-BUTTON_WIDTH)/4, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-    
-    NSString *BUTTON_FRAME_ONE_STR =  NSStringFromCGRect(BUTTON_FRAME_ONE);
-    NSString *BUTTON_FRAME_TWO_STR =  NSStringFromCGRect(BUTTON_FRAME_TWO);
-    NSString *BUTTON_FRAME_THREE_STR = NSStringFromCGRect(BUTTON_FRAME_THREE);
-    NSString *BUTTON_FRAME_FOUR_STR = NSStringFromCGRect(BUTTON_FRAME_FOUR);
-    NSString *BUTTON_FRAME_FIVE_STR = NSStringFromCGRect(BUTTON_FRAME_FIVE);
-    
-    NSArray *rectArrays = @[BUTTON_FRAME_ONE_STR,BUTTON_FRAME_TWO_STR,BUTTON_FRAME_THREE_STR,BUTTON_FRAME_FOUR_STR,BUTTON_FRAME_FIVE_STR];
-    NSArray *imagesArray = @[@"read_chapterlist", @"read_prechapter", @"read_font", @"read_nextchapter", @"read_background"];
-    for (int i = 0; i <[rectArrays count]; i++) {
-        NSString *hlImageName = [imagesArray[i] stringByAppendingString:@"_hl"];
-        UIButton *button =[UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectFromString(rectArrays[i])];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:imagesArray[i]] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:hlImageName] forState:UIControlStateHighlighted];
+    NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
+    NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
+    NSArray *buttonNames = @[@"目录", @"推荐", @"评论", @"横屏", @"亮度", @"字体", @"背景", @"恢复默认"];
+    int k = 0;
+    for (int i = 0; i < 8; i ++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:buttonNames[i] forState:UIControlStateNormal];
+        [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:button];
         [bottomViewBtns addObject:button];
+        k ++;
+        if (i==3) {
+            k = 0;
+        }
     }
     chaptersListButton = bottomViewBtns[0];
-    lastChapterButton = bottomViewBtns[1];
-    fontButton = bottomViewBtns[2];
-    nextChapterButton = bottomViewBtns[3];
-    backgroundSettingButton = bottomViewBtns[4];
+    shareButton = bottomViewBtns[1];
+    commitButton = bottomViewBtns[2];
+    horizontalButton = bottomViewBtns[3];
+    brightButton = bottomViewBtns[4];
+    fontSetButton = bottomViewBtns[5];
+    backgroundButton = bottomViewBtns[6];
+    resetButton = bottomViewBtns[7];
     [self addSubview:bottomView];
 }
 
 - (void) initFontView
 {
-    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, self.bounds.size.width, 150)];
+    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-150, self.bounds.size.width, 150)];
     [fontView setHidden:YES];
     [fontView setAlpha:0.9];
     [fontView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
@@ -219,13 +237,13 @@
     [self hidenAllMenu];
 }
 
--(void)initBackgroundView
+- (void)initBrightView
 {
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-190, self.bounds.size.width, 150)];
-    [backgroundView setHidden:YES];
-    [backgroundView setAlpha:0.9];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
-    [self addSubview:backgroundView];
+    brightView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-80, self.bounds.size.width, 80)];
+    [brightView setHidden:YES];
+    [brightView setAlpha:0.9];
+    [brightView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
+    [self addSubview:brightView];
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
     [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
@@ -239,17 +257,26 @@
     }
     [brightSlider setMaximumValue:1];
     [brightSlider setMinimumValue:0];
-    [backgroundView addSubview:brightSlider];
+    [brightView addSubview:brightSlider];
     
     UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 20, 32, 30)];
     [brightLeftImageView setImage:[UIImage imageNamed:@"read_light_reduce"]];
-    [backgroundView addSubview:brightLeftImageView];
+    [brightView addSubview:brightLeftImageView];
     
     UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(brightSlider.frame) + 10, 20, 32, 30)];
     [brightRightImageView setImage:[UIImage imageNamed:@"read_light_increase"]];
-    [backgroundView addSubview:brightRightImageView];
+    [brightView addSubview:brightRightImageView];
+}
+
+- (void)initBackgroundView
+{
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-100, self.bounds.size.width, 100)];
+    [backgroundView setHidden:YES];
+    [backgroundView setAlpha:0.9];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
+    [self addSubview:backgroundView];
     
-    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 90, 32, 30)];
+    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50 - 32 - 10, 90, 32, 30)];
     [backgroundColorImageView setImage:[UIImage imageNamed:@"read_photo_box"]];
     [backgroundView addSubview:backgroundColorImageView];
     
@@ -352,25 +379,37 @@
 
 - (void)bottomButtonsPressed:(UIButton *)sender
 {
+    bottomView.hidden = YES;
     if (sender == chaptersListButton) {
         if ([self.delegate respondsToSelector:@selector(chaptersButtonClicked)]) {
             [self.delegate performSelector:@selector(chaptersButtonClicked)];
         }
-    } else if (sender == lastChapterButton) {
-        if ([self.delegate respondsToSelector:@selector(previousChapterButtonClick)]) {
-            [self.delegate performSelector:@selector(previousChapterButtonClick)];
+    } else if (sender == shareButton) {
+        [self messageShare];
+    } else if (sender == commitButton) {
+        if ([self.delegate respondsToSelector:@selector(commitButtonClicked)]) {
+            [self.delegate performSelector:@selector(commitButtonClicked)];
         }
-    } else if (sender == fontButton) {
+    } else if (sender == horizontalButton) {
+        if ([self.delegate respondsToSelector:@selector(horizontalButtonClicked)]) {
+            [self.delegate performSelector:@selector(horizontalButtonClicked)];
+        }
+    } else if (sender == brightButton) {
         backgroundView.hidden = YES;
-        fontView.hidden = !fontView.hidden;
-        
-    } else if (sender == nextChapterButton) {
-        if ([self.delegate respondsToSelector:@selector(nextChapterButtonClick)]) {
-            [self.delegate performSelector:@selector(nextChapterButtonClick)];
-        }
-    } else if (sender == backgroundSettingButton) {
-        backgroundView.hidden = !backgroundView.hidden;
         fontView.hidden = YES;
+        brightView.hidden = NO;
+    } else if (sender == fontSetButton) {
+        fontView.hidden = NO;
+        brightView.hidden = YES;
+        backgroundView.hidden = YES;
+    } else if (sender == backgroundButton) {
+        backgroundView.hidden = NO;
+        fontView.hidden = YES;
+        brightView.hidden = YES;
+    } else if (sender == resetButton) {
+        if ([self.delegate respondsToSelector:@selector(resetButtonClicked)]) {
+            [self.delegate performSelector:@selector(resetButtonClicked)];
+        }
     }
 }
 
@@ -391,8 +430,10 @@
 
 - (void)hidenAllMenu
 {
+    bottomView.hidden = NO;
     backgroundView.hidden = YES;
     fontView.hidden = YES;
+    brightView.hidden = YES;
 }
 
 @end

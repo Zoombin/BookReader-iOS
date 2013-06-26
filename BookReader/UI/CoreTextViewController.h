@@ -13,7 +13,7 @@
 
 @class Book;
 @class Chapter;
-@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate,MFMessageComposeViewControllerDelegate> {
+@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
     MFMessageComposeViewController *messageComposeViewController; 
 }
 @property (nonatomic, strong) Book *book;

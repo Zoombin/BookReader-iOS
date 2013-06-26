@@ -27,6 +27,7 @@
     CoreTextView *coreTextView;
 	ReadStatusView *statusView;
     BookReadMenuView *menuView;
+    UITextField *commitField;
 	CGRect menuRect;
 	CGRect nextRect;
     
@@ -466,6 +467,69 @@
 		Chapter *aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", mark.chapterID]];
 		[self gotoChapter:aChapter withReadIndex:mark.startWordIndex];
 	}
+}
+
+- (void)showCommitAlert
+{
+    if ([ServiceManager userID]==nil)
+    {
+        [self displayHUDError:nil message:@"您尚未登录!"];
+        return;
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"XXXXXXX" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+     commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 40, 260, 35)];
+    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [commitField.layer setCornerRadius:5];
+    [commitField setDelegate:self];
+    [commitField setReturnKeyType:UIReturnKeyDone];
+    [commitField.layer setBorderColor:[UIColor blackColor].CGColor];
+    [commitField.layer setBorderWidth:0.5];
+    [commitField setBackgroundColor:[UIColor whiteColor]];
+    [alertView addSubview:commitField];
+    [commitField becomeFirstResponder];
+    [alertView show];
+}
+
+- (void)commitButtonClicked
+{
+    [self showCommitAlert];
+}
+
+- (void)resetButtonClicked
+{
+    [BookReaderDefaultsManager reset];
+    [self updateFont];
+    [self updateFontColor];
+    [self updateFontSize];
+    coreTextView.alpha = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
+    statusView.alpha = coreTextView.alpha;
+    NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
+	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
+    [self displayHUDError:nil message:@"已恢复默认!"];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self sendCommitButtonClicked];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)sendCommitButtonClicked
+{
+    [commitField resignFirstResponder];
+    [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(NSString *message, NSError *error)
+     {
+         if (!error) {
+             [self displayHUDError:nil message:message];
+         }
+     }];
 }
 
 @end

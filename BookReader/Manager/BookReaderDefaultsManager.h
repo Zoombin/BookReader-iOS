@@ -38,4 +38,5 @@
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index;
 + (void)restoreOriginBright;
 + (void)saveOriginBright;
++ (void)reset;
 @end

@@ -13,10 +13,15 @@
 
 - (void)backButtonPressed;
 - (void)addBookMarkButtonPressed;
-- (void)chaptersButtonClicked;
 - (void)nextChapterButtonClick;
 - (void)previousChapterButtonClick;
+
+
+- (void)chaptersButtonClicked;
 - (void)shareButtonClicked;
+- (void)commitButtonClicked;
+- (void)horizontalButtonClicked;
+- (void)resetButtonClicked;
 
 - (void)fontChanged:(BOOL)reduce;
 - (void)systemFont;
