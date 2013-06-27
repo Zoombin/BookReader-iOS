@@ -309,7 +309,7 @@
 		[self updateCurrentPageContent];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
-		[ServiceManager bookCatalogue:aChapter.uid VIP:NO withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
+		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
 			if (content && ![content isEqualToString:@""]) {
 				[self hideHUD:YES];
 				[self gotoChapter:aChapter withReadIndex:nil];
@@ -325,6 +325,7 @@
 							aChapter.content = content;
 						}];
 					} else {
+                        NSLog(@"%@",message);
 						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
 					}
 				}];
