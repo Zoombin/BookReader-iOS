@@ -14,6 +14,7 @@
 
 
 @implementation BookReadMenuView {
+    UIView *topView;
     UIView *fontView;//字体
     UIView *backgroundView;//背景色
     UIView *brightView;//亮度
@@ -67,15 +68,13 @@
 
 - (void)initTopView
 {
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
+     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
     [topView setAlpha:0.9];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:[topView bounds]];
-    [imageView setImage:[UIImage imageNamed:@"nav_header"]];
-    [topView addSubview:imageView];
+    [topView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:topView];
     
     titleLabel = [UILabel titleLableWithFrame:topView.bounds];
-    [titleLabel setText:@"正文"];
+//    [titleLabel setText:@"正文"];
     [self addSubview:titleLabel];
     
     static float buttonOffsetX = 10.0;
@@ -91,12 +90,12 @@
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
     
-    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(addBookMarkButton.frame.origin.x-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds), buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [nextChapterButton setTitle:@"下一章" forState:UIControlStateNormal];
     [nextChapterButton addTarget:self action:@selector(nextChapter) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:nextChapterButton];
     
-    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(backButton.frame.origin.x+48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [lastChapterButton setTitle:@"上一章" forState:UIControlStateNormal];
     [lastChapterButton addTarget:self action:@selector(preChapter) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:lastChapterButton];
@@ -128,7 +127,8 @@
      bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
     [bottomView setAlpha:0.9];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
-    [imageView setImage:[UIImage imageNamed:@"read_bar"]];
+    [bottomView setBackgroundColor:[UIColor blackColor]];
+    //    [imageView setImage:[UIImage imageNamed:@"read_bar"]];
     [bottomView addSubview:imageView];
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
@@ -139,6 +139,8 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
+        [button.layer setBorderColor:[UIColor blackColor].CGColor];
+        [button.layer setBorderWidth:0.5];
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:button];
         [bottomViewBtns addObject:button];
@@ -163,7 +165,7 @@
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-150, self.bounds.size.width, 150)];
     [fontView setHidden:YES];
     [fontView setAlpha:0.9];
-    [fontView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
+    [fontView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:fontView];
     
     UIImageView *fontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 32, 30)];
@@ -242,13 +244,13 @@
     brightView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-80, self.bounds.size.width, 80)];
     [brightView setHidden:YES];
     [brightView setAlpha:0.9];
-    [brightView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
+    [brightView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:brightView];
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
     [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
-    [brightSlider setMinimumTrackTintColor:[UIColor colorWithRed:43.0/255.0 green:25.0/255.0 blue:16.0/255.0 alpha:1.0]];
-    [brightSlider setThumbImage:[UIImage imageNamed:@"slider_round"] forState:UIControlStateNormal];
+    [brightSlider setMinimumTrackTintColor:[UIColor whiteColor]];
+    [brightSlider setThumbTintColor:[UIColor whiteColor]];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
         brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
@@ -273,14 +275,14 @@
     backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-100, self.bounds.size.width, 100)];
     [backgroundView setHidden:YES];
     [backgroundView setAlpha:0.9];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:99.0/255.0 green:48.0/255.0 blue:20.0/255.0 alpha:1.0]];
+    [backgroundView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:backgroundView];
     
-    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50 - 32 - 10, 90, 32, 30)];
+    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50 - 32 - 10, 20, 32, 30)];
     [backgroundColorImageView setImage:[UIImage imageNamed:@"read_photo_box"]];
     [backgroundView addSubview:backgroundColorImageView];
     
-    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 80, backgroundView.bounds.size.width-50, backgroundView.bounds.size.width/20*3)];
+    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 10, backgroundView.bounds.size.width-50, backgroundView.bounds.size.width/20*3)];
     [scrollerView setBackgroundColor:[UIColor clearColor]];
     [scrollerView setDelegate:self];
 	scrollerView.pagingEnabled = YES;
@@ -380,6 +382,7 @@
 - (void)bottomButtonsPressed:(UIButton *)sender
 {
     bottomView.hidden = YES;
+    topView.hidden = YES;
     if (sender == chaptersListButton) {
         if ([self.delegate respondsToSelector:@selector(chaptersButtonClicked)]) {
             [self.delegate performSelector:@selector(chaptersButtonClicked)];
@@ -431,6 +434,7 @@
 - (void)hidenAllMenu
 {
     bottomView.hidden = NO;
+    topView.hidden = NO;
     backgroundView.hidden = YES;
     fontView.hidden = YES;
     brightView.hidden = YES;

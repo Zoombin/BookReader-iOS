@@ -262,7 +262,7 @@
     
     NSArray *selectors =  @[@"coverButtonClicked:",@"chapterButtonClicked:",@"commentButtonClicked:",@"authorButtonClicked:"];
     NSInteger width = (fullSize.width-10)/4;
-    NSArray *tabbarStrings = @[@"封面",@"目录",@"书评",@"作者作品"];
+    NSArray *tabbarStrings = @[@"封\t\t\t面",@"目\t\t\t录",@"书\t\t\t评",@"作者作品"];
     for (int i = 0; i<[tabbarStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
