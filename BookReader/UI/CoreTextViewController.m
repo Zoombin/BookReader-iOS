@@ -206,6 +206,7 @@
 {
     [BookReaderDefaultsManager setObject:@(index) ForKey:UserDefaultKeyBackground];
     [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:index]];
+    [self updateFontColor];
 }
 
 - (void)changeTextColor:(NSString *)textColor

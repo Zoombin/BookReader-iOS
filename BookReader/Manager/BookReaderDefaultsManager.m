@@ -40,6 +40,37 @@ static float brightValue;
 + (void)setObject:(id)object ForKey:(id)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+    NSString *keyString = (NSString *)key;
+    if ([keyString isEqualToString:UserDefaultKeyBackground]) {
+        switch ([object integerValue]) {
+            case 0:
+                [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
+                break;
+            case 1:
+                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
+                break;
+            case 2:
+                [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
+                break;
+            case 3:
+                [self setObject:UserDefaultTextColorBrown ForKey:UserDefaultKeyTextColor];
+                break;
+            case 4:
+                [self setObject:UserDefaultTextColorGreen ForKey:UserDefaultKeyTextColor];
+                break;
+            case 5:
+                [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
+                break;
+            case 6:
+                [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
+                break;
+            case 7:
+                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 + (void)restoreOriginBright
