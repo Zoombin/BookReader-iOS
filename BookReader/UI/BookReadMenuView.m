@@ -69,8 +69,8 @@
 - (void)initTopView
 {
      topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
-    [topView setAlpha:0.7];
-    [topView setBackgroundColor:[UIColor blackColor]];
+//    [topView setAlpha:0.7];
+    [topView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:topView];
     
     titleLabel = [UILabel titleLableWithFrame:topView.bounds];
@@ -125,11 +125,7 @@
 - (void)initBottomView
 {
      bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
-    [bottomView setAlpha:0.7];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
-    [bottomView setBackgroundColor:[UIColor blackColor]];
-    //    [imageView setImage:[UIImage imageNamed:@"read_bar"]];
-    [bottomView addSubview:imageView];
+    [bottomView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
@@ -164,47 +160,41 @@
 {
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-150, self.bounds.size.width, 150)];
     [fontView setHidden:YES];
-    [fontView setAlpha:0.7];
-    [fontView setBackgroundColor:[UIColor blackColor]];
+    [fontView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:fontView];
+
+    UILabel *setFontSize = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fontView.frame.size.width, 25)];
+    [setFontSize setText:@"\t\t调整字号"];
+    [setFontSize setTextColor:[UIColor grayColor]];
+    [setFontSize setBackgroundColor:[UIColor blackColor]];
+    [fontView addSubview:setFontSize];
     
-    UIImageView *fontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 32, 30)];
-    [fontImageView setImage:[UIImage imageNamed:@"font"]];
-    [fontView addSubview:fontImageView];
+    UILabel *setFont = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMidY(fontView.bounds), fontView.frame.size.width, 25)];
+    [setFont setText:@"\t\t选择字体"];
+    [setFont setTextColor:[UIColor grayColor]];
+    [setFont setBackgroundColor:[UIColor blackColor]];
+    [fontView addSubview:setFont];
     
-    UIImageView *fontSizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 60, 32, 30)];
-    [fontSizeImageView setImage:[UIImage imageNamed:@"font_size"]];
-    [fontView addSubview:fontSizeImageView];
-//    
-//    UIImageView *fontColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 32, 30)];
-//    [fontColorImageView setImage:[UIImage imageNamed:@"font_color"]];
-//    [fontView addSubview:fontColorImageView];
-    
-	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_fontButonMin setFrame:CGRectMake(50, 60, fontView.bounds.size.width/5, 30)];
+	_fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_fontButonMin setFrame:CGRectMake(CGRectGetMidX(fontView.bounds)-120, CGRectGetMaxY(setFontSize.bounds)+10, 120, 30)];
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
-    [_fontButonMin setImage:[UIImage imageNamed:@"font_reduce"] forState:UIControlStateNormal];
-    [_fontButonMin setTitle:@"A-" forState:UIControlStateNormal];
+//    [_fontButonMin setImage:[UIImage imageNamed:@"font_reduce"] forState:UIControlStateNormal];
+    [_fontButonMin setTitle:@"T-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
-    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeCustom];
-    [fontButonMax setFrame:CGRectMake(fontView.bounds.size.width-30*3, 60, fontView.bounds.size.width/5, 30)];
-    [fontButonMax setImage:[UIImage imageNamed:@"font_add"] forState:UIControlStateNormal];
+    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [fontButonMax setFrame:CGRectMake(CGRectGetMidX(fontView.bounds), CGRectGetMaxY(setFontSize.bounds)+10, 120, 30)];
+//    [fontButonMax setImage:[UIImage imageNamed:@"font_add"] forState:UIControlStateNormal];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
-    [fontButonMax setTitle:@"A+" forState:UIControlStateNormal];
+    [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
-    UILabel *fontChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_fontButonMin.frame), 60, CGRectGetMinX(fontButonMax.frame) - CGRectGetMaxX(_fontButonMin.frame), 30)];
-    [fontChangeLabel setText:@"字体大小"];
-    [fontChangeLabel setTextAlignment:UITextAlignmentCenter];
-    [fontView addSubview:fontChangeLabel];
-    
-    defaultFontButton = [UIButton fontButton:CGRectMake(50, 20, fontView.bounds.size.width/3, 30)];
+    defaultFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width/2, 25)];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
-    [defaultFontButton setTitle:@"默认字体" forState:UIControlStateNormal];
+    [defaultFontButton setTitle:@"系统字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-    foundFontButton = [UIButton fontButton:CGRectMake(fontView.bounds.size.width-fontView.bounds.size.width/3-30, 20, fontView.bounds.size.width/3, 30)];
+    foundFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width/2, 25)];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
@@ -214,23 +204,6 @@
     } else {
         [defaultFontButton setEnabled:NO];
     }
-//    textColorMarkImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//    [textColorMarkImageView setImage:[UIImage imageNamed:@"read_mark"]];
-//    
-//    for (int i =0 ; i < [textcolorArray count]; i++) {
-//        UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        CGRect frame = CGRectMake(50+i*(40+10), 100, 40, 40);
-//        [colorButton setFrame:frame];
-//        [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
-//        SEL textcolorselector = NSSelectorFromString(textcolorArray[i]);
-//        [colorButton setBackgroundColor:[UIColor performSelector:textcolorselector]];
-//        [colorButton setTag:i];
-//        if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor] isEqualToString:textcolorArray[i]]) {
-//            [textColorMarkImageView setFrame:colorButton.frame];
-//        }
-//        [fontView addSubview:colorButton];
-//    }
-//	[fontView addSubview:textColorMarkImageView];
 }
 
 - (void)hide
@@ -243,8 +216,7 @@
 {
     brightView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-80, self.bounds.size.width, 80)];
     [brightView setHidden:YES];
-    [brightView setAlpha:0.7];
-    [brightView setBackgroundColor:[UIColor blackColor]];
+    [brightView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:brightView];
     
     UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
@@ -274,15 +246,9 @@
 {
     backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-150, self.bounds.size.width, 150)];
     [backgroundView setHidden:YES];
-    [backgroundView setAlpha:0.7];
-    [backgroundView setBackgroundColor:[UIColor blackColor]];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:backgroundView];
     
-    
-//    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-//    [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
-//    
-//    NSInteger currentIndex = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue];
     CGFloat offSetX = 20;
     CGFloat offSetY = 20;
     CGFloat width = (backgroundView.frame.size.width - (5 * offSetX))/4;

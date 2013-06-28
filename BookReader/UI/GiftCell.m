@@ -77,7 +77,7 @@
         [addBtn setFrame:CGRectMake(190, 22, 40, 20)];
         [self.contentView addSubview:addBtn];
     
-        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, 60, 70)];
+        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 20, 50, 60)];
         [self.contentView addSubview:keywordImageView];
         
         leftNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 54, 10, 20)];

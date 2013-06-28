@@ -87,9 +87,10 @@ static float duration = 0;
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:frame];
-    [button setBackgroundImage:[UIImage imageNamed:@"font_select"] forState:UIControlStateDisabled];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor whiteColor]];
+//    [button setBackgroundImage:[UIImage imageNamed:@"font_select"] forState:UIControlStateDisabled];
+    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor clearColor]];
     [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
     return button;
 }
