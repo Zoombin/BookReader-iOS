@@ -69,7 +69,7 @@
 - (void)initTopView
 {
      topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
-    [topView setAlpha:0.9];
+    [topView setAlpha:0.7];
     [topView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:topView];
     
@@ -125,7 +125,7 @@
 - (void)initBottomView
 {
      bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
-    [bottomView setAlpha:0.9];
+    [bottomView setAlpha:0.7];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[bottomView bounds]];
     [bottomView setBackgroundColor:[UIColor blackColor]];
     //    [imageView setImage:[UIImage imageNamed:@"read_bar"]];
@@ -164,7 +164,7 @@
 {
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-150, self.bounds.size.width, 150)];
     [fontView setHidden:YES];
-    [fontView setAlpha:0.9];
+    [fontView setAlpha:0.7];
     [fontView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:fontView];
     
@@ -175,10 +175,10 @@
     UIImageView *fontSizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 60, 32, 30)];
     [fontSizeImageView setImage:[UIImage imageNamed:@"font_size"]];
     [fontView addSubview:fontSizeImageView];
-    
-    UIImageView *fontColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 32, 30)];
-    [fontColorImageView setImage:[UIImage imageNamed:@"font_color"]];
-    [fontView addSubview:fontColorImageView];
+//    
+//    UIImageView *fontColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 32, 30)];
+//    [fontColorImageView setImage:[UIImage imageNamed:@"font_color"]];
+//    [fontView addSubview:fontColorImageView];
     
 	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
     [_fontButonMin setFrame:CGRectMake(50, 60, fontView.bounds.size.width/5, 30)];
@@ -214,23 +214,23 @@
     } else {
         [defaultFontButton setEnabled:NO];
     }
-    textColorMarkImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [textColorMarkImageView setImage:[UIImage imageNamed:@"read_mark"]];
-    
-    for (int i =0 ; i < [textcolorArray count]; i++) {
-        UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect frame = CGRectMake(50+i*(40+10), 100, 40, 40);
-        [colorButton setFrame:frame];
-        [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
-        SEL textcolorselector = NSSelectorFromString(textcolorArray[i]);
-        [colorButton setBackgroundColor:[UIColor performSelector:textcolorselector]];
-        [colorButton setTag:i];
-        if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor] isEqualToString:textcolorArray[i]]) {
-            [textColorMarkImageView setFrame:colorButton.frame];
-        }
-        [fontView addSubview:colorButton];
-    }
-	[fontView addSubview:textColorMarkImageView];
+//    textColorMarkImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    [textColorMarkImageView setImage:[UIImage imageNamed:@"read_mark"]];
+//    
+//    for (int i =0 ; i < [textcolorArray count]; i++) {
+//        UIButton *colorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        CGRect frame = CGRectMake(50+i*(40+10), 100, 40, 40);
+//        [colorButton setFrame:frame];
+//        [colorButton addTarget:self action:@selector(colorChanged:) forControlEvents:UIControlEventTouchUpInside];
+//        SEL textcolorselector = NSSelectorFromString(textcolorArray[i]);
+//        [colorButton setBackgroundColor:[UIColor performSelector:textcolorselector]];
+//        [colorButton setTag:i];
+//        if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor] isEqualToString:textcolorArray[i]]) {
+//            [textColorMarkImageView setFrame:colorButton.frame];
+//        }
+//        [fontView addSubview:colorButton];
+//    }
+//	[fontView addSubview:textColorMarkImageView];
 }
 
 - (void)hide
@@ -243,7 +243,7 @@
 {
     brightView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-80, self.bounds.size.width, 80)];
     [brightView setHidden:YES];
-    [brightView setAlpha:0.9];
+    [brightView setAlpha:0.7];
     [brightView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:brightView];
     
@@ -272,62 +272,37 @@
 
 - (void)initBackgroundView
 {
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-100, self.bounds.size.width, 100)];
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-150, self.bounds.size.width, 150)];
     [backgroundView setHidden:YES];
-    [backgroundView setAlpha:0.9];
+    [backgroundView setAlpha:0.7];
     [backgroundView setBackgroundColor:[UIColor blackColor]];
     [self addSubview:backgroundView];
     
-    UIImageView *backgroundColorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50 - 32 - 10, 20, 32, 30)];
-    [backgroundColorImageView setImage:[UIImage imageNamed:@"read_photo_box"]];
-    [backgroundView addSubview:backgroundColorImageView];
     
-    UIScrollView *scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(50, 10, backgroundView.bounds.size.width-50, backgroundView.bounds.size.width/20*3)];
-    [scrollerView setBackgroundColor:[UIColor clearColor]];
-    [scrollerView setDelegate:self];
-	scrollerView.pagingEnabled = YES;
-    [scrollerView setContentSize:CGSizeMake(scrollerView.bounds.size.width*4, scrollerView.bounds.size.width/20*3)];
-    [backgroundView addSubview:scrollerView];
+//    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+//    [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
+//    
+//    NSInteger currentIndex = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue];
+    CGFloat offSetX = 20;
+    CGFloat offSetY = 20;
+    CGFloat width = (backgroundView.frame.size.width - (5 * offSetX))/4;
+    CGFloat height = width;
+    CGRect frame = CGRectMake(offSetX, 10, width, height);
     
-    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(50, scrollerView.frame.origin.y+scrollerView.frame.size.height, scrollerView.frame.size.width, 30)];
-    [pageControl setCurrentPage:0];
-    [pageControl setNumberOfPages:4];
-    [backgroundView addSubview:pageControl];
-    
-    
-    CGRect frame = CGRectMake(0, 0, backgroundView.bounds.size.width/20*3, backgroundView.bounds.size.width/20*3);
-    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-    [markImageView setImage:[UIImage imageNamed:@"read_mark"]];
-    
-    NSInteger currentIndex = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue];
-    for (int i=0; i<16; i++) {
+    for (int i=0; i<8; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (i!=0) {
-            frame = CGRectMake(CGRectGetMaxX(frame)+20, 0, frame.size.width, frame.size.height);
-            if (i%4==0) {
-                int k = i/4;
-                frame.origin.x = k *scrollerView.frame.size.width;
-            }
+        if (i%4!=0) {
+            frame = CGRectMake(CGRectGetMaxX(frame)+offSetX, frame.origin.y, width, height);
+        }
+        if (i%4==0&&i!=0) {
+            frame = CGRectMake(offSetX, CGRectGetMaxY(frame)+offSetY, width, height);
         }
         [button setFrame:frame];
         [button setTag:i];
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
-        if (currentIndex == i) {
-            [self backgroundChanged:button];
-        }
-        [scrollerView addSubview:button];
+        [backgroundView addSubview:button];
     }
-    NSInteger currentPage = currentIndex / 4;
-    scrollerView.contentOffset = CGPointMake(scrollerView.frame.size.width * currentPage, scrollerView.contentOffset.y);
-    [scrollerView addSubview:markImageView];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat pageWidth = scrollView.frame.size.width;
-    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    pageControl.currentPage = page;
 }
 
 - (void)backgroundChanged:(id)sender
