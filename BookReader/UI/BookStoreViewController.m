@@ -137,7 +137,7 @@
     [self setHideBackBtn:YES];
     [self setTitle:@"书城"];
     
-    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-40, self.view.bounds.size.width, 40)];
+    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-45, self.view.bounds.size.width, 45)];
     [bottomView setImage:[UIImage imageNamed:@"bookstore_bottom_bar"]];
     [self.view addSubview:bottomView];
     
@@ -147,12 +147,12 @@
     
     NSArray *buttonImageNameUp = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
     NSArray *buttonImageNameDown = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
-    float width = ((bottomView.frame.size.width-130)/4);
+    float width = ((bottomView.frame.size.width-120)/4);
     for (int i=0; i<[buttonImageNameDown count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(130/5*(i+1)+i*width, self.view.bounds.size.height-40, width, 40)];
+        [button setFrame:CGRectMake(120/5*(i+1)+i*width, self.view.bounds.size.height-45, width, 45)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
