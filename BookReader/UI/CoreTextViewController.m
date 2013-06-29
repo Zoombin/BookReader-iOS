@@ -87,10 +87,10 @@
     coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, size.width, size.height - 40)];
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
 	coreTextView.fontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
-	NSString *textColorString = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
-	coreTextView.textColor = [UIColor performSelector:NSSelectorFromString(textColorString)];
-    statusView.title.textColor = [UIColor performSelector:NSSelectorFromString(textColorString)];
-    statusView.percentage.textColor = [UIColor performSelector:NSSelectorFromString(textColorString)];
+	NSNumber *textColorNum = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
+	coreTextView.textColor = [BookReaderDefaultsManager textColorWithIndex:textColorNum.integerValue];
+    statusView.title.textColor = coreTextView.textColor;
+    statusView.percentage.textColor = coreTextView.textColor;
     [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
@@ -156,11 +156,11 @@
 
 - (void)updateFontColor
 {
-	NSString *textColorString = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
-    SEL textcolorselector = NSSelectorFromString(textColorString);
-	coreTextView.textColor = [UIColor performSelector:textcolorselector];
-    statusView.title.textColor = [UIColor performSelector:textcolorselector];
-    statusView.percentage.textColor = [UIColor performSelector:textcolorselector];
+	NSNumber *textColorNum = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
+    UIColor *textColor = [BookReaderDefaultsManager textColorWithIndex:[textColorNum integerValue]];
+	coreTextView.textColor = textColor;
+    statusView.title.textColor = textColor;
+    statusView.percentage.textColor = textColor;
 	[self paging];
     [self updateCurrentPageContent];
 }

@@ -9,6 +9,7 @@
 #import "BookReaderDefaultsManager.h"
 
 static NSArray *colors;
+static NSArray *textColors;
 static float brightValue;
 
 @implementation BookReaderDefaultsManager
@@ -29,39 +30,28 @@ static float brightValue;
     return [colors objectAtIndex:index];
 }
 
++ (UIColor *)textColorWithIndex:(NSInteger)index
+{
+    if (!textColors) {
+        textColors =
+        @[[UIColor colorWithRed:65.0/255.0 green:51.0/255.0 blue:44.0/255.0 alpha:1.0],//羊皮纸风格
+          [UIColor colorWithRed:23.0/255.0 green:32.0/255.0 blue:14.0/255.0 alpha:1.0],//水墨江南
+          [UIColor colorWithRed:26.0/255.0 green:39.0/255.0 blue:20.0/255.0 alpha:1.0],//护眼
+          [UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0],//华灯初上
+          [UIColor colorWithRed:82.0/255.0 green:9.0/255.0 blue:28.0/255.0 alpha:1.0],//粉红回忆
+          [UIColor colorWithRed:50.0/255.0 green:49.0/255.0 blue:43.0/255.0 alpha:1.0],//白色婚纱
+          [UIColor colorWithRed:214.0/255.0 green:195.0/255.0 blue:155.0/255.0 alpha:1.0],//咖啡时光
+          [UIColor brownColor]];//天空之城
+    }
+    return [textColors objectAtIndex:index];
+}
+
 + (void)setObject:(id)object ForKey:(id)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
     NSString *keyString = (NSString *)key;
     if ([keyString isEqualToString:UserDefaultKeyBackground]) {
-        switch ([object integerValue]) {
-            case 0:
-                [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
-                break;
-            case 1:
-                [self setObject:UserDefaultTextColorBrown ForKey:UserDefaultKeyTextColor];
-                break;
-            case 2:
-                [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
-                break;
-            case 3:
-                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
-                break;
-            case 4:
-                [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
-                break;
-            case 5:
-                [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
-                break;
-            case 6:
-                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
-                break;
-            case 7:
-                [self setObject:UserDefaultTextColorBrown ForKey:UserDefaultKeyTextColor];
-                break;
-            default:
-                break;
-        }
+        [self setObject:object ForKey:UserDefaultKeyTextColor];
     }
 }
 
@@ -90,8 +80,6 @@ static float brightValue;
 			NSString *fontName = [self objectForKey:UserDefaultKeyFontName];
 			NSString *fontSize = [self objectForKey:UserDefaultKeyFontSize];
 			return [UIFont fontWithName:fontName size:fontSize.floatValue];
-		} else if ([keyString isEqualToString:UserDefaultKeyTextColor]) {
-			value = UserDefaultTextColorBlack;
 		} else if ([keyString isEqualToString:UserDefaultKeyBright]) {
 			value = @1.0;
 		} else if ([keyString isEqualToString:UserDefaultKeyBackground]) {
@@ -117,7 +105,7 @@ static float brightValue;
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
     
     keyString = UserDefaultKeyTextColor;
-    value = UserDefaultTextColorBlack;
+    value = UserDefaultTextColorBrown;
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
     
     keyString = UserDefaultKeyBright;
