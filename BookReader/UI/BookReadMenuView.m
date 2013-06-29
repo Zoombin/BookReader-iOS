@@ -34,6 +34,7 @@
     
     UIButton *defaultFontButton;
     UIButton *foundFontButton;
+    UISlider *brightSlider;
     
     NSMutableArray *bottomViewBtns;
     NSMutableArray *backgroundBtns;
@@ -235,7 +236,7 @@
     [brightView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:brightView];
     
-    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 22, backgroundView.bounds.size.width-100, 30)];
+     brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 22, backgroundView.bounds.size.width-100, 30)];
     [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
     [brightSlider setMinimumTrackTintColor:[UIColor whiteColor]];
     [brightSlider setThumbTintColor:[UIColor whiteColor]];
@@ -403,9 +404,38 @@
         bottomView.hidden = NO;
         topView.hidden = NO;
         self.hidden = YES;
+        [BookReaderDefaultsManager reset];
+        [self reloadView];
         if ([self.delegate respondsToSelector:@selector(resetButtonClicked)]) {
             [self.delegate performSelector:@selector(resetButtonClicked)];
         }
+    }
+}
+
+- (void)reloadView
+{
+    int index = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground] integerValue];
+    for (int i = 0; i < backgroundBtns.count; i++) {
+        UIButton *button = backgroundBtns[i];
+        if (index == i) {
+            [button.layer setBorderColor:[UIColor colorWithRed:235.0/255.0 green:162.0/255.0 blue:13.0/255.0 alpha:1.0].CGColor];
+        } else {
+            [button.layer setBorderColor:[UIColor clearColor].CGColor];
+        }
+    }
+    
+    if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
+        brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
+    } else {
+        brightSlider.value = 1;
+    }
+    
+    if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:UserDefaultFoundFont]) {
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+100, foundFontButton.frame.origin.y+8, 20, 20)];
+        [foundFontButton setEnabled:NO];
+    } else {
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(defaultFontButton.frame)+100, defaultFontButton.frame.origin.y+8, 20, 20)];
+        [defaultFontButton setEnabled:NO];
     }
 }
 

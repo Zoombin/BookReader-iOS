@@ -499,7 +499,6 @@
 
 - (void)resetButtonClicked
 {
-    [BookReaderDefaultsManager reset];
     [self updateFont];
     [self updateFontColor];
     [self updateFontSize];
