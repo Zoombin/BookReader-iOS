@@ -147,12 +147,12 @@
     
     NSArray *buttonImageNameUp = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
     NSArray *buttonImageNameDown = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
-    float width = ((bottomView.frame.size.width-110)/4);
+    float width = ((bottomView.frame.size.width-130)/4);
     for (int i=0; i<[buttonImageNameDown count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
         [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(20*(i+1)+i*width, self.view.bounds.size.height-40, width, 40)];
+        [button setFrame:CGRectMake(130/5*(i+1)+i*width, self.view.bounds.size.height-40, width, 40)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttonArrays addObject:button];
