@@ -83,20 +83,22 @@
 	UIButton *backButton = [UIButton navigationBackButton];
     [backButton setFrame: CGRectMake(10, buttonOffsetY, 48, 32)];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"read_backbtn"] forState:UIControlStateNormal];
+    [backButton setTitle:@"" forState:UIControlStateNormal];
     [topView addSubview:backButton];
     
-    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
-    [addBookMarkButton setTitle:@"书签" forState:UIControlStateNormal];
+    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-40, buttonOffsetY, 40, 35) andStyle:BookReaderButtonStyleNormal];
+    [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"read_bookmark"] forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:addBookMarkButton];
     
-    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds), buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
-    [nextChapterButton setTitle:@"下一章" forState:UIControlStateNormal];
+    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)+20, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    [nextChapterButton setBackgroundImage:[UIImage imageNamed:@"read_next"] forState:UIControlStateNormal];
     [nextChapterButton addTarget:self action:@selector(nextChapter) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:nextChapterButton];
     
-    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)-48, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
-    [lastChapterButton setTitle:@"上一章" forState:UIControlStateNormal];
+    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)-68, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    [lastChapterButton setBackgroundImage:[UIImage imageNamed:@"read_last"] forState:UIControlStateNormal];
     [lastChapterButton addTarget:self action:@selector(preChapter) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:lastChapterButton];
 }
@@ -129,14 +131,20 @@
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
-    NSArray *buttonNames = @[@"目录", @"推荐", @"评论", @"横屏", @"亮度", @"字体", @"背景", @"恢复默认"];
+    NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_hor", @"read_bright", @"read_font", @"read_background", @"read_reset"];
+    NSArray *buttonNames = @[@"目录", @"推荐", @"评论", @"横屏", @"亮度", @"字体", @"背景", @"恢复"];
     int k = 0;
     for (int i = 0; i < 8; i ++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        [button setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 20, 10);
+        button.contentEdgeInsets = UIEdgeInsetsMake(0, -30, 5, 10);
         [button.layer setBorderColor:[UIColor blackColor].CGColor];
         [button.layer setBorderWidth:0.5];
+        button.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
         [bottomView addSubview:button];
         [bottomViewBtns addObject:button];
