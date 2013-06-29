@@ -132,7 +132,7 @@
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
     NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_hor", @"read_bright", @"read_font", @"read_background", @"read_reset"];
-    NSArray *buttonNames = @[@"目录", @"推荐", @"评论", @"横屏", @"亮度", @"字体", @"背景", @"恢复"];
+    NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"横屏", @"亮度调节", @"字体调整", @"阅读背景", @"恢复默认"];
     int k = 0;
     for (int i = 0; i < 8; i ++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -183,16 +183,17 @@
     [setFont setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFont];
     
-	_fontButonMin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
     [_fontButonMin setFrame:CGRectMake(CGRectGetMidX(fontView.bounds)-120, CGRectGetMaxY(setFontSize.bounds)+10, 120, 30)];
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
-//    [_fontButonMin setImage:[UIImage imageNamed:@"font_reduce"] forState:UIControlStateNormal];
+
+    [_fontButonMin setImage:[UIImage imageNamed:@"read_fontsize_reduce"] forState:UIControlStateNormal];
     [_fontButonMin setTitle:@"T-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
-    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeCustom];
     [fontButonMax setFrame:CGRectMake(CGRectGetMidX(fontView.bounds), CGRectGetMaxY(setFontSize.bounds)+10, 120, 30)];
-//    [fontButonMax setImage:[UIImage imageNamed:@"font_add"] forState:UIControlStateNormal];
+    [fontButonMax setImage:[UIImage imageNamed:@"read_fontsize_add"] forState:UIControlStateNormal];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
@@ -207,9 +208,15 @@
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [fontView addSubview:foundFontButton];
     
+    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+80, foundFontButton.frame.origin.y, 20, 20)];
+    [markImageView setImage:[UIImage imageNamed:@"read_fontmark_select"]];
+    [fontView addSubview:markImageView];
+    
     if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:UserDefaultFoundFont]) {
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+80, foundFontButton.frame.origin.y, 20, 20)];
         [foundFontButton setEnabled:NO];
     } else {
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(defaultFontButton.frame)+80, defaultFontButton.frame.origin.y, 20, 20)];
         [defaultFontButton setEnabled:NO];
     }
 }
@@ -227,7 +234,7 @@
     [brightView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:brightView];
     
-    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 20, backgroundView.bounds.size.width-100, 30)];
+    UISlider *brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 22, backgroundView.bounds.size.width-100, 30)];
     [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
     [brightSlider setMinimumTrackTintColor:[UIColor whiteColor]];
     [brightSlider setThumbTintColor:[UIColor whiteColor]];
@@ -241,11 +248,11 @@
     [brightSlider setMinimumValue:0];
     [brightView addSubview:brightSlider];
     
-    UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 20, 32, 30)];
+    UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 20, 32, 35)];
     [brightLeftImageView setImage:[UIImage imageNamed:@"read_light_reduce"]];
     [brightView addSubview:brightLeftImageView];
     
-    UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(brightSlider.frame) + 10, 20, 32, 30)];
+    UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(brightSlider.frame) + 10, 20, 32, 35)];
     [brightRightImageView setImage:[UIImage imageNamed:@"read_light_increase"]];
     [brightView addSubview:brightRightImageView];
 }
@@ -281,8 +288,6 @@
 
 - (void)backgroundChanged:(id)sender
 {
-    UIButton *button = (UIButton *)sender;
-    [markImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - markImageView.frame.size.width, button.frame.origin.y, markImageView.frame.size.width, markImageView.frame.size.height)];
     if ([self.delegate respondsToSelector:@selector(backgroundColorChanged:)]) {
         [self.delegate backgroundColorChanged:[sender tag]];
     }
@@ -297,8 +302,6 @@
 
 - (void)colorChanged:(id)sender
 {
-    UIButton *button = (UIButton *)sender;
-    [textColorMarkImageView setFrame:CGRectMake(button.frame.origin.x + button.frame.size.width - textColorMarkImageView.frame.size.width, button.frame.origin.y, textColorMarkImageView.frame.size.width, textColorMarkImageView.frame.size.height)];
     if ([self.delegate respondsToSelector:@selector(changeTextColor:)]) {
         [self.delegate changeTextColor:textcolorArray[[sender tag]]];
     }
@@ -312,6 +315,7 @@
 
 - (void)systemFontChange
 {
+    [markImageView setFrame:CGRectMake(CGRectGetMaxX(defaultFontButton.frame)+80, defaultFontButton.frame.origin.y, 20, 20)];
     [defaultFontButton setEnabled:NO];
     [foundFontButton setEnabled:YES];
     if ([self.delegate respondsToSelector:@selector(systemFont)]) {
@@ -321,6 +325,7 @@
 
 - (void)foundFontChange
 {
+    [markImageView setFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+80, foundFontButton.frame.origin.y, 20, 20)];
     [defaultFontButton setEnabled:YES];
     [foundFontButton setEnabled:NO];
     if ([self.delegate respondsToSelector:@selector(foundFont)]) {
