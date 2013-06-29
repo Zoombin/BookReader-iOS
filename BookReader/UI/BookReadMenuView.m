@@ -309,7 +309,7 @@
 
 - (void)fontChanged:(UIButton *)sender
 {
-	[self.delegate fontChanged:[sender.titleLabel.text isEqualToString:@"T-"] ? YES : NO];
+	[self.delegate fontChanged:[sender.titleLabel.text isEqualToString:@"T-"]];
 }
 
 
