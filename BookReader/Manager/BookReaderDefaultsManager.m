@@ -18,21 +18,13 @@ static float brightValue;
     if (!colors) {
         colors =
         @[[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
-          [UIColor colorWithRed:251.0/255.0 green:249.0/255.0 blue:234.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:224.0/255.0 green:236.0/255.0 blue:224.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:228.0/255.0 green:237.0/255.0 blue:243.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:245.0/255.0 green:251.0/255.0 blue:255.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:235.0/255.0 green:237.0/255.0 blue:193.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:215.0/255.0 green:243.0/255.0 blue:244.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:134.0/255.0 green:180.0/255.0 blue:217.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:251.0/255.0 green:225.0/255.0 blue:218.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:35.0/255.0 green:48.0/255.0 blue:47.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:50.0/255.0 green:62.0/255.0 blue:80.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:50.0/255.0 green:53.0/255.0 blue:50.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:87.0/255.0 green:103.0/255.0 blue:79.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:166.0/255.0 green:137.0/255.0 blue:193.0/255.0 alpha:1.0],
-          [UIColor colorWithRed:9.0/255.0 green:14.0/255.0 blue:14.0/255.0 alpha:1.0],];
+          [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_river_paper"]],//水墨江南
+          [UIColor colorWithRed:204.0/255.0 green:234.0/255.0 blue:186.0/255.0 alpha:1.0],//护眼
+          [UIColor colorWithRed:42.0/255.0 green:39.0/255.0 blue:33.0/255.0 alpha:1.0],//华灯初上
+          [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_remember_paper"]],//粉红回忆
+          [UIColor colorWithRed:245.0/255.0 green:240.0/255.0 blue:230.0/255.0 alpha:1.0],//白色婚纱
+          [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_coffee_paper"]],//咖啡时光
+          [UIColor colorWithRed:156.0/255.0 green:209.0/255.0 blue:229.0/255.0 alpha:1.0]];//天空之城
     }
     return [colors objectAtIndex:index];
 }
@@ -47,25 +39,25 @@ static float brightValue;
                 [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
                 break;
             case 1:
-                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
+                [self setObject:UserDefaultTextColorBrown ForKey:UserDefaultKeyTextColor];
                 break;
             case 2:
                 [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
                 break;
             case 3:
-                [self setObject:UserDefaultTextColorBrown ForKey:UserDefaultKeyTextColor];
+                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
                 break;
             case 4:
-                [self setObject:UserDefaultTextColorGreen ForKey:UserDefaultKeyTextColor];
+                [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
                 break;
             case 5:
                 [self setObject:UserDefaultTextColorBlack ForKey:UserDefaultKeyTextColor];
                 break;
             case 6:
-                [self setObject:UserDefaultTextColorBlue ForKey:UserDefaultKeyTextColor];
+                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
                 break;
             case 7:
-                [self setObject:UserDefaultTextColorWhite ForKey:UserDefaultKeyTextColor];
+                [self setObject:UserDefaultTextColorBrown ForKey:UserDefaultKeyTextColor];
                 break;
             default:
                 break;
