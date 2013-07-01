@@ -99,6 +99,7 @@
     UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)+20, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [nextChapterButton setBackgroundImage:[UIImage imageNamed:@"read_next"] forState:UIControlStateNormal];
     [nextChapterButton addTarget:self action:@selector(nextChapter) forControlEvents:UIControlEventTouchUpInside];
+    [nextChapterButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [topView addSubview:nextChapterButton];
     
     UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)-68, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
@@ -131,6 +132,7 @@
 - (void)initBottomView
 {
      bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
+    [bottomView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
     [bottomView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
@@ -172,6 +174,7 @@
 {
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-200, self.bounds.size.width, 200)];
     [fontView setHidden:YES];
+    [fontView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
     [fontView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:fontView];
 
@@ -234,6 +237,7 @@
 {
     brightView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-80, self.bounds.size.width, 80)];
     [brightView setHidden:YES];
+    [brightView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
     [brightView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:brightView];
     
@@ -264,6 +268,7 @@
 {
     backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-200, self.bounds.size.width, 200)];
     [backgroundView setHidden:YES];
+    [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
     [self addSubview:backgroundView];
     
