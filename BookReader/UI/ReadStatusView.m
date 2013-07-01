@@ -14,21 +14,25 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width - 60, frame.size.height)];
+         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width-60, frame.size.height)];
 		_title.backgroundColor = [UIColor clearColor];
         _title.textAlignment = UITextAlignmentLeft;
+        [_title setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 		_title.font = [UIFont systemFontOfSize:12];
         [self addSubview:_title];
 		
-        _percentage = [[UILabel alloc] initWithFrame:self.bounds];
+        _percentage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 		_percentage.backgroundColor = [UIColor clearColor];
         _percentage.textAlignment = UITextAlignmentRight;
+        [_percentage setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 		_percentage.font = [UIFont systemFontOfSize:12];
 		[self addSubview:_percentage];
 		
-		UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(frame) - 1, frame.size.width, 1)];
-        [line setBackgroundColor:[UIColor blackColor]];
-        [self addSubview:line];
+         _line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(frame) - 1, frame.size.width, 1)];
+        [_line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [_line setBackgroundColor:[UIColor blackColor]];
+        [self addSubview:_line];
     }
     return self;
 }

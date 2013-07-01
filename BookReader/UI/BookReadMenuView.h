@@ -41,4 +41,5 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *fontButonMin;
 - (void)hidenAllMenu;
+
 @end

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ReadStatusView : UIView
-@property (nonatomic, strong)UILabel *title;
-@property (nonatomic, strong)UILabel *percentage;
+@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UILabel *percentage;
+@property (nonatomic, strong) UIView *line;
 @end
 
 

@@ -21,11 +21,12 @@
 #import "BookReaderDefaultsManager.h"
 #import "MobileProbe.h"
 #import "UIColor+BookReader.h"
+#import "NavViewController.h"
 
 #define REMOTE_MODE
 
 @implementation AppDelegate {
-    UINavigationController *navController;
+    NavViewController *navController;
     NSMutableDictionary *rootControllers;
     UIView *tabBar;
 }
@@ -141,7 +142,7 @@
 - (void)gotoRootController:(RootControllerType)type
 {
     UIViewController *controller = rootControllers[@(type)];
-    navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    navController = [[NavViewController alloc] initWithRootViewController:controller];
     [navController setNavigationBarHidden:YES];
     self.window.rootViewController = navController;
 #ifndef REMOTE_MODE

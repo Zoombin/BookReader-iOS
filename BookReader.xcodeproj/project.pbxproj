@@ -91,6 +91,7 @@
 		183FBAD4177EB7110074B3B9 /* read_remember_paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAD0177EB7110074B3B9 /* read_remember_paper.png */; };
 		183FBAD5177EB7110074B3B9 /* read_river_paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAD1177EB7110074B3B9 /* read_river_paper.png */; };
 		183FBAD6177EB7110074B3B9 /* read_sheep_paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAD2177EB7110074B3B9 /* read_sheep_paper.png */; };
+		183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FBB1F178117BD0074B3B9 /* NavViewController.m */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		186C2D2F177E6EE5002E16C0 /* read_backbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 186C2D18177E6EE5002E16C0 /* read_backbtn.png */; };
@@ -541,6 +542,8 @@
 		183FBAD0177EB7110074B3B9 /* read_remember_paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_remember_paper.png; sourceTree = "<group>"; };
 		183FBAD1177EB7110074B3B9 /* read_river_paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_river_paper.png; sourceTree = "<group>"; };
 		183FBAD2177EB7110074B3B9 /* read_sheep_paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_sheep_paper.png; sourceTree = "<group>"; };
+		183FBB1E178117BD0074B3B9 /* NavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavViewController.h; sourceTree = "<group>"; };
+		183FBB1F178117BD0074B3B9 /* NavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavViewController.m; sourceTree = "<group>"; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1495,6 +1498,8 @@
 				8BDB0B04165E04F1008F328A /* ReadView.m */,
 				181091DF173895EA000931AB /* ReadHelpView.h */,
 				181091E0173895EC000931AB /* ReadHelpView.m */,
+				183FBB1E178117BD0074B3B9 /* NavViewController.h */,
+				183FBB1F178117BD0074B3B9 /* NavViewController.m */,
 			);
 			name = Read;
 			sourceTree = "<group>";
@@ -2549,6 +2554,7 @@
 				77B01C1D175090B2004E426C /* Mark.m in Sources */,
 				18A7FF42176087C900F97099 /* Book+Local.m in Sources */,
 				18B5C9D01773DD72004AAA16 /* Book.m in Sources */,
+				183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

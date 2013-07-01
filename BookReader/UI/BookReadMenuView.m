@@ -54,6 +54,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         bottomViewBtns = [[NSMutableArray alloc] init];
         backgroundBtns = [[NSMutableArray alloc] init];
         textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorWhite];
@@ -72,12 +73,11 @@
 - (void)initTopView
 {
      topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
-//    [topView setAlpha:0.7];
     [topView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.8]];
+    [topView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:topView];
     
     titleLabel = [UILabel titleLableWithFrame:topView.bounds];
-//    [titleLabel setText:@"正文"];
     [self addSubview:titleLabel];
     
     static float buttonOffsetX = 10.0;
@@ -90,9 +90,10 @@
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [topView addSubview:backButton];
     
-    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.bounds.size.width-buttonOffsetX-40, buttonOffsetY, 40, 35) andStyle:BookReaderButtonStyleNormal];
+    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.frame.size.width-buttonOffsetX-40, buttonOffsetY, 40, 35) andStyle:BookReaderButtonStyleNormal];
     [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"read_bookmark"] forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [addBookMarkButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [topView addSubview:addBookMarkButton];
     
     UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)+20, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];

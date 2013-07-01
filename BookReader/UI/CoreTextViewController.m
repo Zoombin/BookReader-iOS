@@ -19,6 +19,7 @@
 #import "ReadHelpView.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "NavViewController.h"
 #import "Mark.h"
 
 @implementation CoreTextViewController {
@@ -35,6 +36,7 @@
     NSInteger currentPageIndex;
     Chapter *chapter;
 	NSString *currentChapterString;
+    BOOL isRight;
 }
 
 - (void)shareButtonClicked
@@ -67,6 +69,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    isRight = NO;
     if([MFMessageComposeViewController canSendText]) {
         messageComposeViewController = [[MFMessageComposeViewController alloc] init];
     }
@@ -535,7 +538,38 @@
 
 - (void)horizontalButtonClicked
 {
+    if (!isRight) {
+        isRight = YES;
+        menuView.hidden = NO;
+        [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskLandscapeRight];
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+            [self changedWithOrientation:UIInterfaceOrientationLandscapeRight];
+        }
+        [self paging];
+        [self updateCurrentPageContent];
+    }else{
+        isRight = NO;
+        [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+            [self changedWithOrientation:UIInterfaceOrientationPortrait];
+        }
+    }
+}
+
+- (void)changedWithOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    SEL selector = NSSelectorFromString(@"setOrientation:");
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+    [invocation setSelector:selector];
+    [invocation setTarget:[UIDevice currentDevice]];
+    int val = toInterfaceOrientation;
+    [invocation setArgument:&val atIndex:2];
+    [invocation invoke];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     
+    return toInterfaceOrientation == UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
 }
 
 @end
