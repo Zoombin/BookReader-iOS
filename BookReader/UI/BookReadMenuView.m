@@ -180,12 +180,14 @@
 
     UILabel *setFontSize = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fontView.frame.size.width, 25)];
     [setFontSize setText:@"\t\t调整字号"];
+    [setFontSize setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [setFontSize setTextColor:[UIColor grayColor]];
     [setFontSize setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFontSize];
     
     UILabel *setFont = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMidY(fontView.bounds), fontView.frame.size.width, 25)];
     [setFont setText:@"\t\t选择字体"];
+    [setFont setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [setFont setTextColor:[UIColor grayColor]];
     [setFont setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFont];
@@ -193,36 +195,43 @@
 	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
     [_fontButonMin setFrame:CGRectMake(CGRectGetMidX(fontView.bounds)-120, CGRectGetMaxY(setFontSize.bounds)+20, 120, 30)];
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
-    [_fontButonMin setImage:[UIImage imageNamed:@"read_fontsize_reduce"] forState:UIControlStateNormal];
+    [_fontButonMin setBackgroundImage:[UIImage imageNamed:@"read_fontsize_reduce"] forState:UIControlStateNormal];
+    [_fontButonMin setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+    [_fontButonMin setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     [_fontButonMin setTitle:@"T-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
     UIButton *fontButonMax = [UIButton buttonWithType:UIButtonTypeCustom];
     [fontButonMax setFrame:CGRectMake(CGRectGetMidX(fontView.bounds), CGRectGetMaxY(setFontSize.bounds)+20, 120, 30)];
-    [fontButonMax setImage:[UIImage imageNamed:@"read_fontsize_add"] forState:UIControlStateNormal];
+    [fontButonMax setBackgroundImage:[UIImage imageNamed:@"read_fontsize_add"] forState:UIControlStateNormal];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
+    [fontButonMax setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [fontButonMax setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
     defaultFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width/2, 37.5)];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
+    [defaultFontButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
     [defaultFontButton setTitle:@"系统字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
     foundFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width/2, 37.5)];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
+    [foundFontButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
     [fontView addSubview:foundFontButton];
     
-    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+100, foundFontButton.frame.origin.y+8, 20, 20)];
+    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, foundFontButton.frame.origin.y+8, 20, 20)];
     [markImageView setImage:[UIImage imageNamed:@"read_fontmark_select"]];
+    [markImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [fontView addSubview:markImageView];
     
     if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:UserDefaultFoundFont]) {
-        [markImageView setFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+100, foundFontButton.frame.origin.y+8, 20, 20)];
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, foundFontButton.frame.origin.y+8, 20, 20)];
         [foundFontButton setEnabled:NO];
     } else {
-        [markImageView setFrame:CGRectMake(CGRectGetMaxX(defaultFontButton.frame)+100, defaultFontButton.frame.origin.y+8, 20, 20)];
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, defaultFontButton.frame.origin.y+8, 20, 20)];
         [defaultFontButton setEnabled:NO];
     }
 }
@@ -351,7 +360,7 @@
 
 - (void)systemFontChange
 {
-    [markImageView setFrame:CGRectMake(CGRectGetMaxX(defaultFontButton.frame)+100, defaultFontButton.frame.origin.y+8, 20, 20)];
+    [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, defaultFontButton.frame.origin.y+8, 20, 20)];
     [defaultFontButton setEnabled:NO];
     [foundFontButton setEnabled:YES];
     if ([self.delegate respondsToSelector:@selector(systemFont)]) {
@@ -361,7 +370,7 @@
 
 - (void)foundFontChange
 {
-    [markImageView setFrame:CGRectMake(CGRectGetMaxX(foundFontButton.frame)+100, foundFontButton.frame.origin.y+8, 20, 20)];
+    [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, foundFontButton.frame.origin.y+8, 20, 20)];
     [defaultFontButton setEnabled:YES];
     [foundFontButton setEnabled:NO];
     if ([self.delegate respondsToSelector:@selector(foundFont)]) {
