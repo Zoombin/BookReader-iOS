@@ -94,6 +94,7 @@
 	coreTextView.textColor = [BookReaderDefaultsManager textColorWithIndex:textColorNum.integerValue];
     statusView.title.textColor = coreTextView.textColor;
     statusView.percentage.textColor = coreTextView.textColor;
+    [coreTextView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
@@ -553,6 +554,8 @@
         if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
             [self changedWithOrientation:UIInterfaceOrientationPortrait];
         }
+        [self paging];
+        [self updateCurrentPageContent];
     }
 }
 

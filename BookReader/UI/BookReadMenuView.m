@@ -245,6 +245,7 @@
     [brightSlider setMaximumTrackTintColor:[UIColor colorWithRed:176.0/255.0 green:131.0/255.0 blue:107.0/255.0 alpha:1.0]];
     [brightSlider setMinimumTrackTintColor:[UIColor whiteColor]];
     [brightSlider setThumbTintColor:[UIColor whiteColor]];
+    [brightSlider setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     if ([BookReaderDefaultsManager objectForKey:UserDefaultKeyBright]) {
         brightSlider.value = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
@@ -261,6 +262,7 @@
     
     UIImageView *brightRightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(brightSlider.frame) + 10, 20, 32, 35)];
     [brightRightImageView setImage:[UIImage imageNamed:@"read_light_increase"]];
+    [brightRightImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [brightView addSubview:brightRightImageView];
 }
 
