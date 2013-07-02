@@ -34,7 +34,9 @@
         [_backButton setFrame:CGRectMake(10, 3, 50, 32)];
         [self addSubview:_backButton];
         
-        _titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.bounds.size.width, 44)];
+        _titleLabel = [UILabel titleLableWithFrame:CGRectMake(80, 0, self.bounds.size.width - 160, 44)];
+        [_titleLabel setAdjustsFontSizeToFitWidth:YES];
+        [_titleLabel setAdjustsLetterSpacingToFitWidth:YES];
         [self addSubview:_titleLabel];
     }
     return self;

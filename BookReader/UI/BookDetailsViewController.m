@@ -406,7 +406,6 @@
 }
 
 - (void)initBookDetailUI {
-    self.title = @"图书详情";
     NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
