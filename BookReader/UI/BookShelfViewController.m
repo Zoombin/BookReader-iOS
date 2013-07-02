@@ -107,9 +107,13 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	if (![ServiceManager userID]) {
+    BOOL firstLaunch = [ServiceManager firstLaunch];
+	if (![ServiceManager userID]||firstLaunch) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
         [alertView show];
+        if (firstLaunch) {
+            [self recommendBooks];
+        }
     } else {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			stopAllSync = NO;
@@ -121,6 +125,30 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     [[self BRHeaderView] refreshUpdateButton];
 	[self showBooks];
 	[booksView reloadData];
+}
+
+- (void)recommendBooks
+{
+    [ServiceManager recommandDefaultBookwithBlock:^(NSArray *resultArray, NSError *error) {
+        if (error) {
+			[self displayHUDError:nil message:error.description];
+        } else {
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
+				NSArray *allBooks = [Book findAllInContext:localContext];
+				for (Book *b in allBooks) {
+					b.bFav = NO;
+				}
+			} completion:^(BOOL success, NSError *error) {
+				books = [resultArray mutableCopy];
+				[Book persist:books withBlock:^(void) {
+					[booksForDisplay removeAllObjects];
+					[booksForDisplay addObjectsFromArray:books];
+					[booksView reloadData];
+					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+				}];
+			}];
+        }
+    }];
 }
 
 - (void)syncBooks

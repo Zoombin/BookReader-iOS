@@ -62,6 +62,17 @@ static NSNumber *sUserID;
 	return sUserID;
 }
 
++ (BOOL)firstLaunch
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
+        return NO;
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:FIRST_LAUNCH];
+        return YES;
+    }
+    return YES;
+}
+
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name
 {
     [[NSUserDefaults standardUserDefaults] setObject:money forKey:USER_MONEY];
