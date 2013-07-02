@@ -438,8 +438,6 @@
 
 - (void)chaptersButtonClicked
 {
-    isRight = YES;
-    [self horizontalButtonClicked];
     SubscribeViewController *controller = [[SubscribeViewController alloc] init];
     controller.currentChapterID = chapter.uid;
     controller.delegate = self;

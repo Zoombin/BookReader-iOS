@@ -35,10 +35,11 @@
     [super viewDidLoad];
     [self removeGestureRecognizer];
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 44, self.view.bounds.size.width-8, self.view.bounds.size.height-44) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView.layer setCornerRadius:5];
     [infoTableView.layer setMasksToBounds:YES];
+    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
@@ -55,6 +56,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:images[i] forState:UIControlStateNormal];
         [button setFrame: CGRectFromString(rectStrings[i])];
+        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
         [button setBackgroundImage:disbleImages[i] forState:UIControlStateDisabled];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];

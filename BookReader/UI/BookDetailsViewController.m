@@ -519,8 +519,7 @@
 - (void)loadAuthorOtherBook
 {
     [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(NSArray *resultArray, NSError *error) {
-        if (error)
-        {
+        if (error) {
             
         }
         else
@@ -530,8 +529,7 @@
             }
             for (int i = 0 ; i<[resultArray count]; i++) {
                 Book *obj = [resultArray objectAtIndex:i];
-                if([obj.uid integerValue]!=[bookid integerValue])
-                {
+                if([obj.uid integerValue]!=[bookid integerValue]) {
                     [authorBookArray addObject:obj];
                 }
             }
@@ -546,15 +544,13 @@
         if (error) {
             
         }
-        else
-        {
+        else {
             if ([sameTypeBookArray count]>0) {
                 [sameTypeBookArray removeAllObjects];
             }
             for (int i = 0 ; i<[resultArray count]; i++) {
                 Book *obj = [resultArray objectAtIndex:i];
-                if([obj.uid integerValue]!=[bookid integerValue])
-                {
+                if([obj.uid integerValue]!=[bookid integerValue]) {
                     [sameTypeBookArray addObject:obj];
                 }
             }
@@ -575,14 +571,11 @@
     if ([self checkLogin] == NO) {
         return;
     }
-    [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error)
-     {
-         if (error)
-         {
+    [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error) {
+         if (error) {
              
          }
-         else
-         {
+         else {
              commitField.text = @"";
              [self displayHUDError:nil message:message];
              [self loadCommitList];

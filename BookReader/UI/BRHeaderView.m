@@ -25,6 +25,7 @@
         // Initialization code
          topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
         [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
+        [topBarImage setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [self addSubview:topBarImage];
         
         _backButton = [UIButton navigationBackButton];
@@ -32,7 +33,6 @@
         [self addSubview:_backButton];
         
         _titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.bounds.size.width, 44)];
-//        [_titleLabel setFont:[UIFont systemFontOfSize:17]];
         [self addSubview:_titleLabel];
     }
     return self;
