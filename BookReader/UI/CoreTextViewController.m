@@ -407,6 +407,8 @@
 #pragma mark BookReadMenuDelegate
 - (void)backButtonPressed
 {
+    isRight = YES;
+    [self horizontalButtonClicked];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -436,6 +438,8 @@
 
 - (void)chaptersButtonClicked
 {
+    isRight = YES;
+    [self horizontalButtonClicked];
     SubscribeViewController *controller = [[SubscribeViewController alloc] init];
     controller.currentChapterID = chapter.uid;
     controller.delegate = self;
@@ -482,10 +486,11 @@
         [self displayHUDError:nil message:@"您尚未登录!"];
         return;
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"XXXXXXX" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
-     commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 40, 260, 35)];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"    \n" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+     commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 37, 260, 25)];
     [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
+    [commitField setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
     [commitField setDelegate:self];
     [commitField setReturnKeyType:UIReturnKeyDone];
     [commitField.layer setBorderColor:[UIColor blackColor].CGColor];
@@ -510,6 +515,8 @@
     statusView.alpha = coreTextView.alpha;
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
+    isRight = NO;
+    [self horizontalButtonClicked];
     [self displayHUDError:nil message:@"已恢复默认!"];
 }
 
@@ -548,6 +555,7 @@
         }
         [self paging];
         [self updateCurrentPageContent];
+        [BookReaderDefaultsManager setObject:UserDefaultScreenHor ForKey:UserDefaultKeyScreen];
     }else{
         isRight = NO;
         [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
@@ -556,6 +564,7 @@
         }
         [self paging];
         [self updateCurrentPageContent];
+        [BookReaderDefaultsManager setObject:UserDefaultScreenVer ForKey:UserDefaultKeyScreen];
     }
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);

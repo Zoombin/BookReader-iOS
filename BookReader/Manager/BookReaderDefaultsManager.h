@@ -15,6 +15,11 @@
 #define UserDefaultKeyBright @"bright"
 #define UserDefaultKeyBackground @"background"
 #define UserDefaultKeyNotFirstRead @"not_first_read"
+#define UserDefaultKeyScreen @"screen"
+
+//屏幕
+#define UserDefaultScreenHor @"hor"
+#define UserDefaultScreenVer @"Ver"
 
 //字体大小
 #define UserDefaultFontSizeMax @23

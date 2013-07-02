@@ -84,7 +84,9 @@ static float brightValue;
 			value = @1.0;
 		} else if ([keyString isEqualToString:UserDefaultKeyBackground]) {
 			value = @0;//羊皮纸
-		}
+		} else if ([keyString isEqualToString:UserDefaultKeyScreen]) {
+            value = UserDefaultScreenVer;
+        }
 		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
@@ -114,6 +116,10 @@ static float brightValue;
     
     keyString = UserDefaultKeyBackground;
     value = @0;//羊皮纸
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
+    
+    keyString = UserDefaultKeyScreen;
+    value = UserDefaultScreenVer;//羊皮纸
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
 }
 @end
