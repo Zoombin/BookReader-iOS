@@ -583,7 +583,8 @@
          }
          else
          {
-             [self showAlertWithMessage:message];
+             commitField.text = @"";
+             [self displayHUDError:nil message:message];
              [self loadCommitList];
          }
      }];
