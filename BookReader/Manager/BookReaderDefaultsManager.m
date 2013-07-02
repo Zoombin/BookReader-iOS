@@ -18,13 +18,13 @@ static float brightValue;
 {
     if (!colors) {
         colors =
-        @[[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
-          [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_river_paper"]],//水墨江南
+        @[[UIColor colorWithRed:203.0/255.0 green:193.0/255.0 blue:163.0/255.0 alpha:1.0],//羊皮纸风格
+          [UIColor colorWithRed:230.0/255.0 green:240.0/255.0 blue:220.0/255.0 alpha:1.0],//水墨江南
           [UIColor colorWithRed:204.0/255.0 green:234.0/255.0 blue:186.0/255.0 alpha:1.0],//护眼
           [UIColor colorWithRed:42.0/255.0 green:39.0/255.0 blue:33.0/255.0 alpha:1.0],//华灯初上
-          [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_remember_paper"]],//粉红回忆
+          [UIColor colorWithRed:235.0/255.0 green:202.0/255.0 blue:187.0/255.0 alpha:1.0],//粉红回忆
           [UIColor colorWithRed:245.0/255.0 green:240.0/255.0 blue:230.0/255.0 alpha:1.0],//白色婚纱
-          [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_coffee_paper"]],//咖啡时光
+          [UIColor colorWithRed:66.0/255.0 green:44.0/255.0 blue:24.0/255.0 alpha:1.0],//咖啡时光
           [UIColor colorWithRed:156.0/255.0 green:209.0/255.0 blue:229.0/255.0 alpha:1.0]];//天空之城
     }
     return [colors objectAtIndex:index];
