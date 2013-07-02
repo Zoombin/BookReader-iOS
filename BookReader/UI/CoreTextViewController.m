@@ -557,6 +557,8 @@
         [self paging];
         [self updateCurrentPageContent];
     }
+    menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
+    nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
 }
 
 - (void)changedWithOrientation:(UIInterfaceOrientation)toInterfaceOrientation
