@@ -38,6 +38,7 @@
 	NSString *currentChapterString;
     BOOL isRight;
     BOOL firstAppear;
+    UIView *backgroundView;
 }
 
 - (void)shareButtonClicked
@@ -70,6 +71,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [backgroundView setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:backgroundView];
+    
     isRight = NO;
     firstAppear = NO;
     if([MFMessageComposeViewController canSendText]) {
@@ -114,9 +120,7 @@
 		ReadHelpView *helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds andMenuFrame:menuRect];
 		[self.view addSubview:helpView];
 	}
-	
-	coreTextView.alpha = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
-    statusView.alpha = coreTextView.alpha;
+	backgroundView.alpha = 1.0 - [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -208,8 +212,7 @@
 - (void)brightChanged:(UISlider *)slider
 {
 	[BookReaderDefaultsManager setObject:@(slider.value) ForKey:UserDefaultKeyBright];
-    coreTextView.alpha = slider.value;
-    statusView.alpha = slider.value;
+    backgroundView.alpha = 1.0 - slider.value;
 }
 
 - (void)backgroundColorChanged:(NSInteger)index
@@ -514,8 +517,7 @@
     [self updateFont];
     [self updateFontColor];
     [self updateFontSize];
-    coreTextView.alpha = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
-    statusView.alpha = coreTextView.alpha;
+    backgroundView.alpha = 1.0 - [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
     isRight = YES;

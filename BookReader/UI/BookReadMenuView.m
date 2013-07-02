@@ -268,7 +268,7 @@
         brightSlider.value = 1;
     }
     [brightSlider setMaximumValue:1];
-    [brightSlider setMinimumValue:0];
+    [brightSlider setMinimumValue:0.5];
     [brightView addSubview:brightSlider];
     
     UIImageView *brightLeftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(brightSlider.frame) - 32 - 10, 20, 32, 35)];
