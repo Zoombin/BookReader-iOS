@@ -391,6 +391,9 @@
     bottomView.hidden = YES;
     topView.hidden = YES;
     if (sender == chaptersListButton) {
+        bottomView.hidden = NO;
+        topView.hidden = NO;
+        self.hidden = YES;
         if ([self.delegate respondsToSelector:@selector(chaptersButtonClicked)]) {
             [self.delegate performSelector:@selector(chaptersButtonClicked)];
         }
