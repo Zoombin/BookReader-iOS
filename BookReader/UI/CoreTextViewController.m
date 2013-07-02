@@ -37,6 +37,7 @@
     Chapter *chapter;
 	NSString *currentChapterString;
     BOOL isRight;
+    BOOL firstAppear;
 }
 
 - (void)shareButtonClicked
@@ -70,6 +71,7 @@
 {
     [super viewDidLoad];
     isRight = NO;
+    firstAppear = NO;
     if([MFMessageComposeViewController canSendText]) {
         messageComposeViewController = [[MFMessageComposeViewController alloc] init];
     }
@@ -133,6 +135,10 @@
         
         NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
         [self gotoChapter:aChapter withReadIndex:nil];
+    }
+    if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]&&!firstAppear) {
+        firstAppear = YES;
+        [self horizontalButtonClicked];
     }
 }
 
@@ -407,8 +413,7 @@
 #pragma mark BookReadMenuDelegate
 - (void)backButtonPressed
 {
-    isRight = YES;
-    [self horizontalButtonClicked];
+    [self resetScreenToVer];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -485,7 +490,7 @@
         return;
     }
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"    \n" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
-     commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 37, 260, 25)];
+    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 37, 260, 25)];
     [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
     [commitField setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
@@ -540,6 +545,18 @@
              [self displayHUDError:nil message:message];
          }
      }];
+}
+
+- (void)resetScreenToVer
+{
+    [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        [self changedWithOrientation:UIInterfaceOrientationPortrait];
+    }
+    [self paging];
+    [self updateCurrentPageContent];
+    menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
+    nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
 }
 
 - (void)horizontalButtonClicked
