@@ -285,7 +285,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 4 ? 10 : 100, 15 + 20 * i,fullSize.width-50, 15)];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextColor:[UIColor blackColor]];
-        [label setFont:[UIFont boldSystemFontOfSize:14]];
+        [label setFont:[UIFont systemFontOfSize:14]];
         [label setText:labelTitles[i]];
         [coverView addSubview:label];
         [labelsArray addObject:label];
