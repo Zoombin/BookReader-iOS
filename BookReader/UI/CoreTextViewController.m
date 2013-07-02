@@ -515,7 +515,7 @@
     statusView.alpha = coreTextView.alpha;
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
-    isRight = NO;
+    isRight = YES;
     [self horizontalButtonClicked];
     [self displayHUDError:nil message:@"已恢复默认!"];
 }
