@@ -61,10 +61,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     [self removeGestureRecognizer];
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
-//	backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
-//	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
-//	[self.view addSubview:backgroundImage];
-	
+    
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
@@ -72,6 +69,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.booksViewDelegate = self;
 	[[self BRHeaderView] addButtons];
 	[[self BRHeaderView] setDelegate:self];
+    [[self BRHeaderView] refreshUpdateButton];
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
 	
@@ -120,6 +118,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
 	}
+    [[self BRHeaderView] refreshUpdateButton];
 	[self showBooks];
 	[booksView reloadData];
 }

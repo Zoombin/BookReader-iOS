@@ -28,4 +28,5 @@ typedef enum {
 @property (nonatomic ,strong) UILabel *titleLabel;
 - (void)addButtons;
 - (void)deleteButtonEnable:(BOOL)enable;
+- (void)refreshUpdateButton;
 @end

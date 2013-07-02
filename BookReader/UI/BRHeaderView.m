@@ -9,12 +9,14 @@
 #import "BRHeaderView.h"
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
+#import "ServiceManager.h"
 
 @implementation BRHeaderView {
     UIView *headerViewOne;
     UIView *headerViewTwo;
     UIImageView *topBarImage;
     UIButton *deleteButton;
+    UIButton *refreshButton;
 }
 @synthesize delegate;
 
@@ -66,19 +68,25 @@
     for (int i = 0; i < [rectStrings count]; i++) {
         UIButton *button = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[i]) andStyle:[styles[i] intValue]];
         [button setTitle:titles[i] forState:UIControlStateNormal];
+        [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
+        [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
         if (i == 1) {
             [button setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
         }else if (i == 3) {
+            refreshButton = button;
             [button setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
         }
-        [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
         if (i == 5) {
             [button setUserInteractionEnabled:NO];
             [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             deleteButton = button;
         }
     }
+}
+
+- (void)refreshUpdateButton
+{
+    refreshButton.hidden = [ServiceManager userID] ? NO : YES;
 }
 
 - (void)deleteButtonEnable:(BOOL)enable
