@@ -553,8 +553,10 @@
     if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
         [self changedWithOrientation:UIInterfaceOrientationPortrait];
     }
-    [self paging];
-    [self updateCurrentPageContent];
+    if (currentChapterString) {
+        [self paging];
+        [self updateCurrentPageContent];
+    }
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
 }
@@ -568,8 +570,10 @@
         if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
             [self changedWithOrientation:UIInterfaceOrientationLandscapeRight];
         }
-        [self paging];
-        [self updateCurrentPageContent];
+        if (currentChapterString) {
+            [self paging];
+            [self updateCurrentPageContent];
+        }
         [BookReaderDefaultsManager setObject:UserDefaultScreenHor ForKey:UserDefaultKeyScreen];
     }else{
         isRight = NO;
@@ -577,8 +581,10 @@
         if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
             [self changedWithOrientation:UIInterfaceOrientationPortrait];
         }
-        [self paging];
-        [self updateCurrentPageContent];
+        if (currentChapterString) {
+            [self paging];
+            [self updateCurrentPageContent];
+        }
         [BookReaderDefaultsManager setObject:UserDefaultScreenVer ForKey:UserDefaultKeyScreen];
     }
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
