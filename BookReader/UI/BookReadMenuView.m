@@ -142,16 +142,22 @@
     int k = 0;
     for (int i = 0; i < 8; i ++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [button setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 20, 10);
-        button.contentEdgeInsets = UIEdgeInsetsMake(0, -30, 5, 10);
         [button.layer setBorderColor:[UIColor blackColor].CGColor];
         [button.layer setBorderWidth:0.5];
-        button.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
         [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *btnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, BUTTON_HEIGHT-20, BUTTON_WIDTH, 20)];
+        [btnTitleLabel setFont:[UIFont systemFontOfSize:14]];
+        [btnTitleLabel setTextColor:[UIColor whiteColor]];
+        [btnTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [btnTitleLabel setTextAlignment:UITextAlignmentCenter];
+        [btnTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+        [btnTitleLabel setText:buttonNames[i]];
+        [button addSubview:btnTitleLabel];
+        
         [bottomView addSubview:button];
         [bottomViewBtns addObject:button];
         k ++;
@@ -196,7 +202,7 @@
     [_fontButonMin setFrame:CGRectMake(CGRectGetMidX(fontView.bounds)-120, CGRectGetMaxY(setFontSize.bounds)+20, 120, 30)];
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [_fontButonMin setBackgroundImage:[UIImage imageNamed:@"read_fontsize_reduce"] forState:UIControlStateNormal];
-    [_fontButonMin setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+    [_fontButonMin setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
     [_fontButonMin setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     [_fontButonMin setTitle:@"T-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
@@ -205,7 +211,7 @@
     [fontButonMax setFrame:CGRectMake(CGRectGetMidX(fontView.bounds), CGRectGetMaxY(setFontSize.bounds)+20, 120, 30)];
     [fontButonMax setBackgroundImage:[UIImage imageNamed:@"read_fontsize_add"] forState:UIControlStateNormal];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
-    [fontButonMax setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [fontButonMax setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
     [fontButonMax setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
@@ -305,6 +311,7 @@
         [button setFrame:CGRectMake(frame.origin.x, frame.origin.y, width, height-20)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x, CGRectGetMaxY(button.frame), frame.size.width, 20)];
         [label setText:names[i]];
+        [label setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         [label setFont:[UIFont systemFontOfSize:12]];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextAlignment:UITextAlignmentCenter];
@@ -313,6 +320,7 @@
         
         
         [button setTag:i];
+        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         [button setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:button];
