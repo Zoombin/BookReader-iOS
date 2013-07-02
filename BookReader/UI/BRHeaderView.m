@@ -25,7 +25,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+
          topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
+        [topBarImage setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
         [topBarImage setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [self addSubview:topBarImage];
@@ -35,6 +38,7 @@
         [self addSubview:_backButton];
         
         _titleLabel = [UILabel titleLableWithFrame:CGRectMake(80, 0, self.bounds.size.width - 160, 44)];
+        [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         [_titleLabel setAdjustsFontSizeToFitWidth:YES];
         [_titleLabel setAdjustsLetterSpacingToFitWidth:YES];
         [self addSubview:_titleLabel];
