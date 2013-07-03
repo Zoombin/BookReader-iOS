@@ -92,6 +92,7 @@
     UIImageView *bookCover;
     
     UIButton *favButton;
+    UILabel *emptyLabel;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -230,6 +231,10 @@
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
+    
+    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    [emptyLabel setText:@"暂无其他书籍"];
+    [emptyLabel setTextAlignment:UITextAlignmentCenter];
     
     for (int i = 0; i < 4; i++) {
         switch (i) {
@@ -531,6 +536,9 @@
                 if([obj.uid integerValue]!=[bookid integerValue]) {
                     [authorBookArray addObject:obj];
                 }
+            }
+            if ([authorBookArray count] == 0) {
+                [authorBookTableView setTableHeaderView:emptyLabel];
             }
             [authorBookTableView reloadData];
         }
