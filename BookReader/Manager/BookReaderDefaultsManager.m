@@ -18,7 +18,7 @@ static float brightValue;
 {
     if (!colors) {
         colors =
-        @[[UIColor colorWithRed:203.0/255.0 green:193.0/255.0 blue:163.0/255.0 alpha:1.0],//羊皮纸风格
+        @[[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
           [UIColor colorWithRed:230.0/255.0 green:240.0/255.0 blue:220.0/255.0 alpha:1.0],//水墨江南
           [UIColor colorWithRed:204.0/255.0 green:234.0/255.0 blue:186.0/255.0 alpha:1.0],//护眼
           [UIColor colorWithRed:42.0/255.0 green:39.0/255.0 blue:33.0/255.0 alpha:1.0],//华灯初上
