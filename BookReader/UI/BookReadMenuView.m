@@ -203,7 +203,8 @@
     [_fontButonMin addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [_fontButonMin setBackgroundImage:[UIImage imageNamed:@"read_fontsize_reduce"] forState:UIControlStateNormal];
     [_fontButonMin setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
-    [_fontButonMin setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [_fontButonMin setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_fontButonMin.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [_fontButonMin setTitle:@"T-" forState:UIControlStateNormal];
     [fontView addSubview:_fontButonMin];
     
@@ -212,7 +213,8 @@
     [fontButonMax setBackgroundImage:[UIImage imageNamed:@"read_fontsize_add"] forState:UIControlStateNormal];
     [fontButonMax addTarget:self action:@selector(fontChanged:) forControlEvents:UIControlEventTouchUpInside];
     [fontButonMax setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
-    [fontButonMax setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [fontButonMax setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [fontButonMax.titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
