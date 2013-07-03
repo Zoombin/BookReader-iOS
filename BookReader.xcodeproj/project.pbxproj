@@ -67,6 +67,10 @@
 		18169629176FF87400E33C3C /* shelf_member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */; };
 		1824787E1774215E00AB1C81 /* yellow_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1824787C1774215E00AB1C81 /* yellow_btn.png */; };
 		1824787F1774215E00AB1C81 /* yellow_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1824787D1774215E00AB1C81 /* yellow_btn@2x.png */; };
+		182F7E121783C43400A3F6BE /* bookmark_btn_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182F7E0E1783C43400A3F6BE /* bookmark_btn_hl@2x.png */; };
+		182F7E131783C43400A3F6BE /* bookmark_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182F7E0F1783C43400A3F6BE /* bookmark_btn@2x.png */; };
+		182F7E141783C43400A3F6BE /* chapterlist_btn_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182F7E101783C43400A3F6BE /* chapterlist_btn_hl@2x.png */; };
+		182F7E151783C43400A3F6BE /* chapterlist_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182F7E111783C43400A3F6BE /* chapterlist_btn@2x.png */; };
 		1839EF531777D9B00049F258 /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4B1777D9B00049F258 /* comment@2x.png */; };
 		1839EF541777D9B00049F258 /* demand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4C1777D9B00049F258 /* demand@2x.png */; };
 		1839EF551777D9B00049F258 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF4D1777D9B00049F258 /* flower@2x.png */; };
@@ -518,6 +522,10 @@
 		1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shelf_member_btn@2x.png"; sourceTree = "<group>"; };
 		1824787C1774215E00AB1C81 /* yellow_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_btn.png; sourceTree = "<group>"; };
 		1824787D1774215E00AB1C81 /* yellow_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yellow_btn@2x.png"; sourceTree = "<group>"; };
+		182F7E0E1783C43400A3F6BE /* bookmark_btn_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark_btn_hl@2x.png"; sourceTree = "<group>"; };
+		182F7E0F1783C43400A3F6BE /* bookmark_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark_btn@2x.png"; sourceTree = "<group>"; };
+		182F7E101783C43400A3F6BE /* chapterlist_btn_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chapterlist_btn_hl@2x.png"; sourceTree = "<group>"; };
+		182F7E111783C43400A3F6BE /* chapterlist_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chapterlist_btn@2x.png"; sourceTree = "<group>"; };
 		1839EF4B1777D9B00049F258 /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@2x.png"; sourceTree = "<group>"; };
 		1839EF4C1777D9B00049F258 /* demand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demand@2x.png"; sourceTree = "<group>"; };
 		1839EF4D1777D9B00049F258 /* flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower@2x.png"; sourceTree = "<group>"; };
@@ -1345,6 +1353,10 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				182F7E0E1783C43400A3F6BE /* bookmark_btn_hl@2x.png */,
+				182F7E0F1783C43400A3F6BE /* bookmark_btn@2x.png */,
+				182F7E101783C43400A3F6BE /* chapterlist_btn_hl@2x.png */,
+				182F7E111783C43400A3F6BE /* chapterlist_btn@2x.png */,
 				1839EF4B1777D9B00049F258 /* comment@2x.png */,
 				1839EF4C1777D9B00049F258 /* demand@2x.png */,
 				1839EF4D1777D9B00049F258 /* flower@2x.png */,
@@ -2383,6 +2395,10 @@
 				183FBAD4177EB7110074B3B9 /* read_remember_paper.png in Resources */,
 				183FBAD5177EB7110074B3B9 /* read_river_paper.png in Resources */,
 				183FBAD6177EB7110074B3B9 /* read_sheep_paper.png in Resources */,
+				182F7E121783C43400A3F6BE /* bookmark_btn_hl@2x.png in Resources */,
+				182F7E131783C43400A3F6BE /* bookmark_btn@2x.png in Resources */,
+				182F7E141783C43400A3F6BE /* chapterlist_btn_hl@2x.png in Resources */,
+				182F7E151783C43400A3F6BE /* chapterlist_btn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

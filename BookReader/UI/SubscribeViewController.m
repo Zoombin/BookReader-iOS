@@ -35,7 +35,7 @@
     [super viewDidLoad];
     [self removeGestureRecognizer];
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-50) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView.layer setCornerRadius:5];
     [infoTableView.layer setMasksToBounds:YES];
@@ -43,8 +43,8 @@
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 110, 6, 48, 28);
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, 6, 48, 28);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85*2 , CGRectGetMaxY(infoTableView.frame), 85, 36);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85, CGRectGetMaxY(infoTableView.frame), 85, 36);
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
     
@@ -56,7 +56,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:images[i] forState:UIControlStateNormal];
         [button setFrame: CGRectFromString(rectStrings[i])];
-        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
         [button setBackgroundImage:disbleImages[i] forState:UIControlStateDisabled];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
@@ -66,6 +66,7 @@
             bookmarkBtn = button;
         }
     }
+    [[self backgroundImage] removeFromSuperview];
 }
 
 - (void)chaptersButtonClicked
