@@ -460,6 +460,7 @@
 		return;
 	}
 	[self gotoChapter:[chapter previous] withReadIndex:nil];
+    [self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
 }
 
 - (void)nextChapterButtonClick
@@ -470,6 +471,7 @@
 		return;
 	}
 	[self gotoChapter:aChapter withReadIndex:nil];
+    [self performTransition:kCATransitionFromRight andType:@"pageCurl"];
 }
 
 #pragma mark -
