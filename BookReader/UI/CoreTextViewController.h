@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
 #import <MessageUI/MessageUI.h>
-#import "SubscribeViewController.h"
+#import "ChapterViewController.h"
 
 @class Book;
 @class Chapter;
-@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,SubscribeViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
+@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,ChapterViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
     MFMessageComposeViewController *messageComposeViewController; 
 }
 @property (nonatomic, strong) Book *book;

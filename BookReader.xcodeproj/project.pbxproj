@@ -45,7 +45,6 @@
 		18089E45171BD5E700BCB50E /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */; };
 		18089E4B171CFA7C00BCB50E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4A171CFA7A00BCB50E /* Comment.m */; };
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
-		18089E51171E8ACD00BCB50E /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E50171E8ACC00BCB50E /* SubscribeViewController.m */; };
 		181091D517339104000931AB /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D417339104000931AB /* PasswordViewController.m */; };
 		181091D817348C8B000931AB /* BookReaderDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D717348C8B000931AB /* BookReaderDefaultsManager.m */; };
 		181091DB17350289000931AB /* read_sheep_paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091DA17350289000931AB /* read_sheep_paper.png */; };
@@ -79,6 +78,7 @@
 		1839EF581777D9B00049F258 /* member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF501777D9B00049F258 /* member_btn@2x.png */; };
 		1839EF591777D9B00049F258 /* money@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF511777D9B00049F258 /* money@2x.png */; };
 		1839EF5A1777D9B00049F258 /* monthticket@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1839EF521777D9B00049F258 /* monthticket@2x.png */; };
+		183CE5261783DD4800976DFB /* ChapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CE5251783DD4800976DFB /* ChapterViewController.m */; };
 		183FBAC3177E7C600074B3B9 /* read_fontmark_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAB7177E7C600074B3B9 /* read_fontmark_select.png */; };
 		183FBAC4177E7C600074B3B9 /* read_fontmark_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAB8177E7C600074B3B9 /* read_fontmark_select@2x.png */; };
 		183FBAC5177E7C600074B3B9 /* read_fontmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAB9177E7C600074B3B9 /* read_fontmark.png */; };
@@ -482,8 +482,6 @@
 		18089E4A171CFA7A00BCB50E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		18089E4C171E3A6800BCB50E /* GiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftViewController.h; sourceTree = "<group>"; };
 		18089E4D171E3A6900BCB50E /* GiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftViewController.m; sourceTree = "<group>"; };
-		18089E4F171E8ACB00BCB50E /* SubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeViewController.h; sourceTree = "<group>"; };
-		18089E50171E8ACC00BCB50E /* SubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
 		181091D317339104000931AB /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		181091D417339104000931AB /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		181091D617348C8B000931AB /* BookReaderDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReaderDefaultsManager.h; sourceTree = "<group>"; };
@@ -525,6 +523,8 @@
 		1839EF501777D9B00049F258 /* member_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "member_btn@2x.png"; sourceTree = "<group>"; };
 		1839EF511777D9B00049F258 /* money@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "money@2x.png"; sourceTree = "<group>"; };
 		1839EF521777D9B00049F258 /* monthticket@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monthticket@2x.png"; sourceTree = "<group>"; };
+		183CE5241783DD4800976DFB /* ChapterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterViewController.h; sourceTree = "<group>"; };
+		183CE5251783DD4800976DFB /* ChapterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterViewController.m; sourceTree = "<group>"; };
 		183FBAB7177E7C600074B3B9 /* read_fontmark_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_fontmark_select.png; sourceTree = "<group>"; };
 		183FBAB8177E7C600074B3B9 /* read_fontmark_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_fontmark_select@2x.png"; sourceTree = "<group>"; };
 		183FBAB9177E7C600074B3B9 /* read_fontmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_fontmark.png; sourceTree = "<group>"; };
@@ -1181,6 +1181,8 @@
 		188FE62916F95854009561CB /* RemoteMode */ = {
 			isa = PBXGroup;
 			children = (
+				183CE5241783DD4800976DFB /* ChapterViewController.h */,
+				183CE5251783DD4800976DFB /* ChapterViewController.m */,
 				18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */,
 				18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */,
 				77EB59741702B8EA004E2C00 /* BookShelfButton.h */,
@@ -1193,8 +1195,6 @@
 				1888A3E01702DE450046DA4C /* BookDetailsViewController.m */,
 				18089E4C171E3A6800BCB50E /* GiftViewController.h */,
 				18089E4D171E3A6900BCB50E /* GiftViewController.m */,
-				18089E4F171E8ACB00BCB50E /* SubscribeViewController.h */,
-				18089E50171E8ACC00BCB50E /* SubscribeViewController.m */,
 				180318F0172CDDE200733C58 /* GiftCell.h */,
 				180318F1172CDDE200733C58 /* GiftCell.m */,
 				186292F917325C5300777357 /* SignInViewController.h */,
@@ -2404,7 +2404,6 @@
 				18089E45171BD5E700BCB50E /* MKNumberBadgeView.m in Sources */,
 				18089E4B171CFA7C00BCB50E /* Comment.m in Sources */,
 				18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */,
-				18089E51171E8ACD00BCB50E /* SubscribeViewController.m in Sources */,
 				77A487C1172035AA004F7C5A /* AdWhirlAdapterGoogleAdMobAds.m in Sources */,
 				77A487CE172035AA004F7C5A /* AdWhirlAdapterCustom.m in Sources */,
 				77A487CF172035AA004F7C5A /* AdWhirlAdapterEvent.m in Sources */,
@@ -2517,6 +2516,7 @@
 				18A7FF42176087C900F97099 /* Book+Local.m in Sources */,
 				18B5C9D01773DD72004AAA16 /* Book.m in Sources */,
 				183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */,
+				183CE5261783DD4800976DFB /* ChapterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

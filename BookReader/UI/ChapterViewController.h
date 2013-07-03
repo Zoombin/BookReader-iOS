@@ -1,5 +1,5 @@
 //
-//  SubscribeViewController.h
+//  ChapterViewController.h
 //  BookReader
 //
 //  Created by 颜超 on 13-4-17.
@@ -11,12 +11,12 @@
 
 @class Mark;
 @class Book;
-@protocol SubscribeViewDelegate <NSObject>
+@protocol ChapterViewDelegate <NSObject>
 - (void)didSelect:(id)selected;
 @end
 
-@interface SubscribeViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, weak) id<SubscribeViewDelegate> delegate;
+@interface ChapterViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, weak) id<ChapterViewDelegate> delegate;
 @property (nonatomic, strong) Book *book;
 @property (nonatomic, strong) NSString *currentChapterID;
 @end
