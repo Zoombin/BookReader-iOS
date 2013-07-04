@@ -274,7 +274,7 @@
     [rankView addSubview:rankBtnBackGroundView];
     
     NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
-//    NSArray *imagesArray = @[@"all_btn_hl" , @"new_btn_hl", @"hot_btn_hl"];
+    //    NSArray *imagesArray = @[@"all_btn_hl" , @"new_btn_hl", @"hot_btn_hl"];
     for (int i = 0; i < 3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
@@ -370,12 +370,13 @@
     if (currentType==RANK) {
         rankId = currentPage;
     } else {
-        keyWord = _searchBar.text;
+        if (_searchBar.text) {
+            keyWord = _searchBar.text;
+        }
     }
-//    [self displayHUD:@"加载中..."];
     [ServiceManager books:keyWord
                   classID:0
-                  ranking:currentPage
+                  ranking:rankId
                      size:@"6"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *resultArray, NSError *error) {
                      if (error) {
@@ -383,12 +384,13 @@
                      }else {
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
-                         }
+                         } else {
                          [infoArray addObjectsFromArray:resultArray];
+                         }
                          currentIndex++;
                          [infoTableView reloadData];
                          isLoading = NO;
-//                         [self hideHUD:YES];
+                         //                         [self hideHUD:YES];
                      }
                  }];
 }
@@ -497,6 +499,7 @@
     [self refreshBottomButton:sender];
     [self hidenAllHotKeyBtn];
     [infoArray removeAllObjects];
+    [infoTableView reloadData];
     [infoTableView setTableFooterView:nil];
     [self changeButtonImage:sender];
     switch ([buttonArrays indexOfObject:sender]) {
@@ -606,7 +609,7 @@
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }
-//            [cell.contentView setBackgroundColor:[UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:0.7]];
+            //            [cell.contentView setBackgroundColor:[UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:0.7]];
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             [(BookCell *)cell separateLineColor:[UIColor lightGrayColor]];
         }
@@ -697,6 +700,9 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if ([infoArray count]==0) {
+        return;
+    }
     if (currentType==RANK||currentType==SEARCH) {
         if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 100) {
             if (!isLoading) {
