@@ -386,9 +386,13 @@
     
     [infoTableView setTableHeaderView:commentHeaderView];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, chapterListView.frame.size.width, chapterListView.frame.size.height)];
+    [imageView setImage:[UIImage imageNamed:@"chapter_background"]];
+    
     chapterListTableView = [[UITableView alloc]initWithFrame:chapterListView.bounds style:UITableViewStylePlain];
     [chapterListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [chapterListTableView setBackgroundColor:[UIColor clearColor]];
+    [chapterListTableView setBackgroundView:imageView];
     [chapterListTableView setDelegate:self];
     [chapterListTableView setDataSource:self];
     [chapterListView addSubview:chapterListTableView];

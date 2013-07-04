@@ -35,10 +35,15 @@
     [super viewDidLoad];
     [self removeGestureRecognizer];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width-8, self.view.bounds.size.height-38-50)];
+    [imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [imageView setImage:[UIImage imageNamed:@"chapter_background"]];
+    
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-50) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView.layer setCornerRadius:5];
     [infoTableView.layer setMasksToBounds:YES];
+    [infoTableView setBackgroundView:imageView];
     [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
