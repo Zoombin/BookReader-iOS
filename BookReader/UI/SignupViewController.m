@@ -74,13 +74,15 @@
 	accountTextField.frame = rect;
 	rect.origin.y += CGRectGetMaxY(accountTextField.bounds) + distance;
     passwordTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance + 5;
-	getCodeButton.frame = rect;
-	rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
+	rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
     confirmTextField.frame = rect;
 	rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
-    codeTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance + 5;
+    
+    codeTextField.frame = CGRectMake(startX, rect.origin.y, width/2, height);
+//	rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance;
+    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame), rect.origin.y, width/2, height);;
+	rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
+    
 	registerButton.frame = rect;
 	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
 }
