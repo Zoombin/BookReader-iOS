@@ -196,7 +196,7 @@
                 [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@",_member.name]];
                 [(BookCell *)cell hidenArrow:YES];
             } else {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"余额 : %@",_member.coin]];
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"账户 : %@",_member.coin]];
                 [(BookCell *)cell hidenArrow:YES];
             }
         } else {

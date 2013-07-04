@@ -42,28 +42,6 @@
     return label;
 }
 
-+ (UILabel *)memberAccountLabelWithFrame:(CGRect)frame andAccountName:(NSString *)name
-{
-    UILabel *label = [self initLabelWithFrame:frame];
-    [label setTextAlignment:UITextAlignmentLeft];
-    [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-    [label setFont:[UIFont systemFontOfSize:14]];
-    [label setTextColor:[UIColor grayColor]];
-    [label setText:[NSString stringWithFormat:@"用户名:%@",name]];
-    return label;
-}
-
-+ (UILabel *)memberUserMoneyLeftWithFrame:(CGRect)frame andMoneyLeft:(NSString *)count
-{
-    UILabel *label = [self initLabelWithFrame:frame];
-    [label setTextAlignment:UITextAlignmentLeft];
-    [label setBackgroundColor:[UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]];
-    [label setFont:[UIFont systemFontOfSize:14]];
-    [label setTextColor:[UIColor grayColor]];
-    [label setText:[NSString stringWithFormat:@"账号余额:%@",count]];
-    return label;
-}
-
 + (UILabel *)bookStoreLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [self initLabelWithFrame:frame];
