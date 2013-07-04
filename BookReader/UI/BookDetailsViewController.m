@@ -72,6 +72,7 @@
     UIButton *authorBook;
     UIButton *bookRecommend;
     
+    UILabel *bookNameLabel;
     UILabel *authorNameLabel;
     UILabel *catagoryNameLabel;
     UILabel *wordsLabel;
@@ -232,6 +233,12 @@
     [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
+    UIButton *mainButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMinX(bookShelfButton.frame) - 50 , 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+    [mainButton setImage:[UIImage imageNamed:@"main_btn"] forState:UIControlStateNormal];
+    [mainButton setImage:[UIImage imageNamed:@"main_btn_hl"] forState:UIControlStateHighlighted];
+    [mainButton addTarget:self action:@selector(mainButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:mainButton];
+    
     emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
     [emptyLabel setText:@"暂无其他书籍"];
     [emptyLabel setTextAlignment:UITextAlignmentCenter];
@@ -284,7 +291,7 @@
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [coverView addSubview:bookCover];
     
-    NSArray *labelTitles = @[@"作者:",@"类别:",@"大小:",@"性质:",@"作品状态:",@"最新章节:",@"更新时间:",@"收到钻石",@"收到鲜花",@"收到打赏",@"收到评价"];
+    NSArray *labelTitles = @[@"书名:",@"作者:",@"类别:",@"大小:",@"性质:",@"作品状态:",@"最新章节:",@"更新时间:",@"收到钻石",@"收到鲜花",@"收到打赏",@"收到评价"];
     NSMutableArray *labelsArray = [NSMutableArray array];
     for (int i = 0; i<[labelTitles count]; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 4 ? 10 : 100, 15 + 20 * i,fullSize.width-50, 15)];
@@ -295,17 +302,18 @@
         [coverView addSubview:label];
         [labelsArray addObject:label];
     }
-    authorNameLabel = labelsArray[0];
-    catagoryNameLabel = labelsArray[1];
-    wordsLabel = labelsArray[2];
-    bVipLabel = labelsArray[3];
-    bFinishLabel = labelsArray[4];
-    lastChapterLabel = labelsArray[5];
-    lastUpdateLabel = labelsArray[6];
-    diamondLabel = labelsArray[7];
-    flowerLabel = labelsArray[8];
-    rewardLabel = labelsArray[9];
-    commentLabel = labelsArray[10];
+    bookNameLabel = labelsArray[0];
+    authorNameLabel = labelsArray[1];
+    catagoryNameLabel = labelsArray[2];
+    wordsLabel = labelsArray[3];
+    bVipLabel = labelsArray[4];
+    bFinishLabel = labelsArray[5];
+    lastChapterLabel = labelsArray[6];
+    lastUpdateLabel = labelsArray[7];
+    diamondLabel = labelsArray[8];
+    flowerLabel = labelsArray[9];
+    rewardLabel = labelsArray[10];
+    commentLabel = labelsArray[11];
     
     float three_btn_width = (coverView.frame.size.width - 4 * 5)/3;
     NSArray *buttonNames = @[@"阅读", @"收藏", @"投月票"];
@@ -414,7 +422,14 @@
     [coverView setContentSize:CGSizeMake(coverView.frame.size.width, CGRectGetMaxY(recommendTableView.frame))];
 }
 
-- (void)initBookDetailUI {
+- (void)mainButtonClicked
+{
+   [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+}
+
+- (void)initBookDetailUI
+{
+    self.title = @"书籍详情";
     NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -424,8 +439,9 @@
         NSLog(@"error: %@", error);
     }];
     
-    self.title = book.name;
+//    self.title = book.name;
     
+    NSString *bookName = [@"书名: " stringByAppendingString:book.name];
     NSString *authorName = [@"作者: " stringByAppendingString:book.author];
     NSString *catagoryName = [@"类别: " stringByAppendingString:book.category];
     NSString *words = [@"大小: " stringByAppendingString:[book.words stringValue]];
@@ -438,8 +454,8 @@
     NSString *rewardAmount = [NSString stringWithFormat:@"有%@打赏%@潇湘币",book.rewardPersons,book.reward];
     NSString *commentAmount = [NSString stringWithFormat:@"有%@人评价本书,总得分%@分",book.commentPersons,book.comment];
     
-    NSArray *labelTitles = @[authorName,catagoryName,words,lastUpdate,lastChapterName,bVipName,bFinishName,diamondAmount,flowerAmount,rewardAmount,commentAmount];
-    NSArray *labels = @[authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,lastChapterLabel,bVipLabel,bFinishLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
+    NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,lastChapterName,bVipName,bFinishName,diamondAmount,flowerAmount,rewardAmount,commentAmount];
+    NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,lastChapterLabel,bVipLabel,bFinishLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
     for (int i = 0; i<[labels count]; i++) {
         UILabel *label = (UILabel *)labels[i];
         [label setText:labelTitles[i]];

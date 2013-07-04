@@ -83,6 +83,10 @@
 		183CE52A1785716300976DFB /* universal_back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE5281785716300976DFB /* universal_back_btn@2x.png */; };
 		183CE52D178572C000976DFB /* chapter_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE52B178572BF00976DFB /* chapter_background.png */; };
 		183CE52E178572C000976DFB /* chapter_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE52C178572BF00976DFB /* chapter_background@2x.png */; };
+		183CE5331785745F00976DFB /* main_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE52F1785745E00976DFB /* main_btn_hl.png */; };
+		183CE5341785745F00976DFB /* main_btn_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE5301785745E00976DFB /* main_btn_hl@2x.png */; };
+		183CE5351785745F00976DFB /* main_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE5311785745F00976DFB /* main_btn.png */; };
+		183CE5361785745F00976DFB /* main_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183CE5321785745F00976DFB /* main_btn@2x.png */; };
 		183FBAC3177E7C600074B3B9 /* read_fontmark_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAB7177E7C600074B3B9 /* read_fontmark_select.png */; };
 		183FBAC4177E7C600074B3B9 /* read_fontmark_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAB8177E7C600074B3B9 /* read_fontmark_select@2x.png */; };
 		183FBAC5177E7C600074B3B9 /* read_fontmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 183FBAB9177E7C600074B3B9 /* read_fontmark.png */; };
@@ -533,6 +537,10 @@
 		183CE5281785716300976DFB /* universal_back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "universal_back_btn@2x.png"; path = "../localBook/universal_back_btn@2x.png"; sourceTree = "<group>"; };
 		183CE52B178572BF00976DFB /* chapter_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapter_background.png; sourceTree = "<group>"; };
 		183CE52C178572BF00976DFB /* chapter_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chapter_background@2x.png"; sourceTree = "<group>"; };
+		183CE52F1785745E00976DFB /* main_btn_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_btn_hl.png; sourceTree = "<group>"; };
+		183CE5301785745E00976DFB /* main_btn_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_btn_hl@2x.png"; sourceTree = "<group>"; };
+		183CE5311785745F00976DFB /* main_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_btn.png; sourceTree = "<group>"; };
+		183CE5321785745F00976DFB /* main_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_btn@2x.png"; sourceTree = "<group>"; };
 		183FBAB7177E7C600074B3B9 /* read_fontmark_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_fontmark_select.png; sourceTree = "<group>"; };
 		183FBAB8177E7C600074B3B9 /* read_fontmark_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_fontmark_select@2x.png"; sourceTree = "<group>"; };
 		183FBAB9177E7C600074B3B9 /* read_fontmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_fontmark.png; sourceTree = "<group>"; };
@@ -1334,6 +1342,10 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				183CE52F1785745E00976DFB /* main_btn_hl.png */,
+				183CE5301785745E00976DFB /* main_btn_hl@2x.png */,
+				183CE5311785745F00976DFB /* main_btn.png */,
+				183CE5321785745F00976DFB /* main_btn@2x.png */,
 				183CE52B178572BF00976DFB /* chapter_background.png */,
 				183CE52C178572BF00976DFB /* chapter_background@2x.png */,
 				183CE5271785716300976DFB /* universal_back_btn.png */,
@@ -2370,6 +2382,10 @@
 				183CE52A1785716300976DFB /* universal_back_btn@2x.png in Resources */,
 				183CE52D178572C000976DFB /* chapter_background.png in Resources */,
 				183CE52E178572C000976DFB /* chapter_background@2x.png in Resources */,
+				183CE5331785745F00976DFB /* main_btn_hl.png in Resources */,
+				183CE5341785745F00976DFB /* main_btn_hl@2x.png in Resources */,
+				183CE5351785745F00976DFB /* main_btn.png in Resources */,
+				183CE5361785745F00976DFB /* main_btn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
