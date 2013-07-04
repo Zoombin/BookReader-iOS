@@ -156,8 +156,8 @@
             if (chapter.uid == _currentChapterID) {
                 chapterNameLabel.textColor = [UIColor redColor];
             }
-            cell.detailTextLabel.textColor = [UIColor redColor];
-            cell.detailTextLabel.text = [chapter.bVip boolValue] ? @"v" : @"";
+//            cell.detailTextLabel.textColor = [UIColor redColor];
+//            cell.detailTextLabel.text = [chapter.bVip boolValue] ? @"v" : @"";
         }
     }
     return cell;

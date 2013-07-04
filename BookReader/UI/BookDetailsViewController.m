@@ -749,8 +749,8 @@
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [cell.contentView addSubview:catagoryImage];
             
-            cell.detailTextLabel.textColor = [UIColor redColor];
-            cell.detailTextLabel.text = [obj.bVip boolValue] ? @"v" : @"";
+//            cell.detailTextLabel.textColor = [UIColor redColor];
+//            cell.detailTextLabel.text = [obj.bVip boolValue] ? @"v" : @"";
         }
     }
     else {
