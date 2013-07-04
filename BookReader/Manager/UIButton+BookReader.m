@@ -35,6 +35,8 @@ static float duration = 0;
         [button setBackgroundImage:[UIImage imageNamed:@"universal_btn_r"] forState:UIControlStateNormal];
     } else if (style == BookReaderButtonStyleNormal) {
         [button setBackgroundImage:[UIImage imageNamed:@"universal_btn"] forState:UIControlStateNormal];
+    } else if (style == BookReaderButtonStyleBack) {
+        [button setBackgroundImage:[UIImage imageNamed:@"universal_back_btn"] forState:UIControlStateNormal];
     }
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
@@ -45,7 +47,7 @@ static float duration = 0;
 
 + (UIButton *)navigationBackButton
 {
-	UIButton *backButton = [UIButton addButtonWithFrame:CGRectMake(0, 0, 0, 0) andStyle:BookReaderButtonStyleNormal];
+	UIButton *backButton = [UIButton addButtonWithFrame:CGRectMake(0, 0, 0, 0) andStyle:BookReaderButtonStyleBack];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
 	return backButton;
 }

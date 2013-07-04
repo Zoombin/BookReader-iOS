@@ -11,7 +11,8 @@
 typedef enum {
     BookReaderButtonStyleLeft = 0,
     BookReaderButtonStyleRight = 1,
-    BookReaderButtonStyleNormal = 2
+    BookReaderButtonStyleNormal = 2,
+    BookReaderButtonStyleBack = 3,
 }BookReaderButtonStyle;
 
 @interface UIButton (BookReader)
