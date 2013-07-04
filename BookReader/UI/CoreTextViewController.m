@@ -95,7 +95,7 @@
     [statusView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:statusView];
     
-    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 20, size.width, size.height - 40)];
+    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, size.width, size.height - 30)];
 	coreTextView.font = [BookReaderDefaultsManager objectForKey:UserDefaultKeyFont];
 	coreTextView.fontSize = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontSize] floatValue];
 	NSNumber *textColorNum = [BookReaderDefaultsManager objectForKey:UserDefaultKeyTextColor];
