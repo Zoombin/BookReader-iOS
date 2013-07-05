@@ -44,6 +44,7 @@
     [infoTableView.layer setCornerRadius:5];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:imageView];
+    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
@@ -145,6 +146,10 @@
 			progress.textColor = cell.detailTextLabel.textColor;
 			progress.text = [NSString stringWithFormat:@"%.2f%%", mark.progress.floatValue];
 			[cell.contentView addSubview:progress];
+            
+            UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10,  cell.contentView.frame.size.height-1, cell.contentView.frame.size.width - 30, 1)];
+            [separateLine setBackgroundColor:[UIColor lightGrayColor]];
+            [cell.contentView addSubview:separateLine];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             cell.textLabel.text = @"";
@@ -161,8 +166,10 @@
             if (chapter.uid == _currentChapterID) {
                 chapterNameLabel.textColor = [UIColor redColor];
             }
-//            cell.detailTextLabel.textColor = [UIColor redColor];
-//            cell.detailTextLabel.text = [chapter.bVip boolValue] ? @"v" : @"";
+            
+            UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10,  cell.contentView.frame.size.height-1, cell.contentView.frame.size.width - 30, 1)];
+            [separateLine setBackgroundColor:[UIColor lightGrayColor]];
+            [cell.contentView addSubview:separateLine];
         }
     }
     return cell;
