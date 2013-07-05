@@ -33,6 +33,9 @@
 	book.updateDate = [NSDate date];
 	book.bCover = attributes[@"cover"];
     book.bFinish = attributes[@"undone"];
+    if (attributes[@"typeName"]) {
+        book.category = attributes[@"typeName"];
+    }
     if (attributes[@"props"]) {
         book.comment = attributes[@"props"][@"comment"];
         book.commentPersons = attributes[@"props"][@"commentPersons"];

@@ -770,7 +770,10 @@
             tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *obj = [tmpArray objectAtIndex:[indexPath row]];
-            obj.author = book.author;
+//            obj.author = book.author;
+            if (tableView == recommendTableView) {
+                obj.category = nil;
+            }
             [(BookCell *)cell setBook:obj];
         }
     }
