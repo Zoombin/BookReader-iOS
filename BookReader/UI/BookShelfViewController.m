@@ -401,8 +401,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-	cell.badge = [book countOfUnreadChapters];
 	cell.editing = editing;
+	cell.badge = [book countOfUnreadChapters];
 	return cell;
 }
 
