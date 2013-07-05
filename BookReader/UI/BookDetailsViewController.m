@@ -418,7 +418,7 @@
     [commentTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [shortInfoTableView setFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, shortInfoTableView.contentSize.height)];
     [recommendTitle setFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
-    [recommendTableView setFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260)];
+    [recommendTableView setFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, recommendTableView.contentSize.height)];
     [coverView setContentSize:CGSizeMake(coverView.frame.size.width, CGRectGetMaxY(recommendTableView.frame))];
 }
 
@@ -777,11 +777,7 @@
         if (cell == nil) {
             NSArray *tmpArray = [NSArray array];
             tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
-            BookCellStyle style = BookCellStyleSmall;
-            if (indexPath.row == 0) {
-                style = BookCellStyleBig;
-            }
-            cell = [[BookCell alloc] initWithStyle:style reuseIdentifier:@"MyCell"];
+            cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *obj = [tmpArray objectAtIndex:[indexPath row]];
             obj.author = book.author;
             [(BookCell *)cell setBook:obj];
@@ -837,15 +833,6 @@
             }
         }
     }
-}
-
-- (CGFloat)tableViewHeight
-{
-    CGRect theFrame = shortInfoTableView.frame;
-    shortInfoTableView.frame = CGRectZero;
-    shortInfoTableView.frame = theFrame;
-    [shortInfoTableView layoutIfNeeded];
-    return [shortInfoTableView contentSize].height;
 }
 
 @end
