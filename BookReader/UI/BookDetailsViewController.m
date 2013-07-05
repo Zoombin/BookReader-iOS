@@ -698,12 +698,6 @@
     }
 }
 
-- (void)showAlertWithMessage:(NSString *)message
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-    [alertView show];
-}
-
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
