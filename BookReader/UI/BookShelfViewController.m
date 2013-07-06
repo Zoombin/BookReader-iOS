@@ -50,7 +50,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksStandViews;
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
-//	UIImageView *backgroundImage;
 }
 
 - (void)viewDidLoad
@@ -107,11 +106,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    BOOL firstLaunch = [ServiceManager firstLaunch];
-	if (![ServiceManager userID]||firstLaunch) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Notice", nil) message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
-        [alertView show];
-        if (firstLaunch) {
+	if (![ServiceManager userID] || [ServiceManager firstLaunch]) {
+		[self displayHUD:@"您尚未登录!"];
+        if ([ServiceManager firstLaunch]) {
             [self recommendBooks];
         }
     } else {
