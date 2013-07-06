@@ -50,8 +50,9 @@
 			height = BigCellHeight;
             coverRect = CGRectMake(15, 12, 90/1.8, 115/1.8);
             nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 15, 205, 15);
-            authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 5, 130, 15);
-            categoryRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 5, 130, 15);
+            categoryRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 5, 130, 15);
+            authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(categoryRect) + 5, 130, 15);
+            
 
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
@@ -149,9 +150,7 @@
         if (myStyle == BookCellStyleSmall) {
             authorLabel.text = book.author;
         }
-    } else {
-        categoryLabel.frame = CGRectMake(75, 35, 130, 15);
-    }
+    } 
     if (book.category) {
         categoryLabel.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CategoryName", nil), book.category];
     }
