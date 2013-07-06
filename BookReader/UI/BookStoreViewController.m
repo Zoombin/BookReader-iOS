@@ -32,13 +32,11 @@
 {
     int currentPage;
     int currentIndex;
-    UILabel       *titleLabel;
+    UILabel *titleLabel;
     
     UISearchBar *_searchBar;
     UIButton *_headerSearchButton;
-    UIView      *tableViewHeader;
-    
-    NSMutableArray *buttonArrays; //4个分类的按钮array
+    UIView *tableViewHeader;
     
     NSMutableArray *infoArray;
     UITableView *infoTableView;
@@ -46,7 +44,6 @@
     UIView *rankView;
     UIView *catagoryView;
     
-    BOOL shouldRefresh;
     int currentType;
     
     NSMutableArray *recommendArray;
@@ -77,63 +74,26 @@
 {
     self = [super init];
     if (self) {
-        // Custom initialization
-        isLoading = NO;
         catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
         hotkeyNames = @[@"武侠",@"穿越",@"重生",@"总裁",@"玄幻",@"经典",@"天才",@"医生",@"经理",@"老板"];
 		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
         
         hotkeyBtns = [NSMutableArray array];
         recommendArray = [[NSMutableArray alloc] init];
-        buttonArrays = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
         recommendTitlesArray = [[NSMutableArray alloc] init];
         
         rankBtns = [[NSMutableArray alloc] init];
-        currentType = RECOMMEND;
+//        currentType = RECOMMEND;
         currentPage = 1;
         currentIndex = 1;
     }
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self RefreshUI];
-}
-
-- (void)RefreshUI {
-    if (shouldRefresh==YES) {
-        currentType = RECOMMEND;
-        [infoTableView setTableFooterView:nil];
-        [rankView setHidden:YES];
-        [self loadRecommendDataWithIndex:1];
-        [infoTableView setHidden:NO];
-        [[self BRHeaderView].titleLabel setText:@"推荐"];
-        NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
-        NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
-        for (int i = 0; i < 4; i++) {
-            UIButton *button = (UIButton *)[buttonArrays objectAtIndex:i];
-            if (i == 0) {
-                [button setImage:[UIImage imageNamed:buttonImageNameDown[0]] forState:UIControlStateNormal];
-            }else {
-                [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-            }
-        }
-        shouldRefresh = NO;
-    }
-}
-
-- (void)shouldRefresh
-{
-    shouldRefresh = YES;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    shouldRefresh = YES;
     [self setHideBackBtn:YES];
     [self setTitle:@"书城"];
     
@@ -145,25 +105,26 @@
     [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
-    NSArray *buttonImageNameUp = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
-    NSArray *buttonImageNameDown = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
+    NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
+    NSArray *buttonImagesHighlighted = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
     float width = 53;
-    float delta = (bottomView.frame.size.width - width*4)/5;
-    for (int i=0; i<[buttonImageNameDown count]; i++) {
+    float delta = (bottomView.frame.size.width - width * 4) / 5;
+	NSMutableArray *buttons = [NSMutableArray array];
+    for (int i=0; i<[buttonImagesHighlighted count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateHighlighted];
-        [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[i]] forState:UIControlStateHighlighted];
+		[button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[i]] forState:UIControlStateSelected];
+        [button setBackgroundImage:[UIImage imageNamed:buttonImagesNormal[i]] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(delta * (i + 1) + i * width, self.view.bounds.size.height - 45, width, 50)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
-        [buttonArrays addObject:button];
+        [buttons addObject:button];
     }
     
-    recommendButton = buttonArrays[0];
-    rankButton = buttonArrays[1];
-    cataButton = buttonArrays[2];
-    searchButton = buttonArrays[3];
-    [recommendButton setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[0]] forState:UIControlStateNormal];
+    recommendButton = buttons[0];
+    rankButton = buttons[1];
+    cataButton = buttons[2];
+    searchButton = buttons[3];
     
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
@@ -216,6 +177,7 @@
     [backgroundView addGestureRecognizer:gestureRecognizer];
     
     [self removeGestureRecognizer];
+	[self buttonClick:recommendButton];
 }
 
 - (void)showCatagoryViewBtn
@@ -274,7 +236,6 @@
     [rankView addSubview:rankBtnBackGroundView];
     
     NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
-    //    NSArray *imagesArray = @[@"all_btn_hl" , @"new_btn_hl", @"hot_btn_hl"];
     for (int i = 0; i < 3; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
@@ -323,9 +284,9 @@
                 [infoArray removeAllObjects];
             }
             if ([resultArray count]>0) {
-                [self hidenAllHotKeyBtn];
+                [self hideAllHotkeyBtns];
             } else if(currentType == SEARCH&&[resultArray count]==0) {
-                [self showhotkeyButton];
+                [self showHotkeyBtns];
             }
             [infoArray addObjectsFromArray:resultArray];
             if ([infoArray count]==6) {
@@ -338,19 +299,6 @@
         }
     }];
     
-}
-
-- (void)changeButtonImage:(UIButton *)sender {
-    NSArray *buttonImageNameUp = @[@"bookcity_RecoUp", @"bookcity_ExceUp", @"bookcity_CataUp", @"bookcity_SearchUp"];
-    NSArray *buttonImageNameDown = @[@"bookcity_RecoDown", @"bookcity_ExceDown", @"bookcity_CataDown", @"bookcity_SearchDown"];
-    for (int i = 0; i < 4; i++) {
-        UIButton *button = (UIButton *)[buttonArrays objectAtIndex:i];
-        if (sender == button) {
-            [sender setImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateNormal];
-        }else {
-            [button setImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        }
-    }
 }
 
 - (void)changeRankButtonImage:(UIButton *)sender {
@@ -367,7 +315,7 @@
 - (void)getMore {
     NSString *keyWord = @"";
     NSInteger rankId = 0;
-    if (currentType==RANK) {
+    if (currentType == RANK) {
         rankId = currentPage;
     } else {
         if (_searchBar.text) {
@@ -480,65 +428,54 @@
                  }];
 }
 
-- (void)refreshBottomButton:(UIButton *)sender
+- (void)resetBottomButtons
 {
-    NSArray *buttonImageNameUp = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
-    NSArray *buttonImageNameDown = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
-    for (int i = 0; i < [buttonArrays count]; i++) {
-        UIButton *button = [buttonArrays objectAtIndex:i];
-        if (sender == button) {
-            [sender setBackgroundImage:[UIImage imageNamed:buttonImageNameDown[i]] forState:UIControlStateNormal];
-        } else {
-            [button setBackgroundImage:[UIImage imageNamed:buttonImageNameUp[i]] forState:UIControlStateNormal];
-        }
-    }
+	recommendButton.selected = NO;
+	rankButton.selected = NO;
+	cataButton.selected = NO;
+	searchButton.selected = NO;
 }
 
 - (void)buttonClick:(UIButton *)sender {
+	if (sender.selected) return;
+	[self resetBottomButtons];
+	sender.selected = YES;
     catagoryView.hidden = YES;
-    [self refreshBottomButton:sender];
-    [self hidenAllHotKeyBtn];
+    [self hideAllHotkeyBtns];
     [infoArray removeAllObjects];
     [infoTableView reloadData];
     [infoTableView setTableFooterView:nil];
-    [self changeButtonImage:sender];
-    switch ([buttonArrays indexOfObject:sender]) {
-        case 0:
-            currentType = RECOMMEND;
-            [infoTableView setTableHeaderView:nil];
-            [[self BRHeaderView].titleLabel setText:@"推荐"];
-            [rankView setHidden:YES];
-            [self loadRecommendDataWithIndex:1];
-            [infoTableView setHidden:NO];
-            break;
-        case 1:
-            currentType = RANK;
-            [infoTableView setTableHeaderView:rankView];
-            [[self BRHeaderView].titleLabel setText:@"排行"];
-            [self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
-            [rankView setHidden:NO];
-            [infoTableView setHidden:NO];
-            break;
-        case 2:
-            currentType = CATAGORY;
-            catagoryView.hidden = NO;
-            [infoTableView setTableHeaderView:nil];
-            [[self BRHeaderView].titleLabel setText:@"分类"];
-            [rankView setHidden:YES];
-            [infoTableView reloadData];
-            break;
-        case 3:
-            currentType = SEARCH;
-            [infoTableView setTableHeaderView:tableViewHeader];
-            [[self BRHeaderView].titleLabel setText:@"搜索"];
-            [rankView setHidden:YES];
-            [infoTableView setHidden:NO];
-            [infoTableView reloadData];
-            [self showhotkeyButton];
-            break;
-        default:
-            break;
-    }
+	
+	if (sender == recommendButton) {
+		currentType = RECOMMEND;
+		[infoTableView setTableHeaderView:nil];
+		[[self BRHeaderView].titleLabel setText:@"推荐"];
+		[rankView setHidden:YES];
+		[self loadRecommendDataWithIndex:1];
+		[infoTableView setHidden:NO];		
+	} else if (sender == rankButton) {
+		currentType = RANK;
+		[infoTableView setTableHeaderView:rankView];
+		[[self BRHeaderView].titleLabel setText:@"排行"];
+		[self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
+		[rankView setHidden:NO];
+		[infoTableView setHidden:NO];		
+	} else if (sender == cataButton) {
+		currentType = CATAGORY;
+		catagoryView.hidden = NO;
+		[infoTableView setTableHeaderView:nil];
+		[[self BRHeaderView].titleLabel setText:@"分类"];
+		[rankView setHidden:YES];
+		[infoTableView reloadData];		
+	} else if (sender == searchButton) {
+		currentType = SEARCH;
+		[infoTableView setTableHeaderView:tableViewHeader];
+		[[self BRHeaderView].titleLabel setText:@"搜索"];
+		[rankView setHidden:YES];
+		[infoTableView setHidden:NO];
+		[infoTableView reloadData];
+		[self showHotkeyBtns];
+	}
 }
 
 #pragma mark tableview
@@ -642,8 +579,8 @@
 }
 
 //显示热词
-- (void)showhotkeyButton {
-    [self hidenAllHotKeyBtn];
+- (void)showHotkeyBtns {
+    [self hideAllHotkeyBtns];
     NSArray *cgrectArr = [self randomRect:hotkeyNames.count];
     for (int i = 0; i < [cgrectArr count]; i++) {
         NSString *cgrectstring = [cgrectArr objectAtIndex:i];
@@ -659,7 +596,7 @@
     }
 }
 
-- (void)hidenAllHotKeyBtn
+- (void)hideAllHotkeyBtns
 {
     for (UIButton *button in hotkeyBtns) {
         [button removeFromSuperview];
@@ -699,10 +636,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([infoArray count]==0) {
+    if ([infoArray count] == 0) {
         return;
     }
-    if (currentType==RANK||currentType==SEARCH) {
+    if (currentType == RANK || currentType == SEARCH) {
         if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 100) {
             if (!isLoading) {
                 isLoading = YES;
