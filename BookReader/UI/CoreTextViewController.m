@@ -22,6 +22,9 @@
 #import "NavViewController.h"
 #import "Mark.h"
 
+static NSString *kPageCurl = @"pageCurl";
+static NSString *kPageUnCurl = @"pageUnCurl";
+
 @implementation CoreTextViewController {
     NSInteger startPointX;
     NSInteger startPointY;
@@ -39,6 +42,7 @@
     BOOL isRight;
     BOOL firstAppear;
     UIView *backgroundView;
+	NSString *pageCurlType;
 }
 
 - (void)shareButtonClicked
@@ -138,6 +142,7 @@
         }
         
         NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
+		pageCurlType = nil;
         [self gotoChapter:aChapter withReadIndex:nil];
     }
     if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]&&!firstAppear) {
@@ -267,6 +272,7 @@
 
 - (void)previousPage
 {
+	pageCurlType = kPageUnCurl;
     currentPageIndex--;
     if(currentPageIndex < 0) {
         currentPageIndex = 0;
@@ -276,27 +282,31 @@
 		} else {
 			[self displayHUDError:@"" message:@"上一章"];
 			[self gotoChapter:[chapter previous] withReadIndex:nil];
-            [self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
 		}
         return;
     }
 	[self updateCurrentPageContent];
-	[self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
+	[self playPageCurlAnimation];
+}
+
+- (void)playPageCurlAnimation
+{
+	if (pageCurlType) [self performTransition:kCATransitionFromRight andType:pageCurlType];
 }
 
 - (void)nextPage
 {
+	pageCurlType = kPageCurl;
     currentPageIndex++;
     if(currentPageIndex > [pages count] - 1) {
         currentPageIndex = [pages count] - 1;
 		NSLog(@"no more next page!");
 		[self displayHUDError:@"" message:@"下一章"];
 		[self gotoChapter:[chapter next] withReadIndex:nil];
-        [self performTransition:kCATransitionFromRight andType:@"pageCurl"];
         return;
     }
 	[self updateCurrentPageContent];
-	[self performTransition:kCATransitionFromRight andType:@"pageCurl"];
+	[self playPageCurlAnimation];
 }
 
 - (void)pop
@@ -323,6 +333,7 @@
 		NSNumber *startReadIndex = readIndex ? readIndex : chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
 		[self updateCurrentPageContent];
+		[self playPageCurlAnimation];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
 		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(NSString *content, BOOL success, NSString *message, NSError *error) {
@@ -461,8 +472,8 @@
 		[self displayHUDError:@"" message:@"此章是第一章"];
 		return;
 	}
+	pageCurlType = nil;
 	[self gotoChapter:[chapter previous] withReadIndex:nil];
-    [self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
 }
 
 - (void)nextChapterButtonClick
@@ -472,13 +483,14 @@
 		[self displayHUDError:@"" message:@"此章是最后一章"];
 		return;
 	}
+	pageCurlType = nil;
 	[self gotoChapter:aChapter withReadIndex:nil];
-    [self performTransition:kCATransitionFromRight andType:@"pageCurl"];
 }
 
 #pragma mark -
 - (void)didSelect:(id)selected
 {
+	pageCurlType = nil;
 	if ([selected isKindOfClass:[Chapter class]]) {
 		[self gotoChapter:selected withReadIndex:nil];
 	} else if ([selected isKindOfClass:[Mark class]]){
