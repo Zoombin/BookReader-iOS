@@ -9,8 +9,7 @@
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
-
-#define LabelTextColor    [UIColor colorWithRed:162.0/255.0 green:160.0/255.0 blue:147.0/255.0 alpha:1.0]
+#import "UIColor+BookReader.h"
 
 #define BigCellHeight 90.0f
 #define SmallCellHeight 40.0f
@@ -37,8 +36,8 @@
 		CGFloat nameFontSize = 14.0f;
 		CGFloat authorFontSize = 12.0f;
 		CGFloat categoryFontSize = 12.0f;
-		UIColor *authorTextColor = LabelTextColor;
-		UIColor *categoryTextColor = LabelTextColor;
+		UIColor *authorTextColor = [UIColor bookCellGrayTextColor];
+		UIColor *categoryTextColor = [UIColor bookCellGrayTextColor];
 	
 		CGRect coverRect = CGRectZero;
 		CGRect nameRect = CGRectZero;
@@ -50,9 +49,9 @@
         if (style == BookCellStyleBig) {
 			height = BigCellHeight;
             coverRect = CGRectMake(15, 12, 90/1.8, 115/1.8);
-            nameRect = CGRectMake(75, 15, 205, 15);
-            authorRect = CGRectMake(75, 35, 130, 15);
-            categoryRect = CGRectMake(75, 55, 130, 15);
+            nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 15, 205, 15);
+            authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 5, 130, 15);
+            categoryRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 5, 130, 15);
 
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
@@ -60,6 +59,7 @@
 			nameFontSize = 16.0f;
             
 			authorRect = CGRectMake(self.bounds.size.width - 142, 5, 100, 30);
+            authorTextColor = [UIColor blackColor];
 			authorAlignment = NSTextAlignmentRight;
 		} else {//目录界面
 			height = OtherCellHeight;
@@ -71,7 +71,7 @@
             [self.contentView addSubview:catagoryImage];
         }
 		
-		if (CGRectEqualToRect(nameRect, CGRectZero)) {
+		if (!CGRectEqualToRect(nameRect, CGRectZero)) {
 			nameLabel = [[UILabel alloc] initWithFrame:nameRect];
 			nameLabel.backgroundColor = [UIColor clearColor];
 			nameLabel.font = [UIFont boldSystemFontOfSize:nameFontSize];
@@ -79,7 +79,7 @@
 			[self.contentView addSubview:nameLabel];
 		}
 		
-		if (CGRectEqualToRect(authorRect, CGRectZero)) {
+		if (!CGRectEqualToRect(authorRect, CGRectZero)) {
 			authorLabel = [[UILabel alloc] initWithFrame:authorRect];
 			authorLabel.backgroundColor = [UIColor clearColor];
 			authorLabel.font = [UIFont boldSystemFontOfSize:authorFontSize];
@@ -88,7 +88,7 @@
 			[self.contentView addSubview:authorLabel];
 		}
 		
-		if (CGRectEqualToRect(categoryRect, categoryRect)) {
+		if (!CGRectEqualToRect(categoryRect, CGRectZero)) {
 			categoryLabel = [[UILabel alloc] initWithFrame:categoryRect];
 			categoryLabel.backgroundColor = [UIColor clearColor];
 			categoryLabel.font = [UIFont boldSystemFontOfSize:categoryFontSize];
@@ -96,7 +96,8 @@
 			[self.contentView addSubview:categoryLabel];
 		}
 		
-		if (coverView) {
+		if (!CGRectEqualToRect(coverRect, CGRectZero)) {
+            coverView = [[UIImageView alloc] initWithFrame:coverRect];
 			[self.contentView addSubview:coverView];
 		}
 		
@@ -148,6 +149,8 @@
         if (myStyle == BookCellStyleSmall) {
             authorLabel.text = book.author;
         }
+    } else {
+        categoryLabel.frame = CGRectMake(75, 35, 130, 15);
     }
     if (book.category) {
         categoryLabel.text = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"CategoryName", nil), book.category];

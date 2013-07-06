@@ -773,8 +773,8 @@
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *obj = [tmpArray objectAtIndex:[indexPath row]];
 //            obj.author = book.author;
-            if (tableView == recommendTableView) {
-                obj.category = nil;
+            if (tableView == authorBookTableView) {
+                obj.author = nil;
             }
             [(BookCell *)cell setBook:obj];
             [(BookCell *)cell showDottedLine];
