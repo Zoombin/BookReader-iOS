@@ -495,7 +495,7 @@
     }
 }
 
-- (void)getChaptersDataWithBlock:(void(^)())block
+- (void)getChaptersDataWithBlock:(dispatch_block_t)block
 {
     [book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
