@@ -15,6 +15,7 @@
 #import "NSString+XXSY.h"
 #import "ContextManager.h"
 #import "Book+Local.h"
+#import "NSString+ChineseSpace.h"
 
 @implementation NSObject (Local)
 static NSDictionary *booksDictionary;
@@ -461,14 +462,14 @@ static NSDictionary *booksDictionary;
         const int placementLength = 11;
         if([bookname length] < placementLength) {
             for(int i = 0; i < placementLength - [bookname length]; ++i) {
-                [infoStr appendString:@"　"];
+                [infoStr appendString:[NSString ChineseSpace]];
             }
         }
         
         //assume bookname only contains one “ or ”, not perfect, TODO
         NSRange range = [bookname rangeOfString:@"“"];
         if(range.location != NSNotFound) {
-            [infoStr appendString:@"　"];
+            [infoStr appendString:[NSString ChineseSpace]];
         }
         
         NSString *authorname = [self getAuthorNameByBookId:[array objectAtIndex:i]];
