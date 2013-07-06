@@ -356,7 +356,7 @@
     [recommendTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [recommendTitle.layer setBorderWidth:0.5];
     [recommendTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [recommendTitle setText:@"\t\t推荐"];
+    [recommendTitle setText:@"\t\t同类推荐"];
     [coverView addSubview:recommendTitle];
     
     recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260) style:UITableViewStylePlain];
