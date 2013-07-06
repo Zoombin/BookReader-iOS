@@ -9,6 +9,7 @@
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
+#import "BookReader.h"
 
 #define LabelTextColor    [UIColor colorWithRed:162.0/255.0 green:160.0/255.0 blue:147.0/255.0 alpha:1.0]
 
@@ -49,7 +50,7 @@
 		
         if (style == BookCellStyleBig) {
 			height = BigCellHeight;
-            coverRect = CGRectMake(15, 12, 90/1.8, 115/1.8);
+            coverRect = CGRectMake(15, 12, BOOK_COVER_ORIGIN_SIZE.width / 1.8, BOOK_COVER_ORIGIN_SIZE.height / 1.8);
             nameRect = CGRectMake(75, 15, 205, 15);
             authorRect = CGRectMake(75, 35, 130, 15);
             categoryRect = CGRectMake(75, 55, 130, 15);
