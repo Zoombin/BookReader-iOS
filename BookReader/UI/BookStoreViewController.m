@@ -598,7 +598,7 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (currentType == RECOMMEND) {
-        if (cell == nil) {
+        if (!cell) {
             NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
             if (indexPath.row == 0) {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
@@ -609,16 +609,15 @@
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }
-            //            [cell.contentView setBackgroundColor:[UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:215.0/255.0 alpha:0.7]];
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             [(BookCell *)cell separateLineColor:[UIColor lightGrayColor]];
         }
     }
     else if (currentType != CATAGORY){
-        if (cell == nil) {
+        if (!cell) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
-            if ([infoArray count]>0) {
+            if ([infoArray count] > 0) {
                 Book *book = infoArray[indexPath.row];
                 [(BookCell *)cell setBook:book];
             }
