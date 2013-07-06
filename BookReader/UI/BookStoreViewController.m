@@ -506,7 +506,7 @@
     [infoTableView setTableFooterView:nil];
     [self changeButtonImage:sender];
     switch ([buttonArrays indexOfObject:sender]) {
-        case 0:
+        case RECOMMEND:
             currentType = RECOMMEND;
             [infoTableView setTableHeaderView:nil];
             [[self BRHeaderView].titleLabel setText:@"推荐"];
@@ -514,7 +514,7 @@
             [self loadRecommendDataWithIndex:1];
             [infoTableView setHidden:NO];
             break;
-        case 1:
+        case RANK:
             currentType = RANK;
             [infoTableView setTableHeaderView:rankView];
             [[self BRHeaderView].titleLabel setText:@"排行"];
@@ -522,7 +522,7 @@
             [rankView setHidden:NO];
             [infoTableView setHidden:NO];
             break;
-        case 2:
+        case CATAGORY:
             currentType = CATAGORY;
             catagoryView.hidden = NO;
             [infoTableView setTableHeaderView:nil];
@@ -530,7 +530,7 @@
             [rankView setHidden:YES];
             [infoTableView reloadData];
             break;
-        case 3:
+        case SEARCH:
             currentType = SEARCH;
             [infoTableView setTableHeaderView:tableViewHeader];
             [[self BRHeaderView].titleLabel setText:@"搜索"];
