@@ -376,7 +376,7 @@
     UIView *commentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, infoTableView.frame.size.width, 50)];
     [commentHeaderView setBackgroundColor:[UIColor clearColor]];
     
-    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 2.5, 200, 45)];
+    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 2.5, 220, 45)];
     [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
     [commitField setDelegate:self];
@@ -386,7 +386,7 @@
     [commitField setBackgroundColor:[UIColor whiteColor]];
     [commentHeaderView addSubview:commitField];
     
-    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(commentView.bounds.size.width-80, 6, 60, 38)];
+    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(commentView.bounds.size.width-65, 6, 60, 38)];
     [sendCommitbutton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [sendCommitbutton setTitle:@"发表" forState:UIControlStateNormal];
     [sendCommitbutton setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
