@@ -21,6 +21,7 @@
 #import "Chapter+Setup.h"
 #import "NavViewController.h"
 #import "Mark.h"
+#import "NSString+ChineseSpace.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -441,7 +442,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	NSLog(@"before referenct = %@", reference);
 	reference = [reference stringByReplacingOccurrencesOfString:@"\r" withString:@""];
 	reference = [reference stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-	reference = [reference stringByReplacingOccurrencesOfString:@"　" withString:@""];//chinese space
+	reference = [reference stringByReplacingOccurrencesOfString:[NSString ChineseSpace] withString:@""];
 	reference = [reference stringByReplacingOccurrencesOfString:@" " withString:@""];
 	reference = [reference substringToIndex:40];
 	NSLog(@"referenct = %@", reference);

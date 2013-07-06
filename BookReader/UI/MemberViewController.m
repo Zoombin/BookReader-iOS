@@ -27,6 +27,7 @@
 #import "BookReader.h"
 #import "BookCell.h"
 #import "Mark.h"
+#import "NSString+ChineseSpace.h"
 
 
 @implementation MemberViewController
@@ -193,10 +194,10 @@
         [(BookCell *)cell separateLineColor:[UIColor clearColor]];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@",_member.name]];
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@", _member.name]];
                 [(BookCell *)cell hidenArrow:YES];
             } else {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"账　户 : %@",_member.coin]];
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] ,_member.coin]];
                 [(BookCell *)cell hidenArrow:YES];
             }
         } else {

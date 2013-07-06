@@ -255,6 +255,7 @@
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C67261744652500909D6A /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C67251744652500909D6A /* Chapter.m */; };
 		779C672C17446DCD00909D6A /* ContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* ContextManager.m */; };
+		77A13DA71787DBA2009BECD9 /* NSString+ChineseSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13DA61787DBA2009BECD9 /* NSString+ChineseSpace.m */; };
 		77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */; };
 		77A1DB941730DF0A002BE306 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */; };
 		77A1DE2B1730DF9E002BE306 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB9A1730DF9C002BE306 /* AFHTTPClient.m */; };
@@ -745,6 +746,8 @@
 		779C67251744652500909D6A /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		779C672A17446DCD00909D6A /* ContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextManager.h; sourceTree = "<group>"; };
 		779C672B17446DCD00909D6A /* ContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextManager.m; sourceTree = "<group>"; };
+		77A13DA51787DBA2009BECD9 /* NSString+ChineseSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+ChineseSpace.h"; path = "BookReader/NSString+ChineseSpace.h"; sourceTree = SOURCE_ROOT; };
+		77A13DA61787DBA2009BECD9 /* NSString+ChineseSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+ChineseSpace.m"; path = "BookReader/NSString+ChineseSpace.m"; sourceTree = SOURCE_ROOT; };
 		77A1DB8F1730DF0A002BE306 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+Appearance.h"; path = "BookReader/MBProgressHUD+Appearance.h"; sourceTree = SOURCE_ROOT; };
 		77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Appearance.m"; path = "BookReader/MBProgressHUD+Appearance.m"; sourceTree = SOURCE_ROOT; };
 		77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+HUD.h"; path = "BookReader/UIViewController+HUD.h"; sourceTree = SOURCE_ROOT; };
@@ -1471,6 +1474,8 @@
 				181091F3173B688D000931AB /* UIColor+BookReader.m */,
 				77E3E2F5174B6E6100FCCD91 /* UIColor+Hex.h */,
 				77E3E2F6174B6E6100FCCD91 /* UIColor+Hex.m */,
+				77A13DA51787DBA2009BECD9 /* NSString+ChineseSpace.h */,
+				77A13DA61787DBA2009BECD9 /* NSString+ChineseSpace.m */,
 			);
 			name = Categories;
 			path = Manager;
@@ -2549,6 +2554,7 @@
 				18B5C9D01773DD72004AAA16 /* Book.m in Sources */,
 				183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */,
 				183CE5261783DD4800976DFB /* ChaptersViewController.m in Sources */,
+				77A13DA71787DBA2009BECD9 /* NSString+ChineseSpace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
