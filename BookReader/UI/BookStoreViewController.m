@@ -168,7 +168,7 @@
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-100, 40)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-80, 42)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
@@ -185,7 +185,7 @@
     [_searchBar layoutSubviews];
     [tableViewHeader addSubview:_searchBar];
     
-    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-90, 5, 45, 30)];
+    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-70, 5, 45, 30)];
     [_headerSearchButton addTarget:self action:@selector(searchBarSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_headerSearchButton setBackgroundImage:[UIImage imageNamed:@"bookstore_search_btn"] forState:UIControlStateNormal];
     [tableViewHeader addSubview:_headerSearchButton];
