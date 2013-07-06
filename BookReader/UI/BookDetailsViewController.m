@@ -774,6 +774,7 @@
                 obj.category = nil;
             }
             [(BookCell *)cell setBook:obj];
+            [(BookCell *)cell showDottedLine];
         }
     }
     return cell;
