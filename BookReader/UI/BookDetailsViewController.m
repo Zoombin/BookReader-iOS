@@ -356,7 +356,7 @@
     [recommendTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [recommendTitle.layer setBorderWidth:0.5];
     [recommendTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [recommendTitle setText:@"\t\t推荐"];
+    [recommendTitle setText:@"\t\t同类推荐"];
     [coverView addSubview:recommendTitle];
     
     recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260) style:UITableViewStylePlain];
@@ -386,7 +386,7 @@
     [commitField setBackgroundColor:[UIColor whiteColor]];
     [commentHeaderView addSubview:commitField];
     
-    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(commentView.bounds.size.width-65, 7.5, 60, 35)];
+    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(CGRectGetMaxX(commitField.frame) + 10, 7.5, 60, 35)];
     [sendCommitbutton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [sendCommitbutton setTitle:@"发表" forState:UIControlStateNormal];
     [sendCommitbutton setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
@@ -520,6 +520,9 @@
                 [Chapter persist:resultArray withBlock:^(void) {
 					[self hideHUD:YES];
 					[self pushToReadView];
+                    [chapterArray removeAllObjects];
+					[chapterArray addObjectsFromArray:resultArray];
+                    [chapterListTableView reloadData];
                 }];
             } else {
 				[self hideHUD:YES];
