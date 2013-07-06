@@ -36,6 +36,7 @@ static float duration = 0;
     } else if (style == BookReaderButtonStyleNormal) {
         [button setBackgroundImage:[UIImage imageNamed:@"universal_btn"] forState:UIControlStateNormal];
     } else if (style == BookReaderButtonStyleBack) {
+        [button setContentEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [button setBackgroundImage:[UIImage imageNamed:@"universal_back_btn"] forState:UIControlStateNormal];
     }
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
