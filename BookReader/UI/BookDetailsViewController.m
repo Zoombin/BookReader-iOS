@@ -287,7 +287,7 @@
     }
     [self refreshBtnWithButton:headerBtnsArray[0]];
     
-    bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 90/1.2, 115/1.2)];
+    bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, BOOK_COVER_ORIGIN_SIZE.width / 1.2, BOOK_COVER_ORIGIN_SIZE.height / 1.2)];
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [coverView addSubview:bookCover];
     
