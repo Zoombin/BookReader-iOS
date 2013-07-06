@@ -508,7 +508,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self displayHUDError:nil message:@"您尚未登录!"];
         return;
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"    \n" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"    \n" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"发送", nil), nil];
     commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 37, 260, 25)];
     [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
@@ -543,7 +543,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (buttonIndex != alertView.cancelButtonIndex) {
         [self sendCommitButtonClicked];
     }
 }
@@ -557,8 +557,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)sendCommitButtonClicked
 {
     [commitField resignFirstResponder];
-    [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(NSString *message, NSError *error)
-     {
+	if ([commitField.text isEqualToString:@""]) return;
+    [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(NSString *message, NSError *error) {
          if (!error) {
              [self displayHUDError:nil message:message];
          }
