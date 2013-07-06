@@ -168,7 +168,7 @@
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-80, 42)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 65, 42)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
@@ -176,7 +176,7 @@
     UITextField *searchField;
 	NSUInteger numViews = [_searchBar.subviews count];
 	for(int i = 0; i < numViews; i++) {
-		if([[_searchBar.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) { //conform?
+		if([[_searchBar.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) {
 			searchField = [_searchBar.subviews objectAtIndex:i];
             [searchField setBorderStyle:UITextBorderStyleRoundedRect];
             searchField.leftView = nil;
@@ -185,7 +185,7 @@
     [_searchBar layoutSubviews];
     [tableViewHeader addSubview:_searchBar];
     
-    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(self.view.bounds.size.width-70, 5, 45, 30)];
+    _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(CGRectGetMaxX(_searchBar.frame), 5, 45, 30)];
     [_headerSearchButton addTarget:self action:@selector(searchBarSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_headerSearchButton setBackgroundImage:[UIImage imageNamed:@"bookstore_search_btn"] forState:UIControlStateNormal];
     [tableViewHeader addSubview:_headerSearchButton];
