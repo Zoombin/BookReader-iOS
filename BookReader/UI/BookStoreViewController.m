@@ -495,6 +495,9 @@
 }
 
 - (void)buttonClick:(UIButton *)sender {
+    if ([buttonArrays indexOfObject:sender] == currentType) {
+        return;
+    }
     catagoryView.hidden = YES;
     [self refreshBottomButton:sender];
     [self hidenAllHotKeyBtn];
