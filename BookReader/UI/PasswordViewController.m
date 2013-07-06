@@ -91,14 +91,13 @@
     CGRect rect = CGRectMake(startX, startY, width, height);
     accountTextField.frame = rect;
     rect.origin.y += CGRectGetMaxY(accountTextField.bounds) + distance;
-    codeTextField.frame = rect;
-    rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance;
-    getCodeButton.frame = rect;
-    rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
     passwordTextField.frame = rect;
     rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
     confirmTextField.frame = rect;
     rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
+    codeTextField.frame = CGRectMake(startX, rect.origin.y, width/2, height);
+    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame), rect.origin.y, width/2, height);
+    rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
     findButton.frame = rect;
     rect.origin.y += CGRectGetMaxY(findButton.bounds) + distance;
 }

@@ -501,7 +501,6 @@
 					[self hideHUD:YES];
                     [chapterArray removeAllObjects];
 					[chapterArray addObjectsFromArray:resultArray];
-                    NSLog(@"%@",chapterArray);
                     [chapterListTableView reloadData];
                 }];
             } else {

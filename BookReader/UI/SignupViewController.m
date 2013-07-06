@@ -79,8 +79,7 @@
 	rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
     
     codeTextField.frame = CGRectMake(startX, rect.origin.y, width/2, height);
-//	rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance;
-    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame), rect.origin.y, width/2, height);;
+    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame), rect.origin.y, width/2, height);
 	rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
     
 	registerButton.frame = rect;
