@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BookReadMenuView.h"
 #import <MessageUI/MessageUI.h>
-#import "ChapterViewController.h"
+#import "ChaptersViewController.h"
 
 @class Book;
 @class Chapter;

@@ -446,7 +446,7 @@
 
 - (void)chaptersButtonClicked
 {
-    ChapterViewController *controller = [[ChapterViewController alloc] init];
+    ChaptersViewController *controller = [[ChaptersViewController alloc] init];
     controller.currentChapterID = chapter.uid;
     controller.delegate = self;
 	controller.book = _book;

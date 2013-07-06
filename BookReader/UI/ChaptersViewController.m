@@ -1,12 +1,12 @@
 //
-//  ChapterViewController.m
+//  ChaptersViewController.m
 //  BookReader
 //
 //  Created by 颜超 on 13-4-17.
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "ChapterViewController.h"
+#import "ChaptersViewController.h"
 #import "ServiceManager.h"
 #import "Chapter.h"
 #import "Mark.h"
@@ -21,7 +21,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Book.h"
 
-@implementation ChapterViewController
+@implementation ChaptersViewController
 {
     UITableView *infoTableView;
     NSMutableArray *infoArray;

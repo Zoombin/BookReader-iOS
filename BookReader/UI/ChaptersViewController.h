@@ -1,5 +1,5 @@
 //
-//  ChapterViewController.h
+//  ChaptersViewController.h
 //  BookReader
 //
 //  Created by 颜超 on 13-4-17.
@@ -15,7 +15,7 @@
 - (void)didSelect:(id)selected;
 @end
 
-@interface ChapterViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ChaptersViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) id<ChapterViewDelegate> delegate;
 @property (nonatomic, strong) Book *book;
 @property (nonatomic, strong) NSString *currentChapterID;
