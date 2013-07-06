@@ -34,64 +34,77 @@
 	myStyle = style;
     self = [super initWithStyle:myStyle reuseIdentifier:reuseIdentifier];
     if (self) {
+		CGFloat nameFontSize = 14.0f;
+		CGFloat authorFontSize = 12.0f;
+		CGFloat categoryFontSize = 12.0f;
+		UIColor *authorTextColor = LabelTextColor;
+		UIColor *categoryTextColor = LabelTextColor;
+	
+		CGRect coverRect = CGRectZero;
+		CGRect nameRect = CGRectZero;
+		CGRect authorRect = CGRectZero;
+		CGRect categoryRect = CGRectZero;
+
+		NSTextAlignment authorAlignment = NSTextAlignmentLeft;
+		
         if (style == BookCellStyleBig) {
 			height = BigCellHeight;
-            CGRect bookimageViewFrame = CGRectMake(15, 12, 90/1.8, 115/1.8);
-            CGRect bookNameLabelFrame = CGRectMake(75, 15, 205, 15);
-            CGRect authorNameLabelFrame = CGRectMake(75, 35, 130, 15);
-            CGRect categoryNameLabelFrame = CGRectMake(75, 55, 130, 15);
-            
-            nameLabel = [[UILabel alloc] initWithFrame:bookNameLabelFrame];
-            [nameLabel setBackgroundColor:[UIColor clearColor]];
-            [nameLabel setTextColor:[UIColor blackColor]];
-            [nameLabel setFont:[UIFont boldSystemFontOfSize:14]];
-            [self.contentView addSubview:nameLabel];
-            
-            authorLabel = [[UILabel alloc] initWithFrame:authorNameLabelFrame];
-            [authorLabel setBackgroundColor:[UIColor clearColor]];
-            [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
-            [authorLabel setTextColor:LabelTextColor];
-            [self.contentView addSubview:authorLabel];
-                        
-            categoryLabel = [[UILabel alloc] initWithFrame:categoryNameLabelFrame];
-            [categoryLabel setBackgroundColor:[UIColor clearColor]];
-            [categoryLabel setFont:[UIFont boldSystemFontOfSize:12]];
-            [categoryLabel setTextColor:LabelTextColor];
-            [self.contentView addSubview:categoryLabel];
-            
-            coverView = [[UIImageView alloc] initWithFrame:bookimageViewFrame];
-            [self.contentView addSubview:coverView];
+            coverRect = CGRectMake(15, 12, 90/1.8, 115/1.8);
+            nameRect = CGRectMake(75, 15, 205, 15);
+            authorRect = CGRectMake(75, 35, 130, 15);
+            categoryRect = CGRectMake(75, 55, 130, 15);
+
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
-            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 200, 30)];
-            [nameLabel setBackgroundColor:[UIColor clearColor]];
-            [nameLabel setTextColor:[UIColor blackColor]];
-            [nameLabel setFont:[UIFont boldSystemFontOfSize:16]];
-            [self.contentView addSubview:nameLabel];
+			nameRect = CGRectMake(15, 5, 200, 30);
+			nameFontSize = 16.0f;
             
-            authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-142, 5, 100, 30)];
-            [authorLabel setBackgroundColor:[UIColor clearColor]];
-            [authorLabel setTextAlignment:UITextAlignmentRight];
-            [authorLabel setFont:[UIFont boldSystemFontOfSize:12]];
-            [authorLabel setTextColor:[UIColor blackColor]];
-            [self.contentView addSubview:authorLabel];
-		} else {//分类界面
+			authorRect = CGRectMake(self.bounds.size.width - 142, 5, 100, 30);
+			authorAlignment = NSTextAlignmentRight;
+		} else {//目录界面
 			height = OtherCellHeight;
-            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 12, 250, 20)];
-            [nameLabel setBackgroundColor:[UIColor clearColor]];
-            [nameLabel setTextColor:[UIColor blackColor]];
-            [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
-            [self.contentView addSubview:nameLabel];
-            
-             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width-50, 14, 6, 12)];
+			nameRect = CGRectMake(25, 12, 250, 20);
+			nameFontSize = 18.0f;
+
+             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 50, 14, 6, 12)];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self.contentView addSubview:catagoryImage];
         }
-		separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height-1, self.contentView.frame.size.width - 10, 1)];
+		
+		if (CGRectEqualToRect(nameRect, CGRectZero)) {
+			nameLabel = [[UILabel alloc] initWithFrame:nameRect];
+			nameLabel.backgroundColor = [UIColor clearColor];
+			nameLabel.font = [UIFont boldSystemFontOfSize:nameFontSize];
+			nameLabel.textColor = [UIColor blackColor];
+			[self.contentView addSubview:nameLabel];
+		}
+		
+		if (CGRectEqualToRect(authorRect, CGRectZero)) {
+			authorLabel = [[UILabel alloc] initWithFrame:authorRect];
+			authorLabel.backgroundColor = [UIColor clearColor];
+			authorLabel.font = [UIFont boldSystemFontOfSize:authorFontSize];
+			authorLabel.textColor = authorTextColor;
+			authorLabel.textAlignment = authorAlignment;
+			[self.contentView addSubview:authorLabel];
+		}
+		
+		if (CGRectEqualToRect(categoryRect, categoryRect)) {
+			categoryLabel = [[UILabel alloc] initWithFrame:categoryRect];
+			categoryLabel.backgroundColor = [UIColor clearColor];
+			categoryLabel.font = [UIFont boldSystemFontOfSize:categoryFontSize];
+			categoryLabel.textColor = categoryTextColor;
+			[self.contentView addSubview:categoryLabel];
+		}
+		
+		if (coverView) {
+			[self.contentView addSubview:coverView];
+		}
+		
+		separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height - 1, self.contentView.frame.size.width - 10, 1)];
 		[separateLine setBackgroundColor:[UIColor lightGrayColor]];
 		[self.contentView addSubview:separateLine];
         
-        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height-1, self.contentView.frame.size.width + 10, 2)];
+        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 1, self.contentView.frame.size.width + 10, 2)];
         [dottedLine setText:@"-----------------------------------------------"];
         [dottedLine setBackgroundColor:[UIColor clearColor]];
         [dottedLine setTextColor:[UIColor grayColor]];
