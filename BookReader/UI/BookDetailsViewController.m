@@ -501,15 +501,12 @@
         [self displayHUD:@"获取章节目录..."];
         [ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
             if (!error) {
-                [Chapter persist:resultArray withBlock:^(void) {
-					[self hideHUD:YES];
-                    [chapterArray removeAllObjects];
-                    [chapterArray addObjectsFromArray:resultArray];
-                    [chapterListTableView reloadData];
-                    if (block) {
-                        block();
-                    }
-                }];
+                [self hideHUD:YES];
+                chapterArray = [resultArray mutableCopy];
+                [chapterListTableView reloadData];
+                if (block) {
+                    block();
+                }
             } else {
 				[self hideHUD:YES];
                 [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
@@ -525,7 +522,9 @@
         return;
     } else {
         [self getChaptersDataWithBlock:^{
-            [self pushToReadView];
+            [Chapter persist:chapterArray withBlock:^{
+                [self pushToReadView];
+            }];
         }];
     }
 }
@@ -647,12 +646,13 @@
 
 - (void)pushToReadViewWithChapter:(Chapter *)obj
 {
-    CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-	controller.book = book;
-    controller.bDetail = YES;
-    [controller gotoChapter:obj withReadIndex:nil];
-    [self.navigationController pushViewController:controller animated:YES];
-    
+    [Chapter persist:chapterArray withBlock:^{
+        CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+        controller.book = book;
+        controller.bDetail = YES;
+        [controller gotoChapter:obj withReadIndex:nil];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
