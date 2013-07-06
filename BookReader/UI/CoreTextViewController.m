@@ -276,6 +276,7 @@
 		} else {
 			[self displayHUDError:@"" message:@"上一章"];
 			[self gotoChapter:[chapter previous] withReadIndex:nil];
+            [self performTransition:kCATransitionFromRight andType:@"pageUnCurl"];
 		}
         return;
     }
@@ -291,6 +292,7 @@
 		NSLog(@"no more next page!");
 		[self displayHUDError:@"" message:@"下一章"];
 		[self gotoChapter:[chapter next] withReadIndex:nil];
+        [self performTransition:kCATransitionFromRight andType:@"pageCurl"];
         return;
     }
 	[self updateCurrentPageContent];
