@@ -116,40 +116,9 @@
         comment = [UIButton buttonWithType:UIButtonTypeCustom];
         authorBook = [UIButton buttonWithType:UIButtonTypeCustom];
         bookRecommend = [UIButton buttonWithType:UIButtonTypeCustom];
-        if([MFMessageComposeViewController canSendText]) {
-            messageComposeViewController = [[MFMessageComposeViewController alloc] init];
-        }
-        // Custom initialization
     }
     return self;
 }
-
-- (void)smsShareButtonClicked:(id)sender {
-    if([MFMessageComposeViewController canSendText]) {
-        messageComposeViewController.messageComposeDelegate = self;
-        NSString *message =  [NSString stringWithFormat:@"书名:%@ 作者:%@ 下载地址:http://www.xxsy.net",book.name,book.author];
-        [messageComposeViewController setBody:[NSString stringWithString:message]];
-        [self presentModalViewController:messageComposeViewController animated:YES];
-    }
-    else {
-        [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
-    }
-}
-
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-	switch (result) {
-		case MessageComposeResultCancelled:
-			break;
-		case MessageComposeResultSent:
-			break;
-		case MessageComposeResultFailed:
-			break;
-		default:
-			break;
-	}
-	[self dismissModalViewControllerAnimated:YES];
-}
-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
