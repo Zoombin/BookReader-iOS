@@ -491,11 +491,11 @@
     if ([chapterArray count]>0) {
         return;
     } else {
-        [self getChaptersDataWithBool:NO];
+        [self getChaptersDataWithBlock:nil];
     }
 }
 
-- (void)getChaptersDataWithBool:(BOOL)bRead
+- (void)getChaptersDataWithBlock:(void(^)())block
 {
     [book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
@@ -506,8 +506,8 @@
                     [chapterArray removeAllObjects];
                     [chapterArray addObjectsFromArray:resultArray];
                     [chapterListTableView reloadData];
-                    if (bRead) {
-                        [self pushToReadView];
+                    if (block) {
+                        block();
                     }
                 }];
             } else {
@@ -524,7 +524,9 @@
         [self pushToReadView];
         return;
     } else {
-        [self getChaptersDataWithBool:YES];
+        [self getChaptersDataWithBlock:^{
+            [self pushToReadView];
+        }];
     }
 }
 
