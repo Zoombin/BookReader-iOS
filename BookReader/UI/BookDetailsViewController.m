@@ -336,7 +336,7 @@
     [shortdescribeTextView setBackgroundColor:[UIColor clearColor]];
     [coverView addSubview:shortdescribeTextView];
     
-     commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
+    commentTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortdescribeTextView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [commentTitle setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:245.0/255.0 blue:238.0/255.0 alpha:1.0]];
     [commentTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [commentTitle.layer setBorderWidth:0.5];
@@ -351,7 +351,7 @@
     [shortInfoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [coverView addSubview:shortInfoTableView];
     
-     recommendTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
+    recommendTitle = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(shortInfoTableView.frame)+5, coverView.frame.size.width - 5 *2, 40)];
     [recommendTitle setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:245.0/255.0 blue:238.0/255.0 alpha:1.0]];
     [recommendTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [recommendTitle.layer setBorderWidth:0.5];
@@ -424,7 +424,7 @@
 
 - (void)mainButtonClicked
 {
-   [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+    [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
 }
 
 - (void)initBookDetailUI
@@ -439,7 +439,7 @@
         NSLog(@"error: %@", error);
     }];
     
-//    self.title = book.name;
+    //    self.title = book.name;
     
     NSString *bookName = [@"书名: " stringByAppendingString:book.name];
     NSString *authorName = [@"作者: " stringByAppendingString:book.author];
@@ -475,11 +475,6 @@
         }];
     }
     
-    
-   
-    
-    
-    
     [shortdescribeTextView setText:book.describe];
     CGFloat height = shortdescribeTextView.contentSize.height;
     CGRect rect = shortdescribeTextView.frame;
@@ -493,6 +488,15 @@
 
 - (void)loadChapterList
 {
+    if ([chapterArray count]>0) {
+        return;
+    } else {
+        [self getChaptersDataWithBool:NO];
+    }
+}
+
+- (void)getChaptersDataWithBool:(BOOL)bRead
+{
     [book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
         [ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
@@ -500,8 +504,11 @@
                 [Chapter persist:resultArray withBlock:^(void) {
 					[self hideHUD:YES];
                     [chapterArray removeAllObjects];
-					[chapterArray addObjectsFromArray:resultArray];
+                    [chapterArray addObjectsFromArray:resultArray];
                     [chapterListTableView reloadData];
+                    if (bRead) {
+                        [self pushToReadView];
+                    }
                 }];
             } else {
 				[self hideHUD:YES];
@@ -513,23 +520,12 @@
 
 - (void)readButtonClicked:(id)sender
 {
-   	[book persistWithBlock:^(void) {//下载章节目录
-        [self displayHUD:@"获取章节目录..."];
-        [ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
-            if (!error) {
-                [Chapter persist:resultArray withBlock:^(void) {
-					[self hideHUD:YES];
-					[self pushToReadView];
-                    [chapterArray removeAllObjects];
-					[chapterArray addObjectsFromArray:resultArray];
-                    [chapterListTableView reloadData];
-                }];
-            } else {
-				[self hideHUD:YES];
-                [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
-            }
-        }];
-    }];
+    if ([chapterArray count] > 0) {
+        [self pushToReadView];
+        return;
+    } else {
+        [self getChaptersDataWithBool:YES];
+    }
 }
 
 - (void)favButtonClicked:(id)sender
@@ -601,15 +597,15 @@
         return;
     }
     [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error) {
-         if (error) {
-             
-         }
-         else {
-             commitField.text = @"";
-             [self displayHUDError:nil message:message];
-             [self loadCommitList];
-         }
-     }];
+        if (error) {
+            
+        }
+        else {
+            commitField.text = @"";
+            [self displayHUDError:nil message:message];
+            [self loadCommitList];
+        }
+    }];
 }
 
 - (void)loadShortCommitList
@@ -772,7 +768,7 @@
             tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *obj = [tmpArray objectAtIndex:[indexPath row]];
-//            obj.author = book.author;
+            //            obj.author = book.author;
             if (tableView == authorBookTableView) {
                 obj.author = nil;
             }
@@ -802,7 +798,7 @@
 
 - (void)getMore
 {
-//    [self displayHUD:@"加载中..."];
+    //    [self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
@@ -814,7 +810,7 @@
             currentIndex++;
             [infoTableView reloadData];
             bLoading = NO;
-//            [self hideHUD:YES];
+            //            [self hideHUD:YES];
         }
     }];
 }
