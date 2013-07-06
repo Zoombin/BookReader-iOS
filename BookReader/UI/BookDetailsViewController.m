@@ -240,7 +240,7 @@
     [self.view addSubview:mainButton];
     
     emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
-    [emptyLabel setText:@"暂无其他书籍"];
+    [emptyLabel setText:@"暂无其它书籍"];
     [emptyLabel setTextAlignment:UITextAlignmentCenter];
     
     for (int i = 0; i < 4; i++) {
