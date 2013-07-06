@@ -503,8 +503,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showCommitAlert
 {
-    if ([ServiceManager userID]==nil)
-    {
+    if ([ServiceManager userID] == nil) {
         [self displayHUDError:nil message:@"您尚未登录!"];
         return;
     }
