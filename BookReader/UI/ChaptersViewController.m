@@ -20,6 +20,7 @@
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Book.h"
+#import "ChapterCell.h"
 
 @implementation ChaptersViewController
 {
@@ -54,7 +55,7 @@
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
     
-    #define UIIMAGE(x) [UIImage imageNamed:x]
+#define UIIMAGE(x) [UIImage imageNamed:x]
     NSArray *images = @[UIIMAGE(@"chapterlist_btn"), UIIMAGE(@"bookmark_btn"), ];
     NSArray *disbleImages = @[UIIMAGE(@"chapterlist_btn_hl"), UIIMAGE(@"bookmark_btn_hl")];
     
@@ -122,7 +123,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 35;
+    if (!bBookmarks) {
+    ChapterCell *cell = (ChapterCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell height];
+    }
+    return 30;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -151,25 +156,9 @@
             [separateLine setBackgroundColor:[UIColor lightGrayColor]];
             [cell.contentView addSubview:separateLine];
         } else {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
-            cell.textLabel.text = @"";
-            UILabel *chapterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.contentView.frame.origin.y-3, cell.contentView.frame.size.width - 30, cell.contentView.frame.size.height-3)];
-            [chapterNameLabel setBackgroundColor:[UIColor clearColor]];
-            [cell.contentView addSubview:chapterNameLabel];
-            chapterNameLabel.textColor = [UIColor blueColor];
-            
+            cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
-            chapterNameLabel.text = [NSString stringWithFormat:@"(%d) %@", indexPath.row + 1, chapter.name];
-			if (chapter.lastReadIndex == nil) {
-				chapterNameLabel.textColor = [UIColor blackColor];
-			}
-            if (chapter.uid == _currentChapterID) {
-                chapterNameLabel.textColor = [UIColor redColor];
-            }
-            
-            UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10,  cell.contentView.frame.size.height-1, cell.contentView.frame.size.width - 30, 1)];
-            [separateLine setBackgroundColor:[UIColor lightGrayColor]];
-            [cell.contentView addSubview:separateLine];
+            [(ChapterCell *)cell  setChapter:chapter andCurrent:[chapter.uid isEqualToString:_currentChapterID]];
         }
     }
     return cell;
