@@ -40,7 +40,7 @@
     [imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [imageView setImage:[UIImage imageNamed:@"chapter_background"]];
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-35) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView.layer setCornerRadius:5];
     [infoTableView.layer setMasksToBounds:YES];
@@ -50,8 +50,8 @@
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85*2 , CGRectGetMaxY(infoTableView.frame), 85, 36);
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85, CGRectGetMaxY(infoTableView.frame), 85, 36);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85*2 , CGRectGetMaxY(infoTableView.frame) - 5, 85, 36);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85, CGRectGetMaxY(infoTableView.frame) - 5, 85, 36);
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
     
