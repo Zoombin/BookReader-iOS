@@ -107,7 +107,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [super viewDidAppear:animated];
 	if (![ServiceManager userID] || [ServiceManager firstLaunch]) {
-		[self displayHUD:@"您尚未登录!"];
+		[self displayHUDError:nil message:@"您尚未登录"];
         if ([ServiceManager firstLaunch]) {
             [self recommendBooks];
         }
@@ -203,10 +203,26 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	syncing = YES;
 	[ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray) {
 		if (!error) {
-			[Chapter persist:resultArray withBlock:^(void) {
-				[books removeObject:book];
-				[self syncChapters];
-			}];
+			if (forbidden) {
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					Book *forbiddenBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid]];
+					[forbiddenBook truncate];
+					[books removeObject:book];
+					[self syncChapters];
+					for (Book *b in booksForDisplay) {
+						if ([b.uid isEqualToString:book.uid]) {
+							[booksForDisplay removeObject:b];
+							[booksView reloadData];
+							return;
+						}
+					}
+				}];
+			} else {
+				[Chapter persist:resultArray withBlock:^(void) {
+					[books removeObject:book];
+					[self syncChapters];
+				}];
+			}
         } else {
 			[books removeObject:book];
             [self syncChapters];

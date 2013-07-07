@@ -24,12 +24,13 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-//#define XXSY_BASE_URL   @"http://10.224.72.188/service/"
-#define XXSY_BASE_URL  @"http://link.xxsy.net/service"
+//#define XXSY_BASE_URL @"http://10.224.72.188/service/"
+#define XXSY_BASE_URL @"http://link.xxsy.net/service"
 //#define XXSY_BASE_URL @"http://pay.xxsy.net/Client/"
-#define SECRET          @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
-#define SUCCESS_FLAG        @"0000"
-#define USER_ID   @"userid"
+#define SECRET @"DRiHFmTSaN12wXgQBjVUr5oCpxZznWhvkIO97EuAd30bey8fs4JctGMYl6KqLP"
+#define SUCCESS_FLAG @"0000"
+#define FORBIDDEN_FLAG @"9999"
+#define USER_ID @"userid"
 
 
 //pwd 是16位小写 sign是32位小写
@@ -422,7 +423,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(nil, error, nil);	
         }
     }];
 }
@@ -441,7 +442,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [[theObject objectForKey:@"result"] isEqualToString:@"9999"], resultArray);
+            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [[theObject objectForKey:@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -703,14 +704,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,channel,@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : channel,@"username" :name,@"sign" : [signString md532],@"mobile" :num};
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-            if (block) {
-                block(@"",nil);
-            }
+            if (block) block(@"",nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(nil,error);
-        }
+        if (block) block(nil,error);
     }];
 }
 
