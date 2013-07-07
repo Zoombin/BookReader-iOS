@@ -15,7 +15,7 @@
 #define USER_MONEY       @"usermoney"
 #define USER_NAME        @"username"
 #define LASTRECEIVECODE  @"vercode"
-#define FIRST_LAUNCH     @"firstlauch"
+#define HAD_LAUNCHED     @"hadlaunched"
 
 @class Book;
 @class Member;
@@ -24,7 +24,7 @@
 + (ServiceManager *)shared;
 
 + (void)saveUserID:(NSNumber *)userID;
-+ (BOOL)firstLaunch;
++ (BOOL)hadlaunchedBefore;
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name;
 + (NSNumber *)userID;
 + (Member *)userInfo;

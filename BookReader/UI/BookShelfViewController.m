@@ -105,9 +105,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	if (![ServiceManager userID] || [ServiceManager firstLaunch]) {
+	if (![ServiceManager userID] || ![ServiceManager hadlaunchedBefore]) {
 		[self displayHUDError:nil message:@"您尚未登录"];
-        if ([ServiceManager firstLaunch]) {
+        if (![ServiceManager hadlaunchedBefore]) {
             [self recommendBooks];
         }
     } else {
