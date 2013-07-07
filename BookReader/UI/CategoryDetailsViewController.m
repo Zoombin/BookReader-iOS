@@ -79,7 +79,7 @@
                     classID:catagoryId
                   ranking:0
                      size:@"7"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *result, NSError *error) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSArray *result, NSError *error) {
                      if (error) {
                          [self displayHUDError:nil message:NETWORK_ERROR];
                      }else {

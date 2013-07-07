@@ -124,7 +124,7 @@
     [super viewDidAppear:animated];
     if (book == nil) {
         [self displayHUD:@"加载中..."];
-        [ServiceManager bookDetailsByBookId:bookid andIntro:YES withBlock:^(Book *obj, NSError *error) {
+        [ServiceManager bookDetailsByBookId:bookid andIntro:YES withBlock:^(BOOL success, Book *obj, NSError *error) {
             if(error) {
                 NSLog(@"%@",error);
                 [self displayHUDError:nil message:NETWORK_ERROR];
@@ -468,7 +468,7 @@
 {
     [book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
-        [ServiceManager bookCatalogueList:book.uid withBlock:^(NSArray *resultArray, NSError *error) {
+        [ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, BOOL forbidden, NSArray *resultArray, NSError *error) {
             if (!error) {
                 [self hideHUD:YES];
                 chapterArray = [resultArray mutableCopy];
@@ -510,7 +510,7 @@
 
 - (void)loadAuthorOtherBook
 {
-    [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
         if (error) {
             
         }
@@ -535,7 +535,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"5" withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"5" withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
         if (error) {
             
         }
@@ -566,7 +566,7 @@
     if ([self checkLogin] == NO) {
         return;
     }
-    [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(NSString *message, NSError *error) {
+    [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
         if (error) {
             
         }
@@ -580,7 +580,7 @@
 
 - (void)loadShortCommitList
 {
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"6" andIndex:@"1" withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"6" andIndex:@"1" withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
         if (error){
         } else {
             [shortInfoArray addObjectsFromArray:resultArray];
@@ -593,7 +593,7 @@
 - (void)loadCommitList
 {
 	[infoArray removeAllObjects];
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
         if (error){
         } else {
             if ([resultArray count] == 10) {
@@ -770,7 +770,7 @@
 - (void)getMore
 {
     //    [self displayHUD:@"加载中..."];
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         } else {

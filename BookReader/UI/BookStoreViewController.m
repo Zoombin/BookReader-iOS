@@ -276,7 +276,7 @@
 {
     currentIndex = 1;
     [self displayHUD:@"加载中..."];
-    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(NSArray *resultArray, NSError *error) {
+    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
@@ -326,7 +326,7 @@
                   classID:0
                   ranking:rankId
                      size:@"6"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(NSArray *resultArray, NSError *error) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
                      if (error) {
                          [self displayHUDError:nil message:NETWORK_ERROR];
                      }else {
@@ -364,7 +364,7 @@
     }
     [infoTableView setHidden:NO];
     [ServiceManager recommendBooksIndex:index
-                              WithBlock:^(NSArray *resultArray, NSError *error) {
+                              WithBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
                                   if (error) {
                                       [self displayHUDError:nil message:NETWORK_ERROR];
                                   }else {
@@ -413,7 +413,7 @@
                   classID:index + 1
                   ranking:0
                      size:@"7"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(NSArray *resultArray, NSError *error) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSArray *resultArray, NSError *error) {
                      if (error) {
                          [childViewController displayHUDError:nil message:NETWORK_ERROR];
                      }else {
