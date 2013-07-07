@@ -64,7 +64,7 @@
 
 //用户充值
 + (void)payWithType:(NSString *)payType //分为5种 1,2,3,4,5 分别代表0.99$ 1.99$ 4.99$ 9.99$ 19.99$
-		  withBlock:(void(^)(NSString *message,NSError *error))block __deprecated;//iOS不需要这个接口了
+		  withBlock:(void(^)(NSString *message, NSError *error))block __deprecated;//iOS不需要这个接口了
 //{"result":"0000","count":8400}
 //Example:20130108153057_2797792_14 日期_userid_40
 
