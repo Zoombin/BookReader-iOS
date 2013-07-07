@@ -66,7 +66,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.booksViewDelegate = self;
 	[[self BRHeaderView] addButtons];
 	[[self BRHeaderView] setDelegate:self];
-    [[self BRHeaderView] refreshUpdateButton];
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
     
@@ -119,7 +118,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
 	}
-    [[self BRHeaderView] refreshUpdateButton];
 	[self showBooks];
 	[booksView reloadData];
 }

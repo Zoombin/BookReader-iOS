@@ -31,6 +31,7 @@
 #import "BookShelfButton.h"
 #import "BookReader.h"
 #import "Mark.h"
+#import "ChapterCell.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -724,15 +725,10 @@
         }
     } else if (tableView == chapterListTableView) {
         if (cell == nil) {
-            cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
+            cell = [[ChapterCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
-            [(BookCell *)cell setTextLableText:obj.name];
-            [(BookCell *)cell hidenArrow:YES];
-            
-            UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-35, 14, 6, 12)];
-            [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
-            [cell.contentView addSubview:catagoryImage];
+            [(ChapterCell *)cell setChapter:obj andCurrent:NO];
         }
     }
     else {

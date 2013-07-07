@@ -142,6 +142,7 @@
 		1888A3CA17017B540046DA4C /* navigationbar_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A3C917017B520046DA4C /* navigationbar_bkg.png */; };
 		1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3E01702DE450046DA4C /* BookDetailsViewController.m */; };
 		188AC57D1714139900FC012B /* source.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188AC57C1714139900FC012B /* source.txt */; };
+		188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FD8BB17891C6E00EFF360 /* ChapterCell.m */; };
 		188FE62716F84510009561CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188FE62516F84510009561CB /* Localizable.strings */; };
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
 		18A0C694174B1D1C003FC599 /* read_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C693174B1D1C003FC599 /* read_bar.png */; };
@@ -606,6 +607,8 @@
 		1888A3DF1702DE440046DA4C /* BookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
 		1888A3E01702DE450046DA4C /* BookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BookDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		188AC57C1714139900FC012B /* source.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = source.txt; sourceTree = SOURCE_ROOT; };
+		188FD8BA17891C6E00EFF360 /* ChapterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterCell.h; sourceTree = "<group>"; };
+		188FD8BB17891C6E00EFF360 /* ChapterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterCell.m; sourceTree = "<group>"; };
 		188FE62616F84510009561CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		188FE62816F8453E009561CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		188FE67316FB003F009561CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1200,6 +1203,8 @@
 		188FE62916F95854009561CB /* RemoteMode */ = {
 			isa = PBXGroup;
 			children = (
+				188FD8BA17891C6E00EFF360 /* ChapterCell.h */,
+				188FD8BB17891C6E00EFF360 /* ChapterCell.m */,
 				183CE5241783DD4800976DFB /* ChaptersViewController.h */,
 				183CE5251783DD4800976DFB /* ChaptersViewController.m */,
 				18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */,
@@ -2555,6 +2560,7 @@
 				183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */,
 				183CE5261783DD4800976DFB /* ChaptersViewController.m in Sources */,
 				77A13DA71787DBA2009BECD9 /* NSString+ChineseSpace.m in Sources */,
+				188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
