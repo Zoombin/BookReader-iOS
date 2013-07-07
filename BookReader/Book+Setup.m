@@ -126,7 +126,7 @@
     //book.lastReadChapterID = self.lastReadChapterID;
     book.lastUpdate = self.lastUpdate;
     book.name = self.name;
-    //book.rDate = self.rDate;
+//	book.nextUpdateTime = self.nextUpdateTime;
     book.recommendID = self.recommendID;
     book.recommendTitle = self.recommendTitle;
     book.reward = self.reward;

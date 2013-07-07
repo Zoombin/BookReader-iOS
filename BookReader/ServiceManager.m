@@ -68,7 +68,7 @@ static NSNumber *sUserID;
     if ([[NSUserDefaults standardUserDefaults] objectForKey:FIRST_LAUNCH]) {
         return NO;
     } else {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:FIRST_LAUNCH];
+        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:FIRST_LAUNCH];
         return YES;
     }
     return YES;
@@ -429,7 +429,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)bookCatalogueList:(NSString *)bookid
-                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray))block
+                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : @"0"}]];//每次都从头开始更新章节列表
     parameters[@"index"] = @"1";
@@ -441,12 +441,16 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
 			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
         }
+		NSString *nextUpdateTimeString = @"2999-12-31 11:59";//theObject[@"nextUpdateTime"];
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [[theObject objectForKey:@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray);
+            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [[theObject objectForKey:@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil, nil);
+            block(nil, error, nil, nil, nil);
         }
     }];
 }
@@ -675,9 +679,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 
 + (void)systemConfigsWithBlock:(void (^)(BOOL success, NSError *error, NSString *autoUpdateDelay,NSString *decodeKey,NSString *keepUpdateDelay))block
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
-   NSMutableDictionary *parameters = [self commonParameters:@[@{@"yyyyMMdd" : [dateFormatter stringFromDate:[NSDate date]]}]];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyyMMdd"];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"yyyyMMdd" : [dateFormatter stringFromDate:[NSDate date]]}]];
     [parameters removeObjectForKey:@"yyyyMMdd"];
     [[ServiceManager shared] postPath:@"GetConfigs.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
@@ -717,14 +721,9 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : @"5",@"username" :name,@"sign" : [signString md532], @"cardNo" : cardNum, @"cardPassword" :password};
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        if (block) {
-            block(@"",nil);
-        }
+        if (block) block(@"",nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(nil,error);
-        }
+        if (block) block(nil,error);
     }];
 }
 

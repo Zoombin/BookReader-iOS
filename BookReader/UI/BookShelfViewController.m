@@ -139,7 +139,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					[booksForDisplay removeAllObjects];
 					[booksForDisplay addObjectsFromArray:books];
 					[booksView reloadData];
-					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+					//[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
 				}];
 			}];
         }
@@ -149,7 +149,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)syncBooks
 {
 	if (stopAllSync) return;
-	//[self displayHUD:@"同步收藏..."];
+	if (![ServiceManager userID]) return;
+	
+//	[self displayHUD:@"同步收藏..."];
 	syncing = YES;
     [ServiceManager userBooksWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (error) {
@@ -199,11 +201,24 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	Book *book = books[0];
 	//[self displayHUD:@"检查新章节目录..."];
 	syncing = YES;
-	[ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray) {
+
+	Book *tmpBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid]];
+	if (tmpBook.nextUpdateTime) {
+		NSDate *now = [NSDate date];
+		NSLog(@"now = %@,  nextUpdateTime = %@", now, tmpBook.nextUpdateTime);
+		if ([now compare:tmpBook.nextUpdateTime] == NSOrderedAscending) {
+			[books removeObject:book];
+			[self syncChapters];
+			return;
+		}
+	}
+	
+	[ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+		NSLog(@"updated chapters of book:%@", book.name);
 		if (!error) {
 			if (forbidden) {
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *forbiddenBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid]];
+					Book *forbiddenBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid] inContext:localContext];
 					[forbiddenBook truncate];
 					[books removeObject:book];
 					[self syncChapters];
@@ -216,6 +231,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					}
 				}];
 			} else {
+				if (nextUpdateTime) {
+					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+						Book *tmpBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid] inContext:localContext];
+						tmpBook.nextUpdateTime = nextUpdateTime;
+					}];
+				}
 				[Chapter persist:resultArray withBlock:^(void) {
 					[books removeObject:book];
 					[self syncChapters];
