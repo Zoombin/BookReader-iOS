@@ -30,19 +30,19 @@
         [separateLine setBackgroundColor:[UIColor lightGrayColor]];
         [self.contentView addSubview:separateLine];
         
-        UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.bounds.size.width-40, 12, 8, 26)];
+        UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.bounds.size.width-40, 15, 10, 20)];
         [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
         [self.contentView addSubview:catagoryImage];
     }
     return self;
 }
 
-- (void)setChapter:(Chapter *)obj andCurrent:(BOOL)current
+- (void)setChapter:(Chapter *)chapter andCurrent:(BOOL)current
 {
-    if (obj.name) {
-        [chapterNameLabel setText:obj.name];
+    if (chapter.name) {
+        [chapterNameLabel setText:chapter.name];
     }
-    if (obj.lastReadIndex == nil) {
+    if (chapter.lastReadIndex == nil) {
         chapterNameLabel.textColor = [UIColor blackColor];
     }else if (current) {
         chapterNameLabel.textColor = [UIColor blueColor];
