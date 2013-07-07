@@ -567,6 +567,11 @@
     if ([self checkLogin] == NO) {
         return;
     }
+	if ([commitField.text isEqualToString:@""]) {
+		[self displayHUDError:nil message:@"评论内容不能为空"];
+		return;
+	}
+	
     [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (error) {
             
@@ -634,13 +639,10 @@
 
 - (BOOL)checkLogin
 {
-    if ([ServiceManager userID]==nil)
-    {
+    if (![ServiceManager userID]) {
         [self displayHUDError:nil message:@"您尚未登录!"];
         return NO;
-    }
-    else
-    {
+    } else {
         return YES;
     }
 }
