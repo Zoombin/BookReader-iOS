@@ -101,7 +101,7 @@
 {
     [self hideKeyboard];
     [self displayHUD:@"登录中"];
-    [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSString *message, Member *member, NSError *error) {
+    [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, Member *member) {
 		passwordTextField.text = @"";
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];

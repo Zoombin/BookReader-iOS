@@ -173,7 +173,7 @@
     }
     [self hideKeyboard];
     [self displayHUD:@"请稍等..."];
-    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
+    [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (error) {
             
         }else {
@@ -191,7 +191,7 @@
     [self hideKeyboard];
 //    [getCodeButton startCoolDownDuration:20];
     [self displayHUD:@"请稍等..."];
-    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
+    [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (error) {
             
         } else {
@@ -210,7 +210,7 @@
     }
     [self displayHUD:@"请稍等..."];
 	[self hideKeyboard];
-    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success,NSString *message, NSError *error) {
+    [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (error) {
             [self displayHUDError:nil message:@"网络异常"];
         }else {

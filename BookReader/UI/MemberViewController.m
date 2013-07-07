@@ -62,7 +62,7 @@
 {
     [super viewDidAppear:animated];
     if ([ServiceManager userID] != nil) {
-        [ServiceManager userInfoWithBlock:^(BOOL success, Member *member, NSError *error) {
+        [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, Member *member) {
             if (error) {
                 isLogin = YES;
                 _member = [ServiceManager userInfo];

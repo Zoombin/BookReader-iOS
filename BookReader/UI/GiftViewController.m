@@ -70,7 +70,7 @@
                        count:count
                     integral:integral.integerValue
                      andBook:bookObj.uid
-                   withBlock:^(BOOL success, NSString *message, NSError *error) {
+                   withBlock:^(BOOL success, NSError *error, NSString *message) {
                        if (error) {
                            [self displayHUDError:nil message:NETWORK_ERROR];
                        }else {

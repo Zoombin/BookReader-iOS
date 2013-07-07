@@ -337,7 +337,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		[self playPageCurlAnimation];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
-		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(BOOL success, NSString *content, NSString *message, NSError *error) {
+		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *content, NSString *message) {
 			if (content && ![content isEqualToString:@""]) {
 				[self hideHUD:YES];
 				[self gotoChapter:aChapter withReadIndex:nil];
@@ -345,7 +345,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 					aChapter.content = content;
 				}];
 			} else {//没下载到，尝试订阅
-				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^( BOOL success, NSString *content, NSString *message, NSError *error) {
+				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^( BOOL success, NSError *error, NSString *content, NSString *message) {
 					if (content && ![content isEqualToString:@""]) {
 						chapter.content = content;
 						[self gotoChapter:aChapter withReadIndex:nil];
@@ -558,7 +558,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
     [commitField resignFirstResponder];
 	if ([commitField.text isEqualToString:@""]) return;
-    [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(BOOL success, NSString *message, NSError *error) {
+    [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
          if (!error) {
              [self displayHUDError:nil message:message];
          }

@@ -108,7 +108,7 @@
     }
     [self hideKeyboard];
     [self displayHUD:@"注册中..."];
-    [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSString *message,NSError *error) {
+    [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
@@ -128,7 +128,7 @@
     [self hideKeyboard];
 //    [getCodeButton startCoolDownDuration:20];
     if ([accountTextField.text length]>0) {
-        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(BOOL success, NSString *message, NSError *error){
+        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message){
             if (error) {
                 
             }else {
