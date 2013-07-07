@@ -25,6 +25,7 @@
 @dynamic lastReadChapterID;
 @dynamic lastUpdate;
 @dynamic name;
+@dynamic nextUpdateTime;
 @dynamic recommendID;
 @dynamic recommendTitle;
 @dynamic uid;

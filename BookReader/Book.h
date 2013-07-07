@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSString * lastReadChapterID;
 @property (nonatomic, retain) NSString * lastUpdate;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSDate * nextUpdateTime;
 @property (nonatomic, retain) NSNumber * recommendID;
 @property (nonatomic, retain) NSString * recommendTitle;
 @property (nonatomic, retain) NSString * uid;

@@ -118,7 +118,7 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
                        withBlock:(void(^)(BOOL success,  NSError *error, NSArray *resultArray))block;
 //章节列表
 + (void)bookCatalogueList:(NSString *)bookid
-                withBlock:(void(^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray))block;
+                withBlock:(void(^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block;
 
 //获取章节内容
 + (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
