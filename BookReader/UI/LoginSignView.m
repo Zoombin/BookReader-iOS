@@ -19,7 +19,8 @@
         [label setText:@"您尚未登录"];
         [label setTextColor:[UIColor whiteColor]];
         [label setBackgroundColor:[UIColor clearColor]];
-        [label setTextAlignment:NSTextAlignmentLeft];
+        [label setTextAlignment:NSTextAlignmentCenter];
+        [label setFont:[UIFont boldSystemFontOfSize:14]];
         [self addSubview:label];
         
         [self setBackgroundColor:[UIColor blackColor]];
