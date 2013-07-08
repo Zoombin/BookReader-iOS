@@ -113,6 +113,7 @@
 {
 	_badge = badge;
     badgeView.value = _badge;
+	badgeView.hidden = _editing;
 }
 
 - (void)valueChanged:(id)sender {
