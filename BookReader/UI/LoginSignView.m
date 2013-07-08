@@ -7,6 +7,7 @@
 //
 
 #import "LoginSignView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation LoginSignView
 
@@ -16,15 +17,16 @@
     if (self) {
         // Initialization code
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        [label setText:@"您尚未登录"];
+        [label setText:@"您尚未登录，请点击右上角会员图标登录！"];
         [label setTextColor:[UIColor whiteColor]];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextAlignment:NSTextAlignmentCenter];
         [label setFont:[UIFont boldSystemFontOfSize:14]];
         [self addSubview:label];
-        
+
+		self.layer.cornerRadius = 3.0f;
         [self setBackgroundColor:[UIColor blackColor]];
-        [self setAlpha:0.8];
+        [self setAlpha:0.6];
         [self setUserInteractionEnabled:NO];
     }
     return self;
