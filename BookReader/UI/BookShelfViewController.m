@@ -274,7 +274,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
 	//[self displayHUD:@"检查自动更新中..."];
 	syncing = YES;
-	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *content, NSString *message) {
+	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
 		if (content && ![content isEqualToString:@""]) {
 			chapter.content = content;
 			[chapter persistWithBlock:^(void) {

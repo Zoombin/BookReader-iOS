@@ -18,6 +18,9 @@
 @property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) NSNumber * lastReadIndex;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * nextID;
+@property (nonatomic, retain) NSString * previousID;
+@property (nonatomic, retain) NSString * rollID;
 @property (nonatomic, retain) NSString * uid;
 
 @end

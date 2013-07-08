@@ -153,7 +153,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"PostVerifyCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil,[theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -176,7 +176,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
             [ServiceManager saveUserID:member.uid];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG],nil,[theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG],nil,theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -198,7 +198,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
             [ServiceManager saveUserID:member.uid];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG],nil,[theObject objectForKey:@"error"],member);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG],nil,theObject[@"error"],member);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -215,7 +215,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"ChangePassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil,[theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -231,7 +231,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"PostFindPasswordCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -249,7 +249,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"FindPassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -269,7 +269,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
             member = [Member createWithAttributes:theObject[@"user"]];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil,  member);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,  member);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -319,7 +319,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         }
         
         if (block) {
-            block(array,[[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil);
+            block(array,[theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -343,7 +343,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 			[bookListsArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, bookListsArray);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, bookListsArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -363,7 +363,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         NSMutableArray *resultArray = [@[] mutableCopy];
 		[resultArray addObjectsFromArray:[Book createWithAttributesArray:bookListArray andExtra:nil]];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, resultArray);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, resultArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -384,7 +384,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         [dict setObject:theObject[@"props"] forKey:@"props"];
         Book *book = (Book *)[Book createWithAttributes:dict];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil ,book);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil ,book);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -417,7 +417,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
             }
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, commentArray);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, commentArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -444,7 +444,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [[theObject objectForKey:@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject[@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -454,7 +454,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 }
 
 + (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
-            withBlock:(void (^)(BOOL success, NSError *error, NSString *content, NSString *message))block
+            withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block
 {
 	NSNumber *userid = [self userID];
     if ([self userID] == nil) {
@@ -467,15 +467,16 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
-               block(YES, nil, [[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"]);
-            }else {
-                block(NO, nil, @"", [theObject objectForKey:@"error"]);
+            if ([theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
+				NSDictionary *chapterData = theObject[@"chapter"];
+				block(YES, nil, theObject[@"error"], chapterData[@"content"], [chapterData[@"prevId"] stringValue], [chapterData[@"nextId"] stringValue]);
+            } else {
+                block(NO, nil, theObject[@"error"], @"", nil, nil);
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil, nil);
+            block(nil, error, nil, nil, nil, nil);
         }
     }];
 }
@@ -490,10 +491,10 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"ChapterSubscribe.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
-                block(YES, nil, [[theObject objectForKey:@"chapter"] objectForKey:@"content"],[theObject objectForKey:@"error"]);
+            if ([theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
+                block(YES, nil, theObject[@"chapter"][@"content"], theObject[@"error"]);
             }else {
-                block(NO, nil, @"", [theObject objectForKey:@"error"]);
+                block(NO, nil, @"", theObject[@"error"]);
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -515,7 +516,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         NSMutableArray *bookList = [@[] mutableCopy];
 		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, bookList);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, bookList);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -535,7 +536,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil,[theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -555,7 +556,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -576,7 +577,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -600,7 +601,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, resultArray);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, resultArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -623,7 +624,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
 			[resultArray addObjectsFromArray:[Book createWithAttributesArray:theObject[@"bookList"] andExtra:nil]];
         }
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, resultArray);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, resultArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -666,7 +667,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
          id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject objectForKey:@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -683,7 +684,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     [parameters removeObjectForKey:@"yyyyMMdd"];
     [[ServiceManager shared] postPath:@"GetConfigs.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        if ([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG]) {
+        if ([theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
             if (block) {
                 block(YES, nil, [[theObject objectForKey:@"settings"] objectForKey:@"autoUpdatedelay"],[[theObject objectForKey:@"settings"] objectForKey:@"decodeKey"], [[theObject objectForKey:@"settings"] objectForKey:@"keepUpdateDelay"]);
             }
@@ -733,7 +734,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         NSMutableArray *bookList = [@[] mutableCopy];
 		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
         if (block) {
-            block([[theObject objectForKey:@"result"] isEqualToString:SUCCESS_FLAG], nil, bookList);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, bookList);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {

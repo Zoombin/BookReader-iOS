@@ -17,6 +17,9 @@
     chapter.name = attributes[@"chapterName"];
     chapter.uid = [attributes[@"chapterId"] stringValue];
     chapter.bVip = attributes[@"isVip"];
+//	chapter.nextID = attributes[@"nextId"];
+//	chapter.previousID = attributes[@"prevId"];
+	chapter.rollID = [attributes[@"rollId"] stringValue];
 	return chapter;
 }
 
@@ -73,6 +76,9 @@
     chapter.index = self.index;
     //chapter.lastReadIndex = self.lastReadIndex;
     chapter.name = self.name;
+	//chapter.nextID = self.nextID;
+	//chapter.previousID = self.previousID;
+	chapter.rollID = self.rollID;
     chapter.uid = self.uid;
 }
 
