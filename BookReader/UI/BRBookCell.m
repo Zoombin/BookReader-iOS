@@ -95,9 +95,6 @@
     _editing = editing;
 	badgeView.hidden = editing;
 	autoBuyButton.hidden = !_editing;
-    if (![ServiceManager userID]) {
-        autoBuyButton.hidden = YES;
-    }
     if (!editing) {
         [self setCellSelected:NO];
     }

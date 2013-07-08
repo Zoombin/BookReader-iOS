@@ -79,7 +79,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (LoginSignView *)loginSignView {
 	if (!_loginSignView) {
-		_loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width/3, 20)];
+		_loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
 		[self.view addSubview:_loginSignView];
 	}
 	return _loginSignView;
@@ -420,6 +420,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell
 {
+	if (![ServiceManager userID]) {
+		[self displayHUDError:nil message:@"您尚未登录不能进行此操作"];
+		return;
+	}
 	BOOL shiftToOnOrOff = !bookCell.autoBuy;
 	NSString *message = shiftToOnOrOff ? @"开启订阅..." : @"关闭订阅...";
     [self displayHUD:message];
