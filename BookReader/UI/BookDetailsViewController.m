@@ -145,7 +145,7 @@
 {
     NSLog(@"封面");
     bCommit = NO;
-    [self reset];
+    [self resetButtons];
     [sender setSelected:YES];
     [self.view bringSubviewToFront:coverView];
 }
@@ -156,7 +156,7 @@
     if ([chapterArray count]==0) {
         [self loadChapterList];
     }
-    [self reset];
+    [self resetButtons];
     [sender setSelected:YES];
     [self.view bringSubviewToFront:chapterListView];
 }
@@ -168,7 +168,7 @@
     if ([infoArray count]==0) {
         [self loadCommitList];
     }
-    [self reset];
+    [self resetButtons];
     [sender setSelected:YES];
     [self.view bringSubviewToFront:commentView];
 }
@@ -180,12 +180,12 @@
     if ([authorBookArray count]==0) {
         [self loadAuthorOtherBook];
     }
-    [self reset];
+    [self resetButtons];
     [sender setSelected:YES];
     [self.view bringSubviewToFront:authorBookView];
 }
 
-- (void)reset
+- (void)resetButtons
 {
     [commitField resignFirstResponder];
     coverButton.selected = NO;
