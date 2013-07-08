@@ -143,6 +143,7 @@
 		1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3E01702DE450046DA4C /* BookDetailsViewController.m */; };
 		188AC57D1714139900FC012B /* source.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188AC57C1714139900FC012B /* source.txt */; };
 		188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FD8BB17891C6E00EFF360 /* ChapterCell.m */; };
+		188FD8BE178A484800EFF360 /* read_sheep_paper_hor.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FD8BD178A484800EFF360 /* read_sheep_paper_hor.png */; };
 		188FE62716F84510009561CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188FE62516F84510009561CB /* Localizable.strings */; };
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
 		18A0C694174B1D1C003FC599 /* read_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C693174B1D1C003FC599 /* read_bar.png */; };
@@ -609,6 +610,7 @@
 		188AC57C1714139900FC012B /* source.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = source.txt; sourceTree = SOURCE_ROOT; };
 		188FD8BA17891C6E00EFF360 /* ChapterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterCell.h; sourceTree = "<group>"; };
 		188FD8BB17891C6E00EFF360 /* ChapterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterCell.m; sourceTree = "<group>"; };
+		188FD8BD178A484800EFF360 /* read_sheep_paper_hor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_sheep_paper_hor.png; sourceTree = "<group>"; };
 		188FE62616F84510009561CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		188FE62816F8453E009561CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		188FE67316FB003F009561CB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1104,6 +1106,7 @@
 		181091D917350288000931AB /* Read */ = {
 			isa = PBXGroup;
 			children = (
+				188FD8BD178A484800EFF360 /* read_sheep_paper_hor.png */,
 				183FBACF177EB7110074B3B9 /* read_coffee_paper.png */,
 				183FBAD0177EB7110074B3B9 /* read_remember_paper.png */,
 				183FBAD1177EB7110074B3B9 /* read_river_paper.png */,
@@ -2396,6 +2399,7 @@
 				183CE5341785745F00976DFB /* main_btn_hl@2x.png in Resources */,
 				183CE5351785745F00976DFB /* main_btn.png in Resources */,
 				183CE5361785745F00976DFB /* main_btn@2x.png in Resources */,
+				188FD8BE178A484800EFF360 /* read_sheep_paper_hor.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -610,6 +610,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     }
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
+    NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
+    [self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
 }
 
 - (void)changedWithOrientation:(UIInterfaceOrientation)toInterfaceOrientation

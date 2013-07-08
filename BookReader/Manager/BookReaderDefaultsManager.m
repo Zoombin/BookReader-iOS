@@ -16,6 +16,9 @@ static float brightValue;
 
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index
 {
+    if ([[self objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]&&index == 0) {
+        return [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper_hor"]];
+    }
     if (!colors) {
         colors =
         @[[UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper"]],//羊皮纸风格
