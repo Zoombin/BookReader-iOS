@@ -95,8 +95,8 @@
     rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
     confirmTextField.frame = rect;
     rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
-    codeTextField.frame = CGRectMake(startX, rect.origin.y, width/2, height);
-    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame), rect.origin.y, width/2, height);
+    codeTextField.frame = CGRectMake(startX, rect.origin.y, -5 + width/2, height);
+    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame) + 10, rect.origin.y, -5 + width/2, height);
     rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
     findButton.frame = rect;
     rect.origin.y += CGRectGetMaxY(findButton.bounds) + distance;

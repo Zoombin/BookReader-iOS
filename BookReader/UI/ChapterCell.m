@@ -30,9 +30,7 @@
         [separateLine setBackgroundColor:[UIColor lightGrayColor]];
         [self.contentView addSubview:separateLine];
         
-        UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.bounds.size.width-40, 15, 10, 20)];
-        [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
-        [self.contentView addSubview:catagoryImage];
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;
 }
