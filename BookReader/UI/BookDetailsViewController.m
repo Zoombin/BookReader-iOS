@@ -480,12 +480,9 @@
         [self displayHUD:@"获取章节目录..."];
         [ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
             if (!error) {
-                [self hideHUD:YES];
                 chapterArray = [resultArray mutableCopy];
                 [chapterListTableView reloadData];
-                if (block) {
-                    block();
-                }
+                if (block) block();
             } else {
 				[self hideHUD:YES];
                 [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
@@ -502,6 +499,7 @@
     } else {
         [self getChaptersDataWithBlock:^{
             [Chapter persist:chapterArray withBlock:^{
+				[self hideHUD:YES];
                 [self pushToReadView];
             }];
         }];
