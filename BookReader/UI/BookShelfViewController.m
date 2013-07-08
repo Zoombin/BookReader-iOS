@@ -52,7 +52,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
     
-    LoginSignView *loginSignView;
+    LoginSignView *_loginSignView;
 }
 
 - (void)viewDidLoad
@@ -78,6 +78,15 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
+
+- (LoginSignView *)loginSignView {
+	if (!_loginSignView) {
+		_loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width/3, 30)];
+		[self.view addSubview:_loginSignView];
+	}
+	return _loginSignView;
+}
+
 
 - (void)createStandViews:(NSInteger)number
 {
@@ -109,19 +118,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [super viewDidAppear:animated];
 	if (![ServiceManager userID] || ![ServiceManager hadLaunchedBefore]) {
-        if (!loginSignView) {
-		loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width/3, 30)];
-        [self.view addSubview:loginSignView];
-        } else {
-            [loginSignView setHidden:NO];
-        }
         if (![ServiceManager hadLaunchedBefore]) {
             [self recommendBooks];
         }
     } else {
-        if (loginSignView) {
-        [loginSignView setHidden:YES];
-        }
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			stopAllSync = NO;
 			[self syncBooks];
@@ -129,6 +129,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
 	}
+	[self loginSignView].hidden = [ServiceManager userID] != nil;
 	[self showBooks];
 	[booksView reloadData];
 }
