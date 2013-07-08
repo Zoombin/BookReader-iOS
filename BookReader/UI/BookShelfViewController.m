@@ -81,7 +81,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (LoginSignView *)loginSignView {
 	if (!_loginSignView) {
-		_loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width/3, 30)];
+		_loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width/3, 20)];
 		[self.view addSubview:_loginSignView];
 	}
 	return _loginSignView;
