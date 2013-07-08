@@ -415,6 +415,14 @@
         bottomView.hidden = NO;
         topView.hidden = NO;
          self.hidden = YES;
+        UILabel *textLabel = [horizontalButton subviews][1];
+        if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]) {
+            [horizontalButton setImage:[UIImage imageNamed:@"read_hor"] forState:UIControlStateNormal];
+            [textLabel setText:@"横屏"];
+        } else {
+            [horizontalButton setImage:[UIImage imageNamed:@"read_ver"] forState:UIControlStateNormal];
+            [textLabel setText:@"竖屏"];
+        }
         if ([self.delegate respondsToSelector:@selector(horizontalButtonClicked)]) {
             [self.delegate performSelector:@selector(horizontalButtonClicked)];
         }
