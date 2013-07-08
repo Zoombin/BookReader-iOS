@@ -370,7 +370,6 @@
 		8B03719216ACE80100DFE776 /* downloadbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B03719116ACE80100DFE776 /* downloadbutton.png */; };
 		8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0371C116AD219100DFE776 /* CFNetwork.framework */; };
 		8B22BC55167EBBA900A2B316 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B22BC54167EBBA900A2B316 /* libz.dylib */; };
-		8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C3AB016B2814F00C8468D /* PurchaseManager.m */; settings = {COMPILER_FLAGS = ""; }; };
 		8B453D0F16B8C90A00FD6FE0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936816B7A1C2001BEE70 /* Default.png */; };
 		8B453D1016B8C90F00FD6FE0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936A16B7A1C9001BEE70 /* Default@2x.png */; };
 		8B453D1116B8C91400FD6FE0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936C16B7A1CC001BEE70 /* Default-568h@2x.png */; };
@@ -437,7 +436,6 @@
 		8BDB0B93165E051B008F328A /* read_menu_view_background_safe.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BDB0B5E165E051B008F328A /* read_menu_view_background_safe.png */; };
 		8BDB0B94165E051B008F328A /* read_more_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BDB0B5F165E051B008F328A /* read_more_background.png */; };
 		8BDB0B95165E051B008F328A /* read_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BDB0B60165E051B008F328A /* read_top_bar.png */; };
-		8BDB0B99165E0522008F328A /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDB0B98165E0522008F328A /* UserDefaultsManager.m */; };
 		8BDB0BD4165E0638008F328A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0BD3165E0638008F328A /* CoreText.framework */; };
 		8BDB0BDA165E065B008F328A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0BD9165E065B008F328A /* QuartzCore.framework */; };
 		8BEA22C5166320FD00AB4DDF /* HouseBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEA22C4166320FC00AB4DDF /* HouseBookListViewController.m */; };
@@ -976,8 +974,6 @@
 		8B03719116ACE80100DFE776 /* downloadbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloadbutton.png; sourceTree = "<group>"; };
 		8B0371C116AD219100DFE776 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8B22BC54167EBBA900A2B316 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		8B3C3AAF16B2814F00C8468D /* PurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseManager.h; sourceTree = "<group>"; };
-		8B3C3AB016B2814F00C8468D /* PurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseManager.m; sourceTree = "<group>"; };
 		8B453D1216B8DEE400FD6FE0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
 		8B453D1416B8DF1600FD6FE0 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
 		8B453D1616B8E26300FD6FE0 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
@@ -1051,8 +1047,6 @@
 		8BDB0B5E165E051B008F328A /* read_menu_view_background_safe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_menu_view_background_safe.png; sourceTree = "<group>"; };
 		8BDB0B5F165E051B008F328A /* read_more_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_more_background.png; sourceTree = "<group>"; };
 		8BDB0B60165E051B008F328A /* read_top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_top_bar.png; sourceTree = "<group>"; };
-		8BDB0B97165E0522008F328A /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
-		8BDB0B98165E0522008F328A /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
 		8BDB0BD3165E0638008F328A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		8BDB0BD9165E065B008F328A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8BEA22C3166320FC00AB4DDF /* HouseBookListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseBookListViewController.h; sourceTree = "<group>"; };
@@ -2062,10 +2056,6 @@
 		8BDB0B96165E0522008F328A /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				8BDB0B97165E0522008F328A /* UserDefaultsManager.h */,
-				8BDB0B98165E0522008F328A /* UserDefaultsManager.m */,
-				8B3C3AAF16B2814F00C8468D /* PurchaseManager.h */,
-				8B3C3AB016B2814F00C8468D /* PurchaseManager.m */,
 				181091D617348C8B000931AB /* BookReaderDefaultsManager.h */,
 				181091D717348C8B000931AB /* BookReaderDefaultsManager.m */,
 			);
@@ -2436,9 +2426,7 @@
 				8BDB0B23165E04F2008F328A /* ReadStatusView.m in Sources */,
 				8BDB0B28165E04F2008F328A /* HouseAppListViewController.m in Sources */,
 				8BDB0B29165E04F2008F328A /* AboutViewController.m in Sources */,
-				8BDB0B99165E0522008F328A /* UserDefaultsManager.m in Sources */,
 				8BEA22C5166320FD00AB4DDF /* HouseBookListViewController.m in Sources */,
-				8B3C3AB116B2814F00C8468D /* PurchaseManager.m in Sources */,
 				1888A39E16FD65960046DA4C /* BookStoreViewController.m in Sources */,
 				1888A3A116FD66530046DA4C /* MemberViewController.m in Sources */,
 				1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */,

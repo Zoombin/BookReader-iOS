@@ -17,8 +17,6 @@
 #import "Book.h"
 #import "LoginSignView.h"
 //Local
-#import "UserDefaultsManager.h"
-#import "PurchaseManager.h"
 #import "BookReader.h"
 #import "CoreTextViewController.h"
 #import "BookCell.h"
