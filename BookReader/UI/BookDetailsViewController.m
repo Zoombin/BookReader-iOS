@@ -43,6 +43,11 @@
     int currentIndex;
     int currentType;
     
+    UIButton *coverButton;
+    UIButton *chapterButton;
+    UIButton *commentButton;
+    UIButton *authorButton;
+    
     UIScrollView *coverView;
     UIView *chapterListView;
     UIView *commentView;
@@ -56,8 +61,6 @@
     UITableView *recommendTableView;
     UITableView *authorBookTableView;
     UITableView *chapterListTableView;
-    
-    NSMutableArray *headerBtnsArray;
     
     NSMutableArray *infoArray;
     NSMutableArray *shortInfoArray;
@@ -106,7 +109,6 @@
         authorBookArray = [[NSMutableArray alloc] init];
         sameTypeBookArray = [[NSMutableArray alloc] init];
         shortInfoArray = [[NSMutableArray alloc] init];
-        headerBtnsArray = [[NSMutableArray alloc] init];
         chapterArray = [[NSMutableArray alloc] init];
         bFav = NO;
         bLoading = NO;
@@ -143,7 +145,8 @@
 {
     NSLog(@"封面");
     bCommit = NO;
-    [self refreshBtnWithButton:sender];
+    [self refreshBtnWithButton];
+    [sender setSelected:YES];
     [self.view bringSubviewToFront:coverView];
 }
 
@@ -153,7 +156,8 @@
     if ([chapterArray count]==0) {
         [self loadChapterList];
     }
-    [self refreshBtnWithButton:sender];
+    [self refreshBtnWithButton];
+    [sender setSelected:YES];
     [self.view bringSubviewToFront:chapterListView];
 }
 
@@ -164,7 +168,8 @@
     if ([infoArray count]==0) {
         [self loadCommitList];
     }
-    [self refreshBtnWithButton:sender];
+    [self refreshBtnWithButton];
+    [sender setSelected:YES];
     [self.view bringSubviewToFront:commentView];
 }
 
@@ -175,21 +180,18 @@
     if ([authorBookArray count]==0) {
         [self loadAuthorOtherBook];
     }
-    [self refreshBtnWithButton:sender];
+    [self refreshBtnWithButton];
+    [sender setSelected:YES];
     [self.view bringSubviewToFront:authorBookView];
 }
 
-- (void)refreshBtnWithButton:(id)sender
+- (void)refreshBtnWithButton
 {
     [commitField resignFirstResponder];
-    for (int i = 0; i < [headerBtnsArray count]; i ++) {
-        UIButton *btn = [headerBtnsArray objectAtIndex:i];
-        if (sender != btn) {
-            [btn setTitleColor:[UIColor colorWithRed:138.0/255.0 green:124.0/255.0 blue:105.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        } else {
-            [btn setTitleColor:[UIColor colorWithRed:192.0/255.0 green:106.0/255.0 blue:46.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        }
-    }
+    coverButton.selected = NO;
+    chapterButton.selected = NO;
+    commentButton.selected = NO;
+    authorButton.selected = NO;
 }
 
 - (void)viewDidLoad
@@ -242,6 +244,7 @@
     }
     [self.view bringSubviewToFront:coverView];
     
+    NSMutableArray *headerBtns = [NSMutableArray array];
     NSArray *selectors =  @[@"coverButtonClicked:",@"chapterButtonClicked:",@"commentButtonClicked:",@"authorButtonClicked:"];
     NSInteger width = (fullSize.width-10)/4;
     NSArray *tabbarStrings = @[@"封\t\t\t面",@"目\t\t\t录",@"书\t\t\t评",@"作者作品"];
@@ -249,13 +252,19 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]];
+        [button setTitleColor:[UIColor colorWithRed:138.0/255.0 green:124.0/255.0 blue:105.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithRed:192.0/255.0 green:106.0/255.0 blue:46.0/255.0 alpha:1.0] forState:UIControlStateSelected];
         [button addTarget:self action:NSSelectorFromString(selectors[i]) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setFrame:CGRectMake(5 + width * i, 46, width, 30)];
         [self.view addSubview:button];
-        [headerBtnsArray addObject:button];
+        [headerBtns addObject:button];
     }
-    [self refreshBtnWithButton:headerBtnsArray[0]];
+    coverButton = headerBtns[0];
+    chapterButton = headerBtns[1];
+    commentButton = headerBtns[2];
+    authorButton = headerBtns[3];
+    
+    coverButton.selected = YES;
     
     bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, BOOK_COVER_ORIGIN_SIZE.width / 1.2, BOOK_COVER_ORIGIN_SIZE.height / 1.2)];
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
