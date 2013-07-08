@@ -105,9 +105,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	if (![ServiceManager userID] || ![ServiceManager hadlaunchedBefore]) {
+	if (![ServiceManager userID] || ![ServiceManager hadLaunchedBefore]) {
 		[self displayHUDError:nil message:@"您尚未登录"];
-        if (![ServiceManager hadlaunchedBefore]) {
+        if (![ServiceManager hadLaunchedBefore]) {
             [self recommendBooks];
         }
     } else {
@@ -139,7 +139,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 					[booksForDisplay removeAllObjects];
 					[booksForDisplay addObjectsFromArray:books];
 					[booksView reloadData];
-					//[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
 				}];
 			}];
         }
@@ -149,7 +149,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)syncBooks
 {
 	if (stopAllSync) return;
-	if (![ServiceManager userID]) return;
 	
 //	[self displayHUD:@"同步收藏..."];
 	syncing = YES;

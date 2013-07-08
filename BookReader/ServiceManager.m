@@ -63,15 +63,13 @@ static NSNumber *sUserID;
 	return sUserID;
 }
 
-+ (BOOL)hadlaunchedBefore
++ (BOOL)hadLaunchedBefore
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:HAD_LAUNCHED]) {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:HAD_LAUNCHED_BEFORE]) {
         return YES;
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED];
-        return NO;
     }
-    return NO;
+	[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED_BEFORE];
+	return NO;
 }
 
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name

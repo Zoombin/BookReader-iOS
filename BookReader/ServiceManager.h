@@ -12,10 +12,9 @@
 
 #define NETWORK_ERROR        @"网络异常"
 
-#define USER_MONEY       @"usermoney"
-#define USER_NAME        @"username"
-#define LASTRECEIVECODE  @"vercode"
-#define HAD_LAUNCHED     @"hadlaunched"
+#define USER_MONEY @"usermoney"
+#define USER_NAME @"username"
+#define HAD_LAUNCHED_BEFORE @"had_launched_before"
 
 @class Book;
 @class Member;
@@ -24,7 +23,7 @@
 + (ServiceManager *)shared;
 
 + (void)saveUserID:(NSNumber *)userID;
-+ (BOOL)hadlaunchedBefore;
++ (BOOL)hadLaunchedBefore;
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name;
 + (NSNumber *)userID;
 + (Member *)userInfo;
