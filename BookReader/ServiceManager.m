@@ -439,7 +439,7 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
 			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
         }
-		NSString *nextUpdateTimeString = @"2999-12-31 11:59";//theObject[@"nextUpdateTime"];
+		NSString *nextUpdateTimeString = theObject[@"nextUpdateTime"];//@"2999-12-31 11:59";
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
