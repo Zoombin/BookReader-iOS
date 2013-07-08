@@ -15,6 +15,7 @@
 #import "UIViewController+HUD.h"
 #import "Chapter.h"
 #import "Book.h"
+#import "LoginSignView.h"
 //Local
 #import "UserDefaultsManager.h"
 #import "PurchaseManager.h"
@@ -50,6 +51,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	NSMutableArray *booksStandViews;
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
+    
+    LoginSignView *loginSignView;
 }
 
 - (void)viewDidLoad
@@ -106,11 +109,19 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [super viewDidAppear:animated];
 	if (![ServiceManager userID] || ![ServiceManager hadLaunchedBefore]) {
-		[self displayHUDError:nil message:@"您尚未登录"];
+        if (!loginSignView) {
+		loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width/3, 30)];
+        [self.view addSubview:loginSignView];
+        } else {
+            [loginSignView setHidden:NO];
+        }
         if (![ServiceManager hadLaunchedBefore]) {
             [self recommendBooks];
         }
     } else {
+        if (loginSignView) {
+        [loginSignView setHidden:YES];
+        }
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
 			stopAllSync = NO;
 			[self syncBooks];
