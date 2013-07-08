@@ -45,12 +45,14 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BOOL editing;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *wifiAlert;
+	UIAlertView *favAndAutoBuyAlert;
 	BOOL syncing;
 	NSMutableArray *booksStandViews;
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
     
     LoginSignView *_loginSignView;
+	BRBookCell *needFavAndAutoBuyBookCell;
 }
 
 - (void)viewDidLoad
@@ -115,16 +117,16 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	if (![ServiceManager userID] || ![ServiceManager hadLaunchedBefore]) {
-        if (![ServiceManager hadLaunchedBefore]) {
-            [self recommendBooks];
-        }
+	if (![ServiceManager hadLaunchedBefore]) {
+		//[self recommendBooks];
     } else {
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
-			stopAllSync = NO;
-			[self syncBooks];
-			[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
-			[[NSUserDefaults standardUserDefaults] synchronize];
+		if ([ServiceManager userID]) {
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
+				stopAllSync = NO;
+				[self syncBooks];
+				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+			}
 		}
 	}
 	[self loginSignView].hidden = [ServiceManager userID] != nil;
@@ -390,12 +392,31 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (alertView == wifiAlert && buttonIndex == 1) {
+	if (alertView == wifiAlert && buttonIndex != alertView.cancelButtonIndex) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
-	} else if (alertView != wifiAlert && buttonIndex == 0) {
-        [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
-    }
-	
+	} else if (alertView == favAndAutoBuyAlert && buttonIndex != alertView.cancelButtonIndex) {
+		if (needFavAndAutoBuyBookCell) {
+			[self displayHUD:@"收藏并开启自动更新..."];
+			[ServiceManager addFavoriteWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
+				if (success) {
+					[ServiceManager autoSubscribeWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error) {
+						[self hideHUD:YES];
+						needFavAndAutoBuyBookCell.autoBuy = YES;
+						needFavAndAutoBuyBookCell.book.autoBuy = @(YES);
+						[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
+							Book *b = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", needFavAndAutoBuyBookCell.book.uid] inContext:localContext];
+							b.autoBuy = @(YES);
+						}];
+					}];
+				} else {
+					[self hideHUD:YES];
+					[self displayHUDError:@"错误" message:message];
+				}
+			}];
+			
+			
+		}
+	}
 }
 
 #pragma mark - BRBooksViewDelegate
@@ -424,8 +445,16 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[self displayHUDError:nil message:@"您尚未登录不能进行此操作"];
 		return;
 	}
+
+	if (!bookCell.book.bFav) {
+		needFavAndAutoBuyBookCell = bookCell;
+		favAndAutoBuyAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"您尚未收藏本书，开启自动更新需要收藏此书！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"收藏并开启", nil];
+		[favAndAutoBuyAlert show];
+		return;
+	}
+	
 	BOOL shiftToOnOrOff = !bookCell.autoBuy;
-	NSString *message = shiftToOnOrOff ? @"开启订阅..." : @"关闭订阅...";
+	NSString *message = shiftToOnOrOff ? @"开启自动更新..." : @"关闭自动更新...";
     [self displayHUD:message];
 	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(BOOL success, NSError *error) {
 		[self hideHUD:YES];
