@@ -37,6 +37,9 @@
         <attribute name="index" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="lastReadIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nextID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="previousID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rollID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Mark" representedClassName="Mark" syncable="YES">
@@ -48,7 +51,7 @@
     </entity>
     <elements>
         <element name="Book" positionX="160" positionY="192" width="128" height="465"/>
-        <element name="Chapter" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="Chapter" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Mark" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

@@ -17,6 +17,9 @@
 @dynamic index;
 @dynamic lastReadIndex;
 @dynamic name;
+@dynamic nextID;
+@dynamic previousID;
+@dynamic rollID;
 @dynamic uid;
 
 @end
