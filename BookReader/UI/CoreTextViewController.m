@@ -461,8 +461,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		mark.startWordIndex = @(range.location);
 		mark.progress = @([self readPercentage]);
 	}];
-	
-	
 }
 
 - (void)chaptersButtonClicked
@@ -592,26 +590,27 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)orientationButtonClicked
 {
 	isLandscape = !isLandscape;
-    if (!isLandscape) {
-        isLandscape = YES;
-//    menuView.hidden = NO;
-        [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskLandscapeRight];
-        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-            [self changedWithOrientation:UIInterfaceOrientationLandscapeRight];
-        }
-        [BookReaderDefaultsManager setObject:UserDefaultScreenLandscape ForKey:UserDefaultKeyScreen];
-    }else{
-        isLandscape = NO;
-        [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
-        if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-            [self changedWithOrientation:UIInterfaceOrientationPortrait];
-        }
-        [BookReaderDefaultsManager setObject:UserDefaultScreenLandscape ForKey:UserDefaultKeyScreen];
-    }
+	UIInterfaceOrientationMask orientationMask = UIInterfaceOrientationMaskLandscapeRight;
+	UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
+	NSString *defaultValue = UserDefaultScreenLandscape;
+	if (isLandscape) {
+		orientationMask = UIInterfaceOrientationMaskPortrait;
+		orientation = UIInterfaceOrientationPortrait;
+		defaultValue = UserDefaultScreenPortrait;
+	}
+	
+	[(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:orientationMask];
+	if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+		[self changedWithOrientation:orientation];
+	}
+	
+	[BookReaderDefaultsManager setObject:defaultValue ForKey:UserDefaultKeyScreen];
+
 	if (currentChapterString) {
 		[self paging];
 		[self updateCurrentPageContent];
 	}
+	
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
