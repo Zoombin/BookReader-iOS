@@ -143,7 +143,7 @@
 		188AC57D1714139900FC012B /* source.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188AC57C1714139900FC012B /* source.txt */; };
 		188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FD8BB17891C6E00EFF360 /* ChapterCell.m */; };
 		188FD8BE178A484800EFF360 /* read_sheep_paper_hor.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FD8BD178A484800EFF360 /* read_sheep_paper_hor.png */; };
-		188FD8C1178AA7A800EFF360 /* LoginSignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FD8C0178AA7A700EFF360 /* LoginSignView.m */; };
+		188FD8C1178AA7A800EFF360 /* LoginReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FD8C0178AA7A700EFF360 /* LoginReminderView.m */; };
 		188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FD8C3178BA90200EFF360 /* BookMarkCell.m */; };
 		188FE62716F84510009561CB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188FE62516F84510009561CB /* Localizable.strings */; };
 		188FE67416FB003F009561CB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FE67316FB003F009561CB /* CoreData.framework */; };
@@ -553,8 +553,8 @@
 		188FD8BA17891C6E00EFF360 /* ChapterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterCell.h; sourceTree = "<group>"; };
 		188FD8BB17891C6E00EFF360 /* ChapterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterCell.m; sourceTree = "<group>"; };
 		188FD8BD178A484800EFF360 /* read_sheep_paper_hor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_sheep_paper_hor.png; sourceTree = "<group>"; };
-		188FD8BF178AA7A700EFF360 /* LoginSignView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSignView.h; sourceTree = "<group>"; };
-		188FD8C0178AA7A700EFF360 /* LoginSignView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSignView.m; sourceTree = "<group>"; };
+		188FD8BF178AA7A700EFF360 /* LoginReminderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginReminderView.h; sourceTree = "<group>"; };
+		188FD8C0178AA7A700EFF360 /* LoginReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginReminderView.m; sourceTree = "<group>"; };
 		188FD8C2178BA90200EFF360 /* BookMarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMarkCell.h; sourceTree = "<group>"; };
 		188FD8C3178BA90200EFF360 /* BookMarkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMarkCell.m; sourceTree = "<group>"; };
 		188FE62616F84510009561CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1121,8 +1121,8 @@
 				18A0C6B2174DEDA9003FC599 /* BRViewController.m */,
 				18A0C6B4174DF1DA003FC599 /* BRHeaderView.h */,
 				18A0C6B5174DF1DD003FC599 /* BRHeaderView.m */,
-				188FD8BF178AA7A700EFF360 /* LoginSignView.h */,
-				188FD8C0178AA7A700EFF360 /* LoginSignView.m */,
+				188FD8BF178AA7A700EFF360 /* LoginReminderView.h */,
+				188FD8C0178AA7A700EFF360 /* LoginReminderView.m */,
 			);
 			name = RemoteMode;
 			sourceTree = "<group>";
@@ -2320,7 +2320,7 @@
 				183CE5261783DD4800976DFB /* ChaptersViewController.m in Sources */,
 				77A13DA71787DBA2009BECD9 /* NSString+ChineseSpace.m in Sources */,
 				188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */,
-				188FD8C1178AA7A800EFF360 /* LoginSignView.m in Sources */,
+				188FD8C1178AA7A800EFF360 /* LoginReminderView.m in Sources */,
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

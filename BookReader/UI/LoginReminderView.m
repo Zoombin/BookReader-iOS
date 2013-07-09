@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "LoginSignView.h"
+#import "LoginReminderView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation LoginSignView
+@implementation LoginReminderView
 
 - (id)initWithFrame:(CGRect)frame
 {

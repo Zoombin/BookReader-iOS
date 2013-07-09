@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginSignView : UIView
+@interface LoginReminderView : UIView
 
 @end
