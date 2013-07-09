@@ -45,6 +45,8 @@
     UIPageControl *pageControl;
     
     UIView *bottomView;
+    UITapGestureRecognizer *tapGestureReconizer;
+    CGRect tapRect;
 }
 @synthesize titleLabel;
 @synthesize delegate;
@@ -63,7 +65,8 @@
         [self initFontView];
         [self initBackgroundView];
         [self initBrightView];
-        UITapGestureRecognizer *tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
+        tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(topView.frame) - topView.frame.size.height);
+         tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
         [self addGestureRecognizer:tapGestureReconizer];
         
     }
@@ -246,8 +249,11 @@
 
 - (void)hide
 {
-	self.hidden = YES;
-    [self hidenAllMenu];
+    CGPoint endPoint = [tapGestureReconizer locationInView:self];
+    if (CGRectContainsPoint(tapRect, endPoint)) {
+        self.hidden = YES;
+        [self hidenAllMenu];;
+    }
 }
 
 - (void)initBrightView
@@ -427,14 +433,17 @@
             [self.delegate performSelector:@selector(horizontalButtonClicked)];
         }
     } else if (sender == brightButton) {
+        tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - brightView.frame.size.height);
         backgroundView.hidden = YES;
         fontView.hidden = YES;
         brightView.hidden = NO;
     } else if (sender == fontSetButton) {
+        tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - fontView.frame.size.height);
         fontView.hidden = NO;
         brightView.hidden = YES;
         backgroundView.hidden = YES;
     } else if (sender == backgroundButton) {
+        tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - backgroundView.frame.size.height);
         backgroundView.hidden = NO;
         fontView.hidden = YES;
         brightView.hidden = YES;

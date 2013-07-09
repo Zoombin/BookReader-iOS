@@ -21,6 +21,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Book.h"
 #import "ChapterCell.h"
+#import "BookMarkCell.h"
 
 @implementation ChaptersViewController
 {
@@ -50,8 +51,8 @@
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85*2 , CGRectGetMaxY(infoTableView.frame) - 5, 85, 36);
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 85, CGRectGetMaxY(infoTableView.frame) - 5, 85, 36);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 90*2 , CGRectGetMaxY(infoTableView.frame) - 3, 85, 36);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 90, CGRectGetMaxY(infoTableView.frame) - 3, 85, 36);
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
     
@@ -61,10 +62,10 @@
     
     for (int i = 0; i < 2; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setBackgroundImage:images[i] forState:UIControlStateNormal];
+        [button setBackgroundImage:disbleImages[i] forState:UIControlStateNormal];
         [button setFrame: CGRectFromString(rectStrings[i])];
         [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
-        [button setBackgroundImage:disbleImages[i] forState:UIControlStateDisabled];
+        [button setBackgroundImage:images[i] forState:UIControlStateDisabled];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         if (i==0) {
@@ -123,11 +124,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!bBookmarks) {
-    ChapterCell *cell = (ChapterCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return [cell height];
-    }
-    return 30;
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,25 +133,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
         if (bBookmarks) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
+            cell = [[BookMarkCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
             cell.textLabel.textColor = [UIColor blueColor];
             [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
 			Mark *mark = [infoArray objectAtIndex:indexPath.row];
-            cell.textLabel.text = mark.reference;
-			cell.detailTextLabel.textColor = [UIColor blackColor];
-			cell.detailTextLabel.font = [UIFont systemFontOfSize:10];
-			cell.detailTextLabel.text = mark.chapterName;
-			UILabel *progress = [[UILabel alloc] initWithFrame:cell.contentView.frame];
-			progress.backgroundColor = [UIColor clearColor];
-			progress.textAlignment = UITextAlignmentRight;
-			progress.font = cell.detailTextLabel.font;
-			progress.textColor = cell.detailTextLabel.textColor;
-			progress.text = [NSString stringWithFormat:@"%.2f%%", mark.progress.floatValue];
-			[cell.contentView addSubview:progress];
-            
-            UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(10,  cell.contentView.frame.size.height-1, cell.contentView.frame.size.width - 30, 1)];
-            [separateLine setBackgroundColor:[UIColor lightGrayColor]];
-            [cell.contentView addSubview:separateLine];
+            [(BookMarkCell *)cell setMark:mark];
         } else {
             cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
