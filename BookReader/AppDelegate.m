@@ -12,9 +12,6 @@
 #import "BookStoreViewController.h"
 #import "MemberViewController.h"
 #import "SignInViewController.h"
-#import "HouseAppListViewController.h"
-#import "AboutViewController.h"
-#import "HouseBookListViewController.h"
 #import "BookReader.h"
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
@@ -56,9 +53,7 @@
     rootControllers[@(kRootControllerTypeMember)] = [[MemberViewController alloc] init];
     rootControllers[@(kRootControllerTypeLogin)] = [[SignInViewController alloc] init];
 #else
-    rootControllers[@(kRootControllerTypeHouseBook)] = [[HouseBookListViewController alloc] init];
-    rootControllers[@(kRootControllerTypeHouseApp)] = [[HouseAppListViewController alloc] init];
-    rootControllers[@(kRootControllerTypeAbout)] = [[AboutViewController alloc] init];
+
 #endif
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self gotoRootController:kRootControllerTypeBookShelf];
