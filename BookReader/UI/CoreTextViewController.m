@@ -45,7 +45,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     NSInteger currentPageIndex;
     Chapter *chapter;
 	NSString *currentChapterString;
-    BOOL isRight;
+    BOOL isLandscape;
     BOOL firstAppear;
     UIView *backgroundView;
 	NSString *pageCurlType;
@@ -86,7 +86,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [backgroundView setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:backgroundView];
     
-    isRight = NO;
+    isLandscape = NO;
     firstAppear = NO;
     if([MFMessageComposeViewController canSendText]) {
         messageComposeViewController = [[MFMessageComposeViewController alloc] init];
@@ -543,7 +543,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     backgroundView.alpha = 1.0 - [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
-    isRight = YES;
+    isLandscape = YES;
     [self horizontalButtonClicked];
     [self displayHUDError:nil message:@"已恢复默认!"];
 }
@@ -591,30 +591,27 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)horizontalButtonClicked
 {
-    if (!isRight) {
-        isRight = YES;
-        menuView.hidden = NO;
+	isLandscape = !isLandscape;
+    if (!isLandscape) {
+        isLandscape = YES;
+//    menuView.hidden = NO;
         [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskLandscapeRight];
         if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
             [self changedWithOrientation:UIInterfaceOrientationLandscapeRight];
         }
-        if (currentChapterString) {
-            [self paging];
-            [self updateCurrentPageContent];
-        }
         [BookReaderDefaultsManager setObject:UserDefaultScreenLandscape ForKey:UserDefaultKeyScreen];
     }else{
-        isRight = NO;
+        isLandscape = NO;
         [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
         if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
             [self changedWithOrientation:UIInterfaceOrientationPortrait];
         }
-        if (currentChapterString) {
-            [self paging];
-            [self updateCurrentPageContent];
-        }
         [BookReaderDefaultsManager setObject:UserDefaultScreenLandscape ForKey:UserDefaultKeyScreen];
     }
+	if (currentChapterString) {
+		[self paging];
+		[self updateCurrentPageContent];
+	}
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];

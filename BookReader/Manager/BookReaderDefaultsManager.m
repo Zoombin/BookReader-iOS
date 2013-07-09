@@ -103,7 +103,7 @@ static float brightValue;
 								UserDefaultKeyTextColor : UserDefaultTextColorBrown,
 								UserDefaultKeyBright : @(1.0f),
 								UserDefaultKeyBackground : @(0),
-								UserDefaultKeyScreen : UserDefaultScreenLandscape};
+								UserDefaultKeyScreen : UserDefaultScreenPortrait};
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[defaults enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		[userDefaults setObject:obj forKey:key];
