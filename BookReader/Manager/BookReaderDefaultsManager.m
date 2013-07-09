@@ -98,31 +98,16 @@ static float brightValue;
 
 + (void)reset
 {
-    id value;
-    NSString *keyString = @"";
-    
-    keyString = UserDefaultKeyFontSize;
-    value = UserDefaultFontSizeMin;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyFontName;
-    value = UserDefaultFoundFont;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyTextColor;
-    value = UserDefaultTextColorBrown;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyBright;
-    value = @1.0;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyBackground;
-    value = @0;//羊皮纸
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyScreen;
-    value = UserDefaultScreenLandscape;//羊皮纸
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
+	NSDictionary *defaults = @{	UserDefaultKeyFontSize : UserDefaultFontSizeMin,
+								UserDefaultKeyFontName : UserDefaultFoundFont,
+								UserDefaultKeyTextColor : UserDefaultTextColorBrown,
+								UserDefaultKeyBright : @(1.0f),
+								UserDefaultKeyBackground : @(0),
+								UserDefaultKeyScreen : UserDefaultScreenLandscape};
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[defaults enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		[userDefaults setObject:obj forKey:key];
+	}];
+	[userDefaults synchronize];
 }
 @end
