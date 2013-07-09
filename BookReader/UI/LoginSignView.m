@@ -21,9 +21,8 @@
         [label setTextColor:[UIColor whiteColor]];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextAlignment:NSTextAlignmentCenter];
-        [label setFont:[UIFont boldSystemFontOfSize:14]];
+        [label setFont:[UIFont systemFontOfSize:14]];
         [self addSubview:label];
-
 		self.layer.cornerRadius = 3.0f;
         [self setBackgroundColor:[UIColor blackColor]];
         [self setAlpha:0.6];
