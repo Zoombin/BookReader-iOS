@@ -23,6 +23,7 @@
         // Initialization code
         height = 50;
         markNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, self.contentView.frame.size.width-30, 20)];
+        [markNameLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [markNameLabel setBackgroundColor:[UIColor clearColor]];
         [markNameLabel setTextColor:[UIColor blueColor]];
         [self.contentView addSubview:markNameLabel];
@@ -33,13 +34,14 @@
         [self.contentView addSubview:chapterNameLabel];
         
         progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(markNameLabel.frame) - 80, CGRectGetMaxY(markNameLabel.frame), 80, 20)];
+        [progressLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
         progressLabel.backgroundColor = [UIColor clearColor];
         progressLabel.textAlignment = UITextAlignmentRight;
         [progressLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:progressLabel];
 
-        
         UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(12,  height-1, self.contentView.bounds.size.width - 36, 1)];
+        [separateLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [separateLine setBackgroundColor:[UIColor lightGrayColor]];
         [self.contentView addSubview:separateLine];
     }

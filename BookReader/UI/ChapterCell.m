@@ -27,6 +27,7 @@
         [self.contentView addSubview:chapterNameLabel];
         
         UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(12,  height-1, self.contentView.bounds.size.width - 36, 1)];
+        [separateLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [separateLine setBackgroundColor:[UIColor lightGrayColor]];
         [self.contentView addSubview:separateLine];
         

@@ -30,6 +30,7 @@
 	BOOL bBookmarks;
     UIButton *chapterlistBtn;
     UIButton *bookmarkBtn;
+    UISlider *slider;
 }
 
 - (void)viewDidLoad
@@ -41,6 +42,8 @@
     [imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [imageView setImage:[UIImage imageNamed:@"chapter_background"]];
     
+   
+    
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-35) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView.layer setCornerRadius:5];
@@ -50,6 +53,19 @@
     [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
+    
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 260, self.view.bounds.size.height - 150, 20)];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [slider setMinimumTrackTintColor:[UIColor clearColor]];
+    [slider setMaximumTrackTintColor:[UIColor clearColor]];
+    [slider.layer setBorderColor:[UIColor clearColor].CGColor];
+    [slider setMinimumValue:0];
+    [slider setMaximumValue:100];
+    [self.view addSubview:slider];
+    
+    CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
+	[slider setTransform:rotation];
     
     CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 90*2 , CGRectGetMaxY(infoTableView.frame) - 3, 85, 36);
     CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 90, CGRectGetMaxY(infoTableView.frame) - 3, 85, 36);
@@ -85,6 +101,7 @@
     [bookmarkBtn setEnabled:YES];
 	infoArray = [[Chapter chaptersRelatedToBook:_book.uid] mutableCopy];
 	[infoTableView reloadData];
+    slider.hidden = NO;
 }
 
 - (void)bookmarksButtonClicked
@@ -103,6 +120,7 @@
 	}
 	infoArray = marks;
 	[infoTableView reloadData];
+    slider.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -165,6 +183,22 @@
 			[infoTableView reloadData];
 		}];
 	}
+}
+
+- (void)sliderValueChanged:(id)sender {
+    if (bBookmarks) {
+        return;
+    }
+	float offsetY = (slider.value / 100.0) * (infoTableView.contentSize.height - 460);
+	[infoTableView setContentOffset:CGPointMake(0, offsetY)];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (bBookmarks) {
+        return;
+    }
+	[infoTableView setContentOffset:CGPointMake(0, infoTableView.contentOffset.y)];
+	slider.value = 100.0 * infoTableView.contentOffset.y / (infoTableView.contentSize.height - 460);
 }
 
 @end

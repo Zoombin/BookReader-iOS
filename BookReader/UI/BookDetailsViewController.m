@@ -70,6 +70,7 @@
     BOOL bFav;
     BOOL bLoading;
     BOOL bCommit;
+    BOOL bChapter;
     
     UIButton *shortDescribe;
     UIButton *comment;
@@ -98,6 +99,8 @@
     
     UIButton *favButton;
     UILabel *emptyLabel;
+    
+    UISlider *slider;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -113,6 +116,7 @@
         bFav = NO;
         bLoading = NO;
         bCommit = NO;
+        bChapter = NO;
         currentIndex = 1;
         
         shortDescribe = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -145,6 +149,7 @@
 {
     NSLog(@"封面");
     bCommit = NO;
+    bChapter = NO;
     [self resetButtons];
     [sender setSelected:YES];
     [self.view bringSubviewToFront:coverView];
@@ -157,6 +162,8 @@
         [self loadChapterList];
     }
     [self resetButtons];
+    bChapter = YES;
+    bCommit = NO;
     [sender setSelected:YES];
     [self.view bringSubviewToFront:chapterListView];
 }
@@ -165,6 +172,7 @@
 {
     NSLog(@"评论");
     bCommit = YES;
+    bChapter = NO;
     if ([infoArray count]==0) {
         [self loadCommitList];
     }
@@ -177,6 +185,7 @@
 {
     NSLog(@"作者书籍");
     bCommit = NO;
+    bChapter = NO;
     if ([authorBookArray count]==0) {
         [self loadAuthorOtherBook];
     }
@@ -383,6 +392,19 @@
     [chapterListTableView setDelegate:self];
     [chapterListTableView setDataSource:self];
     [chapterListView addSubview:chapterListTableView];
+    
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 210, self.view.bounds.size.height - 150, 20)];
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [slider setMinimumTrackTintColor:[UIColor clearColor]];
+    [slider setMaximumTrackTintColor:[UIColor clearColor]];
+    [slider.layer setBorderColor:[UIColor clearColor].CGColor];
+    [slider setMinimumValue:0];
+    [slider setMaximumValue:100];
+    [chapterListView addSubview:slider];
+    
+    CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
+	[slider setTransform:rotation];
     
     authorBookTableView = [[UITableView alloc]initWithFrame:authorBookView.bounds style:UITableViewStylePlain];
     [authorBookTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -802,7 +824,15 @@
                 [self getMore];
             }
         }
+    } else if (bChapter){
+        [chapterListTableView setContentOffset:CGPointMake(0, chapterListTableView.contentOffset.y)];
+        slider.value = 100.0 * chapterListTableView.contentOffset.y / (chapterListTableView.contentSize.height - 460);
     }
+}
+
+- (void)sliderValueChanged:(id)sender {
+	float offsetY = (slider.value / 100.0) * (chapterListTableView.contentSize.height - 460);
+	[chapterListTableView setContentOffset:CGPointMake(0, offsetY)];
 }
 
 @end
