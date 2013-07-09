@@ -16,7 +16,7 @@ static float brightValue;
 
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index
 {
-    if ([[self objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]&&index == 0) {
+    if ([[self objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && index == 0) {
         return [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper_hor"]];
     }
     if (!colors) {
@@ -88,7 +88,7 @@ static float brightValue;
 		} else if ([keyString isEqualToString:UserDefaultKeyBackground]) {
 			value = @0;//羊皮纸
 		} else if ([keyString isEqualToString:UserDefaultKeyScreen]) {
-            value = UserDefaultScreenVer;
+            value = UserDefaultScreenPortrait;
         }
 		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -98,31 +98,16 @@ static float brightValue;
 
 + (void)reset
 {
-    id value;
-    NSString *keyString = @"";
-    
-    keyString = UserDefaultKeyFontSize;
-    value = UserDefaultFontSizeMin;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyFontName;
-    value = UserDefaultFoundFont;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyTextColor;
-    value = UserDefaultTextColorBrown;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyBright;
-    value = @1.0;
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyBackground;
-    value = @0;//羊皮纸
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
-    
-    keyString = UserDefaultKeyScreen;
-    value = UserDefaultScreenVer;//羊皮纸
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
+	NSDictionary *defaults = @{	UserDefaultKeyFontSize : UserDefaultFontSizeMin,
+								UserDefaultKeyFontName : UserDefaultFoundFont,
+								UserDefaultKeyTextColor : UserDefaultTextColorBrown,
+								UserDefaultKeyBright : @(1.0f),
+								UserDefaultKeyBackground : @(0),
+								UserDefaultKeyScreen : UserDefaultScreenPortrait};
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[defaults enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		[userDefaults setObject:obj forKey:key];
+	}];
+	[userDefaults synchronize];
 }
 @end

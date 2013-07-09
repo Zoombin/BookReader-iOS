@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "LoginSignView.h"
+#import "LoginReminderView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation LoginSignView
+@implementation LoginReminderView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,9 +21,8 @@
         [label setTextColor:[UIColor whiteColor]];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextAlignment:NSTextAlignmentCenter];
-        [label setFont:[UIFont boldSystemFontOfSize:14]];
+        [label setFont:[UIFont systemFontOfSize:14]];
         [self addSubview:label];
-
 		self.layer.cornerRadius = 3.0f;
         [self setBackgroundColor:[UIColor blackColor]];
         [self setAlpha:0.6];

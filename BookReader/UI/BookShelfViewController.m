@@ -15,7 +15,7 @@
 #import "UIViewController+HUD.h"
 #import "Chapter.h"
 #import "Book.h"
-#import "LoginSignView.h"
+#import "LoginReminderView.h"
 //Local
 #import "BookReader.h"
 #import "CoreTextViewController.h"
@@ -51,7 +51,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
     
-    LoginSignView *_loginSignView;
+    LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
 }
 
@@ -79,12 +79,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
 
-- (LoginSignView *)loginSignView {
-	if (!_loginSignView) {
-		_loginSignView = [[LoginSignView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
-		[self.view addSubview:_loginSignView];
+- (LoginReminderView *)loginReminderView {
+	if (!_loginReminderView) {
+		_loginReminderView = [[LoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
+		[self.view addSubview:_loginReminderView];
 	}
-	return _loginSignView;
+	return _loginReminderView;
 }
 
 
@@ -118,7 +118,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [super viewDidAppear:animated];
 	if (![ServiceManager hadLaunchedBefore]) {
-		//[self recommendBooks];
+		[self recommendBooks];
     } else {
 		if ([ServiceManager userID]) {
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
@@ -129,7 +129,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			}
 		}
 	}
-	[self loginSignView].hidden = [ServiceManager userID] != nil;
+	[self loginReminderView].hidden = [ServiceManager userID] != nil;
 	[self showBooks];
 	[booksView reloadData];
 }

@@ -422,7 +422,7 @@
         topView.hidden = NO;
          self.hidden = YES;
         UILabel *textLabel = [horizontalButton subviews][1];
-        if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]) {
+        if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape]) {
             [horizontalButton setImage:[UIImage imageNamed:@"read_hor"] forState:UIControlStateNormal];
             [textLabel setText:@"横屏"];
         } else {
