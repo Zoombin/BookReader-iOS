@@ -221,13 +221,15 @@
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
-    defaultFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width/2, 37.5)];
+    defaultFontButton = [UIButton fontButton:CGRectMake(20, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width - 20, 37.5)];
+    [defaultFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
     [defaultFontButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
     [defaultFontButton setTitle:@"系统字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-    foundFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width/2, 37.5)];
+    foundFontButton = [UIButton fontButton:CGRectMake(20, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width - 20, 37.5)];
+    [foundFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [foundFontButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
