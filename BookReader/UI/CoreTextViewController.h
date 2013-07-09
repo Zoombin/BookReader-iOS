@@ -13,10 +13,11 @@
 
 @class Book;
 @class Chapter;
-@interface CoreTextViewController : UIViewController<BookReadMenuViewDelegate,ChapterViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
-    MFMessageComposeViewController *messageComposeViewController; 
-}
+@interface CoreTextViewController : UIViewController
+
 @property (nonatomic, strong) Book *book;
 @property (nonatomic, assign) BOOL bDetail;
 - (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex;
+
+
 @end

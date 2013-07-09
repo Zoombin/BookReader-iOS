@@ -18,8 +18,8 @@
 #define UserDefaultKeyScreen @"screen"
 
 //屏幕
-#define UserDefaultScreenHor @"hor"
-#define UserDefaultScreenVer @"Ver"
+#define UserDefaultScreenLandscape @"reading_landscape"
+#define UserDefaultScreenPortrait @"reading_portrait"
 
 //字体大小
 #define UserDefaultFontSizeMax @23

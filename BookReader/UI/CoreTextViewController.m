@@ -26,7 +26,12 @@
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
+@interface CoreTextViewController() <BookReadMenuViewDelegate,ChapterViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
+
+@end
+
 @implementation CoreTextViewController {
+	MFMessageComposeViewController *messageComposeViewController;
     NSInteger startPointX;
     NSInteger startPointY;
     CoreTextView *coreTextView;
@@ -146,7 +151,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		pageCurlType = nil;
         [self gotoChapter:aChapter withReadIndex:nil];
     }
-    if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]&&!firstAppear) {
+    if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && !firstAppear) {
         firstAppear = YES;
         [self horizontalButtonClicked];
     }
@@ -597,7 +602,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
             [self paging];
             [self updateCurrentPageContent];
         }
-        [BookReaderDefaultsManager setObject:UserDefaultScreenHor ForKey:UserDefaultKeyScreen];
+        [BookReaderDefaultsManager setObject:UserDefaultScreenLandscape ForKey:UserDefaultKeyScreen];
     }else{
         isRight = NO;
         [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
@@ -608,7 +613,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
             [self paging];
             [self updateCurrentPageContent];
         }
-        [BookReaderDefaultsManager setObject:UserDefaultScreenVer ForKey:UserDefaultKeyScreen];
+        [BookReaderDefaultsManager setObject:UserDefaultScreenLandscape ForKey:UserDefaultKeyScreen];
     }
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);

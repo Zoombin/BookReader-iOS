@@ -118,7 +118,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [super viewDidAppear:animated];
 	if (![ServiceManager hadLaunchedBefore]) {
-		//[self recommendBooks];
+		[self recommendBooks];
     } else {
 		if ([ServiceManager userID]) {
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {

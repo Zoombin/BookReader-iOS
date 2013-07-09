@@ -16,7 +16,7 @@ static float brightValue;
 
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index
 {
-    if ([[self objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenHor]&&index == 0) {
+    if ([[self objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && index == 0) {
         return [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper_hor"]];
     }
     if (!colors) {
@@ -88,7 +88,7 @@ static float brightValue;
 		} else if ([keyString isEqualToString:UserDefaultKeyBackground]) {
 			value = @0;//羊皮纸
 		} else if ([keyString isEqualToString:UserDefaultKeyScreen]) {
-            value = UserDefaultScreenVer;
+            value = UserDefaultScreenPortrait;
         }
 		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -122,7 +122,7 @@ static float brightValue;
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
     
     keyString = UserDefaultKeyScreen;
-    value = UserDefaultScreenVer;//羊皮纸
+    value = UserDefaultScreenLandscape;//羊皮纸
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:keyString];
 }
 @end
