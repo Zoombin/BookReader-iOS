@@ -65,7 +65,7 @@
         [self initFontView];
         [self initBackgroundView];
         [self initBrightView];
-        tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(topView.frame) - topView.frame.size.height);
+        tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(bottomView.frame) - topView.frame.size.height);
          tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
         [self addGestureRecognizer:tapGestureReconizer];
         
@@ -252,7 +252,7 @@
     CGPoint endPoint = [tapGestureReconizer locationInView:self];
     if (CGRectContainsPoint(tapRect, endPoint)) {
         self.hidden = YES;
-        [self hidenAllMenu];;
+        [self hidenAllMenu];
     }
 }
 
