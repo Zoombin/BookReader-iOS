@@ -158,6 +158,8 @@
         } else {
             cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
+            
+//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
             [(ChapterCell *)cell  setChapter:chapter andCurrent:[chapter.uid isEqualToString:_currentChapterID]];
         }
     }

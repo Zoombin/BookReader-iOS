@@ -736,6 +736,7 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
             [(ChapterCell *)cell setChapter:obj andCurrent:NO];
+//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
         }
     }
     else {
