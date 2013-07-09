@@ -153,7 +153,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     }
     if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && !firstAppear) {
         firstAppear = YES;
-        [self horizontalButtonClicked];
+        [self orientationButtonClicked];
     }
 }
 
@@ -544,7 +544,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
     isLandscape = YES;
-    [self horizontalButtonClicked];
+    [self orientationButtonClicked];
     [self displayHUDError:nil message:@"已恢复默认!"];
 }
 
@@ -589,7 +589,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
 }
 
-- (void)horizontalButtonClicked
+- (void)orientationButtonClicked
 {
 	isLandscape = !isLandscape;
     if (!isLandscape) {

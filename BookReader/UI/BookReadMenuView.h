@@ -20,7 +20,7 @@
 - (void)chaptersButtonClicked;
 - (void)shareButtonClicked;
 - (void)commitButtonClicked;
-- (void)horizontalButtonClicked;
+- (void)orientationButtonClicked;
 - (void)resetButtonClicked;
 
 - (void)fontChanged:(BOOL)reduce;
