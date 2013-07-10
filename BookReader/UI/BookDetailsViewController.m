@@ -158,8 +158,8 @@
 - (void)chapterButtonClicked:(id)sender
 {
     NSLog(@"章节");
-    if ([chapterArray count]==0) {
-        [self loadChapterList];
+    if (![chapterArray count]) {
+		[self getChaptersDataWithBlock:nil];
     }
     [self resetButtons];
     bChapter = YES;
@@ -487,26 +487,17 @@
     [self removeGestureRecognizer];
 }
 
-- (void)loadChapterList
-{
-    if ([chapterArray count]>0) {
-        return;
-    } else {
-        [self getChaptersDataWithBlock:nil];
-    }
-}
-
 - (void)getChaptersDataWithBlock:(dispatch_block_t)block
 {
     [book persistWithBlock:^(void) {//下载章节目录
         [self displayHUD:@"获取章节目录..."];
         [ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+			[self hideHUD:YES];
             if (!error) {
                 chapterArray = [resultArray mutableCopy];
                 [chapterListTableView reloadData];
                 if (block) block();
             } else {
-				[self hideHUD:YES];
                 [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
             }
         }];
