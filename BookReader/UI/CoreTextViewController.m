@@ -153,6 +153,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     }
     if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && !firstAppear) {
         firstAppear = YES;
+        isLandscape = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
         [self orientationButtonClicked];
     }
 }
