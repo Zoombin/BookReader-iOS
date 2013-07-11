@@ -272,6 +272,7 @@
     if (CGRectContainsPoint(tapRect, endPoint)) {
         self.hidden = YES;
         [self hidenAllMenu];
+        tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(bottomView.frame) - topView.frame.size.height);
     }
 }
 
