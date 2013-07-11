@@ -541,7 +541,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     backgroundView.alpha = 1.0 - [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
     NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
-    isLandscape = YES;
+    isLandscape = NO;
     [self orientationButtonClicked];
     [self displayHUDError:nil message:@"已恢复默认!"];
 }
