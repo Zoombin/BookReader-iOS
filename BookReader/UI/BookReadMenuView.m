@@ -40,6 +40,7 @@
     NSMutableArray *backgroundBtns;
     
     UIImageView *markImageView;
+    UIImageView *markImageViewUnSelect;
     UIImageView *textColorMarkImageView;
     
     UIPageControl *pageControl;
@@ -191,12 +192,14 @@
     [setFontSize setText:@"\t\t调整字号"];
     [setFontSize setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [setFontSize setTextColor:[UIColor grayColor]];
+    [setFontSize setFont:[UIFont systemFontOfSize:14]];
     [setFontSize setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFontSize];
     
     UILabel *setFont = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMidY(fontView.bounds), fontView.frame.size.width, 25)];
     [setFont setText:@"\t\t选择字体"];
     [setFont setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [setFont setFont:[UIFont systemFontOfSize:14]];
     [setFont setTextColor:[UIColor grayColor]];
     [setFont setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFont];
@@ -221,30 +224,44 @@
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
-    defaultFontButton = [UIButton fontButton:CGRectMake(20, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width - 20, 37.5)];
+    defaultFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width, 37.5)];
     [defaultFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
     [defaultFontButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
+    [defaultFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
     [defaultFontButton setTitle:@"系统字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-    foundFontButton = [UIButton fontButton:CGRectMake(20, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width - 20, 37.5)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(defaultFontButton.frame), CGRectGetMaxY(defaultFontButton.frame) - 1, defaultFontButton.frame.size.width, 1)];
+    [line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [line setBackgroundColor:[UIColor blackColor]];
+    [fontView addSubview:line];
+    
+    foundFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width, 37.5)];
     [foundFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
+    [foundFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [foundFontButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
     [fontView addSubview:foundFontButton];
     
-    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, foundFontButton.frame.origin.y+8, 20, 20)];
+    markImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
     [markImageView setImage:[UIImage imageNamed:@"read_fontmark_select"]];
     [markImageView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [fontView addSubview:markImageView];
     
+    markImageViewUnSelect = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
+    [markImageViewUnSelect setImage:[UIImage imageNamed:@"read_fontmark"]];
+    [markImageViewUnSelect setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+    [fontView addSubview:markImageViewUnSelect];
+    
     if ([[BookReaderDefaultsManager objectForKey:UserDefaultKeyFontName] isEqualToString:UserDefaultFoundFont]) {
-        [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, foundFontButton.frame.origin.y+8, 20, 20)];
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewUnSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
         [foundFontButton setEnabled:NO];
     } else {
-        [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, defaultFontButton.frame.origin.y+8, 20, 20)];
+        [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewUnSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
         [defaultFontButton setEnabled:NO];
     }
 }
@@ -378,7 +395,8 @@
 
 - (void)systemFontChange
 {
-    [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, defaultFontButton.frame.origin.y+8, 20, 20)];
+    [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)- 50, defaultFontButton.frame.origin.y+8, 20, 20)];
+    [markImageViewUnSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
     [defaultFontButton setEnabled:NO];
     [foundFontButton setEnabled:YES];
     if ([self.delegate respondsToSelector:@selector(systemFont)]) {
@@ -388,7 +406,8 @@
 
 - (void)foundFontChange
 {
-    [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)-100, foundFontButton.frame.origin.y+8, 20, 20)];
+    [markImageView setFrame:CGRectMake(CGRectGetMaxX(self.frame)- 50, foundFontButton.frame.origin.y+8, 20, 20)];
+    [markImageViewUnSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
     [defaultFontButton setEnabled:YES];
     [foundFontButton setEnabled:NO];
     if ([self.delegate respondsToSelector:@selector(foundFont)]) {
@@ -431,8 +450,8 @@
             [horizontalButton setImage:[UIImage imageNamed:@"read_ver"] forState:UIControlStateNormal];
             [textLabel setText:@"竖屏"];
         }
-        if ([self.delegate respondsToSelector:@selector(horizontalButtonClicked)]) {
-            [self.delegate performSelector:@selector(horizontalButtonClicked)];
+        if ([self.delegate respondsToSelector:@selector(orientationButtonClicked)]) {
+            [self.delegate performSelector:@selector(orientationButtonClicked)];
         }
     } else if (sender == brightButton) {
         tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - brightView.frame.size.height);
