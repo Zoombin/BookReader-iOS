@@ -53,7 +53,7 @@
     UIView *commentView;
     UIView *authorBookView;
     
-    UITextField *commitField;
+    UITextView *commitField;
     UIButton *sendCommitButton;
     UITextView *shortdescribeTextView;
     UITableView *infoTableView;
@@ -361,11 +361,11 @@
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [commentView addSubview:infoTableView];
     
-    UIView *commentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, infoTableView.frame.size.width, 50)];
+    UIView *commentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, infoTableView.frame.size.width, 50 * 3)];
     [commentHeaderView setBackgroundColor:[UIColor clearColor]];
     
-    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 7.5, 220, 35)];
-    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    commitField = [[UITextView alloc] initWithFrame:CGRectMake(12, 17.5, 220, 35 * 3)];
+//    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
     [commitField setDelegate:self];
     [commitField setReturnKeyType:UIReturnKeyDone];
@@ -374,7 +374,7 @@
     [commitField setBackgroundColor:[UIColor whiteColor]];
     [commentHeaderView addSubview:commitField];
     
-    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(CGRectGetMaxX(commitField.frame) + 10, 7.5, 60, 35)];
+    UIButton *sendCommitbutton = [UIButton createButtonWithFrame:CGRectMake(CGRectGetMaxX(commitField.frame) + 10, 50, 60, 35)];
     [sendCommitbutton addTarget:self action:@selector(sendCommitButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [sendCommitbutton setTitle:@"发表" forState:UIControlStateNormal];
     [sendCommitbutton setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
@@ -575,9 +575,12 @@
     }];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    [self sendCommitButtonClicked];
+    if ([text isEqualToString:@"\n"]) {
+        [self sendCommitButtonClicked];
+        return NO;
+    }
     return YES;
 }
 
