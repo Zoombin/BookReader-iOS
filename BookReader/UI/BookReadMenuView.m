@@ -85,10 +85,10 @@
     [self addSubview:titleLabel];
     
     static float buttonOffsetX = 10.0;
-    static float buttonOffsetY = 3.0;
+    static float buttonOffsetY = 0.0;
     
 	UIButton *backButton = [UIButton navigationBackButton];
-    [backButton setFrame: CGRectMake(10, buttonOffsetY, 48, 32)];
+    [backButton setFrame: CGRectMake(10, buttonOffsetY, 54, 40)];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setBackgroundImage:[UIImage imageNamed:@"read_backbtn"] forState:UIControlStateNormal];
     [backButton setTitle:@"" forState:UIControlStateNormal];
