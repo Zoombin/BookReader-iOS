@@ -200,6 +200,9 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
 + (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void(^)(NSString *result,NSError *error))block __deprecated;//iOS不需要这个接口了
 
 + (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block __deprecated;//iOS不需要这个接口了
+
+//公告接口
++ (void)systemNotifyWithBlock:(void (^)(NSString *result, NSError *error))block;
 #pragma mark -
 
 @end

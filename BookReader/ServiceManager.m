@@ -743,6 +743,21 @@ static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
     }];
 }
 
++ (void)systemNotifyWithBlock:(void (^)(NSString *result, NSError *error))block
+{
+    NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"system.notify"}]];
+    [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        if (block) {
+            block(theObject, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
 ////获取IP地址
 + (NSString *)ipAddress
 {
