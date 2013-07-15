@@ -86,8 +86,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [backgroundView setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:backgroundView];
     
-    isLandscape = NO;
-    firstAppear = NO;
+    isLandscape = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
+    firstAppear = YES;
     if([MFMessageComposeViewController canSendText]) {
         messageComposeViewController = [[MFMessageComposeViewController alloc] init];
     }
@@ -151,11 +151,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		pageCurlType = nil;
         [self gotoChapter:aChapter withReadIndex:nil];
     }
-    if([[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && !firstAppear) {
-        firstAppear = YES;
-        isLandscape = [[BookReaderDefaultsManager objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
+    if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
+        isLandscape = !isLandscape;
         [self orientationButtonClicked];
     }
+    firstAppear = NO;
 }
 
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
@@ -590,14 +590,15 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)orientationButtonClicked
 {
+    NSLog(@"----%@----",isLandscape ? @"横屏变竖屏" : @"竖屏变横屏");
 	isLandscape = !isLandscape;
-	UIInterfaceOrientationMask orientationMask = UIInterfaceOrientationMaskLandscapeRight;
-	UIInterfaceOrientation orientation = UIInterfaceOrientationLandscapeRight;
-	NSString *defaultValue = UserDefaultScreenLandscape;
+	UIInterfaceOrientationMask orientationMask = UIInterfaceOrientationMaskPortrait;
+	UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
+	NSString *defaultValue = UserDefaultScreenPortrait;
 	if (isLandscape) {
-		orientationMask = UIInterfaceOrientationMaskPortrait;
-		orientation = UIInterfaceOrientationPortrait;
-		defaultValue = UserDefaultScreenPortrait;
+		orientationMask = UIInterfaceOrientationMaskLandscapeRight;
+		orientation = UIInterfaceOrientationLandscapeRight;
+		defaultValue = UserDefaultScreenLandscape;
 	}
 	
 	[(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:orientationMask];
