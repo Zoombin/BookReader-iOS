@@ -40,10 +40,12 @@
         [progressLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:progressLabel];
 
-        UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(12,  height-1, self.contentView.bounds.size.width - 36, 1)];
-        [separateLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [separateLine setBackgroundColor:[UIColor lightGrayColor]];
-        [self.contentView addSubview:separateLine];
+        UILabel *dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
+        [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [dottedLine setText:@"-----------------------------------------------------------------------------------------------------"];
+        [dottedLine setBackgroundColor:[UIColor clearColor]];
+        [dottedLine setTextColor:[UIColor grayColor]];
+        [self.contentView addSubview:dottedLine];
     }
     return self;
 }

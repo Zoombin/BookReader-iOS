@@ -400,15 +400,7 @@
     [slider setMaximumValue:100];
     [chapterListView addSubview:slider];
     
-    for (int i = 0; i < [slider.subviews count]; i++) {
-        if (i != 2) {
-            UIView *view = slider.subviews[i];
-            view.hidden = YES;
-        }
-    }
-    
-    CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
-	[slider setTransform:rotation];
+    slider.transform = CGAffineTransformMakeRotation(1.57079633);
     
     authorBookTableView = [[UITableView alloc]initWithFrame:authorBookView.bounds style:UITableViewStylePlain];
     [authorBookTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
