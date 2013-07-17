@@ -55,11 +55,6 @@
 		1816961F176FF87400E33C3C /* autobuy_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18169614176FF87400E33C3C /* autobuy_off@2x.png */; };
 		18169620176FF87400E33C3C /* autobuy_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18169615176FF87400E33C3C /* autobuy_on@2x.png */; };
 		18169621176FF87400E33C3C /* book_checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18169616176FF87400E33C3C /* book_checkmark@2x.png */; };
-		18169622176FF87400E33C3C /* bookstore_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18169617176FF87400E33C3C /* bookstore_btn@2x.png */; };
-		18169623176FF87400E33C3C /* delete_btn_disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18169618176FF87400E33C3C /* delete_btn_disable@2x.png */; };
-		18169624176FF87400E33C3C /* delete_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18169619176FF87400E33C3C /* delete_btn@2x.png */; };
-		18169625176FF87400E33C3C /* edit_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961A176FF87400E33C3C /* edit_btn@2x.png */; };
-		18169626176FF87400E33C3C /* finish_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961B176FF87400E33C3C /* finish_btn@2x.png */; };
 		18169627176FF87400E33C3C /* refresh_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961C176FF87400E33C3C /* refresh_btn@2x.png */; };
 		18169628176FF87400E33C3C /* refresh_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961D176FF87400E33C3C /* refresh_mark@2x.png */; };
 		18169629176FF87400E33C3C /* shelf_member_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */; };
@@ -143,8 +138,6 @@
 		1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3A416FFE8420046DA4C /* ServiceManager.m */; };
 		1888A3AB16FFF52F0046DA4C /* BookShelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3AA16FFF52F0046DA4C /* BookShelfViewController.m */; };
 		1888A3AE17000CE50046DA4C /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3AD17000CE50046DA4C /* BookCell.m */; };
-		1888A3C31701634C0046DA4C /* nav_bookstorebtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A3C11701634C0046DA4C /* nav_bookstorebtn.png */; };
-		1888A3C41701634C0046DA4C /* nav_private.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A3C21701634C0046DA4C /* nav_private.png */; };
 		1888A3C817017AA80046DA4C /* iphone_qqreader_Center_icon_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A3C717017AA80046DA4C /* iphone_qqreader_Center_icon_bg.png */; };
 		1888A3CA17017B540046DA4C /* navigationbar_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1888A3C917017B520046DA4C /* navigationbar_bkg.png */; };
 		1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1888A3E01702DE450046DA4C /* BookDetailsViewController.m */; };
@@ -246,11 +239,6 @@
 		18EDD0E11741DFE300915372 /* flower.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DC1741DFE300915372 /* flower.png */; };
 		18EDD0E21741DFE300915372 /* money.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DD1741DFE300915372 /* money.png */; };
 		18EDD0E31741DFE300915372 /* monthticket.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DE1741DFE300915372 /* monthticket.png */; };
-		18EFDFB1176F0532009B669C /* bookstore_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFAA176F0532009B669C /* bookstore_btn.png */; };
-		18EFDFB2176F0532009B669C /* delete_btn_disable.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFAB176F0532009B669C /* delete_btn_disable.png */; };
-		18EFDFB3176F0532009B669C /* delete_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFAC176F0532009B669C /* delete_btn.png */; };
-		18EFDFB4176F0532009B669C /* edit_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFAD176F0532009B669C /* edit_btn.png */; };
-		18EFDFB5176F0532009B669C /* finish_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFAE176F0532009B669C /* finish_btn.png */; };
 		18EFDFB6176F0532009B669C /* shelf_member_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFAF176F0532009B669C /* shelf_member_btn.png */; };
 		18EFDFB7176F0532009B669C /* refresh_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFB0176F0532009B669C /* refresh_btn.png */; };
 		18EFDFB9176F0777009B669C /* refresh_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFB8176F0777009B669C /* refresh_mark.png */; };
@@ -462,11 +450,6 @@
 		18169614176FF87400E33C3C /* autobuy_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "autobuy_off@2x.png"; sourceTree = "<group>"; };
 		18169615176FF87400E33C3C /* autobuy_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "autobuy_on@2x.png"; sourceTree = "<group>"; };
 		18169616176FF87400E33C3C /* book_checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book_checkmark@2x.png"; sourceTree = "<group>"; };
-		18169617176FF87400E33C3C /* bookstore_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_btn@2x.png"; sourceTree = "<group>"; };
-		18169618176FF87400E33C3C /* delete_btn_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_btn_disable@2x.png"; sourceTree = "<group>"; };
-		18169619176FF87400E33C3C /* delete_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_btn@2x.png"; sourceTree = "<group>"; };
-		1816961A176FF87400E33C3C /* edit_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_btn@2x.png"; sourceTree = "<group>"; };
-		1816961B176FF87400E33C3C /* finish_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finish_btn@2x.png"; sourceTree = "<group>"; };
 		1816961C176FF87400E33C3C /* refresh_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh_btn@2x.png"; sourceTree = "<group>"; };
 		1816961D176FF87400E33C3C /* refresh_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh_mark@2x.png"; sourceTree = "<group>"; };
 		1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shelf_member_btn@2x.png"; sourceTree = "<group>"; };
@@ -560,8 +543,6 @@
 		1888A3AA16FFF52F0046DA4C /* BookShelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfViewController.m; sourceTree = "<group>"; };
 		1888A3AC17000CE40046DA4C /* BookCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCell.h; sourceTree = "<group>"; };
 		1888A3AD17000CE50046DA4C /* BookCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCell.m; sourceTree = "<group>"; };
-		1888A3C11701634C0046DA4C /* nav_bookstorebtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bookstorebtn.png; sourceTree = "<group>"; };
-		1888A3C21701634C0046DA4C /* nav_private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_private.png; sourceTree = "<group>"; };
 		1888A3C717017AA80046DA4C /* iphone_qqreader_Center_icon_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone_qqreader_Center_icon_bg.png; sourceTree = "<group>"; };
 		1888A3C917017B520046DA4C /* navigationbar_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_bkg.png; sourceTree = "<group>"; };
 		1888A3DF1702DE440046DA4C /* BookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
@@ -688,11 +669,6 @@
 		18EDD0DC1741DFE300915372 /* flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flower.png; sourceTree = "<group>"; };
 		18EDD0DD1741DFE300915372 /* money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = money.png; sourceTree = "<group>"; };
 		18EDD0DE1741DFE300915372 /* monthticket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monthticket.png; sourceTree = "<group>"; };
-		18EFDFAA176F0532009B669C /* bookstore_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_btn.png; sourceTree = "<group>"; };
-		18EFDFAB176F0532009B669C /* delete_btn_disable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_btn_disable.png; sourceTree = "<group>"; };
-		18EFDFAC176F0532009B669C /* delete_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_btn.png; sourceTree = "<group>"; };
-		18EFDFAD176F0532009B669C /* edit_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_btn.png; sourceTree = "<group>"; };
-		18EFDFAE176F0532009B669C /* finish_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finish_btn.png; sourceTree = "<group>"; };
 		18EFDFAF176F0532009B669C /* shelf_member_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shelf_member_btn.png; sourceTree = "<group>"; };
 		18EFDFB0176F0532009B669C /* refresh_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh_btn.png; sourceTree = "<group>"; };
 		18EFDFB8176F0777009B669C /* refresh_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh_mark.png; sourceTree = "<group>"; };
@@ -1175,21 +1151,11 @@
 				18169614176FF87400E33C3C /* autobuy_off@2x.png */,
 				18169615176FF87400E33C3C /* autobuy_on@2x.png */,
 				18169616176FF87400E33C3C /* book_checkmark@2x.png */,
-				18169617176FF87400E33C3C /* bookstore_btn@2x.png */,
-				18169618176FF87400E33C3C /* delete_btn_disable@2x.png */,
-				18169619176FF87400E33C3C /* delete_btn@2x.png */,
-				1816961A176FF87400E33C3C /* edit_btn@2x.png */,
-				1816961B176FF87400E33C3C /* finish_btn@2x.png */,
 				1816961C176FF87400E33C3C /* refresh_btn@2x.png */,
 				1816961D176FF87400E33C3C /* refresh_mark@2x.png */,
 				1816961E176FF87400E33C3C /* shelf_member_btn@2x.png */,
 				18EFDFBA176F0BBA009B669C /* navigationbar_bkg@2x.png */,
 				18EFDFB8176F0777009B669C /* refresh_mark.png */,
-				18EFDFAA176F0532009B669C /* bookstore_btn.png */,
-				18EFDFAB176F0532009B669C /* delete_btn_disable.png */,
-				18EFDFAC176F0532009B669C /* delete_btn.png */,
-				18EFDFAD176F0532009B669C /* edit_btn.png */,
-				18EFDFAE176F0532009B669C /* finish_btn.png */,
 				18EFDFAF176F0532009B669C /* shelf_member_btn.png */,
 				18EFDFB0176F0532009B669C /* refresh_btn.png */,
 				774482A61764A58100802600 /* bookshelf.png */,
@@ -1200,8 +1166,6 @@
 				18A0C6B717532FDA003FC599 /* book_placeholder.png */,
 				1888A3C917017B520046DA4C /* navigationbar_bkg.png */,
 				1888A3C717017AA80046DA4C /* iphone_qqreader_Center_icon_bg.png */,
-				1888A3C11701634C0046DA4C /* nav_bookstorebtn.png */,
-				1888A3C21701634C0046DA4C /* nav_private.png */,
 				1888A37516FC3C600046DA4C /* main_view_bkg.png */,
 				1888A37216FC2A3E0046DA4C /* universal_btn.png */,
 			);
@@ -1990,8 +1954,6 @@
 				188FE62716F84510009561CB /* Localizable.strings in Resources */,
 				1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */,
 				1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */,
-				1888A3C31701634C0046DA4C /* nav_bookstorebtn.png in Resources */,
-				1888A3C41701634C0046DA4C /* nav_private.png in Resources */,
 				1888A3C817017AA80046DA4C /* iphone_qqreader_Center_icon_bg.png in Resources */,
 				1888A3CA17017B540046DA4C /* navigationbar_bkg.png in Resources */,
 				188AC57D1714139900FC012B /* source.txt in Resources */,
@@ -2072,11 +2034,6 @@
 				1804C3241764CCAB00B0AD28 /* bookmark_btn.png in Resources */,
 				1804C3251764CCAB00B0AD28 /* chapterlist_btn_hl.png in Resources */,
 				1804C3261764CCAB00B0AD28 /* chapterlist_btn.png in Resources */,
-				18EFDFB1176F0532009B669C /* bookstore_btn.png in Resources */,
-				18EFDFB2176F0532009B669C /* delete_btn_disable.png in Resources */,
-				18EFDFB3176F0532009B669C /* delete_btn.png in Resources */,
-				18EFDFB4176F0532009B669C /* edit_btn.png in Resources */,
-				18EFDFB5176F0532009B669C /* finish_btn.png in Resources */,
 				18EFDFB6176F0532009B669C /* shelf_member_btn.png in Resources */,
 				18EFDFB7176F0532009B669C /* refresh_btn.png in Resources */,
 				18EFDFB9176F0777009B669C /* refresh_mark.png in Resources */,
@@ -2084,11 +2041,6 @@
 				1816961F176FF87400E33C3C /* autobuy_off@2x.png in Resources */,
 				18169620176FF87400E33C3C /* autobuy_on@2x.png in Resources */,
 				18169621176FF87400E33C3C /* book_checkmark@2x.png in Resources */,
-				18169622176FF87400E33C3C /* bookstore_btn@2x.png in Resources */,
-				18169623176FF87400E33C3C /* delete_btn_disable@2x.png in Resources */,
-				18169624176FF87400E33C3C /* delete_btn@2x.png in Resources */,
-				18169625176FF87400E33C3C /* edit_btn@2x.png in Resources */,
-				18169626176FF87400E33C3C /* finish_btn@2x.png in Resources */,
 				18169627176FF87400E33C3C /* refresh_btn@2x.png in Resources */,
 				18169628176FF87400E33C3C /* refresh_mark@2x.png in Resources */,
 				18169629176FF87400E33C3C /* shelf_member_btn@2x.png in Resources */,
