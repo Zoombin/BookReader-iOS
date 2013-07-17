@@ -13,6 +13,9 @@
     UILabel *contentLabel;
     UILabel *titleLabel;
     UIButton *readButton;
+    UIButton *closeButton;
+    Book *bookObject;
+    UIImageView *backgroundView;
 }
 @synthesize bShouldLoad;
 @synthesize delegate;
@@ -21,7 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+         backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [backgroundView setImage:[UIImage imageNamed:@"notification_background"]];
         [self addSubview:backgroundView];
         
@@ -41,6 +44,12 @@
         [contentLabel setUserInteractionEnabled:NO];
         [self addSubview:contentLabel];
         
+        closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeButton setFrame:CGRectMake(frame.size.width - 18, 4, 15, 15)];
+        [closeButton setBackgroundImage:[UIImage imageNamed:@"notification_close"] forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:closeButton];
+        
         readButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [readButton cooldownButtonFrame:CGRectMake(CGRectGetMaxX(contentLabel.frame) - 80, CGRectGetMaxY(contentLabel.frame), 80, 20) andEnableCooldown:NO];
         [readButton addTarget:self action:@selector(startRead) forControlEvents:UIControlEventTouchUpInside];
@@ -53,8 +62,15 @@
 
 - (void)startRead
 {
-    if ([self.delegate respondsToSelector:@selector(startReadButtonClicked)]) {
-        [self.delegate startReadButtonClicked];
+    if ([self.delegate respondsToSelector:@selector(startReadButtonClicked:)]) {
+        [self.delegate startReadButtonClicked:bookObject];
+    }
+}
+
+- (void)close
+{
+    if ([self.delegate respondsToSelector:@selector(closeButtonClicked)]) {
+        [self.delegate closeButtonClicked];
     }
 }
 
@@ -65,7 +81,9 @@
     if (book) {
         [titleLabel setText:book.name];
         [contentLabel setText:book.describe];
+        bookObject = book;
     } else if ([content length] > 0) {
+        [readButton setHidden:YES];
         [contentLabel setText:content];
     } else {
         self.bShouldLoad = YES;

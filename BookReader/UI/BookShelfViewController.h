@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "BRViewController.h"
+#import "NotificationView.h"
 
-@interface BookShelfViewController : BRViewController
+@interface BookShelfViewController : BRViewController <NotificationViewDelegate>
 @end

@@ -12,7 +12,7 @@
 
 @protocol NotificationViewDelegate <NSObject>
 - (void)closeButtonClicked;
-- (void)startReadButtonClicked;
+- (void)startReadButtonClicked:(Book *)book;
 @end
 
 @interface NotificationView : UIView {

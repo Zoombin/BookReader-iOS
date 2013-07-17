@@ -560,7 +560,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"5" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"4" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (error) {
             
         }

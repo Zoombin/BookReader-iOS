@@ -28,7 +28,7 @@
 #import "Reachability.h"
 #import "BookReader.h"
 #import "BRHeaderView.h"
-#import "NotificationView.h"
+
 
 
 static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
@@ -64,10 +64,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
     
-//    notificationView = [[NotificationView alloc] initWithFrame:CGRectMake(30, 60, fullSize.width - 60, 90)];
-//    [self.view addSubview:notificationView];
+    notificationView = [[NotificationView alloc] initWithFrame:CGRectMake(30, 60, fullSize.width - 60, 85)];
+    [notificationView setDelegate:self];
+    [self.view addSubview:notificationView];
+    [notificationView setHidden:YES];
     
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44 - 50)];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height - 44)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -83,6 +85,35 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
+
+- (void)startReadButtonClicked:(Book *)book
+{
+    [book persistWithBlock:^(void) {//下载章节目录
+        [self displayHUD:@"获取章节目录..."];
+        [ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+            if (!error) {
+                [Chapter persist:resultArray withBlock:^{
+                    [self hideHUD:YES];
+                    [self closeButtonClicked];
+                    CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+                    controller.book = book;
+                    [self.navigationController pushViewController:controller animated:YES];
+                }];
+            } else {
+                [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
+            }
+        }];
+    }];
+}
+
+- (void)closeButtonClicked
+{
+    notificationView.hidden = YES;
+    notificationView.bShouldLoad = NO;
+    CGSize fullSize = self.view.bounds.size;
+    [booksView setFrame:CGRectMake(0, 44, fullSize.width, fullSize.height - 44)];
+}
+
 
 - (LoginReminderView *)loginReminderView {
 	if (!_loginReminderView) {
@@ -146,10 +177,18 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 {
     [ServiceManager systemNotifyWithBlock:^(NSError *error, NSArray *resultArray, NSString *content) {
         if (!error) {
+            if (resultArray.count == 0 && content.length == 0) {
+                notificationView.hidden = YES;
+                NSLog(@"无公告和推荐");
+                return;
+            }
+            notificationView.hidden = NO;
             Book *book = nil;
             if (resultArray.count > 0) {
                 book = resultArray[0];
             }
+            CGSize fullSize = self.view.bounds.size;
+            [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - 44 - 85)];
             [notificationView showInfoWithBook:book andNotificateContent:content];
         }
     }];

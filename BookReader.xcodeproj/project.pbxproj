@@ -109,6 +109,8 @@
 		184863001796604500282A6A /* FTBWKT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 184862FF1796604500282A6A /* FTBWKT.ttf */; };
 		18486303179670A100282A6A /* notification_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 18486301179670A100282A6A /* notification_background.png */; };
 		18486304179670A100282A6A /* notification_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18486302179670A100282A6A /* notification_background@2x.png */; };
+		1848630717967EF000282A6A /* notification_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 1848630517967EEF00282A6A /* notification_close.png */; };
+		1848630817967EF000282A6A /* notification_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1848630617967EEF00282A6A /* notification_close@2x.png */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		186C2D2F177E6EE5002E16C0 /* read_backbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 186C2D18177E6EE5002E16C0 /* read_backbtn.png */; };
@@ -517,6 +519,8 @@
 		184862FF1796604500282A6A /* FTBWKT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FTBWKT.ttf; sourceTree = "<group>"; };
 		18486301179670A100282A6A /* notification_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_background.png; sourceTree = "<group>"; };
 		18486302179670A100282A6A /* notification_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_background@2x.png"; sourceTree = "<group>"; };
+		1848630517967EEF00282A6A /* notification_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_close.png; sourceTree = "<group>"; };
+		1848630617967EEF00282A6A /* notification_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_close@2x.png"; sourceTree = "<group>"; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1158,6 +1162,8 @@
 		188FE63716F9A069009561CB /* localBook */ = {
 			isa = PBXGroup;
 			children = (
+				1848630517967EEF00282A6A /* notification_close.png */,
+				1848630617967EEF00282A6A /* notification_close@2x.png */,
 				18486301179670A100282A6A /* notification_background.png */,
 				18486302179670A100282A6A /* notification_background@2x.png */,
 				18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */,
@@ -2185,6 +2191,8 @@
 				184863001796604500282A6A /* FTBWKT.ttf in Resources */,
 				18486303179670A100282A6A /* notification_background.png in Resources */,
 				18486304179670A100282A6A /* notification_background@2x.png in Resources */,
+				1848630717967EF000282A6A /* notification_close.png in Resources */,
+				1848630817967EF000282A6A /* notification_close@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
