@@ -191,7 +191,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
         cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
-        [(BookCell *)cell separateLineColor:[UIColor clearColor]];
+        [(BookCell *)cell hidenDottedLine];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
                 [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@", _member.name]];

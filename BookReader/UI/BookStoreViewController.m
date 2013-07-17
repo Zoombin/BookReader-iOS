@@ -548,7 +548,6 @@
                 [(BookCell *)cell setBook:book];
             }
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
-            [(BookCell *)cell separateLineColor:[UIColor lightGrayColor]];
         }
     }
     else if (currentType != CATAGORY){

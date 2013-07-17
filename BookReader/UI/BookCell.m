@@ -25,7 +25,6 @@
 	BookCellStyle myStyle;
     UIImageView *catagoryImage;
 	CGFloat height;
-    UIView *separateLine;
     UILabel *dottedLine;
 }
 
@@ -112,6 +111,11 @@
     return self;
 }
 
+- (void)hidenDottedLine
+{
+    [dottedLine setHidden:YES];
+}
+
 - (void)setTextLableText:(NSString *)name
 {
     [nameLabel setText:name];
@@ -122,11 +126,6 @@
     if (catagoryImage) {
         [catagoryImage setHidden:hiden];
     }
-}
-
-- (void)separateLineColor:(UIColor *)color
-{
-    [separateLine setBackgroundColor:color];
 }
 
 - (void)setBook:(Book *)book
