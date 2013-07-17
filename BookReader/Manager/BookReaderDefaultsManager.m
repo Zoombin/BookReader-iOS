@@ -78,7 +78,7 @@ static float brightValue;
 		if ([keyString isEqualToString:UserDefaultKeyFontSize]) {
 			value = UserDefaultFontSizeMin;
 		} else if ([keyString isEqualToString:UserDefaultKeyFontName]) {
-			value = UserDefaultFoundFont;
+			value = UserDefaultNorthFont;
 		} else if ([keyString isEqualToString:UserDefaultKeyFont]) {
 			NSString *fontName = [self objectForKey:UserDefaultKeyFontName];
 			NSString *fontSize = [self objectForKey:UserDefaultKeyFontSize];
@@ -99,7 +99,7 @@ static float brightValue;
 + (void)reset
 {
 	NSDictionary *defaults = @{	UserDefaultKeyFontSize : UserDefaultFontSizeMin,
-								UserDefaultKeyFontName : UserDefaultFoundFont,
+								UserDefaultKeyFontName : UserDefaultNorthFont,
 								UserDefaultKeyTextColor : UserDefaultTextColorBrown,
 								UserDefaultKeyBright : @(1.0f),
 								UserDefaultKeyBackground : @(0),

@@ -26,6 +26,7 @@
 - (void)fontChanged:(BOOL)reduce;
 - (void)systemFont;
 - (void)foundFont;
+- (void)northFont;
 - (void)changeTextColor:(NSString *)textColor;
 - (void)brightChanged:(id)sender;
 - (void)backgroundColorChanged:(NSInteger)index;

@@ -265,6 +265,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [self updateFont];
 }
 
+- (void)northFont
+{
+    [BookReaderDefaultsManager setObject:UserDefaultNorthFont ForKey:UserDefaultKeyFontName];
+    [self updateFont];
+}
+
 #pragma mark -
 #pragma mark other methods
 - (float)readPercentage
