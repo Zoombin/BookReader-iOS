@@ -575,6 +575,7 @@
                 }
             }
             [recommendTableView reloadData];
+             [self refreshCoverViewFrame];
         }
     }];
 }
