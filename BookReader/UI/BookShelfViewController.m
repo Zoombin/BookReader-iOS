@@ -28,6 +28,7 @@
 #import "Reachability.h"
 #import "BookReader.h"
 #import "BRHeaderView.h"
+#import "NotificationView.h"
 
 
 static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
@@ -53,6 +54,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     
     LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
+    NotificationView *notificationView;
 }
 
 - (void)viewDidLoad
@@ -62,7 +64,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
     
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
+//    notificationView = [[NotificationView alloc] initWithFrame:CGRectMake(30, 60, fullSize.width - 60, 90)];
+//    [self.view addSubview:notificationView];
+    
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44 - 50)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -117,6 +122,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (notificationView.bShouldLoad) {
+        [self showNotificationInfo];
+    }
 	if (![ServiceManager hadLaunchedBefore]) {
 		[self recommendBooks];
     } else {
@@ -132,6 +140,19 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[self loginReminderView].hidden = [ServiceManager userID] != nil;
 	[self showBooks];
 	[booksView reloadData];
+}
+
+- (void)showNotificationInfo
+{
+    [ServiceManager systemNotifyWithBlock:^(NSError *error, NSArray *resultArray, NSString *content) {
+        if (!error) {
+            Book *book = nil;
+            if (resultArray.count > 0) {
+                book = resultArray[0];
+            }
+            [notificationView showInfoWithBook:book andNotificateContent:content];
+        }
+    }];
 }
 
 - (void)recommendBooks

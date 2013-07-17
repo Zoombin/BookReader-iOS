@@ -563,10 +563,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)sendCommitButtonClicked
 {
     [commitField resignFirstResponder];
-	if ([commitField.text isEqualToString:@""]) {
-		[self displayHUDError:nil message:@"评论内容不能为空"];
-		return;
-	}
+    if ([commitField.text length] <= 5) {
+        [self displayHUDError:nil message:@"评论内容太短!"];
+        return;
+    }
     [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
          if (!error) {
              [self displayHUDError:nil message:message];

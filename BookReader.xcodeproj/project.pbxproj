@@ -105,6 +105,10 @@
 		183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FBB1F178117BD0074B3B9 /* NavViewController.m */; };
 		184862FA17963CCD00282A6A /* bookstore_recommend_title.png in Resources */ = {isa = PBXBuildFile; fileRef = 184862F817963CCD00282A6A /* bookstore_recommend_title.png */; };
 		184862FB17963CCD00282A6A /* bookstore_recommend_title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184862F917963CCD00282A6A /* bookstore_recommend_title@2x.png */; };
+		184862FE1796535400282A6A /* NotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184862FD1796535400282A6A /* NotificationView.m */; };
+		184863001796604500282A6A /* FTBWKT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 184862FF1796604500282A6A /* FTBWKT.ttf */; };
+		18486303179670A100282A6A /* notification_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 18486301179670A100282A6A /* notification_background.png */; };
+		18486304179670A100282A6A /* notification_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18486302179670A100282A6A /* notification_background@2x.png */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		186C2D2F177E6EE5002E16C0 /* read_backbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 186C2D18177E6EE5002E16C0 /* read_backbtn.png */; };
@@ -508,6 +512,11 @@
 		183FBB1F178117BD0074B3B9 /* NavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavViewController.m; sourceTree = "<group>"; };
 		184862F817963CCD00282A6A /* bookstore_recommend_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_recommend_title.png; sourceTree = "<group>"; };
 		184862F917963CCD00282A6A /* bookstore_recommend_title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_recommend_title@2x.png"; sourceTree = "<group>"; };
+		184862FC1796535400282A6A /* NotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationView.h; sourceTree = "<group>"; };
+		184862FD1796535400282A6A /* NotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationView.m; sourceTree = "<group>"; };
+		184862FF1796604500282A6A /* FTBWKT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FTBWKT.ttf; sourceTree = "<group>"; };
+		18486301179670A100282A6A /* notification_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_background.png; sourceTree = "<group>"; };
+		18486302179670A100282A6A /* notification_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_background@2x.png"; sourceTree = "<group>"; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1127,6 +1136,8 @@
 				18A0C6B5174DF1DD003FC599 /* BRHeaderView.m */,
 				188FD8BF178AA7A700EFF360 /* LoginReminderView.h */,
 				188FD8C0178AA7A700EFF360 /* LoginReminderView.m */,
+				184862FC1796535400282A6A /* NotificationView.h */,
+				184862FD1796535400282A6A /* NotificationView.m */,
 			);
 			name = RemoteMode;
 			sourceTree = "<group>";
@@ -1147,6 +1158,8 @@
 		188FE63716F9A069009561CB /* localBook */ = {
 			isa = PBXGroup;
 			children = (
+				18486301179670A100282A6A /* notification_background.png */,
+				18486302179670A100282A6A /* notification_background@2x.png */,
 				18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */,
 				18BA0AC1177069F600DFE9B3 /* universal_btn_l.png */,
 				18BA0AC2177069F600DFE9B3 /* universal_btn_l@2x.png */,
@@ -1344,6 +1357,7 @@
 		18FC1AC61720C00700A043C9 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				184862FF1796604500282A6A /* FTBWKT.ttf */,
 				18FC1AC71720C00700A043C9 /* FZLTHJW.ttf */,
 			);
 			path = Font;
@@ -2168,6 +2182,9 @@
 				188FD8BE178A484800EFF360 /* read_sheep_paper_hor.png in Resources */,
 				184862FA17963CCD00282A6A /* bookstore_recommend_title.png in Resources */,
 				184862FB17963CCD00282A6A /* bookstore_recommend_title@2x.png in Resources */,
+				184863001796604500282A6A /* FTBWKT.ttf in Resources */,
+				18486303179670A100282A6A /* notification_background.png in Resources */,
+				18486304179670A100282A6A /* notification_background@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2330,6 +2347,7 @@
 				188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */,
 				188FD8C1178AA7A800EFF360 /* LoginReminderView.m in Sources */,
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
+				184862FE1796535400282A6A /* NotificationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

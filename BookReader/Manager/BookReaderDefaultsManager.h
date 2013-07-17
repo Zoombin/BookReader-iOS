@@ -28,6 +28,7 @@
 //字体名
 #define UserDefaultSystemFont @"Arial"
 #define UserDefaultFoundFont @"FZLTHJW--GB1-0"
+#define UserDefaultNorthFont @"FZBWKSJW--GB1-0"
 
 //字体颜色
 #define UserDefaultTextColorBlack @"blackColor"

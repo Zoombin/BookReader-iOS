@@ -365,7 +365,7 @@
     UIView *commentHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, infoTableView.frame.size.width, 50 * 3.5)];
     [commentHeaderView setBackgroundColor:[UIColor clearColor]];
     
-    commitField = [[UITextView alloc] initWithFrame:CGRectMake(12, 17.5, infoTableView.frame.size.width - 12 * 2, 35 * 3)];
+    commitField = [[UITextView alloc] initWithFrame:CGRectMake(12, 17.5, infoTableView.frame.size.width - 12 * 2, 35 * 3 * 0.8)];
 //    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
     [commitField setDelegate:self];
@@ -595,10 +595,10 @@
     if ([self checkLogin] == NO) {
         return;
     }
-	if ([commitField.text isEqualToString:@""]) {
-		[self displayHUDError:nil message:@"评论内容不能为空"];
-		return;
-	}
+    if ([commitField.text length] <= 5) {
+        [self displayHUDError:nil message:@"评论内容太短!"];
+        return;
+    }
 	
     [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (error) {
