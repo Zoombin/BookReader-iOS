@@ -223,7 +223,6 @@
 
 - (void)initRandButton {
     rankView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, infoTableView.bounds.size.width, 50)];
-    [rankView setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:233.0/255.0 alpha:1.0]];
     float width = (rankView.bounds.size.width - 40)/3;
     CGRect frame = CGRectMake(20, 10, width, 30);
     
@@ -386,6 +385,9 @@
     }
     for (int i = 0; i < [array count]; i++) {
         Book *book = [array objectAtIndex:i];
+        if (book.recommendTitle == nil) {
+            break;
+        }
         if (![recommendTitlesArray containsObject:book.recommendTitle]) {
             [recommendTitlesArray addObject:book.recommendTitle];
         }
