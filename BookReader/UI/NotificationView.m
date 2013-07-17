@@ -45,7 +45,7 @@
         [self addSubview:contentLabel];
         
         closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeButton setFrame:CGRectMake(frame.size.width - 18, 4, 15, 15)];
+        [closeButton setFrame:CGRectMake(frame.size.width - 22, 4, 20, 20)];
         [closeButton setBackgroundImage:[UIImage imageNamed:@"notification_close"] forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeButton];
