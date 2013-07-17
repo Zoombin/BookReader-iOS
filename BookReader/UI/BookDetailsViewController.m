@@ -261,6 +261,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
         [button setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [button setTitleColor:[UIColor colorWithRed:138.0/255.0 green:124.0/255.0 blue:105.0/255.0 alpha:1.0] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor colorWithRed:192.0/255.0 green:106.0/255.0 blue:46.0/255.0 alpha:1.0] forState:UIControlStateSelected];
         [button addTarget:self action:NSSelectorFromString(selectors[i]) forControlEvents:UIControlEventTouchUpInside];
