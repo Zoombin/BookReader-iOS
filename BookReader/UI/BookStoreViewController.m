@@ -499,8 +499,9 @@
     if (currentType != RECOMMEND) {
         return nil;
     }
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
     [view setBackgroundColor:[UIColor colorWithRed:189.0/255.0 green:173.0/255.0 blue:136.0/255.0 alpha:0.7]];
+//    [view.layer addSublayer:[self shadowAsInverse]];
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
     for (int i = 0; i<[recommendTitlesArray count]; i++) {
         if (section == i) {
@@ -509,6 +510,17 @@
     }
     [view addSubview:label];
     return view;
+}
+
+- (CAGradientLayer *)shadowAsInverse
+{
+    CAGradientLayer *newShadow = [[CAGradientLayer alloc] init];
+    
+    CGRect newShadowFrame = CGRectMake(0, 0, 320, 30);
+    newShadow.frame = newShadowFrame;
+    //添加渐变的颜色组合
+    newShadow.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithRed:189.0/255.0 green:173.0/255.0 blue:136.0/255.0 alpha:0.7].CGColor,(id)[UIColor whiteColor].CGColor,nil];
+    return newShadow;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

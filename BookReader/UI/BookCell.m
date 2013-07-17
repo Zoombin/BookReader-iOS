@@ -103,26 +103,14 @@
 			[self.contentView addSubview:coverView];
 		}
 		
-		separateLine = [[UIView alloc] initWithFrame:CGRectMake(0, height - 1, self.contentView.frame.size.width - 10, 1)];
-		[separateLine setBackgroundColor:[UIColor lightGrayColor]];
-		[self.contentView addSubview:separateLine];
-        
-        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 1, self.contentView.frame.size.width + 10, 2)];
+        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
         [dottedLine setText:@"-----------------------------------------------"];
         [dottedLine setBackgroundColor:[UIColor clearColor]];
         [dottedLine setTextColor:[UIColor grayColor]];
         [self.contentView addSubview:dottedLine];
-        [dottedLine setHidden:YES];
     }
     return self;
 }
-
-- (void)showDottedLine
-{
-    [separateLine setHidden:YES];
-    [dottedLine setHidden:NO];
-}
-
 
 - (void)setTextLableText:(NSString *)name
 {

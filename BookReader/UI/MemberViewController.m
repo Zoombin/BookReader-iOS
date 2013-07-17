@@ -45,7 +45,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的收藏",nil];
+        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的书架",nil];
     }
     return self;
 }
@@ -204,7 +204,7 @@
             if (indexPath.row == 0) {
                 [(BookCell *)cell setTextLableText:@"修改密码"];
             } else {
-                [(BookCell *)cell setTextLableText:@"我的收藏"];
+                [(BookCell *)cell setTextLableText:@"我的书架"];
             }
         }
     }

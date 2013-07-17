@@ -22,5 +22,4 @@ typedef enum {
 - (CGFloat)height;
 - (void)hidenArrow:(BOOL)hiden;
 - (void)separateLineColor:(UIColor *)color;
-- (void)showDottedLine;
 @end

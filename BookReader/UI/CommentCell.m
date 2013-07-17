@@ -14,7 +14,7 @@
     UILabel *messageLabel;
     UILabel *nameLabel;
     UILabel *timeLabel;
-    UIView *background;
+    UILabel *background;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -41,9 +41,11 @@
         [messageLabel setLineBreakMode:NSLineBreakByCharWrapping];
         [self.contentView addSubview:messageLabel];
         
-        background = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(messageLabel.frame)-1, self.contentView.frame.size.width - 15, 0.5)];
-		[background setBackgroundColor:[UIColor blackColor]];
-		[self addSubview:background];
+        background = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 2, self.contentView.frame.size.width, 2)];
+        [background setText:@"-----------------------------------------------"];
+        [background setBackgroundColor:[UIColor clearColor]];
+        [background setTextColor:[UIColor grayColor]];
+        [self.contentView addSubview:background];
     }
     return self;
 }
@@ -57,7 +59,7 @@
     [messageLabel setText:[[comment.content XXSYHandleRedundantTags] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
     [messageLabel sizeToFit];
     cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height + 15;
-    [background setFrame:CGRectMake(10, CGRectGetMaxY(messageLabel.frame)-1 + 15, background.frame.size.width-15, 0.5)];
+    [background setFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame)-1 + 15, background.frame.size.width, 2)];
     [self setFrame:cellFrame];
 }
 

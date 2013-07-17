@@ -21,17 +21,17 @@
     if (self) {
         height = ChapterCellHeight;
         
-         chapterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, self.contentView.bounds.size.width - 30, ChapterCellHeight)];
+         chapterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.contentView.bounds.size.width - 30, ChapterCellHeight)];
+        [chapterNameLabel setFont:[UIFont systemFontOfSize:14]];
         [chapterNameLabel setTextColor:[UIColor blueColor]];
         [chapterNameLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:chapterNameLabel];
         
-        UIView *separateLine = [[UIView alloc] initWithFrame:CGRectMake(12,  height-1, self.contentView.bounds.size.width - 36, 1)];
-        [separateLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [separateLine setBackgroundColor:[UIColor lightGrayColor]];
-        [self.contentView addSubview:separateLine];
-        
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        UILabel *dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
+        [dottedLine setText:@"-----------------------------------------------"];
+        [dottedLine setBackgroundColor:[UIColor clearColor]];
+        [dottedLine setTextColor:[UIColor grayColor]];
+        [self.contentView addSubview:dottedLine];
     }
     return self;
 }
