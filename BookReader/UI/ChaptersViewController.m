@@ -51,6 +51,7 @@
     slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 260, self.view.bounds.size.height - 150, 20)];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [slider setThumbImage:[UIImage imageNamed:@"thumb_image"] forState:UIControlStateNormal];
     [slider setMinimumTrackTintColor:[UIColor clearColor]];
     [slider setMaximumTrackTintColor:[UIColor clearColor]];
     [slider.layer setBorderColor:[UIColor clearColor].CGColor];
