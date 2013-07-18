@@ -88,7 +88,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"评价票"]) {
-        return 200;
+        return 160;
     } else if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"打赏"]) {
         return 100;
     }
