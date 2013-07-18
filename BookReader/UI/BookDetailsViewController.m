@@ -82,9 +82,6 @@
     UILabel *catagoryNameLabel;
     UILabel *wordsLabel;
     UILabel *lastUpdateLabel;
-    UILabel *lastChapterLabel;
-    UILabel *bVipLabel;
-    UILabel *bFinishLabel;
     
     UILabel *commentTitle;
     UILabel *recommendTitle;
@@ -281,13 +278,22 @@
     [coverView addSubview:bookCover];
     
     NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"更新:",@"收到钻石",@"收到鲜花",@"收到打赏",@"收到评价"];
+    NSArray *giftImages = @[@"demand" ,@"flower", @"money", @"comment"];
     NSMutableArray *labelsArray = [NSMutableArray array];
-    float WIDTH = fullSize.width - 50;
+    int k = 0;
+    float WIDTH = coverView.frame.size.width - 20;
     float HEIGHT = 15;
     for (int i = 0; i<[labelTitles count]; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 3 ? 10 : 100, 25 + 20 * i, WIDTH, HEIGHT)];
-        if (i != 0) {
+        if (i > 0 && i <= 4) {
             [label setFrame:CGRectMake(i > 3 ? 10 : 100, (i == 4 ? 20 : 0) + CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
+        } else if ( i > 4) {
+            [label setFrame:CGRectMake(i % 2 == 0 ? 10 + WIDTH/2 : 10 , (k == 0 ? 20 : 0) + (k == 2 ? HEIGHT * 2 + 5 : 0 )  +CGRectGetMinY([(UILabel *)labelsArray[i - 1] frame]), WIDTH/2, HEIGHT * 2)];
+            [label setTextAlignment:NSTextAlignmentRight];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            [imageView setImage:[UIImage imageNamed:giftImages[k]]];
+            [label addSubview:imageView];
+            k ++;
         }
         [label setFont:[UIFont systemFontOfSize:i == 0 ? 17 : 14]];
         [label setBackgroundColor:[UIColor clearColor]];
@@ -300,9 +306,6 @@
     authorNameLabel = labelsArray[1];
     catagoryNameLabel = labelsArray[2];
     wordsLabel = labelsArray[3];
-//    bVipLabel = labelsArray[4];
-//    bFinishLabel = labelsArray[5];
-//    lastChapterLabel = labelsArray[6];
     lastUpdateLabel = labelsArray[4];
     diamondLabel = labelsArray[5];
     flowerLabel = labelsArray[6];
@@ -457,10 +460,10 @@
     NSString *catagoryName = [@"类别: " stringByAppendingString:book.category];
     NSString *words = [@"大小: " stringByAppendingString:[book.words stringValue]];
     NSString *lastUpdate = [@"更新: " stringByAppendingString:book.lastUpdate];
-    NSString *diamondAmount = [NSString stringWithFormat:@"收到钻石%@颗",book.diamond];
-    NSString *flowerAmount = [NSString stringWithFormat:@"收到鲜花%@朵",book.flower];
-    NSString *rewardAmount = [NSString stringWithFormat:@"有%@打赏%@潇湘币",book.rewardPersons,book.reward];
-    NSString *commentAmount = [NSString stringWithFormat:@"有%@人评价本书,总得分%@分",book.commentPersons,book.comment];
+    NSString *diamondAmount = [NSString stringWithFormat:@"收到%@颗",book.diamond];
+    NSString *flowerAmount = [NSString stringWithFormat:@"收到%@朵",book.flower];
+    NSString *rewardAmount = [NSString stringWithFormat:@"收到%@潇湘币",book.reward];
+    NSString *commentAmount = [NSString stringWithFormat:@"总得分%@分",book.comment];
     
     NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,diamondAmount,flowerAmount,rewardAmount,commentAmount];
     NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
