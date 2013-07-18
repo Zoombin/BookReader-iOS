@@ -75,7 +75,7 @@
     self = [super init];
     if (self) {
         catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
-        hotkeyNames = @[@"武侠",@"穿越",@"重生",@"总裁",@"玄幻",@"经典",@"天才",@"医生",@"经理",@"老板"];
+        hotkeyNames = @[@"皇后", @"王妃", @"红楼", @"后宫", @"丑女",@"公主", @"总裁", @"冤家", @"杀手", @"女佣", @"郡主", @"小妾", @"王爷", @"将军", @"黑帮", @"精灵",@"丫鬟", @"校园", @"灵异", @"清穿", @"契约", @"豪门", @"励志", @"唯美", @"盗墓", @"搞笑", @"复仇",@"专情", @"花心", @"灵魂", @"职场", @"惊悚", @"种田", @"宫斗", @"代嫁", @"宝宝", @"重生", @"小三",@"都市", @"囧文", @"婚姻", @"青春", @"腹黑", @"废柴", @"仙侠", @"升级", @"免费", @"女强", @"异世",@"虐恋", @"苦情", @"高干", @"古武", @"修真", @"异能", @"宠文", @"纯爱", @"短篇", @"幻情", @"科幻",@"明星", @"魔幻", @"同人", @"网游", @"悬疑", @"神奇", @"爽文", @"召唤", @"冥修", @"技能", @"未来",@"学院"];
 		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
         
         hotkeyBtns = [NSMutableArray array];
@@ -583,12 +583,20 @@
 //显示热词
 - (void)showHotkeyBtns {
     [self hideAllHotkeyBtns];
-    NSArray *cgrectArr = [self randomRect:hotkeyNames.count];
+    NSMutableArray *hotNamesIndex = [NSMutableArray array];
+    while (hotNamesIndex.count < 10) {
+        int randomNum = arc4random() % hotkeyNames.count;
+        if (![hotNamesIndex containsObject:@(randomNum)]) {
+            [hotNamesIndex addObject:@(randomNum)];
+        }
+    }
+    NSArray *cgrectArr = [self randomRect:10];
     for (int i = 0; i < [cgrectArr count]; i++) {
         NSString *cgrectstring = [cgrectArr objectAtIndex:i];
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tmpButton setFrame:CGRectFromString(cgrectstring)];
-        [tmpButton setTitle:hotkeyNames[i] forState:UIControlStateNormal];
+        NSNumber *indexNum = [hotNamesIndex objectAtIndex:i];
+        [tmpButton setTitle:hotkeyNames[indexNum.integerValue] forState:UIControlStateNormal];
         NSInteger colorIndex = arc4random() % hotwordsColors.count;
         [tmpButton setTitleColor:hotwordsColors[colorIndex] forState:UIControlStateNormal];
         [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:arc4random() % 10 + 15]];
