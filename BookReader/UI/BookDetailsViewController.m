@@ -280,13 +280,18 @@
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [coverView addSubview:bookCover];
     
-    NSArray *labelTitles = @[@"书名:",@"作者:",@"类别:",@"大小:",@"性质:",@"作品状态:",@"最新章节:",@"更新时间:",@"收到钻石",@"收到鲜花",@"收到打赏",@"收到评价"];
+    NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"更新:",@"收到钻石",@"收到鲜花",@"收到打赏",@"收到评价"];
     NSMutableArray *labelsArray = [NSMutableArray array];
+    float WIDTH = fullSize.width - 50;
+    float HEIGHT = 15;
     for (int i = 0; i<[labelTitles count]; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 4 ? 10 : 100, 15 + 20 * i,fullSize.width-50, 15)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 3 ? 10 : 100, 25 + 20 * i, WIDTH, HEIGHT)];
+        if (i != 0) {
+            [label setFrame:CGRectMake(i > 3 ? 10 : 100, (i == 4 ? 20 : 0) + CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
+        }
+        [label setFont:[UIFont systemFontOfSize:i == 0 ? 17 : 14]];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextColor:[UIColor blackColor]];
-        [label setFont:[UIFont systemFontOfSize:14]];
         [label setText:labelTitles[i]];
         [coverView addSubview:label];
         [labelsArray addObject:label];
@@ -295,14 +300,14 @@
     authorNameLabel = labelsArray[1];
     catagoryNameLabel = labelsArray[2];
     wordsLabel = labelsArray[3];
-    bVipLabel = labelsArray[4];
-    bFinishLabel = labelsArray[5];
-    lastChapterLabel = labelsArray[6];
-    lastUpdateLabel = labelsArray[7];
-    diamondLabel = labelsArray[8];
-    flowerLabel = labelsArray[9];
-    rewardLabel = labelsArray[10];
-    commentLabel = labelsArray[11];
+//    bVipLabel = labelsArray[4];
+//    bFinishLabel = labelsArray[5];
+//    lastChapterLabel = labelsArray[6];
+    lastUpdateLabel = labelsArray[4];
+    diamondLabel = labelsArray[5];
+    flowerLabel = labelsArray[6];
+    rewardLabel = labelsArray[7];
+    commentLabel = labelsArray[8];
     
     float three_btn_width = (coverView.frame.size.width - 4 * 5)/3;
     NSArray *buttonNames = @[@"阅读", @"收藏", @"投月票"];
@@ -447,21 +452,18 @@
     
     //    self.title = book.name;
     
-    NSString *bookName = [@"书名: " stringByAppendingString:book.name];
+    NSString *bookName = book.name;
     NSString *authorName = [@"作者: " stringByAppendingString:book.author];
     NSString *catagoryName = [@"类别: " stringByAppendingString:book.category];
     NSString *words = [@"大小: " stringByAppendingString:[book.words stringValue]];
-    NSString *lastUpdate = [@"更新时间: " stringByAppendingString:book.lastUpdate];
-    NSString *lastChapterName = [@"最新章节:" stringByAppendingString:book.lastChapterName];
-    NSString *bVipName = [@"性质:" stringByAppendingString:[book.bVip boolValue] ? @"VIP作品" : @"普通作品"];
-    NSString *bFinishName = [@"作品状态:" stringByAppendingString:book.bFinish];
+    NSString *lastUpdate = [@"更新: " stringByAppendingString:book.lastUpdate];
     NSString *diamondAmount = [NSString stringWithFormat:@"收到钻石%@颗",book.diamond];
     NSString *flowerAmount = [NSString stringWithFormat:@"收到鲜花%@朵",book.flower];
     NSString *rewardAmount = [NSString stringWithFormat:@"有%@打赏%@潇湘币",book.rewardPersons,book.reward];
     NSString *commentAmount = [NSString stringWithFormat:@"有%@人评价本书,总得分%@分",book.commentPersons,book.comment];
     
-    NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,lastChapterName,bVipName,bFinishName,diamondAmount,flowerAmount,rewardAmount,commentAmount];
-    NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,lastChapterLabel,bVipLabel,bFinishLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
+    NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,diamondAmount,flowerAmount,rewardAmount,commentAmount];
+    NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
     for (int i = 0; i<[labels count]; i++) {
         UILabel *label = (UILabel *)labels[i];
         [label setText:labelTitles[i]];

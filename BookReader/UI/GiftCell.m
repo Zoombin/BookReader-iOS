@@ -30,8 +30,6 @@
     NSMutableArray *rewardBtnsArray;
     
     UISlider *_slider;
-    UILabel *leftNumLabel;
-    UILabel *rightNumLabel;
     UIButton *reductBtn;
     UIButton *addBtn;
 }
@@ -57,15 +55,15 @@
         [reductBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [reductBtn setTitle:@"-" forState:UIControlStateNormal];
         [reductBtn addTarget:self action:@selector(reductBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [reductBtn setFrame:CGRectMake(70, 22, 40, 20)];
+        [reductBtn setFrame:CGRectMake(70, 20, 40, 20)];
         [self.contentView addSubview:reductBtn];
         
-        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 22, 80, 20)];
+        numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 20, 80, 20)];
         [numberTextField setText:@"1"];
         [numberTextField.layer setBorderWidth:1.0];
         [numberTextField setTextAlignment:NSTextAlignmentCenter];
         [numberTextField.layer setBorderColor:[UIColor colorWithRed:193.0/255.0 green:157.0/255.0 blue:85.0/255.0 alpha:1.0].CGColor];
-        [numberTextField setUserInteractionEnabled:NO];
+//        [numberTextField setUserInteractionEnabled:NO];
         [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [numberTextField setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:numberTextField];
@@ -74,37 +72,19 @@
         [addBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [addBtn setTitle:@"+" forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [addBtn setFrame:CGRectMake(190, 22, 40, 20)];
+        [addBtn setFrame:CGRectMake(190, 20, 40, 20)];
         [self.contentView addSubview:addBtn];
     
-        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 20, 50, 60)];
+        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 12.5, 35, 35)];
         [self.contentView addSubview:keywordImageView];
-        
-        leftNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 54, 10, 20)];
-        [leftNumLabel setText:@"1"];
-        [leftNumLabel setTextColor:[UIColor grayColor]];
-        [leftNumLabel setFont:[UIFont systemFontOfSize:14]];
-        [leftNumLabel setBackgroundColor:[UIColor clearColor]];
-        [self.contentView addSubview:leftNumLabel];
         
          _slider = [[UISlider alloc]initWithFrame:CGRectMake(80, 54, 120, 20)];
         [_slider setMinimumValue:1];
-        [_slider setMaximumTrackTintColor:[UIColor colorWithRed:56.0/255.0 green:28.0/255.0 blue:15.0/255.0 alpha:1.0]];
-        [_slider setMinimumTrackTintColor:[UIColor colorWithRed:212.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0]];
-        [_slider setThumbTintColor:[UIColor colorWithRed:212.0/255.0 green:211.0/255.0 blue:211.0/255.0 alpha:1.0]];
         [_slider setMaximumValue:10000];
         [_slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-        [self.contentView addSubview:_slider];
-        
-         rightNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 54, 40, 20)];
-        [rightNumLabel setText:@"10000"];
-        [rightNumLabel setTextColor:[UIColor grayColor]];
-        [rightNumLabel setFont:[UIFont systemFontOfSize:14]];
-        [rightNumLabel setBackgroundColor:[UIColor clearColor]];
-        [self.contentView addSubview:rightNumLabel];
     
         UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [sendButton setFrame:CGRectMake(self.bounds.size.width-70, 25, 45, 35)];
+        [sendButton setFrame:CGRectMake(self.bounds.size.width-70, 17.5, 45, 25)];
         [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue) forControlEvents:UIControlEventTouchUpInside];
         [sendButton setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
@@ -130,9 +110,6 @@
 - (void)setRewardButtonHidden:(BOOL)boolValue
 {
     if ([rewardBtnsArray count]==0) {
-        leftNumLabel.hidden = YES;
-        rightNumLabel.hidden = YES;
-        _slider.hidden = YES;
         reductBtn.hidden = YES;
         addBtn.hidden = YES;
         numberTextField.hidden = YES;
@@ -191,9 +168,9 @@
                 [button.layer setBorderWidth:1.0];
             }
             if (i > 2) {
-                [button setFrame:CGRectMake(10 * (i-2) + width * (i-3), 100+40, width, 30)];
+                [button setFrame:CGRectMake(10 * (i-2) + width * (i-3), 60+40, width, 30)];
             } else {
-                [button setFrame:CGRectMake(10 * (i+1) + width * i, 100, width, 30)];
+                [button setFrame:CGRectMake(10 * (i+1) + width * i, 60, width, 30)];
             }
             [self.contentView addSubview:button];
             [buttonsArray addObject:button];
@@ -238,13 +215,6 @@
     }
 }
 
-- (void)valueChanged:(id)sender
-{
-    UISlider *slider = sender;
-    int k = slider.value;
-    [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
-}
-
 - (void)setValue:(NSString *)value
 {
     if ([currentValue length] == 0) {
@@ -254,13 +224,8 @@
         if (index == 2) {
             numberTextField.text = rewardNum[0];
             [self setRewardButtonHidden:NO];
-        }else if (index == 3) {
-            rightNumLabel.text = @"100";
-            _slider.maximumValue = 100;
         }
         else if (index == 4) {
-            rightNumLabel.text = @"100";
-            _slider.maximumValue = 100;
            [self setMonthTicketButtonHidden:NO];
        } 
     }
@@ -269,6 +234,7 @@
 - (void)sendButtonClickedAndSetDictValue
 {
     if ([self.delegate respondsToSelector:@selector(sendButtonClick:)]) {
+        [numberTextField resignFirstResponder];
         NSMutableDictionary *tmpDict = [[NSMutableDictionary alloc] init];
         [tmpDict setObject:numberTextField.text forKey:@"count"];
         NSString *index = [NSString stringWithFormat:@"%d",[keyWordsArray indexOfObject:currentValue]+1];

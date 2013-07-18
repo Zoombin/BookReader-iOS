@@ -89,8 +89,10 @@
 {
     if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"评价票"]) {
         return 200;
+    } else if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"打赏"]) {
+        return 100;
     }
-    return 100;
+    return 60;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
