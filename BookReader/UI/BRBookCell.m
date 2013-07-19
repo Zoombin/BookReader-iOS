@@ -18,7 +18,7 @@
     UIImageView *autoBuyMark;
 	MKNumberBadgeView *badgeView;
 	UIButton *autoBuyButton;
-    UILabel *nameLabel;
+    UIButton *nameLabel;
 	UIImageView *cover;
 }
 
@@ -51,12 +51,13 @@
 		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
 		[self.contentView addSubview:autoBuyButton];
         
-        nameLabel = [[UILabel alloc] initWithFrame:autoBuyButton.frame];
-        [nameLabel setBackgroundColor:[UIColor colorWithRed:78.0/255.0 green:129.0/255.0 blue:172.0/255.0 alpha:1.0]];
+        nameLabel = [UIButton buttonWithType:UIButtonTypeCustom];
+        [nameLabel setFrame:CGRectMake(CGRectGetMinX(autoBuyButton.frame) - 10, CGRectGetMinY(autoBuyButton.frame), autoBuyButton.frame.size.width + 20, 30)];
+        [nameLabel setBackgroundImage:[UIImage imageNamed:@"bookname_background"] forState:UIControlStateNormal];
+        [nameLabel.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        [nameLabel setUserInteractionEnabled:NO];
+        [nameLabel setBackgroundColor:[UIColor clearColor]];
         [nameLabel setAlpha:0.9];
-        [nameLabel setTextColor:[UIColor whiteColor]];
-        [nameLabel setTextAlignment:NSTextAlignmentCenter];
-        [nameLabel setFont:[UIFont boldSystemFontOfSize:14]];
         [self.contentView addSubview:nameLabel];
 				
 		self.autoBuy = NO;
@@ -83,7 +84,7 @@
     }
 
 	if (_book.name) {
-		nameLabel.text = [_book.name substringToIndex:MIN(_book.name.length, 4)];
+		[nameLabel setTitle:[_book.name substringToIndex:MIN(_book.name.length, 4)] forState:UIControlStateNormal];
 	}
     if (_book.autoBuy) {
 		self.autoBuy = _book.autoBuy.boolValue;
