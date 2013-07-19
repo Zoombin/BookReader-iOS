@@ -285,6 +285,7 @@
     float HEIGHT = 15;
     for (int i = 0; i<[labelTitles count]; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 3 ? 10 : 100, 25 + 20 * i, WIDTH, HEIGHT)];
+        [label setTextColor:[UIColor bookStoreTxtColor]];
         if (i > 0 && i <= 4) {
             [label setFrame:CGRectMake(i > 3 ? 10 : 100, (i == 4 ? 20 : 0) + CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
         } else if ( i > 4) {
@@ -297,7 +298,6 @@
         }
         [label setFont:[UIFont systemFontOfSize:i == 0 ? 17 : 14]];
         [label setBackgroundColor:[UIColor clearColor]];
-        [label setTextColor:[UIColor blackColor]];
         [label setText:labelTitles[i]];
         [coverView addSubview:label];
         [labelsArray addObject:label];
@@ -329,6 +329,7 @@
     
     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(favButton.frame)+10, coverView.frame.size.width-5 * 2, 150)];
     [shortdescribeTextView setEditable:NO];
+    [shortdescribeTextView setTextColor:[UIColor bookStoreTxtColor]];
     [shortdescribeTextView setFont:[UIFont systemFontOfSize:15]];
     [shortdescribeTextView setBackgroundColor:[UIColor clearColor]];
     [coverView addSubview:shortdescribeTextView];

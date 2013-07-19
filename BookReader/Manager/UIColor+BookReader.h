@@ -12,5 +12,6 @@
 + (UIColor *)mainBackgroundColor;
 
 + (UIColor *)txtColor;
++ (UIColor *)bookStoreTxtColor;
 + (UIColor *)bookCellGrayTextColor;
 @end

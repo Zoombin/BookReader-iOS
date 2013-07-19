@@ -9,6 +9,7 @@
 #import "CommentCell.h"
 #import "Comment.h"
 #import "NSString+XXSY.h"
+#import "UIColor+BookReader.h"
 
 @implementation CommentCell {
     UILabel *messageLabel;
@@ -25,17 +26,20 @@
         nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 4, self.contentView.frame.size.width-30-6, 20)];
         [nameLabel setBackgroundColor:[UIColor clearColor]];
         [nameLabel setFont:[UIFont systemFontOfSize:12]];
+        [nameLabel setTextColor:[UIColor bookStoreTxtColor]];
         [nameLabel setTextAlignment:UITextAlignmentLeft];
         [self.contentView addSubview:nameLabel];
         
         timeLabel = [[UILabel alloc] initWithFrame:nameLabel.frame];
         [timeLabel setTextAlignment:UITextAlignmentRight];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
+        [timeLabel setTextColor:[UIColor bookStoreTxtColor]];
         [timeLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:timeLabel];
         
         messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width-30-6, self.contentView.frame.size.height-20)];
         [messageLabel setFont:[UIFont systemFontOfSize:14]];
+        [messageLabel setTextColor:[UIColor bookStoreTxtColor]];
         [messageLabel setBackgroundColor:[UIColor clearColor]];
         [messageLabel setNumberOfLines:0];
         [messageLabel setLineBreakMode:NSLineBreakByCharWrapping];
