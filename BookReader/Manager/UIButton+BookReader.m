@@ -48,7 +48,7 @@ static float duration = 0;
 
 + (UIButton *)navigationBackButton
 {
-	UIButton *backButton = [UIButton addButtonWithFrame:CGRectMake(0, 0, 0, 0) andStyle:BookReaderButtonStyleBack];
+	UIButton *backButton = [UIButton addButtonWithFrame:CGRectMake(0, 0, 0, 0) andStyle:BookReaderButtonStyleNormal];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
 	return backButton;
 }
