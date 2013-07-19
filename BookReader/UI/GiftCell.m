@@ -52,10 +52,11 @@
         rewardBtnsArray = [[NSMutableArray alloc] init];
         
          reductBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [reductBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
+        [reductBtn cooldownButtonFrame:CGRectMake(70, 20, 40, 20) andEnableCooldown:NO];
         [reductBtn setTitle:@"-" forState:UIControlStateNormal];
+        [reductBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [reductBtn addTarget:self action:@selector(reductBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [reductBtn setFrame:CGRectMake(70, 20, 40, 20)];
+        
         [self.contentView addSubview:reductBtn];
         
         numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 20, 80, 20)];
@@ -69,10 +70,10 @@
         [self.contentView addSubview:numberTextField];
         
          addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addBtn setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
+        [addBtn cooldownButtonFrame:CGRectMake(190, 20, 40, 20) andEnableCooldown:NO];
         [addBtn setTitle:@"+" forState:UIControlStateNormal];
+        [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [addBtn setFrame:CGRectMake(190, 20, 40, 20)];
         [self.contentView addSubview:addBtn];
     
         keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 12.5, 35, 35)];

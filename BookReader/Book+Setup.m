@@ -33,6 +33,8 @@
 	book.updateDate = [NSDate date];
 	book.bCover = attributes[@"cover"];
     book.bFinish = attributes[@"undone"];
+    book.status = attributes[@"status"];
+    NSLog(@"%@",attributes[@"status"]);
     if (attributes[@"typeName"]) {
         book.category = attributes[@"typeName"];
     }
@@ -131,6 +133,7 @@
     book.recommendTitle = self.recommendTitle;
     book.reward = self.reward;
     book.rewardPersons = self.rewardPersons;
+    book.status = self.status;
     book.uid = self.uid;
 	//book.updateDate = self.updateDate;
     book.words = self.words;

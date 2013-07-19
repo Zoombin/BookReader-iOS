@@ -29,6 +29,7 @@
 @property (nonatomic, retain) NSDate * nextUpdateTime;
 @property (nonatomic, retain) NSNumber * recommendID;
 @property (nonatomic, retain) NSString * recommendTitle;
+@property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSDate * updateDate;
 @property (nonatomic, retain) NSNumber * words;

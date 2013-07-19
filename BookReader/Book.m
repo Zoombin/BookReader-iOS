@@ -28,6 +28,7 @@
 @dynamic nextUpdateTime;
 @dynamic recommendID;
 @dynamic recommendTitle;
+@dynamic status;
 @dynamic uid;
 @dynamic updateDate;
 @dynamic words;

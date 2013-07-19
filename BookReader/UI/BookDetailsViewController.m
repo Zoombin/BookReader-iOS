@@ -93,6 +93,7 @@
     
     UIView *commitHeaderView;
     UIImageView *bookCover;
+    UIImageView *finishMark;
     
     UIButton *favButton;
     UILabel *emptyLabel;
@@ -276,6 +277,12 @@
     bookCover = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, BOOK_COVER_ORIGIN_SIZE.width / 1.2, BOOK_COVER_ORIGIN_SIZE.height / 1.2)];
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [coverView addSubview:bookCover];
+    
+    finishMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    [finishMark setImage:[UIImage imageNamed:@"finish_mark"]];
+    [finishMark setBackgroundColor:[UIColor clearColor]];
+    [bookCover addSubview:finishMark];
+    [finishMark setHidden:YES];
     
     NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"更新:",@"",@"",@"",@""];
     NSArray *giftImages = @[@"demand" ,@"flower", @"money", @"comment"];
