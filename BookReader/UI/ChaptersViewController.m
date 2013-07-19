@@ -16,6 +16,7 @@
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
 #import "UILabel+BookReader.h"
+#import "UIButton+BookReader.h"
 #import "Chapter+Setup.h"
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
@@ -69,21 +70,16 @@
     CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
 	[slider setTransform:rotation];
     
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 90*2 , CGRectGetMaxY(infoTableView.frame) - 3, 85, 36);
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 90, CGRectGetMaxY(infoTableView.frame) - 3, 85, 36);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 70, CGRectGetMaxY(infoTableView.frame), 65, 36);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 65 , CGRectGetMaxY(infoTableView.frame), 65, 36);
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
-    
-#define UIIMAGE(x) [UIImage imageNamed:x]
-    NSArray *images = @[UIIMAGE(@"chapterlist_btn"), UIIMAGE(@"bookmark_btn"), ];
-    NSArray *disbleImages = @[UIIMAGE(@"chapterlist_btn_hl"), UIIMAGE(@"bookmark_btn_hl")];
+    NSArray *btnNames = @[@"目录", @"书签"];
     
     for (int i = 0; i < 2; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setBackgroundImage:disbleImages[i] forState:UIControlStateNormal];
-        [button setFrame: CGRectFromString(rectStrings[i])];
+        UIButton *button = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[i]) andStyle:BookReaderButtonStyleNormal];
         [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
-        [button setBackgroundImage:images[i] forState:UIControlStateDisabled];
+        [button setTitle:btnNames[i] forState:UIControlStateNormal];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         if (i==0) {
