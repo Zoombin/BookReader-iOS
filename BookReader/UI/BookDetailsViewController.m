@@ -83,6 +83,7 @@
     UILabel *wordsLabel;
     UILabel *lastUpdateLabel;
     
+    UILabel *shortDescribeTitle;
     UILabel *commentTitle;
     UILabel *recommendTitle;
     
@@ -292,7 +293,7 @@
     float HEIGHT = 15;
     for (int i = 0; i<[labelTitles count]; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 3 ? 10 : 100, 25 + 20 * i, WIDTH, HEIGHT)];
-        [label setTextColor:[UIColor bookStoreTxtColor]];
+        [label setTextColor:[UIColor blackColor]];
         if (i > 0 && i <= 4) {
             [label setFrame:CGRectMake(i > 3 ? 10 : 100, (i == 4 ? 20 : 0) + CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
         } else if ( i > 4) {
