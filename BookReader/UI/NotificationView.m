@@ -8,6 +8,7 @@
 
 #import "NotificationView.h"
 #import "UIButton+BookReader.h"
+#import "ServiceManager.h"
 
 @implementation NotificationView {
     UILabel *contentLabel;
@@ -81,10 +82,12 @@
     if (book) {
         [titleLabel setText:book.name];
         [contentLabel setText:book.describe];
+        [ServiceManager saveNotificationContent:book.describe];
         bookObject = book;
     } else if ([content length] > 0) {
         [readButton setHidden:YES];
         [contentLabel setText:content];
+        [ServiceManager saveNotificationContent:content];
     } else {
         self.bShouldLoad = YES;
     }

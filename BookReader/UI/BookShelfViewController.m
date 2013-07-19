@@ -187,6 +187,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
             if (resultArray.count > 0) {
                 book = resultArray[0];
             }
+            if ([ServiceManager checkHasShowNotifi:book.describe] || [ServiceManager checkHasShowNotifi:content]) {
+                notificationView.hidden = YES;
+                return;
+            }
             CGSize fullSize = self.view.bounds.size;
             [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - 44 - 85)];
             [notificationView showInfoWithBook:book andNotificateContent:content];

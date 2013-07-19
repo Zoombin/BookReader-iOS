@@ -14,6 +14,7 @@
 
 #define USER_MONEY @"usermoney"
 #define USER_NAME @"username"
+#define NOTIFICATION_CONTENT @"notification_content"
 #define HAD_LAUNCHED_BEFORE @"had_launched_before"
 
 @class Book;
@@ -23,6 +24,8 @@
 + (ServiceManager *)shared;
 
 + (void)saveUserID:(NSNumber *)userID;
++ (void)saveNotificationContent:(NSString *)content;
++ (BOOL)checkHasShowNotifi:(NSString *)content;
 + (BOOL)hadLaunchedBefore;
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name;
 + (NSNumber *)userID;

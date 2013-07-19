@@ -72,6 +72,22 @@ static NSNumber *sUserID;
 	return NO;
 }
 
++ (void)saveNotificationContent:(NSString *)content
+{
+    [[NSUserDefaults standardUserDefaults] setObject:content forKey:NOTIFICATION_CONTENT];
+}
+
++ (BOOL)checkHasShowNotifi:(NSString *)content
+{
+    NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:NOTIFICATION_CONTENT];
+    NSLog(@"==>%@",string);
+    if ([string isEqualToString:content]) {
+        NSLog(@"已经存在");
+        return YES;
+    }
+    return NO;
+}
+
 + (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name
 {
     [[NSUserDefaults standardUserDefaults] setObject:money forKey:USER_MONEY];
