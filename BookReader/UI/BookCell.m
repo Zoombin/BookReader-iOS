@@ -51,9 +51,9 @@
         if (style == BookCellStyleBig) {
 			height = BigCellHeight;
             coverRect = CGRectMake(15, 12, BOOK_COVER_ORIGIN_SIZE.width / 1.8, BOOK_COVER_ORIGIN_SIZE.height / 1.8);
-            nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 15, 205, 15);
-            authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 5, 130, 15);
-            describeRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 5, 215, 30);
+            nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 10, 205, 15);
+            authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 7, 130, 15);
+            describeRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 3, 215, 30);
             finishRect = CGRectMake(CGRectGetMaxX(nameRect), 15, 15, 15);
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
