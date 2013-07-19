@@ -255,7 +255,7 @@
     [northFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [northFontButton addTarget:self action:@selector(northFontChange) forControlEvents:UIControlEventTouchUpInside];
     [northFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
-    [northFontButton setTitle:@"方正北魏楷体" forState:UIControlStateNormal];
+    [northFontButton setTitle:@"方正北魏楷书" forState:UIControlStateNormal];
     [northFontButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
     [fontView addSubview:northFontButton];
     
