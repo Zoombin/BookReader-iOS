@@ -277,7 +277,7 @@
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [coverView addSubview:bookCover];
     
-    NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"更新:",@"收到钻石",@"收到鲜花",@"收到打赏",@"收到评价"];
+    NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"更新:",@"",@"",@"",@""];
     NSArray *giftImages = @[@"demand" ,@"flower", @"money", @"comment"];
     NSMutableArray *labelsArray = [NSMutableArray array];
     int k = 0;
@@ -460,10 +460,10 @@
     NSString *catagoryName = [@"类别: " stringByAppendingString:book.category];
     NSString *words = [@"大小: " stringByAppendingString:[book.words stringValue]];
     NSString *lastUpdate = [@"更新: " stringByAppendingString:book.lastUpdate];
-    NSString *diamondAmount = [NSString stringWithFormat:@"收到%@颗",book.diamond];
-    NSString *flowerAmount = [NSString stringWithFormat:@"收到%@朵",book.flower];
-    NSString *rewardAmount = [NSString stringWithFormat:@"收到%@潇湘币",book.reward];
-    NSString *commentAmount = [NSString stringWithFormat:@"总得分%@分",book.comment];
+    NSString *diamondAmount = [NSString stringWithFormat:@"%@",book.diamond];
+    NSString *flowerAmount = [NSString stringWithFormat:@"%@",book.flower];
+    NSString *rewardAmount = [NSString stringWithFormat:@"%@",book.reward];
+    NSString *commentAmount = [NSString stringWithFormat:@"%@",book.comment];
     
     NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,diamondAmount,flowerAmount,rewardAmount,commentAmount];
     NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
