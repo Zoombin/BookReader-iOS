@@ -34,7 +34,6 @@
 	book.bCover = attributes[@"cover"];
     book.bFinish = attributes[@"undone"];
     book.status = attributes[@"status"];
-    NSLog(@"%@",attributes[@"status"]);
     if (attributes[@"typeName"]) {
         book.category = attributes[@"typeName"];
     }

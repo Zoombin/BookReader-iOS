@@ -480,6 +480,10 @@
         [label setText:labelTitles[i]];
     }
 	
+    if ([book.bFinish isEqualToString:@"已完成"]) {
+        [finishMark setHidden:NO];
+    }
+    
     if ([ServiceManager userID] != nil) {
         [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(BOOL isExist, NSError *error) {
             if (error) {
