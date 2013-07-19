@@ -279,7 +279,7 @@
     [bookCover setImage:[UIImage imageNamed:@"book_placeholder"]];
     [coverView addSubview:bookCover];
     
-    finishMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 24)];
+    finishMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
     [finishMark setImage:[UIImage imageNamed:@"finish_mark"]];
     [finishMark setBackgroundColor:[UIColor clearColor]];
     [bookCover addSubview:finishMark];

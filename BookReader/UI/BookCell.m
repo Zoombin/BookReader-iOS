@@ -53,14 +53,14 @@
             coverRect = CGRectMake(15, 12, BOOK_COVER_ORIGIN_SIZE.width / 1.8, BOOK_COVER_ORIGIN_SIZE.height / 1.8);
             nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 15, 205, 15);
             authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 5, 130, 15);
-            describeRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 5, 205, 30);
-            finishRect = CGRectMake(CGRectGetMaxX(nameRect), 15, 25, 24);
+            describeRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 5, 215, 30);
+            finishRect = CGRectMake(CGRectGetMaxX(nameRect), 15, 15, 15);
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
 			nameRect = CGRectMake(15, 5, 200, 30);
 			nameFontSize = 16.0f;
             
-			authorRect = CGRectMake(self.bounds.size.width - 142, 5, 100, 30);
+			authorRect = CGRectMake(self.bounds.size.width - 130, 5, 100, 30);
             authorTextColor = [UIColor blackColor];
 			authorAlignment = NSTextAlignmentRight;
 		} else {//目录界面
@@ -143,7 +143,7 @@
         [nameLabel setText:[NSString stringWithFormat:@"%@",book.name]];
         if (myStyle == BookCellStyleBig) {
             [nameLabel sizeToFit];
-            [finishMark setFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame) + 2, 13, 25, 24)];
+            [finishMark setFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame), 15, 15, 15)];
             [finishMark setHidden:book.status.integerValue == 0 ? YES : NO];
         }
     }
