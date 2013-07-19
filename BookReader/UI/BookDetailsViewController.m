@@ -295,11 +295,11 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 3 ? 10 : 100, 25 + 20 * i, WIDTH, HEIGHT)];
         [label setTextColor:[UIColor blackColor]];
         if (i > 0 && i <= 4) {
-            [label setFrame:CGRectMake(i > 3 ? 10 : 100, (i == 4 ? 20 : 0) + CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
+            [label setFrame:CGRectMake(100, CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
         } else if ( i > 4) {
             [label setFrame:CGRectMake(i % 2 == 0 ? 10 + WIDTH/2 : 10 , (k == 0 ? 20 : 0) + (k == 2 ? HEIGHT * 2 + 5 : 0 )  +CGRectGetMinY([(UILabel *)labelsArray[i - 1] frame]), WIDTH/2, HEIGHT * 2)];
-            [label setTextAlignment:NSTextAlignmentRight];
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            [label setTextAlignment:NSTextAlignmentCenter];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 0, 30, 30)];
             [imageView setImage:[UIImage imageNamed:giftImages[k]]];
             [label addSubview:imageView];
             k ++;
