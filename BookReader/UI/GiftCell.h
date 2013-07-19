@@ -13,7 +13,7 @@
 - (void)sendButtonClick:(NSDictionary *)value;
 @end
 
-@interface GiftCell : UITableViewCell
+@interface GiftCell : UITableViewCell <UITextFieldDelegate>
 @property (nonatomic ,weak) id<GiftCellDelegate> delegate;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andIndexPath:(NSIndexPath *)indexPath;
 - (void)setValue:(NSString *)value;

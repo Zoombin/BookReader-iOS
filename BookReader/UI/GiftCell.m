@@ -61,6 +61,7 @@
         
         numberTextField = [[UITextField alloc]initWithFrame:CGRectMake(110, 20, 80, 20)];
         [numberTextField setText:@"1"];
+        [numberTextField setDelegate:self];
         [numberTextField.layer setBorderWidth:1.0];
         [numberTextField setTextAlignment:NSTextAlignmentCenter];
         [numberTextField.layer setBorderColor:[UIColor colorWithRed:193.0/255.0 green:157.0/255.0 blue:85.0/255.0 alpha:1.0].CGColor];
@@ -98,6 +99,7 @@
 {
     _slider.value = _slider.value + 1;
     int k = _slider.value;
+    [numberTextField resignFirstResponder];
     [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
 }
 
@@ -105,6 +107,7 @@
 {
     _slider.value = _slider.value - 1;
     int k = _slider.value;
+    [numberTextField resignFirstResponder];
     [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
 }
 
