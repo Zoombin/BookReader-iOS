@@ -22,6 +22,7 @@
     UILabel *authorLabel;
     UILabel *shortDescribeLabel;
 	UIImageView *coverView;
+    UIImageView *finishMark;
 	BookCellStyle myStyle;
     UIImageView *catagoryImage;
 	CGFloat height;
@@ -43,6 +44,7 @@
 		CGRect nameRect = CGRectZero;
 		CGRect authorRect = CGRectZero;
 		CGRect describeRect = CGRectZero;
+        CGRect finishRect = CGRectZero;
 
 		NSTextAlignment authorAlignment = NSTextAlignmentLeft;
 		
@@ -52,8 +54,7 @@
             nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 15, 205, 15);
             authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 5, 130, 15);
             describeRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 5, 205, 30);
-            
-
+            finishRect = CGRectMake(CGRectGetMaxX(nameRect), 15, 25, 24);
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
 			nameRect = CGRectMake(15, 5, 200, 30);
@@ -98,6 +99,12 @@
 			shortDescribeLabel.textColor = shortDescribeTextColor;
 			[self.contentView addSubview:shortDescribeLabel];
 		}
+        
+        if (!CGRectEqualToRect(finishRect, CGRectZero)) {
+            finishMark = [[UIImageView alloc] initWithFrame:finishRect];
+            [finishMark setImage:[UIImage imageNamed:@"finish_mark"]];
+            [self.contentView addSubview:finishMark];
+        }
 		
 		if (!CGRectEqualToRect(coverRect, CGRectZero)) {
             coverView = [[UIImageView alloc] initWithFrame:coverRect];
@@ -134,6 +141,11 @@
 {
     if (book.name) {
         [nameLabel setText:[NSString stringWithFormat:@"%@",book.name]];
+        if (myStyle == BookCellStyleBig) {
+            [nameLabel sizeToFit];
+            [finishMark setFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame) + 2, 13, 25, 24)];
+            [finishMark setHidden:book.status.integerValue == 0 ? YES : NO];
+        }
     }
     if (book.author) {
         [authorLabel setText:[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AuthorName", nil),book.author]];
