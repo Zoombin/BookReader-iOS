@@ -124,7 +124,7 @@
             [button setHidden:boolValue];
             [button addTarget:self action:@selector(rewardbuttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [button setTitle:rewardNum[i] forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor colorWithRed:202.0/255.0 green:118.0/255.0 blue:24.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [button setBackgroundColor:[UIColor whiteColor]];
             [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
             if (i==0) {
@@ -160,7 +160,7 @@
             [button setHidden:boolValue];
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [button setTitle:integralArrays[i] forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor colorWithRed:202.0/255.0 green:118.0/255.0 blue:24.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [button setBackgroundColor:[UIColor whiteColor]];
             [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
             if (i==0) {
