@@ -54,6 +54,7 @@
         nameLabel = [UIButton buttonWithType:UIButtonTypeCustom];
         [nameLabel setFrame:CGRectMake(CGRectGetMinX(autoBuyButton.frame) - 10, CGRectGetMinY(autoBuyButton.frame), autoBuyButton.frame.size.width + 20, 30)];
         [nameLabel setBackgroundImage:[UIImage imageNamed:@"bookname_background"] forState:UIControlStateNormal];
+        [nameLabel setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 3, 0)];
         [nameLabel.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [nameLabel setUserInteractionEnabled:NO];
         [nameLabel setBackgroundColor:[UIColor clearColor]];
