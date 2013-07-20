@@ -54,7 +54,7 @@
             nameRect = CGRectMake(CGRectGetMaxX(coverRect) + 10, 10, 205, 15);
             authorRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(nameRect) + 7, 130, 15);
             describeRect = CGRectMake(CGRectGetMinX(nameRect), CGRectGetMaxY(authorRect) + 3, 215, 30);
-            finishRect = CGRectMake(CGRectGetMaxX(nameRect), 15, 15, 15);
+            finishRect = CGRectMake(CGRectGetMaxX(nameRect) + 5, 12, 15, 15);
         } else if (myStyle == BookCellStyleSmall){
 			height = SmallCellHeight;
 			nameRect = CGRectMake(15, 5, 200, 30);
@@ -143,7 +143,7 @@
         [nameLabel setText:[NSString stringWithFormat:@"%@",book.name]];
         if (myStyle == BookCellStyleBig) {
             [nameLabel sizeToFit];
-            [finishMark setFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame), 15, 15, 15)];
+            [finishMark setFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame) + 5, 12, 15, 15)];
             [finishMark setHidden:book.status.integerValue == 0 ? YES : NO];
         }
     }
