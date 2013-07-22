@@ -293,6 +293,7 @@
     float HEIGHT = 15;
     for (int i = 0; i<[labelTitles count]; i++) {
         UIButton *label = [UIButton buttonWithType:UIButtonTypeCustom];
+        [label setUserInteractionEnabled:NO];
         [label setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [label setFrame:CGRectMake(i > 3 ? 10 : 100, 15 + 20 * i, WIDTH, HEIGHT)];
         [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
