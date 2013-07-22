@@ -292,21 +292,25 @@
     float WIDTH = coverView.frame.size.width - 20;
     float HEIGHT = 15;
     for (int i = 0; i<[labelTitles count]; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i > 3 ? 10 : 100, 25 + 20 * i, WIDTH, HEIGHT)];
-        [label setTextColor:[UIColor blackColor]];
+        UIButton *label = [UIButton buttonWithType:UIButtonTypeCustom];
+        [label setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [label setFrame:CGRectMake(i > 3 ? 10 : 100, 15 + 20 * i, WIDTH, HEIGHT)];
+        [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         if (i > 0 && i <= 4) {
             [label setFrame:CGRectMake(100, CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
+            [label.titleLabel setFont:[UIFont systemFontOfSize:14]];
         } else if ( i > 4) {
-            [label setFrame:CGRectMake(i % 2 == 0 ? 10 + WIDTH/2 : 10 , (k == 0 ? 20 : 0) + (k == 2 ? HEIGHT * 2 + 5 : 0 )  +CGRectGetMinY([(UILabel *)labelsArray[i - 1] frame]), WIDTH/2, HEIGHT * 2)];
-            [label setTextAlignment:NSTextAlignmentCenter];
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 0, 30, 30)];
-            [imageView setImage:[UIImage imageNamed:giftImages[k]]];
-            [label addSubview:imageView];
+            [label setFrame:CGRectMake(k == 0 ? 10 : CGRectGetMaxX([(UILabel *)labelsArray[i - 1] frame])  , (k == 0 ? 20 : 0) + CGRectGetMinY([(UILabel *)labelsArray[i - 1] frame]), WIDTH/4, HEIGHT * 2)];
+            [label.titleLabel setFont:[UIFont systemFontOfSize:12]];
+            [label setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+            [label setContentHorizontalAlignment:UIControlContentVerticalAlignmentCenter];
+            [label.layer setBorderColor:[UIColor grayColor].CGColor];
+            [label.layer setBorderWidth:0.5];
+            [label setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0]];
+            [label setImage:[self scaleToSize:[UIImage imageNamed:giftImages[k]] size:CGSizeMake(20, 20)] forState:UIControlStateNormal];
             k ++;
         }
-        [label setFont:[UIFont systemFontOfSize:i == 0 ? 17 : 14]];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setText:labelTitles[i]];
+        [label setTitle:labelTitles[i] forState:UIControlStateNormal];
         [coverView addSubview:label];
         [labelsArray addObject:label];
     }
@@ -477,8 +481,8 @@
     NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,diamondAmount,flowerAmount,rewardAmount,commentAmount];
     NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
     for (int i = 0; i<[labels count]; i++) {
-        UILabel *label = (UILabel *)labels[i];
-        [label setText:labelTitles[i]];
+        UIButton *label = (UIButton *)labels[i];
+        [label setTitle:labelTitles[i] forState:UIControlStateNormal];
     }
 	
     if ([book.bFinish isEqualToString:@"已完成"]) {
@@ -853,6 +857,25 @@
 - (void)sliderValueChanged:(id)sender {
 	float offsetY = (slider.value / 100.0) * (chapterListTableView.contentSize.height - 460);
 	[chapterListTableView setContentOffset:CGPointMake(0, offsetY)];
+}
+
+- (UIImage*)scaleToSize:(UIImage*)img size:(CGSize)size
+{
+    // 创建一个bitmap的context
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(size);
+    
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    // 返回新的改变大小后的图片
+    return scaledImage;
 }
 
 @end
