@@ -24,6 +24,7 @@
 @dynamic describe;
 @dynamic lastReadChapterID;
 @dynamic lastUpdate;
+@dynamic monthTicket;
 @dynamic name;
 @dynamic nextUpdateTime;
 @dynamic recommendID;

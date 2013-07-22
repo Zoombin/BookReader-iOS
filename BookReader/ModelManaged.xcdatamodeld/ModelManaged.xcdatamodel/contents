@@ -20,6 +20,7 @@
         <attribute name="lastChapterName" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastReadChapterID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdate" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="monthTicket" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nextUpdateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recommendID" optional="YES" transient="YES" attributeType="Integer 32" syncable="YES"/>
@@ -51,7 +52,7 @@
         <attribute name="startWordIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="160" positionY="192" width="128" height="480"/>
+        <element name="Book" positionX="160" positionY="192" width="128" height="495"/>
         <element name="Chapter" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Mark" positionX="160" positionY="192" width="128" height="120"/>
     </elements>

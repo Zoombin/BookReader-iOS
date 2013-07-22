@@ -34,6 +34,7 @@
 	book.bCover = attributes[@"cover"];
     book.bFinish = attributes[@"undone"];
     book.status = attributes[@"status"];
+    book.monthTicket = attributes[@"monthTicket"];
     if (attributes[@"typeName"]) {
         book.category = attributes[@"typeName"];
     }
@@ -126,6 +127,7 @@
     book.lastChapterName = self.lastChapterName;
     //book.lastReadChapterID = self.lastReadChapterID;
     book.lastUpdate = self.lastUpdate;
+    book.monthTicket = self.monthTicket;
     book.name = self.name;
 //	book.nextUpdateTime = self.nextUpdateTime;
     book.recommendID = self.recommendID;

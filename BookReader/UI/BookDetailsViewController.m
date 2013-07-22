@@ -81,6 +81,7 @@
     UILabel *authorNameLabel;
     UILabel *catagoryNameLabel;
     UILabel *wordsLabel;
+    UILabel *monthTicket;
     UILabel *lastUpdateLabel;
     
     UILabel *shortDescribeTitle;
@@ -285,22 +286,22 @@
     [bookCover addSubview:finishMark];
     [finishMark setHidden:YES];
     
-    NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"更新:",@"",@"",@"",@""];
+    NSArray *labelTitles = @[@"",@"作者:",@"类别:",@"大小:",@"月票", @"更新:",@"",@"",@"",@""];
     NSArray *giftImages = @[@"demand" ,@"flower", @"money", @"comment"];
     NSMutableArray *labelsArray = [NSMutableArray array];
     int k = 0;
     float WIDTH = coverView.frame.size.width - 20;
-    float HEIGHT = 15;
+    float HEIGHT = 10;
     for (int i = 0; i<[labelTitles count]; i++) {
         UIButton *label = [UIButton buttonWithType:UIButtonTypeCustom];
         [label setUserInteractionEnabled:NO];
         [label setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [label setFrame:CGRectMake(i > 3 ? 10 : 100, 15 + 20 * i, WIDTH, HEIGHT)];
+        [label setFrame:CGRectMake(100, 20 + 20 * i, WIDTH, HEIGHT)];
         [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        if (i > 0 && i <= 4) {
-            [label setFrame:CGRectMake(100, CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
-            [label.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        } else if ( i > 4) {
+        if (i > 0 && i <= 5) {
+            [label setFrame:CGRectMake(100, (i == 1 ? 5 : 0) + CGRectGetMaxY([(UILabel *)labelsArray[i - 1] frame]) + 5, WIDTH, HEIGHT)];
+            [label.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        } else if ( i > 5) {
             [label setFrame:CGRectMake(k == 0 ? 10 : CGRectGetMaxX([(UILabel *)labelsArray[i - 1] frame])  , (k == 0 ? 20 : 0) + CGRectGetMinY([(UILabel *)labelsArray[i - 1] frame]), WIDTH/4, HEIGHT * 2)];
             [label.titleLabel setFont:[UIFont systemFontOfSize:12]];
             [label setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
@@ -319,11 +320,12 @@
     authorNameLabel = labelsArray[1];
     catagoryNameLabel = labelsArray[2];
     wordsLabel = labelsArray[3];
-    lastUpdateLabel = labelsArray[4];
-    diamondLabel = labelsArray[5];
-    flowerLabel = labelsArray[6];
-    rewardLabel = labelsArray[7];
-    commentLabel = labelsArray[8];
+    monthTicket = labelsArray[4];
+    lastUpdateLabel = labelsArray[5];
+    diamondLabel = labelsArray[6];
+    flowerLabel = labelsArray[7];
+    rewardLabel = labelsArray[8];
+    commentLabel = labelsArray[9];
     
     float three_btn_width = (coverView.frame.size.width - 4 * 5)/3;
     NSArray *buttonNames = @[@"阅读", @"收藏", @"投月票"];
@@ -478,9 +480,10 @@
     NSString *flowerAmount = [NSString stringWithFormat:@"%@",book.flower];
     NSString *rewardAmount = [NSString stringWithFormat:@"%@",book.reward];
     NSString *commentAmount = [NSString stringWithFormat:@"%@",book.comment];
+    NSString *monthTicketAmount = [NSString stringWithFormat:@"月票: %@",book.monthTicket];
     
-    NSArray *labelTitles = @[bookName,authorName,catagoryName,words,lastUpdate,diamondAmount,flowerAmount,rewardAmount,commentAmount];
-    NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,lastUpdateLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
+    NSArray *labelTitles = @[bookName,authorName,catagoryName,words,monthTicketAmount,lastUpdate,diamondAmount,flowerAmount,rewardAmount,commentAmount];
+    NSArray *labels = @[bookNameLabel,authorNameLabel,catagoryNameLabel,wordsLabel,monthTicket,lastUpdateLabel,diamondLabel,flowerLabel,rewardLabel,commentLabel];
     for (int i = 0; i<[labels count]; i++) {
         UIButton *label = (UIButton *)labels[i];
         [label setTitle:labelTitles[i] forState:UIControlStateNormal];
