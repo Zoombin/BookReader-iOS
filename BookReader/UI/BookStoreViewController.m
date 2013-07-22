@@ -459,6 +459,7 @@
 		currentType = RANK;
 		[infoTableView setTableHeaderView:rankView];
 		[[self BRHeaderView].titleLabel setText:@"排行"];
+        [self changeRankButtonImage:rankBtns[0]];
 		[self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
 		[rankView setHidden:NO];
 		[infoTableView setHidden:NO];		
