@@ -314,8 +314,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if(currentPageIndex > [pages count] - 1) {
         currentPageIndex = [pages count] - 1;
 		NSLog(@"no more next page!");
-		[self displayHUDError:@"" message:@"下一章"];
-		[self gotoChapter:[chapter next] withReadIndex:nil];
+        Chapter *aChapter = [chapter next];
+        if (aChapter) {
+            Chapter *aChapterNext = [aChapter next];
+            [self displayHUDError:@"" message:aChapterNext ? aChapterNext.name : @"此章节是最后一章"];
+            [self gotoChapter:[chapter next] withReadIndex:nil];
+        } else {
+            [self displayHUDError:@"" message:@"此章是最后一章"];
+        }
         return;
     }
 	[self updateCurrentPageContent];
@@ -497,6 +503,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		return;
 	}
 	pageCurlType = nil;
+    Chapter *nextNextChapter = [aChapter next];
+    [self displayHUDError:@"" message:nextNextChapter ? nextNextChapter.name : @"此章是最后一章"];
 	[self gotoChapter:aChapter withReadIndex:nil];
 }
 

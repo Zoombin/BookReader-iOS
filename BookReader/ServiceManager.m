@@ -80,7 +80,6 @@ static NSNumber *sUserID;
 + (BOOL)checkHasShowNotifi:(NSString *)content
 {
     NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:NOTIFICATION_CONTENT];
-    NSLog(@"==>%@",string);
     if ([string isEqualToString:content]) {
         NSLog(@"已经存在");
         return YES;
