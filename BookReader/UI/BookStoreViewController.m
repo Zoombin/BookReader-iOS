@@ -102,7 +102,7 @@
     [self.view addSubview:bottomView];
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
+    [bookShelfButton setFrame:CGRectMake(self.view.bounds.size.width - 60, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
     NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];

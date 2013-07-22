@@ -383,7 +383,7 @@
     [commentHeaderView setBackgroundColor:[UIColor clearColor]];
     
     commitField = [[UITextView alloc] initWithFrame:CGRectMake(12, 17.5, infoTableView.frame.size.width - 12 * 2, 35 * 3 * 0.8)];
-//    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    //    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [commitField.layer setCornerRadius:5];
     [commitField setDelegate:self];
     [commitField setReturnKeyType:UIReturnKeyDone];
@@ -579,7 +579,7 @@
 
 - (void)loadSameType
 {
-    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"4" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+    [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"5" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (error) {
             
         }
@@ -592,11 +592,14 @@
                 if([obj.uid integerValue]!=[bookid integerValue]) {
                     [sameTypeBookArray addObject:obj];
                 }
+            if ([sameTypeBookArray count]==4) {
+                break;
             }
-            [recommendTableView reloadData];
-             [self refreshCoverViewFrame];
         }
-    }];
+        [recommendTableView reloadData];
+        [self refreshCoverViewFrame];
+    }
+     }];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -776,7 +779,7 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
             [(ChapterCell *)cell setChapter:obj andCurrent:NO];
-//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
+            //            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
         }
     }
     else {
