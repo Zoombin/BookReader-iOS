@@ -9,6 +9,7 @@
 #import "BRViewController.h"
 #import "BRHeaderView.h"
 #import "UIColor+BookReader.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation BRViewController {
     BRHeaderView *headerView;
@@ -22,9 +23,15 @@
     [super viewDidLoad];
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
     CGSize fullSize = self.view.bounds.size;
+    UIView *bkgWhite = [[UIView alloc] initWithFrame:CGRectMake(5, 0, fullSize.width - 10, fullSize.height - 44 - 10)];
+    [bkgWhite.layer setCornerRadius:4];
+    [bkgWhite.layer setMasksToBounds:YES];
+    [bkgWhite setBackgroundColor:[UIColor whiteColor]];
+    
 	 backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
-	[backgroundImage setImage:[UIImage imageNamed:@"iphone_qqreader_Center_icon_bg"]];
+	[backgroundImage setImage:[UIImage imageNamed:@"main_view_bkg"]];
 	[self.view addSubview:backgroundImage];
+    [backgroundImage addSubview:bkgWhite];
     
      headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];

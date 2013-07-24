@@ -21,7 +21,6 @@
 @implementation GiftViewController {
     NSString *currentIndex;
     Book *bookObj;
-    NSMutableArray *newKeyWordsArray;
     UITableView *infoTableView;
 }
 
@@ -30,12 +29,6 @@
     if (self) {
         currentIndex = index;
         bookObj = book;
-        NSLog(@"==>%@",currentIndex);
-        newKeyWordsArray = [XXSYGiftTypesMap.allKeys mutableCopy];
-		NSLog(@"newKeyWordsArray = %@", newKeyWordsArray);
-        NSString *key = [newKeyWordsArray objectAtIndex:[index intValue]];
-        [newKeyWordsArray removeObject:key];
-        [newKeyWordsArray insertObject:key atIndex:0];
     }
     return self;
 }
@@ -49,7 +42,9 @@
     infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-5*2, self.view.bounds.size.height-44-10) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
-    [infoTableView setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:233.0/255.0 alpha:1.0]];
+    [infoTableView setBackgroundColor:[UIColor clearColor]];
+    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [infoTableView setDataSource:self];
     [infoTableView setDelegate:self];
     [self.view addSubview:infoTableView];
@@ -82,22 +77,18 @@
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"评价票"]) {
-        return 160;
-    } else if ([[newKeyWordsArray objectAtIndex:[indexPath section]] isEqualToString:@"打赏"]) {
-        return 100;
-    }
-    return 60;
+    GiftCell *cell = (GiftCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell height];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,9 +96,8 @@
     static NSString *reuseIdentifier = @"Cell";
     GiftCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier andIndexPath:indexPath];
+        cell = [[GiftCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier andIndexPath:indexPath andStyle:indexPath.row];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell setValue:newKeyWordsArray[indexPath.section]];
         [cell setDelegate:self];
     }
     return cell;
