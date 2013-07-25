@@ -30,7 +30,7 @@
         [nameLabel setTextAlignment:UITextAlignmentLeft];
         [self.contentView addSubview:nameLabel];
         
-        timeLabel = [[UILabel alloc] initWithFrame:nameLabel.frame];
+        timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, self.contentView.frame.size.width - 8, 20)];
         [timeLabel setTextAlignment:UITextAlignmentRight];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [timeLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
@@ -38,18 +38,18 @@
         [timeLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:timeLabel];
         
-        messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width-30-6, self.contentView.frame.size.height-20)];
+        messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width - 30 - 6, self.contentView.frame.size.height-20)];
         [messageLabel setFont:[UIFont systemFontOfSize:14]];
-        [messageLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [messageLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin];
         [messageLabel setTextColor:[UIColor bookStoreTxtColor]];
         [messageLabel setBackgroundColor:[UIColor clearColor]];
         [messageLabel setNumberOfLines:0];
         [messageLabel setLineBreakMode:NSLineBreakByCharWrapping];
         [self.contentView addSubview:messageLabel];
         
-        background = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 2, self.contentView.frame.size.width, 2)];
+        background = [[UILabel alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height - 2, self.contentView.frame.size.width + 20, 2)];
         [background setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [background setText:@"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"];
+        [background setText:@"------------------------------------------------------------------------------------------------------------------------"];
         [background setBackgroundColor:[UIColor clearColor]];
         [background setTextColor:[UIColor grayColor]];
         [self.contentView addSubview:background];
@@ -66,7 +66,8 @@
     [messageLabel setText:[[comment.content XXSYHandleRedundantTags] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
     [messageLabel sizeToFit];
     cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height + 15;
-    [background setFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame)-1 + 15, background.frame.size.width, 2)];
+    [background setFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 1 + 15, background.frame.size.width, 2)];
+    [background setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self setFrame:cellFrame];
 }
 

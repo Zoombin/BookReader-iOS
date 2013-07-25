@@ -36,7 +36,7 @@
 	_gridLayout.itemSize = CGSizeMake(70, 89);
 	_gridLayout.minimumInteritemSpacing = 11;
 	_gridLayout.minimumLineSpacing = 20;
-	_gridLayout.sectionInset = UIEdgeInsetsMake(10, 20, 0, 30);
+	_gridLayout.sectionInset = UIEdgeInsetsMake(10, 20, 0, 30);	
 	
     self = [super initWithFrame:frame collectionViewLayout:_gridLayout];
     if (self) {

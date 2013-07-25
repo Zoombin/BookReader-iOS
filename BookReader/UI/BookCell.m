@@ -116,8 +116,8 @@
 			[self.contentView addSubview:coverView];
 		}
 		
-        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
-        [dottedLine setText:@"-------------------------------------------------------------------------------------------------------------------------------------------"];
+        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 20, 2)];
+        [dottedLine setText:@"----------------------------------------------------------------------------------------------------------------------------------------------------------"];
         [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [dottedLine setBackgroundColor:[UIColor clearColor]];
         [dottedLine setTextColor:[UIColor grayColor]];

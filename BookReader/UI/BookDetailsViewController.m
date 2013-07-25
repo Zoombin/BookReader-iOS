@@ -208,7 +208,7 @@
     [super viewDidLoad];
     [self setTitle:book.name];
     CGSize fullSize = self.view.bounds.size;
-    CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width-10, self.view.bounds.size.height - 56 - 25);
+    CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width - 10, self.view.bounds.size.height - 56 - 25);
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
@@ -361,7 +361,7 @@
     [coverView addSubview:commentTitle];
     
     shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320) style:UITableViewStylePlain];
-    [shortInfoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [shortInfoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin];
     [shortInfoTableView setDelegate:self];
     [shortInfoTableView setDataSource:self];
     [shortInfoTableView setBackgroundColor:[UIColor clearColor]];
