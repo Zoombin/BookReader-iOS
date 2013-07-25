@@ -345,7 +345,9 @@
 
 - (void)initBackgroundView
 {
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-200, self.bounds.size.width, 200)];
+    float screenWidth = self.bounds.size.width;
+    float screenHeight = self.bounds.size.height;
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, screenHeight - (screenWidth > 320 ? 2.2 : 1) * 200, screenWidth, (screenWidth > 320 ? 2.2 : 1) * 200)];
     [backgroundView setHidden:YES];
     [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
     [backgroundView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
