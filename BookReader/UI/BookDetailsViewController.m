@@ -647,6 +647,8 @@
             commitField.text = @"";
             [self displayHUDError:nil message:message];
             [self loadCommitList];
+            [shortInfoArray removeAllObjects];
+            [self loadShortCommitList];
         }
     }];
 }
