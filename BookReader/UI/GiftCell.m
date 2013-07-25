@@ -104,6 +104,7 @@
             UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(sendBtnRect), self.bounds.size.width, 25)];
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentCenter];
+            [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"说明：每订阅消费满10月即可获赠1张月票，当月有效！"];
             [self.contentView addSubview:detailLabel];
