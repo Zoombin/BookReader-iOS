@@ -32,6 +32,7 @@
 #import "BookReader.h"
 #import "Mark.h"
 #import "ChapterCell.h"
+#import "SignInViewController.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -706,7 +707,8 @@
 - (BOOL)checkLogin
 {
     if (![ServiceManager userID]) {
-        [self displayHUDError:nil message:@"您尚未登录!"];
+//        [self displayHUDError:nil message:@"您尚未登录!"];
+        [self showLoginAlert];
         return NO;
     } else {
         return YES;
@@ -888,6 +890,22 @@
     
     // 返回新的改变大小后的图片
     return scaledImage;
+}
+
+- (void)showLoginAlert
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSLog(@"登录");
+        SignInViewController *svc = [[SignInViewController alloc] init];
+        svc.bMember = NO;
+        [self.navigationController pushViewController:svc animated:YES];
+    } 
 }
 
 @end

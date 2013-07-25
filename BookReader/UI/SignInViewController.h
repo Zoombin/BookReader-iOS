@@ -10,4 +10,5 @@
 #import "BRViewController.h"
 
 @interface SignInViewController : BRViewController
+@property (nonatomic, assign) BOOL bMember;
 @end

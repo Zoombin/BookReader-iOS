@@ -29,6 +29,14 @@
     UIButton *loginButton;
 }
 
+- (id)init {
+    self = [super init];
+    if (self != nil) {
+        self.bMember = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,13 +44,22 @@
     
     self.hideBackBtn = YES;
     CGSize fullSize = self.view.bounds.size;
-    BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [self.view addSubview:bookShelfButton];
     
-    UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
-    [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [self.view addSubview:registerButton];
+    
+    if (self.bMember) {
+        BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
+        [self.view addSubview:bookShelfButton];
+        
+        UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+        [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+        [self.view addSubview:registerButton];
+    } else {
+        UIButton  *backButton = [UIButton navigationBackButton];
+        [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [backButton setFrame:CGRectMake(10, 3, 50, 32)];
+        [self.view addSubview:backButton];
+    }
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width-10, self.view.bounds.size.height-56)];
     [backgroundView.layer setCornerRadius:5];
@@ -74,6 +91,11 @@
     [findButton setTitleColor:[UIColor colorWithRed:124.0/255.0 green:122.0/255.0 blue:114.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [findButton setTitle:@"密码忘记点这里" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
+}
+
+- (void)backButtonClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)valueChanged:(id)sender
@@ -110,7 +132,11 @@
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-                [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+                if (self.bMember) {
+                    [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+                } else {
+                    [self backButtonClicked];
+                }
             } else {
                 [self displayHUDError:nil message:message];
             }

@@ -22,9 +22,11 @@
 #import "NavViewController.h"
 #import "Mark.h"
 #import "NSString+ChineseSpace.h"
+#import "SignInViewController.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
+#define LOGIN_ALERT     1000
 
 @interface CoreTextViewController() <BookReadMenuViewDelegate,ChapterViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
 
@@ -525,7 +527,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)showCommitAlert
 {
     if ([ServiceManager userID] == nil) {
-        [self displayHUDError:nil message:@"您尚未登录!"];
+        [self showLoginAlert];
         return;
     }
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"    \n" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"发送", nil), nil];
@@ -564,7 +566,13 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [self sendCommitButtonClicked];
+        if (alertView.tag != LOGIN_ALERT) {
+            [self sendCommitButtonClicked];
+        } else {
+            SignInViewController *svc = [[SignInViewController alloc] init];
+            [svc setBMember:NO];
+            [self.navigationController pushViewController:svc animated:YES];
+        }
     }
 }
 
@@ -647,6 +655,13 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     
     return toInterfaceOrientation == UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+}
+
+- (void)showLoginAlert
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
+    [alertView setTag:LOGIN_ALERT];
+    [alertView show];
 }
 
 @end
