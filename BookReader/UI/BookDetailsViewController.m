@@ -211,7 +211,7 @@
     CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width-10, self.view.bounds.size.height - 56 - 25);
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [bookShelfButton setFrame:CGRectMake(260, 3, 50, 32)];
+    [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
     UIButton *mainButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMinX(bookShelfButton.frame) - 50 , 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
@@ -361,6 +361,7 @@
     [coverView addSubview:commentTitle];
     
     shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320) style:UITableViewStylePlain];
+    [shortInfoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [shortInfoTableView setDelegate:self];
     [shortInfoTableView setDataSource:self];
     [shortInfoTableView setBackgroundColor:[UIColor clearColor]];
@@ -377,6 +378,7 @@
     
     recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260) style:UITableViewStylePlain];
     [recommendTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [recommendTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [recommendTableView setBackgroundColor:[UIColor clearColor]];
     [recommendTableView setDelegate:self];
     [recommendTableView setDataSource:self];
@@ -386,6 +388,7 @@
     [infoTableView setDelegate:self];
     [infoTableView setDataSource:self];
     [infoTableView setBackgroundColor:[UIColor clearColor]];
+    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [commentView addSubview:infoTableView];
     
@@ -413,6 +416,7 @@
     chapterListTableView = [[UITableView alloc]initWithFrame:chapterListView.bounds style:UITableViewStylePlain];
     [chapterListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [chapterListTableView setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
+    [chapterListTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [chapterListTableView setDelegate:self];
     [chapterListTableView setDataSource:self];
     [chapterListView addSubview:chapterListTableView];
@@ -441,6 +445,7 @@
     authorBookTableView = [[UITableView alloc]initWithFrame:authorBookView.bounds style:UITableViewStylePlain];
     [authorBookTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [authorBookTableView setBackgroundColor:[UIColor clearColor]];
+    [authorBookTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [authorBookTableView setDelegate:self];
     [authorBookTableView setDataSource:self];
     [authorBookView addSubview:authorBookTableView];

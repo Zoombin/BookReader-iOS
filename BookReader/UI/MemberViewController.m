@@ -113,7 +113,7 @@
         [memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [self.view addSubview:memberTableView];
         
-        UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(260, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+        UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(self.view.bounds.size.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
         [logoutButton setTitle:@"注销" forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:logoutButton];

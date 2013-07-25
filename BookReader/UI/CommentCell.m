@@ -33,12 +33,14 @@
         timeLabel = [[UILabel alloc] initWithFrame:nameLabel.frame];
         [timeLabel setTextAlignment:UITextAlignmentRight];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
+        [timeLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
         [timeLabel setTextColor:[UIColor bookStoreTxtColor]];
         [timeLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:timeLabel];
         
         messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width-30-6, self.contentView.frame.size.height-20)];
         [messageLabel setFont:[UIFont systemFontOfSize:14]];
+        [messageLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [messageLabel setTextColor:[UIColor bookStoreTxtColor]];
         [messageLabel setBackgroundColor:[UIColor clearColor]];
         [messageLabel setNumberOfLines:0];
@@ -46,7 +48,8 @@
         [self.contentView addSubview:messageLabel];
         
         background = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 2, self.contentView.frame.size.width, 2)];
-        [background setText:@"-----------------------------------------------"];
+        [background setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [background setText:@"------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"];
         [background setBackgroundColor:[UIColor clearColor]];
         [background setTextColor:[UIColor grayColor]];
         [self.contentView addSubview:background];

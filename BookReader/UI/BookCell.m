@@ -69,6 +69,7 @@
 			nameFontSize = 18.0f;
 
              catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 50, 14, 6, 12)];
+            [catagoryImage setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self.contentView addSubview:catagoryImage];
         }
@@ -84,6 +85,9 @@
 		if (!CGRectEqualToRect(authorRect, CGRectZero)) {
 			authorLabel = [[UILabel alloc] initWithFrame:authorRect];
 			authorLabel.backgroundColor = [UIColor clearColor];
+            if (myStyle == BookCellStyleSmall) {
+                [authorLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+            }
 			authorLabel.font = [UIFont boldSystemFontOfSize:authorFontSize];
 			authorLabel.textColor = authorTextColor;
 			authorLabel.textAlignment = authorAlignment;
@@ -92,6 +96,7 @@
 		
 		if (!CGRectEqualToRect(describeRect, CGRectZero)) {
 			shortDescribeLabel = [[UILabel alloc] initWithFrame:describeRect];
+            [shortDescribeLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 			shortDescribeLabel.backgroundColor = [UIColor clearColor];
             shortDescribeLabel.lineBreakMode = UILineBreakModeWordWrap;
             shortDescribeLabel.numberOfLines = 0;
@@ -112,7 +117,8 @@
 		}
 		
         dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
-        [dottedLine setText:@"-----------------------------------------------"];
+        [dottedLine setText:@"-------------------------------------------------------------------------------------------------------------------------------------------"];
+        [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [dottedLine setBackgroundColor:[UIColor clearColor]];
         [dottedLine setTextColor:[UIColor grayColor]];
         [self.contentView addSubview:dottedLine];
