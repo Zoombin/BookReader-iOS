@@ -39,7 +39,7 @@
     [super viewDidLoad];
     [self removeGestureRecognizer];
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-35) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height-38-25) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
     [infoTableView.layer setCornerRadius:5];
     [infoTableView setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
@@ -70,16 +70,19 @@
     CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
 	[slider setTransform:rotation];
     
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 70, CGRectGetMaxY(infoTableView.frame), 65, 36);
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 65 , CGRectGetMaxY(infoTableView.frame), 65, 36);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 53, CGRectGetMaxY(infoTableView.frame), 48, 23);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 48 , CGRectGetMaxY(infoTableView.frame), 48, 23);
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
-    NSArray *btnNames = @[@"目录", @"书签"];
+    NSArray *imageNames = @[@"chapterlist_btn", @"bookmark_btn"];
+//    NSArray *btnNames = @[@"目录", @"书签"];
     
     for (int i = 0; i < 2; i++) {
-        UIButton *button = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[i]) andStyle:BookReaderButtonStyleNormal];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectFromString(rectStrings[i])];
+        [button setBackgroundImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
         [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
-        [button setTitle:btnNames[i] forState:UIControlStateNormal];
+//        [button setTitle:btnNames[i] forState:UIControlStateNormal];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         if (i==0) {
