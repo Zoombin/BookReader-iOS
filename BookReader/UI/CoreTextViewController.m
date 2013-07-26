@@ -319,8 +319,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         Chapter *aChapter = [chapter next];
         if (aChapter) {
             Chapter *aChapterNext = [aChapter next];
-            [self displayHUDError:@"" message:aChapterNext ? aChapterNext.name : @"此章节是最后一章"];
             [self gotoChapter:[chapter next] withReadIndex:nil];
+            [self displayHUDError:@"" message:aChapterNext ? aChapterNext.name : @"此章节是最后一章"];
         } else {
             [self displayHUDError:@"" message:@"此章是最后一章"];
         }
@@ -506,8 +506,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	pageCurlType = nil;
     Chapter *nextNextChapter = [aChapter next];
-    [self displayHUDError:@"" message:nextNextChapter ? nextNextChapter.name : @"此章是最后一章"];
 	[self gotoChapter:aChapter withReadIndex:nil];
+    [self displayHUDError:@"" message:nextNextChapter ? nextNextChapter.name : @"此章是最后一章"];
 }
 
 #pragma mark -
