@@ -284,10 +284,8 @@ static NSNumber *sUserID;
 + (void)payWithType:(NSString *)payType
           withBlock:(void (^)(NSString *message, NSError *error))block
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
 	static const NSString *iOSFlag = @"40";
-    NSString *paymentCode = [NSString stringWithFormat:@"%@_%@_%@",[dateFormatter stringFromDate:[NSDate date]],[self userID], iOSFlag];//潇湘书院的订单号
+    NSString *paymentCode = [NSString stringWithFormat:@"%@_%@_%@",[self getCurrentTimeWithFormatter:@"yyyyMMddHHmmss"],[self userID], iOSFlag];//潇湘书院的订单号
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"mount" : payType}, @{@"orderid" : paymentCode}]];
     [[ServiceManager shared] postPath:@"UserPay.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSString *postsFromResponse = [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding];
@@ -437,9 +435,7 @@ static NSNumber *sUserID;
     parameters[@"index"] = @"1";
     parameters[@"size"] = @"2000";
     parameters[@"auto"] = @"1";
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-	parameters[@"nextupdatetime"] = [dateFormatter stringFromDate:[NSDate date]];
+	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:@"yyyy-MM-dd HH:mm"];
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
@@ -686,9 +682,7 @@ static NSNumber *sUserID;
 
 + (void)systemConfigsWithBlock:(void (^)(BOOL success, NSError *error, NSString *autoUpdateDelay,NSString *decodeKey,NSString *keepUpdateDelay))block
 {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyyMMdd"];
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"yyyyMMdd" : [dateFormatter stringFromDate:[NSDate date]]}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"yyyyMMdd" : [self getCurrentTimeWithFormatter:@"yyyyMMdd"]}]];
     [parameters removeObjectForKey:@"yyyyMMdd"];
     [[ServiceManager shared] postPath:@"GetConfigs.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
@@ -710,9 +704,7 @@ static NSNumber *sUserID;
 
 + (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
-    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,channel,@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,channel,@"921abacd49a8d1b891ac0870665e61a5",[self getCurrentTimeWithFormatter:@"yyyyMMdd"]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : channel,@"username" :name,@"sign" : [signString md532],@"mobile" :num};
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
             if (block) block(@"",nil);
@@ -723,9 +715,7 @@ static NSNumber *sUserID;
 
 + (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
-    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[dateFormatter stringFromDate:[NSDate date]]];
+    NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[self getCurrentTimeWithFormatter:@"yyyyMMdd"]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : @"5",@"username" :name,@"sign" : [signString md532], @"cardNo" : cardNum, @"cardPassword" :password};
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         if (block) block(@"",nil);
@@ -787,6 +777,13 @@ static NSNumber *sUserID;
         ipAddress = [[NSString alloc] initWithFormat:@"%s",ip];
     }
     return ipAddress;
+}
+
++ (NSString *)getCurrentTimeWithFormatter:(NSString *)formatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:formatter];
+    return [dateFormatter stringFromDate:[NSDate date]];
 }
 
 @end
