@@ -205,7 +205,7 @@
         [button setTitle:catagoryNames[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setBackgroundColor:backGroundColor];
-        [button setFrame:CGRectMake(10+(130+offSet) *(i%2 ==0 ? 0 :1), 30+ 51 *k, 130, 50)];
+        [button setFrame:CGRectMake(10 + (130 + offSet) *(i%2 ==0 ? 0 :1), 30+ 51 *k, 130, 50)];
         [button setTag:i];
         [button addTarget:self action:@selector(loadCatagoryDataWithIndex:) forControlEvents:UIControlEventTouchUpInside];
         [catagoryView addSubview:button];
