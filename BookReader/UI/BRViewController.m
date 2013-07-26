@@ -23,7 +23,7 @@
     [super viewDidLoad];
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
     CGSize fullSize = self.view.bounds.size;
-    UIView *bkgWhite = [[UIView alloc] initWithFrame:CGRectMake(5, 0, fullSize.width - 10, fullSize.height - 44 - 10)];
+    UIView *bkgWhite = [[UIView alloc] initWithFrame:CGRectMake(5, 0, fullSize.width - 10, fullSize.height - 44)];
     [bkgWhite.layer setCornerRadius:4];
     [bkgWhite.layer setMasksToBounds:YES];
     [bkgWhite setBackgroundColor:[UIColor whiteColor]];
