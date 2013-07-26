@@ -442,8 +442,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			NSLog(@"begin sync");
 		} else {
 			[self displayHUD:@"开始自动更新..."];
-			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:3];
-			[self displayHUDError:@"" message:@"开始更新..."];
+			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
 			NSLog(@"already syncing");
 		}
     }
