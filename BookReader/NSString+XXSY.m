@@ -18,7 +18,7 @@
 
 - (NSString *)XXSYDecodingRelatedVIP:(BOOL)vip
 {
-	return [self XXSYDecodingWithKey:[ServiceManager XXSYDecodingKeyRelatedUserID:vip]];
+	return [self XXSYDecodingWithKey:@"04B6A5985B70DC641B0E98C0F8B221A60"];
 }
 
 - (NSString *)XXSYDecodingWithKey:(NSString *)key

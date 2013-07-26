@@ -116,18 +116,6 @@ static NSNumber *sUserID;
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-static NSString *xxsyDecodingKey = @"04B6A5985B70DC641B0E98C0F8B221A6";
-
-+ (NSString *)XXSYDecodingKeyRelatedUserID:(BOOL)related
-{
-	NSNumber *relatedPart = @0;
-//    [self userID] ? [self userID] : @0;
-//	if (!related) {
-//		relatedPart = @0;
-//	}
-	return [NSString stringWithFormat:@"%@%@", xxsyDecodingKey, relatedPart];
-}
-
 //获取随机Key和check
 + (NSDictionary *)randomCode
 {
