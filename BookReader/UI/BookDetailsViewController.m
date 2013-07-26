@@ -274,7 +274,7 @@
     commentButton = headerBtns[2];
     authorButton = headerBtns[3];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, 76, fullSize.width - 20, 1)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(10, 75, fullSize.width - 20, 1)];
     [line setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:line];
     
