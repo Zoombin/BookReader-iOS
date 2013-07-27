@@ -38,7 +38,6 @@
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
 		181091D517339104000931AB /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D417339104000931AB /* PasswordViewController.m */; };
 		181091D817348C8B000931AB /* BookReaderDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D717348C8B000931AB /* BookReaderDefaultsManager.m */; };
-		181091DB17350289000931AB /* read_sheep_paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 181091DA17350289000931AB /* read_sheep_paper.png */; };
 		181091E1173895EE000931AB /* ReadHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E0173895EC000931AB /* ReadHelpView.m */; };
 		181091E7173A40EA000931AB /* UILabel+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E6173A40EA000931AB /* UILabel+BookReader.m */; };
 		181091EA173A49F0000931AB /* UIButton+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E9173A49F0000931AB /* UIButton+BookReader.m */; };
@@ -355,7 +354,6 @@
 		181091D417339104000931AB /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		181091D617348C8B000931AB /* BookReaderDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookReaderDefaultsManager.h; path = Manager/BookReaderDefaultsManager.h; sourceTree = "<group>"; };
 		181091D717348C8B000931AB /* BookReaderDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookReaderDefaultsManager.m; path = Manager/BookReaderDefaultsManager.m; sourceTree = "<group>"; };
-		181091DA17350289000931AB /* read_sheep_paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_sheep_paper.png; sourceTree = "<group>"; };
 		181091DC17374B78000931AB /* BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookReader.h; path = UI/BookReader.h; sourceTree = "<group>"; };
 		181091DF173895EA000931AB /* ReadHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadHelpView.h; sourceTree = "<group>"; };
 		181091E0173895EC000931AB /* ReadHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadHelpView.m; sourceTree = "<group>"; };
@@ -839,7 +837,6 @@
 				18A0C696174B24C8003FC599 /* read_chapterlist.png */,
 				18A0C697174B24C8003FC599 /* read_font.png */,
 				18A0C693174B1D1C003FC599 /* read_bar.png */,
-				181091DA17350289000931AB /* read_sheep_paper.png */,
 			);
 			path = Read;
 			sourceTree = "<group>";
@@ -1521,7 +1518,6 @@
 				77A2D63717180DBE009F2B9F /* test_book.txt in Resources */,
 				18FC1AC81720C00700A043C9 /* FZLTHJW.ttf in Resources */,
 				77A1DF791730DF9F002BE306 /* HowTo.md in Resources */,
-				181091DB17350289000931AB /* read_sheep_paper.png in Resources */,
 				18EDD0DF1741DFE300915372 /* comment.png in Resources */,
 				18EDD0E01741DFE300915372 /* demand.png in Resources */,
 				18EDD0E11741DFE300915372 /* flower.png in Resources */,
