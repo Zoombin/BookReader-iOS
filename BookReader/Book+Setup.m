@@ -80,11 +80,11 @@
 - (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Book *persist = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
-		if (!persist) {
-			persist = [Book createInContext:localContext];
+		Book *book = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (!book) {
+			book = [Book createInContext:localContext];
 		}
-		[self clone:persist];
+		[self clone:book];
 	} completion:^(BOOL success, NSError *error) {
 		if (block) block();
 	}];
@@ -94,11 +94,11 @@
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[array enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-			Book *persist = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
-			if (!persist) {
-				persist = [Book createInContext:localContext];
+			Book *book = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+			if (!book) {
+				book = [Book createInContext:localContext];
 			}
-			[book clone:persist];
+			[book clone:book];
 		}];
 	} completion:^(BOOL success, NSError *error) {
 		if (block) block();
@@ -148,9 +148,9 @@
 - (void)truncate
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Book *persist = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
-		if (persist) {
-			[persist deleteInContext:localContext];
+		Book *book = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (book) {
+			[book deleteInContext:localContext];
 		}
 	}];
 }

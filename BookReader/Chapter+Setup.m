@@ -43,11 +43,11 @@
 - (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
-		if (!persist) {
-			persist = [Chapter createInContext:localContext];
+		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (!chapter) {
+			chapter = [Chapter createInContext:localContext];
 		}
-		[self clone:persist];
+		[self clone:chapter];
 	} completion:^(BOOL success, NSError *error) {
 		if (block) block();
 	}];
@@ -57,11 +57,11 @@
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[array enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-			Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
-			if (!persist) {
-				persist = [Chapter createInContext:localContext];
+			Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+			if (!chapter) {
+				chapter = [Chapter createInContext:localContext];
 			}
-			[chapter clone:persist];
+			[chapter clone:chapter];
 		}];
 	} completion:^(BOOL success, NSError *error) {
 			if (block) block();
@@ -90,9 +90,9 @@
 - (void)truncate
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Chapter *persist = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
-		if (persist) {
-			[persist deleteInContext:localContext];
+		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		if (chapter) {
+			[chapter deleteInContext:localContext];
 		}
 	}];
 }
