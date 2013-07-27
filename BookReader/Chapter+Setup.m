@@ -56,12 +56,12 @@
 + (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		[array enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-			Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+		[array enumerateObjectsUsingBlock:^(Chapter *c, NSUInteger idx, BOOL *stop) {
+			Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:c.uid inContext:localContext];
 			if (!chapter) {
 				chapter = [Chapter createInContext:localContext];
 			}
-			[chapter clone:chapter];
+			[c clone:chapter];
 		}];
 	} completion:^(BOOL success, NSError *error) {
 			if (block) block();

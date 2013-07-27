@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MobClick.h"
 #import "BookShelfViewController.h"
 #import "BookStoreViewController.h"
 #import "MemberViewController.h"
