@@ -16,16 +16,10 @@
 	return [self stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
 }
 
-- (NSString *)XXSYDecodingRelatedVIP:(BOOL)vip
+- (NSString *)XXSYDecoding
 {
-	return [self XXSYDecodingWithKey:@"04B6A5985B70DC641B0E98C0F8B221A60"];
-}
-
-- (NSString *)XXSYDecodingWithKey:(NSString *)key
-{
-//    NSLog(@"--Start--");
+    NSString *key = @"04B6A5985B70DC641B0E98C0F8B221A60";
     const char *userkey = [[self class] newDictKey:key];
-//    NSLog(@"key = %@, userKey = %s", key, userkey);
     NSInteger length = [self length];
 	char deBuffer[length*2];
     NSInteger count = 0;

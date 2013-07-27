@@ -80,6 +80,7 @@
             UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 25)];
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
+            [detailLabel setFont:[UIFont systemFontOfSize:14]];
             [detailLabel setTextColor:[UIColor grayColor]];
             [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
@@ -95,6 +96,7 @@
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
             [detailLabel setTextColor:[UIColor grayColor]];
+            [detailLabel setFont:[UIFont systemFontOfSize:14]];
             [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"说明：每赠送一朵鲜花消费100潇湘币。"];
@@ -109,6 +111,7 @@
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
             [detailLabel setTextColor:[UIColor grayColor]];
+            [detailLabel setFont:[UIFont systemFontOfSize:14]];
             [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"说明：每订阅消费满10月即可获赠1张月票，当月有效！"];
@@ -208,13 +211,12 @@
         if (!CGRectEqualToRect(numTextFieldRect, CGRectZero)) {
             numberTextField = [[UITextField alloc]initWithFrame:numTextFieldRect];
             [numberTextField setText:@"1"];
+            [numberTextField setTextColor:[UIColor grayColor]];
             [numberTextField setDelegate:self];
-            [numberTextField.layer setBorderWidth:.5];
             [numberTextField setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
-            [numberTextField.layer setBorderColor:[UIColor grayColor].CGColor];
             [numberTextField setTextAlignment:NSTextAlignmentCenter];
             [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
-            [numberTextField setBackgroundColor:[UIColor whiteColor]];
+            [numberTextField setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
             [self.contentView addSubview:numberTextField];
         }
         

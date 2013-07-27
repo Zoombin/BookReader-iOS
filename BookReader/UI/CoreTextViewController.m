@@ -151,7 +151,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         
         NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
 		pageCurlType = nil;
+        Chapter *nextNextChapter = [aChapter next];
         [self gotoChapter:aChapter withReadIndex:nil];
+        [self displayHUDError:@"" message:nextNextChapter ? nextNextChapter.name : @"此章是最后一章"];
+
     }
     if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
         isLandscape = !isLandscape;
@@ -344,7 +347,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	if (aChapter.content) {
 		chapter = aChapter;
-		currentChapterString = [chapter.content XXSYDecodingRelatedVIP:chapter.bVip.boolValue];
+		currentChapterString = [chapter.content XXSYDecoding];
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			_book.lastReadChapterID = chapter.uid;
 			_book.updateDate = [NSDate date];

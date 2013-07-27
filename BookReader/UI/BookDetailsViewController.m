@@ -535,6 +535,7 @@
         [ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 			[self hideHUD:YES];
             if (!error) {
+                NSLog(@"%@",nextUpdateTime);
                 chapterArray = [resultArray mutableCopy];
                 [chapterListTableView reloadData];
                 if (block) block();
