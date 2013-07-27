@@ -32,7 +32,7 @@
 + (Member *)userInfo;
 + (void)deleteUserID;
 + (void)deleteUserInfo;
-+ (NSString *)XXSYDecodingKeyRelatedUserID:(BOOL)related;
+
 #pragma mark - 用户接口
 //短信获取验证码
 + (void)verifyCodeByPhoneNumber:(NSString *)phoneNumber
