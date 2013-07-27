@@ -442,7 +442,10 @@ static NSNumber *sUserID;
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
 			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
         }
-        NSDate *nextUpdateTime = theObject[@"nextUpdateTime"];
+		NSString *nextUpdateTimeString = theObject[@"nextUpdateTime"];//@"2999-12-31 11:59";
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject[@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
         }
