@@ -576,7 +576,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         if (alertView.tag != LOGIN_ALERT) {
             [self sendCommitButtonClicked];
         } else {
-            loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 100, 280, 220)];
+            loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 50, 280, 220)];
             [loginView setDelegate:self];
             [self.view addSubview:loginView];
         }
@@ -666,9 +666,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showLoginAlert
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-    [alertView setTag:LOGIN_ALERT];
-    [alertView show];
+    loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 50, 280, 220)];
+    [loginView setDelegate:self];
+    [self.view addSubview:loginView];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
+//    [alertView setTag:LOGIN_ALERT];
+//    [alertView show];
 }
 
 - (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password

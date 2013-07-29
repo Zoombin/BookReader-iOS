@@ -49,7 +49,7 @@
         [self addSubview:bottombkg];
         
         CGFloat offSetX = 30;
-        CGFloat offSetY = 20;
+        CGFloat offSetY = 15;
         CGFloat btnWidth = (bottombkg.frame.size.width - offSetX * 3) / 2;
         CGFloat btnHeight = (bottombkg.frame.size.height - offSetY * 2);
         
