@@ -477,7 +477,7 @@ static NSNumber *sUserID;
 				NSDictionary *chapterData = theObject[@"chapter"];
 				block(YES, nil, theObject[@"error"], chapterData[@"content"], [chapterData[@"prevId"] stringValue], [chapterData[@"nextId"] stringValue]);
             } else {
-                block(NO, nil, theObject[@"error"], @"", nil, nil);
+                block(NO, nil, theObject[@"error"], nil, nil, nil);
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -490,7 +490,7 @@ static NSNumber *sUserID;
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
                                  book:(NSString *)bookid
                                author:(NSNumber *)authorid
-                            withBlock:(void (^)(BOOL success, NSError *error, NSString *content, NSString *message))block
+                            withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid.stringValue}, @{@"price" : @"0"}]];//price is useless, XXSY need update this api
 	parameters[@"noctx"] = @"0";
@@ -500,14 +500,14 @@ static NSNumber *sUserID;
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
             if ([theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
-                block(YES, nil, theObject[@"chapter"][@"content"], theObject[@"error"]);
+                block(YES, nil, theObject[@"error"], theObject[@"chapter"][@"content"], [theObject[@"chapter"][@"prevId"] stringValue], [theObject[@"chapter"][@"nextId"] stringValue]);
             }else {
-                block(NO, nil, @"", theObject[@"error"]);
+                block(NO, nil, theObject[@"error"], nil, nil, nil);
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil, nil);
+            block(nil, error, nil, nil, nil, nil);
         }
     }];
 }

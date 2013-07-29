@@ -342,9 +342,17 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	//[self displayHUD:@"检查自动更新中..."];
 	syncing = YES;
 	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-		if (content && ![content isEqualToString:@""]) {
+		if (content) {
 			chapter.content = content;
-			[chapter persistWithBlock:^(void) {
+			chapter.previousID = previousID;
+			chapter.nextID = nextID;
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				Chapter *ch = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", chapter.uid] inContext:localContext];
+				if (ch) {
+					ch.content = content;
+					ch.previousID = previousID;
+					ch.nextID = nextID;
+				}
 				[chapters removeObject:chapter];
 				[self syncChaptersContent];
 			}];
@@ -367,10 +375,18 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	Chapter *chapter = chapters[0];
 	//[self displayHUD:@"自动更新中..."];
 	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
-	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(BOOL success, NSError *error, NSString *content, NSString *message) {
-		if (content && ![content isEqualToString:@""]) {
+	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
+		if (content) {
 			chapter.content = content;
-			[chapter persistWithBlock:^(void) {
+			chapter.previousID = previousID;
+			chapter.nextID = nextID;
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				Chapter *ch = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", chapter.uid] inContext:localContext];
+				if (ch) {
+					ch.content = content;
+					ch.previousID = previousID;
+					ch.nextID = nextID;
+				}
 				[chapters removeObject:chapter];
 				[self syncAutoSubscribe];
 			}];

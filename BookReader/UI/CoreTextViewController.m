@@ -370,12 +370,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 					aChapter.nextID = nextID;
 				}];
 			} else {//没下载到，尝试订阅
-				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^( BOOL success, NSError *error, NSString *content, NSString *message) {
+				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
 					if (content && ![content isEqualToString:@""]) {
 						chapter.content = content;
 						[self gotoChapter:aChapter withReadIndex:nil];
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 							aChapter.content = content;
+							aChapter.previousID = previousID;
+							aChapter.nextID = nextID;
 						}];
 					} else {
                         NSLog(@"%@",message);

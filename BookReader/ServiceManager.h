@@ -128,9 +128,9 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
 
 //章节订阅
 + (void)chapterSubscribeWithChapterID:(NSString *)chapterid
-                  book:(NSString *)bookid
-                author:(NSNumber *)authorid
-            withBlock:(void(^)(BOOL success, NSError *error, NSString *content, NSString *message))block; //内容 提示语 提示code
+								book:(NSString *)bookid
+							   author:(NSNumber *)authorid
+							withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block;
 
 //获取数据信息，用户收藏的书籍
 + (void)userBooksWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray))block;
