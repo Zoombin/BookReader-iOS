@@ -876,6 +876,62 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		1888A3A216FFE8050046DA4C /* ServiceManager */ = {
+			isa = PBXGroup;
+			children = (
+				18A0C6AB174C7F4C003FC599 /* Reachability.h */,
+				18A0C6AC174C7F4C003FC599 /* Reachability.m */,
+				1888A3A316FFE8420046DA4C /* ServiceManager.h */,
+				1888A3A416FFE8420046DA4C /* ServiceManager.m */,
+			);
+			name = ServiceManager;
+			sourceTree = "<group>";
+		};
+		188FE62916F95854009561CB /* RemoteMode */ = {
+			isa = PBXGroup;
+			children = (
+				188FD8C2178BA90200EFF360 /* BookMarkCell.h */,
+				188FD8C3178BA90200EFF360 /* BookMarkCell.m */,
+				188FD8BA17891C6E00EFF360 /* ChapterCell.h */,
+				188FD8BB17891C6E00EFF360 /* ChapterCell.m */,
+				183CE5241783DD4800976DFB /* ChaptersViewController.h */,
+				183CE5251783DD4800976DFB /* ChaptersViewController.m */,
+				18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */,
+				18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */,
+				77EB59741702B8EA004E2C00 /* BookShelfButton.h */,
+				77EB59751702B8EA004E2C00 /* BookShelfButton.m */,
+				1888A39C16FD65960046DA4C /* BookStoreViewController.h */,
+				1888A39D16FD65960046DA4C /* BookStoreViewController.m */,
+				1888A39F16FD66520046DA4C /* MemberViewController.h */,
+				1888A3A016FD66520046DA4C /* MemberViewController.m */,
+				1888A3DF1702DE440046DA4C /* BookDetailsViewController.h */,
+				1888A3E01702DE450046DA4C /* BookDetailsViewController.m */,
+				18089E4C171E3A6800BCB50E /* GiftViewController.h */,
+				18089E4D171E3A6900BCB50E /* GiftViewController.m */,
+				180318F0172CDDE200733C58 /* GiftCell.h */,
+				180318F1172CDDE200733C58 /* GiftCell.m */,
+				186292F917325C5300777357 /* SignInViewController.h */,
+				186292FA17325C5300777357 /* SignInViewController.m */,
+				77E039FC173BE7260036614C /* SignUpViewController.h */,
+				77E039FD173BE7260036614C /* SignUpViewController.m */,
+				181091D317339104000931AB /* PasswordViewController.h */,
+				181091D417339104000931AB /* PasswordViewController.m */,
+				18A0C6AE174CA041003FC599 /* CommentCell.h */,
+				18A0C6AF174CA042003FC599 /* CommentCell.m */,
+				18A0C6B1174DEDA7003FC599 /* BRViewController.h */,
+				18A0C6B2174DEDA9003FC599 /* BRViewController.m */,
+				18A0C6B4174DF1DA003FC599 /* BRHeaderView.h */,
+				18A0C6B5174DF1DD003FC599 /* BRHeaderView.m */,
+				188FD8BF178AA7A700EFF360 /* LoginReminderView.h */,
+				188FD8C0178AA7A700EFF360 /* LoginReminderView.m */,
+				184862FC1796535400282A6A /* NotificationView.h */,
+				184862FD1796535400282A6A /* NotificationView.m */,
+				18C12BBB17A61A6D00206E93 /* LoginView.h */,
+				18C12BBC17A61A6E00206E93 /* LoginView.m */,
+			);
+			name = RemoteMode;
+			sourceTree = "<group>";
+		};
 		188FE63616F9A069009561CB /* Remote */ = {
 			isa = PBXGroup;
 			children = (
