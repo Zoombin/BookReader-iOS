@@ -55,6 +55,7 @@ static NSNumber *sUserID;
 	sUserID = userID;
     [[NSUserDefaults standardUserDefaults] setObject:sUserID forKey:USER_ID];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+	NSLog(@"save userID: %@", userID);
 }
 
 + (NSNumber *)userID

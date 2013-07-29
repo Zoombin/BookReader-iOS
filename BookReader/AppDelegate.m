@@ -29,16 +29,23 @@
 
 - (void)testApis
 {
-
+//	[ServiceManager paymentHistoryWithPageIndex:@"1" andCount:@"10" withBlock:^(NSArray *resultArray, BOOL success, NSError *error) {
+//		
+//	}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	//TOTEST
-     [self testApis];
+	
+//	[ServiceManager saveUserID:@(2797792)];//曹正华
 //	[ServiceManager saveUserID:@(5639339)];//yanchao
 //	[ServiceManager saveUserID:@(4216157)];//zhangbin
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
+	
+//	[self testApis];
+	
+	
     [ServiceManager recommandDefaultBookwithBlock:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 	[[NSUserDefaults standardUserDefaults] synchronize];
