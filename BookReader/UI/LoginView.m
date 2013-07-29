@@ -22,7 +22,7 @@
     if (self) {
         CGFloat width = frame.size.width;
         CGFloat height = frame.size.height;
-        self.backgroundColor = [UIColor colorWithRed:158.0/255.0 green:70.0/255.0 blue:30.0/255.0 alpha:1.0];
+        self.backgroundColor = [UIColor colorWithRed:175.0/255.0 green:88.0/255.0 blue:42.0/255.0 alpha:1.0];
         UILabel *titleLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 50)];
         [titleLable setText:@"登  录"];
         [titleLable setFont:[UIFont systemFontOfSize:20]];
