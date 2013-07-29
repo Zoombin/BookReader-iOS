@@ -25,7 +25,6 @@
 #import "BookReaderDefaultsManager.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
-#import "Reachability.h"
 #import "BookReader.h"
 #import "BRHeaderView.h"
 
@@ -45,7 +44,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	BRBooksView *booksView;
 	BOOL editing;
 	NSMutableArray *needRemoveFavoriteBooks;
-	UIAlertView *wifiAlert;
 	UIAlertView *favAndAutoBuyAlert;
 	BOOL syncing;
 	NSMutableArray *booksStandViews;
@@ -263,14 +261,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			return;
 		}
 		NSLog(@"find %d chapters need download content", chapters.count);
-		if([Reachability reachabilityWithHostName:@"server"].currentReachabilityStatus == ReachableViaWiFi) {
-			NSLog(@"WIFI");
-			[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
-		} else {
-			NSLog(@"其他网络");
-			wifiAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"当前使用的不是WiFi网络，更新章节内容将消耗较多的流量，是否更新？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"更新", nil];
-			[wifiAlert show];
-		}
+		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
 		return;
 	}
 	Book *book = books[0];
@@ -455,9 +446,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (alertView == wifiAlert && buttonIndex != alertView.cancelButtonIndex) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
-	} else if (alertView == favAndAutoBuyAlert && buttonIndex != alertView.cancelButtonIndex) {
+	if (alertView == favAndAutoBuyAlert && buttonIndex != alertView.cancelButtonIndex) {
 		if (needFavAndAutoBuyBookCell) {
 			[self displayHUD:@"收藏并开启自动更新..."];
 			[ServiceManager addFavoriteWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {

@@ -150,7 +150,6 @@
 		18A0C6A2174B3CF1003FC599 /* read_bar_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A1174B3CF1003FC599 /* read_bar_top.png */; };
 		18A0C6A7174B649C003FC599 /* read_light_increase.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A3174B649C003FC599 /* read_light_increase.png */; };
 		18A0C6A8174B649C003FC599 /* read_light_reduce.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6A4174B649C003FC599 /* read_light_reduce.png */; };
-		18A0C6AD174C7F4C003FC599 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C6AC174C7F4C003FC599 /* Reachability.m */; };
 		18A0C6B0174CA043003FC599 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C6AF174CA042003FC599 /* CommentCell.m */; };
 		18A0C6B3174DEDAB003FC599 /* BRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C6B2174DEDA9003FC599 /* BRViewController.m */; };
 		18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C6B5174DF1DD003FC599 /* BRHeaderView.m */; };
@@ -488,8 +487,6 @@
 		18A0C6A1174B3CF1003FC599 /* read_bar_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_bar_top.png; sourceTree = "<group>"; };
 		18A0C6A3174B649C003FC599 /* read_light_increase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_light_increase.png; sourceTree = "<group>"; };
 		18A0C6A4174B649C003FC599 /* read_light_reduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_light_reduce.png; sourceTree = "<group>"; };
-		18A0C6AB174C7F4C003FC599 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		18A0C6AC174C7F4C003FC599 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		18A0C6AE174CA041003FC599 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentCell.h; path = UI/CommentCell.h; sourceTree = "<group>"; };
 		18A0C6AF174CA042003FC599 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentCell.m; path = UI/CommentCell.m; sourceTree = "<group>"; };
 		18A0C6B1174DEDA7003FC599 /* BRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRViewController.h; sourceTree = "<group>"; };
@@ -1365,8 +1362,6 @@
 				181091DC17374B78000931AB /* BookReader.h */,
 				8BDB0AC4165E03BB008F328A /* AppDelegate.h */,
 				8BDB0AC5165E03BB008F328A /* AppDelegate.m */,
-				18A0C6AB174C7F4C003FC599 /* Reachability.h */,
-				18A0C6AC174C7F4C003FC599 /* Reachability.m */,
 				1888A3A316FFE8420046DA4C /* ServiceManager.h */,
 				1888A3A416FFE8420046DA4C /* ServiceManager.m */,
 				181091D617348C8B000931AB /* BookReaderDefaultsManager.h */,
@@ -1787,7 +1782,6 @@
 				779C67261744652500909D6A /* Chapter.m in Sources */,
 				779C672C17446DCD00909D6A /* ContextManager.m in Sources */,
 				77E3E2F7174B6E6100FCCD91 /* UIColor+Hex.m in Sources */,
-				18A0C6AD174C7F4C003FC599 /* Reachability.m in Sources */,
 				18A0C6B0174CA043003FC599 /* CommentCell.m in Sources */,
 				18A0C6B3174DEDAB003FC599 /* BRViewController.m in Sources */,
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
