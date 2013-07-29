@@ -23,9 +23,9 @@
 {
     [super viewDidLoad];
 	
-	CGFloat delta = [UIApplication sharedApplication].statusBarHidden ? 0 : -20;
+	CGFloat delta = [UIApplication sharedApplication].statusBarHidden ? 0 : 20;
 	
-	self.view.frame = CGRectMake(0, delta, self.view.frame.size.width, self.view.frame.size.height + delta);
+	self.view.frame = CGRectMake(0, 0 - delta, self.view.frame.size.width, self.view.frame.size.height + delta);
 	self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
 	
 	CGRect frame = CGRectMake(20, 40, 280, 200);
