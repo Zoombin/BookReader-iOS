@@ -33,7 +33,6 @@
 #import "Mark.h"
 #import "ChapterCell.h"
 #import "SignInViewController.h"
-#import "LoginView.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -103,7 +102,7 @@
     UILabel *emptyLabel;
     
     UISlider *slider;
-    LoginView *loginView;
+    LoginViewController *loginView;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -900,22 +899,12 @@
 
 - (void)showLoginAlert
 {
-    loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 50, 280, 220)];
+    loginView = [[LoginViewController alloc] init];
+    [loginView.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     [loginView setDelegate:self];
-    [self.view addSubview:loginView];
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-//    [alertView show];
+    [self.view addSubview:loginView.view];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        NSLog(@"登录");
-         loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 50, 280, 220)];
-        [loginView setDelegate:self];
-        [self.view addSubview:loginView];
-    }
-}
 
 - (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password
 {
@@ -932,7 +921,7 @@
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-                [loginView removeFromSuperview];
+                [loginView.view removeFromSuperview];
             } else {
                 [self displayHUDError:nil message:message];
             }

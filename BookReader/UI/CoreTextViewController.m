@@ -23,7 +23,6 @@
 #import "Mark.h"
 #import "NSString+ChineseSpace.h"
 #import "SignInViewController.h"
-#import "LoginView.h"
 #import "BookReader.h"
 
 static NSString *kPageCurl = @"pageCurl";
@@ -54,7 +53,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     UIView *backgroundView;
 	NSString *pageCurlType;
     
-    LoginView *loginView;
+    LoginViewController *loginView;
 }
 
 - (void)shareButtonClicked
@@ -576,9 +575,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         if (alertView.tag != LOGIN_ALERT) {
             [self sendCommitButtonClicked];
         } else {
-            loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 50, 280, 220)];
+            loginView = [[LoginViewController alloc] init];
             [loginView setDelegate:self];
-            [self.view addSubview:loginView];
+            [self.view addSubview:loginView.view];
         }
     }
 }
@@ -666,12 +665,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showLoginAlert
 {
-    loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 50, 280, 220)];
+    loginView = [[LoginViewController alloc] init];
+    [loginView.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     [loginView setDelegate:self];
-    [self.view addSubview:loginView];
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-//    [alertView setTag:LOGIN_ALERT];
-//    [alertView show];
+    [self.view addSubview:loginView.view];
 }
 
 - (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password
@@ -689,7 +686,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-                [loginView removeFromSuperview];
+                [loginView.view removeFromSuperview];
             } else {
                 [self displayHUDError:nil message:message];
             }

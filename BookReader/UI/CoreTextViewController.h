@@ -10,7 +10,7 @@
 #import "BookReadMenuView.h"
 #import <MessageUI/MessageUI.h>
 #import "ChaptersViewController.h"
-#import "LoginView.h"
+#import "LoginViewController.h"
 
 @class Book;
 @class Chapter; 

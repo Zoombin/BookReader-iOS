@@ -1,5 +1,5 @@
 //
-//  LoginView.h
+//  LoginViewController.h
 //  BookReader
 //
 //  Created by 颜超 on 13-7-29.
@@ -13,7 +13,7 @@
 - (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password;
 @end
 
-@interface LoginView : UIView
+@interface LoginViewController : UIViewController
 
 @property (nonatomic ,weak) id<LoginDelegate> delegate;
 @end
