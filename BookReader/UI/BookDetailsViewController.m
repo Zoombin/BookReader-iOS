@@ -712,7 +712,6 @@
 - (BOOL)checkLogin
 {
     if (![ServiceManager userID]) {
-//        [self displayHUDError:nil message:@"您尚未登录!"];
         [self showLoginAlert];
         return NO;
     } else {

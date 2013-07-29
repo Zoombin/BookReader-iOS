@@ -295,7 +295,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if(currentPageIndex < 0) {
         currentPageIndex = 0;
 		NSLog(@"no more previous page!");
-		if ([chapter.index intValue] == 0) {
+		if (!chapter.previousID) {
 			[self displayHUDError:@"" message:@"此章是第一章"];
 		} else {
 			[self displayHUDError:@"" message:@"上一章"];
@@ -352,7 +352,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			_book.lastReadChapterID = chapter.uid;
 			_book.updateDate = [NSDate date];
 		}];
-		statusView.title.text = [NSString stringWithFormat:@"(%d) %@", chapter.index.intValue + 1, chapter.name];
+		statusView.title.text = [NSString stringWithFormat:@"%@", chapter.name];
 		[self paging];
 		NSNumber *startReadIndex = readIndex ? readIndex : chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
@@ -492,7 +492,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)previousChapterButtonClick
 {
-	if (chapter.index.intValue == 0) {
+	if (!chapter.previousID) {
 		[self displayHUDError:@"" message:@"此章是第一章"];
 		return;
 	}

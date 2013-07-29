@@ -517,7 +517,6 @@ static NSDictionary *booksDictionary;
         chapter.bid = bookid;
         chapter.uid = [NSString stringWithFormat:@"%@%d",bookid,i];
         chapter.bVip = [NSNumber numberWithBool:NO];
-        chapter.index = @(i);
         if (i == [chaptersNameArray count]-1) {
             NSRange range = [content rangeOfString:chaptersNameArray[i]];
             chapter.content = [content substringFromIndex:range.location + range.length];

@@ -15,7 +15,6 @@
 @property (nonatomic, retain) NSString * bid;
 @property (nonatomic, retain) NSNumber * bVip;
 @property (nonatomic, retain) NSString * content;
-@property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) NSNumber * lastReadIndex;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * nextID;

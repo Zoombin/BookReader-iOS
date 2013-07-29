@@ -26,15 +26,12 @@
 + (NSArray *)createWithAttributesArray:(NSArray *)array andExtra:(id)extraInfo
 {
 	NSMutableArray *chapters = [@[] mutableCopy];
-    int i = 0;
 	for (NSDictionary *attributes in array) {
 		Chapter *chapter = (Chapter *)[Chapter createWithAttributes:attributes];
-		chapter.index = @(i);
 		if (extraInfo) {
 			chapter.bid = (NSString *)extraInfo;
 		}
 		[chapters addObject:chapter];
-        i++;
 	}
 	return chapters;
 
@@ -73,7 +70,6 @@
     chapter.bid = self.bid;
     chapter.bVip = self.bVip;
     //chapter.content = self.content;
-    chapter.index = self.index;
     //chapter.lastReadIndex = self.lastReadIndex;
     chapter.name = self.name;
 	//chapter.nextID = self.nextID;
@@ -106,23 +102,19 @@
 
 + (NSArray *)chaptersRelatedToBook:(NSString *)bookid
 {
-    return [Chapter findByAttribute:@"bid" withValue:bookid andOrderBy:@"index" ascending:YES];
-}
-
-- (Chapter *)brotherWithIndex:(NSInteger)index
-{
-	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND index = %d", self.bid, index]];
+    return [Chapter findByAttribute:@"bid" withValue:bookid];
 }
 
 - (Chapter *)previous
 {
-	if (self.index.intValue == 0) return nil;
-	return [self brotherWithIndex:self.index.intValue - 1];
+	if (!self.previousID) return nil;
+	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", self.previousID]];
 }
 
 - (Chapter *)next
 {
-	return [self brotherWithIndex:self.index.intValue + 1];
+	if (!self.nextID) return nil;
+	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", self.nextID]];
 }
 
 @end
