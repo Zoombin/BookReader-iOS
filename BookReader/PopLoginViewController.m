@@ -75,7 +75,7 @@
     [loginBtn.layer setBorderWidth:.5];
     [loginBtn.layer setBorderColor:[UIColor grayColor].CGColor];
     [loginBtn setBackgroundColor:loginView.backgroundColor];
-    [loginBtn addTarget:self action:@selector(loginBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [bottombkg addSubview:loginBtn];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -104,7 +104,7 @@
 	[self removeFromParentViewController];
 }
 
-- (void)loginBtnClicked
+- (void)login
 {
 	if (accountTextField.text.length == 0|| passwordTextField.text.length == 0) {
         [self displayHUDError:nil message:@"账号或者密码不能为空"];
