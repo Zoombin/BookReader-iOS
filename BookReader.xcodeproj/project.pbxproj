@@ -876,7 +876,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		1888A3A216FFE8050046DA4C /* ServiceManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,8 +932,6 @@
 			name = RemoteMode;
 			sourceTree = "<group>";
 		};
-=======
->>>>>>> 64b73536c870c747bad573ca96062d5d103f5022
 		188FE63616F9A069009561CB /* Remote */ = {
 			isa = PBXGroup;
 			children = (
