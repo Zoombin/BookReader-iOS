@@ -32,6 +32,8 @@
 #define FORBIDDEN_FLAG @"9999"
 #define USER_ID @"userid"
 
+#define NEXT_UPDATE_TIME_FORMATTER @"yyyy-MM-dd HH:mm"
+
 
 //pwd 是16位小写 sign是32位小写
 @implementation ServiceManager
@@ -435,7 +437,7 @@ static NSNumber *sUserID;
     parameters[@"index"] = @"1";
     parameters[@"size"] = @"2000";
     parameters[@"auto"] = @"1";
-	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:@"yyyy-MM-dd HH:mm"];
+	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:NEXT_UPDATE_TIME_FORMATTER];
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
@@ -444,7 +446,7 @@ static NSNumber *sUserID;
         }
 		NSString *nextUpdateTimeString = theObject[@"nextUpdateTime"];//@"2999-12-31 11:59";
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+		[dateFormatter setDateFormat:NEXT_UPDATE_TIME_FORMATTER];
 		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject[@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
