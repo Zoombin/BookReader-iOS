@@ -158,10 +158,10 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[self recommendBooks];
     } else {
 		if ([ServiceManager userID]) {
-			if ([[NSUserDefaults standardUserDefaults] boolForKey:kNeedRefreshBookShelf]) {
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:NEED_REFRESH_BOOKSHELF]) {
 				stopAllSync = NO;
 				[self syncBooks];
-				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
 			}
 		}

@@ -732,7 +732,7 @@
                     [favButton setEnabled:NO];
 					[book persistWithBlock:^(void) {
 						[self displayHUDError:nil message:message];
-						[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+						[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 					}];
                 }
             } else {

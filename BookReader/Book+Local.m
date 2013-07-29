@@ -6,9 +6,6 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-
-#define  GroupNum   9
-
 #import "BookReader.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
@@ -16,6 +13,15 @@
 #import "ContextManager.h"
 #import "Book+Local.h"
 #import "NSString+ChineseSpace.h"
+
+
+#define BEFORE_READ_CHAPTER @"上次阅读章节"
+#define BOOKMARK            @"书签"
+#define BOUGHT_FLAG         @"已经购买"
+#define READ_POS_FLAG       @"阅读位置"
+#define READ_PERCENT        @"阅读进度"
+#define  GroupNum   9
+
 
 @implementation NSObject (Local)
 static NSDictionary *booksDictionary;

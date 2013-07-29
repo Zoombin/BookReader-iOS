@@ -117,7 +117,7 @@
             [self displayHUDError:nil message:@"网络异常"];
         }else {
             if (success) {
-				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
             } else {
                 [self displayHUDError:nil message:message];
