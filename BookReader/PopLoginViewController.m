@@ -6,29 +6,29 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "PopLoginViewController.h"
 #import "UITextField+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIViewController+HUD.h"
+#import	"ServiceManager.h"
+#import "BookReader.h"
 
 
-@implementation LoginViewController {
+@implementation PopLoginViewController {
     UITextField *accountTextField;
     UITextField *passwordTextField;
 }
-@synthesize delegate;
 
-- (id)init
+- (void)viewDidLoad
 {
-    self = [super init];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)showLoginView
-{
-    CGRect frame = CGRectMake(20, 40, 280, 200);
+    [super viewDidLoad];
+	
+	CGFloat delta = [UIApplication sharedApplication].statusBarHidden ? 0 : -20;
+	
+	self.view.frame = CGRectMake(0, delta, self.view.frame.size.width, self.view.frame.size.height + delta);
+	self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
+	
+	CGRect frame = CGRectMake(20, 40, 280, 200);
     CGFloat width = frame.size.width;
     CGFloat height = frame.size.height;
     
@@ -87,33 +87,44 @@
     [cancelBtn.layer setBorderWidth:.5];
     [cancelBtn.layer setBorderColor:[UIColor grayColor].CGColor];
     [cancelBtn setBackgroundColor:bottombkg.backgroundColor];
-    [cancelBtn addTarget:self action:@selector(cancelBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [cancelBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [bottombkg addSubview:cancelBtn];
-    
-    [accountTextField becomeFirstResponder];
 }
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    [view setBackgroundColor:[UIColor blackColor]];
-    [view setAlpha:0.5];
-    [self.view addSubview:view];
-	// Do any additional setup after loading the view.
-    [self showLoginView];
+	[accountTextField becomeFirstResponder];
 }
 
-- (void)cancelBtnClicked
+- (void)close
 {
-    [self.view removeFromSuperview];
+	[self willMoveToParentViewController:nil];
+	[self viewWillDisappear:YES];
+	[self.view removeFromSuperview];
+	[self removeFromParentViewController];
 }
 
 - (void)loginBtnClicked
 {
-    if ([self.delegate respondsToSelector:@selector(loginWithAccount:andPassword:)]) {
-        [self.delegate loginWithAccount:accountTextField.text andPassword:passwordTextField.text];
+	if (accountTextField.text.length == 0|| passwordTextField.text.length == 0) {
+        [self displayHUDError:nil message:@"账号或者密码不能为空"];
+        return;
     }
+	[self displayHUD:@"登录中"];
+	[ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, Member *member) {
+		[self hideHUD:YES];
+        if (error) {
+            [self displayHUDError:nil message:@"网络异常"];
+        }else {
+            if (success) {
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+            } else {
+                [self displayHUDError:nil message:message];
+            }
+        }
+		[self close];
+    }];
 }
 
 @end

@@ -27,7 +27,6 @@
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
-#define LOGIN_ALERT     1000
 
 @interface CoreTextViewController() <BookReadMenuViewDelegate,ChapterViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
 
@@ -52,8 +51,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     BOOL firstAppear;
     UIView *backgroundView;
 	NSString *pageCurlType;
-    
-    LoginViewController *loginView;
 }
 
 - (void)shareButtonClicked
@@ -572,13 +569,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        if (alertView.tag != LOGIN_ALERT) {
-            [self sendCommitButtonClicked];
-        } else {
-            loginView = [[LoginViewController alloc] init];
-            [loginView setDelegate:self];
-            [self.view addSubview:loginView.view];
-        }
+		[self sendCommitButtonClicked];
     }
 }
 
@@ -665,33 +656,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showLoginAlert
 {
-    loginView = [[LoginViewController alloc] init];
-    [loginView.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    [loginView setDelegate:self];
-    [self.view addSubview:loginView.view];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+	[self addChildViewController:popLoginViewController];
+	[self.view addSubview:popLoginViewController.view];
 }
-
-- (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password
-{
-    if ([account length] == 0 || [password length] == 0) {
-        [self displayHUDError:nil message:@"账号或者密码不能为空"];
-        return;
-    }
-    [self displayHUD:@"登录中"];
-    [ServiceManager loginByPhoneNumber:account andPassword:password withBlock:^(BOOL success, NSError *error, NSString *message, Member *member) {
-        if (error) {
-            [self displayHUDError:nil message:@"网络异常"];
-        }else {
-            if (success) {
-				[self hideHUD:YES];
-				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
-				[[NSUserDefaults standardUserDefaults] synchronize];
-                [loginView.view removeFromSuperview];
-            } else {
-                [self displayHUDError:nil message:message];
-            }
-        }
-    }];
-}
-
 @end

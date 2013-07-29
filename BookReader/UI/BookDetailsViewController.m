@@ -102,7 +102,7 @@
     UILabel *emptyLabel;
     
     UISlider *slider;
-    LoginViewController *loginView;
+    //LoginViewController *loginView;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -899,34 +899,9 @@
 
 - (void)showLoginAlert
 {
-    loginView = [[LoginViewController alloc] init];
-    [loginView.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    [loginView setDelegate:self];
-    [self.view addSubview:loginView.view];
-}
-
-
-- (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password
-{
-    if ([account length] == 0 || [password length] == 0) {
-        [self displayHUDError:nil message:@"账号或者密码不能为空"];
-        return;
-    }
-    [self displayHUD:@"登录中"];
-    [ServiceManager loginByPhoneNumber:account andPassword:password withBlock:^(BOOL success, NSError *error, NSString *message, Member *member) {
-        if (error) {
-            [self displayHUDError:nil message:@"网络异常"];
-        }else {
-            if (success) {
-				[self hideHUD:YES];
-				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
-				[[NSUserDefaults standardUserDefaults] synchronize];
-                [loginView.view removeFromSuperview];
-            } else {
-                [self displayHUDError:nil message:message];
-            }
-        }
-    }];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+	[self addChildViewController:popLoginViewController];
+	[self.view addSubview:popLoginViewController.view];
 }
 
 @end

@@ -10,11 +10,11 @@
 #import "BookReadMenuView.h"
 #import <MessageUI/MessageUI.h>
 #import "ChaptersViewController.h"
-#import "LoginViewController.h"
+#import "PopLoginViewController.h"
 
 @class Book;
 @class Chapter; 
-@interface CoreTextViewController : UIViewController <LoginDelegate>
+@interface CoreTextViewController : UIViewController
 
 @property (nonatomic, strong) Book *book;
 @property (nonatomic, assign) BOOL bDetail;

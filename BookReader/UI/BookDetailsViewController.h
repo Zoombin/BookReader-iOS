@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import "BRViewController.h"
-#import "LoginViewController.h"
+#import "PopLoginViewController.h"
 
-@interface BookDetailsViewController : BRViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate ,LoginDelegate> {
+@interface BookDetailsViewController : BRViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate> {
 }
 - (id)initWithBook:(NSString *)uid;
 @end
