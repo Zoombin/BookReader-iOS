@@ -207,6 +207,7 @@
 		18BA0AC8177069F700DFE9B3 /* universal_btn_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0AC3177069F600DFE9B3 /* universal_btn_r.png */; };
 		18BA0AC9177069F700DFE9B3 /* universal_btn_r@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0AC4177069F600DFE9B3 /* universal_btn_r@2x.png */; };
 		18BA0ACA177069F700DFE9B3 /* universal_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0AC5177069F600DFE9B3 /* universal_btn@2x.png */; };
+		18C12BBD17A61A6E00206E93 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C12BBC17A61A6E00206E93 /* LoginView.m */; };
 		18E776BF174A246500D0ECA0 /* libMobileProbe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E776BD174A246500D0ECA0 /* libMobileProbe.a */; };
 		18EDD0DF1741DFE300915372 /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DA1741DFE300915372 /* comment.png */; };
 		18EDD0E01741DFE300915372 /* demand.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DB1741DFE300915372 /* demand.png */; };
@@ -610,6 +611,8 @@
 		18BA0AC3177069F600DFE9B3 /* universal_btn_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = universal_btn_r.png; sourceTree = "<group>"; };
 		18BA0AC4177069F600DFE9B3 /* universal_btn_r@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "universal_btn_r@2x.png"; sourceTree = "<group>"; };
 		18BA0AC5177069F600DFE9B3 /* universal_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "universal_btn@2x.png"; sourceTree = "<group>"; };
+		18C12BBB17A61A6D00206E93 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		18C12BBC17A61A6E00206E93 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		18E776BD174A246500D0ECA0 /* libMobileProbe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobileProbe.a; sourceTree = "<group>"; };
 		18E776BE174A246500D0ECA0 /* MobileProbe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileProbe.h; sourceTree = "<group>"; };
 		18EDD0DA1741DFE300915372 /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment.png; sourceTree = "<group>"; };
@@ -1072,6 +1075,8 @@
 				188FD8C0178AA7A700EFF360 /* LoginReminderView.m */,
 				184862FC1796535400282A6A /* NotificationView.h */,
 				184862FD1796535400282A6A /* NotificationView.m */,
+				18C12BBB17A61A6D00206E93 /* LoginView.h */,
+				18C12BBC17A61A6E00206E93 /* LoginView.m */,
 			);
 			name = RemoteMode;
 			sourceTree = "<group>";
@@ -2204,6 +2209,7 @@
 				188FD8C1178AA7A800EFF360 /* LoginReminderView.m in Sources */,
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
 				184862FE1796535400282A6A /* NotificationView.m in Sources */,
+				18C12BBD17A61A6E00206E93 /* LoginView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

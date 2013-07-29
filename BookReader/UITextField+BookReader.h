@@ -14,4 +14,6 @@
 + (UITextField *)passwordConfirmTextFieldWithFrame:(CGRect)frame;
 + (UITextField *)codeTextFieldWithFrame:(CGRect)frame;
 - (UIImageView *)backgroundView;
+
++ (UITextField *)loginTextFieldWithFrame:(CGRect)frame;
 @end

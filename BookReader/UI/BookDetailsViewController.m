@@ -33,6 +33,7 @@
 #import "Mark.h"
 #import "ChapterCell.h"
 #import "SignInViewController.h"
+#import "LoginView.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -102,6 +103,7 @@
     UILabel *emptyLabel;
     
     UISlider *slider;
+    LoginView *loginView;
 }
 
 - (id)initWithBook:(NSString *)uid
@@ -906,10 +908,33 @@
 {
     if (buttonIndex == 1) {
         NSLog(@"登录");
-        SignInViewController *svc = [[SignInViewController alloc] init];
-        svc.bMember = NO;
-        [self.navigationController pushViewController:svc animated:YES];
-    } 
+         loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 100, 280, 220)];
+        [loginView setDelegate:self];
+        [self.view addSubview:loginView];
+    }
+}
+
+- (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password
+{
+    if ([account length] == 0 || [password length] == 0) {
+        [self displayHUDError:nil message:@"账号或者密码不能为空"];
+        return;
+    }
+    [self displayHUD:@"登录中"];
+    [ServiceManager loginByPhoneNumber:account andPassword:password withBlock:^(BOOL success, NSError *error, NSString *message, Member *member) {
+        if (error) {
+            [self displayHUDError:nil message:@"网络异常"];
+        }else {
+            if (success) {
+				[self hideHUD:YES];
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+                [loginView removeFromSuperview];
+            } else {
+                [self displayHUDError:nil message:message];
+            }
+        }
+    }];
 }
 
 @end

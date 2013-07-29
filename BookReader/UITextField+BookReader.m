@@ -61,5 +61,17 @@
     return textField;
 }
 
++ (UITextField *)loginTextFieldWithFrame:(CGRect)frame
+{
+    UITextField *textField = [[UITextField alloc] initWithFrame:frame];
+    [textField.layer setCornerRadius:5];
+    [textField.layer setMasksToBounds:YES];
+    [textField.layer setBorderColor:[UIColor grayColor].CGColor];
+    [textField.layer setBorderWidth:.5];
+    [textField setContentVerticalAlignment:UIControlContentHorizontalAlignmentCenter];
+    [textField setBackgroundColor:[UIColor colorWithRed:235.0/255.0 green:234.0/255.0 blue:231.0/255.0 alpha:1.0]];
+    return textField;
+}
+
 
 @end

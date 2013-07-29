@@ -23,6 +23,8 @@
 #import "Mark.h"
 #import "NSString+ChineseSpace.h"
 #import "SignInViewController.h"
+#import "LoginView.h"
+#import "BookReader.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -51,6 +53,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     BOOL firstAppear;
     UIView *backgroundView;
 	NSString *pageCurlType;
+    
+    LoginView *loginView;
 }
 
 - (void)shareButtonClicked
@@ -572,9 +576,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         if (alertView.tag != LOGIN_ALERT) {
             [self sendCommitButtonClicked];
         } else {
-            SignInViewController *svc = [[SignInViewController alloc] init];
-            [svc setBMember:NO];
-            [self.navigationController pushViewController:svc animated:YES];
+            loginView = [[LoginView alloc] initWithFrame:CGRectMake(20, 100, 280, 220)];
+            [loginView setDelegate:self];
+            [self.view addSubview:loginView];
         }
     }
 }
@@ -665,6 +669,29 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"firstlaunch", nil) delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
     [alertView setTag:LOGIN_ALERT];
     [alertView show];
+}
+
+- (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password
+{
+    if ([account length] == 0 || [password length] == 0) {
+        [self displayHUDError:nil message:@"账号或者密码不能为空"];
+        return;
+    }
+    [self displayHUD:@"登录中"];
+    [ServiceManager loginByPhoneNumber:account andPassword:password withBlock:^(BOOL success, NSError *error, NSString *message, Member *member) {
+        if (error) {
+            [self displayHUDError:nil message:@"网络异常"];
+        }else {
+            if (success) {
+				[self hideHUD:YES];
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kNeedRefreshBookShelf];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+                [loginView removeFromSuperview];
+            } else {
+                [self displayHUDError:nil message:message];
+            }
+        }
+    }];
 }
 
 @end
