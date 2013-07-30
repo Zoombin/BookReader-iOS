@@ -68,6 +68,12 @@
 	NSArray *hotwordsColors;
     
     BOOL isLoading;
+    
+    //Arrays
+    NSMutableArray *searchArray;
+    NSMutableArray *allArray;
+    NSMutableArray *newArray;
+    NSMutableArray *hotArray;
 }
 
 - (id)init
@@ -87,6 +93,11 @@
 //        currentType = RECOMMEND;
         currentPage = 1;
         currentIndex = 1;
+        
+        searchArray = [[NSMutableArray alloc] init];
+        allArray = [[NSMutableArray alloc] init];
+        hotArray = [[NSMutableArray alloc] init];
+        newArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -284,10 +295,22 @@
             }
             if ([resultArray count]>0) {
                 [self hideAllHotkeyBtns];
-            } else if(currentType == SEARCH&&[resultArray count]==0) {
+            } else if(currentType == SEARCH && [resultArray count]==0) {
                 [self showHotkeyBtns];
+                [searchArray removeAllObjects];
             }
-            [infoArray addObjectsFromArray:resultArray];
+            if (currentType == SEARCH) {
+                [searchArray addObjectsFromArray:resultArray];
+            } else if (currentType == RANK) {
+                if (currentPage == 1) {
+                    [allArray addObjectsFromArray:resultArray];
+                } else if (currentPage == 2) {
+                    [newArray addObjectsFromArray:resultArray];
+                } else {
+                    [hotArray addObjectsFromArray:resultArray];
+                }
+            }
+            [infoArray addObjectsFromArray:resultArray];  
             if ([infoArray count]==6) {
                 [self addFootView];
             }else {
@@ -332,7 +355,18 @@
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
                          } else {
-                         [infoArray addObjectsFromArray:resultArray];
+                                [infoArray addObjectsFromArray:resultArray];
+                             if (currentType == SEARCH) {
+                                 [searchArray addObjectsFromArray:resultArray];
+                             } else if (currentType == RANK) {
+                                 if (currentPage == 1) {
+                                     [allArray addObjectsFromArray:resultArray];
+                                 } else if (currentPage == 2) {
+                                     [newArray addObjectsFromArray:resultArray];
+                                 } else {
+                                     [hotArray addObjectsFromArray:resultArray];
+                                 }
+                             }
                          }
                          currentIndex++;
                          [infoTableView reloadData];
@@ -352,6 +386,31 @@
         return;
     currentPage = [rankBtns indexOfObject:sender]+1;
     [self changeRankButtonImage:sender];
+    if (currentPage == 1) {
+        if ([allArray count] > 0) {
+            [infoArray removeAllObjects];
+            [infoArray addObjectsFromArray:allArray];
+            currentIndex = ([allArray count] / 6) + 1;
+            [infoTableView reloadData];
+            return;
+        }
+    } else if (currentPage == 2) {
+        if ([newArray count] > 0) {
+            [infoArray removeAllObjects];
+            [infoArray addObjectsFromArray:newArray];
+            currentIndex = ([newArray count] / 6) + 1;
+            [infoTableView reloadData];
+            return;
+        }
+    } else if (currentPage == 3) {
+        if ([hotArray count] > 0) {
+            [infoArray removeAllObjects];
+            [infoArray addObjectsFromArray:hotArray];
+            currentIndex = ([hotArray count] / 6) + 1;
+            [infoTableView reloadData];
+            return;
+        }
+    }
     [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
 }
 
@@ -459,10 +518,35 @@
 		currentType = RANK;
 		[infoTableView setTableHeaderView:rankView];
 		[[self BRHeaderView].titleLabel setText:@"排行"];
+        [rankView setHidden:NO];
+		[infoTableView setHidden:NO];
+        if (currentPage == 1) {
+            if ([allArray count] > 0) {
+                [infoArray removeAllObjects];
+                [infoArray addObjectsFromArray:allArray];
+                currentIndex = ([allArray count] / 6) + 1;
+                [infoTableView reloadData];
+                return;
+            }
+        } else if (currentPage == 2) {
+            if ([newArray count] > 0) {
+                [infoArray removeAllObjects];
+                [infoArray addObjectsFromArray:newArray];
+                currentIndex = ([newArray count] / 6) + 1;
+                [infoTableView reloadData];
+                return;
+            }
+        } else if (currentPage == 3) {
+            if ([hotArray count] > 0) {
+                [infoArray removeAllObjects];
+                [infoArray addObjectsFromArray:hotArray];
+                currentIndex = ([hotArray count] / 6) + 1;
+                [infoTableView reloadData];
+                return;
+            }
+        }
         [self changeRankButtonImage:rankBtns[0]];
 		[self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
-		[rankView setHidden:NO];
-		[infoTableView setHidden:NO];		
 	} else if (sender == cataButton) {
 		currentType = CATAGORY;
 		catagoryView.hidden = NO;
@@ -476,8 +560,13 @@
 		[[self BRHeaderView].titleLabel setText:@"搜索"];
 		[rankView setHidden:YES];
 		[infoTableView setHidden:NO];
+        [self showHotkeyBtns];
+        if ([searchArray count] > 0) {
+            currentIndex = (searchArray.count / 6) + 1;
+            [infoArray addObjectsFromArray:searchArray];
+            [self hideAllHotkeyBtns];
+        }
 		[infoTableView reloadData];
-		[self showHotkeyBtns];
 	}
 }
 
@@ -616,6 +705,7 @@
 
 - (void)hotkeybuttonClick:(id)sender
 {
+    [searchArray removeAllObjects];
     UIButton *button = (UIButton *)sender;
     _searchBar.text = button.titleLabel.text;
     [self searchBarSearchButtonClicked:_searchBar];
