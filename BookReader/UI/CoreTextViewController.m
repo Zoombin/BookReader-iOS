@@ -24,6 +24,7 @@
 #import "NSString+ChineseSpace.h"
 #import "SignInViewController.h"
 #import "BookReader.h"
+#import "AppDelegate.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -555,15 +556,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)resetButtonClicked
 {
-    [self updateFont];
-    [self updateFontColor];
-    [self updateFontSize];
-    backgroundView.alpha = 1.0 - [[BookReaderDefaultsManager objectForKey:UserDefaultKeyBright] floatValue];
-    NSNumber *colorIdx = [BookReaderDefaultsManager objectForKey:UserDefaultKeyBackground];
-	[self.view setBackgroundColor:[BookReaderDefaultsManager backgroundColorWithIndex:colorIdx.intValue]];
-    isLandscape = YES;
-    [self orientationButtonClicked];
-    [self displayHUDError:nil message:@"已恢复默认!"];
+    [APP_DELEGATE gotoRootController:kRootControllerTypeBookShelf];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

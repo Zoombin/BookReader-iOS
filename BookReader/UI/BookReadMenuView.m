@@ -142,8 +142,8 @@
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
-    NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_hor", @"read_bright", @"read_background", @"read_font", @"read_reset"];
-    NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"横屏", @"亮度调节", @"阅读背景", @"字体调整", @"恢复默认"];
+    NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_hor", @"read_bright", @"read_background", @"read_font", @"read_bookshelf"];
+    NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"横屏", @"亮度调节", @"阅读背景", @"字体调整", @"书架"];
     int k = 0;
     for (int i = 0; i < 8; i ++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
