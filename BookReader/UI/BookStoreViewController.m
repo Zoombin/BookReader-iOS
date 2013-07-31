@@ -90,7 +90,7 @@
         recommendTitlesArray = [[NSMutableArray alloc] init];
         
         rankBtns = [[NSMutableArray alloc] init];
-//        currentType = RECOMMEND;
+        //        currentType = RECOMMEND;
         currentPage = 1;
         currentIndex = 1;
         
@@ -299,18 +299,7 @@
                 [self showHotkeyBtns];
                 [searchArray removeAllObjects];
             }
-            if (currentType == SEARCH) {
-                [searchArray addObjectsFromArray:resultArray];
-            } else if (currentType == RANK) {
-                if (currentPage == 1) {
-                    [allArray addObjectsFromArray:resultArray];
-                } else if (currentPage == 2) {
-                    [newArray addObjectsFromArray:resultArray];
-                } else {
-                    [hotArray addObjectsFromArray:resultArray];
-                }
-            }
-            [infoArray addObjectsFromArray:resultArray];  
+            [self addInfoArrayObjectsWithArray:resultArray];
             if ([infoArray count]==6) {
                 [self addFootView];
             }else {
@@ -355,23 +344,11 @@
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
                          } else {
-                                [infoArray addObjectsFromArray:resultArray];
-                             if (currentType == SEARCH) {
-                                 [searchArray addObjectsFromArray:resultArray];
-                             } else if (currentType == RANK) {
-                                 if (currentPage == 1) {
-                                     [allArray addObjectsFromArray:resultArray];
-                                 } else if (currentPage == 2) {
-                                     [newArray addObjectsFromArray:resultArray];
-                                 } else {
-                                     [hotArray addObjectsFromArray:resultArray];
-                                 }
-                             }
+                             [self addInfoArrayObjectsWithArray:resultArray];
                          }
                          currentIndex++;
                          [infoTableView reloadData];
                          isLoading = NO;
-                         //                         [self hideHUD:YES];
                      }
                  }];
 }
@@ -386,30 +363,8 @@
         return;
     currentPage = [rankBtns indexOfObject:sender]+1;
     [self changeRankButtonImage:sender];
-    if (currentPage == 1) {
-        if ([allArray count] > 0) {
-            [infoArray removeAllObjects];
-            [infoArray addObjectsFromArray:allArray];
-            currentIndex = ([allArray count] / 6) + 1;
-            [infoTableView reloadData];
-            return;
-        }
-    } else if (currentPage == 2) {
-        if ([newArray count] > 0) {
-            [infoArray removeAllObjects];
-            [infoArray addObjectsFromArray:newArray];
-            currentIndex = ([newArray count] / 6) + 1;
-            [infoTableView reloadData];
-            return;
-        }
-    } else if (currentPage == 3) {
-        if ([hotArray count] > 0) {
-            [infoArray removeAllObjects];
-            [infoArray addObjectsFromArray:hotArray];
-            currentIndex = ([hotArray count] / 6) + 1;
-            [infoTableView reloadData];
-            return;
-        }
+    if ([self refreshRankInfo]) {
+        return;
     }
     [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
 }
@@ -513,37 +468,15 @@
 		[[self BRHeaderView].titleLabel setText:@"推荐"];
 		[rankView setHidden:YES];
 		[self loadRecommendDataWithIndex:1];
-		[infoTableView setHidden:NO];		
+		[infoTableView setHidden:NO];
 	} else if (sender == rankButton) {
 		currentType = RANK;
 		[infoTableView setTableHeaderView:rankView];
 		[[self BRHeaderView].titleLabel setText:@"排行"];
         [rankView setHidden:NO];
 		[infoTableView setHidden:NO];
-        if (currentPage == 1) {
-            if ([allArray count] > 0) {
-                [infoArray removeAllObjects];
-                [infoArray addObjectsFromArray:allArray];
-                currentIndex = ([allArray count] / 6) + 1;
-                [infoTableView reloadData];
-                return;
-            }
-        } else if (currentPage == 2) {
-            if ([newArray count] > 0) {
-                [infoArray removeAllObjects];
-                [infoArray addObjectsFromArray:newArray];
-                currentIndex = ([newArray count] / 6) + 1;
-                [infoTableView reloadData];
-                return;
-            }
-        } else if (currentPage == 3) {
-            if ([hotArray count] > 0) {
-                [infoArray removeAllObjects];
-                [infoArray addObjectsFromArray:hotArray];
-                currentIndex = ([hotArray count] / 6) + 1;
-                [infoTableView reloadData];
-                return;
-            }
+        if ([self refreshRankInfo]) {
+            return;
         }
         [self changeRankButtonImage:rankBtns[0]];
 		[self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
@@ -553,7 +486,7 @@
 		[infoTableView setTableHeaderView:nil];
 		[[self BRHeaderView].titleLabel setText:@"分类"];
 		[rankView setHidden:YES];
-		[infoTableView reloadData];		
+		[infoTableView reloadData];
 	} else if (sender == searchButton) {
 		currentType = SEARCH;
 		[infoTableView setTableHeaderView:tableViewHeader];
@@ -747,6 +680,52 @@
                 NSLog(@"可刷新");
                 [self getMore];
             }
+        }
+    }
+}
+
+- (BOOL)refreshRankInfo
+{
+    if (currentPage == 1) {
+        if ([allArray count] > 0) {
+            [infoArray removeAllObjects];
+            [infoArray addObjectsFromArray:allArray];
+            currentIndex = ([allArray count] / 6) + 1;
+            [infoTableView reloadData];
+            return YES;
+        }
+    } else if (currentPage == 2) {
+        if ([newArray count] > 0) {
+            [infoArray removeAllObjects];
+            [infoArray addObjectsFromArray:newArray];
+            currentIndex = ([newArray count] / 6) + 1;
+            [infoTableView reloadData];
+            return YES;
+        }
+    } else if (currentPage == 3) {
+        if ([hotArray count] > 0) {
+            [infoArray removeAllObjects];
+            [infoArray addObjectsFromArray:hotArray];
+            currentIndex = ([hotArray count] / 6) + 1;
+            [infoTableView reloadData];
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)addInfoArrayObjectsWithArray:(NSArray *)resultArray
+{
+    [infoArray addObjectsFromArray:resultArray];
+    if (currentType == SEARCH) {
+        [searchArray addObjectsFromArray:resultArray];
+    } else if (currentType == RANK) {
+        if (currentPage == 1) {
+            [allArray addObjectsFromArray:resultArray];
+        } else if (currentPage == 2) {
+            [newArray addObjectsFromArray:resultArray];
+        } else {
+            [hotArray addObjectsFromArray:resultArray];
         }
     }
 }
