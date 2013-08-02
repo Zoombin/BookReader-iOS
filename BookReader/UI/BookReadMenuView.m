@@ -424,12 +424,12 @@
 
 - (void)bookShelfButtonClicked
 {
-    [APP_DELEGATE gotoRootController:kRootControllerTypeBookShelf];
+    [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookShelf];
 }
 
 - (void)bookStoreButtonClicked
 {
-    [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+    [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookStore];
 }
 
 - (void)bookDetailButtonClicked

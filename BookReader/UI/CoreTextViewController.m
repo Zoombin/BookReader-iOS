@@ -559,7 +559,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)resetButtonClicked
 {
-    [APP_DELEGATE gotoRootController:kRootControllerTypeBookShelf];
+    [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookShelf];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
