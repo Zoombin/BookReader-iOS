@@ -14,9 +14,6 @@ typedef enum {
     kRootControllerTypeBookStore,
     kRootControllerTypeMember,
     kRootControllerTypeLogin,
-    kRootControllerTypeHouseBook,
-    kRootControllerTypeHouseApp,
-    kRootControllerTypeAbout
 }RootControllerType;
 
 #define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )

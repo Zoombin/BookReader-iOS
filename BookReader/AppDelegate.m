@@ -19,12 +19,9 @@
 #import "UIColor+BookReader.h"
 #import "NavViewController.h"
 
-#define REMOTE_MODE
-
 @implementation AppDelegate {
-    NavViewController *navController;
-    NSMutableDictionary *rootControllers;
-    UIView *tabBar;
+    NavViewController *_navController;
+    NSMutableDictionary *_rootControllers;
 }
 
 - (void)testApis
@@ -45,100 +42,29 @@
 	
 //	[self testApis];
 	
-	
     [ServiceManager recommandDefaultBookwithBlock:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
-    rootControllers = [@{} mutableCopy];
-    rootControllers[@(kRootControllerTypeBookShelf)] = [[BookShelfViewController alloc] init];
-#ifdef REMOTE_MODE
-    rootControllers[@(kRootControllerTypeBookStore)] = [[BookStoreViewController alloc] init];
-    rootControllers[@(kRootControllerTypeMember)] = [[MemberViewController alloc] init];
-    rootControllers[@(kRootControllerTypeLogin)] = [[SignInViewController alloc] init];
-#else
-
-#endif
+    _rootControllers = [@{} mutableCopy];
+    _rootControllers[@(kRootControllerTypeBookShelf)] = [[BookShelfViewController alloc] init];
+    _rootControllers[@(kRootControllerTypeBookStore)] = [[BookStoreViewController alloc] init];
+    _rootControllers[@(kRootControllerTypeMember)] = [[MemberViewController alloc] init];
+    _rootControllers[@(kRootControllerTypeLogin)] = [[SignInViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self gotoRootController:kRootControllerTypeBookShelf];
-#ifndef REMOTE_MODE
-    [self createTabBar];
-#endif
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)createTabBar {
-    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.window.bounds.size.height-35-20, self.window.bounds.size.width, 35)];
-    [bottomView setBackgroundColor:[UIColor whiteColor]];
-    
-    UIImageView *botomBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, 35)];
-    [botomBackgroundView setImage:[UIImage imageNamed:@"main_bottombackground.png"]];
-    [bottomView addSubview:botomBackgroundView];
-    
-    UIButton *bookShelfButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bookShelfButton setTitle:NSLocalizedString(@"BookList", nil) forState:UIControlStateNormal];
-    [bookShelfButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
-    [bookShelfButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [bookShelfButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    [bookShelfButton setFrame:CGRectMake(3, 4, -6+self.window.bounds.size.width/4, 27)];
-    bookShelfButton.tag = kRootControllerTypeBookShelf;
-    [bookShelfButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:bookShelfButton];
-    
-    UIButton *houseBookButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [houseBookButton setFrame:CGRectMake(self.window.bounds.size.width/2+3, 4, -6+self.window.bounds.size.width/4, 27)];
-    [houseBookButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
-    [houseBookButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [houseBookButton setTitle:NSLocalizedString(@"AppRecommend", nil) forState:UIControlStateNormal];
-    [houseBookButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    houseBookButton.tag = kRootControllerTypeHouseBook;
-    [houseBookButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:houseBookButton];
-    
-    UIButton *houseAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [houseAppButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    [houseAppButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
-    [houseAppButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [houseAppButton setTitle:NSLocalizedString(@"BookStore", nil) forState:UIControlStateNormal];
-    [houseAppButton setFrame:CGRectMake(self.window.bounds.size.width/4+3, 4, -6+self.window.bounds.size.width/4, 27)];
-    houseAppButton.tag = kRootControllerTypeHouseApp;
-    [houseAppButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:houseAppButton];
-    
-    UIButton *aboutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [aboutButton setBackgroundImage:[UIImage imageNamed:@"main_buttonpressed.png"] forState:UIControlStateHighlighted];
-    [aboutButton setTitleColor:[UIColor txtColor] forState:UIControlStateNormal];
-    [aboutButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [aboutButton setTitle:NSLocalizedString(@"AboutUs", nil) forState:UIControlStateNormal];
-    [aboutButton setFrame:CGRectMake(self.window.bounds.size.width*0.75+3, 4, -6+self.window.bounds.size.width/4, 27)];
-    aboutButton.tag = kRootControllerTypeAbout;
-    [aboutButton addTarget:self action:@selector(bottomButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:aboutButton];
-    
-    tabBar = bottomView;
-}
-
-- (void)bottomButtonTapped:(id)sender
-{
-    UIButton *button = (UIButton *)sender;
-    [self gotoRootController:(RootControllerType)button.tag];
-}
-
 - (void)gotoRootController:(RootControllerType)type
 {
-    UIViewController *controller = rootControllers[@(type)];
-    navController = [[NavViewController alloc] initWithRootViewController:controller];
-    [navController setNavigationBarHidden:YES];
-    self.window.rootViewController = navController;
-#ifndef REMOTE_MODE
-    if (!tabBar) {
-		[self createTabBar];
-	}
-	[navController.view addSubview:tabBar];
-#endif
+    UIViewController *controller = _rootControllers[@(type)];
+    _navController = [[NavViewController alloc] initWithRootViewController:controller];
+    [_navController setNavigationBarHidden:YES];
+    self.window.rootViewController = _navController;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
