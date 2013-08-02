@@ -279,6 +279,7 @@
 		77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */; };
 		77B378F217ABE65200D8D63D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77B378EC17ABE65200D8D63D /* README.md */; };
 		77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EE17ABE65200D8D63D /* UIColor+Hex.m */; };
+		77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378FB17ABE96B00D8D63D /* ZBViewController.m */; };
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
 		77E3E2FD174DA83400FCCD91 /* text_field_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */; };
@@ -690,6 +691,8 @@
 		77B378EC17ABE65200D8D63D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		77B378ED17ABE65200D8D63D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		77B378EE17ABE65200D8D63D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		77B378FA17ABE96B00D8D63D /* ZBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBViewController.h; sourceTree = "<group>"; };
+		77B378FB17ABE96B00D8D63D /* ZBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBViewController.m; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -1258,6 +1261,8 @@
 		77B378E617ABE65200D8D63D /* ZBUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				77B378FA17ABE96B00D8D63D /* ZBViewController.h */,
+				77B378FB17ABE96B00D8D63D /* ZBViewController.m */,
 				77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */,
 				77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */,
 				77B378EA17ABE65200D8D63D /* NSString+ChineseSpace.h */,
@@ -1785,6 +1790,7 @@
 				77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */,
 				77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */,
 				77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */,
+				77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
