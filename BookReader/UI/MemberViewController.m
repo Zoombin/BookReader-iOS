@@ -55,7 +55,7 @@
     [super viewDidLoad];
     isLogin = NO;
 	self.headerView.backButton.hidden = YES;
-	self.gestureRecognier.enabled = NO;
+	self.hideKeyboardRecognzier.enabled = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated

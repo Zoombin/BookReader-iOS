@@ -527,7 +527,7 @@
     
     [self loadShortCommitList];
     [self loadSameType];
-	self.gestureRecognier.enabled = NO;
+	self.hideKeyboardRecognzier.enabled = NO;
 }
 
 - (void)getChaptersDataWithBlock:(dispatch_block_t)block

@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.gestureRecognier.enabled = NO;
+	self.hideKeyboardRecognzier.enabled = NO;
     [self setTitle:@"赠送"];
     
     infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, self.view.bounds.size.width-5*2, self.view.bounds.size.height - BRHeaderView.height - 10) style:UITableViewStylePlain];
