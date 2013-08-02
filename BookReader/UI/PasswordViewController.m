@@ -58,12 +58,8 @@
     [self.view addSubview:backgroundView];
     
     NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
-//    int k = 0;
     for (int i = 0; i < textFields.count; i++) {
-//        k = i>1 ? i+1 : i;
-//        CGRect frame = CGRectMake(15, 44+15+50*k, fullSize.width-15*2, 40);
         UITextField *textField = textFields[i];
-//        [textField setFrame:frame];
         [textField addTarget:self action:@selector(FindPasswordvalueChanged:) forControlEvents:UIControlEventEditingChanged];
         [self.view addSubview:textField];
     }

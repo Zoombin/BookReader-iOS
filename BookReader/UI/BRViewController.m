@@ -22,17 +22,17 @@
     [super viewDidLoad];
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
     CGSize fullSize = self.view.bounds.size;
-    UIView *bkgWhite = [[UIView alloc] initWithFrame:CGRectMake(5, 0, fullSize.width - 10, fullSize.height - 44)];
+    UIView *bkgWhite = [[UIView alloc] initWithFrame:CGRectMake(5, 0, fullSize.width - 10, fullSize.height - BRHeaderView.height)];
     [bkgWhite.layer setCornerRadius:4];
     [bkgWhite.layer setMasksToBounds:YES];
     [bkgWhite setBackgroundColor:[UIColor whiteColor]];
     
-	 backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-44)];
+	 backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
 	[backgroundImage setImage:[UIImage imageNamed:@"main_view_bkg"]];
 	[self.view addSubview:backgroundImage];
     [backgroundImage addSubview:bkgWhite];
     
-     headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+     headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, BRHeaderView.height)];
     [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:headerView];
     

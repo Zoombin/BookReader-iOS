@@ -89,11 +89,11 @@
     for (UIView *view in [self.view subviews]) {
         [view removeFromSuperview];
     }
-    UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, BRHeaderView.height)];
     [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
     [self.view addSubview:topBarImage];
     
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, BRHeaderView.height)];
     [titleLabel setText:@"个人中心"];
     [self.view addSubview:titleLabel];
     

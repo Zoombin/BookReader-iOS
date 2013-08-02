@@ -39,7 +39,7 @@
     [self setTitle:@"赠送"];
     [self removeGestureRecognizer];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 44, self.view.bounds.size.width-5*2, self.view.bounds.size.height-44-10) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, self.view.bounds.size.width-5*2, self.view.bounds.size.height - BRHeaderView.height - 10) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundColor:[UIColor clearColor]];

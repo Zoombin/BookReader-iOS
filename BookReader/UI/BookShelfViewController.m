@@ -64,7 +64,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     [self.view addSubview:notificationView];
     [notificationView setHidden:YES];
     
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 44, fullSize.width, fullSize.height - 44)];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -74,7 +74,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
     
-    [[self backgroundImage] setFrame:CGRectMake(0, 44, fullSize.width, fullSize.height-30)];
+    [[self backgroundImage] setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - 30)];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
@@ -106,7 +106,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     notificationView.hidden = YES;
     notificationView.bShouldLoad = NO;
     CGSize fullSize = self.view.bounds.size;
-    [booksView setFrame:CGRectMake(0, 44, fullSize.width, fullSize.height - 44)];
+    [booksView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
 }
 
 
@@ -187,7 +187,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
                 return;
             }
             CGSize fullSize = self.view.bounds.size;
-            [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - 44 - 85)];
+            [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - BRHeaderView.height - 85)];
             [notificationView showInfoWithBook:book andNotificateContent:content];
         }
     }];
