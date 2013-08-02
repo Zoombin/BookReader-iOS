@@ -82,7 +82,6 @@
         [button setFrame:CGRectFromString(rectStrings[i])];
         [button setBackgroundImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
         [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
-//        [button setTitle:btnNames[i] forState:UIControlStateNormal];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         if (i==0) {

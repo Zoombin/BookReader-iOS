@@ -70,8 +70,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[self.headerView setDelegate:self];
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
-    
-    [self.backgroundView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - 30)];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];

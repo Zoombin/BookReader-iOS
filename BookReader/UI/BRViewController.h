@@ -13,6 +13,6 @@
 @interface BRViewController : ZBViewController
 
 @property (nonatomic, strong) BRHeaderView *headerView;
-@property (nonatomic, strong) UIImageView *backgroundView;
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end
