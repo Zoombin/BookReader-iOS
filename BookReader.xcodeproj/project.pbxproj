@@ -290,10 +290,6 @@
 		8B453D1116B8C91400FD6FE0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936C16B7A1CC001BEE70 /* Default-568h@2x.png */; };
 		8B453D1316B8DEE400FD6FE0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1216B8DEE400FD6FE0 /* Icon-72.png */; };
 		8B453D1516B8DF1600FD6FE0 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1416B8DF1600FD6FE0 /* Icon-72@2x.png */; };
-		8B453D1716B8E26300FD6FE0 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1616B8E26300FD6FE0 /* Default-Portrait~ipad.png */; };
-		8B453D1916B8E27300FD6FE0 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1816B8E27300FD6FE0 /* Default-Portrait@2x~ipad.png */; };
-		8B453D1B16B8E27F00FD6FE0 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1A16B8E27F00FD6FE0 /* Default-Landscape~ipad.png */; };
-		8B453D1D16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1C16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png */; };
 		8B8A967C166DF9A2004549FA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A967B166DF9A2004549FA /* AudioToolbox.framework */; };
 		8B8A967E166DF9B0004549FA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A967D166DF9B0004549FA /* CoreAudio.framework */; };
 		8B9F3CA116A40A8B00DBC77D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F3CA016A40A8B00DBC77D /* ImageIO.framework */; };
@@ -1394,6 +1390,8 @@
 		8BDB0AD2165E04F1008F328A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18A0C6B1174DEDA7003FC599 /* BRViewController.h */,
+				18A0C6B2174DEDA9003FC599 /* BRViewController.m */,
 				1888A3A916FFF52E0046DA4C /* BookShelfViewController.h */,
 				1888A3AA16FFF52F0046DA4C /* BookShelfViewController.m */,
 				183CE5241783DD4800976DFB /* ChaptersViewController.h */,
@@ -1414,8 +1412,6 @@
 				77E039FD173BE7260036614C /* SignUpViewController.m */,
 				181091D317339104000931AB /* PasswordViewController.h */,
 				181091D417339104000931AB /* PasswordViewController.m */,
-				18A0C6B1174DEDA7003FC599 /* BRViewController.h */,
-				18A0C6B2174DEDA9003FC599 /* BRViewController.m */,
 			);
 			name = Controllers;
 			path = UI;
@@ -1484,10 +1480,6 @@
 				8B453D1116B8C91400FD6FE0 /* Default-568h@2x.png in Resources */,
 				8B453D1316B8DEE400FD6FE0 /* Icon-72.png in Resources */,
 				8B453D1516B8DF1600FD6FE0 /* Icon-72@2x.png in Resources */,
-				8B453D1716B8E26300FD6FE0 /* Default-Portrait~ipad.png in Resources */,
-				8B453D1916B8E27300FD6FE0 /* Default-Portrait@2x~ipad.png in Resources */,
-				8B453D1B16B8E27F00FD6FE0 /* Default-Landscape~ipad.png in Resources */,
-				8B453D1D16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png in Resources */,
 				188FE62716F84510009561CB /* Localizable.strings in Resources */,
 				1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */,
 				1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */,
