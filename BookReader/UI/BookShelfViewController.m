@@ -6,8 +6,6 @@
 //  Copyright (c) 2013年 颜超. All rights reserved.
 //
 
-#import "Book+Test.h"
-
 #import "BookShelfViewController.h"
 #import "Book.h"
 #import "AppDelegate.h"
@@ -26,7 +24,6 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "BookReader.h"
-#import "BRHeaderView.h"
 
 
 

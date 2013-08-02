@@ -7,7 +7,6 @@
 //
 
 #import "BRViewController.h"
-#import "BRHeaderView.h"
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
