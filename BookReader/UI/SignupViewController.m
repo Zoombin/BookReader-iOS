@@ -43,7 +43,6 @@
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
     codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-	self.keyboardUsers = @[accountTextField, passwordTextField, confirmTextField, codeTextField];
     NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField];
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];

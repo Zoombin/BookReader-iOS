@@ -74,8 +74,7 @@
     passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(25, CGRectGetMaxY(accountTextField.frame) + 10, fullSize.width-25*2, 50)];
     [passwordTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:passwordTextField];
-	
-	self.keyboardUsers = @[accountTextField, passwordTextField];
+
     
     loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [loginButton cooldownButtonFrame:CGRectMake(25, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-25*2, 50) andEnableCooldown:NO];

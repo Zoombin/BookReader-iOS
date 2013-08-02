@@ -11,7 +11,6 @@
 
 @interface BRViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *keyboardUsers;
 @property (nonatomic, strong) BRHeaderView *headerView;
 @property (nonatomic, strong) UITapGestureRecognizer *hideKeyboardRecognzier;
 
