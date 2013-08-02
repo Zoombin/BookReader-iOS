@@ -33,7 +33,6 @@
     NSArray *fuctionArray;
     Member *_member;
     BOOL isLogin;
-    SignInViewController *signViewController;
     UILabel *accountLabel;
     UILabel *moneyLabel;
     
@@ -61,12 +60,12 @@
     [super viewDidAppear:animated];
     if ([ServiceManager userID]) {
         [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, Member *member) {
-            if (error) {
-                _member = [ServiceManager userInfo];
+            if (success) {
+				_member = member;
+                [ServiceManager saveUserInfo:member];
             }
             else {
-                _member = member;
-                [ServiceManager saveUserInfo:member];
+                _member = [ServiceManager userInfo];
             }
 			isLogin = YES;
 			[self reloadUI];

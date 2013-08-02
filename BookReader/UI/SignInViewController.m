@@ -28,14 +28,6 @@
     UIButton *loginButton;
 }
 
-- (id)init {
-    self = [super init];
-    if (self != nil) {
-        self.bMember = YES;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,21 +35,13 @@
     self.headerView.backButton.hidden = YES;
     CGSize fullSize = self.view.bounds.size;
     
-    
-    if (self.bMember) {
-        BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-        [self.view addSubview:bookShelfButton];
-        
-        UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
-        [registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        [registerButton setTitle:@"注册" forState:UIControlStateNormal];
-        [self.view addSubview:registerButton];
-    } else {
-        UIButton  *backButton = [UIButton navigationBackButton];
-        [backButton addTarget:self action:@selector(backOrClose) forControlEvents:UIControlEventTouchUpInside];
-        [backButton setFrame:CGRectMake(10, 3, 50, 32)];
-        [self.view addSubview:backButton];
-    }
+	BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
+	[self.view addSubview:bookShelfButton];
+	
+	UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+	[registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[registerButton setTitle:@"注册" forState:UIControlStateNormal];
+	[self.view addSubview:registerButton];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, self.view.bounds.size.height - 56)];
     [backgroundView.layer setCornerRadius:5];
@@ -124,11 +108,7 @@
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-                if (self.bMember) {
-                    [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
-                } else {
-                    [self backOrClose];
-                }
+				[APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
                 [self displayHUDError:nil message:message];
             }
