@@ -44,11 +44,6 @@
     return backgroundImage;
 }
 
-- (BRHeaderView *)BRHeaderView
-{
-    return _headerView;
-}
-
 - (void)backButtonClick {
     [self.navigationController popViewControllerAnimated:YES];
 }

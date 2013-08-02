@@ -69,8 +69,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.delegate = self;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
-	[[self BRHeaderView] addButtons];
-	[[self BRHeaderView] setDelegate:self];
+	[self.headerView addButtons];
+	[self.headerView setDelegate:self];
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
     
@@ -495,7 +495,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		} else {
 			[needRemoveFavoriteBooks removeObject:bookCell.book];
 		}
-        [[self BRHeaderView] deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
+        [self.headerView deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
 	} else {
         //[bookCell.book persistWithBlock:nil];//TODO: need to this when actually start to read. Why should persist here?
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];

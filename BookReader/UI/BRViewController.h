@@ -16,7 +16,6 @@
 
 - (void)hideKeyboard;
 - (void)removeGestureRecognizer;
-- (BRHeaderView *)BRHeaderView;
 - (UIImageView *)backgroundImage;
 
 @end

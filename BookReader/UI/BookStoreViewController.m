@@ -467,14 +467,14 @@
 	if (sender == recommendButton) {
 		currentType = RECOMMEND;
 		[infoTableView setTableHeaderView:nil];
-		[[self BRHeaderView].titleLabel setText:@"推荐"];
+		[self.headerView.titleLabel setText:@"推荐"];
 		[rankView setHidden:YES];
 		[self loadRecommendDataWithIndex:1];
 		[infoTableView setHidden:NO];
 	} else if (sender == rankButton) {
 		currentType = RANK;
 		[infoTableView setTableHeaderView:rankView];
-		[[self BRHeaderView].titleLabel setText:@"排行"];
+		[self.headerView.titleLabel setText:@"排行"];
         [rankView setHidden:NO];
 		[infoTableView setHidden:NO];
         if ([self refreshRankInfo]) {
@@ -486,13 +486,13 @@
 		currentType = CATAGORY;
 		catagoryView.hidden = NO;
 		[infoTableView setTableHeaderView:nil];
-		[[self BRHeaderView].titleLabel setText:@"分类"];
+		[self.headerView.titleLabel setText:@"分类"];
 		[rankView setHidden:YES];
 		[infoTableView reloadData];
 	} else if (sender == searchButton) {
 		currentType = SEARCH;
 		[infoTableView setTableHeaderView:tableViewHeader];
-		[[self BRHeaderView].titleLabel setText:@"搜索"];
+		[self.headerView.titleLabel setText:@"搜索"];
 		[rankView setHidden:YES];
 		[infoTableView setHidden:NO];
         [self showHotkeyBtns];
