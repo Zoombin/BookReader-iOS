@@ -343,6 +343,7 @@
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
         if (i==1) {
             favButton = button;
+			[favButton setTitle:@"已收藏" forState:UIControlStateSelected];
         }
         [coverView addSubview:button];
     }
@@ -512,8 +513,8 @@
             } else {
                 if (isExist) {
                     bFav = YES;
-					[favButton setEnabled:NO];
-					[favButton setTitle:@"已收藏" forState:UIControlStateNormal];
+					favButton.enabled = NO;
+					favButton.selected = YES;
                 }
             }
         }];
@@ -729,8 +730,8 @@
                 if (success) {
                     bFav = YES;
 					book.bFav = @(YES);
-                    [favButton setTitle:@"已收藏" forState:UIControlStateNormal];
-                    [favButton setEnabled:NO];
+					favButton.selected = YES;
+                    favButton.enabled = NO;
 					[book persistWithBlock:^(void) {
 						[self displayHUDError:nil message:message];
 						[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
