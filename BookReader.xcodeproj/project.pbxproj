@@ -291,10 +291,6 @@
 		8B453D1116B8C91400FD6FE0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936C16B7A1CC001BEE70 /* Default-568h@2x.png */; };
 		8B453D1316B8DEE400FD6FE0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1216B8DEE400FD6FE0 /* Icon-72.png */; };
 		8B453D1516B8DF1600FD6FE0 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1416B8DF1600FD6FE0 /* Icon-72@2x.png */; };
-		8B8A967C166DF9A2004549FA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A967B166DF9A2004549FA /* AudioToolbox.framework */; };
-		8B8A967E166DF9B0004549FA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A967D166DF9B0004549FA /* CoreAudio.framework */; };
-		8B9F3CA116A40A8B00DBC77D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F3CA016A40A8B00DBC77D /* ImageIO.framework */; };
-		8B9F3CA316A40B8000DBC77D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F3CA216A40B8000DBC77D /* MapKit.framework */; };
 		8B9F3CA516A40B8F00DBC77D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F3CA416A40B8F00DBC77D /* libsqlite3.dylib */; };
 		8BC9937416B7A4B4001BEE70 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9937216B7A4B4001BEE70 /* Icon.png */; };
 		8BC9937516B7A4B4001BEE70 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9937316B7A4B4001BEE70 /* Icon@2x.png */; };
@@ -307,10 +303,6 @@
 		8BDB0B23165E04F2008F328A /* ReadStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDB0B00165E04F1008F328A /* ReadStatusView.m */; };
 		8BDB0BD4165E0638008F328A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0BD3165E0638008F328A /* CoreText.framework */; };
 		8BDB0BDA165E065B008F328A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0BD9165E065B008F328A /* QuartzCore.framework */; };
-		8BF591A416A7A25D00C25984 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF591A316A7A25D00C25984 /* StoreKit.framework */; };
-		8BF74728166DF0C60079E464 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF74727166DF0C60079E464 /* CoreTelephony.framework */; };
-		8BF7472A166DF0CE0079E464 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF74729166DF0CE0079E464 /* CoreLocation.framework */; };
-		8BF7472C166DF0D40079E464 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472B166DF0D40079E464 /* MediaPlayer.framework */; };
 		8BF7472E166DF0D90079E464 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472D166DF0D90079E464 /* Security.framework */; };
 		8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF7472F166DF0DF0079E464 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
@@ -708,10 +700,6 @@
 		8B453D1816B8E27300FD6FE0 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		8B453D1A16B8E27F00FD6FE0 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		8B453D1C16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
-		8B8A967B166DF9A2004549FA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		8B8A967D166DF9B0004549FA /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		8B9F3CA016A40A8B00DBC77D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		8B9F3CA216A40B8000DBC77D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8B9F3CA416A40B8F00DBC77D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8BC9936816B7A1C2001BEE70 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		8BC9936A16B7A1C9001BEE70 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
@@ -732,10 +720,6 @@
 		8BDB0B00165E04F1008F328A /* ReadStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadStatusView.m; sourceTree = "<group>"; };
 		8BDB0BD3165E0638008F328A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		8BDB0BD9165E065B008F328A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8BF591A316A7A25D00C25984 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		8BF74727166DF0C60079E464 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		8BF74729166DF0CE0079E464 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		8BF7472B166DF0D40079E464 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8BF7472D166DF0D90079E464 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8BF7472F166DF0DF0079E464 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -750,17 +734,9 @@
 				8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */,
 				188FE67416FB003F009561CB /* CoreData.framework in Frameworks */,
 				8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */,
-				8BF591A416A7A25D00C25984 /* StoreKit.framework in Frameworks */,
 				8B9F3CA516A40B8F00DBC77D /* libsqlite3.dylib in Frameworks */,
-				8B9F3CA316A40B8000DBC77D /* MapKit.framework in Frameworks */,
-				8BF7472A166DF0CE0079E464 /* CoreLocation.framework in Frameworks */,
-				8B9F3CA116A40A8B00DBC77D /* ImageIO.framework in Frameworks */,
 				8B22BC55167EBBA900A2B316 /* libz.dylib in Frameworks */,
-				8B8A967E166DF9B0004549FA /* CoreAudio.framework in Frameworks */,
-				8B8A967C166DF9A2004549FA /* AudioToolbox.framework in Frameworks */,
 				8BF7472E166DF0D90079E464 /* Security.framework in Frameworks */,
-				8BF7472C166DF0D40079E464 /* MediaPlayer.framework in Frameworks */,
-				8BF74728166DF0C60079E464 /* CoreTelephony.framework in Frameworks */,
 				8BDB0BDA165E065B008F328A /* QuartzCore.framework in Frameworks */,
 				8BDB0BD4165E0638008F328A /* CoreText.framework in Frameworks */,
 				8BDB0AB6165E03BB008F328A /* UIKit.framework in Frameworks */,
@@ -1331,18 +1307,10 @@
 				7780154D17622204005296DD /* MobileCoreServices.framework */,
 				188FE67316FB003F009561CB /* CoreData.framework */,
 				8B0371C116AD219100DFE776 /* CFNetwork.framework */,
-				8BF591A316A7A25D00C25984 /* StoreKit.framework */,
 				8B9F3CA416A40B8F00DBC77D /* libsqlite3.dylib */,
-				8B9F3CA216A40B8000DBC77D /* MapKit.framework */,
-				8B9F3CA016A40A8B00DBC77D /* ImageIO.framework */,
 				8B22BC54167EBBA900A2B316 /* libz.dylib */,
-				8B8A967D166DF9B0004549FA /* CoreAudio.framework */,
-				8B8A967B166DF9A2004549FA /* AudioToolbox.framework */,
 				8BF7472F166DF0DF0079E464 /* MessageUI.framework */,
 				8BF7472D166DF0D90079E464 /* Security.framework */,
-				8BF7472B166DF0D40079E464 /* MediaPlayer.framework */,
-				8BF74729166DF0CE0079E464 /* CoreLocation.framework */,
-				8BF74727166DF0C60079E464 /* CoreTelephony.framework */,
 				8BDB0BD9165E065B008F328A /* QuartzCore.framework */,
 				8BDB0BD3165E0638008F328A /* CoreText.framework */,
 				8BDB0AB5165E03BB008F328A /* UIKit.framework */,
