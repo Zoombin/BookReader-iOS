@@ -100,7 +100,6 @@
     UILabel *emptyLabel;
     
     UISlider *slider;
-    //LoginViewController *loginView;
 }
 
 - (id)initWithBook:(NSString *)uid

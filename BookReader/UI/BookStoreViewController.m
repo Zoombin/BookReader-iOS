@@ -176,7 +176,6 @@
     [self.view addSubview:infoTableView];
     
     catagoryView = [[UIView alloc] initWithFrame:infoTableView.frame];
-    [catagoryView setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:235.0/255.0 blue:237.0/255.0 alpha:1.0]];
     [self showCatagoryViewBtn];
     [self.view addSubview:catagoryView];
     

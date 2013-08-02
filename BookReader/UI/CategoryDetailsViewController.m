@@ -60,11 +60,9 @@
     catagoryId = cataId;
     NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
     [self setTitle:buttonNames[catagoryId-1]];
-    if ([infoArray count]>0) {
-        [infoArray removeAllObjects];
-    }
+	[infoArray removeAllObjects];
     [infoArray addObjectsFromArray:array];
-    if ([infoArray count]==7) {
+    if ([infoArray count] == 7) {
         UIView *footview = [UIView tableViewFootView:CGRectMake(-4, 0, 316, 26) andSel:NSSelectorFromString(@"getMore") andTarget:self];
         [infoTableView setTableFooterView:footview];
     }
