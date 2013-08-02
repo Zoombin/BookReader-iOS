@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BRHeaderView.h"
+#import "ZBViewController.h"
 
-@interface BRViewController : UIViewController
+@interface BRViewController : ZBViewController
 
 @property (nonatomic, strong) BRHeaderView *headerView;
-@property (nonatomic, strong) UITapGestureRecognizer *hideKeyboardRecognzier;
 @property (nonatomic, strong) UIImageView *backgroundView;
-
-- (void)hideKeyboard;
-- (void)backOrClose;
 
 @end

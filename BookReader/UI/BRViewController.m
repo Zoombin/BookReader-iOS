@@ -31,23 +31,6 @@
 	_headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, BRHeaderView.height)];
     [_headerView.backButton addTarget:self action:@selector(backOrClose) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_headerView];
-    
-	_hideKeyboardRecognzier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    [self.view addGestureRecognizer:_hideKeyboardRecognzier];
-}
-
-- (void)backOrClose
-{
-	if (self.navigationController.viewControllers[0] != self) {
-		[self.navigationController popViewControllerAnimated:YES];
-	} else if (self.navigationController.presentingViewController) {
-		[self dismissViewControllerAnimated:YES completion:nil];
-	}
-}
-
-- (void)hideKeyboard
-{
-	[self.view endEditing:YES];
 }
 
 @end

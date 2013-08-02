@@ -275,6 +275,10 @@
 		77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77B378DF17AB8EB400D8D63D /* FTBWKT.ttf */; };
 		77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77B378E017AB8EB400D8D63D /* FZLTHJW.ttf */; };
 		77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */; };
+		77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */; };
+		77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */; };
+		77B378F217ABE65200D8D63D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77B378EC17ABE65200D8D63D /* README.md */; };
+		77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EE17ABE65200D8D63D /* UIColor+Hex.m */; };
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
 		77E3E2FD174DA83400FCCD91 /* text_field_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */; };
@@ -679,6 +683,13 @@
 		77B378E017AB8EB400D8D63D /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+BookReader.h"; path = "../NSUserDefaults+BookReader.h"; sourceTree = "<group>"; };
 		77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+BookReader.m"; path = "../NSUserDefaults+BookReader.m"; sourceTree = "<group>"; };
+		77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BundleExtensions.h"; sourceTree = "<group>"; };
+		77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BundleExtensions.m"; sourceTree = "<group>"; };
+		77B378EA17ABE65200D8D63D /* NSString+ChineseSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ChineseSpace.h"; sourceTree = "<group>"; };
+		77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ChineseSpace.m"; sourceTree = "<group>"; };
+		77B378EC17ABE65200D8D63D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		77B378ED17ABE65200D8D63D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		77B378EE17ABE65200D8D63D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -1028,6 +1039,7 @@
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				77B378E617ABE65200D8D63D /* ZBUtilities */,
 				18E776BC174A246500D0ECA0 /* CNZZ */,
 				77A1DB961730DF9C002BE306 /* AFNetworking */,
 				77A1DBD91730DF9C002BE306 /* MagicalRecord */,
@@ -1242,6 +1254,20 @@
 			);
 			path = Fonts;
 			sourceTree = SOURCE_ROOT;
+		};
+		77B378E617ABE65200D8D63D /* ZBUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */,
+				77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */,
+				77B378EA17ABE65200D8D63D /* NSString+ChineseSpace.h */,
+				77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */,
+				77B378EC17ABE65200D8D63D /* README.md */,
+				77B378ED17ABE65200D8D63D /* UIColor+Hex.h */,
+				77B378EE17ABE65200D8D63D /* UIColor+Hex.m */,
+			);
+			path = ZBUtilities;
+			sourceTree = "<group>";
 		};
 		77F2956517A3C3F000D10A31 /* Views */ = {
 			isa = PBXGroup;
@@ -1613,6 +1639,7 @@
 				77B378DD17AB8E4700D8D63D /* BookDoc in Resources */,
 				77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */,
 				77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */,
+				77B378F217ABE65200D8D63D /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1755,6 +1782,9 @@
 				77B378D517AB81AF00D8D63D /* Chapter.m in Sources */,
 				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
 				77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */,
+				77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */,
+				77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */,
+				77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
