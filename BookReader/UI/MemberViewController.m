@@ -24,7 +24,6 @@
 #import "Member.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
-#import "BookReader.h"
 #import "BookCell.h"
 #import "Mark.h"
 #import "NSString+ChineseSpace.h"

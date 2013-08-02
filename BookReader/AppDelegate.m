@@ -11,7 +11,6 @@
 #import "BookStoreViewController.h"
 #import "MemberViewController.h"
 #import "SignInViewController.h"
-#import "BookReader.h"
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
 #import "BookReaderDefaultsManager.h"

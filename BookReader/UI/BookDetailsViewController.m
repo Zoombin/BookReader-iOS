@@ -29,7 +29,6 @@
 #import "UIView+BookReader.h"
 #import "CommentCell.h"
 #import "BookShelfButton.h"
-#import "BookReader.h"
 #import "Mark.h"
 #import "ChapterCell.h"
 #import "SignInViewController.h"

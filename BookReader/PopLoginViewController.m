@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+HUD.h"
 #import	"ServiceManager.h"
-#import "BookReader.h"
 
 
 @implementation PopLoginViewController {

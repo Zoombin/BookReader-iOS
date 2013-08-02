@@ -14,7 +14,6 @@
 #import "SignUpViewController.h"
 #import "PasswordViewController.h"
 #import "AppDelegate.h"
-#import "BookReader.h"
 #import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIView+BookReader.h"

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "BookReader.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "NSString+XXSY.h"

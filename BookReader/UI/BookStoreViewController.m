@@ -7,7 +7,6 @@
 //
 
 #import "BookStoreViewController.h"
-#import "BookReader.h"
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
 #import <QuartzCore/QuartzCore.h>

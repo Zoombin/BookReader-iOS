@@ -9,7 +9,6 @@
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
-#import "BookReader.h"
 #import "UIColor+BookReader.h"
 
 #define BigCellHeight 110.0f

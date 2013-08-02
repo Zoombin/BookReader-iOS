@@ -23,7 +23,6 @@
 #import "Mark.h"
 #import "NSString+ChineseSpace.h"
 #import "SignInViewController.h"
-#import "BookReader.h"
 #import "AppDelegate.h"
 #import "BookDetailsViewController.h"
 

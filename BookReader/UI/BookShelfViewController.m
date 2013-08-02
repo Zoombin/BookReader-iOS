@@ -14,8 +14,6 @@
 #import "Chapter.h"
 #import "Book.h"
 #import "LoginReminderView.h"
-//Local
-#import "BookReader.h"
 #import "CoreTextViewController.h"
 #import "BookCell.h"
 #import "BRBooksView.h"
@@ -23,7 +21,6 @@
 #import "BookReaderDefaultsManager.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
-#import "BookReader.h"
 
 
 
