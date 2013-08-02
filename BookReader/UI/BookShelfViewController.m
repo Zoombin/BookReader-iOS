@@ -55,7 +55,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self removeGestureRecognizer];
+	self.gestureRecognier.enabled = NO;
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
     

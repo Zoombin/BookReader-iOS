@@ -527,7 +527,7 @@
     
     [self loadShortCommitList];
     [self loadSameType];
-    [self removeGestureRecognizer];
+	self.gestureRecognier.enabled = NO;
 }
 
 - (void)getChaptersDataWithBlock:(dispatch_block_t)block

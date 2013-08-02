@@ -189,7 +189,7 @@
     gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [backgroundView addGestureRecognizer:gestureRecognizer];
     
-    [self removeGestureRecognizer];
+	self.gestureRecognier.enabled = NO;
 	[self buttonClick:recommendButton];
 }
 

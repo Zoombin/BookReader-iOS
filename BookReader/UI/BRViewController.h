@@ -13,9 +13,9 @@
 
 @property (nonatomic, strong) NSArray *keyboardUsers;
 @property (nonatomic, strong) BRHeaderView *headerView;
+@property (nonatomic, strong) UITapGestureRecognizer *gestureRecognier;
 
 - (void)hideKeyboard;
-- (void)removeGestureRecognizer;
 - (UIImageView *)backgroundImage;
 
 @end

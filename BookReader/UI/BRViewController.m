@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation BRViewController {
-    UITapGestureRecognizer *gesturerecognier;
     UIImageView *backgroundImage;
 }
 
@@ -35,8 +34,8 @@
     [_headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_headerView];
     
-     gesturerecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    [self.view addGestureRecognizer:gesturerecognier];
+	_gestureRecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:_gestureRecognier];
 }
 
 - (UIImageView *)backgroundImage
@@ -55,15 +54,7 @@
 
 - (void)hideKeyboard
 {
-    for (UIView *user in _keyboardUsers) {
-		[user resignFirstResponder];
-	}
+	[self.view endEditing:YES];
 }
-
-- (void)removeGestureRecognizer
-{
-    [self.view removeGestureRecognizer:gesturerecognier];
-}
-
 
 @end

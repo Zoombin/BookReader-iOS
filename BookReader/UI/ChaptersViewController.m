@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self removeGestureRecognizer];
+	self.gestureRecognier.enabled = NO;
     
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height - 38 - 30) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
