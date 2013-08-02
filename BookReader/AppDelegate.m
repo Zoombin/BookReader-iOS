@@ -49,20 +49,19 @@
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
     _rootControllers = [@{} mutableCopy];
-    _rootControllers[@(kRootControllerTypeBookShelf)] = [[BookShelfViewController alloc] init];
-    _rootControllers[@(kRootControllerTypeBookStore)] = [[BookStoreViewController alloc] init];
-    _rootControllers[@(kRootControllerTypeMember)] = [[MemberViewController alloc] init];
-    _rootControllers[@(kRootControllerTypeLogin)] = [[SignInViewController alloc] init];
+    _rootControllers[@(kRootControllerIdentifierBookShelf)] = [[BookShelfViewController alloc] init];
+    _rootControllers[@(kRootControllerIdentifierBookStore)] = [[BookStoreViewController alloc] init];
+    _rootControllers[@(kRootControllerIdentifierMember)] = [[MemberViewController alloc] init];
+    _rootControllers[@(kRootControllerIdentifierLogin)] = [[SignInViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self gotoRootController:kRootControllerTypeBookShelf];
+    [self gotoRootController:kRootControllerIdentifierBookShelf];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)gotoRootController:(RootControllerType)type
+- (void)gotoRootController:(RootControllerIdentifier)identifier
 {
-    UIViewController *controller = _rootControllers[@(type)];
-    _navController = [[NavViewController alloc] initWithRootViewController:controller];
+    _navController = [[NavViewController alloc] initWithRootViewController:_rootControllers[@(identifier)]];
     [_navController setNavigationBarHidden:YES];
     self.window.rootViewController = _navController;
 }

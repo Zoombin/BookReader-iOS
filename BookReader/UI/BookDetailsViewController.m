@@ -467,7 +467,7 @@
 
 - (void)mainButtonClicked
 {
-    [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+    [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookStore];
 }
 
 - (void)initBookDetailUI

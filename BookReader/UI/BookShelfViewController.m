@@ -428,9 +428,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)headerButtonClicked:(NSNumber *)type
 {
     if (type.intValue == kHeaderViewButtonBookStore) {
-        [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+        [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookStore];
     } else if (type.intValue == kHeaderViewButtonMember) {
-        [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+        [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
     } else if (type.intValue == kHeaderViewButtonEdit) {
 		editing = YES;
 		[booksView reloadData];

@@ -10,16 +10,16 @@
 
 
 typedef enum {
-    kRootControllerTypeBookShelf,
-    kRootControllerTypeBookStore,
-    kRootControllerTypeMember,
-    kRootControllerTypeLogin,
-}RootControllerType;
+    kRootControllerIdentifierBookShelf,
+    kRootControllerIdentifierBookStore,
+    kRootControllerIdentifierMember,
+    kRootControllerIdentifierLogin,
+}RootControllerIdentifier;
 
 #define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 
-- (void)gotoRootController:(RootControllerType)type;
+- (void)gotoRootController:(RootControllerIdentifier)identifier;
 @end

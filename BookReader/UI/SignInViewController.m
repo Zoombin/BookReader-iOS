@@ -126,7 +126,7 @@
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
                 if (self.bMember) {
-                    [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+                    [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
                 } else {
                     [self backOrClose];
                 }

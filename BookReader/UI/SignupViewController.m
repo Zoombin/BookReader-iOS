@@ -114,7 +114,7 @@
             [self displayHUDError:nil message:message];
             if (success) {
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
-                [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
+                [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
                 
             }
