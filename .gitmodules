@@ -10,3 +10,6 @@
 [submodule "Libraries/MBProgressHUD"]
 	path = Libraries/MBProgressHUD
 	url = git://github.com/qq30135878/MBProgressHUD.git
+[submodule "Libraries/ZBUtilities"]
+	path = Libraries/ZBUtilities
+	url = https://30135878%40qq.com@github.com/qq30135878/ZBUtilities.git
