@@ -42,7 +42,7 @@
     [super viewDidLoad];
     [self setTitle:@"登录"];
     
-    self.hideBackBtn = YES;
+    self.headerView.backButton.hidden = YES;
     CGSize fullSize = self.view.bounds.size;
     
     
