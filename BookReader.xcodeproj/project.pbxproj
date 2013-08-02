@@ -1458,6 +1458,7 @@
 				8BDB0AAD165E03BB008F328A /* Sources */,
 				8BDB0AAE165E03BB008F328A /* Frameworks */,
 				8BDB0AAF165E03BB008F328A /* Resources */,
+				77B378DA17AB858A00D8D63D /* Mark Unfinished keywords */,
 			);
 			buildRules = (
 			);
@@ -1689,6 +1690,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "version=`git describe`\nversionNumLong=`echo $version | sed 's/\\-\\([0-9]*\\)\\-g\\([a-z0-9]*\\)/.\\1/'`\nversionNum=`echo $version | sed 's/.*\\-g\\([a-z0-9]*\\)/\\1/'`\necho \"#define GIT_VERSION $versionNumLong\" > InfoPlist.h\necho \"#define APP_VERSION $versionNum\" >> InfoPlist.h\ntouch BookReader/BookReader-Info.plist\n";
+		};
+		77B378DA17AB858A00D8D63D /* Mark Unfinished keywords */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Mark Unfinished keywords";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

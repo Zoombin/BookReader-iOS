@@ -500,7 +500,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		}
         [[self BRHeaderView] deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
 	} else {
-        [bookCell.book persistWithBlock:nil];//TODO need to this when actually start to read
+        //[bookCell.book persistWithBlock:nil];//TODO: need to this when actually start to read. Why should persist here?
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 		controller.book = bookCell.book;
         [self.navigationController pushViewController:controller animated:YES];
