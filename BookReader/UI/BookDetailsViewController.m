@@ -210,7 +210,7 @@
     [super viewDidLoad];
     [self setTitle:book.name];
     CGSize fullSize = self.view.bounds.size;
-    CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width - 10, self.view.bounds.size.height - 56 - 25);
+    CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width - 10, fullSize.height - 56 - 25);
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
@@ -222,7 +222,7 @@
     [mainButton addTarget:self action:@selector(mainButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:mainButton];
     
-    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 30)];
     [emptyLabel setText:@"暂无其它书籍"];
     [emptyLabel setTextAlignment:UITextAlignmentCenter];
     
@@ -424,7 +424,7 @@
     [chapterListTableView setDataSource:self];
     [chapterListView addSubview:chapterListTableView];
     
-    slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 210, self.view.bounds.size.height - 150, 20)];
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 210, fullSize.height - 150, 20)];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
     [slider setThumbImage:[UIImage imageNamed:@"thumb_image"] forState:UIControlStateNormal];

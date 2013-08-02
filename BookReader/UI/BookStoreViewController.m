@@ -107,13 +107,15 @@
     [super viewDidLoad];
     [self setHideBackBtn:YES];
     [self setTitle:@"书城"];
+	
+	CGSize fullSize = self.view.bounds.size;
     
-    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-45, self.view.bounds.size.width, 50)];
+    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, fullSize.height - 45, fullSize.width, 50)];
     [bottomView setImage:[UIImage imageNamed:@"bookstore_bottom_bar"]];
     [self.view addSubview:bottomView];
     
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [bookShelfButton setFrame:CGRectMake(self.view.bounds.size.width - 60, 3, 50, 32)];
+    [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
     NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
@@ -126,7 +128,7 @@
         [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[i]] forState:UIControlStateHighlighted];
 		[button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[i]] forState:UIControlStateSelected];
         [button setBackgroundImage:[UIImage imageNamed:buttonImagesNormal[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(delta * (i + 1) + i * width, self.view.bounds.size.height - 45, width, 50)];
+        [button setFrame:CGRectMake(delta * (i + 1) + i * width, fullSize.height - 45, width, 50)];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [buttons addObject:button];
@@ -137,10 +139,10 @@
     cataButton = buttons[2];
     searchButton = buttons[3];
     
-    tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
+    tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 65, 42)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 65, 42)];
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
@@ -162,10 +164,10 @@
     [_headerSearchButton setBackgroundImage:[UIImage imageNamed:@"bookstore_search_btn"] forState:UIControlStateNormal];
     [tableViewHeader addSubview:_headerSearchButton];
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-10, self.view.bounds.size.height - BRHeaderView.height - 50)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 10, fullSize.height - BRHeaderView.height - 50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, BRHeaderView.height, self.view.bounds.size.width-16, self.view.bounds.size.height  - BRHeaderView.height - 50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, BRHeaderView.height, fullSize.width - 16, fullSize.height  - BRHeaderView.height - 50) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
@@ -422,7 +424,7 @@
 - (void)loadCatagoryDataWithIndex:(id)sender {
     NSInteger index = [sender tag];
     CategoryDetailsViewController *childViewController = [[CategoryDetailsViewController alloc]init];
-    [childViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height+20)];
+    [childViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height + 20)];
     [self.navigationController pushViewController:childViewController animated:YES];
     [childViewController displayHUD:@"加载中..."];
     [ServiceManager books:@""
