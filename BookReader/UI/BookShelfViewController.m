@@ -55,6 +55,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	self.headerView.titleLabel.text = @"书架";
 	self.hideKeyboardRecognzier.enabled = NO;
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;

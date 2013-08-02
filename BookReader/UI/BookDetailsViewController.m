@@ -208,7 +208,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTitle:book.name];
+	self.headerView.titleLabel.text = @"书籍详情";
     CGSize fullSize = self.view.bounds.size;
     CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width - 10, fullSize.height - 56 - 25);
     
@@ -472,7 +472,6 @@
 
 - (void)initBookDetailUI
 {
-    self.title = @"书籍详情";
     NSURL *url = [NSURL URLWithString:book.coverURL];
     UIImageView *tmpImageView = bookCover;
     [bookCover setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"book_placeholder"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -481,8 +480,6 @@
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"error: %@", error);
     }];
-    
-    //    self.title = book.name;
     
     NSString *bookName = book.name;
     NSString *authorName = [@"作者: " stringByAppendingString:book.author];

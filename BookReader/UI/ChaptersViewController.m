@@ -97,7 +97,7 @@
 
 - (void)chaptersButtonClicked
 {
-    self.title = @"目录";
+	self.headerView.titleLabel.text = @"目录";
 	bBookmarks = NO;
     [chapterlistBtn setEnabled:NO];
     [bookmarkBtn setEnabled:YES];
@@ -108,7 +108,7 @@
 
 - (void)bookmarksButtonClicked
 {
-    self.title = @"书签";
+	self.headerView.titleLabel.text = @"书签";
 	bBookmarks = YES;
     [chapterlistBtn setEnabled:YES];
     [bookmarkBtn setEnabled:NO];

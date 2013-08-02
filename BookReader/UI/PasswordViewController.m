@@ -47,7 +47,7 @@
 
 - (void)showFindPassword
 {
-    [self setTitle:@"找回密码"];
+	self.headerView.titleLabel.text = @"找回密码";
     CGSize fullSize = self.view.bounds.size;
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, fullSize.height - 56)];
@@ -100,7 +100,7 @@
 - (void)showChangePassword
 {
     CGSize fullSize = self.view.bounds.size;
-    [self setTitle:@"修改密码"];
+	self.headerView.titleLabel.text = @"修改密码";
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, self.view.bounds.size.height - 56)];
     [backgroundView.layer setCornerRadius:5];
     [backgroundView.layer setMasksToBounds:YES];

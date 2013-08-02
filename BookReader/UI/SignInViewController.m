@@ -40,8 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTitle:@"登录"];
-    
+	self.headerView.titleLabel.text = @"登录";
     self.headerView.backButton.hidden = YES;
     CGSize fullSize = self.view.bounds.size;
     

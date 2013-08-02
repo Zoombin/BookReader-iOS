@@ -30,8 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	self.headerView.titleLabel.text = @"注册";
     CGSize fullSize = self.view.bounds.size;
-    [self setTitle:@"注册"];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, self.view.bounds.size.height - 56)];
     [backgroundView.layer setCornerRadius:5]; 

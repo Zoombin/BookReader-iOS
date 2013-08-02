@@ -106,7 +106,7 @@
 {
     [super viewDidLoad];
 	self.headerView.backButton.hidden = YES;
-    [self setTitle:@"书城"];
+	self.headerView.titleLabel.text = @"书城";
 	
 	CGSize fullSize = self.view.bounds.size;
     

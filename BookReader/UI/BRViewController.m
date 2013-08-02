@@ -45,11 +45,6 @@
 	}
 }
 
-- (void)setTitle:(NSString *)title
-{
-    [_headerView.titleLabel setText:title];
-}
-
 - (void)hideKeyboard
 {
 	[self.view endEditing:YES];
