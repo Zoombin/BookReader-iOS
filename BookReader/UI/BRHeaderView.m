@@ -20,6 +20,11 @@
 }
 @synthesize delegate;
 
++ (CGFloat)height
+{
+	return 44.0f;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

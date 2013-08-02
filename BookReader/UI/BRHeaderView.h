@@ -21,12 +21,15 @@ typedef enum {
 - (void)headerButtonClicked:(NSNumber *)type;
 @end
 
-@interface BRHeaderView : UIView {
-}
+@interface BRHeaderView : UIView
+
 @property (nonatomic, weak) id<BookShelfHeaderViewDelegate> delegate;
 @property (nonatomic ,strong) UIButton *backButton;
 @property (nonatomic ,strong) UILabel *titleLabel;
+
++ (CGFloat)height;
 - (void)addButtons;
 - (void)deleteButtonEnable:(BOOL)enable;
 - (void)refreshUpdateButton;
+
 @end
