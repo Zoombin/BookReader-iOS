@@ -107,7 +107,7 @@
 
 
 - (void)clone:(Book *)book
-{
+{	
 	self.author = book.author;
 	self.authorID = book.authorID;
 	self.autoBuy = book.autoBuy;

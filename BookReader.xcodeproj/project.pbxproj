@@ -170,7 +170,6 @@
 		18B5C9C917717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */; };
 		18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */; };
 		18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */; };
-		18B5C9D01773DD72004AAA16 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C9CF1773DD71004AAA16 /* Book.m */; };
 		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
 		18BA0AA1176FFE1600DFE9B3 /* bookstore_cata_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */; };
 		18BA0AA2176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */; };
@@ -217,7 +216,6 @@
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
-		779C67261744652500909D6A /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C67251744652500909D6A /* Chapter.m */; };
 		779C672C17446DCD00909D6A /* ContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* ContextManager.m */; };
 		77A13DA71787DBA2009BECD9 /* NSString+ChineseSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A13DA61787DBA2009BECD9 /* NSString+ChineseSpace.m */; };
 		77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */; };
@@ -280,7 +278,9 @@
 		77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2A173497320027D1DF /* BRBookCell.m */; };
 		77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2D173497890027D1DF /* BRBooksView.m */; };
 		77A612D71716635F00934254 /* NSString+XXSY.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSY.m */; };
-		77B01C1D175090B2004E426C /* Mark.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B01C1C175090B2004E426C /* Mark.m */; };
+		77B378D217AB81A500D8D63D /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D117AB81A500D8D63D /* Book.m */; };
+		77B378D517AB81AF00D8D63D /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D417AB81AF00D8D63D /* Chapter.m */; };
+		77B378D817AB81B900D8D63D /* Mark.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D717AB81B900D8D63D /* Mark.m */; };
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77E3E2F7174B6E6100FCCD91 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E3E2F6174B6E6100FCCD91 /* UIColor+Hex.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
@@ -516,8 +516,6 @@
 		18B5C9C817717ADB004AAA16 /* iphone_qqreader_Center_icon_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone_qqreader_Center_icon_bg@2x.png"; sourceTree = "<group>"; };
 		18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_search_btn.png; sourceTree = "<group>"; };
 		18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_search_btn@2x.png"; sourceTree = "<group>"; };
-		18B5C9CE1773DD71004AAA16 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
-		18B5C9CF1773DD71004AAA16 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_cata_hl.png; sourceTree = "<group>"; };
 		18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_cata_hl@2x.png"; sourceTree = "<group>"; };
@@ -570,8 +568,6 @@
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
 		779C6722174461F000909D6A /* Chapter+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chapter+Setup.m"; sourceTree = "<group>"; };
-		779C67241744652500909D6A /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
-		779C67251744652500909D6A /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		779C672A17446DCD00909D6A /* ContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextManager.h; sourceTree = "<group>"; };
 		779C672B17446DCD00909D6A /* ContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextManager.m; sourceTree = "<group>"; };
 		77A13DA51787DBA2009BECD9 /* NSString+ChineseSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+ChineseSpace.h"; path = "BookReader/NSString+ChineseSpace.h"; sourceTree = SOURCE_ROOT; };
@@ -699,8 +695,12 @@
 		77A3FA2D173497890027D1DF /* BRBooksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRBooksView.m; path = UI/BRBooksView.m; sourceTree = "<group>"; };
 		77A612D51716635F00934254 /* NSString+XXSY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XXSY.h"; path = "../NSString+XXSY.h"; sourceTree = "<group>"; };
 		77A612D61716635F00934254 /* NSString+XXSY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSY.m"; path = "../NSString+XXSY.m"; sourceTree = "<group>"; };
-		77B01C1B175090B2004E426C /* Mark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
-		77B01C1C175090B2004E426C /* Mark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mark.m; sourceTree = "<group>"; };
+		77B378D017AB81A500D8D63D /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		77B378D117AB81A500D8D63D /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		77B378D317AB81AF00D8D63D /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
+		77B378D417AB81AF00D8D63D /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
+		77B378D617AB81B900D8D63D /* Mark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
+		77B378D717AB81B900D8D63D /* Mark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mark.m; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -860,21 +860,21 @@
 				18ABAF301724FB1D00ED02C6 /* Member.h */,
 				18ABAF311724FB1D00ED02C6 /* Member.m */,
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
-				779C67241744652500909D6A /* Chapter.h */,
-				779C67251744652500909D6A /* Chapter.m */,
 				7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */,
-				779C671E174461DB00909D6A /* Book+Setup.h */,
-				779C671F174461DB00909D6A /* Book+Setup.m */,
-				779C6721174461F000909D6A /* Chapter+Setup.h */,
-				779C6722174461F000909D6A /* Chapter+Setup.m */,
 				779C672A17446DCD00909D6A /* ContextManager.h */,
 				779C672B17446DCD00909D6A /* ContextManager.m */,
-				77B01C1B175090B2004E426C /* Mark.h */,
-				77B01C1C175090B2004E426C /* Mark.m */,
 				18A7FF40176087C900F97099 /* Book+Local.h */,
 				18A7FF41176087C900F97099 /* Book+Local.m */,
-				18B5C9CE1773DD71004AAA16 /* Book.h */,
-				18B5C9CF1773DD71004AAA16 /* Book.m */,
+				77B378D017AB81A500D8D63D /* Book.h */,
+				77B378D117AB81A500D8D63D /* Book.m */,
+				779C671E174461DB00909D6A /* Book+Setup.h */,
+				779C671F174461DB00909D6A /* Book+Setup.m */,
+				77B378D317AB81AF00D8D63D /* Chapter.h */,
+				77B378D417AB81AF00D8D63D /* Chapter.m */,
+				779C6721174461F000909D6A /* Chapter+Setup.h */,
+				779C6722174461F000909D6A /* Chapter+Setup.m */,
+				77B378D617AB81B900D8D63D /* Mark.h */,
+				77B378D717AB81B900D8D63D /* Mark.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1787,15 +1787,12 @@
 				77E039FE173BE7260036614C /* SignUpViewController.m in Sources */,
 				779C6720174461DB00909D6A /* Book+Setup.m in Sources */,
 				779C6723174461F000909D6A /* Chapter+Setup.m in Sources */,
-				779C67261744652500909D6A /* Chapter.m in Sources */,
 				779C672C17446DCD00909D6A /* ContextManager.m in Sources */,
 				77E3E2F7174B6E6100FCCD91 /* UIColor+Hex.m in Sources */,
 				18A0C6B0174CA043003FC599 /* CommentCell.m in Sources */,
 				18A0C6B3174DEDAB003FC599 /* BRViewController.m in Sources */,
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
-				77B01C1D175090B2004E426C /* Mark.m in Sources */,
 				18A7FF42176087C900F97099 /* Book+Local.m in Sources */,
-				18B5C9D01773DD72004AAA16 /* Book.m in Sources */,
 				183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */,
 				183CE5261783DD4800976DFB /* ChaptersViewController.m in Sources */,
 				77A13DA71787DBA2009BECD9 /* NSString+ChineseSpace.m in Sources */,
@@ -1804,6 +1801,9 @@
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
 				184862FE1796535400282A6A /* NotificationView.m in Sources */,
 				18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */,
+				77B378D217AB81A500D8D63D /* Book.m in Sources */,
+				77B378D517AB81AF00D8D63D /* Chapter.m in Sources */,
+				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

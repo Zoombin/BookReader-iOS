@@ -2,7 +2,7 @@
 //  Mark.h
 //  BookReader
 //
-//  Created by zhangbin on 5/25/13.
+//  Created by zhangbin on 8/2/13.
 //  Copyright (c) 2013 颜超. All rights reserved.
 //
 
@@ -15,7 +15,7 @@
 @property (nonatomic, retain) NSString * chapterID;
 @property (nonatomic, retain) NSString * chapterName;
 @property (nonatomic, retain) NSNumber * progress;
-@property (nonatomic, retain) NSNumber * startWordIndex;
 @property (nonatomic, retain) NSString * reference;
+@property (nonatomic, retain) NSNumber * startWordIndex;
 
 @end

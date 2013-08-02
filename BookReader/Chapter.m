@@ -2,7 +2,7 @@
 //  Chapter.m
 //  BookReader
 //
-//  Created by zhangbin on 5/16/13.
+//  Created by zhangbin on 8/2/13.
 //  Copyright (c) 2013 颜超. All rights reserved.
 //
 
