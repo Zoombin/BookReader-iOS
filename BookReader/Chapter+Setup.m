@@ -58,7 +58,7 @@
 			if (!chapter) {
 				chapter = [Chapter createInContext:localContext];
 			}
-			[c clone:chapter];
+			[chapter clone:c];
 		}];
 	} completion:^(BOOL success, NSError *error) {
 			if (block) block();
@@ -67,15 +67,15 @@
 
 - (void)clone:(Chapter *)chapter
 {
-    chapter.bid = self.bid;
-    chapter.bVip = self.bVip;
-    //chapter.content = self.content;
-    //chapter.lastReadIndex = self.lastReadIndex;
-    chapter.name = self.name;
-	//chapter.nextID = self.nextID;
-	//chapter.previousID = self.previousID;
-	chapter.rollID = self.rollID;
-    chapter.uid = self.uid;
+	self.bid = chapter.bid;
+	self.bVip = chapter.bVip;
+//	self.content = chapter.content;
+//	self.lastReadIndex = chapter.lastReadIndex;
+	self.name = chapter.name;
+//	self.nextID = chapter.nextID;
+//	self.previousID = chapter.previousID;
+	self.rollID = chapter.rollID;
+	self.uid = chapter.uid;
 }
 
 - (NSString *)description

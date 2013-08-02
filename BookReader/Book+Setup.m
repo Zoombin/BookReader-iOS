@@ -98,7 +98,7 @@
 			if (!book) {
 				book = [Book createInContext:localContext];
 			}
-			[b clone:book];
+			[book clone:b];
 		}];
 	} completion:^(BOOL success, NSError *error) {
 		if (block) block();
@@ -108,36 +108,36 @@
 
 - (void)clone:(Book *)book
 {
-    book.author = self.author;
-    book.authorID = self.authorID;
-    book.autoBuy = self.autoBuy;
-	book.bCover = self.bCover;
-    book.bFav = self.bFav;
-    book.bVip = self.bVip;
-    book.bFinish = self.bFinish;
-    book.category = self.category;
-    book.categoryID = self.categoryID;
-    book.comment = self.comment;
-    book.commentPersons = self.commentPersons;
-    //book.cover = self.cover;
-    book.coverURL = self.coverURL;
-    book.describe = self.describe;
-    book.diamond = self.diamond;
-    book.flower = self.flower;
-    book.lastChapterName = self.lastChapterName;
-    //book.lastReadChapterID = self.lastReadChapterID;
-    book.lastUpdate = self.lastUpdate;
-    book.monthTicket = self.monthTicket;
-    book.name = self.name;
-//	book.nextUpdateTime = self.nextUpdateTime;
-    book.recommendID = self.recommendID;
-    book.recommendTitle = self.recommendTitle;
-    book.reward = self.reward;
-    book.rewardPersons = self.rewardPersons;
-    book.status = self.status;
-    book.uid = self.uid;
-	//book.updateDate = self.updateDate;
-    book.words = self.words;
+	self.author = book.author;
+	self.authorID = book.authorID;
+	self.autoBuy = book.autoBuy;
+	self.bCover = book.bCover;
+	self.bFav = book.bFav;
+	self.bVip = book.bVip;
+	self.bFinish = book.bFinish;
+	self.category = book.category;
+	self.categoryID = book.categoryID;
+    self.comment = book.comment;
+	self.commentPersons = book.commentPersons;
+//	self.cover = book.cover;
+	self.coverURL = book.coverURL;
+	self.describe = book.describe;
+	self.diamond = book.diamond;
+	self.flower = book.flower;
+	self.lastChapterName = book.lastChapterName;
+//	self.lastReadChapterID = book.lastReadChapterID;
+	self.lastUpdate = book.lastUpdate;
+	self.monthTicket = book.monthTicket;
+	self.name = book.name;
+//	self.nextUpdateTime = book.nextUpdateTime;
+	self.recommendID = book.recommendID;
+	self.recommendTitle = book.recommendTitle;
+	self.reward = book.reward;
+	self.rewardPersons = book.rewardPersons;
+	self.status = book.status;
+	self.uid = book.uid;
+//	self.updateDate = book.updateDate;
+	self.words = book.words;
 }
 
 - (NSString *)description
