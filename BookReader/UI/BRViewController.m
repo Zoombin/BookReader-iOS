@@ -34,8 +34,8 @@
     [_headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_headerView];
     
-	_gestureRecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    [self.view addGestureRecognizer:_gestureRecognier];
+	_hideKeyboardRecognzier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:_hideKeyboardRecognzier];
 }
 
 - (UIImageView *)backgroundImage

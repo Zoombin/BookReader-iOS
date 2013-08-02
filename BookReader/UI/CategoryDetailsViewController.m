@@ -52,7 +52,7 @@
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
     [infoTableView reloadData];
-	self.gestureRecognier.enabled = NO;
+	self.hideKeyboardRecognzier.enabled = NO;
 }
 
 - (void)reloadDataWithArray:(NSArray *)array andCatagoryId:(int)cataId

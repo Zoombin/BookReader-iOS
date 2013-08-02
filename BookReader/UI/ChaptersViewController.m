@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.gestureRecognier.enabled = NO;
+	self.hideKeyboardRecognzier.enabled = NO;
     
     infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height - 38 - 30) style:UITableViewStylePlain];
     [infoTableView setDelegate:self];
