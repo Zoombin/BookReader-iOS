@@ -1446,7 +1446,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
-				ORGANIZATIONNAME = "颜超";
+				ORGANIZATIONNAME = ZoomBin;
 			};
 			buildConfigurationList = 8BDB0AAB165E03BB008F328A /* Build configuration list for PBXProject "BookReader" */;
 			compatibilityVersion = "Xcode 3.2";
