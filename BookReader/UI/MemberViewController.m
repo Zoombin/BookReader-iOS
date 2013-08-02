@@ -59,19 +59,17 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([ServiceManager userID] != nil) {
+    if ([ServiceManager userID]) {
         [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, Member *member) {
             if (error) {
-                isLogin = YES;
                 _member = [ServiceManager userInfo];
-                [self reloadUI];
             }
             else {
-                isLogin = YES;
                 _member = member;
-                [ServiceManager saveUserInfo:member.coin andName:member.name];
-                [self reloadUI];
+                [ServiceManager saveUserInfo:member];
             }
+			isLogin = YES;
+			[self reloadUI];
         }];
     }else {
         [self reloadUI];
@@ -84,17 +82,8 @@
 }
 
 - (void)reloadUI {
-    for (UIView *view in [self.view subviews]) {
-        [view removeFromSuperview];
-    }
-    UIImageView *topBarImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, BRHeaderView.height)];
-    [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
-    [self.view addSubview:topBarImage];
-    
-    UILabel *titleLabel = [UILabel titleLableWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, BRHeaderView.height)];
-    [titleLabel setText:@"个人中心"];
-    [self.view addSubview:titleLabel];
-    
+	self.headerView.titleLabel.text = @"个人中心";
+	    
     BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
     [self.view addSubview:bookShelfButton];
     

@@ -13,7 +13,6 @@
 #import "NSString+XXSY.h"
 #import "Chapter+Setup.h"
 #import "Book+Setup.h"
-#import "Member.h"
 #import "Comment.h"
 #import "Pay.h"
 
@@ -89,10 +88,10 @@ static NSNumber *sUserID;
     return NO;
 }
 
-+ (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name
++ (void)saveUserInfo:(Member *)member
 {
-    [[NSUserDefaults standardUserDefaults] setObject:money forKey:USER_MONEY];
-    [[NSUserDefaults standardUserDefaults] setObject:name forKey:USER_NAME];
+    [[NSUserDefaults standardUserDefaults] setObject:member.coin forKey:USER_MONEY];
+    [[NSUserDefaults standardUserDefaults] setObject:member.name forKey:USER_NAME];
 }
 
 + (Member *)userInfo

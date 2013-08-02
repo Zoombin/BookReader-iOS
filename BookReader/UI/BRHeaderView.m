@@ -18,7 +18,6 @@
     UIButton *deleteButton;
     UIButton *refreshButton;
 }
-@synthesize delegate;
 
 + (CGFloat)height
 {
@@ -29,11 +28,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-
-         topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
-        [topBarImage setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+		
+		topBarImage = [[UIImageView alloc] initWithFrame:self.bounds];
+        [topBarImage setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
         [topBarImage setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
         [topBarImage setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [self addSubview:topBarImage];
@@ -42,8 +40,8 @@
         [_backButton setFrame:CGRectMake(10, 3, 50, 32)];
         [self addSubview:_backButton];
         
-        _titleLabel = [UILabel titleLableWithFrame:CGRectMake(80, 0, self.bounds.size.width - 160, BRHeaderView.height)];
-        [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+		_titleLabel = [UILabel titleLableWithFrame:CGRectMake(80, 0, self.bounds.size.width - 160, BRHeaderView.height)];
+		[_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
         [_titleLabel setAdjustsFontSizeToFitWidth:YES];
         [_titleLabel setAdjustsLetterSpacingToFitWidth:YES];
         [self addSubview:_titleLabel];
@@ -60,10 +58,10 @@
     CGRect FINISH_BUTTON_FRAME = EDIT_BUTTON_FRAME;
     CGRect DELETE_BUTTON_FRAME = BOOKSTORE_BUTTON_FRAME;
     
-    headerViewOne = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    headerViewOne = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:headerViewOne];
     
-    headerViewTwo = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    headerViewTwo = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:headerViewTwo];
     [headerViewTwo setHidden:YES];
     
@@ -93,11 +91,6 @@
             deleteButton = button;
         }
     }
-}
-
-- (void)refreshUpdateButton
-{
-    refreshButton.hidden = [ServiceManager userID] ? NO : YES;
 }
 
 - (void)deleteButtonEnable:(BOOL)enable
@@ -142,9 +135,7 @@
 
 - (void)invokeDelegateMethod:(HeaderViewButtonType)type
 {
-    if ([self.delegate respondsToSelector:@selector(headerButtonClicked:)]) {
-        [self.delegate performSelector:@selector(headerButtonClicked:) withObject:@(type)];
-    }
+	[_delegate performSelector:@selector(headerButtonClicked:) withObject:@(type)];
 }
 
 

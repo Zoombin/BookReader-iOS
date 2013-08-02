@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
+#import "Member.h"
+#import "Book.h"
 
 
 #define NETWORK_ERROR        @"网络异常"
@@ -17,8 +19,6 @@
 #define NOTIFICATION_CONTENT @"notification_content"
 #define HAD_LAUNCHED_BEFORE @"had_launched_before"
 
-@class Book;
-@class Member;
 @interface ServiceManager : AFHTTPClient
 
 + (ServiceManager *)shared;
@@ -27,7 +27,7 @@
 + (void)saveNotificationContent:(NSString *)content;
 + (BOOL)checkHasShowNotifi:(NSString *)content;
 + (BOOL)hadLaunchedBefore;
-+ (void)saveUserInfo:(NSNumber *)money andName:(NSString *)name;
++ (void)saveUserInfo:(Member *)member;
 + (NSNumber *)userID;
 + (Member *)userInfo;
 + (void)deleteUserID;

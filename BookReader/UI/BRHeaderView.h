@@ -30,6 +30,5 @@ typedef enum {
 + (CGFloat)height;
 - (void)addButtons;
 - (void)deleteButtonEnable:(BOOL)enable;
-- (void)refreshUpdateButton;
 
 @end
