@@ -16,7 +16,6 @@
 #import "AppDelegate.h"
 #import "UIButton+BookReader.h"
 #import "BookShelfViewController.h"
-#import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+XXSY.h"

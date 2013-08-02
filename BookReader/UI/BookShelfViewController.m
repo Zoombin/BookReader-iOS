@@ -18,7 +18,6 @@
 #import "BookCell.h"
 #import "BRBooksView.h"
 #import "BRBookCell.h"
-#import "BookReaderDefaultsManager.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 

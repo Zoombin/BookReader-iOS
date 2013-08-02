@@ -15,7 +15,6 @@
 #import "NSString+XXSY.h"
 #import "Book.h"
 #import "ServiceManager.h"
-#import "BookReaderDefaultsManager.h"
 #import "ReadHelpView.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
@@ -89,13 +88,13 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [backgroundView setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:backgroundView];
     
-    isLandscape = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
+    isLandscape = [[NSUserDefaults brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
     firstAppear = YES;
     if([MFMessageComposeViewController canSendText]) {
         messageComposeViewController = [[MFMessageComposeViewController alloc] init];
     }
-	NSNumber *colorIdx = [BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBackground];
-	[self.view setBackgroundColor:[BookReaderDefaultsManager brBackgroundColorWithIndex:colorIdx.intValue]];
+	NSNumber *colorIdx = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
+	[self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:colorIdx.intValue]];
 	
 	currentPageIndex = 0;
 	
@@ -109,10 +108,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [self.view addSubview:statusView];
     
     coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, size.width, size.height - 30)];
-	coreTextView.font = [BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFont];
-	coreTextView.fontSize = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFontSize] floatValue];
-	NSNumber *textColorNum = [BookReaderDefaultsManager brObjectForKey:UserDefaultKeyTextColor];
-	coreTextView.textColor = [BookReaderDefaultsManager brTextColorWithIndex:textColorNum.integerValue];
+	coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
+	coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
+	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyTextColor];
+	coreTextView.textColor = [NSUserDefaults brTextColorWithIndex:textColorNum.integerValue];
     statusView.title.textColor = coreTextView.textColor;
     statusView.percentage.textColor = coreTextView.textColor;
     [coreTextView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
@@ -133,7 +132,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		ReadHelpView *helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds andMenuFrame:menuRect];
 		[self.view addSubview:helpView];
 	}
-	backgroundView.alpha = 1.0 - [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBright] floatValue];
+	backgroundView.alpha = 1.0 - [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -188,8 +187,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)updateFontColor
 {
-	NSNumber *textColorNum = [BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBackground];
-    UIColor *textColor = [BookReaderDefaultsManager brTextColorWithIndex:[textColorNum integerValue]];
+	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
+    UIColor *textColor = [NSUserDefaults brTextColorWithIndex:[textColorNum integerValue]];
 	coreTextView.textColor = textColor;
     statusView.title.textColor = textColor;
     statusView.percentage.textColor = textColor;
@@ -205,8 +204,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)paging
 {
-	coreTextView.font = [BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFont];
-    coreTextView.fontSize = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFontSize] floatValue];
+	coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
+    coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
 	NSAssert(currentChapterString != nil, @"currentChapterString == nil when paging....");
 	pages = [[currentChapterString pagesWithFont:coreTextView.font inSize:coreTextView.frame.size] mutableCopy];
 }
@@ -229,51 +228,51 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 #pragma mark MenuView Delegate
 - (void)brightChanged:(UISlider *)slider
 {
-	[BookReaderDefaultsManager brSetObject:@(slider.value) ForKey:UserDefaultKeyBright];
+	[NSUserDefaults brSetObject:@(slider.value) ForKey:UserDefaultKeyBright];
     backgroundView.alpha = 1.0 - slider.value;
 }
 
 - (void)backgroundColorChanged:(NSInteger)index
 {
-    [BookReaderDefaultsManager brSetObject:@(index) ForKey:UserDefaultKeyBackground];
-    [self.view setBackgroundColor:[BookReaderDefaultsManager brBackgroundColorWithIndex:index]];
+    [NSUserDefaults brSetObject:@(index) ForKey:UserDefaultKeyBackground];
+    [self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:index]];
     [self updateFontColor];
 }
 
 - (void)changeTextColor:(NSString *)textColor
 {
-	[BookReaderDefaultsManager brSetObject:textColor ForKey:UserDefaultKeyTextColor];
+	[NSUserDefaults brSetObject:textColor ForKey:UserDefaultKeyTextColor];
 	[self updateFontColor];
 }
 
 - (void)fontChanged:(BOOL)reduce
 {
-	CGFloat currentFontSize = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFontSize] floatValue];
+	CGFloat currentFontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
 	currentFontSize += reduce ? -1 : 1;
 	if (currentFontSize < UserDefaultFontSizeMin.floatValue || currentFontSize > UserDefaultFontSizeMax.floatValue) {
 		NSString *errorMessage = [NSString stringWithFormat:@"字体已达到最%@", reduce ? @"小" : @"大"];
 		[self displayHUDError:nil message:errorMessage];
 		return;
 	}
-	[BookReaderDefaultsManager brSetObject:@(currentFontSize) ForKey:UserDefaultKeyFontSize];
+	[NSUserDefaults brSetObject:@(currentFontSize) ForKey:UserDefaultKeyFontSize];
 	[self updateFontSize];
 }
 
 - (void)systemFont
 {
-	[BookReaderDefaultsManager brSetObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
+	[NSUserDefaults brSetObject:UserDefaultSystemFont ForKey:UserDefaultKeyFontName];
     [self updateFont];
 }
 
 - (void)foundFont
 {
-	[BookReaderDefaultsManager brSetObject:UserDefaultFoundFont ForKey:UserDefaultKeyFontName];
+	[NSUserDefaults brSetObject:UserDefaultFoundFont ForKey:UserDefaultKeyFontName];
     [self updateFont];
 }
 
 - (void)northFont
 {
-    [BookReaderDefaultsManager brSetObject:UserDefaultNorthFont ForKey:UserDefaultKeyFontName];
+    [NSUserDefaults brSetObject:UserDefaultNorthFont ForKey:UserDefaultKeyFontName];
     [self updateFont];
 }
 
@@ -620,7 +619,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		[self changedWithOrientation:orientation];
 	}
 	
-	[BookReaderDefaultsManager brSetObject:defaultValue ForKey:UserDefaultKeyScreen];
+	[NSUserDefaults brSetObject:defaultValue ForKey:UserDefaultKeyScreen];
 
 	if (currentChapterString) {
 		[self paging];
@@ -629,8 +628,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	
     menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
     nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
-    NSNumber *colorIdx = [BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBackground];
-    [self.view setBackgroundColor:[BookReaderDefaultsManager brBackgroundColorWithIndex:colorIdx.intValue]];
+    NSNumber *colorIdx = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
+    [self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:colorIdx.intValue]];
 }
 
 - (void)changedWithOrientation:(UIInterfaceOrientation)toInterfaceOrientation

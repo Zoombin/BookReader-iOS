@@ -16,6 +16,8 @@
 #define MR_SHORTHAND
 #import "CoreData+MagicalRecord.h"
 
+#import "NSUserDefaults+BookReader.h"
+
 
 #define NEED_REFRESH_BOOKSHELF @"br_need_refresh_bookshelf"
 #define UDID_1          @"064f18ddbfb8bd1492ce34752a787a9342843823"//BAO WEI KANG

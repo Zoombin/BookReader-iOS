@@ -20,7 +20,6 @@
 #import "UIColor+BookReader.h"
 #import "UIView+BookReader.h"
 #import "BookCell.h"
-#import "BookReaderDefaultsManager.h"
 
 #define RECOMMEND 0
 #define RANK 1

@@ -1,9 +1,9 @@
 //
-//  BookReaderDefaultManager.h
+//  NSUserDefaults+BookReader.h
 //  BookReader
 //
-//  Created by ZoomBin on 13-5-4.
-//  Copyright (c) 2013年 ZoomBin. All rights reserved.
+//  Created by zhangbin on 8/2/13.
+//  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -37,11 +37,13 @@
 #define UserDefaultTextColorBlue @"blueColor"
 #define UserDefaultTextColorBrown @"brownColor"
 
+@interface NSUserDefaults (BookReader)
 
-@interface BookReaderDefaultsManager : NSObject
 + (void)brSetObject:(id)object ForKey:(id)key;
 + (id)brObjectForKey:(id)key;
 + (UIColor *)brBackgroundColorWithIndex:(NSInteger)index;
 + (UIColor *)brTextColorWithIndex:(NSInteger)index;
 + (void)brReset;
+
+
 @end

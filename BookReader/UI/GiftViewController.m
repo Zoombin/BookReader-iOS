@@ -11,7 +11,6 @@
 #import "GiftCell.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultsManager.h"
 #import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"

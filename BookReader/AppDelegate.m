@@ -13,7 +13,6 @@
 #import "SignInViewController.h"
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
-#import "BookReaderDefaultsManager.h"
 #import "MobileProbe.h"
 #import "UIColor+BookReader.h"
 #import "NavViewController.h"

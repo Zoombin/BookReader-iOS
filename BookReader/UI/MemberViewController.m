@@ -14,7 +14,6 @@
 #import "SignInViewController.h"
 #import "PasswordViewController.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultsManager.h"
 #import "UIColor+Hex.h"
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"

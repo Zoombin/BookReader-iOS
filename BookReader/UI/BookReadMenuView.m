@@ -8,7 +8,6 @@
 
 #import "BookReadMenuView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "BookReaderDefaultsManager.h"
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
 #import "AppDelegate.h"
@@ -277,7 +276,7 @@
     [markImageViewSelect setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [fontView addSubview:markImageViewSelect];
     
-    [self changePositionWithFontName:[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFontName]];
+    [self changePositionWithFontName:[NSUserDefaults brObjectForKey:UserDefaultKeyFontName]];
 }
 
 - (void)changePositionWithFontName:(NSString *)fontName
@@ -327,8 +326,8 @@
     [brightSlider setThumbTintColor:[UIColor whiteColor]];
     [brightSlider setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [brightSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    if ([BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBright]) {
-        brightSlider.value = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBright] floatValue];
+    if ([NSUserDefaults brObjectForKey:UserDefaultKeyBright]) {
+        brightSlider.value = [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
     } else {
         brightSlider.value = 1;
     }
@@ -388,12 +387,12 @@
         
         [button setTag:i];
         [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-        [button setBackgroundColor:[BookReaderDefaultsManager brBackgroundColorWithIndex:i]];
+        [button setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:i]];
         [button addTarget:self action:@selector(backgroundChanged:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:button];
         [backgroundBtns addObject:button];
     }
-    int index = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBackground] integerValue];
+    int index = [[NSUserDefaults brObjectForKey:UserDefaultKeyBackground] integerValue];
     [[(UIButton *)backgroundBtns[index] layer] setBorderColor:[UIColor colorWithRed:235.0/255.0 green:162.0/255.0 blue:13.0/255.0 alpha:1.0].CGColor];
 }
 
@@ -527,7 +526,7 @@
         topView.hidden = NO;
          self.hidden = YES;
         UILabel *textLabel = [horizontalButton subviews][1];
-        if([[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape]) {
+        if([[NSUserDefaults brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape]) {
             [horizontalButton setImage:[UIImage imageNamed:@"read_hor"] forState:UIControlStateNormal];
             [textLabel setText:@"横屏"];
         } else {
@@ -561,7 +560,7 @@
 
 - (void)reloadView
 {
-    int index = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBackground] integerValue];
+    int index = [[NSUserDefaults brObjectForKey:UserDefaultKeyBackground] integerValue];
     for (int i = 0; i < backgroundBtns.count; i++) {
         UIButton *button = backgroundBtns[i];
         if (index == i) {
@@ -571,13 +570,13 @@
         }
     }
     
-    if ([BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBright]) {
-        brightSlider.value = [[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyBright] floatValue];
+    if ([NSUserDefaults brObjectForKey:UserDefaultKeyBright]) {
+        brightSlider.value = [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
     } else {
         brightSlider.value = 1;
     }
     
-    [self changePositionWithFontName:[BookReaderDefaultsManager brObjectForKey:UserDefaultKeyFontName]];
+    [self changePositionWithFontName:[NSUserDefaults brObjectForKey:UserDefaultKeyFontName]];
 }
 
 - (void)backButtonPressed:(id)sender

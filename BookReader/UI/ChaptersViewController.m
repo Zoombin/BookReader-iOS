@@ -12,7 +12,6 @@
 #import "Mark.h"
 #import "Book.h"
 #import "UIViewController+HUD.h"
-#import "BookReaderDefaultsManager.h"
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
 #import "UILabel+BookReader.h"

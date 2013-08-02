@@ -1,17 +1,17 @@
 //
-//  BookReaderDefaultManager.m
+//  NSUserDefaults+BookReader.m
 //  BookReader
 //
-//  Created by ZoomBin on 13-5-4.
-//  Copyright (c) 2013年 ZoomBin. All rights reserved.
+//  Created by zhangbin on 8/2/13.
+//  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
-#import "BookReaderDefaultsManager.h"
+#import "NSUserDefaults+BookReader.h"
 
 static NSArray *colors;
 static NSArray *textColors;
 
-@implementation BookReaderDefaultsManager
+@implementation NSUserDefaults (BookReader)
 
 + (UIColor *)brBackgroundColorWithIndex:(NSInteger)index
 {
@@ -50,7 +50,7 @@ static NSArray *textColors;
 
 + (void)brSetObject:(id)object ForKey:(id)key
 {
-    [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+	[[self standardUserDefaults] setObject:object forKey:key];
     NSString *keyString = (NSString *)key;
     if ([keyString isEqualToString:UserDefaultKeyBackground]) {
         [self brSetObject:object ForKey:UserDefaultKeyTextColor];
@@ -59,7 +59,7 @@ static NSArray *textColors;
 
 + (id)brObjectForKey:(id)key
 {
-	id value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	id value = [[self standardUserDefaults] objectForKey:key];
 	if (value) {
 		return value;
 	} else {
@@ -79,8 +79,8 @@ static NSArray *textColors;
 		} else if ([keyString isEqualToString:UserDefaultKeyScreen]) {
             value = UserDefaultScreenPortrait;
         }
-		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
-		[[NSUserDefaults standardUserDefaults] synchronize];
+		[[self standardUserDefaults] setObject:value forKey:key];
+		[[self standardUserDefaults] synchronize];
 	}
 	return value;
 }
@@ -88,15 +88,16 @@ static NSArray *textColors;
 + (void)brReset
 {
 	NSDictionary *defaults = @{	UserDefaultKeyFontSize : UserDefaultFontSizeMin,
-								UserDefaultKeyFontName : UserDefaultNorthFont,
-								UserDefaultKeyTextColor : UserDefaultTextColorBrown,
-								UserDefaultKeyBright : @(1.0f),
-								UserDefaultKeyBackground : @(0),
-								UserDefaultKeyScreen : UserDefaultScreenPortrait};
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+							 UserDefaultKeyFontName : UserDefaultNorthFont,
+							 UserDefaultKeyTextColor : UserDefaultTextColorBrown,
+							 UserDefaultKeyBright : @(1.0f),
+							 UserDefaultKeyBackground : @(0),
+							 UserDefaultKeyScreen : UserDefaultScreenPortrait};
+	NSUserDefaults *userDefaults = [self standardUserDefaults];
 	[defaults enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		[userDefaults setObject:obj forKey:key];
 	}];
 	[userDefaults synchronize];
 }
+
 @end
