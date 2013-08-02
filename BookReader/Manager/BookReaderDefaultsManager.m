@@ -10,7 +10,6 @@
 
 static NSArray *colors;
 static NSArray *textColors;
-static float brightValue;
 
 @implementation BookReaderDefaultsManager
 
@@ -56,16 +55,6 @@ static float brightValue;
     if ([keyString isEqualToString:UserDefaultKeyBackground]) {
         [self setObject:object ForKey:UserDefaultKeyTextColor];
     }
-}
-
-+ (void)restoreOriginBright
-{
-    [[UIScreen mainScreen] setBrightness:brightValue];
-}
-
-+ (void)saveOriginBright
-{
-    brightValue = [[UIScreen mainScreen] brightness];
 }
 
 + (id)objectForKey:(id)key

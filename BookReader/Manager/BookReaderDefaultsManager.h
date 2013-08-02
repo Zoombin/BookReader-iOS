@@ -43,7 +43,5 @@
 + (id)objectForKey:(id)key;
 + (UIColor *)backgroundColorWithIndex:(NSInteger)index;
 + (UIColor *)textColorWithIndex:(NSInteger)index;
-+ (void)restoreOriginBright;
-+ (void)saveOriginBright;
 + (void)reset;
 @end
