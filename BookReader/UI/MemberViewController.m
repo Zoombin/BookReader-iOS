@@ -103,7 +103,7 @@
     if (!isLogin) {
         [APP_DELEGATE gotoRootController:kRootControllerTypeLogin];
     }else {
-        memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width-10, self.view.bounds.size.height-50) style:UITableViewStyleGrouped];
+        memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width - 10, self.view.bounds.size.height - 50) style:UITableViewStyleGrouped];
         [memberTableView setDelegate:self];
         [memberTableView setDataSource:self];
         [memberTableView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
