@@ -25,6 +25,7 @@
 #import "SignInViewController.h"
 #import "BookReader.h"
 #import "AppDelegate.h"
+#import "BookDetailsViewController.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -654,5 +655,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
+}
+
+- (void)bookDetailButtonClick
+{
+    BookDetailsViewController *controller = [[BookDetailsViewController alloc] initWithBook:_book.uid];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 @end

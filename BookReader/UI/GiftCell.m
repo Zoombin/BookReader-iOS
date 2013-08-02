@@ -143,6 +143,8 @@
                 [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
                 if (i == 0) {
                     button.enabled = NO;
+                    [button.layer setBorderWidth:2];
+                    [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
                     currentIntegral = @"1";
                 }
                 [self.contentView addSubview:button];
@@ -189,6 +191,8 @@
                 [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
                 if (i == 0) {
                     button.enabled = NO;
+                    [button.layer setBorderWidth:2];
+                    [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
                     _slider.value = 188;
                 }
                 [button cooldownButtonFrame:CGRectMake(10 * (i+1) + width * i, 55, width, 30) andEnableCooldown:NO];
@@ -277,9 +281,12 @@
         UIButton *button = [rewardBtnsArray objectAtIndex:i];
         if (i == [sender tag]) {
             button.enabled = NO;
+            [button.layer setBorderWidth:2];
+            [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
         }
         else {
             button.enabled = YES;
+            [button.layer setBorderColor:[UIColor clearColor].CGColor];
         }
     }
 }
@@ -291,9 +298,12 @@
         UIButton *button = [buttonsArray objectAtIndex:i];
         if (i == [sender tag]) {
             button.enabled = NO;
+            [button.layer setBorderWidth:2];
+            [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
         }
         else {
             button.enabled = YES;
+            [button.layer setBorderColor:[UIColor clearColor].CGColor];
         }
     }
 }

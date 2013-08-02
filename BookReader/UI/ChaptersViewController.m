@@ -69,6 +69,7 @@
     
     CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
 	[slider setTransform:rotation];
+    [slider setFrame:CGRectMake(CGRectGetMaxX(infoTableView.bounds) - 20, 38, 20, infoTableView.bounds.size.height)];
     
     CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, CGRectGetMaxY(infoTableView.frame), 55, 30);
     CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 55 , CGRectGetMaxY(infoTableView.frame), 55, 30);

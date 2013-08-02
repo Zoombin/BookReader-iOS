@@ -11,6 +11,7 @@
 #import "BookReaderDefaultsManager.h"
 #import "UIButton+BookReader.h"
 #import "UILabel+BookReader.h"
+#import "AppDelegate.h"
 
 
 @implementation BookReadMenuView {
@@ -18,6 +19,7 @@
     UIView *fontView;//字体
     UIView *backgroundView;//背景色
     UIView *brightView;//亮度
+    UIView *navigationView;//导航
     NSArray *textcolorArray;
     
     UIButton *chaptersListButton;
@@ -67,6 +69,7 @@
         [self initFontView];
         [self initBackgroundView];
         [self initBrightView];
+        [self initNavigationView];
         tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(bottomView.frame) - topView.frame.size.height);
          tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
         [self addGestureRecognizer:tapGestureReconizer];
@@ -142,8 +145,8 @@
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
-    NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_hor", @"read_bright", @"read_background", @"read_font", @"read_bookshelf"];
-    NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"横屏", @"亮度调节", @"阅读背景", @"字体调整", @"书架"];
+    NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_navigation", @"read_bright", @"read_background", @"read_font", @"read_hor"];
+    NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"导航", @"亮度调节", @"阅读背景", @"字体调整", @"横屏"];
     int k = 0;
     for (int i = 0; i < 8; i ++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -173,11 +176,11 @@
     chaptersListButton = bottomViewBtns[0];
     shareButton = bottomViewBtns[1];
     commitButton = bottomViewBtns[2];
-    horizontalButton = bottomViewBtns[3];
+    horizontalButton = bottomViewBtns[7];
     brightButton = bottomViewBtns[4];
     backgroundButton = bottomViewBtns[5];
     fontSetButton = bottomViewBtns[6];
-    resetButton = bottomViewBtns[7];
+    resetButton = bottomViewBtns[3];
     [self addSubview:bottomView];
 }
 
@@ -394,6 +397,48 @@
     [[(UIButton *)backgroundBtns[index] layer] setBorderColor:[UIColor colorWithRed:235.0/255.0 green:162.0/255.0 blue:13.0/255.0 alpha:1.0].CGColor];
 }
 
+- (void)initNavigationView
+{
+    float screenWidth = self.bounds.size.width;
+    float screenHeight = self.bounds.size.height;
+    navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 2.5, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3), screenWidth / 2.5, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3))];
+    [navigationView setHidden:YES];
+    [navigationView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
+    [navigationView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
+    [self addSubview:navigationView];
+    
+    NSArray *btnNames = @[@"返回书架", @"返回书城", @"返回书籍封面页"];
+    NSArray *selStrings = @[@"bookShelfButtonClicked", @"bookStoreButtonClicked", @"bookDetailButtonClicked"];
+    for (int i = 0; i < btnNames.count; i ++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:btnNames[i] forState:UIControlStateNormal];
+        [btn setFrame:CGRectMake(5, 0 + navigationView.frame.size.height/3 * i, navigationView.frame.size.width, (navigationView.frame.size.height / 3) - 5)];
+        [btn addTarget:self action:NSSelectorFromString(selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [navigationView addSubview:btn];
+    }
+    
+    
+}
+
+- (void)bookShelfButtonClicked
+{
+    [APP_DELEGATE gotoRootController:kRootControllerTypeBookShelf];
+}
+
+- (void)bookStoreButtonClicked
+{
+    [APP_DELEGATE gotoRootController:kRootControllerTypeBookStore];
+}
+
+- (void)bookDetailButtonClicked
+{
+    if ([self.delegate respondsToSelector:@selector(bookDetailButtonClick)]) {
+        [self.delegate bookDetailButtonClick];
+    }
+}
+
 - (void)backgroundChanged:(id)sender
 {
     UIButton *currentBtn = (UIButton *)sender;
@@ -510,12 +555,7 @@
     } else if (sender == resetButton) {
         bottomView.hidden = NO;
         topView.hidden = NO;
-        self.hidden = YES;
-        [BookReaderDefaultsManager reset];
-        [self reloadView];
-        if ([self.delegate respondsToSelector:@selector(resetButtonClicked)]) {
-            [self.delegate performSelector:@selector(resetButtonClicked)];
-        }
+        navigationView.hidden = !navigationView.hidden;
     }
 }
 
@@ -562,6 +602,7 @@
     backgroundView.hidden = YES;
     fontView.hidden = YES;
     brightView.hidden = YES;
+    navigationView.hidden = YES;
 }
 
 @end

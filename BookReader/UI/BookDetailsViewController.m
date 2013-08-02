@@ -444,6 +444,7 @@
     
     CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
 	[slider setTransform:rotation];
+    [slider setFrame:CGRectMake(CGRectGetMaxX(chapterListTableView.bounds) - 30, 0, 20, chapterListView.bounds.size.height)];
     
     authorBookTableView = [[UITableView alloc]initWithFrame:authorBookView.bounds style:UITableViewStylePlain];
     [authorBookTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
