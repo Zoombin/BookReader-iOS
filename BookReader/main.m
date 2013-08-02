@@ -3,7 +3,7 @@
 //  BookReader
 //
 //  Created by 颜超 on 12-11-22.
-//  Copyright (c) 2012年 颜超. All rights reserved.
+//  Copyright (c) 2012年 ZoomBin. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

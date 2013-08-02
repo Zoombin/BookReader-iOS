@@ -2,8 +2,8 @@
 //  NSObject+Local.m
 //  BookReader
 //
-//  Created by 颜超 on 13-6-6.
-//  Copyright (c) 2013年 颜超. All rights reserved.
+//  Created by ZoomBin on 13-6-6.
+//  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
 #import "BookReader.h"

@@ -3,7 +3,7 @@
 //  MyTest
 //
 //  Created by 颜超 on 13-7-1.
-//  Copyright (c) 2013年 颜超. All rights reserved.
+//  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
 #import "NavViewController.h"

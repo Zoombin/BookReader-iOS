@@ -3,7 +3,7 @@
 //  BookReader
 //
 //  Created by zhangbin on 5/16/13.
-//  Copyright (c) 2013 颜超. All rights reserved.
+//  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
 

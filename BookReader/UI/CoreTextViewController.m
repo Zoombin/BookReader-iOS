@@ -3,7 +3,7 @@
 //  BookReader
 //
 //  Created by zhangbin on 4/12/13.
-//  Copyright (c) 2013 颜超. All rights reserved.
+//  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
 #import "CoreTextViewController.h"
