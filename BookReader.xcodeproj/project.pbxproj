@@ -265,7 +265,6 @@
 		77A1DF861730DF9F002BE306 /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DE251730DF9E002BE306 /* PSTGridLayoutRow.m */; };
 		77A1DF871730DF9F002BE306 /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DE271730DF9E002BE306 /* PSTGridLayoutSection.m */; };
 		77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */; };
-		77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */; };
 		77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D63417180C10009F2B9F /* CoreTextView.m */; };
 		77A2D63A17180EE8009F2B9F /* CoreTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A2D63917180EE8009F2B9F /* CoreTextViewController.m */; };
 		77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2A173497320027D1DF /* BRBookCell.m */; };
@@ -666,8 +665,6 @@
 		77A1DE271730DF9E002BE306 /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BundleExtensions.h"; path = "../UI/NSString+BundleExtensions.h"; sourceTree = "<group>"; };
 		77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+BundleExtensions.m"; path = "../UI/NSString+BundleExtensions.m"; sourceTree = "<group>"; };
-		77A2D62F171805FC009F2B9F /* UIFont+CoreTextExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CoreTextExtensions.h"; path = "../UI/UIFont+CoreTextExtensions.h"; sourceTree = "<group>"; };
-		77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+CoreTextExtensions.m"; path = "../UI/UIFont+CoreTextExtensions.m"; sourceTree = "<group>"; };
 		77A2D63317180C10009F2B9F /* CoreTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextView.h; sourceTree = "<group>"; };
 		77A2D63417180C10009F2B9F /* CoreTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextView.m; sourceTree = "<group>"; };
 		77A2D63817180EE8009F2B9F /* CoreTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextViewController.h; sourceTree = "<group>"; };
@@ -687,8 +684,8 @@
 		77B378DC17AB8E4700D8D63D /* BookDoc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BookDoc; sourceTree = SOURCE_ROOT; };
 		77B378DF17AB8EB400D8D63D /* FTBWKT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FTBWKT.ttf; sourceTree = "<group>"; };
 		77B378E017AB8EB400D8D63D /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
-		77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+BookReader.h"; sourceTree = "<group>"; };
-		77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+BookReader.m"; sourceTree = "<group>"; };
+		77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+BookReader.h"; path = "../NSUserDefaults+BookReader.h"; sourceTree = "<group>"; };
+		77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+BookReader.m"; path = "../NSUserDefaults+BookReader.m"; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -994,6 +991,8 @@
 		770D432117191AC3000612D1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */,
+				77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */,
 				77A1DB8F1730DF0A002BE306 /* MBProgressHUD+Appearance.h */,
 				77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */,
 				77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */,
@@ -1002,8 +1001,6 @@
 				77A612D61716635F00934254 /* NSString+XXSY.m */,
 				77A2D62D171805FB009F2B9F /* NSString+BundleExtensions.h */,
 				77A2D62E171805FC009F2B9F /* NSString+BundleExtensions.m */,
-				77A2D62F171805FC009F2B9F /* UIFont+CoreTextExtensions.h */,
-				77A2D630171805FD009F2B9F /* UIFont+CoreTextExtensions.m */,
 				186292F61732572500777357 /* UITextField+BookReader.h */,
 				186292F71732572500777357 /* UITextField+BookReader.m */,
 				181091E5173A40E9000931AB /* UILabel+BookReader.h */,
@@ -1346,8 +1343,6 @@
 				8BDB0AC5165E03BB008F328A /* AppDelegate.m */,
 				1888A3A316FFE8420046DA4C /* ServiceManager.h */,
 				1888A3A416FFE8420046DA4C /* ServiceManager.m */,
-				77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */,
-				77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */,
 				77F2956517A3C3F000D10A31 /* Views */,
 				8BDB0AD2165E04F1008F328A /* Controllers */,
 				770D432117191AC3000612D1 /* Categories */,
@@ -1685,7 +1680,6 @@
 				1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */,
 				77A612D71716635F00934254 /* NSString+XXSY.m in Sources */,
 				77A2D631171805FE009F2B9F /* NSString+BundleExtensions.m in Sources */,
-				77A2D632171805FE009F2B9F /* UIFont+CoreTextExtensions.m in Sources */,
 				77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */,
 				77A2D63A17180EE8009F2B9F /* CoreTextViewController.m in Sources */,
 				18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */,
