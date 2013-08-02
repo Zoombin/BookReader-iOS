@@ -92,7 +92,7 @@
             bookmarkBtn = button;
         }
     }
-    [[self backgroundImage] removeFromSuperview];
+    [self.backgroundView removeFromSuperview];
 }
 
 - (void)chaptersButtonClicked
@@ -129,11 +129,6 @@
 {
     [super viewDidAppear:animated];
 	[self chaptersButtonClicked];
-}
-
-- (void)backButtonClick
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark tableview

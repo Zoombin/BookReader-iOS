@@ -15,7 +15,7 @@
 - (void)didSelect:(id)selected;
 @end
 
-@interface ChaptersViewController : BRViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ChaptersViewController : BRViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) id<ChapterViewDelegate> delegate;
 @property (nonatomic, strong) Book *book;
 @property (nonatomic, strong) NSString *currentChapterID;

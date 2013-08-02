@@ -13,8 +13,9 @@
 
 @property (nonatomic, strong) BRHeaderView *headerView;
 @property (nonatomic, strong) UITapGestureRecognizer *hideKeyboardRecognzier;
+@property (nonatomic, strong) UIImageView *backgroundView;
 
 - (void)hideKeyboard;
-- (UIImageView *)backgroundImage;
+- (void)backOrClose;
 
 @end

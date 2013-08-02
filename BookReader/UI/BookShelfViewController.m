@@ -74,7 +74,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
     
-    [[self backgroundImage] setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - 30)];
+    [self.backgroundView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - 30)];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
@@ -134,7 +134,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		[booksStandViews addObject:standView];
 		[self.view addSubview:standView];
 		[self.view sendSubviewToBack:standView];
-		[self.view sendSubviewToBack:[self backgroundImage]];
+		[self.view sendSubviewToBack:self.backgroundView];
 	}
 }
 

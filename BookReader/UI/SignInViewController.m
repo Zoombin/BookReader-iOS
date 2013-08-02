@@ -56,7 +56,7 @@
         [self.view addSubview:registerButton];
     } else {
         UIButton  *backButton = [UIButton navigationBackButton];
-        [backButton addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [backButton addTarget:self action:@selector(backOrClose) forControlEvents:UIControlEventTouchUpInside];
         [backButton setFrame:CGRectMake(10, 3, 50, 32)];
         [self.view addSubview:backButton];
     }
@@ -90,11 +90,6 @@
     [findButton setTitleColor:[UIColor colorWithRed:124.0/255.0 green:122.0/255.0 blue:114.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [findButton setTitle:@"密码忘记点这里" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
-}
-
-- (void)backButtonClicked
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)valueChanged:(id)sender
@@ -134,7 +129,7 @@
                 if (self.bMember) {
                     [APP_DELEGATE gotoRootController:kRootControllerTypeMember];
                 } else {
-                    [self backButtonClicked];
+                    [self backOrClose];
                 }
             } else {
                 [self displayHUDError:nil message:message];

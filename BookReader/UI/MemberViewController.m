@@ -149,7 +149,7 @@
 	}];
 }
 
-- (void)backButtonClicked
+- (void)backOrClose
 {
     isLogin = NO;
     [self reloadUI];

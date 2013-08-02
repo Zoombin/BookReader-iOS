@@ -10,9 +10,7 @@
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation BRViewController {
-    UIImageView *backgroundImage;
-}
+@implementation BRViewController
 
 - (void)viewDidLoad
 {
@@ -25,26 +23,26 @@
     [bkgWhite.layer setMasksToBounds:YES];
     [bkgWhite setBackgroundColor:[UIColor whiteColor]];
     
-	 backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
-	[backgroundImage setImage:[UIImage imageNamed:@"main_view_bkg"]];
-	[self.view addSubview:backgroundImage];
-    [backgroundImage addSubview:bkgWhite];
+	_backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
+	[_backgroundView setImage:[UIImage imageNamed:@"main_view_bkg"]];
+	[self.view addSubview:_backgroundView];
+    [_backgroundView addSubview:bkgWhite];
     
 	_headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, BRHeaderView.height)];
-    [_headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView.backButton addTarget:self action:@selector(backOrClose) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_headerView];
     
 	_hideKeyboardRecognzier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:_hideKeyboardRecognzier];
 }
 
-- (UIImageView *)backgroundImage
+- (void)backOrClose
 {
-    return backgroundImage;
-}
-
-- (void)backButtonClick {
-    [self.navigationController popViewControllerAnimated:YES];
+	if (self.navigationController.viewControllers[0] != self) {
+		[self.navigationController popViewControllerAnimated:YES];
+	} else if (self.navigationController.presentingViewController) {
+		[self dismissViewControllerAnimated:YES completion:nil];
+	}
 }
 
 - (void)setTitle:(NSString *)title
