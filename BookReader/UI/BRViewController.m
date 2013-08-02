@@ -11,11 +11,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation BRViewController {
-    BRHeaderView *headerView;
     UITapGestureRecognizer *gesturerecognier;
     UIImageView *backgroundImage;
 }
-@synthesize hideBackBtn;
 
 - (void)viewDidLoad
 {
@@ -33,9 +31,9 @@
 	[self.view addSubview:backgroundImage];
     [backgroundImage addSubview:bkgWhite];
     
-     headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, BRHeaderView.height)];
-    [headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:headerView];
+	_headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, BRHeaderView.height)];
+    [_headerView.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_headerView];
     
      gesturerecognier = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:gesturerecognier];
@@ -48,7 +46,7 @@
 
 - (BRHeaderView *)BRHeaderView
 {
-    return headerView;
+    return _headerView;
 }
 
 - (void)backButtonClick {
@@ -57,12 +55,7 @@
 
 - (void)setTitle:(NSString *)title
 {
-    [headerView.titleLabel setText:title];
-}
-
-- (void)setHideBackBtn:(BOOL)hiden
-{
-    headerView.backButton.hidden = hiden;
+    [_headerView.titleLabel setText:title];
 }
 
 - (void)hideKeyboard

@@ -54,7 +54,7 @@
 {
     [super viewDidLoad];
     isLogin = NO;
-    [self setHideBackBtn:YES];
+	self.headerView.backButton.hidden = YES;
     [self removeGestureRecognizer];
 }
 

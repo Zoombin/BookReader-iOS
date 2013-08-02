@@ -11,9 +11,8 @@
 
 @interface BRViewController : UIViewController
 
-@property (nonatomic, assign) BOOL hideBackBtn;
 @property (nonatomic, strong) NSArray *keyboardUsers;
-
+@property (nonatomic, strong) BRHeaderView *headerView;
 
 - (void)hideKeyboard;
 - (void)removeGestureRecognizer;
