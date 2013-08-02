@@ -39,9 +39,9 @@
 
 
 @interface BookReaderDefaultsManager : NSObject
-+ (void)setObject:(id)object ForKey:(id)key;
-+ (id)objectForKey:(id)key;
-+ (UIColor *)backgroundColorWithIndex:(NSInteger)index;
-+ (UIColor *)textColorWithIndex:(NSInteger)index;
-+ (void)reset;
++ (void)brSetObject:(id)object ForKey:(id)key;
++ (id)brObjectForKey:(id)key;
++ (UIColor *)brBackgroundColorWithIndex:(NSInteger)index;
++ (UIColor *)brTextColorWithIndex:(NSInteger)index;
++ (void)brReset;
 @end

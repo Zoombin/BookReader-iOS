@@ -13,9 +13,9 @@ static NSArray *textColors;
 
 @implementation BookReaderDefaultsManager
 
-+ (UIColor *)backgroundColorWithIndex:(NSInteger)index
++ (UIColor *)brBackgroundColorWithIndex:(NSInteger)index
 {
-    if ([[self objectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && index == 0) {
+    if ([[self brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape] && index == 0) {
         return [UIColor colorWithPatternImage:[UIImage imageNamed:@"read_sheep_paper_hor"]];
     }
     if (!colors) {
@@ -32,7 +32,7 @@ static NSArray *textColors;
     return [colors objectAtIndex:index];
 }
 
-+ (UIColor *)textColorWithIndex:(NSInteger)index
++ (UIColor *)brTextColorWithIndex:(NSInteger)index
 {
     if (!textColors) {
         textColors =
@@ -48,16 +48,16 @@ static NSArray *textColors;
     return [textColors objectAtIndex:index];
 }
 
-+ (void)setObject:(id)object ForKey:(id)key
++ (void)brSetObject:(id)object ForKey:(id)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
     NSString *keyString = (NSString *)key;
     if ([keyString isEqualToString:UserDefaultKeyBackground]) {
-        [self setObject:object ForKey:UserDefaultKeyTextColor];
+        [self brSetObject:object ForKey:UserDefaultKeyTextColor];
     }
 }
 
-+ (id)objectForKey:(id)key
++ (id)brObjectForKey:(id)key
 {
 	id value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	if (value) {
@@ -69,8 +69,8 @@ static NSArray *textColors;
 		} else if ([keyString isEqualToString:UserDefaultKeyFontName]) {
 			value = UserDefaultNorthFont;
 		} else if ([keyString isEqualToString:UserDefaultKeyFont]) {
-			NSString *fontName = [self objectForKey:UserDefaultKeyFontName];
-			NSString *fontSize = [self objectForKey:UserDefaultKeyFontSize];
+			NSString *fontName = [self brObjectForKey:UserDefaultKeyFontName];
+			NSString *fontSize = [self brObjectForKey:UserDefaultKeyFontSize];
 			return [UIFont fontWithName:fontName size:fontSize.floatValue];
 		} else if ([keyString isEqualToString:UserDefaultKeyBright]) {
 			value = @1.0;
@@ -85,7 +85,7 @@ static NSArray *textColors;
 	return value;
 }
 
-+ (void)reset
++ (void)brReset
 {
 	NSDictionary *defaults = @{	UserDefaultKeyFontSize : UserDefaultFontSizeMin,
 								UserDefaultKeyFontName : UserDefaultNorthFont,
