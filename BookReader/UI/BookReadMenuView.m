@@ -461,13 +461,6 @@
     }
 }
 
-- (void)colorChanged:(id)sender
-{
-    if ([self.delegate respondsToSelector:@selector(changeTextColor:)]) {
-        [self.delegate changeTextColor:textcolorArray[[sender tag]]];
-    }
-}
-
 - (void)fontChanged:(UIButton *)sender
 {
 	[self.delegate fontChanged:[sender.titleLabel.text isEqualToString:@"T-"]];

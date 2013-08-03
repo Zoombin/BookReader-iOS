@@ -110,7 +110,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, size.width, size.height - 30)];
 	coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
 	coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
-	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyTextColor];
+	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
 	coreTextView.textColor = [NSUserDefaults brTextColorWithIndex:textColorNum.integerValue];
     statusView.title.textColor = coreTextView.textColor;
     statusView.percentage.textColor = coreTextView.textColor;
@@ -237,12 +237,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [NSUserDefaults brSetObject:@(index) ForKey:UserDefaultKeyBackground];
     [self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:index]];
     [self updateFontColor];
-}
-
-- (void)changeTextColor:(NSString *)textColor
-{
-	[NSUserDefaults brSetObject:textColor ForKey:UserDefaultKeyTextColor];
-	[self updateFontColor];
 }
 
 - (void)fontChanged:(BOOL)reduce

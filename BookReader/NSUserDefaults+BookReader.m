@@ -51,10 +51,6 @@ static NSArray *textColors;
 + (void)brSetObject:(id)object ForKey:(id)key
 {
 	[[self standardUserDefaults] setObject:object forKey:key];
-    NSString *keyString = (NSString *)key;
-    if ([keyString isEqualToString:UserDefaultKeyBackground]) {
-        [self brSetObject:object ForKey:UserDefaultKeyTextColor];
-    }
 }
 
 + (id)brObjectForKey:(id)key
