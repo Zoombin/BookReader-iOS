@@ -110,14 +110,14 @@
 
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book//TODO: count method wrong
 {
-	Chapter *biggestReadChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex != nil", book.uid] sortedBy:@"uid" ascending:NO];
-	if (biggestReadChapter) {
-		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND uid > %@ AND rollID >= %@", book.uid, biggestReadChapter.uid, biggestReadChapter.rollID]];
-	} else {
-		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", book.uid]];
-	}
-	//[Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", book.uid]];
-	//return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", book.uid]];
+//	Chapter *biggestReadChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex != nil", book.uid] sortedBy:@"rollID, uid" ascending:NO];
+//	if (biggestReadChapter) {
+//		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND uid > %@ AND rollID >= %@", book.uid, biggestReadChapter.uid, biggestReadChapter.rollID]];
+//	} else {
+//		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", book.uid]];
+//	}
+
+	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", book.uid]];
 }
 
 + (Chapter *)firstChapterOfBook:(Book *)book
