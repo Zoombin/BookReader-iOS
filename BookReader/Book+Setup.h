@@ -11,6 +11,4 @@
 
 @interface Book (Setup) <ZBManagedObjectDelegate>
 
-- (NSUInteger)countOfUnreadChapters;
-
 @end

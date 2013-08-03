@@ -75,7 +75,6 @@
     NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
     NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
     NSArray *imageNames = @[@"chapterlist_btn", @"bookmark_btn"];
-//    NSArray *btnNames = @[@"目录", @"书签"];
     
     for (int i = 0; i < 2; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,7 +83,7 @@
         [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
         [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
-        if (i==0) {
+        if (i == 0) {
             chapterlistBtn =  button;
         } else {
             bookmarkBtn = button;
@@ -99,7 +98,7 @@
 	bBookmarks = NO;
     [chapterlistBtn setEnabled:NO];
     [bookmarkBtn setEnabled:YES];
-	infoArray = [[Chapter chaptersRelatedToBook:_book.uid] mutableCopy];
+	infoArray = [[Chapter allChaptersOfBook:_book] mutableCopy];
 	[infoTableView reloadData];
     slider.hidden = NO;
 }

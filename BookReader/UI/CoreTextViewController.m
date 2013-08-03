@@ -143,10 +143,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         
         _book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.uid]];
         
-        if (_book.lastReadChapterID) {//最近读过
-            aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", _book.lastReadChapterID]];
+        if (_book.lastReadChapterID) {//读过
+            aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.lastReadChapterID]];
         } else {//没读过，从第0章开始
-            aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid=%@ AND index=0", _book.uid]];
+			aChapter = [Chapter firstChapterOfBook:_book];
         }
         
         NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);

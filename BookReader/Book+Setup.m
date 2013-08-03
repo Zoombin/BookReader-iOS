@@ -9,7 +9,6 @@
 
 #import "Book+Setup.h"
 #import "ContextManager.h"
-#import "Chapter.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
@@ -84,7 +83,7 @@
 		if (!book) {
 			book = [Book createInContext:localContext];
 		}
-		[self clone:book];
+		[book clone:self];
 	} completion:^(BOOL success, NSError *error) {
 		if (block) block();
 	}];
@@ -162,8 +161,4 @@
 	}];
 }
 
-- (NSUInteger)countOfUnreadChapters
-{
-	return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", self.uid]];
-}
 @end

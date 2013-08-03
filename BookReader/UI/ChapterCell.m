@@ -39,9 +39,7 @@
 
 - (void)setChapter:(Chapter *)chapter andCurrent:(BOOL)current
 {
-    if (chapter.name) {
-        [chapterNameLabel setText:chapter.name];
-    }
+	chapterNameLabel.text = [NSString stringWithFormat:@"卷%d:%@", chapter.rollID.intValue, chapter.name];
     if (chapter.lastReadIndex == nil) {
         chapterNameLabel.textColor = [UIColor blackColor];
     }else if (current) {

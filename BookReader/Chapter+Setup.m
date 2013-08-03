@@ -8,6 +8,7 @@
 
 #import "Chapter+Setup.h"
 #import "ContextManager.h"
+#import "Book.h"
 
 @implementation Chapter (Setup)
 
@@ -44,7 +45,7 @@
 		if (!chapter) {
 			chapter = [Chapter createInContext:localContext];
 		}
-		[self clone:chapter];
+		[chapter clone:self];
 	} completion:^(BOOL success, NSError *error) {
 		if (block) block();
 	}];
@@ -100,21 +101,43 @@
 	}];
 }
 
-+ (NSArray *)chaptersRelatedToBook:(NSString *)bookid
+#pragma mark -
+
++ (NSArray *)allChaptersOfBook:(Book *)book
 {
-    return [Chapter findByAttribute:@"bid" withValue:bookid];
+	return [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID, uid" ascending:YES];
+}
+
++ (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book//TODO: count method wrong
+{
+	Chapter *biggestReadChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex != nil", book.uid] sortedBy:@"uid" ascending:NO];
+	if (biggestReadChapter) {
+		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND uid > %@ AND rollID >= %@", book.uid, biggestReadChapter.uid, biggestReadChapter.rollID]];
+	} else {
+		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", book.uid]];
+	}
+	//[Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", book.uid]];
+	//return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex = nil", book.uid]];
+}
+
++ (Chapter *)firstChapterOfBook:(Book *)book
+{
+	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND rollID = 1", book.uid] sortedBy:@"uid" ascending:YES];
 }
 
 - (Chapter *)previous
 {
 	if (!self.previousID) return nil;
-	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", self.previousID]];
+	return [Chapter findFirstByAttribute:@"uid" withValue:self.previousID];
 }
 
 - (Chapter *)next
 {
 	if (!self.nextID) return nil;
-	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", self.nextID]];
+	return [Chapter findFirstByAttribute:@"uid" withValue:self.nextID];
 }
+
+
+
 
 @end

@@ -9,10 +9,15 @@
 #import "Chapter.h"
 #import "ZBManagedObjectDelegate.h"
 
+@class Book;
 @interface Chapter (Setup) <ZBManagedObjectDelegate>
 
-+ (NSArray *)chaptersRelatedToBook:(NSString *)bookid;
++ (NSArray *)allChaptersOfBook:(Book *)book;
++ (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book;
++ (Chapter *)firstChapterOfBook:(Book *)book;
 - (Chapter *)previous;
 - (Chapter *)next;
+
+
 
 @end

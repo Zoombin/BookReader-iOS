@@ -285,7 +285,7 @@
 {
     currentIndex = 1;
     [self displayHUD:@"加载中..."];
-    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d",index] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+    [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d", index] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (error) {
             [self displayHUDError:nil message:NETWORK_ERROR];
         }else {
