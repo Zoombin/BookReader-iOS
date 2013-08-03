@@ -86,7 +86,6 @@ static NSArray *textColors;
 {
 	NSDictionary *defaults = @{	UserDefaultKeyFontSize : UserDefaultFontSizeMin,
 							 UserDefaultKeyFontName : UserDefaultNorthFont,
-							 UserDefaultKeyTextColor : UserDefaultTextColorBrown,
 							 UserDefaultKeyBright : @(1.0f),
 							 UserDefaultKeyBackground : @(0),
 							 UserDefaultKeyScreen : UserDefaultScreenPortrait};

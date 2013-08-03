@@ -11,7 +11,6 @@
 #define UserDefaultKeyFontSize @"font_size"
 #define UserDefaultKeyFontName @"font_name"
 #define UserDefaultKeyFont @"font"
-#define UserDefaultKeyTextColor @"text_color"
 #define UserDefaultKeyBright @"bright"
 #define UserDefaultKeyBackground @"background"
 #define UserDefaultKeyNotFirstRead @"not_first_read"
