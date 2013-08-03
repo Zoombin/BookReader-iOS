@@ -13,7 +13,6 @@ typedef enum {
     kRootControllerIdentifierBookShelf,
     kRootControllerIdentifierBookStore,
     kRootControllerIdentifierMember,
-    kRootControllerIdentifierLogin,
 }RootControllerIdentifier;
 
 #define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )

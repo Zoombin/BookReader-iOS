@@ -50,7 +50,6 @@
     _rootControllers[@(kRootControllerIdentifierBookShelf)] = [[BookShelfViewController alloc] init];
     _rootControllers[@(kRootControllerIdentifierBookStore)] = [[BookStoreViewController alloc] init];
     _rootControllers[@(kRootControllerIdentifierMember)] = [[MemberViewController alloc] init];
-    _rootControllers[@(kRootControllerIdentifierLogin)] = [[SignInViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self gotoRootController:kRootControllerIdentifierBookShelf];
     [self.window makeKeyAndVisible];

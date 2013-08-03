@@ -38,18 +38,12 @@
 	BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
 	[self.view addSubview:bookShelfButton];
 	
-	UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width-55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+	UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
 	[registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	[registerButton setTitle:@"注册" forState:UIControlStateNormal];
 	[self.view addSubview:registerButton];
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, self.view.bounds.size.height - 56)];
-    [backgroundView.layer setCornerRadius:5];
-    [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
-    [self.view addSubview:backgroundView];
-    
-    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(25, 74, fullSize.width-25*2, 50)];
+    accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(25, 74, fullSize.width - 25 * 2, 50)];
     [accountTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:accountTextField];
     
@@ -108,7 +102,7 @@
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-				[APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
+				[self.navigationController popViewControllerAnimated:YES];
             } else {
                 [self displayHUDError:nil message:message];
             }

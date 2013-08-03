@@ -49,12 +49,6 @@
 	self.headerView.titleLabel.text = @"找回密码";
     CGSize fullSize = self.view.bounds.size;
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, fullSize.height - 56)];
-    [backgroundView.layer setCornerRadius:5];
-    [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
-    [self.view addSubview:backgroundView];
-    
     NSArray *textFields = @[accountTextField,codeTextField,passwordTextField,confirmTextField];
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
@@ -78,7 +72,7 @@
     [self.view addSubview:getCodeButton];
     
     float startX = 25;
-    float startY = CGRectGetMinY(backgroundView.frame) + 15;
+    float startY = 55;
     float width = fullSize.width - 25 * 2;
     float height = 50;
     float distance = 10;
@@ -127,7 +121,7 @@
     [self.view addSubview:changeButton];
     
     float startX = 25;
-    float startY = CGRectGetMinY(backgroundView.frame) + 20;
+    float startY = 0 + 20;
     float width = fullSize.width - 25 * 2;
     float height = 50;
     float distance = 10;

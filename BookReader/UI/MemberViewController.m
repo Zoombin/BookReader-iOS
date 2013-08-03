@@ -30,29 +30,33 @@
 
 @implementation MemberViewController
 {
-    NSArray *fuctionArray;
-    Member *_member;
-    BOOL isLogin;
-    UILabel *accountLabel;
-    UILabel *moneyLabel;
-    
-    UITableView *memberTableView;
-}
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        fuctionArray = [[NSArray alloc] initWithObjects:@"修改密码", @"我的书架",nil];
-    }
-    return self;
+    UITableView *_memberTableView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    isLogin = NO;
+	self.headerView.titleLabel.text = @"个人中心";
 	self.headerView.backButton.hidden = YES;
 	self.hideKeyboardRecognzier.enabled = NO;
+	
+	BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
+    [self.view addSubview:bookShelfButton];
+    
+	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, self.view.bounds.size.width - 10, self.view.bounds.size.height - BRHeaderView.height) style:UITableViewStyleGrouped];
+	[_memberTableView setDelegate:self];
+	[_memberTableView setDataSource:self];
+	_memberTableView.backgroundColor = [UIColor clearColor];
+	[_memberTableView.layer setCornerRadius:5];
+	[_memberTableView.layer setMasksToBounds:YES];
+	[_memberTableView setBackgroundView:nil];
+	[_memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	[self.view addSubview:_memberTableView];
+	
+	UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(self.view.bounds.size.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+	[logoutButton setTitle:@"注销" forState:UIControlStateNormal];
+	[logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:logoutButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -60,50 +64,20 @@
     [super viewDidAppear:animated];
     if ([ServiceManager userID]) {
         [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, Member *member) {
-            if (success) {
-				_member = member;
-                [ServiceManager saveUserInfo:member];
-            }
-            else {
-                _member = [ServiceManager userInfo];
-            }
-			isLogin = YES;
-			[self reloadUI];
+			if (success) {
+				[ServiceManager saveUserInfo:member];
+			}
+			[_memberTableView reloadData];
         }];
     }else {
-        [self reloadUI];
+		[self goToSignIn];
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)goToSignIn
 {
-    [super viewDidDisappear:animated];
-}
-
-- (void)reloadUI {
-	self.headerView.titleLabel.text = @"个人中心";
-	    
-    BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [self.view addSubview:bookShelfButton];
-    
-    if (!isLogin) {
-        [APP_DELEGATE gotoRootController:kRootControllerIdentifierLogin];
-    }else {
-        memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 40, self.view.bounds.size.width - 10, self.view.bounds.size.height - 50) style:UITableViewStyleGrouped];
-        [memberTableView setDelegate:self];
-        [memberTableView setDataSource:self];
-        [memberTableView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
-        [memberTableView.layer setCornerRadius:5];
-        [memberTableView.layer setMasksToBounds:YES];
-        [memberTableView setBackgroundView:nil];
-        [memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [self.view addSubview:memberTableView];
-        
-        UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(self.view.bounds.size.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
-        [logoutButton setTitle:@"注销" forState:UIControlStateNormal];
-        [logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:logoutButton];
-    }
+	SignInViewController *signInViewController = [[SignInViewController alloc] init];
+	[self.navigationController pushViewController:signInViewController animated:NO];
 }
 
 - (void)logoutButtonClicked
@@ -123,28 +97,15 @@
 
 - (void)logout
 {
-	isLogin = NO;
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[ServiceManager deleteUserID];
 		[ServiceManager deleteUserInfo];
 		[Book truncateAll];
 		[Chapter truncateAll];
 		[Mark truncateAll];
-		[self reloadUI];
 		[self hideHUD:YES];
+		[self goToSignIn];
 	}];
-}
-
-- (void)backOrClose
-{
-    isLogin = NO;
-    [self reloadUI];
-}
-
-- (void)backToLoginView
-{
-    isLogin = YES;
-    [self reloadUI];
 }
 
 - (void)showMyFav
@@ -180,10 +141,10 @@
         [(BookCell *)cell hidenDottedLine];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@", _member.name]];
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
                 [(BookCell *)cell hidenArrow:YES];
             } else {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] ,_member.coin]];
+                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] , [ServiceManager userInfo].coin ?: @""]];
                 [(BookCell *)cell hidenArrow:YES];
             }
         } else {

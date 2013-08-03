@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
 
-@interface MemberViewController: BRViewController<UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface MemberViewController: BRViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+
 @end
