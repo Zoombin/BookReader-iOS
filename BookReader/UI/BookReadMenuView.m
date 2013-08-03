@@ -19,7 +19,6 @@
     UIView *backgroundView;//背景色
     UIView *brightView;//亮度
     UIView *navigationView;//导航
-    NSArray *textcolorArray;
     
     UIButton *chaptersListButton;
     UIButton *shareButton;
@@ -62,7 +61,6 @@
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         bottomViewBtns = [[NSMutableArray alloc] init];
         backgroundBtns = [[NSMutableArray alloc] init];
-        textcolorArray = @[UserDefaultTextColorBlack,UserDefaultTextColorBlue,UserDefaultTextColorBrown,UserDefaultTextColorGreen,UserDefaultTextColorWhite];
         [self initTopView];
         [self initBottomView];
         [self initFontView];

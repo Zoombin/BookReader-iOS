@@ -30,13 +30,6 @@
 #define UserDefaultFoundFont @"FZLTHJW--GB1-0"
 #define UserDefaultNorthFont @"FZBWKSJW--GB1-0"
 
-//字体颜色
-#define UserDefaultTextColorBlack @"blackColor"
-#define UserDefaultTextColorWhite @"whiteColor"
-#define UserDefaultTextColorGreen @"greenColor"
-#define UserDefaultTextColorBlue @"blueColor"
-#define UserDefaultTextColorBrown @"brownColor"
-
 @interface NSUserDefaults (BookReader)
 
 + (void)brSetObject:(id)object ForKey:(id)key;
