@@ -51,6 +51,7 @@ static NSArray *textColors;
 + (void)brSetObject:(id)object ForKey:(id)key
 {
 	[[self standardUserDefaults] setObject:object forKey:key];
+	[[self standardUserDefaults] synchronize];
 }
 
 + (id)brObjectForKey:(id)key
