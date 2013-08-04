@@ -198,6 +198,7 @@
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		7704EFEF17ADE399006F1E08 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFEE17ADE399006F1E08 /* Book.m */; };
 		7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */; };
+		7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF717AE2907006F1E08 /* ZBTextValidate.m */; };
 		774482A81764A58100802600 /* bookshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A61764A58100802600 /* bookshelf.png */; };
 		774482A91764A58100802600 /* bookshelf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A71764A58100802600 /* bookshelf@2x.png */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
@@ -524,6 +525,8 @@
 		7704EFEE17ADE399006F1E08 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
 		7704EFF417AE2370006F1E08 /* NSString+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZBUtilites.h"; sourceTree = "<group>"; };
+		7704EFF617AE2907006F1E08 /* ZBTextValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTextValidate.h; sourceTree = "<group>"; };
+		7704EFF717AE2907006F1E08 /* ZBTextValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTextValidate.m; sourceTree = "<group>"; };
 		774482A61764A58100802600 /* bookshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf.png; sourceTree = "<group>"; };
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -1211,6 +1214,8 @@
 		77B378E617ABE65200D8D63D /* ZBUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				7704EFF617AE2907006F1E08 /* ZBTextValidate.h */,
+				7704EFF717AE2907006F1E08 /* ZBTextValidate.m */,
 				77B378FA17ABE96B00D8D63D /* ZBViewController.h */,
 				77B378FB17ABE96B00D8D63D /* ZBViewController.m */,
 				77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */,
@@ -1725,6 +1730,7 @@
 				77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */,
 				7704EFEF17ADE399006F1E08 /* Book.m in Sources */,
 				7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */,
+				7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
