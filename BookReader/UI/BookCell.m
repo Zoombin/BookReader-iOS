@@ -67,7 +67,7 @@
 			nameRect = CGRectMake(25, 12, 250, 20);
 			nameFontSize = 18.0f;
 
-             catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 50, 14, 6, 12)];
+			catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 50, 14, 6, 12)];
             [catagoryImage setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [self.contentView addSubview:catagoryImage];
@@ -153,15 +153,16 @@
         }
     }
     if (book.author) {
-        [authorLabel setText:[NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AuthorName", nil),book.author]];
+		NSString *displayAuthorString = [NSString stringWithFormat:@"%@ : %@",NSLocalizedString(@"AuthorName", nil),book.author];
         if (myStyle == BookCellStyleSmall) {
-            authorLabel.text = book.author;
+            displayAuthorString = book.author;
         }
+		authorLabel.text = displayAuthorString;
     } else {
         [shortDescribeLabel setFrame:CGRectMake(15 + BOOK_COVER_ORIGIN_SIZE.width / 1.8 + 10, 35, 200, 30)];
     }
     if (book.describe) {
-        shortDescribeLabel.text = [NSString stringWithFormat:@"%@ : %@",@"简介", [[book.describe substringToIndex:[book.describe length] >=28 ? 28 : [book.describe length]] stringByAppendingString:@"..."]];
+        shortDescribeLabel.text = [NSString stringWithFormat:@"简介 : %@", [[book.describe substringToIndex:book.describe.length >= 28 ? 28 : [book.describe length]] stringByAppendingString:@"..."]];
     }
     if (book.cover) {
         coverView.image = [UIImage imageWithData:book.cover];

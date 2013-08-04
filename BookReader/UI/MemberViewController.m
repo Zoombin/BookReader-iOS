@@ -27,10 +27,10 @@
 #import "Mark.h"
 #import "NSString+ChineseSpace.h"
 
-
 @implementation MemberViewController
 {
     UITableView *_memberTableView;
+	UIAlertView *_logoutAlert;
 }
 
 - (void)viewDidLoad
@@ -82,29 +82,25 @@
 
 - (void)logoutButtonClicked
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您确定要注销吗? " delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
-    [alertView show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex==0) {
-        stopAllSync = YES;
-        [self displayHUD:@"正在注销"];
-        [self performSelector:@selector(logout) withObject:nil afterDelay:2];
-    }
+	_logoutAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"是否注销当前用户? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+	[_logoutAlert show];
 }
 
 - (void)logout
 {
+	[ServiceManager logout];
+	[self goToSignIn];
+}
+
+- (void)cleanUp
+{
+	stopAllSync = YES;
+	[self displayHUD:@"正在清理，请稍后..."];
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		[ServiceManager logout];
 		[Book truncateAll];
 		[Chapter truncateAll];
 		[Mark truncateAll];
 		[self hideHUD:YES];
-		[self goToSignIn];
-		
 	}];
 }
 
@@ -120,10 +116,14 @@
     [self.navigationController pushViewController:passwordViewController animated:YES];
 }
 
-#pragma mark tableview
+#pragma mark -UITableViewDelegate
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+	if (section == 0) {
+		return 2;
+	}
+    return 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -137,7 +137,7 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
+        cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];//TODO: 为什么这里用BookCell? 应该重新定义一个cell才对
         [(BookCell *)cell hidenDottedLine];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
@@ -150,9 +150,11 @@
         } else {
             if (indexPath.row == 0) {
                 [(BookCell *)cell setTextLableText:@"修改密码"];
-            } else {
+            } else if (indexPath.row == 1){
                 [(BookCell *)cell setTextLableText:@"我的书架"];
-            }
+            } else {
+				[(BookCell *)cell setTextLableText:@"清除所有数据缓存"];
+			}
         }
     }
     return cell;
@@ -174,7 +176,23 @@
         [self showChangePasswordView];
     } else if (indexPath.row == 1) {
         [self showMyFav];
-    }
+    } else {
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+		[alertView show];		
+	}
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex != alertView.cancelButtonIndex) {
+		if (alertView == _logoutAlert) {
+			[self logout];
+		} else {
+			[self cleanUp];
+		}
+	}
 }
 
 
