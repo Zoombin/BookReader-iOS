@@ -7,10 +7,14 @@
 //
 
 #import "Book.h"
-#import "ZBManagedObjectDelegate.h"
 
-@interface Book (Setup) <ZBManagedObjectDelegate>
+@interface Book (Setup)
 
-//+ (NSArray *)allBooksOfUser:()
++ (NSManagedObject *)createWithAttributes:(NSDictionary *)attributes;
++ (NSArray *)createWithAttributesArray:(NSArray *)array andExtra:(id)extraInfo;
+- (void)persistWithBlock:(dispatch_block_t)block;
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
+- (void)truncate;
++ (void)truncateAll;
 
 @end

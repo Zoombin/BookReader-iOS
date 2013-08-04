@@ -7,10 +7,16 @@
 //
 
 #import "Chapter.h"
-#import "ZBManagedObjectDelegate.h"
 
 @class Book;
-@interface Chapter (Setup) <ZBManagedObjectDelegate>
+@interface Chapter (Setup)
+
++ (NSManagedObject *)createWithAttributes:(NSDictionary *)attributes;
++ (NSArray *)createWithAttributesArray:(NSArray *)array andExtra:(id)extraInfo;
+- (void)persistWithBlock:(dispatch_block_t)block;
++ (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
+- (void)truncate;
++ (void)truncateAll;
 
 + (NSArray *)allChaptersOfBook:(Book *)book;
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book;

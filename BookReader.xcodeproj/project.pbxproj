@@ -522,7 +522,6 @@
 		18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReadMenuView.m; sourceTree = "<group>"; };
 		7704EFED17ADE399006F1E08 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		7704EFEE17ADE399006F1E08 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
-		7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBManagedObjectDelegate.h; sourceTree = "<group>"; };
 		774482A61764A58100802600 /* bookshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf.png; sourceTree = "<group>"; };
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -794,6 +793,7 @@
 		1888A36916FBE4150046DA4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
 				779C672A17446DCD00909D6A /* BRContextManager.h */,
 				779C672B17446DCD00909D6A /* BRContextManager.m */,
 				18ABAF2D1724FAFB00ED02C6 /* BRPay.h */,
@@ -802,8 +802,6 @@
 				18089E4A171CFA7A00BCB50E /* BRComment.m */,
 				18ABAF301724FB1D00ED02C6 /* BRUser.h */,
 				18ABAF311724FB1D00ED02C6 /* BRUser.m */,
-				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
-				7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */,
 				18A7FF40176087C900F97099 /* Book+Local.h */,
 				18A7FF41176087C900F97099 /* Book+Local.m */,
 				779C671E174461DB00909D6A /* Book+Setup.h */,
