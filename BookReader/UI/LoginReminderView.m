@@ -15,7 +15,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [label setText:@"您尚未登录，请点击右上角会员图标登录！"];
         [label setTextColor:[UIColor whiteColor]];
@@ -24,20 +23,23 @@
         [label setFont:[UIFont systemFontOfSize:14]];
         [self addSubview:label];
 		self.layer.cornerRadius = 3.0f;
-        [self setBackgroundColor:[UIColor blackColor]];
-        [self setAlpha:0.6];
+        [self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.7]];
         [self setUserInteractionEnabled:NO];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)reset
 {
-    // Drawing code
+	self.alpha = 1.0f;
+	[self performSelector:@selector(close) withObject:nil afterDelay:3.0f];
 }
-*/
+
+- (void)close
+{
+	[UIView animateWithDuration:0.5 animations:^(void) {
+		self.alpha = 0.0f;
+	}];
+}
 
 @end

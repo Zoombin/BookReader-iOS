@@ -82,6 +82,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		_loginReminderView = [[LoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
 		[self.view addSubview:_loginReminderView];
 	}
+	[_loginReminderView reset];
 	return _loginReminderView;
 }
 
