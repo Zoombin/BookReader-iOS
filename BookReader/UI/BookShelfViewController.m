@@ -20,6 +20,7 @@
 #import "BRBookCell.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
+#import "BookDetailsViewController.h"
 
 
 
@@ -78,22 +79,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)startReadButtonClicked:(Book *)book
 {
-    [book persistWithBlock:^(void) {//下载章节目录
-        [self displayHUD:@"获取章节目录..."];
-        [ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
-            if (!error) {
-                [Chapter persist:resultArray withBlock:^{
-                    [self hideHUD:YES];
-                    [self closeButtonClicked];
-                    CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-                    controller.book = book;
-                    [self.navigationController pushViewController:controller animated:YES];
-                }];
-            } else {
-                [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
-            }
-        }];
-    }];
+	BookDetailsViewController *bookDetailsViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
+	[self.navigationController pushViewController:bookDetailsViewController animated:YES];
+	[self closeButtonClicked];
 }
 
 - (void)closeButtonClicked

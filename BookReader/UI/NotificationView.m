@@ -63,16 +63,12 @@
 
 - (void)startRead
 {
-    if ([self.delegate respondsToSelector:@selector(startReadButtonClicked:)]) {
-        [self.delegate startReadButtonClicked:bookObject];
-    }
+	[self.delegate startReadButtonClicked:bookObject];
 }
 
 - (void)close
 {
-    if ([self.delegate respondsToSelector:@selector(closeButtonClicked)]) {
-        [self.delegate closeButtonClicked];
-    }
+	[self.delegate closeButtonClicked];
 }
 
 - (void)showInfoWithBook:(Book *)book
