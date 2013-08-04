@@ -25,7 +25,7 @@
 #import "Chapter+Setup.h"
 #import "BookCell.h"
 #import "Mark.h"
-#import "NSString+ChineseSpace.h"
+#import "NSString+ZBUtilites.h"
 
 @implementation MemberViewController
 {

@@ -197,6 +197,7 @@
 		18EFDFBB176F0BBA009B669C /* navigationbar_bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFBA176F0BBA009B669C /* navigationbar_bkg@2x.png */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
 		7704EFEF17ADE399006F1E08 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFEE17ADE399006F1E08 /* Book.m */; };
+		7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */; };
 		774482A81764A58100802600 /* bookshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A61764A58100802600 /* bookshelf.png */; };
 		774482A91764A58100802600 /* bookshelf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A71764A58100802600 /* bookshelf@2x.png */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
@@ -268,7 +269,6 @@
 		77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77B378E017AB8EB400D8D63D /* FZLTHJW.ttf */; };
 		77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */; };
 		77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */; };
-		77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */; };
 		77B378F217ABE65200D8D63D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77B378EC17ABE65200D8D63D /* README.md */; };
 		77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EE17ABE65200D8D63D /* UIColor+Hex.m */; };
 		77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378FB17ABE96B00D8D63D /* ZBViewController.m */; };
@@ -522,6 +522,8 @@
 		18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReadMenuView.m; sourceTree = "<group>"; };
 		7704EFED17ADE399006F1E08 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		7704EFEE17ADE399006F1E08 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
+		7704EFF417AE2370006F1E08 /* NSString+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZBUtilites.h"; sourceTree = "<group>"; };
 		774482A61764A58100802600 /* bookshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf.png; sourceTree = "<group>"; };
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -661,8 +663,6 @@
 		77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+BookReader.m"; path = "../NSUserDefaults+BookReader.m"; sourceTree = "<group>"; };
 		77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BundleExtensions.h"; sourceTree = "<group>"; };
 		77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BundleExtensions.m"; sourceTree = "<group>"; };
-		77B378EA17ABE65200D8D63D /* NSString+ChineseSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ChineseSpace.h"; sourceTree = "<group>"; };
-		77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ChineseSpace.m"; sourceTree = "<group>"; };
 		77B378EC17ABE65200D8D63D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		77B378ED17ABE65200D8D63D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		77B378EE17ABE65200D8D63D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
@@ -1215,8 +1215,8 @@
 				77B378FB17ABE96B00D8D63D /* ZBViewController.m */,
 				77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */,
 				77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */,
-				77B378EA17ABE65200D8D63D /* NSString+ChineseSpace.h */,
-				77B378EB17ABE65200D8D63D /* NSString+ChineseSpace.m */,
+				7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */,
+				7704EFF417AE2370006F1E08 /* NSString+ZBUtilites.h */,
 				77B378EC17ABE65200D8D63D /* README.md */,
 				77B378ED17ABE65200D8D63D /* UIColor+Hex.h */,
 				77B378EE17ABE65200D8D63D /* UIColor+Hex.m */,
@@ -1721,10 +1721,10 @@
 				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
 				77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */,
 				77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */,
-				77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */,
 				77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */,
 				77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */,
 				7704EFEF17ADE399006F1E08 /* Book.m in Sources */,
+				7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

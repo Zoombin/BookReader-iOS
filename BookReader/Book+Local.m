@@ -11,7 +11,7 @@
 #import "NSString+XXSY.h"
 #import "BRContextManager.h"
 #import "Book+Local.h"
-#import "NSString+ChineseSpace.h"
+#import "NSString+ZBUtilites.h"
 
 
 #define BEFORE_READ_CHAPTER @"上次阅读章节"

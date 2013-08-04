@@ -20,7 +20,7 @@
 #import "Chapter+Setup.h"
 #import "NavViewController.h"
 #import "Mark.h"
-#import "NSString+ChineseSpace.h"
+#import "NSString+ZBUtilites.h"
 #import "SignInViewController.h"
 #import "AppDelegate.h"
 #import "BookDetailsViewController.h"
