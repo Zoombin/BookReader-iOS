@@ -94,12 +94,6 @@
 {
     CGSize fullSize = self.view.bounds.size;
 	self.headerView.titleLabel.text = @"修改密码";
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, 46, fullSize.width - 10, self.view.bounds.size.height - 56)];
-    [backgroundView.layer setCornerRadius:5];
-    [backgroundView.layer setMasksToBounds:YES];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:246.0/255.0 blue:241.0/255.0 alpha:1.0]];
-    [self.view addSubview:backgroundView];
-    
     
     NSArray *textFields = @[passwordTextField,confirmTextField,codeTextField];
     [passwordTextField setPlaceholder:@"请输入旧密码"];
@@ -121,7 +115,7 @@
     [self.view addSubview:changeButton];
     
     float startX = 25;
-    float startY = 0 + 20;
+    float startY = 55;
     float width = fullSize.width - 25 * 2;
     float height = 50;
     float distance = 10;
