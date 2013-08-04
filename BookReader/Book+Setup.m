@@ -161,4 +161,12 @@
 	}];
 }
 
+#pragma mark -
+
++ (NSArray *)allBooksOfUser:(NSNumber *)userID
+{
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userID = nil OR userID = %@", userID];
+	return [Book findAllSortedBy:@"localUpdateDate" ascending:NO withPredicate:predicate];
+}
+
 @end

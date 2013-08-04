@@ -17,4 +17,6 @@
 - (void)truncate;
 + (void)truncateAll;
 
++ (NSArray *)allBooksOfUser:(NSNumber *)userID;
+
 @end
