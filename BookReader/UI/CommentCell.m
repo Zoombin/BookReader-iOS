@@ -10,12 +10,13 @@
 #import "BRComment.h"
 #import "NSString+XXSY.h"
 #import "UIColor+BookReader.h"
+#import "NSString+ZBUtilites.h"
 
 @implementation CommentCell {
     UILabel *messageLabel;
     UILabel *nameLabel;
     UILabel *timeLabel;
-    UILabel *background;
+    UILabel *line;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -47,12 +48,8 @@
         [messageLabel setLineBreakMode:NSLineBreakByCharWrapping];
         [self.contentView addSubview:messageLabel];
         
-        background = [[UILabel alloc] initWithFrame:CGRectMake(0, self.contentView.frame.size.height - 2, self.contentView.frame.size.width + 20, 2)];
-        [background setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [background setText:@"------------------------------------------------------------------------------------------------------------------------"];
-        [background setBackgroundColor:[UIColor clearColor]];
-        [background setTextColor:[UIColor grayColor]];
-        [self.contentView addSubview:background];
+		line = [UILabel dashLineWithFrame:CGRectMake(0, self.contentView.frame.size.height - 2, self.contentView.frame.size.width + 20, 2)];
+		[self.contentView addSubview:line];
     }
     return self;
 }
@@ -66,8 +63,8 @@
     [messageLabel setText:[[comment.content XXSYHandleRedundantTags] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
     [messageLabel sizeToFit];
     cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height + 15;
-    [background setFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 1 + 15, background.frame.size.width, 2)];
-    [background setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [line setFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 1 + 15, line.frame.size.width, 2)];
+    [line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self setFrame:cellFrame];
 }
 

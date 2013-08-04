@@ -9,7 +9,6 @@
 #import "BookReadMenuView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIButton+BookReader.h"
-#import "UILabel+BookReader.h"
 #import "AppDelegate.h"
 
 

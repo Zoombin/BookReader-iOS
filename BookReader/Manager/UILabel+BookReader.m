@@ -8,8 +8,20 @@
 
 #import "UILabel+BookReader.h"
 #import "UIColor+Hex.h"
+#import "NSString+ZBUtilites.h"
 
 @implementation UILabel (BookReader)
+
++ (UILabel *)dashLineWithFrame:(CGRect)frame
+{
+	UILabel *line = [[UILabel alloc] initWithFrame:frame];
+	line.text = [NSString dashLineWithLength:155];
+	[line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+	[line setBackgroundColor:[UIColor clearColor]];
+	[line setTextColor:[UIColor grayColor]];
+	return line;
+}
+
 + (UILabel *)initLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];

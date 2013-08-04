@@ -7,6 +7,7 @@
 //
 
 #import "BookMarkCell.h"
+#import "NSString+ZBUtilites.h"
 
 @implementation BookMarkCell
 {
@@ -40,12 +41,8 @@
         [progressLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:progressLabel];
 
-        UILabel *dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
-        [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [dottedLine setText:@"-----------------------------------------------------------------------------------------------------"];
-        [dottedLine setBackgroundColor:[UIColor clearColor]];
-        [dottedLine setTextColor:[UIColor grayColor]];
-        [self.contentView addSubview:dottedLine];
+        UILabel *line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
+        [self.contentView addSubview:line];
     }
     return self;
 }

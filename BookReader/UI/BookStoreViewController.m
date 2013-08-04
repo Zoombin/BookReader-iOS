@@ -10,7 +10,6 @@
 #import "AppDelegate.h"
 #import "BookShelfButton.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "ServiceManager.h"
 #import "BookDetailsViewController.h"

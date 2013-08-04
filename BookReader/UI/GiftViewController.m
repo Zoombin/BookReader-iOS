@@ -13,7 +13,6 @@
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
-#import "UILabel+BookReader.h"
 
 
 

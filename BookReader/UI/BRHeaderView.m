@@ -8,7 +8,6 @@
 
 #import "BRHeaderView.h"
 #import "UIButton+BookReader.h"
-#import "UILabel+BookReader.h"
 #import "ServiceManager.h"
 
 @implementation BRHeaderView {

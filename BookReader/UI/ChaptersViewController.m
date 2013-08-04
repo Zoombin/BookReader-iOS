@@ -14,7 +14,6 @@
 #import "UIViewController+HUD.h"
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
-#import "UILabel+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "Chapter+Setup.h"
 #import "UIButton+BookReader.h"

@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 #import "UIColor+BookReader.h"
+#import "NSString+ZBUtilites.h"
 
 #define BigCellHeight 110.0f
 #define SmallCellHeight 40.0f
@@ -25,7 +26,7 @@
 	BookCellStyle myStyle;
     UIImageView *catagoryImage;
 	CGFloat height;
-    UILabel *dottedLine;
+    UILabel *line;
 }
 
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -115,19 +116,15 @@
 			[self.contentView addSubview:coverView];
 		}
 		
-        dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 20, 2)];
-        [dottedLine setText:@"----------------------------------------------------------------------------------------------------------------------------------------------------------"];
-        [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [dottedLine setBackgroundColor:[UIColor clearColor]];
-        [dottedLine setTextColor:[UIColor grayColor]];
-        [self.contentView addSubview:dottedLine];
+        line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 20, 2)];
+        [self.contentView addSubview:line];
     }
     return self;
 }
 
 - (void)hidenDottedLine
 {
-    [dottedLine setHidden:YES];
+    [line setHidden:YES];
 }
 
 - (void)setTextLableText:(NSString *)name

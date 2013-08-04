@@ -17,7 +17,6 @@
 #import "UIColor+Hex.h"
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
-#import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+BookReader.h"
 #import "BRUser.h"

@@ -24,7 +24,6 @@
 #import "Chapter+Setup.h"
 #import "BRComment.h"
 #import "UIColor+Hex.h"
-#import "UILabel+BookReader.h"
 #import "UIView+BookReader.h"
 #import "CommentCell.h"
 #import "BookShelfButton.h"

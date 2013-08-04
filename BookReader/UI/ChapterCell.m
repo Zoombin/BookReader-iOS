@@ -7,6 +7,7 @@
 //
 
 #import "ChapterCell.h"
+#import "NSString+ZBUtilites.h"
 
 #define ChapterCellHeight 50.0f
 
@@ -27,12 +28,8 @@
         [chapterNameLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:chapterNameLabel];
         
-        UILabel *dottedLine = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width, 2)];
-        [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth]; 
-        [dottedLine setText:@"-------------------------------------------------------------------------------------------------------------------------"];
-        [dottedLine setBackgroundColor:[UIColor clearColor]];
-        [dottedLine setTextColor:[UIColor grayColor]];
-        [self.contentView addSubview:dottedLine];
+        UILabel *line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width, 2)];
+        [self.contentView addSubview:line];
     }
     return self;
 }

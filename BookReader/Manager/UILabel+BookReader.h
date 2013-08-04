@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface UILabel (BookReader)
++ (UILabel *)dashLineWithFrame:(CGRect)frame;
+
 + (UILabel *)accountLabelWithFrame:(CGRect)frame;
 + (UILabel *)passwordLabelWithFrame:(CGRect)frame;
 

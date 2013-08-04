@@ -16,7 +16,6 @@
 #import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIView+BookReader.h"
-#import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation CategoryDetailsViewController

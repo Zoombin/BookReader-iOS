@@ -17,6 +17,7 @@
 #import "CoreData+MagicalRecord.h"
 
 #import "NSUserDefaults+BookReader.h"
+#import "UILabel+BookReader.h"
 
 
 #define NEED_REFRESH_BOOKSHELF @"br_need_refresh_bookshelf"

@@ -13,7 +13,6 @@
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIColor+BookReader.h"
-#import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation PasswordViewController {
