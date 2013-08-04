@@ -29,6 +29,7 @@
 #define SUCCESS_FLAG @"0000"
 #define FORBIDDEN_FLAG @"9999"
 #define USER_ID @"userid"
+#define SESSION_VALIDATION @"br_session_validation"
 
 #define NEXT_UPDATE_TIME_FORMATTER @"yyyy-MM-dd HH:mm"
 
@@ -47,6 +48,24 @@
 }
 
 static NSNumber *sUserID;
+
++ (BOOL)isSessionValid
+{
+	return [[[NSUserDefaults standardUserDefaults] objectForKey:SESSION_VALIDATION] boolValue];
+}
+
++ (void)login
+{
+	[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:SESSION_VALIDATION];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)logout
+{
+	[self deleteUserInfo];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:SESSION_VALIDATION];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 + (void)saveUserID:(NSNumber *)userID
 {
@@ -70,12 +89,14 @@ static NSNumber *sUserID;
         return YES;
     }
 	[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED_BEFORE];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	return NO;
 }
 
 + (void)saveNotificationContent:(NSString *)content
 {
     [[NSUserDefaults standardUserDefaults] setObject:content forKey:NOTIFICATION_CONTENT];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (BOOL)checkHasShowNotifi:(NSString *)content
@@ -92,6 +113,7 @@ static NSNumber *sUserID;
 {
     [[NSUserDefaults standardUserDefaults] setObject:member.coin forKey:USER_MONEY];
     [[NSUserDefaults standardUserDefaults] setObject:member.name forKey:USER_NAME];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (BRUser *)userInfo
@@ -179,6 +201,7 @@ static NSNumber *sUserID;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             BRUser *member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
+			[ServiceManager login];
         }
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG],nil,theObject[@"error"]);
@@ -201,6 +224,7 @@ static NSNumber *sUserID;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
+			[ServiceManager login];
         }
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG],nil,theObject[@"error"],member);
@@ -461,12 +485,9 @@ static NSNumber *sUserID;
             withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block
 {
 	NSNumber *userid = [self userID];
-    if ([self userID] == nil) {
+    if (!userid || !VIP) {
         userid = @0;
     }
-	if (!VIP) {
-		userid = @0;
-	}
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : cataid}, @{@"userid" : userid.stringValue}]];
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];

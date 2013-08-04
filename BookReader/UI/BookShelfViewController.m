@@ -77,22 +77,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
 
-- (void)startReadButtonClicked:(Book *)book
-{
-	BookDetailsViewController *bookDetailsViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
-	[self.navigationController pushViewController:bookDetailsViewController animated:YES];
-	[self closeButtonClicked];
-}
-
-- (void)closeButtonClicked
-{
-    notificationView.hidden = YES;
-    notificationView.bShouldLoad = NO;
-    CGSize fullSize = self.view.bounds.size;
-    [booksView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
-}
-
-
 - (LoginReminderView *)loginReminderView {
 	if (!_loginReminderView) {
 		_loginReminderView = [[LoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
@@ -131,29 +115,32 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+	[self loginReminderView].hidden = [ServiceManager isSessionValid];
+	
     if (notificationView.bShouldLoad) {
         [self showNotificationInfo];
     }
+	
 	if (![ServiceManager hadLaunchedBefore]) {
 		[self recommendBooks];
     } else {
-		if ([ServiceManager userID]) {
+		if ([ServiceManager isSessionValid]) {
 			if ([[NSUserDefaults standardUserDefaults] boolForKey:NEED_REFRESH_BOOKSHELF]) {
-				stopAllSync = NO;
-				[self syncBooks];
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
+				stopAllSync = NO;
+				[self syncBooks];
 			}
 		}
 	}
-	[self loginReminderView].hidden = [ServiceManager userID] != nil;
-	[self showBooks];
+	
+	booksForDisplay = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
 	[booksView reloadData];
 }
 
 - (void)showNotificationInfo
 {
-    [ServiceManager systemNotifyWithBlock:^(NSError *error, NSArray *resultArray, NSString *content) {
+    [ServiceManager systemNotifyWithBlock:^(NSError *error, NSArray *resultArray, NSString *content) {//TODO: this method should add success return value as same as other apis
         if (!error) {
             if (resultArray.count == 0 && content.length == 0) {
                 notificationView.hidden = YES;
@@ -179,24 +166,25 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 - (void)recommendBooks
 {
     [ServiceManager recommandDefaultBookwithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error) {
-			[self displayHUDError:nil message:error.description];
-        } else {
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-				NSArray *allBooks = [Book findAllInContext:localContext];
-				for (Book *b in allBooks) {
-					b.bFav = NO;
-				}
-			} completion:^(BOOL success, NSError *error) {
-				books = [resultArray mutableCopy];
-				[Book persist:books withBlock:^(void) {
-					[booksForDisplay removeAllObjects];
-					[booksForDisplay addObjectsFromArray:books];
-					[booksView reloadData];
-					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
-				}];
+		if (success) {
+			books = [resultArray mutableCopy];
+			[Book persist:books withBlock:^(void) {
+				
 			}];
-        }
+//			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//				//NSArray *allBooks = [Book findAllInContext:localContext];
+//			} completion:^(BOOL success, NSError *error) {
+//				books = [resultArray mutableCopy];
+//				[Book persist:books withBlock:^(void) {
+//					[booksForDisplay removeAllObjects];
+//					[booksForDisplay addObjectsFromArray:books];
+//					[booksView reloadData];
+//					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+//				}];
+//			}];
+		} else {
+			[self displayHUDError:nil message:error.description];
+		}
     }];
 }
 
@@ -402,43 +390,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}];
 }
 
-- (void)showBooks
-{
-    booksForDisplay = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
-    [booksView reloadData];
-}
-- (void)headerButtonClicked:(NSNumber *)type
-{
-    if (type.intValue == kHeaderViewButtonBookStore) {
-        [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookStore];
-    } else if (type.intValue == kHeaderViewButtonMember) {
-        [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
-    } else if (type.intValue == kHeaderViewButtonEdit) {
-		editing = YES;
-		[booksView reloadData];
-    } else if (type.intValue == kHeaderViewButtonDelete) {
-		[self displayHUD:@"删除收藏..."];
-		[self syncRemoveFav];
-    } else if (type.intValue == kHeaderViewButtonFinishEditing) {
-		editing = NO;
-		[booksView reloadData];
-    } else if (type.intValue == kHeaderViewButtonRefresh) {
-		if (![ServiceManager userID]) return;
-		if (!syncing) {
-			[self syncBooks];
-			NSLog(@"begin sync");
-		} else {
-			[self displayHUD:@"开始自动更新..."];
-			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
-			NSLog(@"already syncing");
-		}
-    }
-}
-
 - (void)dismissHUD
 {
 	[self hideHUD:YES];
 }
+
+#pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -467,6 +424,36 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 }
 
+#pragma mark - BRHeaderViewDelegate
+
+- (void)headerButtonClicked:(NSNumber *)type
+{
+    if (type.intValue == kHeaderViewButtonBookStore) {
+        [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookStore];
+    } else if (type.intValue == kHeaderViewButtonMember) {
+        [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
+    } else if (type.intValue == kHeaderViewButtonEdit) {
+		editing = YES;
+		[booksView reloadData];
+    } else if (type.intValue == kHeaderViewButtonDelete) {
+		[self displayHUD:@"删除收藏..."];
+		[self syncRemoveFav];
+    } else if (type.intValue == kHeaderViewButtonFinishEditing) {
+		editing = NO;
+		[booksView reloadData];
+    } else if (type.intValue == kHeaderViewButtonRefresh) {
+		if (![ServiceManager isSessionValid]) return;//TODO: if non-login should also do sync
+		if (!syncing) {
+			[self syncBooks];
+			NSLog(@"begin sync");
+		} else {
+			[self displayHUD:@"开始自动更新..."];
+			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
+			NSLog(@"already syncing");
+		}
+    }
+}
+
 #pragma mark - BRBooksViewDelegate
 - (void)booksView:(BRBooksView *)booksView tappedBookCell:(BRBookCell *)bookCell
 {
@@ -489,7 +476,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell
 {
-	if (![ServiceManager userID]) {
+	if (![ServiceManager isSessionValid]) {
 		[self displayHUDError:nil message:@"您尚未登录不能进行此操作"];
 		return;
 	}
@@ -514,7 +501,8 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}];
 }
 
-#pragma mark - CollectionView
+#pragma mark - CollectionViewDelegate
+
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 	[self createStandViews:MAX(5, (int)ceil(booksForDisplay.count / 3) )];
@@ -537,5 +525,22 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		UIImageView *standView = booksStandViews[i];
 		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView - scrollView.contentOffset.y, standView.frame.size.width, standView.frame.size.height);
 	}
+}
+
+#pragma mark - NotificationViewDelegate
+
+- (void)startReadButtonClicked:(Book *)book
+{
+	BookDetailsViewController *bookDetailsViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
+	[self.navigationController pushViewController:bookDetailsViewController animated:YES];
+	[self closeButtonClicked];
+}
+
+- (void)closeButtonClicked
+{
+    notificationView.hidden = YES;
+    notificationView.bShouldLoad = NO;
+    CGSize fullSize = self.view.bounds.size;
+    [booksView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
 }
 @end

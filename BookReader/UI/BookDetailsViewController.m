@@ -500,7 +500,7 @@
         [finishMark setHidden:NO];
     }
     
-    if ([ServiceManager userID] != nil) {
+    if ([ServiceManager isSessionValid]) {
         [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(BOOL isExist, NSError *error) {
             if (error) {
                 
@@ -707,7 +707,7 @@
 
 - (BOOL)checkLogin
 {
-    if (![ServiceManager userID]) {
+    if (![ServiceManager isSessionValid]) {
         [self showLoginAlert];
         return NO;
     } else {

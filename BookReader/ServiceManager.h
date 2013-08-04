@@ -23,6 +23,9 @@
 
 + (ServiceManager *)shared;
 
++ (BOOL)isSessionValid;
++ (void)login;
++ (void)logout;
 + (void)saveUserID:(NSNumber *)userID;
 + (void)saveNotificationContent:(NSString *)content;
 + (BOOL)checkHasShowNotifi:(NSString *)content;

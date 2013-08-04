@@ -62,7 +62,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([ServiceManager userID]) {
+    if ([ServiceManager isSessionValid]) {
         [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
 			if (success) {
 				[ServiceManager saveUserInfo:member];
@@ -98,13 +98,13 @@
 - (void)logout
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		[ServiceManager deleteUserID];
-		[ServiceManager deleteUserInfo];
+		[ServiceManager logout];
 		[Book truncateAll];
 		[Chapter truncateAll];
 		[Mark truncateAll];
 		[self hideHUD:YES];
 		[self goToSignIn];
+		
 	}];
 }
 

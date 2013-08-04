@@ -525,7 +525,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showCommitAlert
 {
-    if ([ServiceManager userID] == nil) {
+    if ([ServiceManager isSessionValid] == nil) {
         [self showLoginAlert];
         return;
     }
