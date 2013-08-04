@@ -7,7 +7,7 @@
 //
 
 #import "CommentCell.h"
-#import "Comment.h"
+#import "BRComment.h"
 #import "NSString+XXSY.h"
 #import "UIColor+BookReader.h"
 
@@ -57,7 +57,7 @@
     return self;
 }
 
-- (void)setComment:(Comment *)comment
+- (void)setComment:(BRComment *)comment
 {
     CGRect cellFrame = [self frame];
     cellFrame.origin = CGPointMake(0, 0);

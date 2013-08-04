@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Pay : NSObject
+@interface BRPay : NSObject
 
 @property (nonatomic, strong) NSNumber *orderID;
 @property (nonatomic, strong) NSNumber *count;

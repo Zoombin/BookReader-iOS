@@ -34,7 +34,7 @@
 		18063FD21745BB5500744A12 /* integral_two.png in Resources */ = {isa = PBXBuildFile; fileRef = 18063FC81745BB5500744A12 /* integral_two.png */; };
 		18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */; };
 		18089E45171BD5E700BCB50E /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */; };
-		18089E4B171CFA7C00BCB50E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4A171CFA7A00BCB50E /* Comment.m */; };
+		18089E4B171CFA7C00BCB50E /* BRComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4A171CFA7A00BCB50E /* BRComment.m */; };
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
 		181091D517339104000931AB /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D417339104000931AB /* PasswordViewController.m */; };
 		181091E1173895EE000931AB /* ReadHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091E0173895EC000931AB /* ReadHelpView.m */; };
@@ -147,8 +147,8 @@
 		18A0C6B817532FDA003FC599 /* book_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C6B717532FDA003FC599 /* book_placeholder.png */; };
 		18A7FF39175F264100F97099 /* nav_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A7FF37175F264100F97099 /* nav_header.png */; };
 		18A7FF42176087C900F97099 /* Book+Local.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7FF41176087C900F97099 /* Book+Local.m */; };
-		18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* Pay.m */; };
-		18ABAF321724FB1D00ED02C6 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* Member.m */; };
+		18ABAF2F1724FAFC00ED02C6 /* BRPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* BRPay.m */; };
+		18ABAF321724FB1D00ED02C6 /* BRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* BRUser.m */; };
 		18B0D4961762CF5E00F169E8 /* book_checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4951762CF5E00F169E8 /* book_checkmark.png */; };
 		18B0D4991762D23B00F169E8 /* autobuy_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4971762D23B00F169E8 /* autobuy_off.png */; };
 		18B0D49A1762D23B00F169E8 /* autobuy_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4981762D23B00F169E8 /* autobuy_on.png */; };
@@ -196,13 +196,14 @@
 		18EFDFB9176F0777009B669C /* refresh_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFB8176F0777009B669C /* refresh_mark.png */; };
 		18EFDFBB176F0BBA009B669C /* navigationbar_bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EFDFBA176F0BBA009B669C /* navigationbar_bkg@2x.png */; };
 		18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */; };
+		7704EFEF17ADE399006F1E08 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFEE17ADE399006F1E08 /* Book.m */; };
 		774482A81764A58100802600 /* bookshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A61764A58100802600 /* bookshelf.png */; };
 		774482A91764A58100802600 /* bookshelf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A71764A58100802600 /* bookshelf@2x.png */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
-		779C672C17446DCD00909D6A /* ContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* ContextManager.m */; };
+		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
 		77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */; };
 		77A1DB941730DF0A002BE306 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */; };
 		77A1DE2B1730DF9E002BE306 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB9A1730DF9C002BE306 /* AFHTTPClient.m */; };
@@ -260,7 +261,6 @@
 		77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2A173497320027D1DF /* BRBookCell.m */; };
 		77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2D173497890027D1DF /* BRBooksView.m */; };
 		77A612D71716635F00934254 /* NSString+XXSY.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSY.m */; };
-		77B378D217AB81A500D8D63D /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D117AB81A500D8D63D /* Book.m */; };
 		77B378D517AB81AF00D8D63D /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D417AB81AF00D8D63D /* Chapter.m */; };
 		77B378D817AB81B900D8D63D /* Mark.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D717AB81B900D8D63D /* Mark.m */; };
 		77B378DD17AB8E4700D8D63D /* BookDoc in Resources */ = {isa = PBXBuildFile; fileRef = 77B378DC17AB8E4700D8D63D /* BookDoc */; };
@@ -326,8 +326,8 @@
 		18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CategoryDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		18089E43171BD5E400BCB50E /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKNumberBadgeView.h; path = UI/MKNumberBadgeView.h; sourceTree = "<group>"; };
 		18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKNumberBadgeView.m; path = UI/MKNumberBadgeView.m; sourceTree = "<group>"; };
-		18089E49171CFA7A00BCB50E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
-		18089E4A171CFA7A00BCB50E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		18089E49171CFA7A00BCB50E /* BRComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRComment.h; sourceTree = "<group>"; };
+		18089E4A171CFA7A00BCB50E /* BRComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRComment.m; sourceTree = "<group>"; };
 		18089E4C171E3A6800BCB50E /* GiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftViewController.h; sourceTree = "<group>"; };
 		18089E4D171E3A6900BCB50E /* GiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftViewController.m; sourceTree = "<group>"; };
 		181091D317339104000931AB /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
@@ -466,10 +466,10 @@
 		18A7FF37175F264100F97099 /* nav_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_header.png; sourceTree = "<group>"; };
 		18A7FF40176087C900F97099 /* Book+Local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Local.h"; sourceTree = "<group>"; };
 		18A7FF41176087C900F97099 /* Book+Local.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Local.m"; sourceTree = "<group>"; };
-		18ABAF2D1724FAFB00ED02C6 /* Pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
-		18ABAF2E1724FAFC00ED02C6 /* Pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pay.m; sourceTree = "<group>"; };
-		18ABAF301724FB1D00ED02C6 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
-		18ABAF311724FB1D00ED02C6 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
+		18ABAF2D1724FAFB00ED02C6 /* BRPay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPay.h; sourceTree = "<group>"; };
+		18ABAF2E1724FAFC00ED02C6 /* BRPay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPay.m; sourceTree = "<group>"; };
+		18ABAF301724FB1D00ED02C6 /* BRUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUser.h; sourceTree = "<group>"; };
+		18ABAF311724FB1D00ED02C6 /* BRUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUser.m; sourceTree = "<group>"; };
 		18B0D4951762CF5E00F169E8 /* book_checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_checkmark.png; sourceTree = "<group>"; };
 		18B0D4971762D23B00F169E8 /* autobuy_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = autobuy_off.png; sourceTree = "<group>"; };
 		18B0D4981762D23B00F169E8 /* autobuy_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = autobuy_on.png; sourceTree = "<group>"; };
@@ -520,6 +520,8 @@
 		18EFDFBA176F0BBA009B669C /* navigationbar_bkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_bkg@2x.png"; sourceTree = "<group>"; };
 		18FC1AC91720CAFE00A043C9 /* BookReadMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadMenuView.h; sourceTree = "<group>"; };
 		18FC1ACA1720CAFE00A043C9 /* BookReadMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReadMenuView.m; sourceTree = "<group>"; };
+		7704EFED17ADE399006F1E08 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		7704EFEE17ADE399006F1E08 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBManagedObjectDelegate.h; sourceTree = "<group>"; };
 		774482A61764A58100802600 /* bookshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf.png; sourceTree = "<group>"; };
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
@@ -529,8 +531,8 @@
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
 		779C6722174461F000909D6A /* Chapter+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chapter+Setup.m"; sourceTree = "<group>"; };
-		779C672A17446DCD00909D6A /* ContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextManager.h; sourceTree = "<group>"; };
-		779C672B17446DCD00909D6A /* ContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextManager.m; sourceTree = "<group>"; };
+		779C672A17446DCD00909D6A /* BRContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContextManager.h; sourceTree = "<group>"; };
+		779C672B17446DCD00909D6A /* BRContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContextManager.m; sourceTree = "<group>"; };
 		77A1DB8F1730DF0A002BE306 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+Appearance.h"; path = "BookReader/MBProgressHUD+Appearance.h"; sourceTree = SOURCE_ROOT; };
 		77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Appearance.m"; path = "BookReader/MBProgressHUD+Appearance.m"; sourceTree = SOURCE_ROOT; };
 		77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+HUD.h"; path = "BookReader/UIViewController+HUD.h"; sourceTree = SOURCE_ROOT; };
@@ -649,8 +651,6 @@
 		77A3FA2D173497890027D1DF /* BRBooksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRBooksView.m; path = UI/BRBooksView.m; sourceTree = "<group>"; };
 		77A612D51716635F00934254 /* NSString+XXSY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XXSY.h"; path = "../NSString+XXSY.h"; sourceTree = "<group>"; };
 		77A612D61716635F00934254 /* NSString+XXSY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSY.m"; path = "../NSString+XXSY.m"; sourceTree = "<group>"; };
-		77B378D017AB81A500D8D63D /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
-		77B378D117AB81A500D8D63D /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		77B378D317AB81AF00D8D63D /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
 		77B378D417AB81AF00D8D63D /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		77B378D617AB81B900D8D63D /* Mark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
@@ -794,28 +794,28 @@
 		1888A36916FBE4150046DA4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				18ABAF2D1724FAFB00ED02C6 /* Pay.h */,
-				18ABAF2E1724FAFC00ED02C6 /* Pay.m */,
-				18089E49171CFA7A00BCB50E /* Comment.h */,
-				18089E4A171CFA7A00BCB50E /* Comment.m */,
-				18ABAF301724FB1D00ED02C6 /* Member.h */,
-				18ABAF311724FB1D00ED02C6 /* Member.m */,
+				779C672A17446DCD00909D6A /* BRContextManager.h */,
+				779C672B17446DCD00909D6A /* BRContextManager.m */,
+				18ABAF2D1724FAFB00ED02C6 /* BRPay.h */,
+				18ABAF2E1724FAFC00ED02C6 /* BRPay.m */,
+				18089E49171CFA7A00BCB50E /* BRComment.h */,
+				18089E4A171CFA7A00BCB50E /* BRComment.m */,
+				18ABAF301724FB1D00ED02C6 /* BRUser.h */,
+				18ABAF311724FB1D00ED02C6 /* BRUser.m */,
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
 				7712E4971744702D008E334A /* ZBManagedObjectDelegate.h */,
-				779C672A17446DCD00909D6A /* ContextManager.h */,
-				779C672B17446DCD00909D6A /* ContextManager.m */,
 				18A7FF40176087C900F97099 /* Book+Local.h */,
 				18A7FF41176087C900F97099 /* Book+Local.m */,
-				77B378D017AB81A500D8D63D /* Book.h */,
-				77B378D117AB81A500D8D63D /* Book.m */,
 				779C671E174461DB00909D6A /* Book+Setup.h */,
 				779C671F174461DB00909D6A /* Book+Setup.m */,
-				77B378D317AB81AF00D8D63D /* Chapter.h */,
-				77B378D417AB81AF00D8D63D /* Chapter.m */,
 				779C6721174461F000909D6A /* Chapter+Setup.h */,
 				779C6722174461F000909D6A /* Chapter+Setup.m */,
 				77B378D617AB81B900D8D63D /* Mark.h */,
 				77B378D717AB81B900D8D63D /* Mark.m */,
+				7704EFED17ADE399006F1E08 /* Book.h */,
+				7704EFEE17ADE399006F1E08 /* Book.m */,
+				77B378D317AB81AF00D8D63D /* Chapter.h */,
+				77B378D417AB81AF00D8D63D /* Chapter.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1636,11 +1636,11 @@
 				77A2D63A17180EE8009F2B9F /* CoreTextViewController.m in Sources */,
 				18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */,
 				18089E45171BD5E700BCB50E /* MKNumberBadgeView.m in Sources */,
-				18089E4B171CFA7C00BCB50E /* Comment.m in Sources */,
+				18089E4B171CFA7C00BCB50E /* BRComment.m in Sources */,
 				18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */,
 				18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */,
-				18ABAF2F1724FAFC00ED02C6 /* Pay.m in Sources */,
-				18ABAF321724FB1D00ED02C6 /* Member.m in Sources */,
+				18ABAF2F1724FAFC00ED02C6 /* BRPay.m in Sources */,
+				18ABAF321724FB1D00ED02C6 /* BRUser.m in Sources */,
 				18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */,
 				180318F2172CDDE200733C58 /* GiftCell.m in Sources */,
 				77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */,
@@ -1707,7 +1707,7 @@
 				77E039FE173BE7260036614C /* SignUpViewController.m in Sources */,
 				779C6720174461DB00909D6A /* Book+Setup.m in Sources */,
 				779C6723174461F000909D6A /* Chapter+Setup.m in Sources */,
-				779C672C17446DCD00909D6A /* ContextManager.m in Sources */,
+				779C672C17446DCD00909D6A /* BRContextManager.m in Sources */,
 				18A0C6B0174CA043003FC599 /* CommentCell.m in Sources */,
 				18A0C6B3174DEDAB003FC599 /* BRViewController.m in Sources */,
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
@@ -1719,7 +1719,6 @@
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
 				184862FE1796535400282A6A /* NotificationView.m in Sources */,
 				18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */,
-				77B378D217AB81A500D8D63D /* Book.m in Sources */,
 				77B378D517AB81AF00D8D63D /* Chapter.m in Sources */,
 				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
 				77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */,
@@ -1727,6 +1726,7 @@
 				77B378F117ABE65200D8D63D /* NSString+ChineseSpace.m in Sources */,
 				77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */,
 				77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */,
+				7704EFEF17ADE399006F1E08 /* Book.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

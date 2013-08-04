@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Comment : NSObject {
+@interface BRComment : NSObject {
     NSString *bookID;
     NSString *content;
     NSString *commentID;

@@ -7,14 +7,14 @@
 //
 
 #import "Chapter+Setup.h"
-#import "ContextManager.h"
+#import "BRContextManager.h"
 #import "Book.h"
 
 @implementation Chapter (Setup)
 
 + (Chapter *)createWithAttributes:(NSDictionary *)attributes
 {
-    Chapter *chapter = [Chapter createInContext:[ContextManager memoryOnlyContext]];
+    Chapter *chapter = [Chapter createInContext:[BRContextManager memoryOnlyContext]];
     chapter.name = attributes[@"chapterName"];
     chapter.uid = [attributes[@"chapterId"] stringValue];
     chapter.bVip = attributes[@"isVip"];

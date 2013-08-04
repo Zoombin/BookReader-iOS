@@ -20,7 +20,7 @@
 #import "UILabel+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+BookReader.h"
-#import "Member.h"
+#import "BRUser.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "BookCell.h"
@@ -63,7 +63,7 @@
 {
     [super viewDidAppear:animated];
     if ([ServiceManager userID]) {
-        [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, Member *member) {
+        [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
 			if (success) {
 				[ServiceManager saveUserInfo:member];
 			}

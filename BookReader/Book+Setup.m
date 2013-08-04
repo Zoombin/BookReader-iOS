@@ -8,7 +8,7 @@
 
 
 #import "Book+Setup.h"
-#import "ContextManager.h"
+#import "BRContextManager.h"
 
 #define XXSY_IMAGE_URL  @"http://images.xxsy.net/simg/"
 
@@ -16,7 +16,7 @@
 
 + (NSManagedObject *)createWithAttributes:(NSDictionary *)attributes
 {
-    Book *book = [Book createInContext:[ContextManager memoryOnlyContext]];
+    Book *book = [Book createInContext:[BRContextManager memoryOnlyContext]];
 	book.author = attributes[@"authorName"];
 	book.autoBuy = attributes[@"auto"];
 	book.name = attributes[@"bookName"];
@@ -29,7 +29,6 @@
     book.lastChapterName = attributes[@"lastChapterName"];
 	book.lastUpdate = attributes[@"lastUpdateTime"];
 	book.categoryID = attributes[@"classId"];
-	book.updateDate = [NSDate date];
 	book.bCover = attributes[@"cover"];
     book.bFinish = attributes[@"undone"];
     book.status = attributes[@"status"];
@@ -126,6 +125,7 @@
 	self.lastChapterName = book.lastChapterName;
 //	self.lastReadChapterID = book.lastReadChapterID;
 	self.lastUpdate = book.lastUpdate;
+	self.localUpdateDate = [NSDate date];
 	self.monthTicket = book.monthTicket;
 	self.name = book.name;
 //	self.nextUpdateTime = book.nextUpdateTime;
@@ -135,7 +135,7 @@
 	self.rewardPersons = book.rewardPersons;
 	self.status = book.status;
 	self.uid = book.uid;
-//	self.updateDate = book.updateDate;
+//	self.userID = book.userID;
 	self.words = book.words;
 }
 

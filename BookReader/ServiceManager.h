@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
-#import "Member.h"
+#import "BRUser.h"
 #import "Book.h"
 
 
@@ -27,9 +27,9 @@
 + (void)saveNotificationContent:(NSString *)content;
 + (BOOL)checkHasShowNotifi:(NSString *)content;
 + (BOOL)hadLaunchedBefore;
-+ (void)saveUserInfo:(Member *)member;
++ (void)saveUserInfo:(BRUser *)member;
 + (NSNumber *)userID;
-+ (Member *)userInfo;
++ (BRUser *)userInfo;
 + (void)deleteUserID;
 + (void)deleteUserInfo;
 
@@ -45,7 +45,7 @@
 //用户登录
 + (void)loginByPhoneNumber:(NSString *)phoneNumber //用户手机号
                andPassword:(NSString *)password
-                 withBlock:(void (^)(BOOL success, NSError *error, NSString *message, Member *member))block;
+                 withBlock:(void (^)(BOOL success, NSError *error, NSString *message, BRUser *member))block;
 //用户密码修改
 + (void)changePasswordWithOldPassword:(NSString *)oldPassword
         andNewPassword:(NSString *)newPassword
@@ -62,7 +62,7 @@
            withBlock:(void(^)(BOOL success, NSError *error, NSString *message))block; //error resultCode
 
 //获取用户信息
-+ (void)userInfoWithBlock:(void(^)(BOOL success, NSError *error, Member *member))block;
++ (void)userInfoWithBlock:(void(^)(BOOL success, NSError *error, BRUser *member))block;
 
 //用户充值
 + (void)payWithType:(NSString *)payType //分为5种 1,2,3,4,5 分别代表0.99$ 1.99$ 4.99$ 9.99$ 19.99$

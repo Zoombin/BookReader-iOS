@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "Pay.h"
+#import "BRPay.h"
 
-@implementation Pay
+@implementation BRPay
 
 @synthesize orderID;
 @synthesize count;

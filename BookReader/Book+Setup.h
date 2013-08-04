@@ -11,4 +11,6 @@
 
 @interface Book (Setup) <ZBManagedObjectDelegate>
 
+//+ (NSArray *)allBooksOfUser:()
+
 @end

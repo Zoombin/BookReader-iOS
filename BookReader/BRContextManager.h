@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ContextManager : NSObject
+@interface BRContextManager : NSObject
 
 + (NSManagedObjectContext *)memoryOnlyContext;
 

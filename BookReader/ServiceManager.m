@@ -13,8 +13,8 @@
 #import "NSString+XXSY.h"
 #import "Chapter+Setup.h"
 #import "Book+Setup.h"
-#import "Comment.h"
-#import "Pay.h"
+#import "BRComment.h"
+#import "BRPay.h"
 
 //获取IP地址需要用到
 #include <unistd.h>
@@ -88,15 +88,15 @@ static NSNumber *sUserID;
     return NO;
 }
 
-+ (void)saveUserInfo:(Member *)member
++ (void)saveUserInfo:(BRUser *)member
 {
     [[NSUserDefaults standardUserDefaults] setObject:member.coin forKey:USER_MONEY];
     [[NSUserDefaults standardUserDefaults] setObject:member.name forKey:USER_NAME];
 }
 
-+ (Member *)userInfo
++ (BRUser *)userInfo
 {
-    Member *member = [[Member alloc] init];
+    BRUser *member = [[BRUser alloc] init];
     member.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME];
     member.coin = [[NSUserDefaults standardUserDefaults] objectForKey:USER_MONEY];
     member.uid = sUserID;
@@ -177,7 +177,7 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            Member *member = [Member createWithAttributes:theObject[@"user"]];
+            BRUser *member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
         }
         if (block) {
@@ -192,14 +192,14 @@ static NSNumber *sUserID;
 
 + (void)loginByPhoneNumber:(NSString *)phoneNumber
                andPassword:(NSString *)password
-                 withBlock:(void (^)(BOOL success, NSError *error, NSString *message, Member *member))block
+                 withBlock:(void (^)(BOOL success, NSError *error, NSString *message, BRUser *member))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"pwd" : [password md516]}]];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        Member *member = nil;
+        BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            member = [Member createWithAttributes:theObject[@"user"]];
+            member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
         }
         if (block) {
@@ -263,14 +263,14 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)userInfoWithBlock:(void (^)(BOOL success,  NSError *error, Member *member))block
++ (void)userInfoWithBlock:(void (^)(BOOL success,  NSError *error, BRUser *member))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}]];
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        Member *member = nil;
+        BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            member = [Member createWithAttributes:theObject[@"user"]];
+            member = [BRUser createWithAttributes:theObject[@"user"]];
         }
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,  member);
@@ -312,7 +312,7 @@ static NSNumber *sUserID;
             NSArray *rechargeList = [theObject objectForKey:@"rechargeList"];
             if ([rechargeList count]>0) {
                 for (int i=0; i<[rechargeList count]; i++) {
-                    Pay *pay = [[Pay alloc] init];
+                    BRPay *pay = [[BRPay alloc] init];
                     pay.orderID = rechargeList[i][@"orderid"];
                     pay.count = rechargeList[i][@"count"];
                     [array addObject:pay];
@@ -409,7 +409,7 @@ static NSNumber *sUserID;
             NSArray *array = [theObject objectForKey:@"discussList"];
             for (int i =0; i<[array count]; i++) {
                 NSDictionary *tmpDict = [array objectAtIndex:i];
-                Comment *commit = [[Comment alloc] init];
+                BRComment *commit = [[BRComment alloc] init];
                 commit.bookID = tmpDict[@"bookId"];
                 commit.content = tmpDict[@"content"];
                 commit.commentID = tmpDict[@"id"];

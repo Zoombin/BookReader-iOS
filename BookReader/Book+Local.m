@@ -9,7 +9,7 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "NSString+XXSY.h"
-#import "ContextManager.h"
+#import "BRContextManager.h"
 #import "Book+Local.h"
 #import "NSString+ChineseSpace.h"
 
@@ -517,7 +517,7 @@ static NSDictionary *booksDictionary;
     [content setString:[self getTextWithBookId:bookid]];
     NSMutableArray *chapterObjArray = [[NSMutableArray alloc] init];
     for (int i = 0; i< [chaptersNameArray count]; i++) {
-        Chapter *chapter = [Chapter createInContext:[ContextManager memoryOnlyContext]];
+        Chapter *chapter = [Chapter createInContext:[BRContextManager memoryOnlyContext]];
         chapter.name = chaptersNameArray[i];
         chapter.bid = bookid;
         chapter.uid = [NSString stringWithFormat:@"%@%d",bookid,i];

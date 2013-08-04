@@ -6,18 +6,18 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "Member.h"
+#import "BRUser.h"
 
 
-@implementation Member
+@implementation BRUser
 
 @synthesize coin;
 @synthesize uid;
 @synthesize name;
 
-+ (Member *)createWithAttributes:(NSDictionary *)attributes
++ (BRUser *)createWithAttributes:(NSDictionary *)attributes
 {
-    Member *member = [[Member alloc] init];
+    BRUser *member = [[BRUser alloc] init];
     member.uid = attributes[@"userid"];
     member.coin = attributes[@"account"];
     member.name = attributes[@"username"];

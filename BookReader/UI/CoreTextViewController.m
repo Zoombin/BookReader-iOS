@@ -344,7 +344,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		currentChapterString = [chapter.content XXSYDecoding];
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			_book.lastReadChapterID = chapter.uid;
-			_book.updateDate = [NSDate date];
+			_book.localUpdateDate = [NSDate date];
 		}];
 		statusView.title.text = [NSString stringWithFormat:@"%@", chapter.name];
 		[self paging];

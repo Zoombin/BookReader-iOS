@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
-#import "ContextManager.h"
+#import "BRContextManager.h"
 
 static NSManagedObjectContext *memoryOnlyContext;
 
-@implementation ContextManager
+@implementation BRContextManager
 
 + (NSManagedObjectContext *)memoryOnlyContext
 {

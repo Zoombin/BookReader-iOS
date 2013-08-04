@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "Comment.h"
+#import "BRComment.h"
 
-@implementation Comment
+@implementation BRComment
 @synthesize bookID;
 @synthesize content;
 @synthesize commentID;

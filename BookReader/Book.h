@@ -2,7 +2,7 @@
 //  Book.h
 //  BookReader
 //
-//  Created by zhangbin on 8/2/13.
+//  Created by zhangbin on 8/4/13.
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
@@ -31,6 +31,7 @@
 @property (nonatomic, retain) NSString * lastChapterName;
 @property (nonatomic, retain) NSString * lastReadChapterID;
 @property (nonatomic, retain) NSString * lastUpdate;
+@property (nonatomic, retain) NSDate * localUpdateDate;
 @property (nonatomic, retain) NSNumber * monthTicket;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSDate * nextUpdateTime;
@@ -40,7 +41,7 @@
 @property (nonatomic, retain) NSNumber * rewardPersons;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * uid;
-@property (nonatomic, retain) NSDate * updateDate;
+@property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * words;
 
 @end

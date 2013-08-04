@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Comment;
+@class BRComment;
 
 @interface CommentCell : UITableViewCell
 
-- (void)setComment:(Comment *)comment;
+- (void)setComment:(BRComment *)comment;
 - (CGFloat)height;
 @end

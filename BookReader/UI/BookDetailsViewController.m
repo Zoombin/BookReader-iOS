@@ -22,7 +22,7 @@
 #import "CoreTextViewController.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
-#import "Comment.h"
+#import "BRComment.h"
 #import "UIColor+Hex.h"
 #import "UILabel+BookReader.h"
 #import "UIView+BookReader.h"
@@ -781,14 +781,14 @@
         if (cell == nil) {
             cell = [[CommentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            Comment *obj = [infoArray objectAtIndex:[indexPath row]];
+            BRComment *obj = [infoArray objectAtIndex:[indexPath row]];
             [(CommentCell *)cell setComment:obj];
         }
     } else if (tableView == shortInfoTableView) {
         if (cell == nil) {
             cell = [[CommentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            Comment *obj = [shortInfoArray objectAtIndex:[indexPath row]];
+            BRComment *obj = [shortInfoArray objectAtIndex:[indexPath row]];
             [(CommentCell *)cell setComment:obj];
         }
     } else if (tableView == chapterListTableView) {

@@ -416,7 +416,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)showBooks
 {
-    booksForDisplay = [[Book findAllSortedBy:@"updateDate" ascending:NO] mutableCopy];
+    booksForDisplay = [[Book findAllSortedBy:@"localUpdateDate" ascending:NO] mutableCopy];
     [booksView reloadData];
 }
 - (void)headerButtonClicked:(NSNumber *)type
