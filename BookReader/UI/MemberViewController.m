@@ -151,10 +151,7 @@
 				[cell.textLabel setText:@"清除所有数据缓存"];
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
 			}
-            UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width - 30, 14, 6, 12)];
-            [catagoryImage setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
-            [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
-            [cell.contentView addSubview:catagoryImage];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
     return cell;
