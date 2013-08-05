@@ -67,6 +67,7 @@
     BOOL isLoading;
     
     //Arrays
+    NSMutableArray *recommandArray;
     NSMutableArray *searchArray;
     NSMutableArray *allArray;
     NSMutableArray *newArray;
@@ -91,6 +92,7 @@
         currentPage = 1;
         currentIndex = 1;
         
+        recommandArray = [[NSMutableArray alloc] init];
         searchArray = [[NSMutableArray alloc] init];
         allArray = [[NSMutableArray alloc] init];
         hotArray = [[NSMutableArray alloc] init];
@@ -380,6 +382,7 @@
                                       [self displayHUDError:nil message:NETWORK_ERROR];
                                   }else {
                                       [infoArray addObjectsFromArray:resultArray];
+                                      [recommandArray addObjectsFromArray:resultArray];
                                       [self refreshRecommendDataWithArray:infoArray];
                                       if (index<=5) {
                                           [self loadRecommendDataWithIndex:index+1];
@@ -465,8 +468,13 @@
 		[infoTableView setTableHeaderView:nil];
 		[self.headerView.titleLabel setText:@"推荐"];
 		[rankView setHidden:YES];
-		[self loadRecommendDataWithIndex:1];
 		[infoTableView setHidden:NO];
+        if ([recommandArray count] > 0) {
+            [infoArray addObjectsFromArray:recommandArray];
+            [infoTableView reloadData];
+            return;
+        }
+        [self loadRecommendDataWithIndex:1];
 	} else if (sender == rankButton) {
 		currentType = RANK;
 		[infoTableView setTableHeaderView:rankView];
