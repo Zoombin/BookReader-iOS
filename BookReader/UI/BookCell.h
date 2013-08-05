@@ -20,6 +20,5 @@ typedef enum {
 - (void)setBook:(Book *)book;
 - (void)setTextLableText:(NSString *)name;
 - (CGFloat)height;
-- (void)hidenArrow:(BOOL)hiden;
 - (void)hidenDottedLine;
 @end

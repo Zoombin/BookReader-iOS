@@ -24,7 +24,6 @@
 	UIImageView *coverView;
     UIImageView *finishMark;
 	BookCellStyle myStyle;
-    UIImageView *catagoryImage;
 	CGFloat height;
     UILabel *line;
 }
@@ -67,11 +66,6 @@
 			height = OtherCellHeight;
 			nameRect = CGRectMake(25, 12, 250, 20);
 			nameFontSize = 18.0f;
-
-			catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 50, 14, 6, 12)];
-            [catagoryImage setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
-            [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
-            [self.contentView addSubview:catagoryImage];
         }
 		
 		if (!CGRectEqualToRect(nameRect, CGRectZero)) {
@@ -130,13 +124,6 @@
 - (void)setTextLableText:(NSString *)name
 {
     [nameLabel setText:name];
-}
-
-- (void)hidenArrow:(BOOL)hiden
-{
-    if (catagoryImage) {
-        [catagoryImage setHidden:hiden];
-    }
 }
 
 - (void)setBook:(Book *)book
