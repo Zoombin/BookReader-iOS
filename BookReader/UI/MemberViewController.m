@@ -150,6 +150,7 @@
             } else {
 				[cell.textLabel setText:@"清除所有数据缓存"];
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
 			}
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
