@@ -94,7 +94,7 @@
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [topView addSubview:backButton];
     
-    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.frame.size.width-buttonOffsetX-40, buttonOffsetY, 40, 35) andStyle:BookReaderButtonStyleNormal];
+    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.frame.size.width-buttonOffsetX-54, buttonOffsetY, 54, 35) andStyle:BookReaderButtonStyleNormal];
     [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"read_bookmark"] forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [addBookMarkButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
