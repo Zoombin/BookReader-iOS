@@ -135,7 +135,7 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
             [cell.textLabel setText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
@@ -149,8 +149,9 @@
                 [cell.textLabel setText:@"我的书架"];
             } else {
 				[cell.textLabel setText:@"清除所有数据缓存"];
+                [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
 			}
-            UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width - 50, 14, 6, 12)];
+            UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width - 30, 14, 6, 12)];
             [catagoryImage setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
             [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
             [cell.contentView addSubview:catagoryImage];
@@ -162,7 +163,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 40;
+	return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
