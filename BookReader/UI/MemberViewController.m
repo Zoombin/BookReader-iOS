@@ -22,7 +22,6 @@
 #import "BRUser.h"
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
-#import "BookCell.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
 
@@ -136,24 +135,25 @@
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
-        cell = [[BookCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];//TODO: 为什么这里用BookCell? 应该重新定义一个cell才对
-        [(BookCell *)cell hidenDottedLine];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyCell"];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
-                [(BookCell *)cell hidenArrow:YES];
+            [cell.textLabel setText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
             } else {
-                [(BookCell *)cell setTextLableText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] , [ServiceManager userInfo].coin ?: @""]];
-                [(BookCell *)cell hidenArrow:YES];
+                [cell.textLabel setText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] , [ServiceManager userInfo].coin ?: @""]];
             }
         } else {
             if (indexPath.row == 0) {
-                [(BookCell *)cell setTextLableText:@"修改密码"];
+                [cell.textLabel setText:@"修改密码"];
             } else if (indexPath.row == 1){
-                [(BookCell *)cell setTextLableText:@"我的书架"];
+                [cell.textLabel setText:@"我的书架"];
             } else {
-				[(BookCell *)cell setTextLableText:@"清除所有数据缓存"];
+				[cell.textLabel setText:@"清除所有数据缓存"];
 			}
+            UIImageView *catagoryImage = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width - 50, 14, 6, 12)];
+            [catagoryImage setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+            [catagoryImage setImage:[UIImage imageNamed:@"catagory_arrow"]];
+            [cell.contentView addSubview:catagoryImage];
         }
     }
     return cell;
@@ -162,8 +162,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BookCell *cell = (BookCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-	return [cell height];
+	return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
