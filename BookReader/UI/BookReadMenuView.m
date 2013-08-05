@@ -76,7 +76,7 @@
 
 - (void)initTopView
 {
-     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
+     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
     [topView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
     [topView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:topView];
@@ -94,19 +94,19 @@
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [topView addSubview:backButton];
     
-    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.frame.size.width-buttonOffsetX-54, buttonOffsetY, 54, 35) andStyle:BookReaderButtonStyleNormal];
+    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.frame.size.width - buttonOffsetX - 54, buttonOffsetY, 54, 35) andStyle:BookReaderButtonStyleNormal];
     [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"read_bookmark"] forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [addBookMarkButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [topView addSubview:addBookMarkButton];
     
-    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)+20, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds) + 20, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [nextChapterButton setBackgroundImage:[UIImage imageNamed:@"read_next"] forState:UIControlStateNormal];
     [nextChapterButton addTarget:self action:@selector(nextChapter) forControlEvents:UIControlEventTouchUpInside];
     [nextChapterButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [topView addSubview:nextChapterButton];
     
-    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)-68, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
+    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds) - 68, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
     [lastChapterButton setBackgroundImage:[UIImage imageNamed:@"read_last"] forState:UIControlStateNormal];
     [lastChapterButton addTarget:self action:@selector(preChapter) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:lastChapterButton];
