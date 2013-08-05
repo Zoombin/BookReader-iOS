@@ -13,6 +13,7 @@
 
 #define DarkGrayColor   [UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]
 #define lightGrayColor  [UIColor colorWithRed:246.0/255.0 green:243.0/255.0 blue:236.0/255.0 alpha:1.0]
+#define BorderColor     [UIColor colorWithRed:20.0/255.0 green:139.0/255.0 blue:14.0/255.0 alpha:1.0]
 
 @implementation GiftCell {
     UITextField *numberTextField;
@@ -144,7 +145,7 @@
                 if (i == 0) {
                     button.enabled = NO;
                     [button.layer setBorderWidth:2];
-                    [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
+                    [button.layer setBorderColor:BorderColor.CGColor];
                     currentIntegral = @"1";
                 }
                 [self.contentView addSubview:button];
@@ -192,7 +193,7 @@
                 if (i == 0) {
                     button.enabled = NO;
                     [button.layer setBorderWidth:2];
-                    [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
+                    [button.layer setBorderColor:BorderColor.CGColor];
                     _slider.value = 188;
                 }
                 [button cooldownButtonFrame:CGRectMake(10 * (i+1) + width * i, 55, width, 30) andEnableCooldown:NO];
@@ -282,7 +283,7 @@
         if (i == [sender tag]) {
             button.enabled = NO;
             [button.layer setBorderWidth:2];
-            [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
+            [button.layer setBorderColor:BorderColor.CGColor];
         }
         else {
             button.enabled = YES;
@@ -299,7 +300,7 @@
         if (i == [sender tag]) {
             button.enabled = NO;
             [button.layer setBorderWidth:2];
-            [button.layer setBorderColor:[UIColor colorWithRed:57.0/255.0 green:113.0/255.0 blue:59.0/255.0 alpha:0.9].CGColor];
+            [button.layer setBorderColor:BorderColor.CGColor];
         }
         else {
             button.enabled = YES;
