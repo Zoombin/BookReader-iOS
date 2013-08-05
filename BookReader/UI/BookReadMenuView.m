@@ -76,7 +76,7 @@
 
 - (void)initTopView
 {
-     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width,40)];
+     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
     [topView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
     [topView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:topView];
