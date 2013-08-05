@@ -28,7 +28,7 @@
         [chapterNameLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:chapterNameLabel];
         
-        UILabel *line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width, 2)];
+        UILabel *line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 20, 2)];
         [self.contentView addSubview:line];
     }
     return self;

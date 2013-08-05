@@ -414,7 +414,6 @@
     
     chapterListTableView = [[UITableView alloc]initWithFrame:chapterListView.bounds style:UITableViewStylePlain];
     [chapterListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    [chapterListTableView setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
     [chapterListTableView setBackgroundColor:[UIColor whiteColor]];
     [chapterListTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [chapterListTableView setDelegate:self];
@@ -797,7 +796,7 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
             [(ChapterCell *)cell setChapter:obj andCurrent:NO];
-            //            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
+//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
         }
     }
     else {
