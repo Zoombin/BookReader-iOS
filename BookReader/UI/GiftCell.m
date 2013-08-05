@@ -10,6 +10,7 @@
 #import "UIButton+BookReader.h"
 #import "ServiceManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "GiftButton.h"
 
 #define DarkGrayColor   [UIColor colorWithRed:230.0/255.0 green:227.0/255.0 blue:220.0/255.0 alpha:1.0]
 #define lightGrayColor  [UIColor colorWithRed:246.0/255.0 green:243.0/255.0 blue:236.0/255.0 alpha:1.0]
@@ -142,11 +143,11 @@
                 [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [button setBackgroundColor:[UIColor whiteColor]];
                 [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-                if (i == 0) {
+                if (i == 4) {
                     button.enabled = NO;
                     [button.layer setBorderWidth:2];
                     [button.layer setBorderColor:BorderColor.CGColor];
-                    currentIntegral = @"1";
+                    currentIntegral = @"5";
                 }
                 [self.contentView addSubview:button];
                 [buttonsArray addObject:button];
@@ -204,12 +205,11 @@
         }
         
         if (!CGRectEqualToRect(reduceBtnRect, CGRectZero)) {
-            reductBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [reductBtn cooldownButtonFrame:reduceBtnRect andEnableCooldown:NO];
+            reductBtn = [GiftButton buttonWithType:UIButtonTypeCustom];
+            [reductBtn setFrame:reduceBtnRect];
             [reductBtn setTitle:@"-" forState:UIControlStateNormal];
             [reductBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [reductBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [reductBtn addTarget:self action:@selector(highlightBorder:) forControlEvents:UIControlEventTouchDown];
             [reductBtn addTarget:self action:@selector(reductBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:reductBtn];
         }
@@ -227,20 +227,18 @@
         }
         
         if (!CGRectEqualToRect(addBtnRect, CGRectZero)) {
-            addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [addBtn cooldownButtonFrame:addBtnRect andEnableCooldown:NO];
+            addBtn = [GiftButton buttonWithType:UIButtonTypeCustom];
+            [addBtn setFrame:addBtnRect];
             [addBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [addBtn setTitle:@"+" forState:UIControlStateNormal];
             [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [addBtn addTarget:self action:@selector(highlightBorder:) forControlEvents:UIControlEventTouchDown];
             [addBtn addTarget:self action:@selector(addBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:addBtn];
         }
         
         if (!CGRectEqualToRect(sendBtnRect, CGRectZero)) {
-            UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [sendButton cooldownButtonFrame:sendBtnRect andEnableCooldown:NO];
-            [sendButton addTarget:self action:@selector(highlightBorder:) forControlEvents:UIControlEventTouchDown];
+            UIButton *sendButton = [GiftButton buttonWithType:UIButtonTypeCustom];
+            [sendButton setFrame:sendBtnRect];
             [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue:) forControlEvents:UIControlEventTouchUpInside];
             [sendButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [sendButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
@@ -262,22 +260,8 @@
     return self;
 }
 
-- (void)highlightBorder:(id)sender
-{
-    UIButton *btn = (UIButton *)sender;
-    btn.layer.borderColor = BorderColor.CGColor;
-    [btn.layer setBorderWidth:2];
-}
-
-- (void)unhighlightBorder:(id)sender
-{
-    UIButton *btn = (UIButton *)sender;
-    btn.layer.borderColor = [UIColor clearColor].CGColor;
-}
-
 - (void)addBtnClicked:(id)sender
 {
-    [self unhighlightBorder:sender];
     _slider.value = _slider.value + 1;
     int k = _slider.value;
     [numberTextField resignFirstResponder];
@@ -286,7 +270,6 @@
 
 - (void)reductBtnClicked:(id)sender
 {
-    [self unhighlightBorder:sender];
     _slider.value = _slider.value - 1;
     int k = _slider.value;
     [numberTextField resignFirstResponder];
@@ -329,7 +312,6 @@
 
 - (void)sendButtonClickedAndSetDictValue:(id)sender
 {
-    [self unhighlightBorder:sender];
     if ([self.delegate respondsToSelector:@selector(sendButtonClick:)]) {
         [numberTextField resignFirstResponder];
         NSMutableDictionary *tmpDict = [[NSMutableDictionary alloc] init];

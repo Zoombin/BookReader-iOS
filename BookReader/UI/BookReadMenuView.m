@@ -87,27 +87,30 @@
     static float buttonOffsetX = 10.0;
     static float buttonOffsetY = 0.0;
     
-	UIButton *backButton = [UIButton navigationBackButton];
+	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame: CGRectMake(10, buttonOffsetY, 54, 40)];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"read_backbtn"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"read_backbtn"] forState:UIControlStateNormal];
     [backButton setTitle:@"" forState:UIControlStateNormal];
     [topView addSubview:backButton];
     
-    UIButton *addBookMarkButton = [UIButton addButtonWithFrame:CGRectMake(self.frame.size.width-buttonOffsetX-54, buttonOffsetY, 54, 35) andStyle:BookReaderButtonStyleNormal];
-    [addBookMarkButton setBackgroundImage:[UIImage imageNamed:@"read_bookmark"] forState:UIControlStateNormal];
+    UIButton *addBookMarkButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addBookMarkButton setFrame:CGRectMake(self.frame.size.width-buttonOffsetX-54, buttonOffsetY, 54, 40)];
+    [addBookMarkButton setImage:[UIImage imageNamed:@"read_bookmark"] forState:UIControlStateNormal];
     [addBookMarkButton addTarget:self action:@selector(addBookMarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [addBookMarkButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [topView addSubview:addBookMarkButton];
     
-    UIButton *nextChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)+20, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
-    [nextChapterButton setBackgroundImage:[UIImage imageNamed:@"read_next"] forState:UIControlStateNormal];
+    UIButton *nextChapterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nextChapterButton setFrame:CGRectMake(CGRectGetMidX(topView.bounds)+20, buttonOffsetY, 48, 40)];
+    [nextChapterButton setImage:[UIImage imageNamed:@"read_next"] forState:UIControlStateNormal];
     [nextChapterButton addTarget:self action:@selector(nextChapter) forControlEvents:UIControlEventTouchUpInside];
     [nextChapterButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [topView addSubview:nextChapterButton];
     
-    UIButton *lastChapterButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMidX(topView.bounds)-68, buttonOffsetY, 48, 32) andStyle:BookReaderButtonStyleNormal];
-    [lastChapterButton setBackgroundImage:[UIImage imageNamed:@"read_last"] forState:UIControlStateNormal];
+    UIButton *lastChapterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [lastChapterButton setFrame:CGRectMake(CGRectGetMidX(topView.bounds)-68, buttonOffsetY, 48, 40)];
+    [lastChapterButton setImage:[UIImage imageNamed:@"read_last"] forState:UIControlStateNormal];
     [lastChapterButton addTarget:self action:@selector(preChapter) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:lastChapterButton];
 }
