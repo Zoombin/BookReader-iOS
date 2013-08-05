@@ -209,7 +209,8 @@
             [reductBtn setTitle:@"-" forState:UIControlStateNormal];
             [reductBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [reductBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [reductBtn addTarget:self action:@selector(reductBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+            [reductBtn addTarget:self action:@selector(highlightBorder:) forControlEvents:UIControlEventTouchDown];
+            [reductBtn addTarget:self action:@selector(reductBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:reductBtn];
         }
         
@@ -231,14 +232,16 @@
             [addBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [addBtn setTitle:@"+" forState:UIControlStateNormal];
             [addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [addBtn addTarget:self action:@selector(addBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+            [addBtn addTarget:self action:@selector(highlightBorder:) forControlEvents:UIControlEventTouchDown];
+            [addBtn addTarget:self action:@selector(addBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:addBtn];
         }
         
         if (!CGRectEqualToRect(sendBtnRect, CGRectZero)) {
             UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [sendButton cooldownButtonFrame:sendBtnRect andEnableCooldown:NO];
-            [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue) forControlEvents:UIControlEventTouchUpInside];
+            [sendButton addTarget:self action:@selector(highlightBorder:) forControlEvents:UIControlEventTouchDown];
+            [sendButton addTarget:self action:@selector(sendButtonClickedAndSetDictValue:) forControlEvents:UIControlEventTouchUpInside];
             [sendButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [sendButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
             [sendButton setTitle:@"赠送" forState:UIControlStateNormal];
@@ -259,16 +262,31 @@
     return self;
 }
 
-- (void)addBtnClicked
+- (void)highlightBorder:(id)sender
 {
+    UIButton *btn = (UIButton *)sender;
+    btn.layer.borderColor = BorderColor.CGColor;
+    [btn.layer setBorderWidth:2];
+}
+
+- (void)unhighlightBorder:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    btn.layer.borderColor = [UIColor clearColor].CGColor;
+}
+
+- (void)addBtnClicked:(id)sender
+{
+    [self unhighlightBorder:sender];
     _slider.value = _slider.value + 1;
     int k = _slider.value;
     [numberTextField resignFirstResponder];
     [numberTextField setText:[NSString stringWithFormat:@"%d",k]];
 }
 
-- (void)reductBtnClicked
+- (void)reductBtnClicked:(id)sender
 {
+    [self unhighlightBorder:sender];
     _slider.value = _slider.value - 1;
     int k = _slider.value;
     [numberTextField resignFirstResponder];
@@ -309,8 +327,9 @@
     }
 }
 
-- (void)sendButtonClickedAndSetDictValue
+- (void)sendButtonClickedAndSetDictValue:(id)sender
 {
+    [self unhighlightBorder:sender];
     if ([self.delegate respondsToSelector:@selector(sendButtonClick:)]) {
         [numberTextField resignFirstResponder];
         NSMutableDictionary *tmpDict = [[NSMutableDictionary alloc] init];

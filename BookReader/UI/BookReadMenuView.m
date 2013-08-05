@@ -403,7 +403,7 @@
     [navigationView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
     [self addSubview:navigationView];
     
-    NSArray *btnNames = @[@"返回书架", @"返回书城", @"返回书籍封面页"];
+    NSArray *btnNames = @[@"返回书架", @"返回书城", @"返回书籍详情"];
     NSArray *selStrings = @[@"bookShelfButtonClicked", @"bookStoreButtonClicked", @"bookDetailButtonClicked"];
     for (int i = 0; i < btnNames.count; i ++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
