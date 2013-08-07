@@ -9,6 +9,8 @@
 #import "Chapter+Setup.h"
 #import "BRContextManager.h"
 #import "Book.h"
+#import "Book+Setup.h"
+#import "ServiceManager.h"
 
 @implementation Chapter (Setup)
 
@@ -81,7 +83,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"(uid=%@, bookID=%@)", self.uid, self.bid];
+	return [NSString stringWithFormat:@"(uid: %@, bookID: %@, bVip: %@, name: %@)", self.uid, self.bid, self.bVip, self.name];
 }
 
 - (void)truncate
@@ -94,12 +96,12 @@
 	}];
 }
 
-+ (void)truncateAll
-{
-	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		[Chapter truncateAllInContext:localContext];
-	}];
-}
+//+ (void)truncateAll
+//{
+//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//		[Chapter truncateAllInContext:localContext];
+//	}];
+//}
 
 #pragma mark -
 
@@ -137,7 +139,46 @@
 	return [Chapter findFirstByAttribute:@"uid" withValue:self.nextID];
 }
 
++ (NSArray *)contentNilChapters
+{
+	return [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content = nil"]];
+}
 
++ (NSArray *)chaptersNeedFetchContentWhenWifiReachable:(BOOL)bWifi
+{
+	NSArray *allContentNilChapters = [self contentNilChapters];
+	if (bWifi) {
+		return allContentNilChapters;
+	}
+	NSMutableArray *chaptersNeedFetchContent = [NSMutableArray array];
+	[allContentNilChapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+		Book *b = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
+		if (b) {
+			if (b.autoBuy.boolValue) {
+				[chaptersNeedFetchContent addObject:chapter];
+			} else {
+				if (b.lastReadChapterID != nil) {
+					[chaptersNeedFetchContent addObject:chapter];
+				}
+			}
+		}
+	}];
+	return chaptersNeedFetchContent;
+}
 
++ (NSArray *)chaptersNeedSubscribe
+{
+	NSArray *allContentNilChapters = [self contentNilChapters];
+	NSMutableArray *chaptersNeedSubscribe = [NSMutableArray array];
+	[allContentNilChapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+		Book *b = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
+		if (b) {
+			if (b.autoBuy.boolValue) {
+				[chaptersNeedSubscribe addObject:chapter];
+			}
+		}
+	}];
+	return chaptersNeedSubscribe;
+}
 
 @end

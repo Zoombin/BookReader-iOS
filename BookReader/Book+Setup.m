@@ -141,7 +141,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"(uid=%@, name=%@)", self.uid, self.name];
+	return [NSString stringWithFormat:@"(uid: %@, name: %@)", self.uid, self.name];
 }
 
 - (void)truncate
@@ -154,12 +154,12 @@
 	}];
 }
 
-+ (void)truncateAll
-{
-	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		[Book truncateAllInContext:localContext];
-	}];
-}
+//+ (void)truncateAll
+//{
+//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//		[Book truncateAllInContext:localContext];
+//	}];
+//}
 
 #pragma mark -
 
@@ -167,6 +167,12 @@
 {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userID = nil OR userID = %@", userID];
 	return [Book findAllSortedBy:@"localUpdateDate" ascending:NO withPredicate:predicate];
+}
+
+- (BOOL)needUpdate
+{
+	NSDate *now = [NSDate date];
+	return now == [now laterDate:self.nextUpdateTime];
 }
 
 @end

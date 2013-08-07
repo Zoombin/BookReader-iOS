@@ -103,7 +103,7 @@ static NSNumber *sUserID;
 {
     NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:NOTIFICATION_CONTENT];
     if ([string isEqualToString:content]) {
-        NSLog(@"已经存在");
+        //NSLog(@"已经存在");
         return YES;
     }
     return NO;

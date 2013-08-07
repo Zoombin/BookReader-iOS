@@ -18,5 +18,6 @@
 + (void)truncateAll;
 
 + (NSArray *)allBooksOfUser:(NSNumber *)userID;
+- (BOOL)needUpdate;
 
 @end

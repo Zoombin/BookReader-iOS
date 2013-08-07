@@ -18,12 +18,14 @@
 - (void)truncate;
 + (void)truncateAll;
 
+
 + (NSArray *)allChaptersOfBook:(Book *)book;
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book;
 + (Chapter *)firstChapterOfBook:(Book *)book;
 - (Chapter *)previous;
 - (Chapter *)next;
-
++ (NSArray *)chaptersNeedFetchContentWhenWifiReachable:(BOOL)bWifi;
++ (NSArray *)chaptersNeedSubscribe;
 
 
 @end
