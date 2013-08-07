@@ -21,6 +21,7 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "BookDetailsViewController.h"
+#import "Reachability.h"
 
 
 
@@ -47,6 +48,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
     NotificationView *notificationView;
+}
+
+- (BOOL)isWiFi
+{
+	Reachability *reachability = [Reachability reachabilityForLocalWiFi];
+	return [reachability isReachableViaWiFi];
 }
 
 - (void)viewDidLoad

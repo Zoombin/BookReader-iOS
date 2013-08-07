@@ -13,3 +13,6 @@
 [submodule "Libraries/ZBUtilities"]
 	path = Libraries/ZBUtilities
 	url = https://30135878%40qq.com@github.com/qq30135878/ZBUtilities.git
+[submodule "Libraries/Reachability"]
+	path = Libraries/Reachability
+	url = https://qq30135878@github.com/qq30135878/Reachability.git
