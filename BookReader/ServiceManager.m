@@ -763,7 +763,7 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)systemNotifyWithBlock:(void (^)(NSError *error, NSArray *resultArray, NSString *content))block
++ (void)systemNotifyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray, NSString *content))block
 {
     NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"system.notify"}]];
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -774,11 +774,11 @@ static NSNumber *sUserID;
             [bookList addObject:book];
         }
         if (block) {
-            block(nil,bookList,theObject[@"content"]);
+            block(YES, nil,bookList,theObject[@"content"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(error, nil, nil);
+            block(NO, error, nil, nil);
         }
     }];
 }

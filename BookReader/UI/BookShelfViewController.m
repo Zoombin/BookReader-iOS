@@ -141,14 +141,9 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)showNotificationInfo
 {
-    [ServiceManager systemNotifyWithBlock:^(NSError *error, NSArray *resultArray, NSString *content) {//TODO: this method should add success return value as same as other apis
-        if (!error) {
-            if (resultArray.count == 0 && content.length == 0) {
-                notificationView.hidden = YES;
-                NSLog(@"无公告和推荐");
-                return;
-            }
-            notificationView.hidden = NO;
+    [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
+		if (success) {
+			notificationView.hidden = NO;
             Book *book = nil;
             if (resultArray.count > 0) {
                 book = resultArray[0];
@@ -160,7 +155,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
             CGSize fullSize = self.view.bounds.size;
             [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - BRHeaderView.height - 85)];
             [notificationView showInfoWithBook:book andNotificateContent:content];
-        }
+		} else {
+			if (resultArray.count == 0 && content.length == 0) {
+                notificationView.hidden = YES;
+                NSLog(@"无公告和推荐");
+            }
+		}
     }];
 }
 
