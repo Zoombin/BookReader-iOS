@@ -41,7 +41,6 @@
 	
 //	[self testApis];
 	
-    [ServiceManager recommandDefaultBookwithBlock:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
