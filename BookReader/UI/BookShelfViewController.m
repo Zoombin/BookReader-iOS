@@ -329,9 +329,7 @@
 	[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
 		if (success) {
 			[needRemoveFavoriteBooks removeObject:needRemoveBook];
-
-			//[booksForDisplay removeObject:needRemoveBook];
-			//[booksView reloadData];
+			[self refreshBooks];
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 				needRemoveBook.bFav = NO;
 			} completion:^(BOOL success, NSError *error) {
