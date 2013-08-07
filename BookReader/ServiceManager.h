@@ -208,7 +208,7 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
 + (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block __deprecated;//iOS不需要这个接口了
 
 //公告接口
-+ (void)systemNotifyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray, NSString *content))block
++ (void)systemNotifyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray, NSString *content))block;
 #pragma mark -
 
 @end
