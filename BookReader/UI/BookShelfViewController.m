@@ -416,12 +416,14 @@
 		} else {
 			[needRemoveFavoriteBooks removeObject:bookCell.book];
 		}
-        [self.headerView deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
+        [self.headerView deleteButtonEnable:needRemoveFavoriteBooks.count > 0];
 	} else {
-        //[bookCell.book persistWithBlock:nil];//TODO: need to this when actually start to read. Why should persist here?
-		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-		controller.book = bookCell.book;
-        [self.navigationController pushViewController:controller animated:YES];
+		Book *book = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid];
+		if (book) {
+			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+			controller.book = book;
+			[self.navigationController pushViewController:controller animated:YES];
+		}
 	}
 }
 
