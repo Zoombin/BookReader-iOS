@@ -454,12 +454,12 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)bookCatalogueList:(NSString *)bookid
++ (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
                 withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : @"0"}]];//每次都从头开始更新章节列表
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : lastChapterID}]];
     parameters[@"index"] = @"1";
-    parameters[@"size"] = @"2000";
+    parameters[@"size"] = @"9999";
     parameters[@"auto"] = @"1";
 	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:NEXT_UPDATE_TIME_FORMATTER];
     [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -482,14 +482,14 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
++ (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP
             withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block
 {
 	NSNumber *userid = [self userID];
     if (!userid || !VIP) {
         userid = @0;
     }
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : cataid}, @{@"userid" : userid.stringValue}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : chapterID}, @{@"userid" : userid.stringValue}]];
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {

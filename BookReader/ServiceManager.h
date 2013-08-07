@@ -122,11 +122,11 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
                         andIndex:(NSString *)index //第几页
                        withBlock:(void(^)(BOOL success,  NSError *error, NSArray *resultArray))block;
 //章节列表
-+ (void)bookCatalogueList:(NSString *)bookid
-                withBlock:(void(^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block;
++ (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
+                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block;
 
 //获取章节内容
-+ (void)bookCatalogue:(NSString *)cataid VIP:(BOOL)VIP
++ (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP
             withBlock:(void(^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block; //内容 提示语 提示code
 
 //章节订阅

@@ -223,7 +223,7 @@
 	}
 	syncing = YES;
 	
-	[ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+	[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 		if (success) {
 			NSLog(@"get chapter list of book: %@", book);
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {

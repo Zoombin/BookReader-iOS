@@ -27,5 +27,7 @@
 + (NSArray *)chaptersNeedFetchContentWhenWifiReachable:(BOOL)bWifi;
 + (NSArray *)chaptersNeedSubscribe;
 
++ (NSString *)lastChapterIDOfBook:(Book *)book;
+
 
 @end

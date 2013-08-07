@@ -107,7 +107,7 @@
 
 + (NSArray *)allChaptersOfBook:(Book *)book
 {
-	return [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID, uid" ascending:YES];
+	return [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID,uid" ascending:YES];
 }
 
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book//TODO: count method wrong
@@ -179,6 +179,15 @@
 		}
 	}];
 	return chaptersNeedSubscribe;
+}
+
++ (NSString *)lastChapterIDOfBook:(Book *)book
+{
+	NSArray *allChapters = [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID,uid" ascending:NO];
+	if (allChapters.count) {
+		return [allChapters[0] uid];
+	}
+	return @"0";
 }
 
 @end
