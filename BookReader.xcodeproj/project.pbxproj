@@ -143,6 +143,7 @@
 		18B0D4AD1764622800F169E8 /* member_btn_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4AA1764622800F169E8 /* member_btn_hl.png */; };
 		18B0D4AE1764622800F169E8 /* member_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0D4AB1764622800F169E8 /* member_btn.png */; };
 		18B39BAC17B067DF0092AC0A /* GiftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B39BAB17B067DF0092AC0A /* GiftButton.m */; };
+		18B39BAF17B1E46E0092AC0A /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B39BAE17B1E46E0092AC0A /* CommentView.m */; };
 		18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */; };
 		18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */; };
 		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
@@ -453,6 +454,8 @@
 		18B0D4AB1764622800F169E8 /* member_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = member_btn.png; sourceTree = "<group>"; };
 		18B39BAA17B067DF0092AC0A /* GiftButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftButton.h; sourceTree = "<group>"; };
 		18B39BAB17B067DF0092AC0A /* GiftButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftButton.m; sourceTree = "<group>"; };
+		18B39BAD17B1E46E0092AC0A /* CommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
+		18B39BAE17B1E46E0092AC0A /* CommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
 		18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_search_btn.png; sourceTree = "<group>"; };
 		18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_search_btn@2x.png"; sourceTree = "<group>"; };
 		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
@@ -1221,6 +1224,8 @@
 				18C12BBF17A673A500206E93 /* PopLoginViewController.m */,
 				18B39BAA17B067DF0092AC0A /* GiftButton.h */,
 				18B39BAB17B067DF0092AC0A /* GiftButton.m */,
+				18B39BAD17B1E46E0092AC0A /* CommentView.h */,
+				18B39BAE17B1E46E0092AC0A /* CommentView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1681,6 +1686,7 @@
 				7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */,
 				7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */,
 				18B39BAC17B067DF0092AC0A /* GiftButton.m in Sources */,
+				18B39BAF17B1E46E0092AC0A /* CommentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

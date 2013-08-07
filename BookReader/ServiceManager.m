@@ -220,8 +220,9 @@ static NSNumber *sUserID;
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"pwd" : [password md516]}]];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         BRUser *member = nil;
-        if ([theObject isKindOfClass:[NSDictionary class]]) {
+        if ([theObject isKindOfClass:[NSDictionary class]] && [theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
             member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
 			[ServiceManager login];
