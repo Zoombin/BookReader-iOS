@@ -197,6 +197,7 @@
 		18FD246017B336EE00D11CCA /* login_password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD245C17B336EE00D11CCA /* login_password@2x.png */; };
 		18FD246117B336EE00D11CCA /* login_username.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD245D17B336EE00D11CCA /* login_username.png */; };
 		18FD246217B336EE00D11CCA /* login_username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD245E17B336EE00D11CCA /* login_username@2x.png */; };
+		18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FD246417B37A8000D11CCA /* libMobClickLibrary.a */; };
 		7704EFEF17ADE399006F1E08 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFEE17ADE399006F1E08 /* Book.m */; };
 		7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */; };
 		7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF717AE2907006F1E08 /* ZBTextValidate.m */; };
@@ -527,6 +528,8 @@
 		18FD245C17B336EE00D11CCA /* login_password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_password@2x.png"; sourceTree = "<group>"; };
 		18FD245D17B336EE00D11CCA /* login_username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_username.png; sourceTree = "<group>"; };
 		18FD245E17B336EE00D11CCA /* login_username@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_username@2x.png"; sourceTree = "<group>"; };
+		18FD246417B37A8000D11CCA /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		18FD246517B37A8000D11CCA /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		7704EFED17ADE399006F1E08 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		7704EFEE17ADE399006F1E08 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
@@ -738,6 +741,7 @@
 				8BDB0AB6165E03BB008F328A /* UIKit.framework in Frameworks */,
 				8BDB0AB8165E03BB008F328A /* Foundation.framework in Frameworks */,
 				8BDB0ABA165E03BB008F328A /* CoreGraphics.framework in Frameworks */,
+				18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,6 +950,15 @@
 			path = BookStore;
 			sourceTree = "<group>";
 		};
+		18FD246317B37A8000D11CCA /* UMengSDK */ = {
+			isa = PBXGroup;
+			children = (
+				18FD246417B37A8000D11CCA /* libMobClickLibrary.a */,
+				18FD246517B37A8000D11CCA /* MobClick.h */,
+			);
+			path = UMengSDK;
+			sourceTree = "<group>";
+		};
 		770D432117191AC3000612D1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1006,6 +1019,7 @@
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				18FD246317B37A8000D11CCA /* UMengSDK */,
 				778E799217B2377F00DC28B7 /* Reachability */,
 				77B378E617ABE65200D8D63D /* ZBUtilities */,
 				77A1DB961730DF9C002BE306 /* AFNetworking */,
@@ -1875,6 +1889,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
+					"\"$(SRCROOT)/Libraries/UMengSDK\"",
 				);
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "-all_load";
@@ -1908,6 +1923,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
+					"\"$(SRCROOT)/Libraries/UMengSDK\"",
 				);
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "-all_load";
