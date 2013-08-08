@@ -40,7 +40,7 @@
     [loginView addSubview:titleImage];
     
     UIView *middleBkg = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(titleImage.frame), width - 1 * 2, height - 40 - 1)];
-    [middleBkg setBackgroundColor:[UIColor whiteColor]];
+    [middleBkg setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
     [loginView addSubview:middleBkg];
     
     accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 15, middleBkg.frame.size.width - 40, 35)];
