@@ -18,7 +18,9 @@ typedef enum {
 #define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)gotoRootController:(RootControllerIdentifier)identifier;
+
 @end

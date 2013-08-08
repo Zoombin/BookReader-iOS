@@ -97,7 +97,7 @@
 	bBookmarks = NO;
     [chapterlistBtn setEnabled:NO];
     [bookmarkBtn setEnabled:YES];
-	infoArray = [[Chapter allChaptersOfBook:_book] mutableCopy];
+	infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
 	[infoTableView reloadData];
     slider.hidden = NO;
 }
@@ -108,7 +108,7 @@
 	bBookmarks = YES;
     [chapterlistBtn setEnabled:YES];
     [bookmarkBtn setEnabled:NO];
-	NSArray *chapters = [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", _book.uid]];
+	NSArray *chapters = [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", _chapter.bid]];
 	NSMutableArray *marks = [NSMutableArray array];
 	for (Chapter *chapter in chapters) {
 		NSArray *mks = [Mark findAllWithPredicate:[NSPredicate predicateWithFormat:@"chapterID = %@", chapter.uid]];
@@ -152,9 +152,7 @@
         } else {
             cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
-            
-//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
-            [(ChapterCell *)cell  setChapter:chapter andCurrent:[chapter.uid isEqualToString:_currentChapterID]];
+            [(ChapterCell *)cell  setChapter:chapter andCurrent:[chapter.uid isEqualToString:_chapter.uid]];
         }
     }
     return cell;

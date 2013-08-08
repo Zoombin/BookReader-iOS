@@ -9,6 +9,8 @@
 #import "Chapter+Setup.h"
 #import "BRContextManager.h"
 #import "Book.h"
+#import "Book+Setup.h"
+#import "ServiceManager.h"
 
 @implementation Chapter (Setup)
 
@@ -81,7 +83,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"(uid=%@, bookID=%@)", self.uid, self.bid];
+	return [NSString stringWithFormat:@"(uid: %@, bookID: %@, bVip: %@, name: %@)", self.uid, self.bid, self.bVip, self.name];
 }
 
 - (void)truncate
@@ -94,18 +96,18 @@
 	}];
 }
 
-+ (void)truncateAll
-{
-	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		[Chapter truncateAllInContext:localContext];
-	}];
-}
+//+ (void)truncateAll
+//{
+//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//		[Chapter truncateAllInContext:localContext];
+//	}];
+//}
 
 #pragma mark -
 
-+ (NSArray *)allChaptersOfBook:(Book *)book
++ (NSArray *)allChaptersOfBookID:(NSString *)bookID
 {
-	return [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID, uid" ascending:YES];
+	return [Chapter findByAttribute:@"bid" withValue:bookID andOrderBy:@"rollID,uid" ascending:YES];
 }
 
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book//TODO: count method wrong
@@ -137,7 +139,68 @@
 	return [Chapter findFirstByAttribute:@"uid" withValue:self.nextID];
 }
 
++ (NSArray *)contentNilChapters
+{
+	return [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content = nil"]];
+}
 
++ (NSArray *)chaptersNeedFetchContentWhenWifiReachable:(BOOL)bWifi
+{
+	NSArray *allContentNilChapters = [self contentNilChapters];
+	if (bWifi) {
+		return allContentNilChapters;
+	}
+	NSMutableArray *chaptersNeedFetchContent = [NSMutableArray array];
+	[allContentNilChapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+		Book *b = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
+		if (b) {
+			if (b.autoBuy.boolValue) {
+				[chaptersNeedFetchContent addObject:chapter];
+			} else {
+				if (b.lastReadChapterID != nil) {
+					[chaptersNeedFetchContent addObject:chapter];
+				}
+			}
+		}
+	}];
+	return chaptersNeedFetchContent;
+}
 
++ (NSArray *)chaptersNeedSubscribe
+{
+	NSArray *allContentNilChapters = [self contentNilChapters];
+	NSMutableArray *chaptersNeedSubscribe = [NSMutableArray array];
+	[allContentNilChapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
+		Book *b = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
+		if (b) {
+			if (b.autoBuy.boolValue) {
+				[chaptersNeedSubscribe addObject:chapter];
+			}
+		}
+	}];
+	return chaptersNeedSubscribe;
+}
+
++ (NSString *)lastChapterIDOfBook:(Book *)book
+{
+	NSArray *allChapters = [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID,uid" ascending:NO];
+	if (allChapters.count) {
+		return [allChapters[0] uid];
+	}
+	return @"0";
+}
+
++ (Chapter *)lastReadChapterOfBook:(Book *)book//如果没找到就返回第一章
+{
+	Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid];
+	if (b) {
+		if (b.lastReadChapterID) {
+			return [Chapter findFirstByAttribute:@"uid" withValue:b.lastReadChapterID];
+		} else {
+			return [Chapter firstChapterOfBook:book];
+		}
+	}
+	return nil;
+}
 
 @end

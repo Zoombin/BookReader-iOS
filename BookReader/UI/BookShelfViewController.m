@@ -21,18 +21,13 @@
 #import "Book+Setup.h"
 #import "Chapter+Setup.h"
 #import "BookDetailsViewController.h"
-
-
-
-static NSString *kStartSyncChaptersNotification = @"start_sync_chapters";
-static NSString *kStartSyncChaptersContentNotification = @"start_sync_chapters_content";
-static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscribe";
+#import "Reachability.h"
 
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
 @end
 
 @implementation BookShelfViewController {
-	NSMutableArray *booksForDisplay;
+	NSArray *booksForDisplay;
     NSMutableArray *books;
 	NSMutableArray *chapters;
 	BRBooksView *booksView;
@@ -47,6 +42,12 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
     NotificationView *notificationView;
+}
+
+- (BOOL)isWifi
+{
+	Reachability *reachability = [Reachability reachabilityForLocalWiFi];
+	return [reachability isReachableViaWiFi];
 }
 
 - (void)viewDidLoad
@@ -71,10 +72,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[self.headerView setDelegate:self];
 	booksView.gridStyle = YES;
 	[self.view addSubview:booksView];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChapters) name:kStartSyncChaptersNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncChaptersContent) name:kStartSyncChaptersContentNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncAutoSubscribe) name:kStartSyncAutoSubscribeNotification object:nil];
 }
 
 - (LoginReminderView *)loginReminderView {
@@ -89,7 +86,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)createStandViews:(NSInteger)number
 {
-	NSLog(@"create stand views");
 	for (UIImageView *standView in booksStandViews) {
 		[standView removeFromSuperview];
 	}
@@ -106,13 +102,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	}
 }
 
-- (void)dealloc
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncChaptersNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncChaptersContentNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kStartSyncAutoSubscribeNotification object:nil];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -123,20 +112,22 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }
 	
 	if (![ServiceManager hadLaunchedBefore]) {
-		[self recommendBooks];
+		[self recommendBooks:^(void) {
+			[self startSync];
+		}];
     } else {
-		if ([ServiceManager isSessionValid]) {
-			if ([[NSUserDefaults standardUserDefaults] boolForKey:NEED_REFRESH_BOOKSHELF]) {
-				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NEED_REFRESH_BOOKSHELF];
-				[[NSUserDefaults standardUserDefaults] synchronize];
-				stopAllSync = NO;
-				[self syncBooks];
-			}
-		}
+		[self refreshBooks];
+		[self startSync];
 	}
-	
-	booksForDisplay = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
-	[booksView reloadData];
+}
+
+- (void)startSync
+{
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:NEED_REFRESH_BOOKSHELF]) {
+		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NEED_REFRESH_BOOKSHELF];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+		[self syncBooks];
+	}
 }
 
 - (void)showNotificationInfo
@@ -164,164 +155,126 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
     }];
 }
 
-- (void)recommendBooks
+- (void)recommendBooks:(dispatch_block_t)block
 {
     [ServiceManager recommandDefaultBookwithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 		if (success) {
 			books = [resultArray mutableCopy];
 			[Book persist:books withBlock:^(void) {
-				
+				if (block) block();
 			}];
-//			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//				//NSArray *allBooks = [Book findAllInContext:localContext];
-//			} completion:^(BOOL success, NSError *error) {
-//				books = [resultArray mutableCopy];
-//				[Book persist:books withBlock:^(void) {
-//					[booksForDisplay removeAllObjects];
-//					[booksForDisplay addObjectsFromArray:books];
-//					[booksView reloadData];
-//					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
-//				}];
-//			}];
 		} else {
-			[self displayHUDError:nil message:error.description];
+			if (block) block();
 		}
     }];
+}
+
+- (void)refreshBooks
+{
+	booksForDisplay = [Book allBooksOfUser:[ServiceManager userID]];
+	[booksView reloadData];
 }
 
 - (void)syncBooks
 {
-	if (stopAllSync) return;
-	
-//	[self displayHUD:@"同步收藏..."];
-	syncing = YES;
-    [ServiceManager userBooksWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error) {
-			[self displayHUDError:nil message:error.description];
-        } else {
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-				NSArray *allBooks = [Book findAllInContext:localContext];
-				for (Book *b in allBooks) {
-					b.bFav = NO;
-				}
-			} completion:^(BOOL success, NSError *error) {
-				books = [resultArray mutableCopy];
-				[Book persist:books withBlock:^(void) {
-					[booksForDisplay removeAllObjects];
-					[booksForDisplay addObjectsFromArray:books];
-					[booksView reloadData];
-					[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersNotification object:nil];
+	if ([ServiceManager isSessionValid]) {
+		syncing = YES;
+		NSLog(@"start snyc books");
+		[ServiceManager userBooksWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+			if (success) {
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
+					NSArray *allBooks = [Book findAllInContext:localContext];//把当前数据库中的书籍全部设置成bFav = NO;
+					for (Book *b in allBooks) {
+						b.bFav = NO;
+					}
+				} completion:^(BOOL success, NSError *error) {
+					books = [resultArray mutableCopy];
+					[Book persist:books withBlock:^(void) {
+						books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
+						[self syncChapters];
+					}];
 				}];
-			}];
-        }
-    }];
+			}
+		}];
+	} else {
+		books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
+		[self syncChapters];
+	}
 }
 
 - (void)syncChapters
 {
-	if (stopAllSync) return;
-	if (books.count <= 0) {
+	if (!books.count) {
 		NSLog(@"sync chapters finished");
-		[self hideHUD:YES];
-		[booksView reloadData];
+		syncing = NO;
+		[self refreshBooks];
 		[chapters removeAllObjects];
-		chapters = [[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content=nil"]] mutableCopy];
-		if (!chapters.count) {
-			return;
-		}
+		chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifi]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
-		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncChaptersContentNotification object:nil];
+		[self syncChaptersContent];
 		return;
 	}
+	
 	Book *book = books[0];
-	//[self displayHUD:@"检查新章节目录..."];
+	if (![book needUpdate]) {
+		[books removeObject:book];
+		[self syncChapters];
+		return;
+	}
 	syncing = YES;
-
-	Book *tmpBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid]];
-	if (tmpBook.nextUpdateTime) {
-		NSDate *now = [NSDate date];
-		NSLog(@"now = %@,  nextUpdateTime = %@", now, tmpBook.nextUpdateTime);
-		if ([now compare:tmpBook.nextUpdateTime] == NSOrderedAscending) {
+	
+	[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+		if (success) {
+			NSLog(@"get chapter list of book: %@", book);
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+				if (b) {
+					if (forbidden) {
+						[b deleteInContext:localContext];
+					} else {
+						b.nextUpdateTime = nextUpdateTime;
+					}
+				}
+			} completion:^(BOOL success, NSError *error) {
+				[Chapter persist:resultArray withBlock:^(void) {
+					[self refreshBooks];
+					[books removeObject:book];
+					[self syncChapters];
+				}];
+			}];
+		} else {
 			[books removeObject:book];
 			[self syncChapters];
-			return;
 		}
-	}
-	
-	[ServiceManager bookCatalogueList:book.uid withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
-		NSLog(@"updated chapters of book:%@", book.name);
-		if (!error) {
-			if (forbidden) {
-				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *forbiddenBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid] inContext:localContext];
-					[forbiddenBook truncate];
-					[books removeObject:book];
-					[self syncChapters];
-					for (Book *b in booksForDisplay) {
-						if ([b.uid isEqualToString:book.uid]) {
-							[booksForDisplay removeObject:b];
-							[booksView reloadData];
-							return;
-						}
-					}
-				}];
-			} else {
-				if (nextUpdateTime) {
-					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-						Book *tmpBook = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", book.uid] inContext:localContext];
-						tmpBook.nextUpdateTime = nextUpdateTime;
-					}];
-				}
-				[Chapter persist:resultArray withBlock:^(void) {
-					[books removeObject:book];
-					[self syncChapters];
-				}];
-			}
-        } else {
-			[books removeObject:book];
-            [self syncChapters];
-        }
 	}];
 }
 
 - (void)syncChaptersContent
 {
-	if (stopAllSync) return;
-	if (chapters.count <= 0) {
-		NSLog(@"sync chapters content finished");
-		[booksView reloadData];
+	if (!chapters.count) {
+		syncing = NO;
+		NSLog(@"sync chapter content finished");
 		[chapters removeAllObjects];
-		NSArray *autoSubscribeOnBooks = [Book findAllWithPredicate:[NSPredicate predicateWithFormat:@"autoBuy=YES"]];
-		NSLog(@"found %d books autoBuy is ON", autoSubscribeOnBooks.count);
-		[autoSubscribeOnBooks enumerateObjectsUsingBlock:^(Book *book, NSUInteger idx, BOOL *stop) {
-			[chapters addObjectsFromArray:[Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bVip=YES AND content=nil AND bid=%@", book.uid]]];
-		}];
-		NSLog(@"find %d chapters need subscribe...", chapters.count);
-		for (int i = 0; i < chapters.count; i++) {
-			NSLog(@"%@", chapters[i]);
-			if (i == 0) {
-				NSLog(@"%@", ((Chapter *)(chapters[i])).content);
-			}
-		}
-		[[NSNotificationCenter defaultCenter] postNotificationName:kStartSyncAutoSubscribeNotification object:nil];
+		chapters = [[Chapter chaptersNeedSubscribe] mutableCopy];
+		NSLog(@"find %d VIP chapters need subscribe and download content", chapters.count);
+		[self syncAutoSubscribe];
 		return;
 	}
+	
 	Chapter *chapter = chapters[0];
-	NSLog(@"content nil chapter uid = %@ and bVIP = %@", chapter.uid, chapter.bVip);
-	//[self displayHUD:@"检查自动更新中..."];
+	NSLog(@"fetch chapter: %@", chapter);
 	syncing = YES;
+	
 	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-		if (content) {
-			chapter.content = content;
-			chapter.previousID = previousID;
-			chapter.nextID = nextID;
+		if (success) {
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Chapter *ch = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", chapter.uid] inContext:localContext];
-				if (ch) {
-					ch.content = content;
-					ch.previousID = previousID;
-					ch.nextID = nextID;
+				Chapter *c = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+				if (c) {
+					c.content = content;
+					c.previousID = previousID;
+					c.nextID = nextID;
 				}
+			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
 				[self syncChaptersContent];
 			}];
@@ -334,34 +287,32 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)syncAutoSubscribe
 {
-	if (stopAllSync) return;
-	if (chapters.count <= 0) {
-		NSLog(@"sync auto subscribe finished");
+	if (!chapters.count) {
+		NSLog(@"subscribe chapters finished");
 		syncing = NO;
-		[self hideHUD:YES];
 		return;
 	}
+	
 	Chapter *chapter = chapters[0];
-	//[self displayHUD:@"自动更新中..."];
-	Book *book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid=%@", chapter.bid]];
+	syncing = YES;
+	
+	Book *book = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
 	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-		if (content) {
-			chapter.content = content;
-			chapter.previousID = previousID;
-			chapter.nextID = nextID;
+		if (success) {
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Chapter *ch = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", chapter.uid] inContext:localContext];
-				if (ch) {
-					ch.content = content;
-					ch.previousID = previousID;
-					ch.nextID = nextID;
+				Chapter *c = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
+				if (c) {
+					c.content = content;
+					c.previousID = previousID;
+					c.nextID = nextID;
 				}
+			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
 				[self syncAutoSubscribe];
 			}];
 		} else {
 			[chapters removeObject:chapter];
-			[self syncAutoSubscribe];
+			[self syncAutoSubscribe];			
 		}
 	}];
 }
@@ -369,7 +320,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 
 - (void)syncRemoveFav
 {
-	if (needRemoveFavoriteBooks.count <= 0) {
+	if (!needRemoveFavoriteBooks.count) {
 		NSLog(@"no more book need to remove favorite...");
 		[self hideHUD:YES];
 		return;
@@ -378,8 +329,7 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 	[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
 		if (success) {
 			[needRemoveFavoriteBooks removeObject:needRemoveBook];
-			[booksForDisplay removeObject:needRemoveBook];
-			[booksView reloadData];
+			[self refreshBooks];
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 				needRemoveBook.bFav = NO;
 			} completion:^(BOOL success, NSError *error) {
@@ -389,11 +339,6 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 			[self syncRemoveFav];
 		}
 	}];
-}
-
-- (void)dismissHUD
-{
-	[self hideHUD:YES];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -443,16 +388,19 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		editing = NO;
 		[booksView reloadData];
     } else if (type.intValue == kHeaderViewButtonRefresh) {
-		if (![ServiceManager isSessionValid]) return;//TODO: if non-login should also do sync
+		[self displayHUD:@"开始自动更新..."];
+		[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
 		if (!syncing) {
 			[self syncBooks];
-			NSLog(@"begin sync");
 		} else {
-			[self displayHUD:@"开始自动更新..."];
-			[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
 			NSLog(@"already syncing");
-		}
+		}		
     }
+}
+
+- (void)dismissHUD
+{
+	[self hideHUD:YES];
 }
 
 #pragma mark - BRBooksViewDelegate
@@ -466,12 +414,16 @@ static NSString *kStartSyncAutoSubscribeNotification = @"start_sync_auto_subscri
 		} else {
 			[needRemoveFavoriteBooks removeObject:bookCell.book];
 		}
-        [self.headerView deleteButtonEnable:[needRemoveFavoriteBooks count]>0 ? YES : NO];
+        [self.headerView deleteButtonEnable:needRemoveFavoriteBooks.count > 0];
 	} else {
-        //[bookCell.book persistWithBlock:nil];//TODO: need to this when actually start to read. Why should persist here?
-		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-		controller.book = bookCell.book;
-        [self.navigationController pushViewController:controller animated:YES];
+		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
+		if (chapter) {
+			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+			controller.chapter = chapter;
+			[self.navigationController pushViewController:controller animated:YES];
+		} else {
+			NSLog(@"未找到应该阅读的章节");
+		}
 	}
 }
 

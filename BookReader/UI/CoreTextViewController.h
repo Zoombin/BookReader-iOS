@@ -11,14 +11,11 @@
 #import <MessageUI/MessageUI.h>
 #import "ChaptersViewController.h"
 #import "PopLoginViewController.h"
+#import "Book.h"
+#import "Chapter.h"
 
-@class Book;
-@class Chapter; 
 @interface CoreTextViewController : UIViewController
 
-@property (nonatomic, strong) Book *book;
-@property (nonatomic, assign) BOOL bDetail;
-- (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex;
-
+@property (nonatomic, strong) Chapter *chapter;
 
 @end

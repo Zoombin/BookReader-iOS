@@ -13,7 +13,6 @@
 #import "ReadStatusView.h"
 #import "BookReadMenuView.h"
 #import "NSString+XXSY.h"
-#import "Book.h"
 #import "ServiceManager.h"
 #import "ReadHelpView.h"
 #import "Book+Setup.h"
@@ -33,7 +32,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 @end
 
 @implementation CoreTextViewController {
-	MFMessageComposeViewController *messageComposeViewController;
     NSInteger startPointX;
     NSInteger startPointY;
     CoreTextView *coreTextView;
@@ -45,7 +43,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     
     NSMutableArray *pages;
     NSInteger currentPageIndex;
-    Chapter *chapter;
 	NSString *currentChapterString;
     BOOL isLandscape;
     BOOL firstAppear;
@@ -56,12 +53,15 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)shareButtonClicked
 {
     if([MFMessageComposeViewController canSendText]) {
-        messageComposeViewController.messageComposeDelegate = self;
-        NSString *message =  [NSString stringWithFormat:@"书名:%@ 作者:%@ 下载地址:http://www.xxsy.net",_book.name,_book.author];
-        [messageComposeViewController setBody:[NSString stringWithString:message]];
-        [self presentModalViewController:messageComposeViewController animated:YES];
-    }
-    else {
+		Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+		if (book) {
+			MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+			messageComposeViewController.messageComposeDelegate = self;
+			NSString *message =  [NSString stringWithFormat:@"书名:%@ 作者:%@ 下载地址:http://www.xxsy.net", book.name, book.author];
+			[messageComposeViewController setBody:[NSString stringWithString:message]];
+			[self presentModalViewController:messageComposeViewController animated:YES];
+		}
+    } else {
         [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
     }
 }
@@ -90,9 +90,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     
     isLandscape = [[NSUserDefaults brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
     firstAppear = YES;
-    if([MFMessageComposeViewController canSendText]) {
-        messageComposeViewController = [[MFMessageComposeViewController alloc] init];
-    }
 	NSNumber *colorIdx = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:colorIdx.intValue]];
 	
@@ -121,7 +118,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     [menuView setDelegate:self];
     [menuView setBackgroundColor:[UIColor clearColor]];
-	//TODO:targe
     [self.view addSubview:menuView];
     menuView.hidden = YES;
     
@@ -138,24 +134,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!self.bDetail) {
-        Chapter *aChapter;
-        
-        _book = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.uid]];
-        
-        if (_book.lastReadChapterID) {//读过
-            aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", _book.lastReadChapterID]];
-        } else {//没读过，从第0章开始
-			aChapter = [Chapter firstChapterOfBook:_book];
-        }
-        
-        NSLog(@"start to read book: %@,  chapter: %@", _book, aChapter);
-		pageCurlType = nil;
-        Chapter *nextNextChapter = [aChapter next];
-        [self gotoChapter:aChapter withReadIndex:nil];
-        [self displayHUDError:@"" message:nextNextChapter ? nextNextChapter.name : @"此章是最后一章"];
-
-    }
+	[self gotoChapter:_chapter withReadIndex:nil];
+	
+	NSLog(@"start to read chapter: %@", _chapter);
+	pageCurlType = nil;
+	
     if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
         isLandscape = !isLandscape;
         [self orientationButtonClicked];
@@ -220,7 +203,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[coreTextView buildTextWithString:currentPageString];
 	[coreTextView setNeedsDisplay];
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		chapter.lastReadIndex = @(range.location);
+		_chapter.lastReadIndex = @(range.location);
 	}];
 }
 
@@ -289,11 +272,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if(currentPageIndex < 0) {
         currentPageIndex = 0;
 		NSLog(@"no more previous page!");
-		if (!chapter.previousID) {
+		if (!_chapter.previousID) {
 			[self displayHUDError:@"" message:@"此章是第一章"];
 		} else {
 			[self displayHUDError:@"" message:@"上一章"];
-			[self gotoChapter:[chapter previous] withReadIndex:nil];
+			[self gotoChapter:[_chapter previous] withReadIndex:nil];
 		}
         return;
     }
@@ -313,10 +296,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if(currentPageIndex > [pages count] - 1) {
         currentPageIndex = [pages count] - 1;
 		NSLog(@"no more next page!");
-        Chapter *aChapter = [chapter next];
+        Chapter *aChapter = [_chapter next];
         if (aChapter) {
             Chapter *aChapterNext = [aChapter next];
-            [self gotoChapter:[chapter next] withReadIndex:nil];
+            [self gotoChapter:[_chapter next] withReadIndex:nil];
             [self displayHUDError:@"" message:aChapterNext ? aChapterNext.name : @"此章节是最后一章"];
         } else {
             [self displayHUDError:@"" message:@"此章是最后一章"];
@@ -340,15 +323,19 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		return;
 	}
 	if (aChapter.content) {
-		chapter = aChapter;
-		currentChapterString = [chapter.content XXSYDecoding];
+		_chapter = aChapter;
+		currentChapterString = [_chapter.content XXSYDecoding];
+		
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			_book.lastReadChapterID = chapter.uid;
-			_book.localUpdateDate = [NSDate date];
+			Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
+			if (book) {
+				book.lastReadChapterID = _chapter.uid;
+				book.localUpdateDate = [NSDate date];
+			}
 		}];
-		statusView.title.text = [NSString stringWithFormat:@"%@", chapter.name];
+		statusView.title.text = [NSString stringWithFormat:@"%@", _chapter.name];
 		[self paging];
-		NSNumber *startReadIndex = readIndex ? readIndex : chapter.lastReadIndex;
+		NSNumber *startReadIndex = readIndex ? readIndex : _chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
 		[self updateCurrentPageContent];
 		[self playPageCurlAnimation];
@@ -359,19 +346,23 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				[self hideHUD:YES];
 				[self gotoChapter:aChapter withReadIndex:nil];
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					aChapter.content = content;
-					aChapter.previousID = previousID;
-					aChapter.nextID = nextID;
+					Chapter *tmpChapter = [Chapter findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
+					tmpChapter.content = content;
+					tmpChapter.previousID = previousID;
+					tmpChapter.nextID = nextID;
 				}];
 			} else {//没下载到，尝试订阅
-				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:_book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
+				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
+				if (!book) return;
+				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
 					if (content && ![content isEqualToString:@""]) {
-						chapter.content = content;
+						_chapter.content = content;
 						[self gotoChapter:aChapter withReadIndex:nil];
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-							aChapter.content = content;
-							aChapter.previousID = previousID;
-							aChapter.nextID = nextID;
+							Chapter *tmpChapter = [Chapter findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
+							tmpChapter.content = content;
+							tmpChapter.previousID = previousID;
+							tmpChapter.nextID = nextID;
 						}];
 					} else {
                         NSLog(@"%@",message);
@@ -469,8 +460,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	NSLog(@"referenct = %@", reference);
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		Mark *mark = [Mark createInContext:localContext];
-		mark.chapterID = chapter.uid;
-		mark.chapterName = chapter.name;
+		mark.chapterID = _chapter.uid;
+		mark.chapterName = _chapter.name;
 		mark.reference = reference;
 		mark.startWordIndex = @(range.location);
 		mark.progress = @([self readPercentage]);
@@ -480,25 +471,24 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)chaptersButtonClicked
 {
     ChaptersViewController *controller = [[ChaptersViewController alloc] init];
-    controller.currentChapterID = chapter.uid;
+	controller.chapter = _chapter;
     controller.delegate = self;
-	controller.book = _book;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)previousChapterButtonClick
 {
-	if (!chapter.previousID) {
+	if (!_chapter.previousID) {
 		[self displayHUDError:@"" message:@"此章是第一章"];
 		return;
 	}
 	pageCurlType = nil;
-	[self gotoChapter:[chapter previous] withReadIndex:nil];
+	[self gotoChapter:[_chapter previous] withReadIndex:nil];
 }
 
 - (void)nextChapterButtonClick
 {
-	Chapter *aChapter = [chapter next];
+	Chapter *aChapter = [_chapter next];
 	if (!aChapter) {
 		[self displayHUDError:@"" message:@"此章是最后一章"];
 		return;
@@ -525,7 +515,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showCommitAlert
 {
-    if ([ServiceManager isSessionValid] == nil) {
+    if (![ServiceManager isSessionValid]) {
         [self showLoginAlert];
         return;
     }
@@ -570,12 +560,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)sendCommitButtonClicked
 {
     [commitField resignFirstResponder];
-    if ([commitField.text length] <= 5) {
+    if (commitField.text.length <= 5) {
         [self displayHUDError:nil message:@"评论内容太短!"];
         return;
     }
-    [ServiceManager disscussWithBookID:_book.uid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-         if (!error) {
+    [ServiceManager disscussWithBookID:_chapter.bid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
+         if (!success) {
              [self displayHUDError:nil message:message];
          }
      }];
@@ -651,7 +641,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)bookDetailButtonClick
 {
-    BookDetailsViewController *controller = [[BookDetailsViewController alloc] initWithBook:_book.uid];
+    BookDetailsViewController *controller = [[BookDetailsViewController alloc] initWithBook:_chapter.bid];
     [self.navigationController pushViewController:controller animated:YES];
 }
 @end

@@ -205,6 +205,9 @@
 		774482A91764A58100802600 /* bookshelf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A71764A58100802600 /* bookshelf@2x.png */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
+		778E79C017B2377F00DC28B7 /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 778E79A417B2377F00DC28B7 /* LICENCE.txt */; };
+		778E79C717B2377F00DC28B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E79B617B2377F00DC28B7 /* Reachability.m */; };
+		778E79C917B2377F00DC28B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778E79B817B2377F00DC28B7 /* README.md */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
@@ -537,6 +540,10 @@
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		778E79A417B2377F00DC28B7 /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
+		778E79B517B2377F00DC28B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		778E79B617B2377F00DC28B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		778E79B817B2377F00DC28B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
@@ -998,9 +1005,21 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		778E799217B2377F00DC28B7 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				778E79A417B2377F00DC28B7 /* LICENCE.txt */,
+				778E79B517B2377F00DC28B7 /* Reachability.h */,
+				778E79B617B2377F00DC28B7 /* Reachability.m */,
+				778E79B817B2377F00DC28B7 /* README.md */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				778E799217B2377F00DC28B7 /* Reachability */,
 				77B378E617ABE65200D8D63D /* ZBUtilities */,
 				18E776BC174A246500D0ECA0 /* CNZZ */,
 				77A1DB961730DF9C002BE306 /* AFNetworking */,
@@ -1580,6 +1599,7 @@
 				77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */,
 				77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */,
 				77B378F217ABE65200D8D63D /* README.md in Resources */,
+<<<<<<< HEAD
 				18FD244F17B237BF00D11CCA /* cancel_nor.png in Resources */,
 				18FD245017B237BF00D11CCA /* cancel_nor@2x.png in Resources */,
 				18FD245117B237BF00D11CCA /* cancel_sel.png in Resources */,
@@ -1594,6 +1614,10 @@
 				18FD246017B336EE00D11CCA /* login_password@2x.png in Resources */,
 				18FD246117B336EE00D11CCA /* login_username.png in Resources */,
 				18FD246217B336EE00D11CCA /* login_username@2x.png in Resources */,
+=======
+				778E79C017B2377F00DC28B7 /* LICENCE.txt in Resources */,
+				778E79C917B2377F00DC28B7 /* README.md in Resources */,
+>>>>>>> 329192316fc15d6877cbd257834cc22a72b74167
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1743,6 +1767,7 @@
 				7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */,
 				18B39BAC17B067DF0092AC0A /* GiftButton.m in Sources */,
 				18B39BAF17B1E46E0092AC0A /* CommentView.m in Sources */,
+				778E79C717B2377F00DC28B7 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
