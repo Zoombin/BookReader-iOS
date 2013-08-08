@@ -1599,7 +1599,6 @@
 				77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */,
 				77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */,
 				77B378F217ABE65200D8D63D /* README.md in Resources */,
-<<<<<<< HEAD
 				18FD244F17B237BF00D11CCA /* cancel_nor.png in Resources */,
 				18FD245017B237BF00D11CCA /* cancel_nor@2x.png in Resources */,
 				18FD245117B237BF00D11CCA /* cancel_sel.png in Resources */,
@@ -1614,10 +1613,8 @@
 				18FD246017B336EE00D11CCA /* login_password@2x.png in Resources */,
 				18FD246117B336EE00D11CCA /* login_username.png in Resources */,
 				18FD246217B336EE00D11CCA /* login_username@2x.png in Resources */,
-=======
 				778E79C017B2377F00DC28B7 /* LICENCE.txt in Resources */,
 				778E79C917B2377F00DC28B7 /* README.md in Resources */,
->>>>>>> 329192316fc15d6877cbd257834cc22a72b74167
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
