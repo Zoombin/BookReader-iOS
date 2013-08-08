@@ -545,13 +545,13 @@
 - (void)readButtonClicked:(id)sender
 {
     if ([chapterArray count] > 0) {
-        [self pushToReadView];
+        [self pushToReadViewWithChapter:nil];
         return;
     } else {
         [self getChaptersDataWithBlock:^{
             [Chapter persist:chapterArray withBlock:^{
 				[self hideHUD:YES];
-                [self pushToReadView];
+                [self pushToReadViewWithChapter:nil];
             }];
         }];
     }
@@ -679,22 +679,18 @@
     }];
 }
 
-- (void)pushToReadView
+- (void)pushToReadViewWithChapter:(Chapter *)chapter
 {
-    CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-	controller.book = book;
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)pushToReadViewWithChapter:(Chapter *)obj
-{
-    [Chapter persist:chapterArray withBlock:^{
-        CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-        controller.book = book;
-        controller.bDetail = YES;
-        [controller gotoChapter:obj withReadIndex:nil];
-        [self.navigationController pushViewController:controller animated:YES];
-    }];
+	if (!chapter) {
+		Chapter *chapter = [Chapter lastReadChapterOfBook:book];
+		if (chapter) {
+			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+			controller.chapter = chapter;
+			[self.navigationController pushViewController:controller animated:YES];
+		} else {
+			NSLog(@"未找到阅读的章节");
+		}
+	}
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {

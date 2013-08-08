@@ -320,7 +320,7 @@
 
 - (void)syncRemoveFav
 {
-	if (needRemoveFavoriteBooks.count <= 0) {
+	if (!needRemoveFavoriteBooks.count) {
 		NSLog(@"no more book need to remove favorite...");
 		[self hideHUD:YES];
 		return;
@@ -416,11 +416,13 @@
 		}
         [self.headerView deleteButtonEnable:needRemoveFavoriteBooks.count > 0];
 	} else {
-		Book *book = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid];
-		if (book) {
+		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
+		if (chapter) {
 			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-			controller.book = book;
+			controller.chapter = chapter;
 			[self.navigationController pushViewController:controller animated:YES];
+		} else {
+			NSLog(@"未找到应该阅读的章节");
 		}
 	}
 }

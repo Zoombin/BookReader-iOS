@@ -105,9 +105,9 @@
 
 #pragma mark -
 
-+ (NSArray *)allChaptersOfBook:(Book *)book
++ (NSArray *)allChaptersOfBookID:(NSString *)bookID
 {
-	return [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID,uid" ascending:YES];
+	return [Chapter findByAttribute:@"bid" withValue:bookID andOrderBy:@"rollID,uid" ascending:YES];
 }
 
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book//TODO: count method wrong
@@ -188,6 +188,19 @@
 		return [allChapters[0] uid];
 	}
 	return @"0";
+}
+
++ (Chapter *)lastReadChapterOfBook:(Book *)book//如果没找到就返回第一章
+{
+	Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid];
+	if (b) {
+		if (b.lastReadChapterID) {
+			return [Chapter findFirstByAttribute:@"uid" withValue:b.lastReadChapterID];
+		} else {
+			return [Chapter firstChapterOfBook:book];
+		}
+	}
+	return nil;
 }
 
 @end
