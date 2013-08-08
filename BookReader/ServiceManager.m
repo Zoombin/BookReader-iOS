@@ -379,6 +379,22 @@ static NSNumber *sUserID;
     }];
 }
 
++ (void)hotKeyWithBlock:(void (^)(BOOL, NSError *, NSArray *))block
+{
+     NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"search.books.get"}]];
+    NSLog(@"%@",parameters);
+    [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        if (block) {
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"list"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error, nil);
+        }
+    }];
+}
+
 + (void)recommendBooksIndex:(NSInteger)index
                   WithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray))block
 {

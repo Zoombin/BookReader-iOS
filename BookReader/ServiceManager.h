@@ -107,6 +107,9 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
         andIndex:(NSString *)index
        withBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray))block;
 
+//获取热词接口
++ (void)hotKeyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray))block;
+
 //获取推荐信息
 + (void)recommendBooksIndex:(NSInteger)index
                   WithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray))block;

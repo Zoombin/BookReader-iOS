@@ -24,9 +24,13 @@
 
 - (void)testApis
 {
-//	[ServiceManager paymentHistoryWithPageIndex:@"1" andCount:@"10" withBlock:^(NSArray *resultArray, BOOL success, NSError *error) {
-//		
-//	}];
+//	[ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+//        NSLog(@"%@",resultArray);
+//        for (int i = 0; i < resultArray.count; i ++) {
+//            NSDictionary *dict = resultArray[i];
+//            NSLog(@"%@",dict[@"bookName"]);
+//        }
+//    }];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

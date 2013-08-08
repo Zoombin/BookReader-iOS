@@ -35,59 +35,49 @@
     loginView.backgroundColor = [UIColor colorWithRed:175.0/255.0 green:88.0/255.0 blue:42.0/255.0 alpha:1.0];
     [self.view addSubview:loginView];
     
-    UILabel *titleLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
-    [titleLable setText:@"登  录"];
-    [titleLable setFont:[UIFont systemFontOfSize:20]];
-    [titleLable setBackgroundColor:[UIColor clearColor]];
-    [titleLable setTextColor:[UIColor whiteColor]];
-    [titleLable setTextAlignment:NSTextAlignmentCenter];
-    [loginView addSubview:titleLable];
+    UIImageView *titleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
+    [titleImage setImage:[UIImage imageNamed:@"login_header"]];
+    [loginView addSubview:titleImage];
     
-    UIView *middleBkg = [[UIView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(titleLable.frame), width - 5 * 2, height - 40 - 5)];
+    UIView *middleBkg = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(titleImage.frame), width - 1 * 2, height - 40 - 1)];
     [middleBkg setBackgroundColor:[UIColor whiteColor]];
     [loginView addSubview:middleBkg];
     
-    accountTextField = [UITextField loginTextFieldWithFrame:CGRectMake(30, 15, middleBkg.frame.size.width - 60, 30)];
-    [accountTextField setPlaceholder:@"请输入账号"];
+    accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 15, middleBkg.frame.size.width - 40, 35)];
+    [accountTextField setLeftViewMode:UITextFieldViewModeAlways];
+    [accountTextField setLeftView: [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)]];
+    [accountTextField setBackground:[UIImage imageNamed:@"login_username"]];
+    [accountTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [middleBkg addSubview:accountTextField];
     
-    passwordTextField = [UITextField loginTextFieldWithFrame:CGRectMake(30, CGRectGetMaxY(accountTextField.frame) + 10, middleBkg.frame.size.width - 60, 30)];
+    passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(accountTextField.frame) + 10, middleBkg.frame.size.width - 40, 35)];
+    [passwordTextField setLeftViewMode:UITextFieldViewModeAlways];
+    [passwordTextField setLeftView: [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)]];
+    [passwordTextField setBackground:[UIImage imageNamed:@"login_password"]];
     [passwordTextField setSecureTextEntry:YES];
-    [passwordTextField setPlaceholder:@"请输入密码"];
+    [passwordTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [middleBkg addSubview:passwordTextField];
     
-    UIView *bottombkg = [[UIView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(middleBkg.frame) - middleBkg.frame.size.height / 2.5, width - 5 * 2, middleBkg.frame.size.height / 2.5)];
-    [bottombkg setBackgroundColor:[UIColor colorWithRed:235.0/255.0 green:234.0/255.0 blue:231.0/255.0 alpha:1.0]];
-    [loginView addSubview:bottombkg];
-    
-    CGFloat offSetX = 30;
+    CGFloat offSetX = 20;
     CGFloat offSetY = 15;
-    CGFloat btnWidth = (bottombkg.frame.size.width - offSetX * 3) / 2;
-    CGFloat btnHeight = (bottombkg.frame.size.height - offSetY * 2);
+    CGFloat btnWidth = (width - 5 * 2 - offSetX * 3) / 2;
+    CGFloat btnHeight = ((middleBkg.frame.size.height / 2.5) - offSetY * 2);
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginBtn setFrame:CGRectMake(offSetX, offSetY, btnWidth, btnHeight)];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [loginBtn setFrame:CGRectMake(offSetX, CGRectGetMaxY(passwordTextField.frame) + offSetY, btnWidth, btnHeight)];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [loginBtn.layer setCornerRadius:5];
-    [loginBtn.layer setMasksToBounds:YES];
-    [loginBtn.layer setBorderWidth:.5];
-    [loginBtn.layer setBorderColor:[UIColor grayColor].CGColor];
-    [loginBtn setBackgroundColor:loginView.backgroundColor];
+    [loginBtn setBackgroundImage:[UIImage imageNamed:@"login_nor"] forState:UIControlStateNormal];
+    [loginBtn setBackgroundImage:[UIImage imageNamed:@"login_sel"] forState:UIControlStateHighlighted];
     [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    [bottombkg addSubview:loginBtn];
+    [middleBkg addSubview:loginBtn];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(loginBtn.frame) + offSetX, offSetY, btnWidth, btnHeight)];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(passwordTextField.frame) - btnWidth, CGRectGetMinY(loginBtn.frame), btnWidth, btnHeight)];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [cancelBtn.layer setCornerRadius:5];
-    [cancelBtn.layer setMasksToBounds:YES];
-    [cancelBtn.layer setBorderWidth:.5];
-    [cancelBtn.layer setBorderColor:[UIColor grayColor].CGColor];
-    [cancelBtn setBackgroundColor:bottombkg.backgroundColor];
+    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"cancel_nor"] forState:UIControlStateNormal];
+    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"cancel_sel"] forState:UIControlStateHighlighted];
     [cancelBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    [bottombkg addSubview:cancelBtn];
+    [middleBkg addSubview:cancelBtn];
 }
 
 - (void)viewDidAppear:(BOOL)animated
