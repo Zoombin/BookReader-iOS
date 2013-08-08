@@ -369,7 +369,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 						}];
 					} else {
                         [self hideHUD:YES];
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读改章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读该章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
                         [alertView setTag:FAILEDALERT_TAG];
                         [alertView show];
 //						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
