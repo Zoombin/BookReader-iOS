@@ -23,6 +23,9 @@
 #import "SignInViewController.h"
 #import "AppDelegate.h"
 #import "BookDetailsViewController.h"
+#import "WebViewController.h"
+
+#define FAILEDALERT_TAG  1000
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -365,8 +368,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 							tmpChapter.nextID = nextID;
 						}];
 					} else {
-                        NSLog(@"%@",message);
-						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
+                        [self hideHUD:YES];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读改章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
+                        [alertView setTag:FAILEDALERT_TAG];
+                        [alertView show];
+//						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
 					}
 				}];
 			}
@@ -547,7 +553,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
-		[self sendCommitButtonClicked];
+        if (alertView.tag == FAILEDALERT_TAG) {
+            WebViewController *controller = [[WebViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        } else {
+            [self sendCommitButtonClicked];
+        }
     }
 }
 

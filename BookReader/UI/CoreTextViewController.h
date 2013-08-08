@@ -14,7 +14,7 @@
 #import "Book.h"
 #import "Chapter.h"
 
-@interface CoreTextViewController : UIViewController
+@interface CoreTextViewController : UIViewController<UIAlertViewDelegate>
 
 @property (nonatomic, strong) Chapter *chapter;
 
