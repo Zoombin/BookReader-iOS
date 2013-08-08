@@ -13,7 +13,6 @@
 #import "SignInViewController.h"
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
-#import "MobileProbe.h"
 #import "UIColor+BookReader.h"
 #import "NavViewController.h"
 
@@ -47,7 +46,6 @@
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[MobileProbe initWithAppKey:M_CNZZ_COM channel:@"iOSChannel"];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
     application.statusBarHidden = NO;
     _rootControllers = [@{} mutableCopy];

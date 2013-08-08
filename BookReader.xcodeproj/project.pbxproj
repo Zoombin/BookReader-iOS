@@ -173,7 +173,6 @@
 		18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C12BBF17A673A500206E93 /* PopLoginViewController.m */; };
 		18DA4DDC17A8E59D002CFBB4 /* read_navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DA4DDA17A8E59D002CFBB4 /* read_navigation.png */; };
 		18DA4DDD17A8E59D002CFBB4 /* read_navigation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DA4DDB17A8E59D002CFBB4 /* read_navigation@2x.png */; };
-		18E776BF174A246500D0ECA0 /* libMobileProbe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E776BD174A246500D0ECA0 /* libMobileProbe.a */; };
 		18EDD0DF1741DFE300915372 /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DA1741DFE300915372 /* comment.png */; };
 		18EDD0E01741DFE300915372 /* demand.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DB1741DFE300915372 /* demand.png */; };
 		18EDD0E11741DFE300915372 /* flower.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EDD0DC1741DFE300915372 /* flower.png */; };
@@ -503,8 +502,6 @@
 		18C12BBF17A673A500206E93 /* PopLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopLoginViewController.m; sourceTree = "<group>"; };
 		18DA4DDA17A8E59D002CFBB4 /* read_navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_navigation.png; sourceTree = "<group>"; };
 		18DA4DDB17A8E59D002CFBB4 /* read_navigation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read_navigation@2x.png"; sourceTree = "<group>"; };
-		18E776BD174A246500D0ECA0 /* libMobileProbe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobileProbe.a; sourceTree = "<group>"; };
-		18E776BE174A246500D0ECA0 /* MobileProbe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileProbe.h; sourceTree = "<group>"; };
 		18EDD0DA1741DFE300915372 /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment.png; sourceTree = "<group>"; };
 		18EDD0DB1741DFE300915372 /* demand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demand.png; sourceTree = "<group>"; };
 		18EDD0DC1741DFE300915372 /* flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flower.png; sourceTree = "<group>"; };
@@ -741,7 +738,6 @@
 				8BDB0AB6165E03BB008F328A /* UIKit.framework in Frameworks */,
 				8BDB0AB8165E03BB008F328A /* Foundation.framework in Frameworks */,
 				8BDB0ABA165E03BB008F328A /* CoreGraphics.framework in Frameworks */,
-				18E776BF174A246500D0ECA0 /* libMobileProbe.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,15 +877,6 @@
 			path = localBook;
 			sourceTree = "<group>";
 		};
-		18E776BC174A246500D0ECA0 /* CNZZ */ = {
-			isa = PBXGroup;
-			children = (
-				18E776BD174A246500D0ECA0 /* libMobileProbe.a */,
-				18E776BE174A246500D0ECA0 /* MobileProbe.h */,
-			);
-			path = CNZZ;
-			sourceTree = "<group>";
-		};
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1021,7 +1008,6 @@
 			children = (
 				778E799217B2377F00DC28B7 /* Reachability */,
 				77B378E617ABE65200D8D63D /* ZBUtilities */,
-				18E776BC174A246500D0ECA0 /* CNZZ */,
 				77A1DB961730DF9C002BE306 /* AFNetworking */,
 				77A1DBD91730DF9C002BE306 /* MagicalRecord */,
 				77A1DCED1730DF9D002BE306 /* MBProgressHUD */,
