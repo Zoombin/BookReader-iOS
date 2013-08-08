@@ -64,7 +64,7 @@
         CGRect addBtnRect = CGRectZero;
         CGRect sendBtnRect = CGRectZero;
         
-        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 12.5, 35, 35)];
+        keywordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 35, 35)];
         [keywordImageView setImage:[UIImage imageNamed:imageNamesArray[indexPath.row]]];
         [self.contentView addSubview:keywordImageView];
         
@@ -74,54 +74,53 @@
         [_slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
         
         if (cellStyle == GiftCellStyleDiamond) {
-            reduceBtnRect = CGRectMake(70, 20, 40, 20);
-            numTextFieldRect = CGRectMake(110, 20, 80, 20);
-            addBtnRect = CGRectMake(190, 20, 40, 20);
-            sendBtnRect = CGRectMake(self.bounds.size.width-70, 17.5, 45, 25);
-            height = 80.0f;
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 25)];
+            reduceBtnRect = CGRectMake(65, 10, 50, 30);
+            numTextFieldRect = CGRectMake(CGRectGetMaxX(reduceBtnRect), 10, 80, 30);
+            addBtnRect = CGRectMake(CGRectGetMaxX(numTextFieldRect), 10, 50, 30);
+            sendBtnRect = CGRectMake(self.bounds.size.width - 60, 10, 50, 30);
+            height = 70.0f;
+            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 20)];
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
-            [detailLabel setFont:[UIFont systemFontOfSize:14]];
+            [detailLabel setFont:[UIFont systemFontOfSize:11]];
             [detailLabel setTextColor:[UIColor grayColor]];
             [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"说明：每赠送一颗钻石消费100潇湘币。"];
             [self.contentView addSubview:detailLabel];
         } else if (cellStyle == GiftCellStyleFlower) {
-            reduceBtnRect = CGRectMake(70, 20, 40, 20);
-            numTextFieldRect = CGRectMake(110, 20, 80, 20);
-            addBtnRect = CGRectMake(190, 20, 40, 20);
-            sendBtnRect = CGRectMake(self.bounds.size.width-70, 17.5, 45, 25);
-            height = 80.0f;
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 25)];
+            reduceBtnRect = CGRectMake(65, 10, 50, 30);
+            numTextFieldRect = CGRectMake(CGRectGetMaxX(reduceBtnRect), 10, 80, 30);
+            addBtnRect = CGRectMake(CGRectGetMaxX(numTextFieldRect), 10, 50, 30);
+            sendBtnRect = CGRectMake(self.bounds.size.width - 60, 10, 50, 30);
+            height = 70.0f;
+            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 20)];
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
             [detailLabel setTextColor:[UIColor grayColor]];
-            [detailLabel setFont:[UIFont systemFontOfSize:14]];
+            [detailLabel setFont:[UIFont systemFontOfSize:11]];
             [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"说明：每赠送一朵鲜花消费100潇湘币。"];
             [self.contentView addSubview:detailLabel];
         } else if (cellStyle == GiftCellStyleTicket) {
-            reduceBtnRect = CGRectMake(70, 20, 40, 20);
-            numTextFieldRect = CGRectMake(110, 20, 80, 20);
-            addBtnRect = CGRectMake(190, 20, 40, 20);
-            sendBtnRect = CGRectMake(self.bounds.size.width-70, 17.5, 45, 25);
-            height = 80.0f;
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 25)];
+            reduceBtnRect = CGRectMake(65, 10, 50, 30);
+            numTextFieldRect = CGRectMake(CGRectGetMaxX(reduceBtnRect), 10, 80, 30);
+            addBtnRect = CGRectMake(CGRectGetMaxX(numTextFieldRect), 10, 50, 30);
+            sendBtnRect = CGRectMake(self.bounds.size.width - 60, 10, 50, 30);
+            height = 70.0f;
+            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 20)];
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
             [detailLabel setTextColor:[UIColor grayColor]];
-            [detailLabel setFont:[UIFont systemFontOfSize:14]];
-            [detailLabel setAdjustsFontSizeToFitWidth:YES];
+            [detailLabel setFont:[UIFont systemFontOfSize:11]];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"说明：每订阅消费满10月即可获赠1张月票，当月有效！"];
             [self.contentView addSubview:detailLabel];
         } else if (cellStyle == GiftCellStyleComment) {
-            height = 180.0f;
+            height = 170.0f;
             UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 12.5, self.contentView.bounds.size.width, 30)];
-            [descriptionLabel setFont:[UIFont systemFontOfSize:15]];
+            [descriptionLabel setFont:[UIFont systemFontOfSize:16]];
             [descriptionLabel setTextAlignment:NSTextAlignmentCenter];
             [descriptionLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
             [descriptionLabel setBackgroundColor:[UIColor clearColor]];
@@ -134,9 +133,9 @@
                 [button setTag:i];
                 [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 if (i > 2) {
-                    [button cooldownButtonFrame:CGRectMake(10 * (i - 2) + width * (i - 3), 60 + 40, width, 30) andEnableCooldown:NO];
+                    [button cooldownButtonFrame:CGRectMake(10 * (i - 2) + width * (i - 3), 50 + 40, width, 30) andEnableCooldown:NO];
                 } else {
-                    [button cooldownButtonFrame:CGRectMake(10 * (i + 1) + width * i, 60, width, 30) andEnableCooldown:NO];
+                    [button cooldownButtonFrame:CGRectMake(10 * (i + 1) + width * i, 50, width, 30) andEnableCooldown:NO];
                 }
                 [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
                 [button setTitle:integralArrays[i] forState:UIControlStateNormal];
@@ -152,32 +151,32 @@
                 [self.contentView addSubview:button];
                 [buttonsArray addObject:button];
                 
-                sendBtnRect = CGRectMake(10, 140, 45, 25);
+                sendBtnRect = CGRectMake(10, 130, 50, 30);
                 
-                UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(sendBtnRect) + 5, CGRectGetMinY(sendBtnRect), 200, 25)];
+                UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(sendBtnRect) + 5, CGRectGetMinY(sendBtnRect), 220, 25)];
                 [detailLabel setTextAlignment:NSTextAlignmentLeft];
-                [detailLabel setFont:[UIFont systemFontOfSize:15]];
+                [detailLabel setFont:[UIFont systemFontOfSize:16]];
                 [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
                 [detailLabel setBackgroundColor:[UIColor clearColor]];
                 [detailLabel setText:@"(每次评价需消耗200潇湘币)"];
                 [self.contentView addSubview:detailLabel];
             }
         } else if (cellStyle == GiftCellStyleMoney) {
-            height = 150.0f;
+            height = 140.0f;
             UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 12.5, self.contentView.bounds.size.width, 30)];
             [descriptionLabel setTextAlignment:NSTextAlignmentCenter];
-            [descriptionLabel setFont:[UIFont systemFontOfSize:15]];
+            [descriptionLabel setFont:[UIFont systemFontOfSize:16]];
             [descriptionLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
             [descriptionLabel setBackgroundColor:[UIColor clearColor]];
-            [descriptionLabel setText:@"喜欢本书就给作者送个红包吧"];
+            [descriptionLabel setText:@"喜欢本书就给作者送个红包吧!"];
             [self.contentView addSubview:descriptionLabel];
             
-            sendBtnRect = CGRectMake(10, 100, 45, 25);
+            sendBtnRect = CGRectMake(10, 90, 50, 30);
             
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(sendBtnRect) + 5, CGRectGetMinY(sendBtnRect), 200, 25)];
+            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(sendBtnRect) + 5, CGRectGetMinY(sendBtnRect), 220, 25)];
             [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [detailLabel setTextAlignment:NSTextAlignmentLeft];
-            [detailLabel setFont:[UIFont systemFontOfSize:15]];
+            [detailLabel setFont:[UIFont systemFontOfSize:16]];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
             [detailLabel setText:@"(以上数字单位为潇湘币)"];
             [self.contentView addSubview:detailLabel];
@@ -197,7 +196,7 @@
                     [button.layer setBorderColor:BorderColor.CGColor];
                     _slider.value = 188;
                 }
-                [button cooldownButtonFrame:CGRectMake(10 * (i+1) + width * i, 55, width, 30) andEnableCooldown:NO];
+                [button cooldownButtonFrame:CGRectMake(10 * (i+1) + width * i, 50, width, 30) andEnableCooldown:NO];
                 [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
                 [self.contentView addSubview:button];
                 [rewardBtnsArray addObject:button];
@@ -219,6 +218,7 @@
             [numberTextField setText:@"1"];
             [numberTextField setTextColor:[UIColor grayColor]];
             [numberTextField setDelegate:self];
+            [numberTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
             [numberTextField setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
             [numberTextField setTextAlignment:NSTextAlignmentCenter];
             [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
@@ -251,7 +251,7 @@
             [self.contentView addSubview:sendButton];
         }
         
-        UIView *dottedLine = [[UIView alloc] initWithFrame:CGRectMake(0, height, self.contentView.frame.size.width + 10, 1)];
+        UIView *dottedLine = [[UIView alloc] initWithFrame:CGRectMake(10, height, self.contentView.frame.size.width - 20, 1)];
         [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [dottedLine setBackgroundColor:[UIColor blackColor]];
         [self.contentView addSubview:dottedLine];
