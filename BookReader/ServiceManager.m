@@ -382,11 +382,19 @@ static NSNumber *sUserID;
 + (void)hotKeyWithBlock:(void (^)(BOOL, NSError *, NSArray *))block
 {
      NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"search.books.get"}]];
-    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSMutableArray *hotArray = [[NSMutableArray alloc] init];
+        if ([theObject[@"list"] isKindOfClass:[NSArray class]]) {
+            NSArray *arr = theObject[@"list"];
+            for (int i = 0; i<[arr count]; i++) {
+                NSDictionary *tmpDict = arr[i];
+                NSString *hotKeyName = tmpDict[@"bookName"];
+                [hotArray addObject:hotKeyName];
+            }
+        }
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"list"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, hotArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {

@@ -613,26 +613,32 @@
 - (void)showHotkeyBtns {
     [self hideAllHotkeyBtns];
     NSMutableArray *hotNamesIndex = [NSMutableArray array];
-    while (hotNamesIndex.count < 10) {
-        int randomNum = arc4random() % hotkeyNames.count;
-        if (![hotNamesIndex containsObject:@(randomNum)]) {
-            [hotNamesIndex addObject:@(randomNum)];
+    [ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+        if (!error) {
+            hotkeyNames = resultArray;
+            while (hotNamesIndex.count < hotkeyNames.count) {
+                int randomNum = arc4random() % hotkeyNames.count;
+                if (![hotNamesIndex containsObject:@(randomNum)]) {
+                    [hotNamesIndex addObject:@(randomNum)];
+                }
+            }
+            NSArray *cgrectArr = [self randomRect:hotkeyNames.count];
+            for (int i = 0; i < [cgrectArr count]; i++) {
+                NSString *cgrectstring = [cgrectArr objectAtIndex:i];
+                UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                [tmpButton setFrame:CGRectFromString(cgrectstring)];
+                NSNumber *indexNum = [hotNamesIndex objectAtIndex:i];
+                [tmpButton setTitle:hotkeyNames[indexNum.integerValue] forState:UIControlStateNormal];
+                NSInteger colorIndex = arc4random() % hotwordsColors.count;
+                [tmpButton setTitleColor:hotwordsColors[colorIndex] forState:UIControlStateNormal];
+                [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:arc4random() % 10 + 15]];
+                [tmpButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+                [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [infoTableView addSubview:tmpButton];
+                [hotkeyBtns addObject:tmpButton];
+            }
         }
-    }
-    NSArray *cgrectArr = [self randomRect:10];
-    for (int i = 0; i < [cgrectArr count]; i++) {
-        NSString *cgrectstring = [cgrectArr objectAtIndex:i];
-        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tmpButton setFrame:CGRectFromString(cgrectstring)];
-        NSNumber *indexNum = [hotNamesIndex objectAtIndex:i];
-        [tmpButton setTitle:hotkeyNames[indexNum.integerValue] forState:UIControlStateNormal];
-        NSInteger colorIndex = arc4random() % hotwordsColors.count;
-        [tmpButton setTitleColor:hotwordsColors[colorIndex] forState:UIControlStateNormal];
-        [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:arc4random() % 10 + 15]];
-        [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [infoTableView addSubview:tmpButton];
-        [hotkeyBtns addObject:tmpButton];
-    }
+    }];
 }
 
 - (void)hideAllHotkeyBtns
@@ -653,9 +659,9 @@
 - (NSArray *)randomRect:(int)rectCount {
     NSMutableArray *rectArray = [NSMutableArray array];
     while([rectArray count] < rectCount) {
-        int x =arc4random()%200+15;    //随机坐标x
-        int y = arc4random()%200+100;//随机坐标y
-        CGRect rect = CGRectMake(x, y, 80, 30);
+        int x =arc4random()%160 + 15;    //随机坐标x
+        int y = arc4random()%200 + 100;//随机坐标y
+        CGRect rect = CGRectMake(x, y, 120, 30);
         if ([rectArray count] == 0) {
             [rectArray addObject:NSStringFromCGRect(rect)];
             continue;
