@@ -198,6 +198,10 @@
 		18FD246117B336EE00D11CCA /* login_username.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD245D17B336EE00D11CCA /* login_username.png */; };
 		18FD246217B336EE00D11CCA /* login_username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD245E17B336EE00D11CCA /* login_username@2x.png */; };
 		18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FD246417B37A8000D11CCA /* libMobClickLibrary.a */; };
+		18FD246B17B37CEA00D11CCA /* balance_nor.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD246717B37CEA00D11CCA /* balance_nor.png */; };
+		18FD246C17B37CEA00D11CCA /* balance_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD246817B37CEA00D11CCA /* balance_nor@2x.png */; };
+		18FD246D17B37CEA00D11CCA /* balance_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD246917B37CEA00D11CCA /* balance_sel.png */; };
+		18FD246E17B37CEA00D11CCA /* balance_sel1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD246A17B37CEA00D11CCA /* balance_sel1@2x.png */; };
 		7704EFEF17ADE399006F1E08 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFEE17ADE399006F1E08 /* Book.m */; };
 		7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */; };
 		7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF717AE2907006F1E08 /* ZBTextValidate.m */; };
@@ -530,6 +534,10 @@
 		18FD245E17B336EE00D11CCA /* login_username@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_username@2x.png"; sourceTree = "<group>"; };
 		18FD246417B37A8000D11CCA /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		18FD246517B37A8000D11CCA /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		18FD246717B37CEA00D11CCA /* balance_nor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balance_nor.png; sourceTree = "<group>"; };
+		18FD246817B37CEA00D11CCA /* balance_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "balance_nor@2x.png"; sourceTree = "<group>"; };
+		18FD246917B37CEA00D11CCA /* balance_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balance_sel.png; sourceTree = "<group>"; };
+		18FD246A17B37CEA00D11CCA /* balance_sel1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "balance_sel1@2x.png"; sourceTree = "<group>"; };
 		7704EFED17ADE399006F1E08 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		7704EFEE17ADE399006F1E08 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
@@ -884,6 +892,10 @@
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				18FD246717B37CEA00D11CCA /* balance_nor.png */,
+				18FD246817B37CEA00D11CCA /* balance_nor@2x.png */,
+				18FD246917B37CEA00D11CCA /* balance_sel.png */,
+				18FD246A17B37CEA00D11CCA /* balance_sel1@2x.png */,
 				18FD245B17B336EE00D11CCA /* login_password.png */,
 				18FD245C17B336EE00D11CCA /* login_password@2x.png */,
 				18FD245D17B336EE00D11CCA /* login_username.png */,
@@ -1615,6 +1627,10 @@
 				18FD246217B336EE00D11CCA /* login_username@2x.png in Resources */,
 				778E79C017B2377F00DC28B7 /* LICENCE.txt in Resources */,
 				778E79C917B2377F00DC28B7 /* README.md in Resources */,
+				18FD246B17B37CEA00D11CCA /* balance_nor.png in Resources */,
+				18FD246C17B37CEA00D11CCA /* balance_nor@2x.png in Resources */,
+				18FD246D17B37CEA00D11CCA /* balance_sel.png in Resources */,
+				18FD246E17B37CEA00D11CCA /* balance_sel1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -139,9 +139,15 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
-            [cell.textLabel setText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
+                [cell.textLabel setText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
             } else {
                 [cell.textLabel setText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] , [ServiceManager userInfo].coin ?: @""]];
+                UIButton *refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                [refreshBtn setBackgroundImage:[UIImage imageNamed:@"balance_nor"] forState:UIControlStateNormal];
+                [refreshBtn setBackgroundImage:[UIImage imageNamed:@"balance_sel"] forState:UIControlStateHighlighted];
+                [refreshBtn addTarget:self action:@selector(refreshUserInfo) forControlEvents:UIControlEventTouchUpInside];
+                [refreshBtn setFrame:CGRectMake(CGRectGetMaxX(cell.contentView.bounds) - 120, 12.5, 77, 25)];
+                [cell.contentView addSubview:refreshBtn];
             }
         } else {
             if (indexPath.row == 0) {
@@ -176,7 +182,7 @@
         [self showMyFav];
     } else {
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
-		[alertView show];		
+		[alertView show];
 	}
 }
 
@@ -191,6 +197,17 @@
 			[self cleanUp];
 		}
 	}
+}
+
+- (void)refreshUserInfo
+{
+    [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
+        if (success) {
+            [ServiceManager saveUserInfo:member];
+        }
+        [_memberTableView reloadData];
+        [self displayHUDError:nil message:@"刷新成功!"];
+    }];
 }
 
 
