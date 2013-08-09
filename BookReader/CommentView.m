@@ -70,16 +70,6 @@
     [_buttonArrays addObject:btn];
 }
 
-
-- (void)drawRect:(CGRect)rect {
-    //	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
-    //    [backgroundView setBackgroundColor:[UIColor whiteColor]];
-    
-    //	CGSize imageSize = self.backgroundImage.size;
-    //	[backgroundView drawInRect:CGRectMake(0, 0, 300, 200)];
-    
-}
-
 - (void)layoutSubviews {
     //屏蔽系统的ImageView 和 UIButton
     for (UIView *v in [self subviews]) {
@@ -93,19 +83,6 @@
             [v setHidden:YES];
         }
     }
-    
-    //    for (int i=0;i<[_buttonArrays count]; i++) {
-    //        UIButton *btn = [_buttonArrays objectAtIndex:i];
-    //        btn.tag = i;
-    //        [self addSubview:btn];
-    //        [btn addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    //    }
-    //
-    //    if (self.contentImage) {
-    //        UIImageView *contentview = [[UIImageView alloc] initWithImage:self.contentImage];
-    //        contentview.frame = CGRectMake(0, 0, self.backgroundImage.size.width, self.backgroundImage.size.height);
-    //        [self addSubview:contentview];
-    //    }
 }
 
 - (void)buttonClicked:(id)sender
@@ -120,7 +97,6 @@
 
 - (void)show {
     [super show];
-    //    CGSize imageSize = self.backgroundImage.size;
     self.bounds = CGRectMake(0, 0, 300, 170);
 }
 

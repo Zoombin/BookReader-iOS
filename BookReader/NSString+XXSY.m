@@ -110,7 +110,6 @@
                                                          (CFStringRef)self,
                                                          (CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)fnt,kCTFontAttributeName,nil]);
     
-   //TODO:增加行间距
     CFRange range = CFRangeMake(0, CFStringGetLength((CFStringRef)str));
     CTParagraphStyleSetting LineSpacing;
     CGFloat spacing = 10.0;  //指定间距
