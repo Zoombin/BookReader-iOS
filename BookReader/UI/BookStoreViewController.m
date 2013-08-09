@@ -499,11 +499,12 @@
 		[self.headerView.titleLabel setText:@"搜索"];
 		[rankView setHidden:YES];
 		[infoTableView setHidden:NO];
-        [self showHotkeyBtns];
         if ([searchArray count] > 0) {
             currentIndex = (searchArray.count / 6) + 1;
             [infoArray addObjectsFromArray:searchArray];
             [self hideAllHotkeyBtns];
+        } else{
+            [self showHotkeyBtns];
         }
 		[infoTableView reloadData];
 	}
