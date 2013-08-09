@@ -101,7 +101,7 @@
             [detailLabel setFont:[UIFont systemFontOfSize:11]];
             [detailLabel setAdjustsFontSizeToFitWidth:YES];
             [detailLabel setBackgroundColor:[UIColor clearColor]];
-            [detailLabel setText:@"说明：每赠送一朵鲜花消费100潇湘币。"];
+            [detailLabel setText:@"说明：每赠送一朵鲜花消费20潇湘币。"];
             [self.contentView addSubview:detailLabel];
         } else if (cellStyle == GiftCellStyleTicket) {
             reduceBtnRect = CGRectMake(65, 10, 50, 30);
