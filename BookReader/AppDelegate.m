@@ -44,7 +44,7 @@
 //	[ServiceManager login];
 	
 //	[self testApis];
-    [MobClick startWithAppkey:@"52032fb056240b0e8e00408e" reportPolicy:REALTIME channelId:nil];
+    [MobClick startWithAppkey:UMENG_KEY reportPolicy:REALTIME channelId:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
