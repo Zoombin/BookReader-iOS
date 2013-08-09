@@ -65,7 +65,6 @@
     NSMutableArray *authorBookArray;
     NSMutableArray *sameTypeBookArray;
     NSMutableArray *chapterArray;
-    BOOL bFav;
     BOOL bLoading;
     BOOL bCommit;
     BOOL bChapter;
@@ -111,7 +110,6 @@
         sameTypeBookArray = [[NSMutableArray alloc] init];
         shortInfoArray = [[NSMutableArray alloc] init];
         chapterArray = [[NSMutableArray alloc] init];
-        bFav = NO;
         bLoading = NO;
         bCommit = NO;
         bChapter = NO;
@@ -130,14 +128,14 @@
     if (book == nil) {
         [self displayHUD:@"加载中..."];
         [ServiceManager bookDetailsByBookId:bookid andIntro:YES withBlock:^(BOOL success, NSError *error, Book *obj) {
-            if(error) {
-                NSLog(@"%@",error);
-                [self displayHUDError:nil message:NETWORK_ERROR];
-				[self.navigationController popViewControllerAnimated:YES];
-            }else {
-                book = obj;
-                [self hideHUD:YES];
+			[self hideHUD:YES];
+            if(success) {
+				book = obj;
                 [self initBookDetailUI];
+            }else {
+                NSLog(@"%@",error);
+				[self displayHUDError:nil message:error.description];
+				[self performSelector:@selector(backOrClose) withObject:nil afterDelay:2.0f];
             }
         }];
     }
@@ -156,7 +154,7 @@
 - (void)chapterButtonClicked:(id)sender
 {
     NSLog(@"章节");
-    if (![chapterArray count]) {
+    if (!chapterArray.count) {
 		[self getChaptersDataWithBlock:nil];
     }
     [self resetButtons];
@@ -337,7 +335,7 @@
         [button addTarget:self action:NSSelectorFromString(selectorString[i]) forControlEvents:UIControlEventTouchUpInside];
         [button setBackgroundImage:[UIImage imageNamed:@"yellow_btn"] forState:UIControlStateNormal];
         [button setTitle:buttonNames[i] forState:UIControlStateNormal];
-        if (i==1) {
+        if (i == 1) {
             favButton = button;
 			[favButton setTitle:@"已收藏" forState:UIControlStateDisabled | UIControlStateSelected];
         }
@@ -505,7 +503,6 @@
                 
             } else {
                 if (isExist) {
-                    bFav = YES;
 					[favButton setEnabled:NO];
 					favButton.selected = YES;
                 }
@@ -526,25 +523,23 @@
 
 - (void)getChaptersDataWithBlock:(dispatch_block_t)block
 {
-    [book persistWithBlock:^(void) {//下载章节目录
-        [self displayHUD:@"获取章节目录..."];
-        [ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
-			[self hideHUD:YES];
-            if (!error) {
-                NSLog(@"%@",nextUpdateTime);
-                chapterArray = [resultArray mutableCopy];
-                [chapterListTableView reloadData];
-                if (block) block();
-            } else {
-                [self displayHUDError:@"获取章节目录失败" message:error.debugDescription];
-            }
-        }];
-    }];
+	[self displayHUD:@"获取章节目录..."];
+	[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+		[self hideHUD:YES];
+		if (success) {
+			NSLog(@"%@",nextUpdateTime);
+			chapterArray = [resultArray mutableCopy];
+			[chapterListTableView reloadData];
+			if (block) block();
+		} else {
+			[self displayHUDError:@"获取章节目录失败" message:error.description];
+		}
+	}];
 }
 
 - (void)readButtonClicked:(id)sender
 {
-    if ([chapterArray count] > 0) {
+    if (chapterArray.count) {
         [self pushToReadViewWithChapter:nil];
         return;
     } else {
@@ -681,16 +676,16 @@
 
 - (void)pushToReadViewWithChapter:(Chapter *)chapter
 {
-	if (!chapter) {
-		Chapter *chapter = [Chapter lastReadChapterOfBook:book];
-		if (chapter) {
-			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-			controller.chapter = chapter;
-			[self.navigationController pushViewController:controller animated:YES];
-		} else {
-			NSLog(@"未找到阅读的章节");
+	[book persistWithBlock:^(void) {
+		if (!chapter) {
+			Chapter *chapter = [Chapter lastReadChapterOfBook:book];
+			if (!chapter) return;
 		}
-	}
+		
+		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+		controller.chapter = chapter;
+		[self.navigationController pushViewController:controller animated:YES];
+	}];
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
@@ -715,19 +710,13 @@
     if ([self checkLogin]) {
 		[self displayHUD:@"请稍等..."];
         [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(BOOL success, NSError *error,NSString *message) {
-            if (!error) {
-                if (success) {
-                    bFav = YES;
-					book.bFav = @(YES);
-					favButton.selected = YES;
-                    [favButton setEnabled:NO];
-					[book persistWithBlock:^(void) {
-						[self displayHUDError:nil message:message];
-						[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
-					}];
-                }
+            if (success) {
+				book.bFav = @(YES);
+				favButton.selected = YES;
+				[favButton setEnabled:NO];
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
             } else {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDError:nil message:error.description];
             }
         }];
     }
@@ -790,9 +779,11 @@
         if (cell == nil) {
             cell = [[ChapterCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
-            [(ChapterCell *)cell setChapter:obj andCurrent:NO];
-//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
+            Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
+            [(ChapterCell *)cell setChapter:chapter andCurrent:NO];
+#ifdef DISPLAY_V_FLAG
+            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
+#endif
         }
     }
     else {
@@ -800,12 +791,11 @@
             NSArray *tmpArray = [NSArray array];
             tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
-            Book *obj = [tmpArray objectAtIndex:[indexPath row]];
-            //            obj.author = book.author;
+            Book *b = [tmpArray objectAtIndex:[indexPath row]];
             if (tableView == authorBookTableView) {
-                obj.author = nil;
+                b.author = nil;
             }
-            [(BookCell *)cell setBook:obj];
+            [(BookCell *)cell setBook:b];
         }
     }
     return cell;
@@ -830,19 +820,17 @@
 
 - (void)getMore
 {
-    //    [self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error) {
-            [self displayHUDError:nil message:NETWORK_ERROR];
-        } else {
-            if ([infoArray count] == 0) {
+        if (success) {
+			if (!infoArray.count) {
                 [infoTableView setTableFooterView:nil];
             }
             [infoArray addObjectsFromArray:resultArray];
             currentIndex++;
             [infoTableView reloadData];
             bLoading = NO;
-            //            [self hideHUD:YES];
+        } else {
+            [self displayHUDError:nil message:error.description];
         }
     }];
 }

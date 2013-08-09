@@ -205,8 +205,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	NSAssert(currentPageString != nil, @"currentPageString == nil");
 	[coreTextView buildTextWithString:currentPageString];
 	[coreTextView setNeedsDisplay];
+	_chapter.lastReadIndex = @(range.location);
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		_chapter.lastReadIndex = @(range.location);
+		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:_chapter.uid inContext:localContext];
+		if (chapter) {
+			chapter.lastReadIndex = @(range.location);
+		}
 	}];
 }
 
@@ -345,34 +349,42 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	} else {
 		[self displayHUD:@"获取章节内容..."];
 		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-			if (content && ![content isEqualToString:@""]) {
+			if (success) {
 				[self hideHUD:YES];
-				[self gotoChapter:aChapter withReadIndex:nil];
+				aChapter.content = content;
+				aChapter.previousID = previousID;
+				aChapter.nextID = nextID;
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 					Chapter *tmpChapter = [Chapter findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
-					tmpChapter.content = content;
-					tmpChapter.previousID = previousID;
-					tmpChapter.nextID = nextID;
+					if (tmpChapter) {
+						tmpChapter.content = content;
+						tmpChapter.previousID = previousID;
+						tmpChapter.nextID = nextID;
+					}
 				}];
+				[self gotoChapter:aChapter withReadIndex:nil];
 			} else {//没下载到，尝试订阅
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-					if (content && ![content isEqualToString:@""]) {
-						_chapter.content = content;
-						[self gotoChapter:aChapter withReadIndex:nil];
+					if (success) {
+						aChapter.content = content;
+						aChapter.previousID = previousID;
+						aChapter.nextID = nextID;
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 							Chapter *tmpChapter = [Chapter findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
-							tmpChapter.content = content;
-							tmpChapter.previousID = previousID;
-							tmpChapter.nextID = nextID;
+							if (tmpChapter) {
+								tmpChapter.content = content;
+								tmpChapter.previousID = previousID;
+								tmpChapter.nextID = nextID;
+							}
 						}];
+						[self gotoChapter:aChapter withReadIndex:nil];
 					} else {
                         [self hideHUD:YES];
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读该章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
                         [alertView setTag:FAILEDALERT_TAG];
                         [alertView show];
-//						[self displayHUDError:@"错误" message:@"无法阅读该章节"];//又没下载到又没有订阅到
 					}
 				}];
 			}

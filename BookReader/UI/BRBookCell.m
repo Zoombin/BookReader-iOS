@@ -75,8 +75,12 @@
     } else {
 		UIImageView *imageView = [[UIImageView alloc] init];
 		[imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:book.coverURL]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+			_book.cover = [[NSData alloc] initWithData:UIImagePNGRepresentation(image)];
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				_book.cover = [[NSData alloc] initWithData:UIImagePNGRepresentation(image)];
+				Book *book = [Book findFirstByAttribute:@"uid" withValue:_book.uid inContext:localContext];
+				if (book) {
+					book.cover = [[NSData alloc] initWithData:UIImagePNGRepresentation(image)];
+				}
 			}];
 			cover.image = image;
 		} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
