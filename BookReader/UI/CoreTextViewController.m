@@ -280,12 +280,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if(currentPageIndex < 0) {
         currentPageIndex = 0;
 		NSLog(@"no more previous page!");
-		if (!_chapter.previousID) {
-			[self displayHUDError:@"" message:@"此章是第一章"];
-		} else {
-			[self displayHUDError:@"" message:@"上一章"];
-			[self gotoChapter:[_chapter previous] withReadIndex:nil];
-		}
+		[self gotoPreviousChapter];
         return;
     }
 	[self updateCurrentPageContent];
@@ -304,14 +299,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if(currentPageIndex > [pages count] - 1) {
         currentPageIndex = [pages count] - 1;
 		NSLog(@"no more next page!");
-        Chapter *aChapter = [_chapter next];
-        if (aChapter) {
-            Chapter *aChapterNext = [aChapter next];
-            [self gotoChapter:[_chapter next] withReadIndex:nil];
-            [self displayHUDError:@"" message:aChapterNext ? aChapterNext.name : @"此章节是最后一章"];
-        } else {
-            [self displayHUDError:@"" message:@"此章是最后一章"];
-        }
+		[self gotoNextChapter];
         return;
     }
 	[self updateCurrentPageContent];
@@ -495,7 +483,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)previousChapterButtonClick
+- (void)gotoPreviousChapter
 {
 	if (!_chapter.previousID) {
 		[self displayHUDError:@"" message:@"此章是第一章"];
@@ -505,17 +493,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[self gotoChapter:[_chapter previous] withReadIndex:nil];
 }
 
-- (void)nextChapterButtonClick
+- (void)gotoNextChapter
 {
-	Chapter *aChapter = [_chapter next];
-	if (!aChapter) {
+	if (!_chapter.nextID) {
 		[self displayHUDError:@"" message:@"此章是最后一章"];
 		return;
 	}
 	pageCurlType = nil;
-    Chapter *nextNextChapter = [aChapter next];
-	[self gotoChapter:aChapter withReadIndex:nil];
-    [self displayHUDError:@"" message:nextNextChapter ? nextNextChapter.name : @"此章是最后一章"];
+	[self gotoChapter:[_chapter next] withReadIndex:nil];
 }
 
 #pragma mark -

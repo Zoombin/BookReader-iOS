@@ -180,11 +180,11 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"PostVerifyCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,theObject[@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(@"", error ,@"");
+            block(NO, error, @"");
         }
     }];
 }
@@ -204,11 +204,11 @@ static NSNumber *sUserID;
 			[ServiceManager login];
         }
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG],nil,theObject[@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(@"", error, @"");
+            block(NO, error, @"");
         }
     }];
 }
@@ -228,11 +228,11 @@ static NSNumber *sUserID;
 			[ServiceManager login];
         }
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG],nil,theObject[@"error"],member);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"], member);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil,error,nil,nil);
+            block(NO, error, nil, nil);
         }
     }];
 }
@@ -245,11 +245,11 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"ChangePassword.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,theObject[@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(@"", error, @"");
+            block(NO, error, @"");
         }
     }];
 }
@@ -265,7 +265,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(@"", error, @"");
+            block(NO, error, @"");
         }
     }];
 }
@@ -283,7 +283,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(@"", error, @"");
+            block(NO, error, @"");
         }
     }];
 }
@@ -298,11 +298,11 @@ static NSNumber *sUserID;
             member = [BRUser createWithAttributes:theObject[@"user"]];
         }
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil,  member);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, member);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error,nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -316,7 +316,7 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"UserPay.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         NSString *postsFromResponse = [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding];
         if (block) {
-            block([NSString stringWithFormat:@"%@",postsFromResponse], nil);
+            block([NSString stringWithFormat:@"%@", postsFromResponse], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
@@ -346,11 +346,11 @@ static NSNumber *sUserID;
         }
         
         if (block) {
-            block(array,[theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil);
+            block(array, [theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil,nil,error);
+            block(nil, NO, error);
         }
     }];
 }
@@ -374,12 +374,12 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
 
-+ (void)hotKeyWithBlock:(void (^)(BOOL, NSError *, NSArray *))block
++ (void)hotKeyWithBlock:(void (^)(BOOL success, NSError *, NSArray *))block
 {
      NSMutableDictionary *parameters = [self commonParameters:@[@{@"methed" : @"search.books.get"}]];
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
@@ -398,7 +398,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -418,7 +418,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -440,7 +440,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -473,7 +473,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);	
+            block(NO, error, nil);
         }
     }];
 }
@@ -501,7 +501,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil, nil, nil);
+            block(NO, error, nil, nil, nil);
         }
     }];
 }
@@ -526,7 +526,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil, nil, nil, nil);
+            block(NO, error, nil, nil, nil, nil);
         }
     }];
 }
@@ -551,7 +551,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil, nil, nil, nil);
+            block(NO, error, nil, nil, nil, nil);
         }
     }];
 }
@@ -571,7 +571,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -607,7 +607,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error);
+            block(NO, error);
         }
     }];
 }
@@ -620,7 +620,6 @@ static NSNumber *sUserID;
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"content"] = content;
-//    parameters[@"ip"] = [self ipAddress];
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
@@ -628,7 +627,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -652,7 +651,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -675,7 +674,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -693,7 +692,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error);
+            block(NO, error);
         }
     }];
 }
@@ -718,7 +717,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -740,30 +739,30 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, @"", @"", @"");
+            block(NO, error, @"", @"", @"");
         }
     }];
 }
 
-+ (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block
++ (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *result, NSError *error))block
 {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,channel,@"921abacd49a8d1b891ac0870665e61a5",[self getCurrentTimeWithFormatter:@"yyyyMMdd"]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : channel,@"username" :name,@"sign" : [signString md532],@"mobile" :num};
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-            if (block) block(@"",nil);
+            if (block) block(@"", nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) block(nil,error);
+        if (block) block(nil, error);
     }];
 }
 
-+ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block
++ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *result, NSError *error))block
 {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[self getCurrentTimeWithFormatter:@"yyyyMMdd"]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : @"5",@"username" :name,@"sign" : [signString md532], @"cardNo" : cardNum, @"cardPassword" :password};
     [[ServiceManager shared] postPath:@"XXSYPayService.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        if (block) block(@"",nil);
+        if (block) block(@"", nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) block(nil,error);
+        if (block) block(nil, error);
     }];
 }
 
@@ -779,7 +778,7 @@ static NSNumber *sUserID;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(nil, error, nil);
+            block(NO, error, nil);
         }
     }];
 }
@@ -802,24 +801,6 @@ static NSNumber *sUserID;
             block(NO, error, nil, nil);
         }
     }];
-}
-
-////获取IP地址
-+ (NSString *)ipAddress
-{
-    NSString *ipAddress;
-    char baseHostName[255];
-    gethostname(baseHostName, 255); // 获得本机名字
-    struct hostent *host = gethostbyname(baseHostName); // 将本机名字转换成主机网络结构体 struct hostent
-    if (host == NULL) {
-        herror("resolv");
-    } else {
-        struct in_addr **list = (struct in_addr **)host->h_addr_list;
-        char ip[255];
-        strcpy(ip, inet_ntoa(*list[0])); // 获得本机IP地址
-        ipAddress = [[NSString alloc] initWithFormat:@"%s",ip];
-    }
-    return ipAddress;
 }
 
 + (NSString *)getCurrentTimeWithFormatter:(NSString *)formatter

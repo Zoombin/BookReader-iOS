@@ -206,9 +206,9 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
 //keepUpdateDelay = 10080; 强制更新时间 单位"分"
 
 //安卓充值
-+ (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void(^)(NSString *result,NSError *error))block __deprecated;//iOS不需要这个接口了
++ (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void(^)(NSString *result, NSError *error))block __deprecated;//iOS不需要这个接口了
 
-+ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *, NSError *))block __deprecated;//iOS不需要这个接口了
++ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *result, NSError *error))block __deprecated;//iOS不需要这个接口了
 
 //公告接口
 + (void)systemNotifyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray, NSString *content))block;
