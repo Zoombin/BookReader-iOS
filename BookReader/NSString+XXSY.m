@@ -204,4 +204,12 @@
     return j;
 }
 
++ (NSString *)displayNameOfChapter:(Chapter *)chapter
+{
+#ifdef DISPLAY_V_FLAG
+	return [NSString stringWithFormat:@"%@ 卷%d:%@", chapter.bVip.boolValue ? @"v" : @"", chapter.rollID.intValue, chapter.name];
+#endif
+	return [NSString stringWithFormat:@"卷%d:%@", chapter.rollID.intValue, chapter.name];
+}
+
 @end
