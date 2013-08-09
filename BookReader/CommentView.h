@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentView : UIView
+@protocol CommentDelegate <NSObject>
+@optional
+- (void)sendButtonClicked;
+@end
 
+@interface CommentView : UIAlertView {
+    
+}
+@property(readwrite, strong) UITextField *textField;
+@property(nonatomic, weak) id CommentDelegate;
+- (id)init;
 @end

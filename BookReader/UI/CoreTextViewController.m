@@ -25,6 +25,7 @@
 #import "BookDetailsViewController.h"
 #import "WebViewController.h"
 
+
 #define FAILEDALERT_TAG  1000
 
 static NSString *kPageCurl = @"pageCurl";
@@ -40,7 +41,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     CoreTextView *coreTextView;
 	ReadStatusView *statusView;
     BookReadMenuView *menuView;
-    UITextField *commitField;
 	CGRect menuRect;
 	CGRect nextRect;
     
@@ -51,6 +51,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     BOOL firstAppear;
     UIView *backgroundView;
 	NSString *pageCurlType;
+    CommentView *commentView;
 }
 
 - (void)shareButtonClicked
@@ -537,19 +538,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self showLoginAlert];
         return;
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请输入评论内容" message:@"    \n" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"发送", nil), nil];
-    commitField = [[UITextField alloc] initWithFrame:CGRectMake(12, 37, 260, 25)];
-    [commitField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [commitField.layer setCornerRadius:5];
-    [commitField setAutoresizingMask:UIViewAutoresizingFlexibleBottomMargin];
-    [commitField setDelegate:self];
-    [commitField setReturnKeyType:UIReturnKeyDone];
-    [commitField.layer setBorderColor:[UIColor blackColor].CGColor];
-    [commitField.layer setBorderWidth:0.5];
-    [commitField setBackgroundColor:[UIColor whiteColor]];
-    [alertView addSubview:commitField];
-    [commitField becomeFirstResponder];
-    [alertView show];
+     commentView = [[CommentView alloc] init];
+     commentView.delegate = self;
+    [commentView show];
+}
+
+- (void)sendButtonClicked
+{
+   [self sendCommitButtonClicked]; 
 }
 
 - (void)commitButtonClicked
@@ -568,9 +564,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         if (alertView.tag == FAILEDALERT_TAG) {
             WebViewController *controller = [[WebViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
-        } else {
-            [self sendCommitButtonClicked];
-        }
+        } 
     }
 }
 
@@ -582,12 +576,13 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)sendCommitButtonClicked
 {
-    [commitField resignFirstResponder];
-    if (commitField.text.length <= 5) {
+    [commentView.textField resignFirstResponder];
+    [commentView dismissWithClickedButtonIndex:0 animated:YES];
+    if (commentView.textField.text.length <= 5) {
         [self displayHUDError:nil message:@"评论内容太短!"];
         return;
     }
-    [ServiceManager disscussWithBookID:_chapter.bid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
+    [ServiceManager disscussWithBookID:_chapter.bid andContent:commentView.textField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
          if (!success) {
              [self displayHUDError:nil message:message];
          }

@@ -13,8 +13,9 @@
 #import "PopLoginViewController.h"
 #import "Book.h"
 #import "Chapter.h"
+#import "CommentView.h"
 
-@interface CoreTextViewController : UIViewController<UIAlertViewDelegate>
+@interface CoreTextViewController : UIViewController<UIAlertViewDelegate,CommentDelegate>
 
 @property (nonatomic, strong) Chapter *chapter;
 
