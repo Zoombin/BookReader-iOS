@@ -508,7 +508,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)gotoPreviousChapter
 {
-	if (!_chapter.previousID) {
+	if (!_chapter.previousID || !_chapter.previousID.intValue) {
 		[self displayHUDError:@"" message:@"此章是第一章"];
 		return;
 	}
@@ -518,7 +518,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)gotoNextChapter
 {
-	if (!_chapter.nextID) {
+	if (!_chapter.nextID || !_chapter.nextID.intValue) {
 		[self displayHUDError:@"" message:@"此章是最后一章"];
 		return;
 	}

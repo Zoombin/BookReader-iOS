@@ -26,6 +26,9 @@
     CGSize fullSize = self.view.bounds.size;
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(5, 44, fullSize.width - 5 - 5, fullSize.height - 44)];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.xxsy.net/help.html"]]];
+	webView.backgroundColor = [UIColor clearColor];
+	webView.scrollView.showsHorizontalScrollIndicator = NO;
+	webView.scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:webView];
 	// Do any additional setup after loading the view.
 }
