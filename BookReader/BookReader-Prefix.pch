@@ -25,4 +25,6 @@
 #define BOOK_COVER_ORIGIN_SIZE ( CGSizeMake(90, 115) )
 BOOL stopAllSync;
 
+#define DISPLAY_V_FLAG 1
+
 #endif

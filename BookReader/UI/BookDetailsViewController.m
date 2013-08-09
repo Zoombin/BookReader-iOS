@@ -544,7 +544,7 @@
 
 - (void)readButtonClicked:(id)sender
 {
-    if ([chapterArray count] > 0) {
+    if (chapterArray.count) {
         [self pushToReadViewWithChapter:nil];
         return;
     } else {
@@ -683,14 +683,12 @@
 {
 	if (!chapter) {
 		Chapter *chapter = [Chapter lastReadChapterOfBook:book];
-		if (chapter) {
-			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-			controller.chapter = chapter;
-			[self.navigationController pushViewController:controller animated:YES];
-		} else {
-			NSLog(@"未找到阅读的章节");
-		}
+		if (!chapter) return;
 	}
+	
+	CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+	controller.chapter = chapter;
+	[self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
@@ -790,9 +788,11 @@
         if (cell == nil) {
             cell = [[ChapterCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            Chapter *obj = [chapterArray objectAtIndex:[indexPath row]];
-            [(ChapterCell *)cell setChapter:obj andCurrent:NO];
-//            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
+            Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
+            [(ChapterCell *)cell setChapter:chapter andCurrent:NO];
+#ifdef DISPLAY_V_FLAG
+            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
+#endif
         }
     }
     else {
@@ -800,12 +800,11 @@
             NSArray *tmpArray = [NSArray array];
             tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
-            Book *obj = [tmpArray objectAtIndex:[indexPath row]];
-            //            obj.author = book.author;
+            Book *b = [tmpArray objectAtIndex:[indexPath row]];
             if (tableView == authorBookTableView) {
-                obj.author = nil;
+                b.author = nil;
             }
-            [(BookCell *)cell setBook:obj];
+            [(BookCell *)cell setBook:b];
         }
     }
     return cell;
