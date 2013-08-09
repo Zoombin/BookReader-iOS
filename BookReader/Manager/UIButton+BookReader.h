@@ -15,6 +15,13 @@ typedef enum {
     BookReaderButtonStyleBack = 3,
 }BookReaderButtonStyle;
 
+typedef enum {
+    BookReaderBookStoreBottomButtonStyleRecomend = 0,
+    BookReaderBookStoreBottomButtonStyleCatagory = 1,
+    BookReaderBookStoreBottomButtonStyleRank = 2,
+    BookReaderBookStoreBottomButtonStyleSearch = 3,
+}BookReaderBookStoreBottomButtonStyle;
+
 @interface UIButton (BookReader)
 + (UIButton *)addButtonWithFrame:(CGRect)frame andStyle:(BookReaderButtonStyle)style;
 
@@ -25,6 +32,7 @@ typedef enum {
 - (void)setDisabled:(BOOL)disabled;
 - (void)startCoolDownDuration:(NSTimeInterval)delay;
 
++ (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style;
 + (UIButton *)navigationBackButton;
 
 @end

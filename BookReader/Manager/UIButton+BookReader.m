@@ -90,7 +90,7 @@ static float duration = 0;
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:frame];
-//    [button setBackgroundImage:[UIImage imageNamed:@"font_select"] forState:UIControlStateDisabled];
+    //    [button setBackgroundImage:[UIImage imageNamed:@"font_select"] forState:UIControlStateDisabled];
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor clearColor]];
@@ -126,6 +126,18 @@ static float duration = 0;
         [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
         [self setTitle:newTitle forState:UIControlStateNormal];
     }
+}
+
++ (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style
+{
+    NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_cata", @"bookstore_rank", @"bookstore_search"];
+    NSArray *buttonImagesHighlighted = @[@"bookstore_reco_hl", @"bookstore_cata_hl", @"bookstore_rank_hl", @"bookstore_search_hl"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[style]] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[style]] forState:UIControlStateSelected];
+    [button setBackgroundImage:[UIImage imageNamed:buttonImagesNormal[style]] forState:UIControlStateNormal];
+    [button setFrame:frame];
+    return button;
 }
 
 @end

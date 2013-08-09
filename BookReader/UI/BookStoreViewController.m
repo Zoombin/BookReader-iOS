@@ -117,26 +117,24 @@
     [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
-    NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_cata", @"bookstore_rank", @"bookstore_search"];
-    NSArray *buttonImagesHighlighted = @[@"bookstore_reco_hl", @"bookstore_cata_hl", @"bookstore_rank_hl", @"bookstore_search_hl"];
     float width = 53;
     float delta = (bottomView.frame.size.width - width * 4) / 5;
-	NSMutableArray *buttons = [NSMutableArray array];
-    for (int i=0; i<[buttonImagesHighlighted count]; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[i]] forState:UIControlStateHighlighted];
-		[button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[i]] forState:UIControlStateSelected];
-        [button setBackgroundImage:[UIImage imageNamed:buttonImagesNormal[i]] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(delta * (i + 1) + i * width, fullSize.height - 45, width, 50)];
-        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:button];
-        [buttons addObject:button];
-    }
     
-    recommendButton = buttons[0];
-    rankButton = buttons[2];
-    cataButton = buttons[1];
-    searchButton = buttons[3];
+    recommendButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (0 + 1) + 0 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleRecomend];
+    [recommendButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:recommendButton];
+    
+    rankButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (2 + 1) + 2 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleRank];
+    [rankButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:rankButton];
+    
+    cataButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (1 + 1) + 1 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleCatagory];
+    [cataButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cataButton];
+    
+    searchButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (3 + 1) + 3 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleSearch];
+    [searchButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:searchButton];
     
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
