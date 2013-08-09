@@ -78,45 +78,19 @@
             numTextFieldRect = CGRectMake(CGRectGetMaxX(reduceBtnRect), 10, 80, 30);
             addBtnRect = CGRectMake(CGRectGetMaxX(numTextFieldRect), 10, 50, 30);
             sendBtnRect = CGRectMake(self.bounds.size.width - 60, 10, 50, 30);
-            height = 70.0f;
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 20)];
-            [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
-            [detailLabel setTextAlignment:NSTextAlignmentLeft];
-            [detailLabel setFont:[UIFont systemFontOfSize:11]];
-            [detailLabel setTextColor:[UIColor grayColor]];
-            [detailLabel setAdjustsFontSizeToFitWidth:YES];
-            [detailLabel setBackgroundColor:[UIColor clearColor]];
-            [detailLabel setText:@"说明：每赠送一颗钻石消费100潇湘币。"];
-            [self.contentView addSubview:detailLabel];
+            height = 50.0f;
         } else if (cellStyle == GiftCellStyleFlower) {
             reduceBtnRect = CGRectMake(65, 10, 50, 30);
             numTextFieldRect = CGRectMake(CGRectGetMaxX(reduceBtnRect), 10, 80, 30);
             addBtnRect = CGRectMake(CGRectGetMaxX(numTextFieldRect), 10, 50, 30);
             sendBtnRect = CGRectMake(self.bounds.size.width - 60, 10, 50, 30);
-            height = 70.0f;
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 20)];
-            [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
-            [detailLabel setTextAlignment:NSTextAlignmentLeft];
-            [detailLabel setTextColor:[UIColor grayColor]];
-            [detailLabel setFont:[UIFont systemFontOfSize:11]];
-            [detailLabel setAdjustsFontSizeToFitWidth:YES];
-            [detailLabel setBackgroundColor:[UIColor clearColor]];
-            [detailLabel setText:@"说明：每赠送一朵鲜花消费20潇湘币。"];
-            [self.contentView addSubview:detailLabel];
+            height = 50.0f;
         } else if (cellStyle == GiftCellStyleTicket) {
             reduceBtnRect = CGRectMake(65, 10, 50, 30);
             numTextFieldRect = CGRectMake(CGRectGetMaxX(reduceBtnRect), 10, 80, 30);
             addBtnRect = CGRectMake(CGRectGetMaxX(numTextFieldRect), 10, 50, 30);
             sendBtnRect = CGRectMake(self.bounds.size.width - 60, 10, 50, 30);
-            height = 70.0f;
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, CGRectGetMaxY(sendBtnRect) + 5, self.bounds.size.width - 20, 20)];
-            [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
-            [detailLabel setTextAlignment:NSTextAlignmentLeft];
-            [detailLabel setTextColor:[UIColor grayColor]];
-            [detailLabel setFont:[UIFont systemFontOfSize:11]];
-            [detailLabel setBackgroundColor:[UIColor clearColor]];
-            [detailLabel setText:@"说明：每订阅消费满10月即可获赠1张月票，当月有效！"];
-            [self.contentView addSubview:detailLabel];
+            height = 50.0f;
         } else if (cellStyle == GiftCellStyleComment) {
             height = 170.0f;
             UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 12.5, self.contentView.bounds.size.width, 30)];
@@ -152,14 +126,6 @@
                 [buttonsArray addObject:button];
                 
                 sendBtnRect = CGRectMake(10, 130, 50, 30);
-                
-                UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(sendBtnRect) + 5, CGRectGetMinY(sendBtnRect), 220, 25)];
-                [detailLabel setTextAlignment:NSTextAlignmentLeft];
-                [detailLabel setFont:[UIFont systemFontOfSize:16]];
-                [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
-                [detailLabel setBackgroundColor:[UIColor clearColor]];
-                [detailLabel setText:@"(每次评价需消耗200潇湘币)"];
-                [self.contentView addSubview:detailLabel];
             }
         } else if (cellStyle == GiftCellStyleMoney) {
             height = 140.0f;
@@ -172,14 +138,6 @@
             [self.contentView addSubview:descriptionLabel];
             
             sendBtnRect = CGRectMake(10, 90, 50, 30);
-            
-            UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(sendBtnRect) + 5, CGRectGetMinY(sendBtnRect), 220, 25)];
-            [detailLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
-            [detailLabel setTextAlignment:NSTextAlignmentLeft];
-            [detailLabel setFont:[UIFont systemFontOfSize:16]];
-            [detailLabel setBackgroundColor:[UIColor clearColor]];
-            [detailLabel setText:@"(以上数字单位为潇湘币)"];
-            [self.contentView addSubview:detailLabel];
             
             float width = (self.contentView.frame.size.width - 120 - 10 - 10*4)/3;
             for (int i = 0; i< 5; i++) {

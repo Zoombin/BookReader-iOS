@@ -664,6 +664,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)bookDetailButtonClick
 {
+    [self resetScreenToVer];
+    firstAppear = YES;
     BookDetailsViewController *controller = [[BookDetailsViewController alloc] initWithBook:_chapter.bid];
     [self.navigationController pushViewController:controller animated:YES];
 }

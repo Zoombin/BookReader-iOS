@@ -400,7 +400,7 @@
 {
     float screenWidth = self.bounds.size.width;
     float screenHeight = self.bounds.size.height;
-    navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 2.5, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3), screenWidth / 2.5, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3))];
+    navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 3, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3), screenWidth / 3, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3))];
     [navigationView setHidden:YES];
     [navigationView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
     [navigationView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
@@ -411,11 +411,19 @@
     for (int i = 0; i < btnNames.count; i ++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:btnNames[i] forState:UIControlStateNormal];
-        [btn setFrame:CGRectMake(5, 0 + navigationView.frame.size.height/3 * i, navigationView.frame.size.width, (navigationView.frame.size.height / 3) - 5)];
+        [btn setFrame:CGRectMake(5, 0 + (navigationView.frame.size.height/3) * i, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
         [btn addTarget:self action:NSSelectorFromString(selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
+        [btn setShowsTouchWhenHighlighted:YES];
         [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+//        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [btn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [navigationView addSubview:btn];
+        
+        if (i!=2) {
+        UIView *speateLine = [[UIView alloc] initWithFrame:CGRectMake(2, CGRectGetMaxY(btn.frame) - 2, navigationView.bounds.size.width - 4, 1)];
+        [speateLine setBackgroundColor:[UIColor whiteColor]];
+        [navigationView addSubview:speateLine];
+        }
     }
     
     
