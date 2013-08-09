@@ -117,8 +117,8 @@
     [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
     [self.view addSubview:bookShelfButton];
     
-    NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_rank", @"bookstore_cata", @"bookstore_search"];
-    NSArray *buttonImagesHighlighted = @[@"bookstore_reco_hl", @"bookstore_rank_hl", @"bookstore_cata_hl", @"bookstore_search_hl"];
+    NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_cata", @"bookstore_rank", @"bookstore_search"];
+    NSArray *buttonImagesHighlighted = @[@"bookstore_reco_hl", @"bookstore_cata_hl", @"bookstore_rank_hl", @"bookstore_search_hl"];
     float width = 53;
     float delta = (bottomView.frame.size.width - width * 4) / 5;
 	NSMutableArray *buttons = [NSMutableArray array];
@@ -134,8 +134,8 @@
     }
     
     recommendButton = buttons[0];
-    rankButton = buttons[1];
-    cataButton = buttons[2];
+    rankButton = buttons[2];
+    cataButton = buttons[1];
     searchButton = buttons[3];
     
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 40)];
