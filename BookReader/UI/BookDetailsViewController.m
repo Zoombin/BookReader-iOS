@@ -677,13 +677,17 @@
 - (void)pushToReadViewWithChapter:(Chapter *)chapter
 {
 	[book persistWithBlock:^(void) {
-		if (!chapter) {
-			Chapter *chapter = [Chapter lastReadChapterOfBook:book];
-			if (!chapter) return;
+		Chapter *c = chapter;
+		if (!c) {
+			c = [Chapter lastReadChapterOfBook:book];
+			if (!c) {
+				NSLog(@"获取章节失败");
+				return;
+			}
 		}
 		
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
-		controller.chapter = chapter;
+		controller.chapter = c;
 		[self.navigationController pushViewController:controller animated:YES];
 	}];
 }

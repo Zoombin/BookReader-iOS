@@ -64,7 +64,7 @@
 			[chapter clone:c];
 		}];
 	} completion:^(BOOL success, NSError *error) {
-			if (block) block();
+		if (block) block();
 	}];
 }
 
