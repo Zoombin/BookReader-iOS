@@ -24,13 +24,15 @@
 #import "AppDelegate.h"
 #import "BookDetailsViewController.h"
 #import "WebViewController.h"
+#import "PopLoginViewController.h"
+#import "NSString+XXSY.h"
 
 #define FAILEDALERT_TAG  1000
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
-@interface CoreTextViewController() <BookReadMenuViewDelegate,ChapterViewDelegate,MFMessageComposeViewControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
+@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate>
 
 @end
 
@@ -51,6 +53,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     BOOL firstAppear;
     UIView *backgroundView;
 	NSString *pageCurlType;
+	BOOL enterChapterIsVIP;
 }
 
 - (void)shareButtonClicked
@@ -132,6 +135,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		[self.view addSubview:helpView];
 	}
 	backgroundView.alpha = 1.0 - [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
+	
+	enterChapterIsVIP = _chapter.bVip.boolValue;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -305,7 +310,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[self playPageCurlAnimation];
 }
 
-- (void)pop
+- (void)back
 {
 	[self.navigationController popViewControllerAnimated:YES];
 }
@@ -314,7 +319,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	if (!aChapter) {
 		[self displayHUDError:@"错误" message:@"获取章节目录失败"];
-		[self performSelector:@selector(pop) withObject:nil afterDelay:1.5];
+		[self performSelector:@selector(back) withObject:nil afterDelay:1.5];
 		return;
 	}
 	if (aChapter.content) {
@@ -328,7 +333,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				book.localUpdateDate = [NSDate date];
 			}
 		}];
-		statusView.title.text = [NSString stringWithFormat:@"%@", _chapter.name];
+		statusView.title.text = [NSString displayNameOfChapter:_chapter];
 		[self paging];
 		NSNumber *startReadIndex = readIndex ? readIndex : _chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
@@ -337,8 +342,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	} else {
 		[self displayHUD:@"获取章节内容..."];
 		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
+			[self hideHUD:YES];
 			if (success) {
-				[self hideHUD:YES];
 				aChapter.content = content;
 				aChapter.previousID = previousID;
 				aChapter.nextID = nextID;
@@ -352,9 +357,23 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				}];
 				[self gotoChapter:aChapter withReadIndex:nil];
 			} else {//没下载到，尝试订阅
+				if (![ServiceManager isSessionValid]) {
+					NSLog(@"尚未登录无法阅读");
+					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+					popLoginViewController.delegate = self;
+					if (enterChapterIsVIP) {//如果从其他界面进入时候传进来的章节是vip章节，当取消登录的时候需要返回之前的界面，当登录后需要订阅该章节
+						popLoginViewController.actionAfterCancel = @selector(back);
+						popLoginViewController.actionAfterLogin = @selector(didLogin);
+					}
+					[self addChildViewController:popLoginViewController];
+					[self.view addSubview:popLoginViewController.view];
+					return;
+				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
+				[self displayHUD:@"订阅章节内容..."];
 				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
+					[self hideHUD:YES];
 					if (success) {
 						aChapter.content = content;
 						aChapter.previousID = previousID;
@@ -369,7 +388,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 						}];
 						[self gotoChapter:aChapter withReadIndex:nil];
 					} else {
-                        [self hideHUD:YES];
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读该章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
                         [alertView setTag:FAILEDALERT_TAG];
                         [alertView show];
@@ -378,6 +396,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			}
 		}];
 	}
+}
+
+- (void)didLogin
+{
+	[self gotoChapter:_chapter withReadIndex:nil];
 }
 
 - (void)menu
@@ -467,7 +490,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		Mark *mark = [Mark createInContext:localContext];
 		mark.chapterID = _chapter.uid;
-		mark.chapterName = _chapter.name;
+		mark.chapterName = [NSString displayNameOfChapter:_chapter];
 		mark.reference = reference;
 		mark.startWordIndex = @(range.location);
 		mark.progress = @([self readPercentage]);

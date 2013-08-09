@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZBViewController.h"
 
 @protocol PopLoginViewControllerDelegate <NSObject>
-
-- (void)didLogin:(BOOL)success;
 
 @end
 
 
 
-@interface PopLoginViewController : UIViewController
+@interface PopLoginViewController : ZBViewController
 
 @property (nonatomic, weak) id<PopLoginViewControllerDelegate> delegate;
+@property (nonatomic, assign) SEL actionAfterLogin;
+@property (nonatomic, assign) SEL actionAfterCancel;
 
 @end

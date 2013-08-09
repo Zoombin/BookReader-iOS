@@ -76,7 +76,7 @@
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [cancelBtn setBackgroundImage:[UIImage imageNamed:@"cancel_nor"] forState:UIControlStateNormal];
     [cancelBtn setBackgroundImage:[UIImage imageNamed:@"cancel_sel"] forState:UIControlStateHighlighted];
-    [cancelBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+    [cancelBtn addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [middleBkg addSubview:cancelBtn];
 }
 
@@ -87,18 +87,36 @@
 
 - (void)close
 {
+	_actionAfterLogin = nil;
+	_actionAfterCancel = nil;
 	[self willMoveToParentViewController:nil];
 	[self viewWillDisappear:YES];
 	[self.view removeFromSuperview];
 	[self removeFromParentViewController];
 }
 
+- (void)cancel
+{
+	[self hideKeyboard];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+	if (_actionAfterCancel) {
+		if ([_delegate respondsToSelector:_actionAfterCancel]) {
+			[_delegate performSelector:_actionAfterCancel];
+		}
+	}
+#pragma clang diagnostic pop
+	[self close];
+}
+
 - (void)login
 {
+	
 	if (accountTextField.text.length == 0|| passwordTextField.text.length == 0) {
         [self displayHUDError:nil message:@"账号或者密码不能为空"];
         return;
     }
+	[self hideKeyboard];
 	[self displayHUD:@"登录中"];
 	[ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
         if (error) {
@@ -109,8 +127,15 @@
                 [self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
-                [self close];
-				[_delegate didLogin:YES];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+				if (_actionAfterLogin) {
+					if ([_delegate respondsToSelector:_actionAfterLogin]) {
+						[_delegate performSelector:_actionAfterLogin];
+					}
+				}
+#pragma clang diagnostic pop
+				[self close];
             } else {
                 [self displayHUDError:nil message:message];
             }

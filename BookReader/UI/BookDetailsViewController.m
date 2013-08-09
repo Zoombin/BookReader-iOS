@@ -691,7 +691,7 @@
 - (BOOL)checkLogin
 {
     if (![ServiceManager isSessionValid]) {
-        [self showLoginAlert];
+        [self showPopLogin];
         return NO;
     } else {
         return YES;
@@ -786,9 +786,6 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
             [(ChapterCell *)cell setChapter:chapter andCurrent:NO];
-#ifdef DISPLAY_V_FLAG
-            cell.detailTextLabel.text = chapter.bVip.boolValue ? @"v" : @"";
-#endif
         }
     }
     else {
@@ -880,10 +877,11 @@
     return scaledImage;
 }
 
-- (void)showLoginAlert
+- (void)showPopLogin
 {
 	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
 	popLoginViewController.delegate = self;
+	popLoginViewController.actionAfterLogin = @selector(didLogin);
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
 }
@@ -900,9 +898,9 @@
 	}];
 }
 
-#pragma mark - PopLoginViewControllerDelegate
+#pragma mark - PopLoginViewController callback
 
-- (void)didLogin:(BOOL)success
+- (void)didLogin
 {
 	[self checkExistsFav];
 }

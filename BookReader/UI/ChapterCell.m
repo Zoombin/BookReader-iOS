@@ -8,6 +8,7 @@
 
 #import "ChapterCell.h"
 #import "NSString+ZBUtilites.h"
+#import "NSString+XXSY.h"
 
 #define ChapterCellHeight 50.0f
 
@@ -36,7 +37,7 @@
 
 - (void)setChapter:(Chapter *)chapter andCurrent:(BOOL)current
 {
-	chapterNameLabel.text = [NSString stringWithFormat:@"卷%d:%@", chapter.rollID.intValue, chapter.name];
+	chapterNameLabel.text = [NSString displayNameOfChapter:chapter];
     if (chapter.lastReadIndex == nil) {
         chapterNameLabel.textColor = [UIColor blackColor];
     }else if (current) {
