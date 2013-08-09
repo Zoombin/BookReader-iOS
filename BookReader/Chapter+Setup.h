@@ -16,8 +16,6 @@
 - (void)persistWithBlock:(dispatch_block_t)block;
 + (void)persist:(NSArray *)array withBlock:(dispatch_block_t)block;
 - (void)truncate;
-+ (void)truncateAll;
-
 
 + (NSArray *)allChaptersOfBookID:(NSString *)bookID;
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book;
