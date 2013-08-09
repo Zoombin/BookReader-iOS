@@ -586,13 +586,9 @@ static NSNumber *sUserID;
     parameters[@"bookid"] = bookid;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
-        }
+        if (block) block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(nil, error, nil);
-        }
+        if (block) block(NO, error, nil);
     }];
 }
 

@@ -328,7 +328,7 @@
     
     float three_btn_width = (coverView.frame.size.width - 4 * 5)/3;
     NSArray *buttonNames = @[@"阅读", @"收藏", @"投月票"];
-    NSArray *selectorString = @[@"readButtonClicked:", @"favButtonClicked:", @"buttonClicked:"];
+    NSArray *selectorString = @[@"readButtonClicked:", @"addFav", @"buttonClicked:"];
     for (int i = 0; i < [buttonNames count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setFrame:CGRectMake(5 * (i + 1) + three_btn_width * i, CGRectGetMaxY(commentLabel.frame)+10, three_btn_width, 40)];
@@ -498,16 +498,7 @@
     }
     
     if ([ServiceManager isSessionValid]) {
-        [ServiceManager existsFavoriteWithBookID:bookid withBlock:^(BOOL isExist, NSError *error) {
-            if (error) {
-                
-            } else {
-                if (isExist) {
-					[favButton setEnabled:NO];
-					favButton.selected = YES;
-                }
-            }
-        }];
+		[self checkExistsFav];
     }
     
     [shortdescribeTextView setText:book.describe];
@@ -544,17 +535,14 @@
         return;
     } else {
         [self getChaptersDataWithBlock:^{
-            [Chapter persist:chapterArray withBlock:^{
-				[self hideHUD:YES];
-                [self pushToReadViewWithChapter:nil];
-            }];
+			Chapter *chapterShoudRead = [Chapter lastReadChapterOfBook:book];
+			if (!chapterShoudRead) {
+				chapterShoudRead = chapterArray[0];
+			}
+			[self hideHUD:YES];
+			[self pushToReadViewWithChapter:chapterShoudRead];
         }];
     }
-}
-
-- (void)favButtonClicked:(id)sender
-{
-    [self addFav];
 }
 
 - (void)buttonClicked:(id)sender
@@ -624,9 +612,8 @@
 - (void)sendCommitButtonClicked
 {
     [commitField resignFirstResponder];
-    if ([self checkLogin] == NO) {
-        return;
-    }
+    if (![self checkLogin]) return;
+
     if ([commitField.text length] <= 5) {
         [self displayHUDError:nil message:@"评论内容太短!"];
         return;
@@ -689,14 +676,16 @@
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 		controller.chapter = c;
 		[self.navigationController pushViewController:controller animated:YES];
+		
+		[Chapter persist:chapterArray withBlock:nil];
 	}];
 }
 
 - (void)pushToGiftViewWithIndex:(NSString *)index {
-    if ([self checkLogin]) {
-        GiftViewController *giftViewController = [[GiftViewController alloc] initWithIndex:index andBook:book];
-        [self.navigationController pushViewController:giftViewController animated:YES];
-    }
+    if (![self checkLogin]) return;
+	
+	GiftViewController *giftViewController = [[GiftViewController alloc] initWithIndex:index andBook:book];
+	[self.navigationController pushViewController:giftViewController animated:YES];
 }
 
 - (BOOL)checkLogin
@@ -711,19 +700,31 @@
 
 - (void)addFav
 {
-    if ([self checkLogin]) {
-		[self displayHUD:@"请稍等..."];
-        [ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(BOOL success, NSError *error,NSString *message) {
-            if (success) {
-				book.bFav = @(YES);
-				favButton.selected = YES;
-				[favButton setEnabled:NO];
-				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
-            } else {
-                [self displayHUDError:nil message:error.description];
-            }
-        }];
-    }
+    if (![self checkLogin]) return;
+	
+	[self displayHUD:@"请稍等..."];
+	[ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(BOOL success, NSError *error,NSString *message) {
+		if (success) {
+			[self hideHUD:YES];
+			book.bFav = @(YES);
+			favButton.selected = YES;
+			[favButton setEnabled:NO];
+			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+			[book persistWithBlock:^(void) {
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+					b.bFav = @(YES);
+				} completion:^(BOOL success, NSError *error) {
+					if (chapterArray) {
+						[Chapter persist:chapterArray withBlock:nil];
+					}
+				}];
+			}];
+		} else {
+			[self displayHUDError:nil message:message];
+		}
+	}];
 }
 
 #pragma mark tableview
@@ -882,8 +883,28 @@
 - (void)showLoginAlert
 {
 	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+	popLoginViewController.delegate = self;
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
+}
+
+- (void)checkExistsFav
+{
+	[ServiceManager existsFavoriteWithBookID:bookid withBlock:^(BOOL isExist, NSError *error) {
+		if (!error) {
+			if (isExist) {
+				[favButton setEnabled:NO];
+				favButton.selected = YES;
+			}
+		}
+	}];
+}
+
+#pragma mark - PopLoginViewControllerDelegate
+
+- (void)didLogin:(BOOL)success
+{
+	[self checkExistsFav];
 }
 
 @end

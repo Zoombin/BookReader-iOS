@@ -110,6 +110,7 @@
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
                 [self close];
+				[_delegate didLogin:YES];
             } else {
                 [self displayHUDError:nil message:message];
             }

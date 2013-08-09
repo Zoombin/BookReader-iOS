@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PopLoginViewControllerDelegate <NSObject>
+
+- (void)didLogin:(BOOL)success;
+
+@end
+
+
 
 @interface PopLoginViewController : UIViewController
+
+@property (nonatomic, weak) id<PopLoginViewControllerDelegate> delegate;
 
 @end
