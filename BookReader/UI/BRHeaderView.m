@@ -73,23 +73,40 @@
     
     #define UIIMAGE(x) [UIImage imageNamed:x]
     NSArray *styles = @[@(BookReaderButtonStyleRight),@(BookReaderButtonStyleLeft),@(BookReaderButtonStyleLeft),@(BookReaderButtonStyleRight),@(BookReaderButtonStyleNormal),@(BookReaderButtonStyleNormal)];
-    for (int i = 0; i < [rectStrings count]; i++) {
-        UIButton *button = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[i]) andStyle:[styles[i] intValue]];
-        [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [i < 4 ? headerViewOne : headerViewTwo addSubview:button];
-        if (i == 1) {
-            [button setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
-        }else if (i == 3) {
-            refreshButton = button;
-            [button setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
-        }
-        if (i == 5) {
-            [button setUserInteractionEnabled:NO];
-            [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            deleteButton = button;
-        }
-    }
+    
+    UIButton *bookStoreBtn = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[0]) andStyle:[styles[0] intValue]];
+    [bookStoreBtn setTitle:titles[0] forState:UIControlStateNormal];
+    [bookStoreBtn addTarget:self action:NSSelectorFromString(selectorStrings[0]) forControlEvents:UIControlEventTouchUpInside];
+    [headerViewOne addSubview:bookStoreBtn];
+    
+    UIButton *memberBtn = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[1]) andStyle:[styles[1] intValue]];
+    [memberBtn setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
+    [memberBtn setTitle:titles[1] forState:UIControlStateNormal];
+    [memberBtn addTarget:self action:NSSelectorFromString(selectorStrings[1]) forControlEvents:UIControlEventTouchUpInside];
+    [headerViewOne addSubview:memberBtn];
+    
+    UIButton *editBtn = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[2]) andStyle:[styles[2] intValue]];
+    [editBtn setTitle:titles[2] forState:UIControlStateNormal];
+    [editBtn addTarget:self action:NSSelectorFromString(selectorStrings[2]) forControlEvents:UIControlEventTouchUpInside];
+    [headerViewOne addSubview:editBtn];
+    
+    refreshButton = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[3]) andStyle:[styles[3] intValue]];
+    [refreshButton setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
+    [refreshButton setTitle:titles[3] forState:UIControlStateNormal];
+    [refreshButton addTarget:self action:NSSelectorFromString(selectorStrings[3]) forControlEvents:UIControlEventTouchUpInside];
+    [headerViewOne addSubview:refreshButton];
+    
+    UIButton *finishBtn = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[4]) andStyle:[styles[4] intValue]];
+    [finishBtn setTitle:titles[4] forState:UIControlStateNormal];
+    [finishBtn addTarget:self action:NSSelectorFromString(selectorStrings[4]) forControlEvents:UIControlEventTouchUpInside];
+    [headerViewTwo addSubview:finishBtn];
+    
+    deleteButton = [UIButton addButtonWithFrame:CGRectFromString(rectStrings[5]) andStyle:[styles[5] intValue]];
+    [deleteButton setUserInteractionEnabled:NO];
+    [deleteButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [deleteButton setTitle:titles[5] forState:UIControlStateNormal];
+    [deleteButton addTarget:self action:NSSelectorFromString(selectorStrings[5]) forControlEvents:UIControlEventTouchUpInside];
+    [headerViewTwo addSubview:deleteButton];
 }
 
 - (void)deleteButtonEnable:(BOOL)enable
