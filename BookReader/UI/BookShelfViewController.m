@@ -330,8 +330,12 @@
 		if (success) {
 			[needRemoveFavoriteBooks removeObject:needRemoveBook];
 			[self refreshBooks];
+			needRemoveBook.bFav = NO;
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				needRemoveBook.bFav = NO;
+				Book *book = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+				if (book) {
+					book.bFav = NO;
+				}
 			} completion:^(BOOL success, NSError *error) {
 				[self syncRemoveFav];
 			}];
@@ -355,8 +359,10 @@
 						needFavAndAutoBuyBookCell.autoBuy = YES;
 						needFavAndAutoBuyBookCell.book.autoBuy = @(YES);
 						[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-							Book *b = [Book findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", needFavAndAutoBuyBookCell.book.uid] inContext:localContext];
-							b.autoBuy = @(YES);
+							Book *b = [Book findFirstByAttribute:@"uid" withValue:needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+							if (b) {
+								b.autoBuy = @(YES);
+							}
 						}];
 					}];
 				} else {
