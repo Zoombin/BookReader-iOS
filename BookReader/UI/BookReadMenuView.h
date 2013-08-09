@@ -13,9 +13,9 @@
 
 - (void)backButtonPressed;
 - (void)addBookMarkButtonPressed;
-- (void)nextChapterButtonClick;
-- (void)previousChapterButtonClick;
 
+- (void)gotoNextChapter;
+- (void)gotoPreviousChapter;
 
 - (void)chaptersButtonClicked;
 - (void)shareButtonClicked;
@@ -33,12 +33,9 @@
 
 @end
 
-@interface BookReadMenuView : UIView<UIScrollViewDelegate> {
-    id<BookReadMenuViewDelegate> delegate;
-    UILabel *titleLabel;
-}
+@interface BookReadMenuView : UIView<UIScrollViewDelegate>
 
-@property (nonatomic, strong) id<BookReadMenuViewDelegate> delegate;
+@property (nonatomic, weak) id<BookReadMenuViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *fontButonMin;
 - (void)hidenAllMenu;

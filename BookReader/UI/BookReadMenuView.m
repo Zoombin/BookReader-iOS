@@ -49,8 +49,6 @@
     UITapGestureRecognizer *tapGestureReconizer;
     CGRect tapRect;
 }
-@synthesize titleLabel;
-@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -81,8 +79,8 @@
     [topView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:topView];
     
-    titleLabel = [UILabel titleLableWithFrame:topView.bounds];
-    [self addSubview:titleLabel];
+    _titleLabel = [UILabel titleLableWithFrame:topView.bounds];
+    [self addSubview:_titleLabel];
     
     static float buttonOffsetX = 10.0;
     static float buttonOffsetY = 0.0;
@@ -117,23 +115,23 @@
 
 - (void)nextChapter
 {
-    if ([self.delegate respondsToSelector:@selector(nextChapterButtonClick)]) {
-        [self.delegate nextChapterButtonClick];
-    }
+	if ([_delegate respondsToSelector:@selector(gotoNextChapter)]) {
+		[_delegate gotoNextChapter];
+	}
 }
 
 - (void)preChapter
 {
-    if ([self.delegate respondsToSelector:@selector(previousChapterButtonClick)]) {
-        [self.delegate previousChapterButtonClick];
-    }
+	if ([_delegate respondsToSelector:@selector(gotoPreviousChapter)]) {
+		[_delegate gotoPreviousChapter];
+	}
 }
 
 - (void)messageShare
 {
-    if ([self.delegate respondsToSelector:@selector(shareButtonClicked)]) {
-        [self.delegate shareButtonClicked];
-    }
+	if ([_delegate respondsToSelector:@selector(shareButtonClicked)]) {
+		[_delegate shareButtonClicked];
+	}
 }
 
 - (void)initBottomView
@@ -168,7 +166,7 @@
         [bottomView addSubview:button];
         [bottomViewBtns addObject:button];
         k ++;
-        if (i==3) {
+        if (i == 3) {
             k = 0;
         }
     }
