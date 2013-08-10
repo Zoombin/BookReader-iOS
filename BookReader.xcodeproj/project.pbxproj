@@ -217,6 +217,7 @@
 		778E79C017B2377F00DC28B7 /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 778E79A417B2377F00DC28B7 /* LICENCE.txt */; };
 		778E79C717B2377F00DC28B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E79B617B2377F00DC28B7 /* Reachability.m */; };
 		778E79C917B2377F00DC28B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778E79B817B2377F00DC28B7 /* README.md */; };
+		778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 778E7A6317B6414700DC28B7 /* StoreKit.framework */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
@@ -563,6 +564,7 @@
 		778E79B517B2377F00DC28B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		778E79B617B2377F00DC28B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		778E79B817B2377F00DC28B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		778E7A6317B6414700DC28B7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */,
 				778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */,
 				7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */,
 				8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */,
@@ -1338,6 +1341,7 @@
 		8BDB0AB4165E03BB008F328A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				778E7A6317B6414700DC28B7 /* StoreKit.framework */,
 				7780154F1762222B005296DD /* SystemConfiguration.framework */,
 				7780154D17622204005296DD /* MobileCoreServices.framework */,
 				188FE67316FB003F009561CB /* CoreData.framework */,
@@ -1469,6 +1473,7 @@
 			knownRegions = (
 				en,
 				"zh-Hans",
+				English,
 			);
 			mainGroup = 8BDB0AA6165E03BB008F328A;
 			productRefGroup = 8BDB0AB2165E03BB008F328A /* Products */;
