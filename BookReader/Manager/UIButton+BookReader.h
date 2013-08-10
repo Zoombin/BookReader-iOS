@@ -22,6 +22,12 @@ typedef enum {
     BookReaderBookStoreBottomButtonStyleSearch = 3,
 }BookReaderBookStoreBottomButtonStyle;
 
+typedef enum {
+    BookReaderBookStoreBottomButtonStyleAll = 0,
+    BookReaderBookStoreBottomButtonStyleNew = 1,
+    BookReaderBookStoreBottomButtonStyleHot = 2,
+}BookReaderBookStoreRankButtonStyle;
+
 @interface UIButton (BookReader)
 + (UIButton *)addButtonWithFrame:(CGRect)frame andStyle:(BookReaderButtonStyle)style;
 

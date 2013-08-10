@@ -42,6 +42,8 @@
     LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
     NotificationView *notificationView;
+    
+    UIScrollView *backgroundScroll;
 }
 
 - (BOOL)isWifi
@@ -58,12 +60,16 @@
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
     
-    notificationView = [[NotificationView alloc] initWithFrame:CGRectMake(30, 60, fullSize.width - 60, 85)];
+     backgroundScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height)];
+    [backgroundScroll setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:backgroundScroll];
+    
+    notificationView = [[NotificationView alloc] initWithFrame:CGRectMake(30, 20, fullSize.width - 60, 85)];
     [notificationView setDelegate:self];
-    [self.view addSubview:notificationView];
+    [backgroundScroll addSubview:notificationView];
     [notificationView setHidden:YES];
     
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, fullSize.height - BRHeaderView.height)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -71,7 +77,18 @@
 	[self.headerView addButtons];
 	[self.headerView setDelegate:self];
 	booksView.gridStyle = YES;
-	[self.view addSubview:booksView];
+	[backgroundScroll addSubview:booksView];
+    
+    UIView *wifiNoticeView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(booksView.frame), fullSize.width, 150)];
+    [wifiNoticeView setBackgroundColor:[UIColor colorWithRed:136.0/255.0 green:65.0/255.0 blue:26.0/255.0 alpha:1.0]];
+    [backgroundScroll addSubview:wifiNoticeView];
+    
+    UITextView *wifiNoticeTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, 10, fullSize.width - 10, 120)];
+    [wifiNoticeTextView setText:@"特别提示：本应用在WIFI环境下会自动下载书架内所有作品的章节内容以便您离线阅读。在非WIFI下，本应用则仅下载开启了”自动更新“作品的章节内容，这将消耗极少的流量。"];
+    [wifiNoticeTextView setFont:[UIFont systemFontOfSize:15]];
+    [wifiNoticeView addSubview:wifiNoticeTextView];
+    
+    [backgroundScroll setContentSize:CGSizeMake(fullSize.width, fullSize.height + 150)];
 }
 
 - (LoginReminderView *)loginReminderView {
@@ -90,15 +107,15 @@
 		[standView removeFromSuperview];
 	}
 	[booksStandViews removeAllObjects];
-	startYOfStandView = 133;
+	startYOfStandView = 133 - 40;
 	standViewsDistance = 109;
 	for (int i = 0; i < number; i++) {
 		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
 		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 27);
 		[booksStandViews addObject:standView];
-		[self.view addSubview:standView];
-		[self.view sendSubviewToBack:standView];
-		[self.view sendSubviewToBack:self.backgroundView];
+		[backgroundScroll addSubview:standView];
+		[backgroundScroll sendSubviewToBack:standView];
+		[backgroundScroll sendSubviewToBack:self.backgroundView];
 	}
 }
 
