@@ -96,13 +96,6 @@
 	}];
 }
 
-//+ (void)truncateAll
-//{
-//	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//		[Chapter truncateAllInContext:localContext];
-//	}];
-//}
-
 #pragma mark -
 
 + (NSArray *)allChaptersOfBookID:(NSString *)bookID
