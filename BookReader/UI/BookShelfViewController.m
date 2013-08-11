@@ -46,7 +46,7 @@
     UIScrollView *backgroundScroll;
 }
 
-- (BOOL)isWifi
+- (BOOL)isWifiAvailable
 {
 	Reachability *reachability = [Reachability reachabilityForLocalWiFi];
 	return [reachability isReachableViaWiFi];
@@ -226,7 +226,7 @@
 		syncing = NO;
 		[self refreshBooks];
 		[chapters removeAllObjects];
-		chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifi]] mutableCopy];
+		chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifiAvailable]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
 		[self syncChaptersContent];
 		return;
