@@ -22,8 +22,9 @@
 #import "Chapter+Setup.h"
 #import "BookDetailsViewController.h"
 #import "Reachability.h"
+#import "BRWifiReminderView.h"
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, BRBooksViewDelegate>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate>
 @end
 
 @implementation BookShelfViewController {
@@ -41,9 +42,6 @@
     
     LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
-    NotificationView *notificationView;
-    
-    UIScrollView *backgroundScroll;
 }
 
 - (BOOL)isWifiAvailable
@@ -56,39 +54,18 @@
 {
     [super viewDidLoad];
 	self.headerView.titleLabel.text = @"书架";
+	[self.headerView addButtons];
+	[self.headerView setDelegate:self];
 	self.hideKeyboardRecognzier.enabled = NO;
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
     
-     backgroundScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height)];
-    [backgroundScroll setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:backgroundScroll];
-    
-    notificationView = [[NotificationView alloc] initWithFrame:CGRectMake(30, 20, fullSize.width - 60, 85)];
-    [notificationView setDelegate:self];
-    [backgroundScroll addSubview:notificationView];
-    [notificationView setHidden:YES];
-    
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, fullSize.height - BRHeaderView.height)];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
-	[self.headerView addButtons];
-	[self.headerView setDelegate:self];
-	booksView.gridStyle = YES;
-	[backgroundScroll addSubview:booksView];
-    
-    UIView *wifiNoticeView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(booksView.frame), fullSize.width, 150)];
-    [wifiNoticeView setBackgroundColor:[UIColor colorWithRed:136.0/255.0 green:65.0/255.0 blue:26.0/255.0 alpha:1.0]];
-    [backgroundScroll addSubview:wifiNoticeView];
-    
-    UITextView *wifiNoticeTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, 10, fullSize.width - 10, 120)];
-    [wifiNoticeTextView setText:@"特别提示：本应用在WIFI环境下会自动下载书架内所有作品的章节内容以便您离线阅读。在非WIFI下，本应用则仅下载开启了”自动更新“作品的章节内容，这将消耗极少的流量。"];
-    [wifiNoticeTextView setFont:[UIFont systemFontOfSize:15]];
-    [wifiNoticeView addSubview:wifiNoticeTextView];
-    
-    [backgroundScroll setContentSize:CGSizeMake(fullSize.width, fullSize.height + 150)];
+	[self.view addSubview:booksView];
 }
 
 - (LoginReminderView *)loginReminderView {
@@ -113,9 +90,9 @@
 		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
 		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 27);
 		[booksStandViews addObject:standView];
-		[backgroundScroll addSubview:standView];
-		[backgroundScroll sendSubviewToBack:standView];
-		[backgroundScroll sendSubviewToBack:self.backgroundView];
+		[self.view addSubview:standView];
+		[self.view sendSubviewToBack:standView];
+		[self.view sendSubviewToBack:self.backgroundView];
 	}
 }
 
@@ -124,9 +101,9 @@
     [super viewDidAppear:animated];
 	[self loginReminderView].hidden = [ServiceManager isSessionValid];
 	
-    if (notificationView.bShouldLoad) {
-        [self showNotificationInfo];
-    }
+//    if (notificationView.bShouldLoad) {
+//        [self showNotificationInfo];
+//    }//TODO:delete
 	
 	if (![ServiceManager hadLaunchedBefore]) {
 		[self recommendBooks:^(void) {
@@ -147,30 +124,30 @@
 	}
 }
 
-- (void)showNotificationInfo
-{
-    [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
-		if (success) {
-			notificationView.hidden = NO;
-            Book *book = nil;
-            if (resultArray.count > 0) {
-                book = resultArray[0];
-            }
-            if ([ServiceManager checkHasShowNotifi:book.describe] || [ServiceManager checkHasShowNotifi:content]) {
-                notificationView.hidden = YES;
-                return;
-            }
-            CGSize fullSize = self.view.bounds.size;
-            [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - BRHeaderView.height - 85)];
-            [notificationView showInfoWithBook:book andNotificateContent:content];
-		} else {
-			if (resultArray.count == 0 && content.length == 0) {
-                notificationView.hidden = YES;
-                NSLog(@"无公告和推荐");
-            }
-		}
-    }];
-}
+//- (void)showNotificationInfo
+//{
+//    [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
+//		if (success) {
+//			notificationView.hidden = NO;
+//            Book *book = nil;
+//            if (resultArray.count > 0) {
+//                book = resultArray[0];
+//            }
+//            if ([ServiceManager checkHasShowNotifi:book.describe] || [ServiceManager checkHasShowNotifi:content]) {
+//                notificationView.hidden = YES;
+//                return;
+//            }
+//            CGSize fullSize = self.view.bounds.size;
+//            [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - BRHeaderView.height - 85)];
+//            [notificationView showInfoWithBook:book andNotificateContent:content];
+//		} else {
+//			if (resultArray.count == 0 && content.length == 0) {
+//                notificationView.hidden = YES;
+//                NSLog(@"无公告和推荐");
+//            }
+//		}
+//    }];
+//}
 
 - (void)recommendBooks:(dispatch_block_t)block
 {
@@ -479,19 +456,36 @@
 
 #pragma mark - CollectionViewDelegate
 
+- (NSInteger)numberOfSectionsInCollectionView:(PSUICollectionView *)collectionView {
+    return 1;
+}
+
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 	[self createStandViews:MAX(5, (int)ceil(booksForDisplay.count / 3) )];
 	return booksForDisplay.count;
 }
 
-- (PSTCollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
 	cell.badge = [Chapter countOfUnreadChaptersOfBook:book];
 	return cell;
+}
+
+- (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	NSString *identifier = nil;
+	
+	if ([kind isEqualToString:PSTCollectionElementKindSectionHeader]) {
+		identifier = collectionHeaderViewIdentifier;
+	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
+		identifier = collectionFooterViewIdentifier;
+	}
+    PSUICollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+	
+    return supplementaryView;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -512,11 +506,12 @@
 	[self closeButtonClicked];
 }
 
-- (void)closeButtonClicked
-{
-    notificationView.hidden = YES;
-    notificationView.bShouldLoad = NO;
-    CGSize fullSize = self.view.bounds.size;
-    [booksView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
-}
+//- (void)closeButtonClicked
+//{
+//    notificationView.hidden = YES;
+//    notificationView.bShouldLoad = NO;
+//    CGSize fullSize = self.view.bounds.size;
+//    [booksView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
+//}
+
 @end

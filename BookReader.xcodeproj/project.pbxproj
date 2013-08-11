@@ -69,7 +69,7 @@
 		183FBB20178117BD0074B3B9 /* NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FBB1F178117BD0074B3B9 /* NavViewController.m */; };
 		184862FA17963CCD00282A6A /* bookstore_recommend_title.png in Resources */ = {isa = PBXBuildFile; fileRef = 184862F817963CCD00282A6A /* bookstore_recommend_title.png */; };
 		184862FB17963CCD00282A6A /* bookstore_recommend_title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184862F917963CCD00282A6A /* bookstore_recommend_title@2x.png */; };
-		184862FE1796535400282A6A /* NotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184862FD1796535400282A6A /* NotificationView.m */; };
+		184862FE1796535400282A6A /* BRNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184862FD1796535400282A6A /* BRNotificationView.m */; };
 		18486303179670A100282A6A /* notification_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 18486301179670A100282A6A /* notification_background.png */; };
 		18486304179670A100282A6A /* notification_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18486302179670A100282A6A /* notification_background@2x.png */; };
 		1848630717967EF000282A6A /* notification_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 1848630517967EEF00282A6A /* notification_close.png */; };
@@ -220,6 +220,7 @@
 		778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 778E7A6317B6414700DC28B7 /* StoreKit.framework */; };
 		778E7A6917B642D200DC28B7 /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 778E7A6617B642D200DC28B7 /* iVersion.bundle */; };
 		778E7A6A17B642D200DC28B7 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6817B642D200DC28B7 /* iVersion.m */; };
+		778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
@@ -389,8 +390,8 @@
 		183FBB1F178117BD0074B3B9 /* NavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavViewController.m; sourceTree = "<group>"; };
 		184862F817963CCD00282A6A /* bookstore_recommend_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_recommend_title.png; sourceTree = "<group>"; };
 		184862F917963CCD00282A6A /* bookstore_recommend_title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_recommend_title@2x.png"; sourceTree = "<group>"; };
-		184862FC1796535400282A6A /* NotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationView.h; path = UI/NotificationView.h; sourceTree = "<group>"; };
-		184862FD1796535400282A6A /* NotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationView.m; path = UI/NotificationView.m; sourceTree = "<group>"; };
+		184862FC1796535400282A6A /* BRNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BRNotificationView.h; path = UI/BRNotificationView.h; sourceTree = "<group>"; };
+		184862FD1796535400282A6A /* BRNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRNotificationView.m; path = UI/BRNotificationView.m; sourceTree = "<group>"; };
 		18486301179670A100282A6A /* notification_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_background.png; sourceTree = "<group>"; };
 		18486302179670A100282A6A /* notification_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_background@2x.png"; sourceTree = "<group>"; };
 		1848630517967EEF00282A6A /* notification_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification_close.png; sourceTree = "<group>"; };
@@ -570,6 +571,8 @@
 		778E7A6617B642D200DC28B7 /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
 		778E7A6717B642D200DC28B7 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
 		778E7A6817B642D200DC28B7 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
+		778E7A6B17B7520F00DC28B7 /* BRWifiReminderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWifiReminderView.h; sourceTree = "<group>"; };
+		778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWifiReminderView.m; sourceTree = "<group>"; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
@@ -1304,14 +1307,20 @@
 		77F2956517A3C3F000D10A31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				77A3FA2C173497890027D1DF /* BRBooksView.h */,
+				77A3FA2D173497890027D1DF /* BRBooksView.m */,
+				77A3FA29173497320027D1DF /* BRBookCell.h */,
+				77A3FA2A173497320027D1DF /* BRBookCell.m */,
+				184862FC1796535400282A6A /* BRNotificationView.h */,
+				184862FD1796535400282A6A /* BRNotificationView.m */,
+				778E7A6B17B7520F00DC28B7 /* BRWifiReminderView.h */,
+				778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */,
 				77EB59741702B8EA004E2C00 /* BookShelfButton.h */,
 				77EB59751702B8EA004E2C00 /* BookShelfButton.m */,
 				18A0C6B4174DF1DA003FC599 /* BRHeaderView.h */,
 				18A0C6B5174DF1DD003FC599 /* BRHeaderView.m */,
 				188FD8BF178AA7A700EFF360 /* LoginReminderView.h */,
 				188FD8C0178AA7A700EFF360 /* LoginReminderView.m */,
-				184862FC1796535400282A6A /* NotificationView.h */,
-				184862FD1796535400282A6A /* NotificationView.m */,
 				18A0C6AE174CA041003FC599 /* CommentCell.h */,
 				18A0C6AF174CA042003FC599 /* CommentCell.m */,
 				180318F0172CDDE200733C58 /* GiftCell.h */,
@@ -1322,10 +1331,6 @@
 				188FD8BB17891C6E00EFF360 /* ChapterCell.m */,
 				18089E43171BD5E400BCB50E /* MKNumberBadgeView.h */,
 				18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */,
-				77A3FA2C173497890027D1DF /* BRBooksView.h */,
-				77A3FA2D173497890027D1DF /* BRBooksView.m */,
-				77A3FA29173497320027D1DF /* BRBookCell.h */,
-				77A3FA2A173497320027D1DF /* BRBookCell.m */,
 				1888A3AC17000CE40046DA4C /* BookCell.h */,
 				1888A3AD17000CE50046DA4C /* BookCell.m */,
 				18C12BBE17A673A500206E93 /* PopLoginViewController.h */,
@@ -1811,7 +1816,7 @@
 				188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */,
 				188FD8C1178AA7A800EFF360 /* LoginReminderView.m in Sources */,
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
-				184862FE1796535400282A6A /* NotificationView.m in Sources */,
+				184862FE1796535400282A6A /* BRNotificationView.m in Sources */,
 				18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */,
 				77B378D517AB81AF00D8D63D /* Chapter.m in Sources */,
 				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
@@ -1827,6 +1832,7 @@
 				778E79C717B2377F00DC28B7 /* Reachability.m in Sources */,
 				18FD247117B3944600D11CCA /* WebViewController.m in Sources */,
 				778E7A6A17B642D200DC28B7 /* iVersion.m in Sources */,
+				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

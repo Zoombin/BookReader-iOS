@@ -22,7 +22,6 @@
 @interface BRBooksView : PSUICollectionView
 
 @property (nonatomic, weak) id<BRBooksViewDelegate> booksViewDelegate;
-@property (nonatomic) BOOL gridStyle;
 
 - (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath;
 

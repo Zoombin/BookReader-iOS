@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "BRViewController.h"
-#import "NotificationView.h"
+#import "BRNotificationView.h"
+#import "PSTCollectionView.h"
 
-@interface BookShelfViewController : BRViewController <NotificationViewDelegate>
+@interface BookShelfViewController : BRViewController <PSUICollectionViewDataSource, PSUICollectionViewDelegate>
+
 @end

@@ -9,44 +9,33 @@
 #import "BRBooksView.h"
 #import "BRBookCell.h"
 #import "Book.h"
+#import "BRWifiReminderView.h"
+#import "BRNotificationView.h"
 
-#define CELL_REUSE_IDENTIFIER @"BOOK"
-
-@interface BRBooksView () <PSUICollectionViewDelegate, BRBookCellDelegate>
-
+@interface BRBooksView () <BRBookCellDelegate>
 @end
 
 @implementation BRBooksView
-{
-	PSUICollectionViewFlowLayout *listLayout;
-	PSUICollectionViewFlowLayout *gridLayout;
-}
+
 
 - (id)initWithFrame:(CGRect)frame
-{	
-	PSUICollectionViewFlowLayout *_listLayout = [[PSUICollectionViewFlowLayout alloc] init];
-	_listLayout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-	_listLayout.itemSize = CGSizeMake(self.bounds.size.width, 100);
-	_listLayout.minimumInteritemSpacing = 0;
-	_listLayout.minimumLineSpacing = 1;
-	_listLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-	
+{
 	PSUICollectionViewFlowLayout *_gridLayout = [[PSUICollectionViewFlowLayout alloc] init];
 	_gridLayout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
 	_gridLayout.itemSize = CGSizeMake(70, 89);
 	_gridLayout.minimumInteritemSpacing = 11;
+	_gridLayout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
+	_gridLayout.headerReferenceSize = CGSizeMake(frame.size.width, 90);
 	_gridLayout.minimumLineSpacing = 20;
-	_gridLayout.sectionInset = UIEdgeInsetsMake(10, 20, 0, 30);	
+	_gridLayout.sectionInset = UIEdgeInsetsMake(10, 20, 0, 30);
 	
     self = [super initWithFrame:frame collectionViewLayout:_gridLayout];
     if (self) {
-		_gridStyle = YES;
-		listLayout = _listLayout;
-		gridLayout = _gridLayout;
 		self.showsVerticalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];
-		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:CELL_REUSE_IDENTIFIER];
-		self.delegate = self;
+		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
+		[self registerClass:[BRNotificationView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:collectionHeaderViewIdentifier];
+		[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
 		self.allowsSelection = NO;
 		UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 		[self addGestureRecognizer:tapRecognizer];
@@ -54,17 +43,9 @@
 	return self;
 }
 
-- (void)setGridStyle:(BOOL)gridStyle
-{
-	if (_gridStyle == gridStyle) return;
-	_gridStyle = gridStyle;
-	PSUICollectionViewFlowLayout *layout = _gridStyle ? gridLayout : listLayout;
-	[self setCollectionViewLayout:layout animated:YES];
-}
-
 - (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath
 {
-	BRBookCell *cell = [self dequeueReusableCellWithReuseIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
+	BRBookCell *cell = [self dequeueReusableCellWithReuseIdentifier:collectionCellIdentifier forIndexPath:indexPath];
 	cell.bookCellDelegate = self;
 	[cell setBook:book];
 	return cell;

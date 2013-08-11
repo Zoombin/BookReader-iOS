@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
+
+#define collectionCellIdentifier @"collection_cell_identifier"
+
 @class Book;
 @class BRBookCell;
 

@@ -6,11 +6,11 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "NotificationView.h"
+#import "BRNotificationView.h"
 #import "UIButton+BookReader.h"
 #import "ServiceManager.h"
 
-@implementation NotificationView {
+@implementation BRNotificationView {
     UILabel *contentLabel;
     UILabel *titleLabel;
     UIButton *readButton;
@@ -25,11 +25,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-         backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+         backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, frame.size.width - 2 * 5, frame.size.height)];
         [backgroundView setImage:[UIImage imageNamed:@"notification_background"]];
         [self addSubview:backgroundView];
         
-        // Initialization code
         self.bShouldLoad = YES;
          titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, frame.size.width, 15)];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
