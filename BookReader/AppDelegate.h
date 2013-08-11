@@ -22,5 +22,6 @@ typedef enum {
 @property (strong, nonatomic) UIWindow *window;
 
 - (void)gotoRootController:(RootControllerIdentifier)identifier;
+- (void)gotoBookShelf;
 
 @end

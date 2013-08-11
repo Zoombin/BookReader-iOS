@@ -8,7 +8,6 @@
 
 #import "BookStoreViewController.h"
 #import "AppDelegate.h"
-#import "BookShelfButton.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIButton+BookReader.h"
 #import "ServiceManager.h"
@@ -113,8 +112,7 @@
     [bottomView setImage:[UIImage imageNamed:@"bookstore_bottom_bar"]];
     [self.view addSubview:bottomView];
     
-    BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
+    UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(fullSize.width - 60, 3)];
     [self.view addSubview:bookShelfButton];
     
     float width = 53;

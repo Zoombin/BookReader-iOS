@@ -9,6 +9,7 @@
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+Hex.h"
+#import "AppDelegate.h"
 
 #define EnabledColorHex 0xc0683a
 static float duration = 0;
@@ -138,6 +139,18 @@ static float duration = 0;
     [button setBackgroundImage:[UIImage imageNamed:buttonImagesNormal[style]] forState:UIControlStateNormal];
     [button setFrame:frame];
     return button;
+}
+
++ (UIButton *)bookShelfButtonWithStartPosition:(CGPoint)position
+{
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+	[button setTitle:@"书架" forState:UIControlStateNormal];
+	[button setBackgroundImage:[UIImage imageNamed:@"universal_btn"] forState:UIControlStateNormal];
+	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[button.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
+	[button setFrame:CGRectMake(position.x, position.y, 50, 32)];
+	[button addTarget:APP_DELEGATE action:@selector(gotoBookShelf) forControlEvents:UIControlEventTouchUpInside];
+	return button;
 }
 
 @end

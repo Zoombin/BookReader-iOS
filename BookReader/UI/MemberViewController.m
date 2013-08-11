@@ -9,7 +9,6 @@
 
 #import "MemberViewController.h"
 #import "AppDelegate.h"
-#import "BookShelfButton.h"
 #import "ServiceManager.h"
 #import "SignInViewController.h"
 #import "PasswordViewController.h"
@@ -38,7 +37,9 @@
 	self.headerView.backButton.hidden = YES;
 	self.hideKeyboardRecognzier.enabled = NO;
 	
-	BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
+	CGSize fullSize = self.view.bounds.size;
+	
+	UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(10, 3)];
     [self.view addSubview:bookShelfButton];
     
 	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, self.view.bounds.size.width - 10, self.view.bounds.size.height - BRHeaderView.height) style:UITableViewStyleGrouped];

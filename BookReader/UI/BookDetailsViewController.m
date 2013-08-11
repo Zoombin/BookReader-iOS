@@ -26,7 +26,6 @@
 #import "UIColor+Hex.h"
 #import "UIView+BookReader.h"
 #import "CommentCell.h"
-#import "BookShelfButton.h"
 #import "Mark.h"
 #import "ChapterCell.h"
 #import "SignInViewController.h"
@@ -206,8 +205,7 @@
     CGSize fullSize = self.view.bounds.size;
     CGRect modelViewFrame = CGRectMake(5, 46 + 30, fullSize.width - 10, fullSize.height - 56 - 25);
     
-    BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
-    [bookShelfButton setFrame:CGRectMake(fullSize.width - 60, 3, 50, 32)];
+    UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(fullSize.width - 60, 3)];
     [self.view addSubview:bookShelfButton];
     
     UIButton *mainButton = [UIButton addButtonWithFrame:CGRectMake(CGRectGetMinX(bookShelfButton.frame) - 50 , 3, 50, 32) andStyle:BookReaderButtonStyleNormal];

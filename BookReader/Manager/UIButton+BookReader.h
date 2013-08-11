@@ -41,4 +41,6 @@ typedef enum {
 + (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style;
 + (UIButton *)navigationBackButton;
 
++ (UIButton *)bookShelfButtonWithStartPosition:(CGPoint)position;
+
 @end

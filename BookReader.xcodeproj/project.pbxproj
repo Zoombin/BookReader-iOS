@@ -294,7 +294,6 @@
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
 		77E3E2FD174DA83400FCCD91 /* text_field_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */; };
-		77EB59761702B8EB004E2C00 /* BookShelfButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EB59751702B8EA004E2C00 /* BookShelfButton.m */; };
 		8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0371C116AD219100DFE776 /* CFNetwork.framework */; };
 		8B22BC55167EBBA900A2B316 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B22BC54167EBBA900A2B316 /* libz.dylib */; };
 		8B453D0F16B8C90A00FD6FE0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936816B7A1C2001BEE70 /* Default.png */; };
@@ -718,8 +717,6 @@
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		77E3E2FA174DA83400FCCD91 /* text_field_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = text_field_background.png; path = BookReader/Image/text_field_background.png; sourceTree = SOURCE_ROOT; };
 		77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "text_field_background@2x.png"; path = "BookReader/Image/text_field_background@2x.png"; sourceTree = SOURCE_ROOT; };
-		77EB59741702B8EA004E2C00 /* BookShelfButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookShelfButton.h; path = UI/BookShelfButton.h; sourceTree = "<group>"; };
-		77EB59751702B8EA004E2C00 /* BookShelfButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookShelfButton.m; path = UI/BookShelfButton.m; sourceTree = "<group>"; };
 		8B0371C116AD219100DFE776 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8B22BC54167EBBA900A2B316 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8B453D1216B8DEE400FD6FE0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
@@ -1315,8 +1312,6 @@
 				184862FD1796535400282A6A /* BRNotificationView.m */,
 				778E7A6B17B7520F00DC28B7 /* BRWifiReminderView.h */,
 				778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */,
-				77EB59741702B8EA004E2C00 /* BookShelfButton.h */,
-				77EB59751702B8EA004E2C00 /* BookShelfButton.m */,
 				18A0C6B4174DF1DA003FC599 /* BRHeaderView.h */,
 				18A0C6B5174DF1DD003FC599 /* BRHeaderView.m */,
 				188FD8BF178AA7A700EFF360 /* LoginReminderView.h */,
@@ -1728,7 +1723,6 @@
 				1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */,
 				1888A3AB16FFF52F0046DA4C /* BookShelfViewController.m in Sources */,
 				1888A3AE17000CE50046DA4C /* BookCell.m in Sources */,
-				77EB59761702B8EB004E2C00 /* BookShelfButton.m in Sources */,
 				1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */,
 				77A612D71716635F00934254 /* NSString+XXSY.m in Sources */,
 				77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */,

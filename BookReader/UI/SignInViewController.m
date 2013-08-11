@@ -8,7 +8,6 @@
 
 #import "SignInViewController.h"
 #import "ServiceManager.h"
-#import "BookShelfButton.h"
 #import "UIViewController+HUD.h"
 #import "UITextField+BookReader.h"
 #import "SignUpViewController.h"
@@ -34,7 +33,7 @@
     self.headerView.backButton.hidden = YES;
     CGSize fullSize = self.view.bounds.size;
     
-	BookShelfButton *bookShelfButton = [[BookShelfButton alloc] init];
+	UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(10, 3)];
 	[self.view addSubview:bookShelfButton];
 	
 	UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
