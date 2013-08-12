@@ -218,8 +218,6 @@
 		778E79C717B2377F00DC28B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E79B617B2377F00DC28B7 /* Reachability.m */; };
 		778E79C917B2377F00DC28B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778E79B817B2377F00DC28B7 /* README.md */; };
 		778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 778E7A6317B6414700DC28B7 /* StoreKit.framework */; };
-		778E7A6917B642D200DC28B7 /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 778E7A6617B642D200DC28B7 /* iVersion.bundle */; };
-		778E7A6A17B642D200DC28B7 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6817B642D200DC28B7 /* iVersion.m */; };
 		778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
@@ -567,9 +565,6 @@
 		778E79B617B2377F00DC28B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		778E79B817B2377F00DC28B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		778E7A6317B6414700DC28B7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		778E7A6617B642D200DC28B7 /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
-		778E7A6717B642D200DC28B7 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
-		778E7A6817B642D200DC28B7 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		778E7A6B17B7520F00DC28B7 /* BRWifiReminderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWifiReminderView.h; sourceTree = "<group>"; };
 		778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWifiReminderView.m; sourceTree = "<group>"; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
@@ -1051,21 +1046,9 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
-		778E7A6517B642D200DC28B7 /* iVersion */ = {
-			isa = PBXGroup;
-			children = (
-				778E7A6617B642D200DC28B7 /* iVersion.bundle */,
-				778E7A6717B642D200DC28B7 /* iVersion.h */,
-				778E7A6817B642D200DC28B7 /* iVersion.m */,
-			);
-			name = iVersion;
-			path = iVersion/iVersion;
-			sourceTree = "<group>";
-		};
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				778E7A6517B642D200DC28B7 /* iVersion */,
 				18FD246317B37A8000D11CCA /* UMengSDK */,
 				778E799217B2377F00DC28B7 /* Reachability */,
 				77B378E617ABE65200D8D63D /* ZBUtilities */,
@@ -1674,7 +1657,6 @@
 				18FD247F17B4D17700D11CCA /* discuss_nor@2x.png in Resources */,
 				18FD248017B4D17700D11CCA /* discuss_sel.png in Resources */,
 				18FD248117B4D17700D11CCA /* discuss_sel@2x.png in Resources */,
-				778E7A6917B642D200DC28B7 /* iVersion.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1825,7 +1807,6 @@
 				18B39BAF17B1E46E0092AC0A /* CommentView.m in Sources */,
 				778E79C717B2377F00DC28B7 /* Reachability.m in Sources */,
 				18FD247117B3944600D11CCA /* WebViewController.m in Sources */,
-				778E7A6A17B642D200DC28B7 /* iVersion.m in Sources */,
 				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
