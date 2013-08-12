@@ -920,7 +920,6 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 
 - (void)checkIfNewVersion
 {
-    
 #ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
     
     //only show when main window is available
@@ -931,7 +930,6 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
     }
     
 #endif
-    
     if (self.lastVersion != nil || self.showOnFirstLaunch || self.previewMode)
     {
         if ([self.applicationVersion compareVersion:self.lastVersion] == NSOrderedDescending || self.previewMode)
@@ -1287,6 +1285,9 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 
 - (void)applicationLaunched
 {
+    if (![self checkNeeded]) {
+        return;
+    }
     if (self.checkAtLaunch)
     {
         [self checkIfNewVersion];
@@ -1320,4 +1321,16 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 
 #endif
 
+- (BOOL)checkNeeded
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSString *lastCheckStr = [dateFormatter stringFromDate:self.lastChecked];
+    NSString *nowStr = [dateFormatter stringFromDate:[NSDate date]];
+    if ([lastCheckStr isEqualToString:nowStr]) {
+        NSLog(@"不需要检测更新");
+        return NO;
+    }
+    return YES;
+}
 @end
