@@ -177,6 +177,7 @@ static NSNumber *sUserID;
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}]];
 	parameters[@"username"] = phoneNumber;
+    parameters[@"code"] = [NSString stringWithFormat:@"%d%d%d%d",arc4random()%9,arc4random()%9,arc4random()%9,arc4random()%9];
     [[ServiceManager shared] postPath:@"PostVerifyCode.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {
