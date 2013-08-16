@@ -1285,9 +1285,6 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 
 - (void)applicationLaunched
 {
-    if (![self checkNeeded]) {
-        return;
-    }
     if (self.checkAtLaunch)
     {
         [self checkIfNewVersion];
@@ -1320,17 +1317,4 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
 }
 
 #endif
-
-- (BOOL)checkNeeded
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
-    NSString *lastCheckStr = [dateFormatter stringFromDate:self.lastChecked];
-    NSString *nowStr = [dateFormatter stringFromDate:[NSDate date]];
-    if ([lastCheckStr isEqualToString:nowStr]) {
-        NSLog(@"不需要检测更新");
-        return NO;
-    }
-    return YES;
-}
 @end
