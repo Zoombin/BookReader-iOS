@@ -37,8 +37,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BOOL syncing;
 	NSMutableArray *booksStandViews;
 	CGFloat standViewsDistance;
-    
-    LoginReminderView *_loginReminderView;
+
 	BRBookCell *needFavAndAutoBuyBookCell;
 	UIImage *standImage;
 	BRNotification *notification;
@@ -69,12 +68,15 @@ const NSUInteger numberOfBooksPerRow = 3;
 }
 
 - (LoginReminderView *)loginReminderView {
-	if (!_loginReminderView) {
-		_loginReminderView = [[LoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
-		[self.view addSubview:_loginReminderView];
+	NSArray *subViews = [self.view subviews];
+	for (UIView *sView in subViews) {
+		if ([sView isKindOfClass:[LoginReminderView class]]) {
+			[sView removeFromSuperview];
+		}
 	}
-	[_loginReminderView reset];
-	return _loginReminderView;
+	LoginReminderView *loginReminderView = [[LoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
+	[self.view addSubview:loginReminderView];
+	return loginReminderView;
 }
 
 
@@ -131,6 +133,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:NEED_REFRESH_BOOKSHELF]) {
 		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NEED_REFRESH_BOOKSHELF];
 		[[NSUserDefaults standardUserDefaults] synchronize];
+		[self performSelector:@selector(startSync) withObject:nil afterDelay:6 * 60 * 60];//sync every 6 hours if app keep running
 		[self syncBooks];
 	}
 }

@@ -25,14 +25,9 @@
 		self.layer.cornerRadius = 3.0f;
         [self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.7]];
         [self setUserInteractionEnabled:NO];
+		[self performSelector:@selector(close) withObject:nil afterDelay:3.0f];
     }
     return self;
-}
-
-- (void)reset
-{
-	self.alpha = 1.0f;
-	[self performSelector:@selector(close) withObject:nil afterDelay:3.0f];
 }
 
 - (void)close

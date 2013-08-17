@@ -10,6 +10,4 @@
 
 @interface LoginReminderView : UIView
 
-- (void)reset;
-
 @end
