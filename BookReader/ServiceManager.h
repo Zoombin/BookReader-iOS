@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 #import "BRUser.h"
-#import "Book.h"
 
 
 #define NETWORK_ERROR        @"网络异常"

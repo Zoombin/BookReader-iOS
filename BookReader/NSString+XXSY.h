@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import<CommonCrypto/CommonDigest.h>
-#import "Chapter.h"
 
 
 @interface NSString (md5)
@@ -46,6 +45,5 @@
 - (NSString *)XXSYDecoding;
 - (NSArray*) pagesWithFont:(UIFont *)font inSize:(CGSize)size;
 + (NSString *)str:(NSString *)str value1:(NSString *)value1 value2:(NSString *)value2;
-+ (NSString *)displayNameOfChapter:(Chapter *)chapter;
 
 @end

@@ -8,17 +8,13 @@
 
 #import "ChaptersViewController.h"
 #import "ServiceManager.h"
-#import "Chapter.h"
 #import "Mark.h"
-#import "Book.h"
 #import "UIViewController+HUD.h"
 #import "CoreTextViewController.h"
 #import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
-#import "Chapter+Setup.h"
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Book.h"
 #import "ChapterCell.h"
 #import "BookMarkCell.h"
 

@@ -19,8 +19,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+BookReader.h"
 #import "BRUser.h"
-#import "Book+Setup.h"
-#import "Chapter+Setup.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
 
@@ -42,7 +40,7 @@
 	UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(10, 3)];
     [self.view addSubview:bookShelfButton];
     
-	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, self.view.bounds.size.width - 10, self.view.bounds.size.height - BRHeaderView.height) style:UITableViewStyleGrouped];
+	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, fullSize.width - 10, fullSize.height - BRHeaderView.height) style:UITableViewStyleGrouped];
 	[_memberTableView setDelegate:self];
 	[_memberTableView setDataSource:self];
 	_memberTableView.backgroundColor = [UIColor clearColor];
@@ -52,7 +50,7 @@
 	[_memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	[self.view addSubview:_memberTableView];
 	
-	UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(self.view.bounds.size.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+	UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
 	[logoutButton setTitle:@"注销" forState:UIControlStateNormal];
 	[logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:logoutButton];

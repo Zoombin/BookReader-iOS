@@ -11,8 +11,6 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFJSONRequestOperation.h"
 #import "NSString+XXSY.h"
-#import "Chapter+Setup.h"
-#import "Book+Setup.h"
 #import "BRComment.h"
 #import "BRPay.h"
 

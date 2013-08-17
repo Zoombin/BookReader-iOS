@@ -7,9 +7,8 @@
 //
 
 #import "Chapter+Setup.h"
+
 #import "BRContextManager.h"
-#import "Book.h"
-#import "Book+Setup.h"
 #import "ServiceManager.h"
 
 @implementation Chapter (Setup)
@@ -193,6 +192,14 @@
 		}
 	}
 	return nil;
+}
+
+- (NSString *)displayName
+{
+#ifdef DISPLAY_V_FLAG
+		return [NSString stringWithFormat:@"%@ 卷%d:%@", self.bVip.boolValue ? @"v" : @"", self.rollID.intValue, self.name];
+#endif
+		return [NSString stringWithFormat:@"卷%d:%@", self.rollID.intValue, self.name];
 }
 
 @end

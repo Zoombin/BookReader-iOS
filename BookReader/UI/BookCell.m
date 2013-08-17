@@ -8,7 +8,6 @@
 
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "Book.h"
 #import "UIColor+BookReader.h"
 #import "NSString+ZBUtilites.h"
 

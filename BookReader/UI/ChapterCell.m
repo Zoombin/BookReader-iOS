@@ -37,7 +37,7 @@
 
 - (void)setChapter:(Chapter *)chapter andCurrent:(BOOL)current
 {
-	chapterNameLabel.text = [NSString displayNameOfChapter:chapter];
+	chapterNameLabel.text = [chapter displayName];
     if (chapter.lastReadIndex == nil) {
         chapterNameLabel.textColor = [UIColor blackColor];
     }else if (current) {

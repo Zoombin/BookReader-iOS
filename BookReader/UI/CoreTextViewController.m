@@ -15,8 +15,6 @@
 #import "NSString+XXSY.h"
 #import "ServiceManager.h"
 #import "ReadHelpView.h"
-#import "Book+Setup.h"
-#import "Chapter+Setup.h"
 #import "NavViewController.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
@@ -26,6 +24,7 @@
 #import "WebViewController.h"
 #import "PopLoginViewController.h"
 #import "NSString+XXSY.h"
+#import "BRChapterNameView.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -314,6 +313,19 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)showChapterName:(Chapter *)chapter
+{
+	NSArray *subViews = [self.view subviews];
+	for (UIView *sView in subViews) {
+		if ([sView isKindOfClass:[BRChapterNameView class]]) {
+			[sView removeFromSuperview];
+		}
+	}
+	BRChapterNameView *chapterNameView = [[BRChapterNameView alloc] initWithFrame:self.view.bounds];
+	chapterNameView.chapter = chapter;
+	[self.view addSubview:chapterNameView];
+}
+
 - (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex
 {
 	if (!aChapter) {
@@ -324,6 +336,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	if (aChapter.content) {
 		_chapter = aChapter;
 		currentChapterString = [_chapter.content XXSYDecoding];
+
+		[self showChapterName:_chapter];
 		
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
@@ -332,7 +346,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				book.localUpdateDate = [NSDate date];
 			}
 		}];
-		statusView.title.text = [NSString displayNameOfChapter:_chapter];
+		statusView.title.text = [_chapter displayName];
 		[self paging];
 		NSNumber *startReadIndex = readIndex ? readIndex : _chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
@@ -488,7 +502,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		Mark *mark = [Mark createInContext:localContext];
 		mark.chapterID = _chapter.uid;
-		mark.chapterName = [NSString displayNameOfChapter:_chapter];
+		mark.chapterName = [_chapter displayName];
 		mark.reference = reference;
 		mark.startWordIndex = @(range.location);
 		mark.progress = @([self readPercentage]);

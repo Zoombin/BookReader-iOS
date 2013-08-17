@@ -11,7 +11,6 @@
 #import "BookDetailsViewController.h"
 #import "ServiceManager.h"
 #import "BookCell.h"
-#import "Book.h"
 #import "UIViewController+HUD.h"
 #import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"

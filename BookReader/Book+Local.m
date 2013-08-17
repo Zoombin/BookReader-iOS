@@ -6,11 +6,10 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "Book+Setup.h"
-#import "Chapter+Setup.h"
+#import "Book+Local.h"
+
 #import "NSString+XXSY.h"
 #import "BRContextManager.h"
-#import "Book+Local.h"
 #import "NSString+ZBUtilites.h"
 
 
@@ -471,7 +470,7 @@ static NSDictionary *booksDictionary;
             }
         }
         
-        //assume bookname only contains one “ or ”, not perfect, TODO
+        //TODO: assume bookname only contains one “ or ”, not perfect
         NSRange range = [bookname rangeOfString:@"“"];
         if(range.location != NSNotFound) {
             [infoStr appendString:[NSString ChineseSpace]];

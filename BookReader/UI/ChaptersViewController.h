@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
-#import "Chapter.h"
-#import "Book.h"
 #import "Mark.h"
 
 @protocol ChapterViewDelegate <NSObject>

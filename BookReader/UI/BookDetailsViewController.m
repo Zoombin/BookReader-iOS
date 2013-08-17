@@ -9,7 +9,6 @@
 #import "BookDetailsViewController.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "Book.h"
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "GiftViewController.h"
@@ -20,8 +19,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+XXSY.h"
 #import "CoreTextViewController.h"
-#import "Book+Setup.h"
-#import "Chapter+Setup.h"
 #import "BRComment.h"
 #import "UIColor+Hex.h"
 #import "UIView+BookReader.h"

@@ -7,10 +7,8 @@
 //
 
 #import "BRBookCell.h"
-#import "Book.h"
 #import "UIImageView+AFNetworking.h"
 #import "MKNumberBadgeView.h"
-#import "Book+Setup.h"
 #import "ServiceManager.h"
 
 @implementation BRBookCell {

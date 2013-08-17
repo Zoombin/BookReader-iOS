@@ -8,7 +8,6 @@
 
 #import "BRBooksView.h"
 #import "BRBookCell.h"
-#import "Book.h"
 #import "BRWifiReminderView.h"
 #import "BRNotificationView.h"
 

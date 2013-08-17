@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
-#import "Chapter.h"
-
 @class Book;
 @interface Chapter (Setup)
 
@@ -27,6 +25,8 @@
 
 + (NSString *)lastChapterIDOfBook:(Book *)book;
 + (Chapter *)lastReadChapterOfBook:(Book *)book;
+
+- (NSString *)displayName;
 
 
 @end

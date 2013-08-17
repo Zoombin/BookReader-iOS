@@ -7,7 +7,6 @@
 //
 
 #import "BRNotification.h"
-#import "Book.h"
 
 #define NOTIFICATION_USER_DEFAULT_KEY @"br_notification_user_default_key"
 

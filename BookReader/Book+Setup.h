@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
-#import "Book.h"
-
 @interface Book (Setup)
 
 + (NSManagedObject *)createWithAttributes:(NSDictionary *)attributes;

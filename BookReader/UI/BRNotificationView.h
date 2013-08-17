@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
 #import "PSTCollectionView.h"
 #import "BRNotification.h"
 
