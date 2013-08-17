@@ -25,6 +25,9 @@
 #import "BRWifiReminderView.h"
 #import "BRNotification.h"
 
+const NSUInteger minNumberOfStandView = 3;
+const NSUInteger numberOfBooksPerRow = 3;
+
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate>
 @end
 
@@ -82,6 +85,13 @@
 
 - (void)createStandViews:(NSInteger)number
 {
+	if (booksStandViews.count == number) {
+		for (UIView *standView in booksStandViews) {
+			[booksView sendSubviewToBack:standView];
+		}
+		return;
+	}
+
 	if (!standImage) {
 		standImage = [UIImage imageNamed:@"bookshelf"];
 	}
@@ -452,10 +462,9 @@
 
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	[self createStandViews:MAX( 3, (int)ceil(booksForDisplay.count / 3.0) ) + ([notification shouldDisplay] ? 1 : 0)];
-	if (booksForDisplay.count > 9) {
-		booksView.layout.sectionInset = kMoreBookEdgeInsets;
-	}
+	NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
+	numberOfRows += [notification shouldDisplay] ? 1 : 0;
+	[self createStandViews:MAX( minNumberOfStandView, numberOfRows)];
 	return booksForDisplay.count;
 }
 
@@ -473,10 +482,9 @@
 	
 	if ([kind isEqualToString:PSTCollectionElementKindSectionHeader]) {
 		identifier = collectionHeaderViewIdentifier;
+	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
+		identifier = collectionFooterViewIdentifier;
 	}
-//	if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
-//		identifier = collectionFooterViewIdentifier;
-//	}
     PSUICollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 	if ([supplementaryView isKindOfClass:[BRNotificationView class]]) {
 		BRNotificationView *notificationView = (BRNotificationView *)supplementaryView;
@@ -494,6 +502,26 @@
 		return CGSizeMake(booksView.frame.size.width, 120);
 	}
 	return CGSizeZero;
+}
+
+- (UIEdgeInsets)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+	CGFloat top = 30;
+	if (notification && [notification shouldDisplay]) {
+		top = 50;
+	}
+	if (booksStandViews.count <= minNumberOfStandView) {
+		NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
+		CGFloat bottom = 245 - standViewsDistance * (numberOfRows - 1);
+		if (top == 30) {
+			bottom += 140;
+		}
+		if (![UIDevice is4Inch]) {
+			bottom -= ( [UIDevice heightOf4Inch] - [UIDevice heightOf3dot5Inch] );
+		}
+		return UIEdgeInsetsMake(top, 25, bottom, 25);
+	}
+	return UIEdgeInsetsMake(top, 25, 20, 25);
 }
 
 #pragma mark - NotificationViewDelegate

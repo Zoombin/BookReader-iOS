@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
 
-#define kLessBookEdgeInsets UIEdgeInsetsMake(50, 25, 200, 25)
-#define kMoreBookEdgeInsets UIEdgeInsetsMake(50, 25, 200, 25)
-
 @class BRBooksView;
 @class BRBookCell;
 @class Book;

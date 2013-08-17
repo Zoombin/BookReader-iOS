@@ -24,9 +24,8 @@
 	_layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
 	_layout.itemSize = CGSizeMake(70, 90);
 	_layout.minimumInteritemSpacing = 11;
-	//_layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
+	_layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
 	_layout.minimumLineSpacing = 50;
-	_layout.sectionInset = kLessBookEdgeInsets;
 		
     self = [super initWithFrame:frame collectionViewLayout:_layout];
     if (self) {
@@ -34,7 +33,7 @@
 		self.backgroundColor = [UIColor clearColor];
 		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
 		[self registerClass:[BRNotificationView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:collectionHeaderViewIdentifier];
-		//[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
+		[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
 		self.allowsSelection = NO;
 		UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 		[self addGestureRecognizer:tapRecognizer];

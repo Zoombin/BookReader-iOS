@@ -222,6 +222,7 @@
 		778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 778E7A6317B6414700DC28B7 /* StoreKit.framework */; };
 		778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */; };
 		779423E317BDDDFA00814D07 /* BRNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E217BDDDFA00814D07 /* BRNotification.m */; };
+		779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
@@ -575,6 +576,8 @@
 		778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWifiReminderView.m; sourceTree = "<group>"; };
 		779423E117BDDDFA00814D07 /* BRNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNotification.h; sourceTree = "<group>"; };
 		779423E217BDDDFA00814D07 /* BRNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNotification.m; sourceTree = "<group>"; };
+		779423E717BF50EA00814D07 /* UIDevice+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+ZBUtilites.h"; sourceTree = "<group>"; };
+		779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ZBUtilites.m"; sourceTree = "<group>"; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
@@ -1290,6 +1293,8 @@
 		77B378E617ABE65200D8D63D /* ZBUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				779423E717BF50EA00814D07 /* UIDevice+ZBUtilites.h */,
+				779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */,
 				7704EFF617AE2907006F1E08 /* ZBTextValidate.h */,
 				7704EFF717AE2907006F1E08 /* ZBTextValidate.m */,
 				77B378FA17ABE96B00D8D63D /* ZBViewController.h */,
@@ -1832,6 +1837,7 @@
 				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
 				18B6C96C17B8A2F500D8E0DC /* iVersion.m in Sources */,
 				779423E317BDDDFA00814D07 /* BRNotification.m in Sources */,
+				779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
