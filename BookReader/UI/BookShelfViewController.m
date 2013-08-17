@@ -412,6 +412,7 @@
 		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
 		if (chapter) {
 			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+			controller.previousViewController = self;
 			controller.chapter = chapter;
 			[self.navigationController pushViewController:controller animated:YES];
 		} else {

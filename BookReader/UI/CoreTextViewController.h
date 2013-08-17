@@ -18,5 +18,6 @@
 @interface CoreTextViewController : UIViewController<UIAlertViewDelegate,CommentDelegate>
 
 @property (nonatomic, strong) Chapter *chapter;
+@property (nonatomic, strong) UIViewController *previousViewController;
 
 @end

@@ -571,6 +571,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		}
     } else {
 		WebViewController *controller = [[WebViewController alloc] init];
+		controller.popTarget = self;
+		if (enterChapterIsVIP) {
+			controller.popTarget = _previousViewController;
+		}
 		[self.navigationController pushViewController:controller animated:YES];
 	}
 }

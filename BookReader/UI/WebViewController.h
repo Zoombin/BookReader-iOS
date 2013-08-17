@@ -11,4 +11,6 @@
 
 @interface WebViewController : BRViewController
 
+@property (nonatomic, strong) UIViewController *popTarget;
+
 @end
