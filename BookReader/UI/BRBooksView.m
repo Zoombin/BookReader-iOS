@@ -20,14 +20,22 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-	PSUICollectionViewFlowLayout *_gridLayout = [[PSUICollectionViewFlowLayout alloc] init];
+	_gridLayout = [[PSUICollectionViewFlowLayout alloc] init];
 	_gridLayout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-	_gridLayout.itemSize = CGSizeMake(70, 89);
+	_gridLayout.itemSize = CGSizeMake(70, 90);
 	_gridLayout.minimumInteritemSpacing = 11;
-	_gridLayout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
-	_gridLayout.headerReferenceSize = CGSizeMake(frame.size.width, 90);
-	_gridLayout.minimumLineSpacing = 20;
-	_gridLayout.sectionInset = UIEdgeInsetsMake(10, 20, 0, 30);
+	_gridLayout.headerReferenceSize = CGSizeMake(frame.size.width, [[self class] headerHeight]);
+	//_gridLayout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
+	_gridLayout.minimumLineSpacing = 50;
+	_gridLayout.sectionInset = kLessBookEdgeInsets;
+	
+	_layoutWithoutHeader = [[PSUICollectionViewFlowLayout alloc] init];
+	_layoutWithoutHeader.scrollDirection = PSTCollectionViewScrollDirectionVertical;
+	_layoutWithoutHeader.itemSize = CGSizeMake(70, 90);
+	_layoutWithoutHeader.minimumInteritemSpacing = 11;
+	_layoutWithoutHeader.headerReferenceSize = CGSizeMake(frame.size.width, 0);
+	_layoutWithoutHeader.minimumLineSpacing = 50;
+	_layoutWithoutHeader.sectionInset = kLessBookEdgeInsets;
 	
     self = [super initWithFrame:frame collectionViewLayout:_gridLayout];
     if (self) {
@@ -35,7 +43,7 @@
 		self.backgroundColor = [UIColor clearColor];
 		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
 		[self registerClass:[BRNotificationView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:collectionHeaderViewIdentifier];
-		[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
+		//[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
 		self.allowsSelection = NO;
 		UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 		[self addGestureRecognizer:tapRecognizer];
@@ -61,6 +69,11 @@
 			[self.booksViewDelegate booksView:self tappedBookCell:cell];
 		}
 	}
+}
+
++ (CGFloat)headerHeight
+{
+	return 120.0f;
 }
 
 #pragma mark - BRBookCellDelegate

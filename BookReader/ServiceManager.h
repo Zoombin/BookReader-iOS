@@ -16,7 +16,6 @@
 
 #define USER_MONEY @"usermoney"
 #define USER_NAME @"username"
-#define NOTIFICATION_CONTENT @"notification_content"
 #define HAD_LAUNCHED_BEFORE @"had_launched_before"
 
 @interface ServiceManager : AFHTTPClient
@@ -27,8 +26,6 @@
 + (void)login;
 + (void)logout;
 + (void)saveUserID:(NSNumber *)userID;
-+ (void)saveNotificationContent:(NSString *)content;
-+ (BOOL)checkHasShowNotifi:(NSString *)content;
 + (BOOL)hadLaunchedBefore;
 + (void)saveUserInfo:(BRUser *)member;
 + (NSNumber *)userID;

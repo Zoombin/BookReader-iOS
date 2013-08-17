@@ -93,22 +93,6 @@ static NSNumber *sUserID;
 	return NO;
 }
 
-+ (void)saveNotificationContent:(NSString *)content
-{
-    [[NSUserDefaults standardUserDefaults] setObject:content forKey:NOTIFICATION_CONTENT];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (BOOL)checkHasShowNotifi:(NSString *)content
-{
-    NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:NOTIFICATION_CONTENT];
-    if ([string isEqualToString:content]) {
-        //NSLog(@"已经存在");
-        return YES;
-    }
-    return NO;
-}
-
 + (void)saveUserInfo:(BRUser *)member
 {
     [[NSUserDefaults standardUserDefaults] setObject:member.coin forKey:USER_MONEY];
@@ -795,7 +779,7 @@ static NSNumber *sUserID;
             [bookList addObject:book];
         }
         if (block) {
-            block(YES, nil,bookList,theObject[@"content"]);
+            block(YES, nil, bookList,theObject[@"content"]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {

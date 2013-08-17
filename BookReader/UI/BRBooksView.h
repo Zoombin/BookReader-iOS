@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
 
+#define kLessBookEdgeInsets UIEdgeInsetsMake(30, 25, 200, 25)
+#define kMoreBookEdgeInsets UIEdgeInsetsMake(30, 25, 200, 25)
+
 @class BRBooksView;
 @class BRBookCell;
 @class Book;
@@ -22,7 +25,11 @@
 @interface BRBooksView : PSUICollectionView
 
 @property (nonatomic, weak) id<BRBooksViewDelegate> booksViewDelegate;
+@property (nonatomic, strong) PSUICollectionViewFlowLayout *gridLayout;
+@property (nonatomic, strong) PSUICollectionViewFlowLayout *layoutWithoutHeader;
 
 - (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath;
+
++ (CGFloat)headerHeight;
 
 @end

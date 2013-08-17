@@ -9,19 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "Book.h"
 #import "PSTCollectionView.h"
+#import "BRNotification.h"
 
 #define collectionHeaderViewIdentifier @"collection_header_view_identifier"
 
 @protocol BRNotificationViewDelegate <NSObject>
-- (void)closeButtonClicked;
-- (void)startReadButtonClicked:(Book *)book;
+
+- (void)willRead:(Book *)book;
+- (void)willClose;
+
 @end
 
 @interface BRNotificationView : PSUICollectionReusableView
 
 @property (nonatomic, weak) id<BRNotificationViewDelegate> delegate;
-@property (nonatomic, assign) BOOL bShouldLoad;
-
-- (void)showInfoWithBook:(Book *)book andNotificateContent:(NSString *)content;
+@property (nonatomic, strong) BRNotification *notification;
 
 @end

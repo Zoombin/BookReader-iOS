@@ -221,6 +221,7 @@
 		778E79C917B2377F00DC28B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778E79B817B2377F00DC28B7 /* README.md */; };
 		778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 778E7A6317B6414700DC28B7 /* StoreKit.framework */; };
 		778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */; };
+		779423E317BDDDFA00814D07 /* BRNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E217BDDDFA00814D07 /* BRNotification.m */; };
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
@@ -572,6 +573,8 @@
 		778E7A6317B6414700DC28B7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		778E7A6B17B7520F00DC28B7 /* BRWifiReminderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWifiReminderView.h; sourceTree = "<group>"; };
 		778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWifiReminderView.m; sourceTree = "<group>"; };
+		779423E117BDDDFA00814D07 /* BRNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNotification.h; sourceTree = "<group>"; };
+		779423E217BDDDFA00814D07 /* BRNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNotification.m; sourceTree = "<group>"; };
 		779C671E174461DB00909D6A /* Book+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Book+Setup.h"; sourceTree = "<group>"; };
 		779C671F174461DB00909D6A /* Book+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Book+Setup.m"; sourceTree = "<group>"; };
 		779C6721174461F000909D6A /* Chapter+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chapter+Setup.h"; sourceTree = "<group>"; };
@@ -834,6 +837,8 @@
 			isa = PBXGroup;
 			children = (
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
+				779423E117BDDDFA00814D07 /* BRNotification.h */,
+				779423E217BDDDFA00814D07 /* BRNotification.m */,
 				779C672A17446DCD00909D6A /* BRContextManager.h */,
 				779C672B17446DCD00909D6A /* BRContextManager.m */,
 				18ABAF2D1724FAFB00ED02C6 /* BRPay.h */,
@@ -1826,6 +1831,7 @@
 				18FD247117B3944600D11CCA /* WebViewController.m in Sources */,
 				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
 				18B6C96C17B8A2F500D8E0DC /* iVersion.m in Sources */,
+				779423E317BDDDFA00814D07 /* BRNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,7 @@
 #import "BookDetailsViewController.h"
 #import "Reachability.h"
 #import "BRWifiReminderView.h"
+#import "BRNotification.h"
 
 @interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate>
 @end
@@ -37,11 +38,12 @@
 	UIAlertView *favAndAutoBuyAlert;
 	BOOL syncing;
 	NSMutableArray *booksStandViews;
-	CGFloat startYOfStandView;
 	CGFloat standViewsDistance;
     
     LoginReminderView *_loginReminderView;
 	BRBookCell *needFavAndAutoBuyBookCell;
+	UIImage *standImage;
+	BRNotification *notification;
 }
 
 - (BOOL)isWifiAvailable
@@ -80,19 +82,20 @@
 
 - (void)createStandViews:(NSInteger)number
 {
+	if (!standImage) {
+		standImage = [UIImage imageNamed:@"bookshelf"];
+	}
 	for (UIImageView *standView in booksStandViews) {
 		[standView removeFromSuperview];
 	}
 	[booksStandViews removeAllObjects];
-	startYOfStandView = 133 - 40;
-	standViewsDistance = 109;
+	standViewsDistance = 140;
 	for (int i = 0; i < number; i++) {
-		UIImageView *standView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf"]];
-		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView, self.view.frame.size.width, 27);
+		UIImageView *standView = [[UIImageView alloc] initWithImage:standImage];
+		standView.frame = CGRectMake(0, standViewsDistance * (i + 1) - standImage.size.height, self.view.frame.size.width, standImage.size.height);
 		[booksStandViews addObject:standView];
-		[self.view addSubview:standView];
-		[self.view sendSubviewToBack:standView];
-		[self.view sendSubviewToBack:self.backgroundView];
+		[booksView addSubview:standView];
+		[booksView sendSubviewToBack:standView];
 	}
 }
 
@@ -101,9 +104,12 @@
     [super viewDidAppear:animated];
 	[self loginReminderView].hidden = [ServiceManager isSessionValid];
 	
-//    if (notificationView.bShouldLoad) {
-//        [self showNotificationInfo];
-//    }//TODO:delete
+	if (!notification) {
+		[self fetchNotification:^(void){
+			[booksView reloadData];
+		}];
+
+	}
 	
 	if (![ServiceManager hadLaunchedBefore]) {
 		[self recommendBooks:^(void) {
@@ -124,30 +130,17 @@
 	}
 }
 
-//- (void)showNotificationInfo
-//{
-//    [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
-//		if (success) {
-//			notificationView.hidden = NO;
-//            Book *book = nil;
-//            if (resultArray.count > 0) {
-//                book = resultArray[0];
-//            }
-//            if ([ServiceManager checkHasShowNotifi:book.describe] || [ServiceManager checkHasShowNotifi:content]) {
-//                notificationView.hidden = YES;
-//                return;
-//            }
-//            CGSize fullSize = self.view.bounds.size;
-//            [booksView setFrame:CGRectMake(0, CGRectGetMaxY(notificationView.frame) + 5, fullSize.width, fullSize.height - BRHeaderView.height - 85)];
-//            [notificationView showInfoWithBook:book andNotificateContent:content];
-//		} else {
-//			if (resultArray.count == 0 && content.length == 0) {
-//                notificationView.hidden = YES;
-//                NSLog(@"无公告和推荐");
-//            }
-//		}
-//    }];
-//}
+- (void)fetchNotification:(dispatch_block_t)block
+{
+    [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
+		if (success) {
+			notification = [[BRNotification alloc] init];
+			notification.books = resultArray;
+			notification.content = content;
+			if (block) block();
+		}
+    }];
+}
 
 - (void)recommendBooks:(dispatch_block_t)block
 {
@@ -456,13 +449,12 @@
 
 #pragma mark - CollectionViewDelegate
 
-- (NSInteger)numberOfSectionsInCollectionView:(PSUICollectionView *)collectionView {
-    return 1;
-}
-
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 	[self createStandViews:MAX(5, (int)ceil(booksForDisplay.count / 3) )];
+	if (booksForDisplay.count > 9) {
+		booksView.gridLayout.sectionInset = kMoreBookEdgeInsets;
+	}
 	return booksForDisplay.count;
 }
 
@@ -472,6 +464,7 @@
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
 	cell.badge = [Chapter countOfUnreadChaptersOfBook:book];
+	
 	return cell;
 }
 
@@ -480,38 +473,52 @@
 	
 	if ([kind isEqualToString:PSTCollectionElementKindSectionHeader]) {
 		identifier = collectionHeaderViewIdentifier;
-	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
-		identifier = collectionFooterViewIdentifier;
 	}
+//	if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
+//		identifier = collectionFooterViewIdentifier;
+//	}
     PSUICollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
-	
+	if ([supplementaryView isKindOfClass:[BRNotificationView class]]) {
+		BRNotificationView *notificationView = (BRNotificationView *)supplementaryView;
+		notificationView.delegate = self;
+		if (notification) {
+			notificationView.notification = notification;
+			if (![notification shouldDisplay]) {
+				[booksView setCollectionViewLayout:booksView.layoutWithoutHeader];
+				[booksView reloadData];
+			}
+		}
+//		else {
+//			//[booksView setCollectionViewLayout:booksView.gridLayout];
+//			//[booksView reloadData];
+//		}
+	}
     return supplementaryView;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    //	NSLog(@"scrollView.offset = %f", scrollView.contentOffset.y);
-	for (int i = 0; i < booksStandViews.count; i++) {
-		UIImageView *standView = booksStandViews[i];
-		standView.frame = CGRectMake(0, standViewsDistance * i + startYOfStandView - scrollView.contentOffset.y, standView.frame.size.width, standView.frame.size.height);
-	}
-}
+//- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//	if (notification && [notification shouldDisplay]) {
+//		return CGSizeMake(booksView.frame.size.width, 120);
+//	}
+//	return CGSizeZero;
+//}
 
 #pragma mark - NotificationViewDelegate
 
-- (void)startReadButtonClicked:(Book *)book
+- (void)willRead:(Book *)book
 {
 	BookDetailsViewController *bookDetailsViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
 	[self.navigationController pushViewController:bookDetailsViewController animated:YES];
-	[self closeButtonClicked];
+	[booksView setCollectionViewLayout:booksView.layoutWithoutHeader];
+	[booksView reloadData];
 }
 
-//- (void)closeButtonClicked
-//{
-//    notificationView.hidden = YES;
-//    notificationView.bShouldLoad = NO;
-//    CGSize fullSize = self.view.bounds.size;
-//    [booksView setFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
-//}
+- (void)willClose
+{
+	[booksView setCollectionViewLayout:booksView.layoutWithoutHeader];
+	[booksView reloadData];
+}
+
 
 @end
