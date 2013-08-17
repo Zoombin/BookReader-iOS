@@ -452,7 +452,7 @@
 
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	[self createStandViews:MAX(5, (int)ceil(booksForDisplay.count / 3) )];
+	[self createStandViews:MAX( 3, (int)ceil(booksForDisplay.count / 3.0) ) + ([notification shouldDisplay] ? 1 : 0)];
 	if (booksForDisplay.count > 9) {
 		booksView.layout.sectionInset = kMoreBookEdgeInsets;
 	}
@@ -465,7 +465,6 @@
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.editing = editing;
 	cell.badge = [Chapter countOfUnreadChaptersOfBook:book];
-	
 	return cell;
 }
 
