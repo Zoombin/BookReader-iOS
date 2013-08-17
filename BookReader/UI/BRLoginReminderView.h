@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginReminderView : UIView
+@interface BRLoginReminderView : UIView
 
 @end

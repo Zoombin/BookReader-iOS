@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "LoginReminderView.h"
+#import "BRLoginReminderView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation LoginReminderView
+@implementation BRLoginReminderView
 
 - (id)initWithFrame:(CGRect)frame
 {

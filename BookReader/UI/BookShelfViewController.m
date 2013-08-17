@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "LoginReminderView.h"
+#import "BRLoginReminderView.h"
 #import "CoreTextViewController.h"
 #import "BookCell.h"
 #import "BRBooksView.h"
@@ -67,14 +67,14 @@ const NSUInteger numberOfBooksPerRow = 3;
 	[self.view addSubview:booksView];
 }
 
-- (LoginReminderView *)loginReminderView {
+- (BRLoginReminderView *)loginReminderView {
 	NSArray *subViews = [self.view subviews];
 	for (UIView *sView in subViews) {
-		if ([sView isKindOfClass:[LoginReminderView class]]) {
+		if ([sView isKindOfClass:[BRLoginReminderView class]]) {
 			[sView removeFromSuperview];
 		}
 	}
-	LoginReminderView *loginReminderView = [[LoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
+	BRLoginReminderView *loginReminderView = [[BRLoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
 	[self.view addSubview:loginReminderView];
 	return loginReminderView;
 }
