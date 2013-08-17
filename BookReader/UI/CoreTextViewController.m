@@ -27,9 +27,6 @@
 #import "PopLoginViewController.h"
 #import "NSString+XXSY.h"
 
-
-#define FAILEDALERT_TAG  1000
-
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
@@ -138,12 +135,13 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	backgroundView.alpha = 1.0 - [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
 	
 	enterChapterIsVIP = _chapter.bVip.boolValue;
+	
+	[self gotoChapter:_chapter withReadIndex:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	[self gotoChapter:_chapter withReadIndex:nil];
 	
 	NSLog(@"start to read chapter: %@", _chapter);
 	pageCurlType = nil;
@@ -390,7 +388,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 						[self gotoChapter:aChapter withReadIndex:nil];
 					} else {
                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读该章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
-                        [alertView setTag:FAILEDALERT_TAG];
                         [alertView show];
 					}
 				}];
@@ -568,12 +565,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        if (alertView.tag == FAILEDALERT_TAG) {
-            WebViewController *controller = [[WebViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        } 
-    }
+    if (buttonIndex == alertView.cancelButtonIndex) {
+		if (enterChapterIsVIP) {
+			[self back];
+		}
+    } else {
+		WebViewController *controller = [[WebViewController alloc] init];
+		[self.navigationController pushViewController:controller animated:YES];
+	}
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
