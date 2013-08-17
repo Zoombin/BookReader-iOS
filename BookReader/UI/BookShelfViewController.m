@@ -318,26 +318,40 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if (!needRemoveFavoriteBooks.count) {
 		NSLog(@"no more book need to remove favorite...");
 		[self hideHUD:YES];
+		[self.headerView deleteButtonEnable:NO];
+		[self refreshBooks];
 		return;
 	}
 	Book *needRemoveBook = needRemoveFavoriteBooks[0];
-	[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
-		if (success) {
-			[needRemoveFavoriteBooks removeObject:needRemoveBook];
-			[self refreshBooks];
-			needRemoveBook.bFav = NO;
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Book *book = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
-				if (book) {
-					book.bFav = NO;
-				}
-			} completion:^(BOOL success, NSError *error) {
+	needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
+	if (needRemoveBook.bFav) {
+		[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
+			if (success) {
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+					if (b) {
+						[b deleteInContext:localContext];
+					}
+				} completion:^(BOOL success, NSError *error) {
+					[needRemoveFavoriteBooks removeObject:needRemoveBook];
+					[self syncRemoveFav];
+				}];
+			} else {
+				[needRemoveFavoriteBooks removeObject:needRemoveBook];
 				[self syncRemoveFav];
-			}];
-		} else {
+			}
+		}];
+	} else {
+		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+			Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+			if (b) {
+				[b deleteInContext:localContext];
+			}
+		} completion:^(BOOL success, NSError *error) {
+			[needRemoveFavoriteBooks removeObject:needRemoveBook];
 			[self syncRemoveFav];
-		}
-	}];
+		}];
+	}
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -349,24 +363,33 @@ const NSUInteger numberOfBooksPerRow = 3;
 			[self displayHUD:@"收藏并开启自动更新..."];
 			[ServiceManager addFavoriteWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
 				if (success) {
+					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+						Book *b = [Book findFirstByAttribute:@"uid" withValue:needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+						if (b) {
+							b.bFav = @(YES);
+						}
+					}];
+					NSLog(@"bookuid: %@", needFavAndAutoBuyBookCell.book.uid);
 					[ServiceManager autoSubscribeWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error) {
 						[self hideHUD:YES];
-						needFavAndAutoBuyBookCell.autoBuy = YES;
-						needFavAndAutoBuyBookCell.book.autoBuy = @(YES);
-						[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-							Book *b = [Book findFirstByAttribute:@"uid" withValue:needFavAndAutoBuyBookCell.book.uid inContext:localContext];
-							if (b) {
-								b.autoBuy = @(YES);
-							}
-						}];
+						if (success) {
+							[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
+								Book *b = [Book findFirstByAttribute:@"uid" withValue:needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+								if (b) {
+									b.autoBuy = @(YES);
+								}
+							} completion:^(BOOL success, NSError *error) {
+								[self refreshBooks];
+							}];
+						} else {
+							[self refreshBooks];
+						}
 					}];
 				} else {
 					[self hideHUD:YES];
 					[self displayHUDError:@"错误" message:message];
 				}
 			}];
-			
-			
 		}
 	}
 }
@@ -415,7 +438,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		} else {
 			[needRemoveFavoriteBooks removeObject:bookCell.book];
 		}
-        [self.headerView deleteButtonEnable:needRemoveFavoriteBooks.count > 0];
+        [self.headerView deleteButtonEnable:(BOOL)needRemoveFavoriteBooks.count];
 	} else {
 		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
 		if (chapter) {
@@ -448,10 +471,15 @@ const NSUInteger numberOfBooksPerRow = 3;
     [self displayHUD:message];
 	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(BOOL success, NSError *error) {
 		[self hideHUD:YES];
-		if (!error) {
-			bookCell.book.autoBuy = @(shiftToOnOrOff);
-			[bookCell.book persistWithBlock:nil];
-			bookCell.autoBuy = shiftToOnOrOff;
+		if (success) {
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
+				b.autoBuy = @(shiftToOnOrOff);
+			} completion:^(BOOL success, NSError *error) {
+				[self refreshBooks];
+			}];
+		} else {
+			[self refreshBooks];
 		}
 	}];
 }

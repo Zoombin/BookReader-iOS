@@ -755,7 +755,7 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:@(YES)]];
+		[bookList addObjectsFromArray:[Book createWithAttributesArray:theObject[@"keepList"] andExtra:nil]];
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, bookList);
         }
