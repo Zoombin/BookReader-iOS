@@ -14,8 +14,9 @@
 }
 
 - (id)init {
-    if (self == [super init]) {
-		_buttonArrays = [NSMutableArray arrayWithCapacity:4];
+	self = [super init];
+    if (self) {
+		_buttonArrays = [NSMutableArray array];
         
         backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 170)];
         [backgroundView setBackgroundColor:[UIColor colorWithRed:175.0/255.0 green:88.0/255.0 blue:42.0/255.0 alpha:1.0]];

@@ -16,18 +16,23 @@
 
 @implementation BRBooksView
 
++ (PSUICollectionViewFlowLayout *)defaultLayout
+{
+	PSUICollectionViewFlowLayout *layout = [[PSUICollectionViewFlowLayout alloc] init];
+	layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
+	layout.itemSize = CGSizeMake(70, 90);
+	layout.minimumInteritemSpacing = 11;
+	layout.minimumLineSpacing = 50;
+	return layout;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
-	_layout = [[PSUICollectionViewFlowLayout alloc] init];
-	_layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-	_layout.itemSize = CGSizeMake(70, 90);
-	_layout.minimumInteritemSpacing = 11;
-	_layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
-	_layout.minimumLineSpacing = 50;
-		
-    self = [super initWithFrame:frame collectionViewLayout:_layout];
+	PSUICollectionViewFlowLayout *layout = [[self class] defaultLayout];
+	layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
+    self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
+		_layout = layout;
 		self.showsVerticalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];
 		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:collectionCellIdentifier];

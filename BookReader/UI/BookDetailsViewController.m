@@ -789,8 +789,7 @@
     }
     else {
         if (cell == nil) {
-            NSArray *tmpArray = [NSArray array];
-            tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
+            NSArray *tmpArray = tableView == recommendTableView ? sameTypeBookArray : authorBookArray;
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
             Book *b = [tmpArray objectAtIndex:[indexPath row]];
             if (tableView == authorBookTableView) {
