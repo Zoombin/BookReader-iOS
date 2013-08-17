@@ -152,20 +152,23 @@
 
 - (void)chapterButtonClicked:(id)sender
 {
-    NSLog(@"章节");
+    NSLog(@"目录");
     if (!chapterArray.count) {
-		[self getChaptersDataWithBlock:nil];
+		[self getChaptersDataWithBlock:^(void) {
+			[chapterListTableView reloadData];
+		}];
     }
     [self resetButtons];
     bChapter = YES;
     bCommit = NO;
     [sender setSelected:YES];
     [self.view bringSubviewToFront:chapterListView];
+	[chapterListTableView reloadData];
 }
 
 - (void)commentButtonClicked:(id)sender
 {
-    NSLog(@"评论");
+    NSLog(@"书评");
     bCommit = YES;
     bChapter = NO;
     if ([infoArray count]==0) {
@@ -178,7 +181,7 @@
 
 - (void)authorButtonClicked:(id)sender
 {
-    NSLog(@"作者书籍");
+    NSLog(@"作者作品");
     bCommit = NO;
     bChapter = NO;
     if ([authorBookArray count]==0) {
@@ -518,7 +521,6 @@
 		if (success) {
 			NSLog(@"%@",nextUpdateTime);
 			chapterArray = [resultArray mutableCopy];
-			[chapterListTableView reloadData];
 			if (block) block();
 		} else {
 			[self displayHUDError:@"获取章节目录失败" message:error.description];
@@ -533,12 +535,13 @@
         return;
     } else {
         [self getChaptersDataWithBlock:^{
-			Chapter *chapterShoudRead = [Chapter lastReadChapterOfBook:book];
-			if (!chapterShoudRead) {
-				chapterShoudRead = chapterArray[0];
+			Chapter *chapterShouldRead = [Chapter lastReadChapterOfBook:book];
+			if (!chapterShouldRead) {
+				chapterShouldRead = chapterArray[0];
 			}
+			[chapterListTableView reloadData];
 			[self hideHUD:YES];
-			[self pushToReadViewWithChapter:chapterShoudRead];
+			[self pushToReadViewWithChapter:chapterShouldRead];
         }];
     }
 }
