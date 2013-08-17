@@ -453,7 +453,7 @@
 {
 	[self createStandViews:MAX(5, (int)ceil(booksForDisplay.count / 3) )];
 	if (booksForDisplay.count > 9) {
-		booksView.gridLayout.sectionInset = kMoreBookEdgeInsets;
+		booksView.layout.sectionInset = kMoreBookEdgeInsets;
 	}
 	return booksForDisplay.count;
 }
@@ -483,26 +483,18 @@
 		notificationView.delegate = self;
 		if (notification) {
 			notificationView.notification = notification;
-			if (![notification shouldDisplay]) {
-				[booksView setCollectionViewLayout:booksView.layoutWithoutHeader];
-				[booksView reloadData];
-			}
 		}
-//		else {
-//			//[booksView setCollectionViewLayout:booksView.gridLayout];
-//			//[booksView reloadData];
-//		}
 	}
     return supplementaryView;
 }
 
-//- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-//{
-//	if (notification && [notification shouldDisplay]) {
-//		return CGSizeMake(booksView.frame.size.width, 120);
-//	}
-//	return CGSizeZero;
-//}
+- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+	if (notification && [notification shouldDisplay]) {
+		return CGSizeMake(booksView.frame.size.width, 120);
+	}
+	return CGSizeZero;
+}
 
 #pragma mark - NotificationViewDelegate
 
@@ -510,13 +502,11 @@
 {
 	BookDetailsViewController *bookDetailsViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
 	[self.navigationController pushViewController:bookDetailsViewController animated:YES];
-	[booksView setCollectionViewLayout:booksView.layoutWithoutHeader];
 	[booksView reloadData];
 }
 
 - (void)willClose
 {
-	[booksView setCollectionViewLayout:booksView.layoutWithoutHeader];
 	[booksView reloadData];
 }
 

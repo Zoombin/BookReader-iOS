@@ -20,24 +20,15 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-	_gridLayout = [[PSUICollectionViewFlowLayout alloc] init];
-	_gridLayout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-	_gridLayout.itemSize = CGSizeMake(70, 90);
-	_gridLayout.minimumInteritemSpacing = 11;
-	_gridLayout.headerReferenceSize = CGSizeMake(frame.size.width, [[self class] headerHeight]);
-	//_gridLayout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
-	_gridLayout.minimumLineSpacing = 50;
-	_gridLayout.sectionInset = kLessBookEdgeInsets;
-	
-	_layoutWithoutHeader = [[PSUICollectionViewFlowLayout alloc] init];
-	_layoutWithoutHeader.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-	_layoutWithoutHeader.itemSize = CGSizeMake(70, 90);
-	_layoutWithoutHeader.minimumInteritemSpacing = 11;
-	_layoutWithoutHeader.headerReferenceSize = CGSizeMake(frame.size.width, 0);
-	_layoutWithoutHeader.minimumLineSpacing = 50;
-	_layoutWithoutHeader.sectionInset = kLessBookEdgeInsets;
-	
-    self = [super initWithFrame:frame collectionViewLayout:_gridLayout];
+	_layout = [[PSUICollectionViewFlowLayout alloc] init];
+	_layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
+	_layout.itemSize = CGSizeMake(70, 90);
+	_layout.minimumInteritemSpacing = 11;
+	//_layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
+	_layout.minimumLineSpacing = 50;
+	_layout.sectionInset = kLessBookEdgeInsets;
+		
+    self = [super initWithFrame:frame collectionViewLayout:_layout];
     if (self) {
 		self.showsVerticalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];

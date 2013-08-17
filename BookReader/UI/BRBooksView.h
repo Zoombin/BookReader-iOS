@@ -25,8 +25,7 @@
 @interface BRBooksView : PSUICollectionView
 
 @property (nonatomic, weak) id<BRBooksViewDelegate> booksViewDelegate;
-@property (nonatomic, strong) PSUICollectionViewFlowLayout *gridLayout;
-@property (nonatomic, strong) PSUICollectionViewFlowLayout *layoutWithoutHeader;
+@property (nonatomic, strong) PSUICollectionViewFlowLayout *layout;
 
 - (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath;
 
