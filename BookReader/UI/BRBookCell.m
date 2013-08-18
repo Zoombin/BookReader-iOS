@@ -35,7 +35,7 @@
         
         badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
-        [badgeView setHideWhenZero:YES];
+        //[badgeView setHideWhenZero:YES];
         [self.contentView addSubview:badgeView];
         
         autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -97,7 +97,7 @@
 - (void)setEditing:(BOOL)editing
 {
     _editing = editing;
-	badgeView.hidden = editing;
+	badgeView.hidden = _editing || _badge == 0;
 	autoBuyButton.hidden = !_editing;
     if (!editing) {
         [self setCellSelected:NO];
@@ -117,7 +117,6 @@
 {
 	_badge = badge;
     badgeView.value = _badge;
-	badgeView.hidden = _editing;
 }
 
 - (void)valueChanged:(id)sender {

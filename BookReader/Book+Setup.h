@@ -16,5 +16,6 @@
 
 + (NSArray *)allBooksOfUser:(NSNumber *)userID;
 - (BOOL)needUpdate;
++ (NSArray *)helpBooks;
 
 @end

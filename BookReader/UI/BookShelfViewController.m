@@ -19,11 +19,13 @@
 #import "Reachability.h"
 #import "BRWifiReminderView.h"
 #import "BRNotification.h"
+#import "BookShelfHelpView.h"
+#import "BRContextManager.h"
 
 const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, BookShelfHelpViewDelegate>
 @end
 
 @implementation BookShelfViewController {
@@ -109,16 +111,39 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	[self loginReminderView].hidden = [ServiceManager isSessionValid];
+	if (![ServiceManager hadLaunchedBefore]) {
+		[self helpDisplay];
+	} else {
+		[self formalDisplay];
+	}
+
+}
+
+- (void)helpDisplay
+{
+	BookShelfHelpView *helpView = [[BookShelfHelpView alloc] initWithFrame:self.view.bounds];
+	helpView.delegate = self;
+	[self.view addSubview:helpView];
 	
+	booksForDisplay = [Book helpBooks];
+	[booksView reloadData];
+
+}
+
+- (void)formalDisplay
+{
+	[self loginReminderView].hidden = [ServiceManager isSessionValid];
+
 	if (!notification) {
 		[self fetchNotification:^(void){
 			[booksView reloadData];
 		}];
 
 	}
-	
+
 	if (![ServiceManager hadLaunchedBefore]) {
+		[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED_BEFORE];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 		[self recommendBooks:^(void) {
 			[self startSync];
 		}];
@@ -498,8 +523,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-	cell.editing = editing;
 	cell.badge = [Chapter countOfUnreadChaptersOfBook:book];
+	cell.editing = editing;
 	return cell;
 }
 
@@ -562,6 +587,22 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (void)willClose
 {
 	[booksView reloadData];
+}
+
+#pragma mark - BookShelfHelpViewDelegate
+
+- (void)willAppearSecondHelpView
+{
+	editing = YES;
+	[booksView reloadData];
+}
+
+- (void)willDismiss
+{
+	booksForDisplay = nil;
+	editing = NO;
+	[booksView reloadData];
+	[self formalDisplay];
 }
 
 

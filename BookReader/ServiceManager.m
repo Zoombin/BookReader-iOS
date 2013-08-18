@@ -86,8 +86,6 @@ static NSNumber *sUserID;
     if ([[NSUserDefaults standardUserDefaults] objectForKey:HAD_LAUNCHED_BEFORE]) {
         return YES;
     }
-	[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED_BEFORE];
-	[[NSUserDefaults standardUserDefaults] synchronize];
 	return NO;
 }
 
