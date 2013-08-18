@@ -141,7 +141,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[self fetchNotification:^(void){
 			[booksView reloadData];
 		}];
-
 	}
 
 	if (![ServiceManager hadLaunchedBefore]) {

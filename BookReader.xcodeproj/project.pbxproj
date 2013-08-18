@@ -146,8 +146,6 @@
 		18B39BAF17B1E46E0092AC0A /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B39BAE17B1E46E0092AC0A /* CommentView.m */; };
 		18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */; };
 		18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */; };
-		18B6C96B17B8A2F500D8E0DC /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B6C96817B8A2F500D8E0DC /* iVersion.bundle */; };
-		18B6C96C17B8A2F500D8E0DC /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B6C96A17B8A2F500D8E0DC /* iVersion.m */; };
 		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
 		18BA0AA1176FFE1600DFE9B3 /* bookstore_cata_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */; };
 		18BA0AA2176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */; };
@@ -506,9 +504,6 @@
 		18B39BAE17B1E46E0092AC0A /* CommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
 		18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_search_btn.png; sourceTree = "<group>"; };
 		18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_search_btn@2x.png"; sourceTree = "<group>"; };
-		18B6C96817B8A2F500D8E0DC /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
-		18B6C96917B8A2F500D8E0DC /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
-		18B6C96A17B8A2F500D8E0DC /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_cata_hl.png; sourceTree = "<group>"; };
 		18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_cata_hl@2x.png"; sourceTree = "<group>"; };
@@ -952,16 +947,6 @@
 			path = localBook;
 			sourceTree = "<group>";
 		};
-		18B6C96717B8A2F500D8E0DC /* iVersion */ = {
-			isa = PBXGroup;
-			children = (
-				18B6C96817B8A2F500D8E0DC /* iVersion.bundle */,
-				18B6C96917B8A2F500D8E0DC /* iVersion.h */,
-				18B6C96A17B8A2F500D8E0DC /* iVersion.m */,
-			);
-			path = iVersion;
-			sourceTree = "<group>";
-		};
 		18EDD0CF173DB4C900915372 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1130,7 +1115,6 @@
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				18B6C96717B8A2F500D8E0DC /* iVersion */,
 				18FD246317B37A8000D11CCA /* UMengSDK */,
 				778E799217B2377F00DC28B7 /* Reachability */,
 				77B378E617ABE65200D8D63D /* ZBUtilities */,
@@ -1746,7 +1730,6 @@
 				18FD247F17B4D17700D11CCA /* discuss_nor@2x.png in Resources */,
 				18FD248017B4D17700D11CCA /* discuss_sel.png in Resources */,
 				18FD248117B4D17700D11CCA /* discuss_sel@2x.png in Resources */,
-				18B6C96B17B8A2F500D8E0DC /* iVersion.bundle in Resources */,
 				779A5A9C17C0660C00C865FE /* help1_2@2x.png in Resources */,
 				779A5A9E17C0660C00C865FE /* help2_2@2x.png in Resources */,
 				779A5AA017C0660C00C865FE /* help3_2@2x.png in Resources */,
@@ -1913,7 +1896,6 @@
 				778E79C717B2377F00DC28B7 /* Reachability.m in Sources */,
 				18FD247117B3944600D11CCA /* WebViewController.m in Sources */,
 				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
-				18B6C96C17B8A2F500D8E0DC /* iVersion.m in Sources */,
 				779423E317BDDDFA00814D07 /* BRNotification.m in Sources */,
 				779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */,
 				779423EC17BF559100814D07 /* BRChapterNameView.m in Sources */,

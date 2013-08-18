@@ -16,6 +16,7 @@
 #import "UIColor+BookReader.h"
 #import "NavViewController.h"
 #import "MobClick.h"
+//#import "iVersion.h"
 
 @implementation AppDelegate {
     NavViewController *_navController;
@@ -35,6 +36,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	//[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
+	
 	//TOTEST
 	
 //	[ServiceManager saveUserID:@(2797792)];//曹正华
