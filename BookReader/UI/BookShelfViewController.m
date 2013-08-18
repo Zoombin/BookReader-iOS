@@ -67,6 +67,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
 	[self.view addSubview:booksView];
+	
+	[self createStandViews:@(minNumberOfStandView)];
 }
 
 - (BRLoginReminderView *)loginReminderView {
@@ -82,9 +84,9 @@ const NSUInteger numberOfBooksPerRow = 3;
 }
 
 
-- (void)createStandViews:(NSInteger)number
+- (void)createStandViews:(NSNumber *)number
 {
-	if (booksStandViews.count == number) {
+	if (booksStandViews.count == number.integerValue) {
 		for (UIView *standView in booksStandViews) {
 			[booksView sendSubviewToBack:standView];
 		}
@@ -99,7 +101,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 	[booksStandViews removeAllObjects];
 	standViewsDistance = 140;
-	for (int i = 0; i < number; i++) {
+	for (int i = 0; i < number.integerValue; i++) {
 		UIImageView *standView = [[UIImageView alloc] initWithImage:standImage];
 		standView.frame = CGRectMake(0, standViewsDistance * (i + 1) - standImage.size.height, self.view.frame.size.width, standImage.size.height);
 		[booksStandViews addObject:standView];
@@ -127,7 +129,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	
 	booksForDisplay = [Book helpBooks];
 	[booksView reloadData];
-
+	
+	[booksView performSelector:@selector(reloadData) withObject:nil afterDelay:1.0];
 }
 
 - (void)formalDisplay
@@ -513,9 +516,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
-	numberOfRows += [notification shouldDisplay] ? 1 : 0;
-	[self createStandViews:MAX( minNumberOfStandView, numberOfRows)];
 	return booksForDisplay.count;
 }
 
@@ -525,6 +525,13 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
 	cell.badge = [Chapter countOfUnreadChaptersOfBook:book];
 	cell.editing = editing;
+	
+	if (indexPath.row == booksForDisplay.count - 1) {
+		NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
+		numberOfRows += [notification shouldDisplay] ? 1 : 0;
+		numberOfRows = MAX(minNumberOfStandView, numberOfRows);
+		[self createStandViews:@(numberOfRows)];
+	}
 	return cell;
 }
 
