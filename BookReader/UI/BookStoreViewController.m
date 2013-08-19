@@ -368,10 +368,6 @@
 
 - (void)loadRecommendDataWithIndex:(NSInteger)index
 {
-    if (index==1) {
-        [self displayHUD:@"加载中..."];
-        [infoArray removeAllObjects];
-    }
     [infoTableView setHidden:NO];
     [ServiceManager recommendBooksIndex:index
                               WithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
@@ -381,7 +377,7 @@
                                       [infoArray addObjectsFromArray:resultArray];
                                       [recommandArray addObjectsFromArray:resultArray];
                                       [self refreshRecommendDataWithArray:infoArray];
-                                      if (index<=5) {
+                                      if (index<5) {
                                           [self loadRecommendDataWithIndex:index+1];
                                       }
                                   }
@@ -471,6 +467,7 @@
             [infoTableView reloadData];
             return;
         }
+        [self displayHUD:@"加载中..."];
         [self loadRecommendDataWithIndex:1];
 	} else if (sender == rankButton) {
 		currentType = RANK;
