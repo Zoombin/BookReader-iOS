@@ -16,7 +16,7 @@
 #import "UIColor+BookReader.h"
 #import "NavViewController.h"
 #import "MobClick.h"
-//#import "iVersion.h"
+#import "iVersion.h"
 
 @implementation AppDelegate {
     NavViewController *_navController;
@@ -36,7 +36,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	//[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
+	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
 	
 	//TOTEST
 	
@@ -91,6 +91,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -98,6 +99,7 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
