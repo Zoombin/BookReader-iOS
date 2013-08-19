@@ -345,6 +345,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			if (book) {
 				book.lastReadChapterID = _chapter.uid;
 				book.localUpdateDate = [NSDate date];
+				book.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:book]);
 			}
 		}];
 		statusView.title.text = [_chapter displayName];

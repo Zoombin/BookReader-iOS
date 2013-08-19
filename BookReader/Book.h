@@ -2,7 +2,7 @@
 //  Book.h
 //  BookReader
 //
-//  Created by zhangbin on 8/4/13.
+//  Created by zhangbin on 8/19/13.
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
@@ -43,5 +43,6 @@
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * words;
+@property (nonatomic, retain) NSNumber * numberOfUnreadChapters;
 
 @end

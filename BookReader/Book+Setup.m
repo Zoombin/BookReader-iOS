@@ -137,6 +137,7 @@
 	self.uid = book.uid;
 //	self.userID = book.userID;
 	self.words = book.words;
+//	self.numberOfUnreadChapters = book.numberOfUnreadChapters;
 }
 
 - (NSString *)description

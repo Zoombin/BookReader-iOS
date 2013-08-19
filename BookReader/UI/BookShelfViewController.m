@@ -255,6 +255,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 						[b deleteInContext:localContext];
 					} else {
 						b.nextUpdateTime = nextUpdateTime;
+						b.numberOfUnreadChapters = @(resultArray.count);
 					}
 				}
 			} completion:^(BOOL success, NSError *error) {
@@ -298,11 +299,13 @@ const NSUInteger numberOfBooksPerRow = 3;
 				}
 			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
-				[self syncChaptersContent];
+				[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:0.3];
+//				[self syncChaptersContent];
 			}];
 		} else {
 			[chapters removeObject:chapter];
-			[self syncChaptersContent];
+			[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:0.3];
+//			[self syncChaptersContent];
 		}
 	}];
 }
@@ -330,11 +333,13 @@ const NSUInteger numberOfBooksPerRow = 3;
 				}
 			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
-				[self syncAutoSubscribe];
+				[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:0.3];
+//				[self syncAutoSubscribe];
 			}];
 		} else {
 			[chapters removeObject:chapter];
-			[self syncAutoSubscribe];			
+			[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:0.3];
+//			[self syncAutoSubscribe];
 		}
 	}];
 }
@@ -530,7 +535,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-	cell.badge = [Chapter countOfUnreadChaptersOfBook:book];
+	cell.badge = book.numberOfUnreadChapters.integerValue;
 	cell.editing = editing;
 	
 	if (indexPath.row == booksForDisplay.count - 1) {
