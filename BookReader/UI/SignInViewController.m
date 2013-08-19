@@ -39,6 +39,7 @@
 	UIButton *registerButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 55, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
 	[registerButton addTarget:self action:@selector(registerButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	[registerButton setTitle:@"注册" forState:UIControlStateNormal];
+	registerButton.showsTouchWhenHighlighted = YES;
 	[self.view addSubview:registerButton];
     
     accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(25, 74, fullSize.width - 25 * 2, 50)];

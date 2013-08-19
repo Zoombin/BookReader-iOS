@@ -150,6 +150,7 @@ static float duration = 0;
 	[button.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
 	[button setFrame:CGRectMake(position.x, position.y, 50, 32)];
 	[button addTarget:APP_DELEGATE action:@selector(gotoBookShelf) forControlEvents:UIControlEventTouchUpInside];
+	button.showsTouchWhenHighlighted = YES;
 	return button;
 }
 
