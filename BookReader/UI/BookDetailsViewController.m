@@ -150,17 +150,17 @@
 - (void)chapterButtonClicked:(id)sender
 {
     NSLog(@"目录");
-    if (!chapterArray.count) {
-		[self getChaptersDataWithBlock:^(void) {
-			[chapterListTableView reloadData];
-		}];
-    }
-    [self resetButtons];
+	[self resetButtons];
     bChapter = YES;
     bCommit = NO;
     [sender setSelected:YES];
-    [self.view bringSubviewToFront:chapterListView];
-	[chapterListTableView reloadData];
+	[self.view bringSubviewToFront:chapterListView];
+    if (!chapterArray.count) {
+		[self getChaptersDataWithBlock:^(void) {
+			[chapterListTableView reloadData];
+			
+		}];
+    }
 }
 
 - (void)commentButtonClicked:(id)sender
@@ -168,12 +168,12 @@
     NSLog(@"书评");
     bCommit = YES;
     bChapter = NO;
+	[self resetButtons];
+    [sender setSelected:YES];
+    [self.view bringSubviewToFront:commentView];
     if ([infoArray count]==0) {
         [self loadCommitList];
     }
-    [self resetButtons];
-    [sender setSelected:YES];
-    [self.view bringSubviewToFront:commentView];
 }
 
 - (void)authorButtonClicked:(id)sender
@@ -181,12 +181,12 @@
     NSLog(@"作者作品");
     bCommit = NO;
     bChapter = NO;
+	[self resetButtons];
+    [sender setSelected:YES];
+    [self.view bringSubviewToFront:authorBookView];
     if ([authorBookArray count]==0) {
         [self loadAuthorOtherBook];
     }
-    [self resetButtons];
-    [sender setSelected:YES];
-    [self.view bringSubviewToFront:authorBookView];
 }
 
 - (void)resetButtons
@@ -550,12 +550,10 @@
 
 - (void)loadAuthorOtherBook
 {
+	[self displayHUD:@"加载中..."];
     [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error) {
-            
-        }
-        else
-        {
+		[self hideHUD:YES];
+		if (success) {
             if ([authorBookArray count]>0) {
                 [authorBookArray removeAllObjects];
             }
@@ -569,18 +567,15 @@
                 [authorBookTableView setTableHeaderView:emptyLabel];
             }
             [authorBookTableView reloadData];
-        }
+		}
     }];
 }
 
 - (void)loadSameType
 {
     [ServiceManager bookRecommend:book.categoryID.integerValue andCount:@"5" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error) {
-            
-        }
-        else {
-            if ([sameTypeBookArray count]>0) {
+		if (success) {
+			if ([sameTypeBookArray count]>0) {
                 [sameTypeBookArray removeAllObjects];
             }
             for (int i = 0 ; i<[resultArray count]; i++) {
@@ -588,14 +583,14 @@
                 if([obj.uid integerValue]!=[bookid integerValue]) {
                     [sameTypeBookArray addObject:obj];
                 }
-            if ([sameTypeBookArray count]==4) {
-                break;
-            }
-        }
-        [recommendTableView reloadData];
-        [self refreshCoverViewFrame];
-    }
-     }];
+				if ([sameTypeBookArray count]==4) {
+					break;
+				}
+			}
+			[recommendTableView reloadData];
+			[self refreshCoverViewFrame];
+		}
+	}];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -633,29 +628,31 @@
 
 - (void)loadShortCommitList
 {
+	[self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"6" andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error){
-        } else {
+		[self hideHUD:YES];
+		if (success) {
             [shortInfoArray addObjectsFromArray:resultArray];
             [shortInfoTableView reloadData];
             [self refreshCoverViewFrame];
-        }
+		}
     }];
 }
 
 - (void)loadCommitList
 {
 	[infoArray removeAllObjects];
+	[self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error){
-        } else {
-            if ([resultArray count] == 10) {
+		[self hideHUD:YES];
+		if (success) {
+			if ([resultArray count] == 10) {
                 [self addFootView];
                 currentIndex++;
             }
             [infoArray addObjectsFromArray:resultArray];
             [infoTableView reloadData];
-        }
+		}
     }];
 }
 
@@ -701,7 +698,7 @@
 {
     if (![self checkLogin]) return;
 	
-	[self displayHUD:@"请稍等..."];
+	[self displayHUD:@"正在收藏..."];
 	[ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(BOOL success, NSError *error,NSString *message) {
 		if (success) {
 			[self hideHUD:YES];
