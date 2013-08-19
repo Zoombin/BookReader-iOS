@@ -511,6 +511,14 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}];
 }
 
+- (NSNumber *)numberOfRows
+{
+	NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
+	numberOfRows += [notification shouldDisplay] ? 1 : 0;
+	numberOfRows = MAX(minNumberOfStandView, numberOfRows);
+	return @(numberOfRows);
+}
+
 #pragma mark - CollectionViewDelegate
 
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -526,10 +534,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	cell.editing = editing;
 	
 	if (indexPath.row == booksForDisplay.count - 1) {
-		NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
-		numberOfRows += [notification shouldDisplay] ? 1 : 0;
-		numberOfRows = MAX(minNumberOfStandView, numberOfRows);
-		[self createStandViews:@(numberOfRows)];
+		[self createStandViews:[self numberOfRows]];
 	}
 	return cell;
 }
@@ -567,7 +572,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if (notification && [notification shouldDisplay]) {
 		top = 50;
 	}
-	if (booksStandViews.count <= minNumberOfStandView) {
+	if ([self numberOfRows].integerValue <= minNumberOfStandView) {
 		NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
 		CGFloat bottom = 245 - standViewsDistance * (numberOfRows - 1);
 		if (top == 30) {
