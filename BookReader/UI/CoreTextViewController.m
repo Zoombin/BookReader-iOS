@@ -322,6 +322,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		}
 	}
 	BRChapterNameView *chapterNameView = [[BRChapterNameView alloc] initWithFrame:self.view.bounds];
+    [chapterNameView setUserInteractionEnabled:NO];
 	chapterNameView.chapter = chapter;
 	[self.view addSubview:chapterNameView];
 }
