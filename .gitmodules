@@ -16,3 +16,6 @@
 [submodule "Libraries/Reachability"]
 	path = Libraries/Reachability
 	url = https://qq30135878@github.com/qq30135878/Reachability.git
+[submodule "Libraries/iVersion"]
+	path = Libraries/iVersion
+	url = https://qq30135878@github.com/nicklockwood/iVersion.git
