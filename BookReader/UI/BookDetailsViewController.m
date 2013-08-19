@@ -212,6 +212,7 @@
     [mainButton setImage:[UIImage imageNamed:@"main_btn"] forState:UIControlStateNormal];
     [mainButton setImage:[UIImage imageNamed:@"main_btn_hl"] forState:UIControlStateHighlighted];
     [mainButton addTarget:self action:@selector(mainButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+	mainButton.showsTouchWhenHighlighted = YES;
     [self.view addSubview:mainButton];
     
     emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 30)];
