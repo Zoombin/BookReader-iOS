@@ -608,6 +608,8 @@
     NSMutableArray *hotNamesIndex = [NSMutableArray array];
     [ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (!error) {
+            if (currentType!=SEARCH)
+                return;
             while (hotNamesIndex.count < resultArray.count) {
                 int randomNum = arc4random() % resultArray.count;
                 if (![hotNamesIndex containsObject:@(randomNum)]) {
