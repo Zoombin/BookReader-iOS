@@ -599,6 +599,7 @@
         } else {
             book = infoArray[indexPath.row];
         }
+        [_searchBar resignFirstResponder];
         BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
         [self.navigationController pushViewController:childViewController animated:YES];
     }
