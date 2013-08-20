@@ -17,14 +17,14 @@
          self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width-60, frame.size.height)];
 		_title.backgroundColor = [UIColor clearColor];
-        _title.textAlignment = UITextAlignmentLeft;
+        _title.textAlignment = NSTextAlignmentLeft;
         [_title setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 		_title.font = [UIFont systemFontOfSize:12];
         [self addSubview:_title];
 		
         _percentage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 		_percentage.backgroundColor = [UIColor clearColor];
-        _percentage.textAlignment = UITextAlignmentRight;
+        _percentage.textAlignment = NSTextAlignmentRight;
         [_percentage setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 		_percentage.font = [UIFont systemFontOfSize:12];
 		[self addSubview:_percentage];

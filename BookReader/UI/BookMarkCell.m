@@ -37,7 +37,7 @@
         progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(markNameLabel.frame) - 80, CGRectGetMaxY(markNameLabel.frame), 80, 20)];
         [progressLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
         progressLabel.backgroundColor = [UIColor clearColor];
-        progressLabel.textAlignment = UITextAlignmentRight;
+        progressLabel.textAlignment = NSTextAlignmentRight;
         [progressLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:progressLabel];
 

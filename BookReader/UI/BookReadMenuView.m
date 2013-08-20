@@ -158,7 +158,7 @@
         [btnTitleLabel setFont:[UIFont systemFontOfSize:14]];
         [btnTitleLabel setTextColor:[UIColor whiteColor]];
         [btnTitleLabel setBackgroundColor:[UIColor clearColor]];
-        [btnTitleLabel setTextAlignment:UITextAlignmentCenter];
+        [btnTitleLabel setTextAlignment:NSTextAlignmentCenter];
         [btnTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
         [btnTitleLabel setText:buttonNames[i]];
         [button addSubview:btnTitleLabel];
@@ -378,7 +378,7 @@
         [label setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         [label setFont:[UIFont systemFontOfSize:12]];
         [label setBackgroundColor:[UIColor clearColor]];
-        [label setTextAlignment:UITextAlignmentCenter];
+        [label setTextAlignment:NSTextAlignmentCenter];
         [label setTextColor:[UIColor whiteColor]];
         [backgroundView addSubview:label];
         

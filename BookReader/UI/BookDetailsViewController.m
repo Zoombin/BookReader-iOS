@@ -217,7 +217,7 @@
     
     emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 30)];
     [emptyLabel setText:@"暂无其它书籍"];
-    [emptyLabel setTextAlignment:UITextAlignmentCenter];
+    [emptyLabel setTextAlignment:NSTextAlignmentCenter];
     
     for (int i = 0; i < 4; i++) {
         switch (i) {

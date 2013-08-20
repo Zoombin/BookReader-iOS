@@ -23,7 +23,7 @@
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [button setTitle:@"查看更多..." forState:UIControlStateNormal];
-    [button.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
     [footview addSubview:button];
     return footview;

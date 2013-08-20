@@ -33,7 +33,7 @@
             [label setFont:[UIFont systemFontOfSize:24]];
             [label setBackgroundColor:[UIColor clearColor]];
             [label setTextColor:[UIColor whiteColor]];
-            [label setTextAlignment:UITextAlignmentCenter];
+            [label setTextAlignment:NSTextAlignmentCenter];
             [label setText:noticesArray[i]];
             label.lineBreakMode = UILineBreakModeWordWrap;
             label.numberOfLines = 0;
