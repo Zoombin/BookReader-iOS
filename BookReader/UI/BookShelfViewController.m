@@ -128,7 +128,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BookShelfHelpView *helpView = [[BookShelfHelpView alloc] initWithFrame:self.view.bounds];
 	helpView.delegate = self;
 	[self.view addSubview:helpView];
-//	return;
 	booksForDisplay = [Book helpBooks];
 	[booksView reloadData];
 }
@@ -136,7 +135,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (void)formalDisplay
 {
 	[self loginReminderView].hidden = [ServiceManager isSessionValid];
-//	return;
 
 	if (!notification) {
 		[self fetchNotification:^(void){
