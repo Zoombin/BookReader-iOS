@@ -115,7 +115,11 @@
 
 + (Chapter *)firstChapterOfBook:(Book *)book
 {
-	return [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND rollID = 1", book.uid] sortedBy:@"uid" ascending:YES];
+	NSArray *all = [Chapter allChaptersOfBookID:book.uid];
+	if (all.count) {
+		return all[0];
+	}
+	return nil;
 }
 
 - (Chapter *)previous
@@ -197,9 +201,27 @@
 - (NSString *)displayName
 {
 #ifdef DISPLAY_V_FLAG
-		return [NSString stringWithFormat:@"%@ 卷%d:%@", self.bVip.boolValue ? @"v" : @"", self.rollID.intValue, self.name];
+		return [NSString stringWithFormat:@"%@ 卷%@:%@", self.bVip.boolValue ? @"v" : @"", [self displayRollID], self.name];
 #endif
-		return [NSString stringWithFormat:@"卷%d:%@", self.rollID.intValue, self.name];
+		return [NSString stringWithFormat:@"卷%@:%@", [self displayRollID], self.name];
+}
+
+- (NSString *)displayRollID
+{
+	NSArray *allChapters = [Chapter allChaptersOfBookID:self.bid];
+	NSMutableArray *rollIDs = [NSMutableArray array];
+	for (Chapter *c in allChapters) {
+		if (![rollIDs containsObject:c.rollID]) {
+			[rollIDs addObject:c.rollID];
+		}
+	}
+	
+	for (int i = 0; i < rollIDs.count; i++) {
+		if ([self.rollID isEqualToString:rollIDs[i]]) {
+			return [NSString stringWithFormat:@"%d", i + 1];
+		}
+	}
+	return @"1";
 }
 
 @end

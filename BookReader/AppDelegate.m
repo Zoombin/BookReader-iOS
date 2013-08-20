@@ -41,6 +41,7 @@
 //	[ServiceManager login];
 	
 //	[self testApis];
+	
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:REALTIME channelId:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
