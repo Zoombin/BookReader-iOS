@@ -26,13 +26,12 @@
 	return layout;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame collectionViewLayout:(PSTCollectionViewLayout *)layout
 {
-	PSUICollectionViewFlowLayout *layout = [[self class] defaultLayout];
-	layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
-		_layout = layout;
+		//layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
+		//self.collectionViewLayout.foot = layout;
 		self.showsVerticalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];
 		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:collectionCellIdentifier];

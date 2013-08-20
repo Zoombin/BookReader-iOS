@@ -61,7 +61,10 @@ const NSUInteger numberOfBooksPerRow = 3;
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
     
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
+	
+	PSUICollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
+	layout.footerReferenceSize = CGSizeMake(fullSize.width, 90);
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -118,7 +121,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	} else {
 		[self formalDisplay];
 	}
-
 }
 
 - (void)helpDisplay
@@ -126,16 +128,15 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BookShelfHelpView *helpView = [[BookShelfHelpView alloc] initWithFrame:self.view.bounds];
 	helpView.delegate = self;
 	[self.view addSubview:helpView];
-	
+//	return;
 	booksForDisplay = [Book helpBooks];
 	[booksView reloadData];
-	
-	[booksView performSelector:@selector(reloadData) withObject:nil afterDelay:1.0];
 }
 
 - (void)formalDisplay
 {
 	[self loginReminderView].hidden = [ServiceManager isSessionValid];
+//	return;
 
 	if (!notification) {
 		[self fetchNotification:^(void){
