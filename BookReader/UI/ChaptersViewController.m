@@ -92,8 +92,28 @@
     [chapterlistBtn setEnabled:NO];
     [bookmarkBtn setEnabled:YES];
 	infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
-	[infoTableView reloadData];
+	if (!infoArray.count) {
+		[self getChaptersDataWithBlock:^(void) {
+			[infoTableView reloadData];
+		}];
+	} else {
+		[infoTableView reloadData];
+	}
     slider.hidden = NO;
+}
+
+- (void)getChaptersDataWithBlock:(dispatch_block_t)block
+{
+	[self displayHUD:@"获取章节目录..."];
+	[ServiceManager bookCatalogueList:_chapter.bid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+		[self hideHUD:YES];
+		if (success) {
+			infoArray = [resultArray mutableCopy];
+		} else {
+			infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
+		}
+		if (block) block();
+	}];
 }
 
 - (void)bookmarksButtonClicked
