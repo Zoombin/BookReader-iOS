@@ -174,7 +174,7 @@
 
 + (NSString *)lastChapterIDOfBook:(Book *)book
 {
-	NSArray *allChapters = [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"rollID,uid" ascending:NO];
+	NSArray *allChapters = [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"uid" ascending:NO];//不用考虑rollid，只要传递最大章节id即可
 	if (allChapters.count) {
 		return [allChapters[0] uid];
 	}
