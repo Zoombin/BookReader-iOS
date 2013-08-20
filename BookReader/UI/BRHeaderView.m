@@ -11,11 +11,13 @@
 #import "ServiceManager.h"
 
 @implementation BRHeaderView {
-    UIView *headerViewOne;
-    UIView *headerViewTwo;
     UIImageView *topBarImage;
     UIButton *deleteButton;
     UIButton *refreshButton;
+    UIButton *bookStoreBtn;
+    UIButton *memberBtn;
+    UIButton *editBtn;
+    UIButton *finishBtn;
 }
 
 + (CGFloat)height
@@ -57,45 +59,45 @@
     CGRect FINISH_BUTTON_FRAME = EDIT_BUTTON_FRAME;
     CGRect DELETE_BUTTON_FRAME = BOOKSTORE_BUTTON_FRAME;
     
-    headerViewOne = [[UIView alloc] initWithFrame:self.bounds];
-    [self addSubview:headerViewOne];
-    
-    headerViewTwo = [[UIView alloc] initWithFrame:self.bounds];
-    [self addSubview:headerViewTwo];
-    [headerViewTwo setHidden:YES];
+//    headerViewOne = [[UIView alloc] initWithFrame:self.bounds];
+//    [self addSubview:headerViewOne];
+//    
+//    headerViewTwo = [[UIView alloc] initWithFrame:self.bounds];
+//    [self addSubview:headerViewTwo];
+//    [headerViewTwo setHidden:YES];
     
     [_backButton setHidden:YES];
     [self bringSubviewToFront:_titleLabel];
     
-    UIButton *bookStoreBtn = [UIButton addButtonWithFrame:BOOKSTORE_BUTTON_FRAME andStyle:BookReaderButtonStyleRight];
+     bookStoreBtn = [UIButton addButtonWithFrame:BOOKSTORE_BUTTON_FRAME andStyle:BookReaderButtonStyleRight];
     [bookStoreBtn setTitle:@"书城" forState:UIControlStateNormal];
     [bookStoreBtn addTarget:self action:@selector(bButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	bookStoreBtn.showsTouchWhenHighlighted = YES;
-    [headerViewOne addSubview:bookStoreBtn];
+    [self addSubview:bookStoreBtn];
     
-    UIButton *memberBtn = [UIButton addButtonWithFrame:MYACCOUNT_BUTTON_FRAME andStyle:BookReaderButtonStyleLeft];
+     memberBtn = [UIButton addButtonWithFrame:MYACCOUNT_BUTTON_FRAME andStyle:BookReaderButtonStyleLeft];
     [memberBtn setImage:[UIImage imageNamed:@"shelf_member_btn"] forState:UIControlStateNormal];
     [memberBtn addTarget:self action:@selector(mButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	memberBtn.showsTouchWhenHighlighted = YES;
-    [headerViewOne addSubview:memberBtn];
+    [self addSubview:memberBtn];
     
-    UIButton *editBtn = [UIButton addButtonWithFrame:EDIT_BUTTON_FRAME andStyle:BookReaderButtonStyleLeft];
+     editBtn = [UIButton addButtonWithFrame:EDIT_BUTTON_FRAME andStyle:BookReaderButtonStyleLeft];
     [editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(eButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	editBtn.showsTouchWhenHighlighted = YES;
-    [headerViewOne addSubview:editBtn];
+    [self addSubview:editBtn];
     
     refreshButton = [UIButton addButtonWithFrame:UPDATE_BUTTON_FRAME andStyle:BookReaderButtonStyleRight];
     [refreshButton setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
     [refreshButton addTarget:self action:@selector(uButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	refreshButton.showsTouchWhenHighlighted = YES;
-    [headerViewOne addSubview:refreshButton];
+    [self addSubview:refreshButton];
     
-    UIButton *finishBtn = [UIButton addButtonWithFrame:FINISH_BUTTON_FRAME andStyle:BookReaderButtonStyleNormal];
+     finishBtn = [UIButton addButtonWithFrame:FINISH_BUTTON_FRAME andStyle:BookReaderButtonStyleNormal];
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [finishBtn addTarget:self action:@selector(fButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	finishBtn.showsTouchWhenHighlighted = YES;
-    [headerViewTwo addSubview:finishBtn];
+    [self addSubview:finishBtn];
     
     deleteButton = [UIButton addButtonWithFrame:DELETE_BUTTON_FRAME andStyle:BookReaderButtonStyleNormal];
     [deleteButton setUserInteractionEnabled:NO];
@@ -103,7 +105,14 @@
     [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
     [deleteButton addTarget:self action:@selector(dButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	deleteButton.showsTouchWhenHighlighted = YES;
-    [headerViewTwo addSubview:deleteButton];
+    [self addSubview:deleteButton];
+    
+    [finishBtn setHidden:YES];
+    [deleteButton setHidden:YES];
+    [bookStoreBtn setHidden:NO];
+    [refreshButton setHidden:NO];
+    [memberBtn setHidden:NO];
+    [editBtn setHidden:NO];
 }
 
 - (void)deleteButtonEnable:(BOOL)enable
@@ -124,8 +133,12 @@
 
 - (void)eButtonClick
 {
-    [headerViewOne setHidden:YES];
-    [headerViewTwo setHidden:NO];
+    [finishBtn setHidden:NO];
+    [deleteButton setHidden:NO];
+    [bookStoreBtn setHidden:YES];
+    [refreshButton setHidden:YES];
+    [memberBtn setHidden:YES];
+    [editBtn setHidden:YES];
     [self invokeDelegateMethod:kHeaderViewButtonEdit];
 }
 
@@ -136,8 +149,12 @@
 
 - (void)fButtonClick
 {
-    [headerViewOne setHidden:NO];
-    [headerViewTwo setHidden:YES];
+    [finishBtn setHidden:YES];
+    [deleteButton setHidden:YES];
+    [bookStoreBtn setHidden:NO];
+    [refreshButton setHidden:NO];
+    [memberBtn setHidden:NO];
+    [editBtn setHidden:NO];
     [self invokeDelegateMethod:kHeaderViewButtonFinishEditing];
 }
 
