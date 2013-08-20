@@ -255,6 +255,9 @@ const NSUInteger numberOfBooksPerRow = 3;
 						[b deleteInContext:localContext];
 					} else {
 						b.nextUpdateTime = nextUpdateTime;
+						NSUInteger newChaptersCount = resultArray.count;
+						NSUInteger allUnreaderChaptersCount = newChaptersCount + b.numberOfUnreadChapters.integerValue;
+						b.numberOfUnreadChapters = @(allUnreaderChaptersCount);
 						b.numberOfUnreadChapters = @(resultArray.count);
 					}
 				}
