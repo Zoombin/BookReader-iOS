@@ -25,7 +25,7 @@
 const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, BookShelfHelpViewDelegate>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, BookShelfHelpViewDelegate, PSUICollectionViewDataSource, PSUICollectionViewDelegate, PSUICollectionViewDelegateFlowLayout>
 @end
 
 @implementation BookShelfViewController {
@@ -534,7 +534,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 #pragma mark - CollectionViewDelegate
 
-- (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(PSUICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 	return booksForDisplay.count;
 }
@@ -571,7 +571,7 @@ const NSUInteger numberOfBooksPerRow = 3;
     return supplementaryView;
 }
 
-- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
 	if (notification && [notification shouldDisplay]) {
 		return CGSizeMake(booksView.frame.size.width, 120);
@@ -579,7 +579,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	return CGSizeZero;
 }
 
-- (UIEdgeInsets)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+- (UIEdgeInsets)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
 	CGFloat top = 30;
 	if (notification && [notification shouldDisplay]) {

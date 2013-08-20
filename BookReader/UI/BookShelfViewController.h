@@ -12,6 +12,6 @@
 #import "BRNotificationView.h"
 #import "PSTCollectionView.h"
 
-@interface BookShelfViewController : BRViewController <PSUICollectionViewDataSource, PSUICollectionViewDelegate, PSUICollectionViewDelegateFlowLayout>
+@interface BookShelfViewController : BRViewController
 
 @end

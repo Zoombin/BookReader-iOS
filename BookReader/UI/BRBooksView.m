@@ -19,18 +19,16 @@
 + (PSUICollectionViewFlowLayout *)defaultLayout
 {
 	PSUICollectionViewFlowLayout *layout = [[PSUICollectionViewFlowLayout alloc] init];
-	layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
 	layout.itemSize = CGSizeMake(70, 90);
 	layout.minimumInteritemSpacing = 11;
 	layout.minimumLineSpacing = 50;
 	return layout;
 }
 
-- (id)initWithFrame:(CGRect)frame collectionViewLayout:(PSTCollectionViewLayout *)layout
+- (id)initWithFrame:(CGRect)frame collectionViewLayout:(PSUICollectionViewLayout *)layout
 {
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
-		//layout.footerReferenceSize = CGSizeMake(frame.size.width, 90);
 		//self.collectionViewLayout.foot = layout;
 		self.showsVerticalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];
