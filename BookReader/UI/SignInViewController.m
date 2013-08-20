@@ -52,7 +52,7 @@
 
     
     loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginButton cooldownButtonFrame:CGRectMake(25, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-25*2, 50) andEnableCooldown:NO];
+    [loginButton memberButton:CGRectMake(25, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-25*2, 50)];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 	[loginButton setEnabled:NO];

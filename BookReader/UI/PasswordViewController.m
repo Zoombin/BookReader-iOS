@@ -57,14 +57,14 @@
     NSLog(@"%@",textFields);
     
     findButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
+    [findButton memberButton:CGRectMake(0, 0, 0, 0)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
     getCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [getCodeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:YES];
+    [getCodeButton memberButton:CGRectMake(0, 0, 0, 0)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -107,7 +107,7 @@
     }
     
     changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [changeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
+    [changeButton memberButton:CGRectMake(0, 0, 0, 0)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];

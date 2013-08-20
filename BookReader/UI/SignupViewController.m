@@ -43,14 +43,14 @@
     }
 	
 	registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
+    [registerButton memberButton:CGRectMake(0, 0, 0, 0)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setEnabled:NO];
 	[self.view addSubview:registerButton];
     
 	getCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [getCodeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:YES];
+    [getCodeButton memberButton:CGRectMake(0, 0, 0, 0)];
     [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];

@@ -74,7 +74,7 @@ static float duration = 0;
     return button;
 }
 
-- (void)cooldownButtonFrame:(CGRect)frame andEnableCooldown:(BOOL)cooldown
+- (void)memberButton:(CGRect)frame
 {
     [self setFrame:frame];
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -82,9 +82,6 @@ static float duration = 0;
     [self setBackgroundImage:[UIImage imageNamed:@"member_btn"] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage imageNamed:@"member_btn_hl"] forState:UIControlStateHighlighted];
     [self setBackgroundImage:[UIImage imageNamed:@"member_btn_disable"] forState:UIControlStateDisabled];
-    if (cooldown) {
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
-    }
 }
 
 + (UIButton *)fontButton:(CGRect)frame
@@ -103,30 +100,6 @@ static float duration = 0;
 {
     duration = delay;
     [self setEnabled:NO];
-}
-
-- (void)refresh
-{
-    if (duration == 0) {
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
-        return;
-    }
-    NSLog(@"%f",duration);
-    duration--;
-    NSString *newTitle = self.titleLabel.text;
-    NSRange range = [newTitle rangeOfString:@"("];
-    if (range.location != NSNotFound) {
-        newTitle = [newTitle substringToIndex:range.location];
-    }
-    if (duration <= 0) {
-        [self setEnabled:YES];
-        [self setTitle:newTitle forState:UIControlStateNormal];
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
-    } else {
-        newTitle = [NSString stringWithFormat:@"%@(%d)",newTitle,(int)duration];
-        [self performSelector:@selector(refresh) withObject:nil afterDelay:1.0];
-        [self setTitle:newTitle forState:UIControlStateNormal];
-    }
 }
 
 + (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style

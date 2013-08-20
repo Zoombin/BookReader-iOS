@@ -32,7 +32,7 @@ typedef enum {
 + (UIButton *)addButtonWithFrame:(CGRect)frame andStyle:(BookReaderButtonStyle)style;
 
 + (UIButton *)createButtonWithFrame:(CGRect)frame;
-- (void)cooldownButtonFrame:(CGRect)frame andEnableCooldown:(BOOL)cooldown;
+- (void)memberButton:(CGRect)frame;
 + (UIButton *)fontButton:(CGRect)frame;
 
 - (void)setDisabled:(BOOL)disabled;
