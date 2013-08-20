@@ -143,7 +143,7 @@
         }
 		authorLabel.text = displayAuthorString;
     } else {
-        [shortDescribeLabel setFrame:CGRectMake(15 + BOOK_COVER_ORIGIN_SIZE.width / 1.8 + 10, 35, 200, 30)];
+        [shortDescribeLabel setFrame:CGRectMake(15 + BOOK_COVER_ORIGIN_SIZE.width / 1.8 + 10, 45, 200, 35)];
     }
     if (book.describe) {
         shortDescribeLabel.text = [NSString stringWithFormat:@"简介 : %@", [[book.describe substringToIndex:book.describe.length >= 28 ? 28 : [book.describe length]] stringByAppendingString:@"..."]];
