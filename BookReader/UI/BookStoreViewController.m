@@ -282,9 +282,7 @@
     currentIndex = 1;
     [self displayHUD:@"加载中..."];
     [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d", index] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (error) {
-            [self displayHUDError:nil message:NETWORK_ERROR];
-        }else {
+        if(success) {
             if ([infoArray count] > 0) {
                 [infoArray removeAllObjects];
             }
@@ -302,6 +300,10 @@
             }
             [infoTableView reloadData];
             [self hideHUD:YES];
+        } else {
+            if (error) {
+                [self displayHUDError:nil message:NETWORK_ERROR];
+            }
         }
     }];
     
@@ -333,9 +335,7 @@
                   ranking:rankId
                      size:@"6"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-                     if (error) {
-                         [self displayHUDError:nil message:NETWORK_ERROR];
-                     }else {
+                     if (success){
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
                          } else {
@@ -344,6 +344,10 @@
                          currentIndex++;
                          [infoTableView reloadData];
                          isLoading = NO;
+                     } else {
+                         if (error) {
+                             [self displayHUDError:nil message:NETWORK_ERROR];
+                         }
                      }
                  }];
 }
@@ -369,14 +373,16 @@
     [infoTableView setHidden:NO];
     [ServiceManager recommendBooksIndex:index
                               WithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-                                  if (error) {
-                                      [self displayHUDError:nil message:NETWORK_ERROR];
-                                  }else {
+                                  if (success){
                                       [infoArray addObjectsFromArray:resultArray];
                                       [recommandArray addObjectsFromArray:resultArray];
                                       [self refreshRecommendDataWithArray:infoArray];
                                       if (index<5) {
                                           [self loadRecommendDataWithIndex:index+1];
+                                      }
+                                  } else {
+                                      if (error) {
+                                          [self displayHUDError:nil message:NETWORK_ERROR];
                                       }
                                   }
                               }];
@@ -424,9 +430,7 @@
                   ranking:0
                      size:@"7"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-                     if (error) {
-                         [childViewController displayHUDError:nil message:NETWORK_ERROR];
-                     }else {
+                     if (success){
                          if ([infoArray count]>0) {
                              [infoArray removeAllObjects];
                          }
@@ -434,6 +438,10 @@
                          [childViewController reloadDataWithArray:infoArray andCatagoryId:index+1];
                          currentPage = index +1;
                          [childViewController hideHUD:YES];
+                     } else {
+                         if (error) {
+                         [childViewController displayHUDError:nil message:NETWORK_ERROR];
+                         }
                      }
                  }];
 }
@@ -612,7 +620,7 @@
         return;
     NSMutableArray *hotNamesIndex = [NSMutableArray array];
     [ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-        if (!error) {
+        if (success) {
             if (currentType!=SEARCH)
                 return;
             while (hotNamesIndex.count < resultArray.count) {
@@ -635,6 +643,10 @@
                 [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
                 [infoTableView addSubview:tmpButton];
                 [hotkeyBtns addObject:tmpButton];
+            }
+        } else {
+            if (error) {
+            [self displayHUDError:nil message:NETWORK_ERROR];
             }
         }
     }];

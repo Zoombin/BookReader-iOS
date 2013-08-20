@@ -119,28 +119,27 @@
 	[self hideKeyboard];
 	[self displayHUD:@"登录中"];
 	[ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
-        if (error) {
+        if (success) {
             [self hideHUD:YES];
-            [self displayHUDError:nil message:@"网络异常"];
-        }else {
-            if (success) {
-                [self hideHUD:YES];
-				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
-				[[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
+            [[NSUserDefaults standardUserDefaults] synchronize];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-				if (_actionAfterLogin) {
-					if ([_delegate respondsToSelector:_actionAfterLogin]) {
-						[_delegate performSelector:_actionAfterLogin];
-					}
-				}
+            if (_actionAfterLogin) {
+                if ([_delegate respondsToSelector:_actionAfterLogin]) {
+                    [_delegate performSelector:_actionAfterLogin];
+                }
+            }
 #pragma clang diagnostic pop
-				[self close];
+            [self close];
+        } else {
+            if (error) {
+                [self displayHUDError:nil message:NETWORK_ERROR];
             } else {
                 [self displayHUDError:nil message:message];
             }
         }
-    }];
+     }];
 }
 
 @end

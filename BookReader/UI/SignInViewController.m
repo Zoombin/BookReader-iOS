@@ -94,18 +94,18 @@
     [self displayHUD:@"登录中"];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
 		passwordTextField.text = @"";
-        if (error) {
-            [self displayHUDError:nil message:@"网络异常"];
-        }else {
             if (success) {
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
 				[self.navigationController popViewControllerAnimated:YES];
             } else {
-                [self displayHUDError:nil message:message];
+                if (error) {
+                    [self displayHUDError:nil message:NETWORK_ERROR];
+                } else {
+                    [self displayHUDError:nil message:message];
+                }
             }
-        }
     }];
 }
 

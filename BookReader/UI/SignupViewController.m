@@ -100,30 +100,33 @@
     [self hideKeyboard];
     [self displayHUD:@"注册中..."];
     [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-        if (error) {
-            [self displayHUDError:nil message:NETWORK_ERROR];
-        }else {
-            [self displayHUDError:nil message:message];
             if (success) {
+                [self displayHUDError:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
                 [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
-                
+                if (error) {
+                    [self displayHUDError:nil message:NETWORK_ERROR];
+                } else {
+                    [self displayHUDError:nil message:message];
+                }
             }
-        }
     }];
 }
 
 - (void)getCode
 {
     [self hideKeyboard];
-//    [getCodeButton startCoolDownDuration:20];
     if ([accountTextField.text length]>0) {
         [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message){
-            if (error) {
-                
-            }else {
+            if (success) {
                 [self displayHUDError:nil message:message];
+            } else {
+                if (error) {
+                    [self displayHUDError:nil message:NETWORK_ERROR];
+                } else {
+                    [self displayHUDError:nil message:message];
+                }
             }
         }];
     } 

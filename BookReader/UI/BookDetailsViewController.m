@@ -517,9 +517,8 @@
 	
 	//lastChapterID = 0获取全部章节
 	[ServiceManager bookCatalogueList:book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
-		[self hideHUD:YES];
 		if (success) {
-			NSLog(@"%@",nextUpdateTime);
+            [self hideHUD:YES];
 			chapterArray = [resultArray mutableCopy];
 			if (block) block();
 		} else {
@@ -555,8 +554,8 @@
 {
 	[self displayHUD:@"加载中..."];
     [ServiceManager otherBooksFromAuthor:book.authorID andCount:@"5" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-		[self hideHUD:YES];
 		if (success) {
+            [self hideHUD:YES];
             if ([authorBookArray count]>0) {
                 [authorBookArray removeAllObjects];
             }
@@ -570,7 +569,9 @@
                 [authorBookTableView setTableHeaderView:emptyLabel];
             }
             [authorBookTableView reloadData];
-		}
+		} else {
+            [self displayHUDError:nil message:error.description];
+        }
     }];
 }
 
@@ -592,7 +593,9 @@
 			}
 			[recommendTableView reloadData];
 			[self refreshCoverViewFrame];
-		}
+		} else {
+            [self displayHUDError:nil message:error.description];
+        }
 	}];
 }
 
@@ -616,15 +619,18 @@
     }
 	
     [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-        if (error) {
-            
-        }
-        else {
+        if (success) {
             commitField.text = @"";
             [self displayHUDError:nil message:message];
             [self loadCommitList];
             [shortInfoArray removeAllObjects];
             [self loadShortCommitList];
+        } else {
+            if (!error) {
+                [self displayHUDError:nil message:message];
+            } else {
+                [self displayHUDError:nil message:error.description];
+            }
         }
     }];
 }
@@ -638,7 +644,11 @@
             [shortInfoArray addObjectsFromArray:resultArray];
             [shortInfoTableView reloadData];
             [self refreshCoverViewFrame];
-		}
+		} else {
+            if (error) {
+                [self displayHUDError:nil message:error.description];
+            }
+        }
     }];
 }
 
@@ -655,7 +665,11 @@
             }
             [infoArray addObjectsFromArray:resultArray];
             [infoTableView reloadData];
-		}
+		} else {
+            if (error) {
+                [self displayHUDError:nil message:error.description];
+            }
+        }
     }];
 }
 
