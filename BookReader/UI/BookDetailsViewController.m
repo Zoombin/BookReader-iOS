@@ -690,7 +690,14 @@
 		controller.previousViewController = self;
 		[self.navigationController pushViewController:controller animated:YES];
 		
-		[Chapter persist:chapterArray withBlock:nil];
+		[Chapter persist:chapterArray withBlock:^(void) {
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+				if (b) {
+					b.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:b]);
+				}
+			}];
+		}];
 	}];
 }
 
