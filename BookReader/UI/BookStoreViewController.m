@@ -407,7 +407,9 @@
         [tmpArray addObject:book];
         lastKey = book.recommendTitle;
     }
+    if (currentType==RECOMMEND) {
     [infoTableView reloadData];
+    }
     [self hideHUD:YES];
 }
 
@@ -605,6 +607,8 @@
 //显示热词
 - (void)showHotkeyBtns {
     [self hideAllHotkeyBtns];
+    if (currentType!=SEARCH)
+        return;
     NSMutableArray *hotNamesIndex = [NSMutableArray array];
     [ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (!error) {
