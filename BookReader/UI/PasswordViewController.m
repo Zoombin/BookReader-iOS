@@ -57,14 +57,14 @@
     NSLog(@"%@",textFields);
     
     findButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
+    [findButton memberButton:CGRectMake(0, 0, 0, 0)];
     [findButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"修改" forState:UIControlStateNormal];
     [findButton setEnabled:NO];
     [self.view addSubview:findButton];
     
     getCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [getCodeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:YES];
+    [getCodeButton memberButton:CGRectMake(0, 0, 0, 0)];
     [getCodeButton addTarget:self action:@selector(getFindPasswordCode) forControlEvents:UIControlEventTouchUpInside];
     [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeButton setEnabled:NO];
@@ -107,7 +107,7 @@
     }
     
     changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [changeButton cooldownButtonFrame:CGRectMake(0, 0, 0, 0) andEnableCooldown:NO];
+    [changeButton memberButton:CGRectMake(0, 0, 0, 0)];
     [changeButton addTarget:self action:@selector(changeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [changeButton setEnabled:NO];
     [changeButton setTitle:@"修改" forState:UIControlStateNormal];
@@ -155,11 +155,11 @@
     [self hideKeyboard];
     [self displayHUD:@"请稍等..."];
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-        if (error) {
-            
-        }else {
-            if (success) {
-                [self displayHUDError:nil message:message];
+        if (success) {
+            [self displayHUDError:nil message:message];
+        } else {
+            if (error) {
+                [self displayHUDError:nil message:NETWORK_ERROR];
             } else {
                 [self displayHUDError:nil message:message];
             }
@@ -170,18 +170,22 @@
 - (void)getFindPasswordCode
 {
     [self hideKeyboard];
-//    [getCodeButton startCoolDownDuration:20];
+    //    [getCodeButton startCoolDownDuration:20];
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-        if (error) {
-            
+        if (success) {
+            [self displayHUDError:nil message:message];
         } else {
-           [self displayHUDError:nil message:message];
+            if (error) {
+                [self displayHUDError:nil message:NETWORK_ERROR];
+            } else {
+                [self displayHUDError:nil message:message];
+            }
         }
     }];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark ChangePassword
 - (void)changeButtonClicked
 {
@@ -192,11 +196,11 @@
     [self displayHUD:@"请稍等..."];
 	[self hideKeyboard];
     [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-        if (error) {
-            [self displayHUDError:nil message:@"网络异常"];
-        }else {
-            if (success) {
-                [self displayHUDError:nil message:message];
+        if (success) {
+            [self displayHUDError:nil message:message];
+        } else {
+            if (error) {
+                [self displayHUDError:nil message:NETWORK_ERROR];
             } else {
                 [self displayHUDError:nil message:message];
             }

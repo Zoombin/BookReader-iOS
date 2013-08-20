@@ -52,7 +52,7 @@
 
     
     loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginButton cooldownButtonFrame:CGRectMake(25, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-25*2, 50) andEnableCooldown:NO];
+    [loginButton memberButton:CGRectMake(25, CGRectGetMaxY(passwordTextField.frame) + 10, fullSize.width-25*2, 50)];
     [loginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 	[loginButton setEnabled:NO];
@@ -94,18 +94,18 @@
     [self displayHUD:@"登录中"];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
 		passwordTextField.text = @"";
-        if (error) {
-            [self displayHUDError:nil message:@"网络异常"];
-        }else {
             if (success) {
 				[self hideHUD:YES];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 				[[NSUserDefaults standardUserDefaults] synchronize];
 				[self.navigationController popViewControllerAnimated:YES];
             } else {
-                [self displayHUDError:nil message:message];
+                if (error) {
+                    [self displayHUDError:nil message:NETWORK_ERROR];
+                } else {
+                    [self displayHUDError:nil message:message];
+                }
             }
-        }
     }];
 }
 

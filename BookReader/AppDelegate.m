@@ -25,13 +25,7 @@
 
 - (void)testApis
 {
-//	[ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-//        NSLog(@"%@",resultArray);
-//        for (int i = 0; i < resultArray.count; i ++) {
-//            NSDictionary *dict = resultArray[i];
-//            NSLog(@"%@",dict[@"bookName"]);
-//        }
-//    }];
+
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

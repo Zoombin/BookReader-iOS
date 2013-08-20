@@ -107,9 +107,9 @@
                 [button setTag:i];
                 [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 if (i > 2) {
-                    [button cooldownButtonFrame:CGRectMake(10 * (i - 2) + width * (i - 3), 50 + 40, width, 30) andEnableCooldown:NO];
+                    [button memberButton:CGRectMake(10 * (i - 2) + width * (i - 3), 50 + 40, width, 30)];
                 } else {
-                    [button cooldownButtonFrame:CGRectMake(10 * (i + 1) + width * i, 50, width, 30) andEnableCooldown:NO];
+                    [button memberButton:CGRectMake(10 * (i + 1) + width * i, 50, width, 30)];
                 }
                 [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
                 [button setTitle:integralArrays[i] forState:UIControlStateNormal];
@@ -154,7 +154,7 @@
                     [button.layer setBorderColor:BorderColor.CGColor];
                     _slider.value = 188;
                 }
-                [button cooldownButtonFrame:CGRectMake(10 * (i+1) + width * i, 50, width, 30) andEnableCooldown:NO];
+                [button memberButton:CGRectMake(10 * (i+1) + width * i, 50, width, 30)];
                 [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth];
                 [self.contentView addSubview:button];
                 [rewardBtnsArray addObject:button];

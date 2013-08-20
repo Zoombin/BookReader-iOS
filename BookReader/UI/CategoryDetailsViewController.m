@@ -75,9 +75,7 @@
                   ranking:0
                      size:@"7"
                  andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *result) {
-                     if (error) {
-                         [self displayHUDError:nil message:NETWORK_ERROR];
-                     }else {
+                     if (success) {
                          if ([infoArray count]>0) {
                              [infoArray addObjectsFromArray:result];
                              [infoTableView reloadData];
@@ -87,6 +85,10 @@
                          }
 //                         [self hideHUD:YES];
                          isLoading = NO;
+                     } else {
+                         if (error) {
+                         [self displayHUDError:nil message:NETWORK_ERROR];
+                         }
                      }
                  }];
     

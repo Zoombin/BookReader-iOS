@@ -48,7 +48,7 @@
         [self addSubview:closeButton];
         
         readButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [readButton cooldownButtonFrame:CGRectMake(CGRectGetMaxX(backgroundView.frame) - 110, CGRectGetMaxY(backgroundView.frame) - 30, 80, 20) andEnableCooldown:NO];
+        [readButton memberButton:CGRectMake(CGRectGetMaxX(backgroundView.frame) - 110, CGRectGetMaxY(backgroundView.frame) - 30, 80, 20)];
         [readButton addTarget:self action:@selector(startRead) forControlEvents:UIControlEventTouchUpInside];
         [readButton setTitle:@"马上阅读" forState:UIControlStateNormal];
         [readButton.titleLabel setFont:[UIFont systemFontOfSize:12]];

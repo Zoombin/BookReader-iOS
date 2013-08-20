@@ -201,7 +201,6 @@ static NSNumber *sUserID;
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"pwd" : [password md516]}]];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]] && [theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
             member = [BRUser createWithAttributes:theObject[@"user"]];
@@ -467,7 +466,7 @@ static NSNumber *sUserID;
     parameters[@"size"] = @"9999";
     parameters[@"auto"] = @"1";
 	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:NEXT_UPDATE_TIME_FORMATTER];
-    [[ServiceManager shared] postPath:@"ChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[ServiceManager shared] postPath:@"ChapterList2.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *resultArray = [@[] mutableCopy];
         if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
