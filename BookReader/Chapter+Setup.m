@@ -198,17 +198,19 @@
 	return nil;
 }
 
-- (NSString *)displayName
+- (NSString *)displayName:(NSArray *)allChapters
 {
 #ifdef DISPLAY_V_FLAG
-		return [NSString stringWithFormat:@"%@ 卷%@:%@", self.bVip.boolValue ? @"v" : @"", [self displayRollID], self.name];
+	return [NSString stringWithFormat:@"%@ 卷%@:%@", self.bVip.boolValue ? @"v" : @"", [self displayRollID:allChapters], self.name];
 #endif
-		return [NSString stringWithFormat:@"卷%@:%@", [self displayRollID], self.name];
+	return [NSString stringWithFormat:@"卷%@:%@", [self displayRollID:allChapters], self.name];
 }
 
-- (NSString *)displayRollID
+- (NSString *)displayRollID:(NSArray *)allChapters
 {
-	NSArray *allChapters = [Chapter allChaptersOfBookID:self.bid];
+	if (!allChapters) {
+		allChapters = [Chapter allChaptersOfBookID:self.bid];
+	}
 	NSMutableArray *rollIDs = [NSMutableArray array];
 	for (Chapter *c in allChapters) {
 		if (![rollIDs containsObject:c.rollID]) {

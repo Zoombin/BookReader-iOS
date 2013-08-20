@@ -28,7 +28,6 @@
 + (NSString *)lastChapterIDOfBook:(Book *)book;
 + (Chapter *)lastReadChapterOfBook:(Book *)book;
 
-- (NSString *)displayName;
-
+- (NSString *)displayName:(NSArray *)allChapters;
 
 @end

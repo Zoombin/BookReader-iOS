@@ -41,7 +41,7 @@ const CGFloat fontSize = 16;
 	CGSize size = [chapter.name sizeWithFont:[UIFont systemFontOfSize:fontSize + 3] constrainedToSize:CGSizeMake(self.bounds.size.width, CGFLOAT_MAX)];
 	chapterNameLabel.frame = CGRectMake(0, 0, size.width, size.height);
 	chapterNameLabel.center = self.center;
-	chapterNameLabel.text = [chapter displayName];
+	chapterNameLabel.text = chapter.name;
 	[self performSelector:@selector(close) withObject:nil afterDelay:1.5f];
 }
 

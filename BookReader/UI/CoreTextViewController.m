@@ -348,7 +348,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				book.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:book]);
 			}
 		}];
-		statusView.title.text = [_chapter displayName];
+		statusView.title.text = _chapter.name;
 		[self paging];
 		NSNumber *startReadIndex = readIndex ? readIndex : _chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
@@ -504,7 +504,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		Mark *mark = [Mark createInContext:localContext];
 		mark.chapterID = _chapter.uid;
-		mark.chapterName = [_chapter displayName];
+		mark.chapterName = _chapter.name;
 		mark.reference = reference;
 		mark.startWordIndex = @(range.location);
 		mark.progress = @([self readPercentage]);

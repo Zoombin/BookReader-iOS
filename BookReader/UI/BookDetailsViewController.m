@@ -798,7 +798,7 @@
             cell = [[ChapterCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
-            [(ChapterCell *)cell setChapter:chapter andCurrent:NO];
+            [(ChapterCell *)cell setChapter:chapter isCurrent:NO andAllChapters:chapterArray];
         }
     }
     else {

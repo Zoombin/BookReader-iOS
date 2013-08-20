@@ -47,7 +47,7 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
 	
-	[application setStatusBarHidden:YES];
+	[application setStatusBarHidden:NO];
 	
     _rootControllers = [@{} mutableCopy];
     _rootControllers[@(kRootControllerIdentifierBookShelf)] = [[BookShelfViewController alloc] init];

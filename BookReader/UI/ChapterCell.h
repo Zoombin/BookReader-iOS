@@ -11,6 +11,7 @@
 @interface ChapterCell : UITableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-- (void)setChapter:(Chapter *)chapter andCurrent:(BOOL)current;
 - (CGFloat)height;
+- (void)setChapter:(Chapter *)chapter isCurrent:(BOOL)current andAllChapters:(NSArray *)allChapters;
+
 @end

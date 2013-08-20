@@ -146,7 +146,7 @@
         } else {
             cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
-            [(ChapterCell *)cell  setChapter:chapter andCurrent:[chapter.uid isEqualToString:_chapter.uid]];
+            [(ChapterCell *)cell  setChapter:chapter isCurrent:[chapter.uid isEqualToString:_chapter.uid] andAllChapters:infoArray];
         }
     }
     return cell;
