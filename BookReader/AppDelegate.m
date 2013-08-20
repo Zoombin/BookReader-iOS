@@ -51,7 +51,7 @@
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
-    application.statusBarHidden = NO;
+	application.statusBarHidden = NO;
     _rootControllers = [@{} mutableCopy];
     _rootControllers[@(kRootControllerIdentifierBookShelf)] = [[BookShelfViewController alloc] init];
     _rootControllers[@(kRootControllerIdentifierBookStore)] = [[BookStoreViewController alloc] init];
