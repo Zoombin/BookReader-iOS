@@ -247,7 +247,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	
 	[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 		if (success) {
-			NSLog(@"get chapter list of book: %@", book);
+			//NSLog(@"get chapter list of book: %@", book);
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 				Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
 				if (b) {
@@ -285,7 +285,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 	
 	Chapter *chapter = chapters[0];
-	NSLog(@"fetch chapter: %@", chapter);
+//	NSLog(@"fetch chapter: %@", chapter);
 	syncing = YES;
 	
 	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
