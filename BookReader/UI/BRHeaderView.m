@@ -59,13 +59,6 @@
     CGRect FINISH_BUTTON_FRAME = EDIT_BUTTON_FRAME;
     CGRect DELETE_BUTTON_FRAME = BOOKSTORE_BUTTON_FRAME;
     
-//    headerViewOne = [[UIView alloc] initWithFrame:self.bounds];
-//    [self addSubview:headerViewOne];
-//    
-//    headerViewTwo = [[UIView alloc] initWithFrame:self.bounds];
-//    [self addSubview:headerViewTwo];
-//    [headerViewTwo setHidden:YES];
-    
     [_backButton setHidden:YES];
     [self bringSubviewToFront:_titleLabel];
     

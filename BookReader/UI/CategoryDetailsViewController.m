@@ -69,7 +69,6 @@
 
 - (void)getMore
 {
-//    [self displayHUD:@"加载中..."];
     [ServiceManager books:@""
                     classID:catagoryId
                   ranking:0
@@ -83,7 +82,6 @@
                          }else {
                              [infoTableView setTableFooterView:nil];
                          }
-//                         [self hideHUD:YES];
                          isLoading = NO;
                      } else {
                          if (error) {

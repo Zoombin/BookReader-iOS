@@ -67,23 +67,21 @@
     
     CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, CGRectGetMaxY(infoTableView.frame), 55, 30);
     CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 55 , CGRectGetMaxY(infoTableView.frame), 55, 30);
-    NSArray *rectStrings = @[NSStringFromCGRect(CHAPTERS_BUTTON_FRAME), NSStringFromCGRect(BOOKMARK_BUTTON_FRAME)];
-    NSArray *selectorStrings = @[@"chaptersButtonClicked", @"bookmarksButtonClicked"];
-    NSArray *imageNames = @[@"chapterlist_btn", @"bookmark_btn"];
     
-    for (int i = 0; i < 2; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectFromString(rectStrings[i])];
-        [button setBackgroundImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
-        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
-        [button addTarget:self action:NSSelectorFromString(selectorStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:button];
-        if (i == 0) {
-            chapterlistBtn =  button;
-        } else {
-            bookmarkBtn = button;
-        }
-    }
+     chapterlistBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [chapterlistBtn setFrame:CHAPTERS_BUTTON_FRAME];
+    [chapterlistBtn setBackgroundImage:[UIImage imageNamed:@"chapterlist_btn"] forState:UIControlStateNormal];
+    [chapterlistBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
+    [chapterlistBtn addTarget:self action:@selector(chaptersButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:chapterlistBtn];
+    
+     bookmarkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [bookmarkBtn setFrame:BOOKMARK_BUTTON_FRAME];
+    [bookmarkBtn setBackgroundImage:[UIImage imageNamed:@"bookmark_btn"] forState:UIControlStateNormal];
+    [bookmarkBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
+    [bookmarkBtn addTarget:self action:@selector(bookmarksButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:bookmarkBtn];
+    
     [self.backgroundView removeFromSuperview];
 }
 
