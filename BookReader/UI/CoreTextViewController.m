@@ -25,6 +25,7 @@
 #import "PopLoginViewController.h"
 #import "NSString+XXSY.h"
 #import "BRChapterNameView.h"
+#import "NSString+ZBUtilites.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
@@ -59,8 +60,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
 		if (book) {
 			MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
-			messageComposeViewController.messageComposeDelegate = self;
-			NSString *message =  [NSString stringWithFormat:@"书名:%@ 作者:%@ 下载地址:http://www.xxsy.net", book.name, book.author];
+			messageComposeViewController.messageComposeDelegate = self;			
+			NSString *message =  [NSString stringWithFormat:@"《%@》这本书太好看了，作者是\"%@\"，赶紧来阅读吧，潇湘书院iOS版下载地址：%@", book.name, book.author, [NSString appStoreLinkWithAppID:APP_ID]];
 			[messageComposeViewController setBody:[NSString stringWithString:message]];
 			[self presentModalViewController:messageComposeViewController animated:YES];
 		}

@@ -34,4 +34,6 @@ BOOL stopAllSync;
 #define DISPLAY_V_FLAG 1
 #endif
 
+#define APP_ID @"597986893"
+
 #endif
