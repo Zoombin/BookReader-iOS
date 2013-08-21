@@ -144,40 +144,96 @@
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
     NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_navigation", @"read_bright", @"read_background", @"read_font", @"read_hor"];
     NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"导航", @"亮度调节", @"阅读背景", @"字体调整", @"横屏"];
+//    int k = 0;
+//    for (int i = 0; i < 8; i ++) {
+//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
+//        [button setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
+//        [button.layer setBorderColor:[UIColor blackColor].CGColor];
+//        [button.layer setBorderWidth:0.5];
+//        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+//        [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        UILabel *btnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, BUTTON_HEIGHT-20, BUTTON_WIDTH, 20)];
+//        [btnTitleLabel setFont:[UIFont systemFontOfSize:14]];
+//        [btnTitleLabel setTextColor:[UIColor whiteColor]];
+//        [btnTitleLabel setBackgroundColor:[UIColor clearColor]];
+//        [btnTitleLabel setTextAlignment:NSTextAlignmentCenter];
+//        [btnTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+//        [btnTitleLabel setText:buttonNames[i]];
+//        [button addSubview:btnTitleLabel];
+//        
+//        [bottomView addSubview:button];
+//        [bottomViewBtns addObject:button];
+//        k ++;
+//        if (i == 3) {
+//            k = 0;
+//        }
+//    }
     int k = 0;
-    for (int i = 0; i < 8; i ++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
-        [button setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
-        [button.layer setBorderColor:[UIColor blackColor].CGColor];
-        [button.layer setBorderWidth:0.5];
-        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
-        [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UILabel *btnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, BUTTON_HEIGHT-20, BUTTON_WIDTH, 20)];
-        [btnTitleLabel setFont:[UIFont systemFontOfSize:14]];
-        [btnTitleLabel setTextColor:[UIColor whiteColor]];
-        [btnTitleLabel setBackgroundColor:[UIColor clearColor]];
-        [btnTitleLabel setTextAlignment:NSTextAlignmentCenter];
-        [btnTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
-        [btnTitleLabel setText:buttonNames[i]];
-        [button addSubview:btnTitleLabel];
-        
-        [bottomView addSubview:button];
-        [bottomViewBtns addObject:button];
-        k ++;
-        if (i == 3) {
-            k = 0;
-        }
-    }
-    chaptersListButton = bottomViewBtns[0];
-    shareButton = bottomViewBtns[1];
-    commitButton = bottomViewBtns[2];
-    horizontalButton = bottomViewBtns[7];
-    brightButton = bottomViewBtns[4];
-    backgroundButton = bottomViewBtns[5];
-    fontSetButton = bottomViewBtns[6];
-    resetButton = bottomViewBtns[3];
+    CGRect frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+    chaptersListButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"目录.书签"];
+    [chaptersListButton setImage:[UIImage imageNamed:@"read_chapterlist"] forState:UIControlStateNormal];
+    [chaptersListButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:chaptersListButton];
+    [bottomViewBtns addObject:chaptersListButton];
+    
+    k++;
+     frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+    shareButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"推荐"];
+    [shareButton setImage:[UIImage imageNamed:@"read_recommend"] forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:shareButton];
+    [bottomViewBtns addObject:shareButton];
+    
+    k ++;
+     frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+    commitButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"评论"];
+    [commitButton setImage:[UIImage imageNamed:@"read_commit"] forState:UIControlStateNormal];
+    [commitButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:commitButton];
+    [bottomViewBtns addObject:commitButton];
+    
+    k ++;
+    frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+    resetButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"导航"];
+    [resetButton setImage:[UIImage imageNamed:@"read_navigation"] forState:UIControlStateNormal];
+    [resetButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:resetButton];
+    [bottomViewBtns addObject:resetButton];
+    
+    k = 0;
+     frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+    brightButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"亮度调节"];
+    [brightButton setImage:[UIImage imageNamed:@"read_bright"] forState:UIControlStateNormal];
+    [brightButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:brightButton];
+    [bottomViewBtns addObject:brightButton];
+    
+    k ++;
+      frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+    backgroundButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"阅读背景"];
+    [backgroundButton setImage:[UIImage imageNamed:@"read_background"] forState:UIControlStateNormal];
+    [backgroundButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:backgroundButton];
+    [bottomViewBtns addObject:backgroundButton];
+    
+    k ++;
+     frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+     fontSetButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"字体调节"];
+    [fontSetButton setImage:[UIImage imageNamed:@"read_font"] forState:UIControlStateNormal];
+    [fontSetButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:fontSetButton];
+    [bottomViewBtns addObject:fontSetButton];
+    
+    k ++;
+     frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+    horizontalButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"横屏"];
+    [horizontalButton setImage:[UIImage imageNamed:@"read_hor"] forState:UIControlStateNormal];
+    [horizontalButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:horizontalButton];
+    [bottomViewBtns addObject:horizontalButton];
+   
     [self addSubview:bottomView];
 }
 
@@ -404,26 +460,40 @@
     [navigationView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
     [self addSubview:navigationView];
     
-    NSArray *btnNames = @[@"返回书架", @"返回书城", @"返回书籍详情"];
-    NSArray *selStrings = @[@"bookShelfButtonClicked", @"bookStoreButtonClicked", @"bookDetailButtonClicked"];
-    for (int i = 0; i < btnNames.count; i ++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:btnNames[i] forState:UIControlStateNormal];
-        [btn setFrame:CGRectMake(5, 0 + (navigationView.frame.size.height/3) * i, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
-        [btn addTarget:self action:NSSelectorFromString(selStrings[i]) forControlEvents:UIControlEventTouchUpInside];
-        [btn setShowsTouchWhenHighlighted:YES];
-        [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-//        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [btn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [navigationView addSubview:btn];
-        
-        if (i!=2) {
-        UIView *speateLine = [[UIView alloc] initWithFrame:CGRectMake(2, CGRectGetMaxY(btn.frame) - 2, navigationView.bounds.size.width - 4, 1)];
-        [speateLine setBackgroundColor:[UIColor whiteColor]];
-        [navigationView addSubview:speateLine];
-        }
-    }
+    UIButton *backToBookShelf = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backToBookShelf setTitle:@"返回书架" forState:UIControlStateNormal];
+    [backToBookShelf setFrame:CGRectMake(5, 0, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
+    [backToBookShelf addTarget:self action:@selector(bookShelfButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [backToBookShelf setShowsTouchWhenHighlighted:YES];
+    [backToBookShelf.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [backToBookShelf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:backToBookShelf];
     
+    UIView *speateLine1 = [[UIView alloc] initWithFrame:CGRectMake(2, CGRectGetMaxY(backToBookShelf.frame) - 2, navigationView.bounds.size.width - 4, 1)];
+    [speateLine1 setBackgroundColor:[UIColor whiteColor]];
+    [navigationView addSubview:speateLine1];
+    
+    UIButton *backToBookStore = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backToBookStore setTitle:@"返回书城" forState:UIControlStateNormal];
+    [backToBookStore setFrame:CGRectMake(5, 0 + (navigationView.frame.size.height/3) * 1, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
+    [backToBookStore addTarget:self action:@selector(bookStoreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [backToBookStore setShowsTouchWhenHighlighted:YES];
+    [backToBookStore.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [backToBookStore setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:backToBookStore];
+    
+    UIView *speateLine2 = [[UIView alloc] initWithFrame:CGRectMake(2, CGRectGetMaxY(backToBookStore.frame) - 2, navigationView.bounds.size.width - 4, 1)];
+    [speateLine2 setBackgroundColor:[UIColor whiteColor]];
+    [navigationView addSubview:speateLine2];
+    
+    UIButton *backToBookDetail = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backToBookDetail setTitle:@"返回书籍详情" forState:UIControlStateNormal];
+    [backToBookDetail setFrame:CGRectMake(5, 0 + (navigationView.frame.size.height/3) * 2, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
+    [backToBookDetail addTarget:self action:@selector(bookDetailButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [backToBookDetail setShowsTouchWhenHighlighted:YES];
+    [backToBookDetail.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [backToBookDetail setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:backToBookDetail];
     
 }
 
@@ -504,6 +574,7 @@
     if (sender == chaptersListButton) {
         bottomView.hidden = NO;
         topView.hidden = NO;
+        navigationView.hidden = YES;
         self.hidden = YES;
         if ([self.delegate respondsToSelector:@selector(chaptersButtonClicked)]) {
             [self.delegate performSelector:@selector(chaptersButtonClicked)];
@@ -511,11 +582,13 @@
     } else if (sender == shareButton) {
         bottomView.hidden = NO;
         topView.hidden = NO;
+        navigationView.hidden = YES;
         self.hidden = YES;
         [self messageShare];
     } else if (sender == commitButton) {
         bottomView.hidden = NO;
         topView.hidden = NO;
+        navigationView.hidden = YES;
         self.hidden = YES;
         if ([self.delegate respondsToSelector:@selector(commitButtonClicked)]) {
             [self.delegate performSelector:@selector(commitButtonClicked)];
@@ -523,6 +596,7 @@
     } else if (sender == horizontalButton) {
         bottomView.hidden = NO;
         topView.hidden = NO;
+        navigationView.hidden = YES;
          self.hidden = YES;
         UILabel *textLabel = [horizontalButton subviews][1];
         if([[NSUserDefaults brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape]) {
@@ -540,16 +614,19 @@
         backgroundView.hidden = YES;
         fontView.hidden = YES;
         brightView.hidden = NO;
+        navigationView.hidden = YES;
     } else if (sender == fontSetButton) {
         tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - fontView.frame.size.height);
         fontView.hidden = NO;
         brightView.hidden = YES;
         backgroundView.hidden = YES;
+        navigationView.hidden = YES;
     } else if (sender == backgroundButton) {
         tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - backgroundView.frame.size.height);
         backgroundView.hidden = NO;
         fontView.hidden = YES;
         brightView.hidden = YES;
+        navigationView.hidden = YES;
     } else if (sender == resetButton) {
         bottomView.hidden = NO;
         topView.hidden = NO;

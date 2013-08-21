@@ -37,4 +37,6 @@ typedef enum {
 
 + (UIButton *)bookShelfButtonWithStartPosition:(CGPoint)position;
 
++ (UIButton *)bookMenuButtonWithFrame:(CGRect)frame andTitle:(NSString *)title;
+
 @end

@@ -127,4 +127,24 @@ static float duration = 0;
 	return button;
 }
 
++ (UIButton *)bookMenuButtonWithFrame:(CGRect)frame andTitle:(NSString *)title
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:frame];
+    [button.layer setBorderColor:[UIColor blackColor].CGColor];
+    [button.layer setBorderWidth:0.5];
+    [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+    
+    UILabel *btnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 20, frame.size.width, 20)];
+    [btnTitleLabel setFont:[UIFont systemFontOfSize:14]];
+    [btnTitleLabel setTextColor:[UIColor whiteColor]];
+    [btnTitleLabel setBackgroundColor:[UIColor clearColor]];
+    [btnTitleLabel setTextAlignment:NSTextAlignmentCenter];
+    [btnTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
+    [btnTitleLabel setText:title];
+    [button addSubview:btnTitleLabel];
+    
+    return button;
+}
+
 @end
