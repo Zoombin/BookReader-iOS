@@ -13,5 +13,6 @@
 
 + (UIColor *)txtColor;
 + (UIColor *)bookStoreTxtColor;
++ (UIColor *)rankButtonTextColor;
 + (UIColor *)bookCellGrayTextColor;
 @end

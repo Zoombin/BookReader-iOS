@@ -244,7 +244,7 @@
     [allRankButton setTitle:@"总榜" forState:UIControlStateNormal];
     [allRankButton.layer setCornerRadius:5];
     [allRankButton.layer setMasksToBounds:YES];
-    [allRankButton setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [allRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
     [allRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [allRankButton setBackgroundColor:[UIColor whiteColor]];
     [allRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
@@ -256,7 +256,7 @@
     [newRankButton setTitle:@"最新" forState:UIControlStateNormal];
     [newRankButton.layer setCornerRadius:5];
     [newRankButton.layer setMasksToBounds:YES];
-    [newRankButton setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [newRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
     [newRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [newRankButton setBackgroundColor:[UIColor clearColor]];
     [newRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,7 +269,7 @@
     [hotRankButton setTitle:@"最热" forState:UIControlStateNormal];
     [hotRankButton.layer setCornerRadius:5];
     [hotRankButton.layer setMasksToBounds:YES];
-    [hotRankButton setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [hotRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
     [hotRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [hotRankButton setBackgroundColor:[UIColor clearColor]];
     [hotRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
