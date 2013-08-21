@@ -331,7 +331,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex
 {
 	if (!aChapter) {
-		[self displayHUDError:@"错误" message:@"获取章节目录失败"];
+		[self displayHUDError:@"错误" message:@"获取章节失败"];
 		[self performSelector:@selector(back) withObject:nil afterDelay:1.5];
 		return;
 	}
@@ -377,7 +377,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 					NSLog(@"尚未登录无法阅读");
 					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
 					popLoginViewController.delegate = self;
-					if (enterChapterIsVIP) {//如果从其他界面进入时候传进来的章节是vip章节，当取消登录的时候需要返回之前的界面，当登录后需要订阅该章节
+					if (enterChapterIsVIP) {//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
 						popLoginViewController.actionAfterCancel = @selector(back);
 						popLoginViewController.actionAfterLogin = @selector(didLogin);
 					}

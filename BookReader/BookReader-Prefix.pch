@@ -34,6 +34,6 @@ BOOL stopAllSync;
 #define DISPLAY_V_FLAG 1
 #endif
 
-#define APP_ID @"597986893"
+#define APP_ID @"597986893"//TODO: this is PvZ2's id
 
 #endif
