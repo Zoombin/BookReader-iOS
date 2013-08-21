@@ -63,7 +63,7 @@ const NSUInteger numberOfBooksPerRow = 3;
     
 	
 	PSUICollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
-	layout.footerReferenceSize = CGSizeMake(fullSize.width, 90);
+	layout.footerReferenceSize = CGSizeMake(fullSize.width, 100);
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
