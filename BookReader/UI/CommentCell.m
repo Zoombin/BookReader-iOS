@@ -28,11 +28,11 @@
         [nameLabel setBackgroundColor:[UIColor clearColor]];
         [nameLabel setFont:[UIFont systemFontOfSize:12]];
         [nameLabel setTextColor:[UIColor bookStoreTxtColor]];
-        [nameLabel setTextAlignment:UITextAlignmentLeft];
+        [nameLabel setTextAlignment:NSTextAlignmentLeft];
         [self.contentView addSubview:nameLabel];
         
         timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, self.contentView.frame.size.width - 8, 20)];
-        [timeLabel setTextAlignment:UITextAlignmentRight];
+        [timeLabel setTextAlignment:NSTextAlignmentRight];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [timeLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
         [timeLabel setTextColor:[UIColor bookStoreTxtColor]];

@@ -25,7 +25,7 @@
 + (UILabel *)initLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    [label setTextAlignment:UITextAlignmentRight];
+    [label setTextAlignment:NSTextAlignmentRight];
     [label setBackgroundColor:[UIColor clearColor]];
     return label;
 }
@@ -36,7 +36,7 @@
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
     [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     return titleLabel;
 }
 
@@ -57,7 +57,7 @@
 + (UILabel *)bookStoreLabelWithFrame:(CGRect)frame
 {
     UILabel *label = [self initLabelWithFrame:frame];
-    [label setTextAlignment:UITextAlignmentLeft];
+    [label setTextAlignment:NSTextAlignmentLeft];
     [label setFont:[UIFont boldSystemFontOfSize:18]];
     [label setTextColor:[UIColor whiteColor]];
     return label;

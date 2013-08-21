@@ -217,7 +217,7 @@
     
     emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 30)];
     [emptyLabel setText:@"暂无其它书籍"];
-    [emptyLabel setTextAlignment:UITextAlignmentCenter];
+    [emptyLabel setTextAlignment:NSTextAlignmentCenter];
     
     for (int i = 0; i < 4; i++) {
         switch (i) {
@@ -690,7 +690,14 @@
 		controller.previousViewController = self;
 		[self.navigationController pushViewController:controller animated:YES];
 		
-		[Chapter persist:chapterArray withBlock:nil];
+		[Chapter persist:chapterArray withBlock:^(void) {
+			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+				Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+				if (b) {
+					b.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:b]);
+				}
+			}];
+		}];
 	}];
 }
 
