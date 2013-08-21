@@ -74,7 +74,7 @@
 
 - (void)initTopView
 {
-     topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
+	topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
     [topView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
     [topView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:topView];
@@ -136,7 +136,7 @@
 
 - (void)initBottomView
 {
-     bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
+	bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
     [bottomView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
     [bottomView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
     
@@ -151,7 +151,7 @@
     [bottomViewBtns addObject:chaptersListButton];
     
     k++;
-     frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+	frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
     shareButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"推荐"];
     [shareButton setImage:[UIImage imageNamed:@"read_recommend"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
