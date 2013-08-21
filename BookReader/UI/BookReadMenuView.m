@@ -142,34 +142,6 @@
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
-    NSArray *imageNames = @[@"read_chapterlist", @"read_recommend", @"read_commit", @"read_navigation", @"read_bright", @"read_background", @"read_font", @"read_hor"];
-    NSArray *buttonNames = @[@"目录.书签", @"推荐", @"评论", @"导航", @"亮度调节", @"阅读背景", @"字体调整", @"横屏"];
-//    int k = 0;
-//    for (int i = 0; i < 8; i ++) {
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setFrame:CGRectMake(k * BUTTON_WIDTH, 0 +  i < 4 ? 0 : BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT)];
-//        [button setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
-//        [button.layer setBorderColor:[UIColor blackColor].CGColor];
-//        [button.layer setBorderWidth:0.5];
-//        [button setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
-//        [button addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        UILabel *btnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, BUTTON_HEIGHT-20, BUTTON_WIDTH, 20)];
-//        [btnTitleLabel setFont:[UIFont systemFontOfSize:14]];
-//        [btnTitleLabel setTextColor:[UIColor whiteColor]];
-//        [btnTitleLabel setBackgroundColor:[UIColor clearColor]];
-//        [btnTitleLabel setTextAlignment:NSTextAlignmentCenter];
-//        [btnTitleLabel setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
-//        [btnTitleLabel setText:buttonNames[i]];
-//        [button addSubview:btnTitleLabel];
-//        
-//        [bottomView addSubview:button];
-//        [bottomViewBtns addObject:button];
-//        k ++;
-//        if (i == 3) {
-//            k = 0;
-//        }
-//    }
     int k = 0;
     CGRect frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
     chaptersListButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"目录.书签"];
