@@ -240,30 +240,43 @@
     [rankBtnBackGroundView setBackgroundColor:[UIColor colorWithRed:223.0/255.0 green:211.0/255.0 blue:187.0/255.0 alpha:1.0]];
     [rankView addSubview:rankBtnBackGroundView];
     
-    NSArray *buttonNames = @[@"总榜", @"最新", @"最热"];
-    for (int i = 0; i < 3; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:buttonNames[i] forState:UIControlStateNormal];
-        [button.layer setCornerRadius:5];
-        [button.layer setMasksToBounds:YES];
-        [button setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        if (i==0) {
-            [button setBackgroundColor:[UIColor whiteColor]];
-        } else {
-            [button setBackgroundColor:[UIColor clearColor]];
-        }
-        [button addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
-        if (i!=0) {
-            frame = CGRectMake(CGRectGetMaxX(frame), 10, width, frame.size.height);
-        }
-        [button setFrame:frame];
-        [rankView addSubview:button];
-        [rankBtns addObject:button];
-    }
-    allRankButton = rankBtns[0];
-    newRankButton = rankBtns[1];
-    hotRankButton = rankBtns[2];
+     allRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [allRankButton setTitle:@"总榜" forState:UIControlStateNormal];
+    [allRankButton.layer setCornerRadius:5];
+    [allRankButton.layer setMasksToBounds:YES];
+    [allRankButton setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [allRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [allRankButton setBackgroundColor:[UIColor whiteColor]];
+    [allRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
+    [allRankButton setFrame:frame];
+    [rankView addSubview:allRankButton];
+    [rankBtns addObject:allRankButton];
+    
+     newRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [newRankButton setTitle:@"最新" forState:UIControlStateNormal];
+    [newRankButton.layer setCornerRadius:5];
+    [newRankButton.layer setMasksToBounds:YES];
+    [newRankButton setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [newRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [newRankButton setBackgroundColor:[UIColor clearColor]];
+    [newRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
+    frame = CGRectMake(CGRectGetMaxX(frame), 10, width, frame.size.height);
+    [newRankButton setFrame:frame];
+    [rankView addSubview:newRankButton];
+    [rankBtns addObject:newRankButton];
+    
+     hotRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hotRankButton setTitle:@"最热" forState:UIControlStateNormal];
+    [hotRankButton.layer setCornerRadius:5];
+    [hotRankButton.layer setMasksToBounds:YES];
+    [hotRankButton setTitleColor:[UIColor colorWithRed:71.0/255.0 green:0.0/255.0 blue:1.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [hotRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [hotRankButton setBackgroundColor:[UIColor clearColor]];
+    [hotRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
+    frame = CGRectMake(CGRectGetMaxX(frame), 10, width, frame.size.height);
+    [hotRankButton setFrame:frame];
+    [rankView addSubview:hotRankButton];
+    [rankBtns addObject:hotRankButton];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
