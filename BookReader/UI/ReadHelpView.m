@@ -35,7 +35,7 @@
             [label setTextColor:[UIColor whiteColor]];
             [label setTextAlignment:NSTextAlignmentCenter];
             [label setText:noticesArray[i]];
-            label.lineBreakMode = UILineBreakModeWordWrap;
+            label.lineBreakMode = NSLineBreakByWordWrapping;
             label.numberOfLines = 0;
             [label setFrame:CGRectMake(label.frame.origin.x, (self.bounds.size.height - label.frame.size.height)/2, label.frame.size.width, label.frame.size.height)];
             [self addSubview:label];

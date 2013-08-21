@@ -92,7 +92,7 @@
 			shortDescribeLabel = [[UILabel alloc] initWithFrame:describeRect];
             [shortDescribeLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 			shortDescribeLabel.backgroundColor = [UIColor clearColor];
-            shortDescribeLabel.lineBreakMode = UILineBreakModeWordWrap;
+            shortDescribeLabel.lineBreakMode = NSLineBreakByWordWrapping;
             shortDescribeLabel.numberOfLines = 0;
 			shortDescribeLabel.font = [UIFont boldSystemFontOfSize:categoryFontSize];
 			shortDescribeLabel.textColor = shortDescribeTextColor;

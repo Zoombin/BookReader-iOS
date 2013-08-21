@@ -63,7 +63,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			messageComposeViewController.messageComposeDelegate = self;			
 			NSString *message =  [NSString stringWithFormat:@"《%@》这本书太好看了，作者是\"%@\"，赶紧来阅读吧，潇湘书院iOS版下载地址：%@", book.name, book.author, [NSString appStoreLinkWithAppID:APP_ID]];
 			[messageComposeViewController setBody:[NSString stringWithString:message]];
-			[self presentModalViewController:messageComposeViewController animated:YES];
+			[self presentViewController:messageComposeViewController animated:YES completion:nil];
 		}
     } else {
         [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
@@ -71,17 +71,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-	switch (result) {
-		case MessageComposeResultCancelled:
-			break;
-		case MessageComposeResultSent:
-			break;
-		case MessageComposeResultFailed:
-			break;
-		default:
-			break;
-	}
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad
