@@ -9,12 +9,18 @@
 #import "BRViewController.h"
 #import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIDevice+ZBUtilites.h"
 
 @implementation BRViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"5.0")) {
+		self.hideKeyboardRecognzier.enabled = NO;
+	}
+	
 	CGSize fullSize = self.view.bounds.size;
 	
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
