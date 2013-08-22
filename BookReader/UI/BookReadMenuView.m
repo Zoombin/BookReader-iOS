@@ -47,7 +47,6 @@
     
     UIView *bottomView;
     UITapGestureRecognizer *tapGestureReconizer;
-    CGRect tapRect;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -64,7 +63,6 @@
         [self initBackgroundView];
         [self initBrightView];
         [self initNavigationView];
-        tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(bottomView.frame) - topView.frame.size.height);
          tapGestureReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
         [self addGestureRecognizer:tapGestureReconizer];
         
@@ -331,11 +329,25 @@
 - (void)hide
 {
     CGPoint endPoint = [tapGestureReconizer locationInView:self];
-    if (CGRectContainsPoint(tapRect, endPoint)) {
-        self.hidden = YES;
-        [self hidenAllMenu];
-        tapRect = CGRectMake(0, CGRectGetMaxY(topView.frame), self.bounds.size.width, CGRectGetMinY(bottomView.frame) - topView.frame.size.height);
+    if (brightView.hidden == NO) {
+        if (CGRectContainsPoint(brightView.frame, endPoint)) {
+            return;
+        }
+    } else if (fontView.hidden == NO) {
+        if (CGRectContainsPoint(fontView.frame, endPoint)) {
+            return;
+        }
+    } else if (backgroundView.hidden == NO) {
+        if (CGRectContainsPoint(backgroundView.frame, endPoint)) {
+            return;
+        }
+    } else if (topView.hidden == NO && bottomView.hidden == NO) {
+        if (CGRectContainsPoint(topView.frame, endPoint)&&CGRectContainsPoint(bottomView.frame, endPoint)) {
+            return;
+        }
     }
+    self.hidden = YES;
+    [self hidenAllMenu];
 }
 
 - (void)initBrightView
@@ -582,19 +594,16 @@
             [self.delegate performSelector:@selector(orientationButtonClicked)];
         }
     } else if (sender == brightButton) {
-        tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - brightView.frame.size.height);
         backgroundView.hidden = YES;
         fontView.hidden = YES;
         brightView.hidden = NO;
         navigationView.hidden = YES;
     } else if (sender == fontSetButton) {
-        tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - fontView.frame.size.height);
         fontView.hidden = NO;
         brightView.hidden = YES;
         backgroundView.hidden = YES;
         navigationView.hidden = YES;
     } else if (sender == backgroundButton) {
-        tapRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - backgroundView.frame.size.height);
         backgroundView.hidden = NO;
         fontView.hidden = YES;
         brightView.hidden = YES;
