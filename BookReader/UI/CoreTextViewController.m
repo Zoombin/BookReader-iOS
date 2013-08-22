@@ -286,6 +286,16 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [self updateFont];
 }
 
+- (void)realPaging
+{
+    [NSUserDefaults brSetObject:UserDefaultRealPage ForKey:UserDefaultKeyPage];
+}
+
+- (void)simplePaging
+{
+    [NSUserDefaults brSetObject:UserDefaultSimplePage ForKey:UserDefaultKeyPage];
+}
+
 #pragma mark -
 #pragma mark other methods
 - (float)readPercentage
@@ -300,7 +310,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)previousPage
 {
-	pageCurlType = kPageUnCurl;
+	pageCurlType = [[NSUserDefaults brObjectForKey:UserDefaultKeyPage] isEqualToString:UserDefaultRealPage] ? kPageUnCurl : kCATransitionPush;
     currentPageIndex--;
     if(currentPageIndex < 0) {
         currentPageIndex = 0;
@@ -309,17 +319,18 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         return;
     }
 	[self updateCurrentPageContent];
-	[self playPageCurlAnimation];
+    [pageCurlType isEqualToString:kPageUnCurl];
+	[self playPageCurlAnimation:[pageCurlType isEqualToString:kPageUnCurl] ? YES : NO];
 }
 
-- (void)playPageCurlAnimation
+- (void)playPageCurlAnimation:(BOOL)bRight
 {
-	if (pageCurlType) [self performTransition:kCATransitionFromRight andType:pageCurlType];
+	if (pageCurlType) [self performTransition:bRight ? kCATransitionFromRight : kCATransitionFromLeft andType:pageCurlType];
 }
 
 - (void)nextPage
 {
-	pageCurlType = kPageCurl;
+	pageCurlType = 	pageCurlType = [[NSUserDefaults brObjectForKey:UserDefaultKeyPage] isEqualToString:UserDefaultRealPage] ? kPageCurl : kCATransitionPush;;
     currentPageIndex++;
     if(currentPageIndex > [pages count] - 1) {
         currentPageIndex = [pages count] - 1;
@@ -328,7 +339,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         return;
     }
 	[self updateCurrentPageContent];
-	[self playPageCurlAnimation];
+	[self playPageCurlAnimation:YES];
 }
 
 - (void)back
@@ -376,7 +387,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		NSNumber *startReadIndex = readIndex ? readIndex : _chapter.lastReadIndex;
 		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
 		[self updateCurrentPageContent];
-		[self playPageCurlAnimation];
+		[self playPageCurlAnimation:YES];
 	} else {
 		[self displayHUD:@"获取章节内容..."];
 		[ServiceManager bookCatalogue:aChapter.uid VIP:aChapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {

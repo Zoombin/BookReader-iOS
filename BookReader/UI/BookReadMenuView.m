@@ -42,11 +42,16 @@
     UIImageView *markImageViewOne;
     UIImageView *markImageViewTwo;
     UIImageView *markImageViewSelect;
+    UIImageView *pageImageUnSelect;
+    UIImageView *pageImageSelect;
     
     UIPageControl *pageControl;
     
     UIView *bottomView;
     UITapGestureRecognizer *tapGestureReconizer;
+    
+    UIButton *realPageButton;
+    UIButton *simplePageButton;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -209,7 +214,7 @@
 
 - (void) initFontView
 {
-    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-200, self.bounds.size.width, 200)];
+    fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 200, self.bounds.size.width, 200)];
     [fontView setHidden:YES];
     [fontView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
     [fontView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
@@ -223,13 +228,21 @@
     [setFontSize setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFontSize];
     
-    UILabel *setFont = [[UILabel alloc] initWithFrame:CGRectMake(0, fontView.bounds.size.height/3, fontView.frame.size.width, 25)];
+    UILabel *setFont = [[UILabel alloc] initWithFrame:CGRectMake(0, fontView.bounds.size.height/3, fontView.frame.size.width/2, 25)];
     [setFont setText:@"\t\t选择字体"];
-    [setFont setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [setFont setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin];
     [setFont setFont:[UIFont systemFontOfSize:14]];
     [setFont setTextColor:[UIColor grayColor]];
     [setFont setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:setFont];
+    
+    UILabel *setPage = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(setFont.frame), fontView.bounds.size.height/3, fontView.frame.size.width/2, 25)];
+    [setPage setText:@"\t\t选择翻页效果"];
+    [setPage setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin];
+    [setPage setFont:[UIFont systemFontOfSize:14]];
+    [setPage setTextColor:[UIColor grayColor]];
+    [setPage setBackgroundColor:[UIColor blackColor]];
+    [fontView addSubview:setPage];
     
 	_fontButonMin = [UIButton buttonWithType:UIButtonTypeCustom];
     [_fontButonMin setFrame:CGRectMake(CGRectGetMidX(fontView.bounds)-120, CGRectGetMaxY(setFontSize.bounds) + 7, 120, 30)];
@@ -251,56 +264,109 @@
     [fontButonMax setTitle:@"T+" forState:UIControlStateNormal];
     [fontView addSubview:fontButonMax];
     
-    defaultFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width, 37.5)];
+    defaultFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(setFont.frame), fontView.bounds.size.width/2, 37.5)];
     [defaultFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [defaultFontButton addTarget:self action:@selector(systemFontChange) forControlEvents:UIControlEventTouchUpInside];
     [defaultFontButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin];
-    [defaultFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
+    [defaultFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [defaultFontButton setTitle:@"系统字体" forState:UIControlStateNormal];
     [fontView addSubview:defaultFontButton];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(defaultFontButton.frame), CGRectGetMaxY(defaultFontButton.frame) - 1, defaultFontButton.frame.size.width, 1)];
+    realPageButton = [UIButton fontButton:CGRectMake(CGRectGetMaxX(setFont.frame), CGRectGetMaxY(setFont.frame), fontView.bounds.size.width/2, 37.5)];
+    [realPageButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [realPageButton addTarget:self action:@selector(changePageStyle:) forControlEvents:UIControlEventTouchUpInside];
+    [realPageButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin];
+    [realPageButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [realPageButton setTitle:@"仿真翻页" forState:UIControlStateNormal];
+    [fontView addSubview:realPageButton];
+    
+    simplePageButton = [UIButton fontButton:CGRectMake(CGRectGetMaxX(setFont.frame), CGRectGetMaxY(realPageButton.frame), fontView.bounds.size.width/2, 37.5)];
+    [simplePageButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [simplePageButton addTarget:self action:@selector(changePageStyle:) forControlEvents:UIControlEventTouchUpInside];
+    [simplePageButton setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin];
+    [simplePageButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [simplePageButton setTitle:@"简约翻页" forState:UIControlStateNormal];
+    [fontView addSubview:simplePageButton];
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(defaultFontButton.frame), CGRectGetMaxY(defaultFontButton.frame) - 1, self.frame.size.width, 1)];
     [line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [line setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:line];
     
-    foundFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width, 37.5)];
+    foundFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(defaultFontButton.frame), fontView.bounds.size.width/2, 37.5)];
     [foundFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [foundFontButton addTarget:self action:@selector(foundFontChange) forControlEvents:UIControlEventTouchUpInside];
-    [foundFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
+    [foundFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [foundFontButton setTitle:@"方正兰亭黑" forState:UIControlStateNormal];
     [foundFontButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
     [fontView addSubview:foundFontButton];
     
-    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(foundFontButton.frame), CGRectGetMaxY(foundFontButton.frame) - 1, foundFontButton.frame.size.width, 1)];
+    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(foundFontButton.frame), CGRectGetMaxY(foundFontButton.frame) - 1, self.frame.size.width, 1)];
     [secondLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [secondLine setBackgroundColor:[UIColor blackColor]];
     [fontView addSubview:secondLine];
     
-     northFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(foundFontButton.frame), fontView.bounds.size.width, 37.5)];
+     northFontButton = [UIButton fontButton:CGRectMake(0, CGRectGetMaxY(foundFontButton.frame), fontView.bounds.size.width/2, 37.5)];
     [northFontButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [northFontButton addTarget:self action:@selector(northFontChange) forControlEvents:UIControlEventTouchUpInside];
-    [northFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
+    [northFontButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [northFontButton setTitle:@"方正北魏楷书" forState:UIControlStateNormal];
     [northFontButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleWidth];
     [fontView addSubview:northFontButton];
     
-    markImageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
+    markImageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, defaultFontButton.frame.origin.y + 8, 20, 20)];
     [markImageViewOne setImage:[UIImage imageNamed:@"read_fontmark"]];
-    [markImageViewOne setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [fontView addSubview:markImageViewOne];
     
-    markImageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
+    markImageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, foundFontButton.frame.origin.y + 8, 20, 20)];
     [markImageViewTwo setImage:[UIImage imageNamed:@"read_fontmark"]];
-    [markImageViewTwo setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [fontView addSubview:markImageViewTwo];
     
-    markImageViewSelect = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
+    markImageViewSelect = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, northFontButton.frame.origin.y + 8, 20, 20)];
     [markImageViewSelect setImage:[UIImage imageNamed:@"read_fontmark_select"]];
-    [markImageViewSelect setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [fontView addSubview:markImageViewSelect];
     
+    pageImageSelect = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 30, realPageButton.frame.origin.y + 8, 20, 20)];
+    [pageImageSelect setImage:[UIImage imageNamed:@"read_fontmark_select"]];
+    [pageImageSelect setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+    [fontView addSubview:pageImageSelect];
+    
+    pageImageUnSelect = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame) - 30, simplePageButton.frame.origin.y + 8, 20, 20)];
+    [pageImageUnSelect setImage:[UIImage imageNamed:@"read_fontmark"]];
+    [pageImageUnSelect setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+    [fontView addSubview:pageImageUnSelect];
+    
+    [self changePageMarkPositionWithPageName:[NSUserDefaults brObjectForKey:UserDefaultKeyPage]];
     [self changePositionWithFontName:[NSUserDefaults brObjectForKey:UserDefaultKeyFontName]];
+}
+
+- (void)changePageMarkPositionWithPageName:(NSString *)name
+{
+    if ([name isEqualToString:UserDefaultRealPage]) {
+        [pageImageSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, realPageButton.frame.origin.y + 8, 20, 20)];
+        [pageImageUnSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, simplePageButton.frame.origin.y + 8, 20, 20)];
+    } else {
+        [pageImageSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, simplePageButton.frame.origin.y + 8, 20, 20)];
+        [pageImageUnSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, realPageButton.frame.origin.y + 8, 20, 20)];
+    }
+}
+
+- (void)changePageStyle:(id)sender
+{
+    UIButton *button = (UIButton *)sender;
+    if (button == realPageButton) {
+        [pageImageSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, realPageButton.frame.origin.y + 8, 20, 20)];
+        [pageImageUnSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, simplePageButton.frame.origin.y + 8, 20, 20)];
+        if ([self.delegate respondsToSelector:@selector(realPaging)]) {
+            [self.delegate realPaging];
+        }
+    } else {
+        [pageImageSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, simplePageButton.frame.origin.y + 8, 20, 20)];
+        [pageImageUnSelect setFrame:CGRectMake(CGRectGetMaxX(fontView.frame) - 30, realPageButton.frame.origin.y + 8, 20, 20)];
+        if ([self.delegate respondsToSelector:@selector(simplePaging)]) {
+            [self.delegate simplePaging];
+        }
+    }
 }
 
 - (void)changePositionWithFontName:(NSString *)fontName
@@ -309,19 +375,19 @@
     [foundFontButton setEnabled:YES];
     [northFontButton setEnabled:YES];
     if ([fontName isEqualToString:UserDefaultFoundFont]) {
-        [markImageViewSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
-        [markImageViewOne setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
-        [markImageViewTwo setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, northFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewOne setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, defaultFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewTwo setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, northFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewSelect setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, foundFontButton.frame.origin.y + 8, 20, 20)];
         [foundFontButton setEnabled:NO];
     } else if([fontName isEqualToString:UserDefaultSystemFont]){
-        [markImageViewSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
-        [markImageViewOne setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
-        [markImageViewTwo setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, northFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewOne setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, northFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewTwo setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, foundFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewSelect setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, defaultFontButton.frame.origin.y + 8, 20, 20)];
         [defaultFontButton setEnabled:NO];
     } else {
-        [markImageViewSelect setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, northFontButton.frame.origin.y + 8, 20, 20)];
-        [markImageViewOne setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, defaultFontButton.frame.origin.y + 8, 20, 20)];
-        [markImageViewTwo setFrame:CGRectMake(CGRectGetMaxX(self.frame) - 50, foundFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewOne setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, defaultFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewTwo setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, foundFontButton.frame.origin.y + 8, 20, 20)];
+        [markImageViewSelect setFrame:CGRectMake(CGRectGetMidX(self.bounds) - 30, northFontButton.frame.origin.y + 8, 20, 20)];
         [northFontButton setEnabled:NO];
     }
 }
@@ -593,6 +659,7 @@
         if ([self.delegate respondsToSelector:@selector(orientationButtonClicked)]) {
             [self.delegate performSelector:@selector(orientationButtonClicked)];
         }
+        [self changePositionWithFontName:[NSUserDefaults brObjectForKey:UserDefaultKeyFontName]];
     } else if (sender == brightButton) {
         backgroundView.hidden = YES;
         fontView.hidden = YES;
@@ -613,27 +680,6 @@
         topView.hidden = NO;
         navigationView.hidden = !navigationView.hidden;
     }
-}
-
-- (void)reloadView
-{
-    int index = [[NSUserDefaults brObjectForKey:UserDefaultKeyBackground] integerValue];
-    for (int i = 0; i < backgroundBtns.count; i++) {
-        UIButton *button = backgroundBtns[i];
-        if (index == i) {
-            [button.layer setBorderColor:[UIColor colorWithRed:235.0/255.0 green:162.0/255.0 blue:13.0/255.0 alpha:1.0].CGColor];
-        } else {
-            [button.layer setBorderColor:[UIColor clearColor].CGColor];
-        }
-    }
-    
-    if ([NSUserDefaults brObjectForKey:UserDefaultKeyBright]) {
-        brightSlider.value = [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
-    } else {
-        brightSlider.value = 1;
-    }
-    
-    [self changePositionWithFontName:[NSUserDefaults brObjectForKey:UserDefaultKeyFontName]];
 }
 
 - (void)backButtonPressed:(id)sender

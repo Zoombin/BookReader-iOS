@@ -75,6 +75,8 @@ static NSArray *textColors;
 			value = @0;//羊皮纸
 		} else if ([keyString isEqualToString:UserDefaultKeyScreen]) {
             value = UserDefaultScreenPortrait;
+        } else if ([keyString isEqualToString:UserDefaultKeyPage]) {
+            value = UserDefaultRealPage;
         }
 		[[self standardUserDefaults] setObject:value forKey:key];
 		[[self standardUserDefaults] synchronize];
@@ -88,7 +90,8 @@ static NSArray *textColors;
 							 UserDefaultKeyFontName : UserDefaultNorthFont,
 							 UserDefaultKeyBright : @(1.0f),
 							 UserDefaultKeyBackground : @(0),
-							 UserDefaultKeyScreen : UserDefaultScreenPortrait};
+							 UserDefaultKeyScreen : UserDefaultScreenPortrait,
+                             UserDefaultKeyPage : UserDefaultRealPage};
 	NSUserDefaults *userDefaults = [self standardUserDefaults];
 	[defaults enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		[userDefaults setObject:obj forKey:key];
