@@ -15,6 +15,7 @@
 #define UserDefaultKeyBackground @"background"
 #define UserDefaultKeyNotFirstRead @"not_first_read"
 #define UserDefaultKeyScreen @"screen"
+#define UserDefaultKeyPage  @"page"
 
 //屏幕
 #define UserDefaultScreenLandscape @"reading_landscape"
@@ -28,6 +29,10 @@
 #define UserDefaultSystemFont @"Arial"
 #define UserDefaultFoundFont @"FZLTHJW--GB1-0"
 #define UserDefaultNorthFont @"FZBWKSJW--GB1-0"
+
+//翻页
+#define UserDefaultRealPage @"real"  //仿真
+#define UserDefaultSimplePage   @"simple" //简约
 
 @interface NSUserDefaults (BookReader)
 

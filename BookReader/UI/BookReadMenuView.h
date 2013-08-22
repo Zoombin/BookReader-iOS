@@ -30,6 +30,8 @@
 - (void)brightChanged:(id)sender;
 - (void)backgroundColorChanged:(NSInteger)index;
 - (void)bookDetailButtonClick;
+- (void)realPaging;
+- (void)simplePaging;
 
 @end
 
