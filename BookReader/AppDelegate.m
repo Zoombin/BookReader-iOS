@@ -62,8 +62,13 @@
 - (void)gotoRootController:(RootControllerIdentifier)identifier
 {
     _navController = [[NavViewController alloc] initWithRootViewController:_rootControllers[@(identifier)]];
-    [_navController setNavigationBarHidden:YES];
+	[self hideNavigationBar];
     self.window.rootViewController = _navController;
+}
+
+- (void)hideNavigationBar
+{
+    [_navController setNavigationBarHidden:YES];
 }
 
 - (void)gotoBookShelf

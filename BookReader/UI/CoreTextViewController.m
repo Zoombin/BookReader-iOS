@@ -30,11 +30,12 @@
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
-@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate>
+@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate, CommentDelegate>
 
 @end
 
 @implementation CoreTextViewController {
+	MFMessageComposeViewController *messageComposeViewController;
     NSInteger startPointX;
     NSInteger startPointY;
     CoreTextView *coreTextView;
@@ -52,6 +53,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	NSString *pageCurlType;
 	BOOL enterChapterIsVIP;
     CommentView *commentView;
+	CGSize fullSize;
 }
 
 - (void)shareButtonClicked
@@ -59,11 +61,13 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if([MFMessageComposeViewController canSendText]) {
 		Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
 		if (book) {
-			MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+			if (!messageComposeViewController) return;
+			//messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+			
 			messageComposeViewController.messageComposeDelegate = self;			
 			NSString *message =  [NSString stringWithFormat:@"《%@》这本书太好看了，作者是\"%@\"，赶紧来阅读吧，潇湘书院iOS版下载地址：%@", book.name, book.author, [NSString appStoreLinkWithAppID:APP_ID]];
 			[messageComposeViewController setBody:[NSString stringWithString:message]];
-			[self presentViewController:messageComposeViewController animated:YES completion:nil];
+			[self presentViewController:messageComposeViewController animated:NO completion:nil];
 		}
     } else {
         [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
@@ -71,12 +75,18 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self dismissViewControllerAnimated:NO completion:^(void) {
+		NSLog(@"block height: %f", self.view.frame.size.height);
+		[[UIApplication sharedApplication] setStatusBarHidden:NO];
+		[APP_DELEGATE hideNavigationBar];
+	}];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+	
     backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [backgroundView setBackgroundColor:[UIColor blackColor]];
@@ -89,16 +99,16 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	
 	currentPageIndex = 0;
 	
-	CGSize size = self.view.bounds.size;
+	fullSize = self.view.bounds.size;
 	
-	menuRect = CGRectMake(size.width/3, size.height/4, size.width/3, size.height/2);
-	nextRect = CGRectMake(size.width/2, 0, size.width/2, size.height);
+	menuRect = CGRectMake(fullSize.width/3, fullSize.height/4, fullSize.width/3, fullSize.height/2);
+	nextRect = CGRectMake(fullSize.width/2, 0, fullSize.width/2, fullSize.height);
     
-    statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, size.width, 20)];
+    statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 20)];
     [statusView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:statusView];
     
-    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, size.width, size.height - 30)];
+    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, fullSize.width, fullSize.height - 30)];
 	coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
 	coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
 	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
@@ -109,7 +119,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [coreTextView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:coreTextView];
     
-    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, fullSize.height)];
     [menuView setDelegate:self];
     [menuView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:menuView];
@@ -129,11 +139,23 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[self gotoChapter:_chapter withReadIndex:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	self.view.frame = CGRectMake(0, 0, fullSize.width, fullSize.height);
+	NSLog(@"will height: %f", self.view.frame.size.height);
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 	
-	NSLog(@"start to read chapter: %@", _chapter);
+	[[UIApplication sharedApplication] setStatusBarHidden:NO];
+	[APP_DELEGATE hideNavigationBar];
+	self.view.frame = CGRectMake(0, 0, fullSize.width, fullSize.height);
+	NSLog(@"height: %f", self.view.frame.size.height);
+	menuView.frame = self.view.bounds;
+	
+	//NSLog(@"start to read chapter: %@", _chapter);
 	pageCurlType = nil;
 	
     if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
@@ -141,6 +163,16 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self orientationButtonClicked];
     }
     firstAppear = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
 }
 
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
