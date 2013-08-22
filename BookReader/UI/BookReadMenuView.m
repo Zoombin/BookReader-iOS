@@ -408,7 +408,7 @@
             return;
         }
     } else if (topView.hidden == NO && bottomView.hidden == NO) {
-        if (CGRectContainsPoint(topView.frame, endPoint)&&CGRectContainsPoint(bottomView.frame, endPoint)) {
+        if (CGRectContainsPoint(topView.frame, endPoint) && CGRectContainsPoint(bottomView.frame, endPoint)) {
             return;
         }
     }

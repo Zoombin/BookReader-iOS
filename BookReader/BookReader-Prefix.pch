@@ -36,4 +36,8 @@ BOOL stopAllSync;
 
 #define APP_ID @"597986893"//TODO: this is PvZ2's id
 
+
+//testAccount
+//bwkpjq:720423
+
 #endif
