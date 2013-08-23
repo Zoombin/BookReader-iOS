@@ -261,7 +261,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 						NSUInteger newChaptersCount = resultArray.count;
 						NSUInteger allUnreaderChaptersCount = newChaptersCount + b.numberOfUnreadChapters.integerValue;
 						b.numberOfUnreadChapters = @(allUnreaderChaptersCount);
-						b.numberOfUnreadChapters = @(resultArray.count);
 					}
 				}
 			} completion:^(BOOL success, NSError *error) {
