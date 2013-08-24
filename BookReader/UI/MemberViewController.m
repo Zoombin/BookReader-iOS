@@ -91,14 +91,21 @@
 
 - (void)cleanUp
 {
+	stopAllSync = YES;
 	[self displayHUD:@"正在清理，请稍后..."];
+	[self performSelector:@selector(_cleanUp) withObject:nil afterDelay:2];
+}
+
+- (void)_cleanUp
+{
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[Book truncateAll];
-		[Chapter truncateAll];
-		[Mark truncateAll];
+		[Book truncateAllInContext:localContext];
+		[Chapter truncateAllInContext:localContext];
+		[Mark truncateAllInContext:localContext];
 		[self hideHUD:YES];
+		stopAllSync = NO;
 	}];
 }
 
