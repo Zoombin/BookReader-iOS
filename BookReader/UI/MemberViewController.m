@@ -21,7 +21,6 @@
 #import "BRUser.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
-#import "iVersion.h"
 
 @implementation MemberViewController
 {
@@ -153,7 +152,7 @@
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
                 [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
 			} else {
-                [cell.textLabel setText:@"检测更新"];
+                [cell.textLabel setText:@"新版本检测"];
             }
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -180,9 +179,10 @@
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
 		[alertView show];
 	} else {
-        NSLog(@"检测更新");
+        NSLog(@"新版本检测");
         [[iVersion sharedInstance] setIgnoredVersion:@""];
         [[iVersion sharedInstance] checkForNewVersion];
+		[iVersion sharedInstance].delegate = self;
     }
 }
 
@@ -197,6 +197,13 @@
 			[self cleanUp];
 		}
 	}
+}
+
+#pragma mark - iVersionDelegate
+
+- (void)iVersionDidNotDetectNewVersion
+{
+	[self displayHUDError:nil message:@"当前为最新版本！"];
 }
 
 @end
