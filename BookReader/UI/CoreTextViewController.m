@@ -15,7 +15,6 @@
 #import "NSString+XXSY.h"
 #import "ServiceManager.h"
 #import "ReadHelpView.h"
-#import "NavViewController.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
 #import "SignInViewController.h"
@@ -61,31 +60,25 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     if([MFMessageComposeViewController canSendText]) {
 		Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
 		if (book) {
-			if (!messageComposeViewController) return;
-			//messageComposeViewController = [[MFMessageComposeViewController alloc] init];
-			
+			if (!messageComposeViewController) messageComposeViewController = [[MFMessageComposeViewController alloc] init];
 			messageComposeViewController.messageComposeDelegate = self;			
 			NSString *message =  [NSString stringWithFormat:@"《%@》这本书太好看了，作者是\"%@\"，赶紧来阅读吧，潇湘书院iOS版下载地址：%@", book.name, book.author, [NSString appStoreLinkWithAppID:APP_ID]];
 			[messageComposeViewController setBody:[NSString stringWithString:message]];
-			[self presentViewController:messageComposeViewController animated:NO completion:nil];
+			[self presentViewController:messageComposeViewController animated:YES completion:nil];
 		}
     } else {
         [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
     }
 }
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-	[self dismissViewControllerAnimated:NO completion:^(void) {
-		NSLog(@"block height: %f", self.view.frame.size.height);
-		[[UIApplication sharedApplication] setStatusBarHidden:NO];
-		[APP_DELEGATE hideNavigationBar];
-	}];
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	messageComposeViewController = [[MFMessageComposeViewController alloc] init];
 	
     backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
@@ -139,22 +132,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[self gotoChapter:_chapter withReadIndex:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	self.view.frame = CGRectMake(0, 0, fullSize.width, fullSize.height);
-	NSLog(@"will height: %f", self.view.frame.size.height);
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	
-	[[UIApplication sharedApplication] setStatusBarHidden:NO];
-	[APP_DELEGATE hideNavigationBar];
-	self.view.frame = CGRectMake(0, 0, fullSize.width, fullSize.height);
-	NSLog(@"height: %f", self.view.frame.size.height);
-	menuView.frame = self.view.bounds;
-	
 	//NSLog(@"start to read chapter: %@", _chapter);
 	pageCurlType = nil;
 	
@@ -163,16 +143,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self orientationButtonClicked];
     }
     firstAppear = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
 }
 
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
@@ -408,14 +378,15 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			} else {//没下载到，尝试订阅
 				if (![ServiceManager isSessionValid]) {
 					NSLog(@"尚未登录无法阅读");
-					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+					[self addChildViewController:popLoginViewController];
+					[self.view addSubview:popLoginViewController.view];
 					popLoginViewController.delegate = self;
 					if (enterChapterIsVIP) {//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
 						popLoginViewController.actionAfterCancel = @selector(back);
 						popLoginViewController.actionAfterLogin = @selector(didLogin);
 					}
-					[self addChildViewController:popLoginViewController];
-					[self.view addSubview:popLoginViewController.view];
+					
 					return;
 				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
@@ -652,7 +623,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)resetScreenToVer
 {
-    [(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
     if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
         [self changedWithOrientation:UIInterfaceOrientationPortrait];
     }
@@ -677,7 +647,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		defaultValue = UserDefaultScreenLandscape;
 	}
 	
-	[(NavViewController *)self.navigationController changeSupportedInterfaceOrientations:orientationMask];
 	if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
 		[self changedWithOrientation:orientation];
 	}
@@ -704,16 +673,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     int val = toInterfaceOrientation;
     [invocation setArgument:&val atIndex:2];
     [invocation invoke];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
-    
-    return toInterfaceOrientation == UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+	NSLog(@"self.view.frame: %@", NSStringFromCGRect(self.view.frame));
 }
 
 - (void)showLoginAlert
 {
-	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
 }

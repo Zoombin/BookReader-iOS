@@ -202,6 +202,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)syncBooks
 {
+	if (stopAllSync) return;
 	if ([ServiceManager isSessionValid]) {
 		syncing = YES;
 		NSLog(@"start snyc books");
@@ -229,6 +230,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)syncChapters
 {
+	if (stopAllSync) return;
 	if (!books.count) {
 		NSLog(@"sync chapters finished");
 		syncing = NO;
@@ -279,6 +281,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)syncChaptersContent
 {
+	if (stopAllSync) return;
 	if (!chapters.count) {
 		syncing = NO;
 		NSLog(@"sync chapter content finished");
@@ -290,7 +293,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 	
 	Chapter *chapter = chapters[0];
-//	NSLog(@"fetch chapter: %@", chapter);
+	NSLog(@"fetch chapter: %@", chapter);
 	syncing = YES;
 	
 	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
@@ -317,6 +320,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)syncAutoSubscribe
 {
+	if (stopAllSync) return;
 	if (!chapters.count) {
 		NSLog(@"subscribe chapters finished");
 		syncing = NO;

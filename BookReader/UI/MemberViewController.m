@@ -21,7 +21,6 @@
 #import "BRUser.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
-#import "iVersion.h"
 
 @implementation MemberViewController
 {
@@ -92,14 +91,21 @@
 
 - (void)cleanUp
 {
+	stopAllSync = YES;
 	[self displayHUD:@"正在清理，请稍后..."];
+	[self performSelector:@selector(_cleanUp) withObject:nil afterDelay:2];
+}
+
+- (void)_cleanUp
+{
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[Book truncateAll];
-		[Chapter truncateAll];
-		[Mark truncateAll];
+		[Book truncateAllInContext:localContext];
+		[Chapter truncateAllInContext:localContext];
+		[Mark truncateAllInContext:localContext];
 		[self hideHUD:YES];
+		stopAllSync = NO;
 	}];
 }
 
@@ -153,7 +159,7 @@
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
                 [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
 			} else {
-                [cell.textLabel setText:@"检测更新"];
+                [cell.textLabel setText:@"新版本检测"];
             }
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -180,9 +186,10 @@
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
 		[alertView show];
 	} else {
-        NSLog(@"检测更新");
+        NSLog(@"新版本检测");
         [[iVersion sharedInstance] setIgnoredVersion:@""];
         [[iVersion sharedInstance] checkForNewVersion];
+		[iVersion sharedInstance].delegate = self;
     }
 }
 
@@ -197,6 +204,13 @@
 			[self cleanUp];
 		}
 	}
+}
+
+#pragma mark - iVersionDelegate
+
+- (void)iVersionDidNotDetectNewVersion
+{
+	[self displayHUDError:nil message:@"当前为最新版本！"];
 }
 
 @end

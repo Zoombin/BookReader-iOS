@@ -34,4 +34,9 @@
 {
     return [UIColor colorWithRed:162.0/255.0 green:160.0/255.0 blue:147.0/255.0 alpha:1.0];
 }
+
++ (UIColor *)semitransparentBackgroundColor
+{
+	return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+}
 @end

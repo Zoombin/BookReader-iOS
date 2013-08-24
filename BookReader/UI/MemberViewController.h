@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
+#import "iVersion.h"
 
-@interface MemberViewController: BRViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MemberViewController: BRViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
 
 @end

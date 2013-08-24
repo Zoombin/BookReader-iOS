@@ -898,7 +898,7 @@
 
 - (void)showPopLogin
 {
-	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 	popLoginViewController.delegate = self;
 	popLoginViewController.actionAfterLogin = @selector(didLogin);
 	[self addChildViewController:popLoginViewController];
