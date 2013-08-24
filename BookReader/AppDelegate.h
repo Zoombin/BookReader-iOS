@@ -15,7 +15,7 @@ typedef enum {
     kRootControllerIdentifierMember,
 }RootControllerIdentifier;
 
-#define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )
+#define APP_DELEGATE (AppDelegate *)[[UIApplication sharedApplication] delegate]
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -23,5 +23,6 @@ typedef enum {
 
 - (void)gotoRootController:(RootControllerIdentifier)identifier;
 - (void)gotoBookShelf;
+- (void)hideNavigationBar;
 
 @end

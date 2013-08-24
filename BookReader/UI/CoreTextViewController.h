@@ -13,7 +13,7 @@
 #import "PopLoginViewController.h"
 #import "CommentView.h"
 
-@interface CoreTextViewController : UIViewController<UIAlertViewDelegate,CommentDelegate>
+@interface CoreTextViewController : UIViewController
 
 @property (nonatomic, strong) Chapter *chapter;
 @property (nonatomic, strong) UIViewController *previousViewController;

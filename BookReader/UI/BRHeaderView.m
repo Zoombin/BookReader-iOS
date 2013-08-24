@@ -45,7 +45,7 @@
 		_titleLabel = [UILabel titleLableWithFrame:CGRectMake(80, 0, self.bounds.size.width - 160, BRHeaderView.height)];
 		[_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
         [_titleLabel setAdjustsFontSizeToFitWidth:YES];
-        [_titleLabel setAdjustsLetterSpacingToFitWidth:YES];
+        //[_titleLabel setAdjustsLetterSpacingToFitWidth:YES];
         [self addSubview:_titleLabel];
     }
     return self;

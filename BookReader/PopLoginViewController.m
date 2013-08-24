@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+HUD.h"
 #import	"ServiceManager.h"
+#import "UIDevice+ZBUtilites.h"
 
 
 @implementation PopLoginViewController {
@@ -21,6 +22,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+		self.hideKeyboardRecognzier.enabled = NO;
+	}
 	
 	CGFloat delta = [UIApplication sharedApplication].statusBarHidden ? 0 : 20;
 	

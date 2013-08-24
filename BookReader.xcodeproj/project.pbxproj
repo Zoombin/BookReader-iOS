@@ -1557,7 +1557,7 @@
 				ORGANIZATIONNAME = ZoomBin;
 				TargetAttributes = {
 					8BDB0AB0165E03BB008F328A = {
-						DevelopmentTeam = 2S362SNNP3;
+						DevelopmentTeam = JHC5FJN4U9;
 					};
 				};
 			};
@@ -2044,7 +2044,7 @@
 				INFOPLIST_FILE = "BookReader/BookReader-Info.plist";
 				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
@@ -2066,7 +2066,7 @@
 				ARCHS = armv7;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -2078,7 +2078,7 @@
 				INFOPLIST_FILE = "BookReader/BookReader-Info.plist";
 				INFOPLIST_PREFIX_HEADER = InfoPlist.h;
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
