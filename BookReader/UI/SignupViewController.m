@@ -23,6 +23,7 @@
     UITextField *passwordTextField;
     UITextField *confirmTextField;
     UITextField *codeTextField;
+    UITextView *noticeTextView;
 }
 
 - (void)viewDidLoad
@@ -41,7 +42,7 @@
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
 		[self.view addSubview:textField];
     }
-	
+    
 	registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton memberButton:CGRectMake(0, 0, 0, 0)];
     [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -75,6 +76,13 @@
     
 	registerButton.frame = rect;
 	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
+    
+    noticeTextView = [[UITextView alloc] initWithFrame:CGRectMake(startX, rect.origin.y, width, 100)];
+    [noticeTextView setEditable:NO];
+    [noticeTextView setDataDetectorTypes:UIDataDetectorTypeLink];
+    [noticeTextView setText:@"如无法使用手机号注册，请前往潇湘书院官网进行注册。网址：http://www.xxsy.net 。官网注册可以使用昵称等更多功能。"];
+    [noticeTextView setTextColor:[UIColor blackColor]];
+    [self.view addSubview:noticeTextView];
 }
 
 - (void)valueChanged:(id)sender
