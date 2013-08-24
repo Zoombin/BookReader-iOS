@@ -14,12 +14,11 @@
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
 #import "UIColor+BookReader.h"
-#import "NavViewController.h"
 #import "MobClick.h"
 #import "iVersion.h"
 
 @implementation AppDelegate {
-    NavViewController *_navController;
+    UINavigationController *_navController;
     NSMutableDictionary *_rootControllers;
 }
 
@@ -47,7 +46,7 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
 	
-	[application setStatusBarHidden:NO];
+	//[application setStatusBarHidden:NO];
 	
     _rootControllers = [@{} mutableCopy];
     _rootControllers[@(kRootControllerIdentifierBookShelf)] = [[BookShelfViewController alloc] init];
@@ -61,14 +60,9 @@
 
 - (void)gotoRootController:(RootControllerIdentifier)identifier
 {
-    _navController = [[NavViewController alloc] initWithRootViewController:_rootControllers[@(identifier)]];
-	[self hideNavigationBar];
+    _navController = [[UINavigationController alloc] initWithRootViewController:_rootControllers[@(identifier)]];
+	[_navController setNavigationBarHidden:YES];
     self.window.rootViewController = _navController;
-}
-
-- (void)hideNavigationBar
-{
-    [_navController setNavigationBarHidden:YES];
 }
 
 - (void)gotoBookShelf
