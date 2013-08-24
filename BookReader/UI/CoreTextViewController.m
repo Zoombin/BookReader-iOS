@@ -378,14 +378,15 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			} else {//没下载到，尝试订阅
 				if (![ServiceManager isSessionValid]) {
 					NSLog(@"尚未登录无法阅读");
-					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+					[self addChildViewController:popLoginViewController];
+					[self.view addSubview:popLoginViewController.view];
 					popLoginViewController.delegate = self;
 					if (enterChapterIsVIP) {//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
 						popLoginViewController.actionAfterCancel = @selector(back);
 						popLoginViewController.actionAfterLogin = @selector(didLogin);
 					}
-					[self addChildViewController:popLoginViewController];
-					[self.view addSubview:popLoginViewController.view];
+					
 					return;
 				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
@@ -672,17 +673,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     int val = toInterfaceOrientation;
     [invocation setArgument:&val atIndex:2];
     [invocation invoke];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    
-    return toInterfaceOrientation == UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+	NSLog(@"self.view.frame: %@", NSStringFromCGRect(self.view.frame));
 }
 
 - (void)showLoginAlert
 {
-	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] init];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
 }

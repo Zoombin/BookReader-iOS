@@ -79,7 +79,7 @@
 - (void)initTopView
 {
 	topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
-	topView.backgroundColor = [UIColor readMenuBackgroundColor];
+	topView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [topView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:topView];
     
@@ -142,7 +142,7 @@
 {
 	bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-150, self.bounds.size.width, 150)];
     [bottomView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
-	bottomView.backgroundColor = [UIColor readMenuBackgroundColor];
+	bottomView.backgroundColor = [UIColor semitransparentBackgroundColor];
     
     NSInteger BUTTON_WIDTH = bottomView.frame.size.width/4;
     NSInteger BUTTON_HEIGHT = bottomView.frame.size.height/2;
@@ -218,7 +218,7 @@
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 200, self.bounds.size.width, 200)];
     [fontView setHidden:YES];
     [fontView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth];
-	fontView.backgroundColor = [UIColor readMenuBackgroundColor];
+	fontView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [self addSubview:fontView];
 
     UILabel *setFontSize = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fontView.frame.size.width, 25)];
@@ -422,7 +422,7 @@
     brightView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-80, self.bounds.size.width, 80)];
     [brightView setHidden:YES];
     [brightView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
-	brightView.backgroundColor = [UIColor readMenuBackgroundColor];
+	brightView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [self addSubview:brightView];
     
      brightSlider = [[UISlider alloc] initWithFrame:CGRectMake(50, 22, backgroundView.bounds.size.width-100, 30)];
@@ -457,7 +457,7 @@
     backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, screenHeight - (screenWidth > 320 ? 2.2 : 1) * 200, screenWidth, (screenWidth > 320 ? 2.2 : 1) * 200)];
     [backgroundView setHidden:YES];
     [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
-	backgroundView.backgroundColor = [UIColor readMenuBackgroundColor];
+	backgroundView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [self addSubview:backgroundView];
     
     CGFloat offSetX = 20;
@@ -508,7 +508,7 @@
     navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 3, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3), screenWidth / 3, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3))];
     [navigationView setHidden:YES];
     [navigationView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
-	navigationView.backgroundColor = [UIColor readMenuBackgroundColor];
+	navigationView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [self addSubview:navigationView];
     
     UIButton *backToBookShelf = [UIButton buttonWithType:UIButtonTypeCustom];

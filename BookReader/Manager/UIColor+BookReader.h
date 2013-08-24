@@ -15,5 +15,5 @@
 + (UIColor *)bookStoreTxtColor;
 + (UIColor *)rankButtonTextColor;
 + (UIColor *)bookCellGrayTextColor;
-+ (UIColor *)readMenuBackgroundColor;
++ (UIColor *)semitransparentBackgroundColor;
 @end

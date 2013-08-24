@@ -12,11 +12,22 @@
 #import "UIViewController+HUD.h"
 #import	"ServiceManager.h"
 #import "UIDevice+ZBUtilites.h"
+#import "UIColor+BookReader.h"
 
 
 @implementation PopLoginViewController {
     UITextField *accountTextField;
     UITextField *passwordTextField;
+	CGRect _frame;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+	self = [super init];
+	if (self) {
+		_frame = frame;
+	}
+	return self;
 }
 
 - (void)viewDidLoad
@@ -27,12 +38,11 @@
 		self.hideKeyboardRecognzier.enabled = NO;
 	}
 	
-	CGFloat delta = [UIApplication sharedApplication].statusBarHidden ? 0 : 20;
+	self.view.frame = _frame;
+	self.view.backgroundColor = [UIColor semitransparentBackgroundColor];
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth;
 	
-	self.view.frame = CGRectMake(0, 0 - delta, self.view.frame.size.width, self.view.frame.size.height + delta);
-	self.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
-	
-	CGRect frame = CGRectMake(20, 40, 280, 200);
+	CGRect frame = CGRectMake((self.view.frame.size.width - 280)/ 2, 0, 280, 200);
     CGFloat width = frame.size.width;
     CGFloat height = frame.size.height;
     
@@ -42,11 +52,13 @@
     [self.view addSubview:loginView];
     
     UIImageView *titleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
+	titleImage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [titleImage setImage:[UIImage imageNamed:@"login_header"]];
     [loginView addSubview:titleImage];
     
     UIView *middleBkg = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(titleImage.frame), width - 1 * 2, height - 40 - 1)];
     [middleBkg setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
+	middleBkg.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [loginView addSubview:middleBkg];
     
     accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 15, middleBkg.frame.size.width - 40, 35)];
