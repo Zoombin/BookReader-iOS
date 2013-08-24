@@ -21,6 +21,7 @@
 #import "BRUser.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
+#import "iVersion.h"
 
 @implementation MemberViewController
 {
@@ -121,7 +122,7 @@
 	if (section == 0) {
 		return 2;
 	}
-    return 3;
+    return 4;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -147,11 +148,13 @@
                 [cell.textLabel setText:@"修改密码"];
             } else if (indexPath.row == 1){
                 [cell.textLabel setText:@"我的书架"];
-            } else {
+            } else if (indexPath.row == 2){
 				[cell.textLabel setText:@"清除所有数据缓存"];
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
                 [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
-			}
+			} else {
+                [cell.textLabel setText:@"检测更新"];
+            }
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
@@ -173,10 +176,14 @@
         [self showChangePasswordView];
     } else if (indexPath.row == 1) {
         [self showMyFav];
-    } else {
+    } else if (indexPath.row == 2){
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
 		[alertView show];
-	}
+	} else {
+        NSLog(@"检测更新");
+        [[iVersion sharedInstance] setIgnoredVersion:@""];
+        [[iVersion sharedInstance] checkForNewVersion];
+    }
 }
 
 #pragma mark - UIAlertViewDelegate
