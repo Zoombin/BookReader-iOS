@@ -39,13 +39,13 @@
     [infoTableView setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [infoTableView setDataSource:self];
     [self.view addSubview:infoTableView];
     
     slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 260, self.view.bounds.size.height - 150, 20)];
     [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
     [slider setThumbImage:[UIImage imageNamed:@"thumb_image"] forState:UIControlStateNormal];
     [slider setMinimumTrackTintColor:[UIColor clearColor]];
     [slider setMaximumTrackTintColor:[UIColor clearColor]];
@@ -71,14 +71,14 @@
      chapterlistBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [chapterlistBtn setFrame:CHAPTERS_BUTTON_FRAME];
     [chapterlistBtn setBackgroundImage:[UIImage imageNamed:@"chapterlist_btn"] forState:UIControlStateNormal];
-    [chapterlistBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
+    [chapterlistBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
     [chapterlistBtn addTarget:self action:@selector(chaptersButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:chapterlistBtn];
     
      bookmarkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bookmarkBtn setFrame:BOOKMARK_BUTTON_FRAME];
     [bookmarkBtn setBackgroundImage:[UIImage imageNamed:@"bookmark_btn"] forState:UIControlStateNormal];
-    [bookmarkBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
+    [bookmarkBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
     [bookmarkBtn addTarget:self action:@selector(bookmarksButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bookmarkBtn];
     

@@ -38,6 +38,7 @@
     
     UIView *loginView = [[UIView alloc] initWithFrame:frame];
     loginView.backgroundColor = [UIColor colorWithRed:175.0/255.0 green:88.0/255.0 blue:42.0/255.0 alpha:1.0];
+	loginView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:loginView];
     
     UIImageView *titleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
