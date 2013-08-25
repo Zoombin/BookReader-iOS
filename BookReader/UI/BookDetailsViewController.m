@@ -687,6 +687,7 @@
 		
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 		controller.chapter = c;
+		controller.chapters = chapterArray;
 		controller.previousViewController = self;
 		[self.navigationController pushViewController:controller animated:YES];
 		

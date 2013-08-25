@@ -31,6 +31,11 @@
 #define BOOK_COVER_ORIGIN_SIZE ( CGSizeMake(90, 115) )
 BOOL stopAllSync;
 
+
+#define LONG_SYNC_INTERVAL 1.0
+#define SHORT_SYNC_INTERVAL 0.3
+float syncTimeInterval;
+
 #ifdef DEBUG
 #define DISPLAY_V_FLAG 1
 #endif

@@ -115,12 +115,18 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+	[super viewDidAppear:animated];
+	syncTimeInterval = SHORT_SYNC_INTERVAL;
 	if (![ServiceManager hadLaunchedBefore]) {
 		[self helpDisplay];
 	} else {
 		[self formalDisplay];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	syncTimeInterval = LONG_SYNC_INTERVAL;
 }
 
 - (void)helpDisplay
@@ -307,12 +313,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 				}
 			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
-				[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:0.3];
+				[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:syncTimeInterval];
 //				[self syncChaptersContent];
 			}];
 		} else {
 			[chapters removeObject:chapter];
-			[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:0.3];
+			[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:syncTimeInterval];
 //			[self syncChaptersContent];
 		}
 	}];
@@ -342,12 +348,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 				}
 			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
-				[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:0.3];
+				[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:syncTimeInterval];
 //				[self syncAutoSubscribe];
 			}];
 		} else {
 			[chapters removeObject:chapter];
-			[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:0.3];
+			[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:syncTimeInterval];
 //			[self syncAutoSubscribe];
 		}
 	}];

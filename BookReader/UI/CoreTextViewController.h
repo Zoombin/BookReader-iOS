@@ -16,6 +16,7 @@
 @interface CoreTextViewController : UIViewController
 
 @property (nonatomic, strong) Chapter *chapter;
+@property (nonatomic, strong) NSArray *chapters;
 @property (nonatomic, strong) UIViewController *previousViewController;
 
 @end

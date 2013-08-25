@@ -129,6 +129,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	
 	enterChapterIsVIP = _chapter.bVip.boolValue;
 	
+	if (_chapter && !_chapters) {
+		_chapters = [Chapter allChaptersOfBookID:_chapter.bid];
+	}
 	[self gotoChapter:_chapter withReadIndex:nil];
 }
 
@@ -137,6 +140,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [super viewDidAppear:animated];
 	//NSLog(@"start to read chapter: %@", _chapter);
 	pageCurlType = nil;
+	
+	if (firstAppear) {
+		
+		
+	}
 	
     if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
         isLandscape = !isLandscape;
@@ -531,7 +539,23 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		return;
 	}
 	pageCurlType = nil;
-	[self gotoChapter:[_chapter previous] withReadIndex:nil];
+	
+	Chapter *preChapter = [_chapter previous];
+	if (!preChapter) {
+		preChapter = [self findChapterWithID:_chapter.previousID];
+	}
+	[self gotoChapter:preChapter withReadIndex:nil];
+}
+
+- (Chapter *)findChapterWithID:(NSString *)chapterID
+{
+	if (!chapterID) return nil;
+	for (Chapter *c in _chapters) {
+		if ([chapterID isEqualToString:c.uid]) {
+			return c;
+		}
+	}
+	return nil;
 }
 
 - (void)gotoNextChapter
@@ -541,7 +565,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		return;
 	}
 	pageCurlType = nil;
-	[self gotoChapter:[_chapter next] withReadIndex:nil];
+	
+	Chapter *nextChapter = [_chapter next];
+	if (!nextChapter) {
+		nextChapter = [self findChapterWithID:_chapter.nextID];
+	}
+	[self gotoChapter:nextChapter withReadIndex:nil];
 }
 
 #pragma mark -
@@ -673,7 +702,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     int val = toInterfaceOrientation;
     [invocation setArgument:&val atIndex:2];
     [invocation invoke];
-	NSLog(@"self.view.frame: %@", NSStringFromCGRect(self.view.frame));
 }
 
 - (void)showLoginAlert
