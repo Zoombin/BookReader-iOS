@@ -169,6 +169,8 @@
 		18BA0AC8177069F700DFE9B3 /* universal_btn_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0AC3177069F600DFE9B3 /* universal_btn_r.png */; };
 		18BA0AC9177069F700DFE9B3 /* universal_btn_r@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0AC4177069F600DFE9B3 /* universal_btn_r@2x.png */; };
 		18BA0ACA177069F700DFE9B3 /* universal_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0AC5177069F600DFE9B3 /* universal_btn@2x.png */; };
+		18BB11C417CA004500736BB4 /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BB11C117CA004500736BB4 /* libUMFeedback.a */; };
+		18BB11C517CA004500736BB4 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18BB11C217CA004500736BB4 /* umFeedback.bundle */; };
 		18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C12BBF17A673A500206E93 /* PopLoginViewController.m */; };
 		18DA4DDC17A8E59D002CFBB4 /* read_navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DA4DDA17A8E59D002CFBB4 /* read_navigation.png */; };
 		18DA4DDD17A8E59D002CFBB4 /* read_navigation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DA4DDB17A8E59D002CFBB4 /* read_navigation@2x.png */; };
@@ -528,6 +530,9 @@
 		18BA0AC3177069F600DFE9B3 /* universal_btn_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = universal_btn_r.png; sourceTree = "<group>"; };
 		18BA0AC4177069F600DFE9B3 /* universal_btn_r@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "universal_btn_r@2x.png"; sourceTree = "<group>"; };
 		18BA0AC5177069F600DFE9B3 /* universal_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "universal_btn@2x.png"; sourceTree = "<group>"; };
+		18BB11C117CA004500736BB4 /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
+		18BB11C217CA004500736BB4 /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
+		18BB11C317CA004500736BB4 /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
 		18C12BBE17A673A500206E93 /* PopLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopLoginViewController.h; sourceTree = "<group>"; };
 		18C12BBF17A673A500206E93 /* PopLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopLoginViewController.m; sourceTree = "<group>"; };
 		18DA4DDA17A8E59D002CFBB4 /* read_navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read_navigation.png; sourceTree = "<group>"; };
@@ -811,6 +816,7 @@
 				8BDB0AB8165E03BB008F328A /* Foundation.framework in Frameworks */,
 				8BDB0ABA165E03BB008F328A /* CoreGraphics.framework in Frameworks */,
 				18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */,
+				18BB11C417CA004500736BB4 /* libUMFeedback.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,6 +1038,9 @@
 		18FD246317B37A8000D11CCA /* UMengSDK */ = {
 			isa = PBXGroup;
 			children = (
+				18BB11C117CA004500736BB4 /* libUMFeedback.a */,
+				18BB11C217CA004500736BB4 /* umFeedback.bundle */,
+				18BB11C317CA004500736BB4 /* UMFeedback.h */,
 				18FD246417B37A8000D11CCA /* libMobClickLibrary.a */,
 				18FD246517B37A8000D11CCA /* MobClick.h */,
 			);
@@ -1768,6 +1777,7 @@
 				779A5AC417C094BE00C865FE /* help_bookcover8.jpg in Resources */,
 				779A5AC517C094BE00C865FE /* help_bookcover9.jpg in Resources */,
 				77D0C5CC17C1A5E100228A70 /* iVersion.bundle in Resources */,
+				18BB11C517CA004500736BB4 /* umFeedback.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

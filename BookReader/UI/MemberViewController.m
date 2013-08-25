@@ -21,6 +21,7 @@
 #import "BRUser.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
+#import "UMFeedback.h"
 
 @implementation MemberViewController
 {
@@ -128,7 +129,7 @@
 	if (section == 0) {
 		return 2;
 	}
-    return 4;
+    return 5;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -154,7 +155,9 @@
                 [cell.textLabel setText:@"修改密码"];
             } else if (indexPath.row == 1){
                 [cell.textLabel setText:@"我的书架"];
-            } else if (indexPath.row == 2){
+            } else if (indexPath.row == 2) {
+                [cell.textLabel setText:@"用户反馈"];
+            } else if (indexPath.row == 3){
 				[cell.textLabel setText:@"清除所有数据缓存"];
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
                 [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
@@ -182,7 +185,10 @@
         [self showChangePasswordView];
     } else if (indexPath.row == 1) {
         [self showMyFav];
-    } else if (indexPath.row == 2){
+    } else if (indexPath.row == 2) {
+        NSLog(@"用户反馈");
+        [UMFeedback showFeedback:self withAppkey:UMENG_KEY];
+    } else if (indexPath.row == 3){
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
 		[alertView show];
 	} else {
