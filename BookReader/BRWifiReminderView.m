@@ -19,9 +19,9 @@
 		textView.userInteractionEnabled = NO;
 		textView.layer.cornerRadius = 5.0f;
 		textView.backgroundColor = [UIColor colorWithRed:136.0/255.0 green:65.0/255.0 blue:26.0/255.0 alpha:0.8];
-		[textView setText:@"特别提示：本应用在WIFI环境下会自动下载书架内所有作品的章节内容以便您离线阅读。在非WIFI下，本应用则仅下载开启了”自动更新“作品的章节内容，这将消耗极少的流量。"];
+		[textView setText:@"特别提示：本应用在WIFI环境下会自动下载书架内所有作品的公众章节和已订阅的VIP章节内容以便您离线阅读。在非WIFI下，本应用则仅下载开启了”自动更新“作品的章节内容，这将消耗极少的流量。"];
 		textView.textColor = [UIColor whiteColor];
-		textView.font = [UIFont systemFontOfSize:14];
+		textView.font = [UIFont systemFontOfSize:13];
 		[self addSubview:textView];
     }
     return self;
