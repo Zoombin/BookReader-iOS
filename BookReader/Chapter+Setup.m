@@ -151,10 +151,6 @@
 		if (b) {
 			if (b.autoBuy.boolValue) {
 				[chaptersNeedFetchContent addObject:chapter];
-			} else {
-				if (b.lastReadChapterID != nil) {
-					[chaptersNeedFetchContent addObject:chapter];
-				}
 			}
 		}
 	}];
