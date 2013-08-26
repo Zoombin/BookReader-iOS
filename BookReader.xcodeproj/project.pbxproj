@@ -222,6 +222,7 @@
 		779423E317BDDDFA00814D07 /* BRNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E217BDDDFA00814D07 /* BRNotification.m */; };
 		779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */; };
 		779423EC17BF559100814D07 /* BRChapterNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423EB17BF559100814D07 /* BRChapterNameView.m */; };
+		7798E9B417CAE865000D3A51 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7798E9B317CAE865000D3A51 /* Chapter.m */; };
 		779A5A8E17C0536700C865FE /* BookShelfHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779A5A8D17C0536700C865FE /* BookShelfHelpView.m */; };
 		779A5A9C17C0660C00C865FE /* help1_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A5A9017C0660C00C865FE /* help1_2@2x.png */; };
 		779A5A9E17C0660C00C865FE /* help2_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A5A9217C0660C00C865FE /* help2_2@2x.png */; };
@@ -298,7 +299,6 @@
 		77A3FA2B173497320027D1DF /* BRBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2A173497320027D1DF /* BRBookCell.m */; };
 		77A3FA2E173497890027D1DF /* BRBooksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A3FA2D173497890027D1DF /* BRBooksView.m */; };
 		77A612D71716635F00934254 /* NSString+XXSY.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A612D61716635F00934254 /* NSString+XXSY.m */; };
-		77B378D517AB81AF00D8D63D /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D417AB81AF00D8D63D /* Chapter.m */; };
 		77B378D817AB81B900D8D63D /* Mark.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378D717AB81B900D8D63D /* Mark.m */; };
 		77B378DD17AB8E4700D8D63D /* BookDoc in Resources */ = {isa = PBXBuildFile; fileRef = 77B378DC17AB8E4700D8D63D /* BookDoc */; };
 		77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77B378DF17AB8EB400D8D63D /* FTBWKT.ttf */; };
@@ -595,6 +595,8 @@
 		779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ZBUtilites.m"; sourceTree = "<group>"; };
 		779423EA17BF559100814D07 /* BRChapterNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChapterNameView.h; sourceTree = "<group>"; };
 		779423EB17BF559100814D07 /* BRChapterNameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChapterNameView.m; sourceTree = "<group>"; };
+		7798E9B217CAE865000D3A51 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
+		7798E9B317CAE865000D3A51 /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		779A5A8C17C0536700C865FE /* BookShelfHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfHelpView.h; sourceTree = "<group>"; };
 		779A5A8D17C0536700C865FE /* BookShelfHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookShelfHelpView.m; sourceTree = "<group>"; };
 		779A5A9017C0660C00C865FE /* help1_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "help1_2@2x.png"; path = "BookReader/Image/help1_2@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -736,8 +738,6 @@
 		77A3FA2D173497890027D1DF /* BRBooksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BRBooksView.m; path = UI/BRBooksView.m; sourceTree = "<group>"; };
 		77A612D51716635F00934254 /* NSString+XXSY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+XXSY.h"; path = "../NSString+XXSY.h"; sourceTree = "<group>"; };
 		77A612D61716635F00934254 /* NSString+XXSY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+XXSY.m"; path = "../NSString+XXSY.m"; sourceTree = "<group>"; };
-		77B378D317AB81AF00D8D63D /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
-		77B378D417AB81AF00D8D63D /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		77B378D617AB81B900D8D63D /* Mark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
 		77B378D717AB81B900D8D63D /* Mark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mark.m; sourceTree = "<group>"; };
 		77B378DC17AB8E4700D8D63D /* BookDoc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BookDoc; sourceTree = SOURCE_ROOT; };
@@ -882,6 +882,8 @@
 			isa = PBXGroup;
 			children = (
 				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
+				7798E9B217CAE865000D3A51 /* Chapter.h */,
+				7798E9B317CAE865000D3A51 /* Chapter.m */,
 				779423E117BDDDFA00814D07 /* BRNotification.h */,
 				779423E217BDDDFA00814D07 /* BRNotification.m */,
 				779C672A17446DCD00909D6A /* BRContextManager.h */,
@@ -900,8 +902,6 @@
 				779C6722174461F000909D6A /* Chapter+Setup.m */,
 				77D0C5D717C24C3A00228A70 /* Book.h */,
 				77D0C5D817C24C3A00228A70 /* Book.m */,
-				77B378D317AB81AF00D8D63D /* Chapter.h */,
-				77B378D417AB81AF00D8D63D /* Chapter.m */,
 				77B378D617AB81B900D8D63D /* Mark.h */,
 				77B378D717AB81B900D8D63D /* Mark.m */,
 			);
@@ -1915,7 +1915,6 @@
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
 				184862FE1796535400282A6A /* BRNotificationView.m in Sources */,
 				18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */,
-				77B378D517AB81AF00D8D63D /* Chapter.m in Sources */,
 				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
 				77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */,
 				77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */,
@@ -1934,6 +1933,7 @@
 				779A5A8E17C0536700C865FE /* BookShelfHelpView.m in Sources */,
 				77D0C5CD17C1A5E100228A70 /* iVersion.m in Sources */,
 				77D0C5D917C24C3B00228A70 /* Book.m in Sources */,
+				7798E9B417CAE865000D3A51 /* Chapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

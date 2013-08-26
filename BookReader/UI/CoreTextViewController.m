@@ -534,6 +534,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)gotoPreviousChapter
 {
+	NSLog(@"_chapter: %@", _chapters);
 	if (!_chapter.previousID || !_chapter.previousID.intValue) {
 		[self displayHUDError:@"" message:@"此章是第一章"];
 		return;

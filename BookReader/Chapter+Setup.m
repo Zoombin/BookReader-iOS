@@ -21,7 +21,7 @@
     chapter.bVip = attributes[@"isVip"];
 	//chapter.nextID = [attributes[@"nextId"] stringValue];
 	//chapter.previousID = [attributes[@"prevId"] stringValue];
-	chapter.rollID = [attributes[@"rollId"] stringValue];
+	chapter.rollID = attributes[@"rollId"];
 	return chapter;
 }
 
@@ -206,7 +206,7 @@
 	return [NSString stringWithFormat:@"卷%@:%@", [self displayRollID:allChapters], self.name];
 }
 
-- (NSString *)displayRollID:(NSArray *)allChapters
+- (NSNumber *)displayRollID:(NSArray *)allChapters
 {
 	if (!allChapters) {
 		allChapters = [Chapter allChaptersOfBookID:self.bid];
@@ -219,11 +219,11 @@
 	}
 	
 	for (int i = 0; i < rollIDs.count; i++) {
-		if ([self.rollID isEqualToString:rollIDs[i]]) {
-			return [NSString stringWithFormat:@"%d", i + 1];
+		if (self.rollID.intValue == [rollIDs[i] intValue]) {
+			return @(i+1);
 		}
 	}
-	return @"1";
+	return @(1);
 }
 
 @end

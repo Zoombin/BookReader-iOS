@@ -2,7 +2,7 @@
 //  Chapter.m
 //  BookReader
 //
-//  Created by zhangbin on 8/2/13.
+//  Created by zhangbin on 8/26/13.
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 

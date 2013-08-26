@@ -299,7 +299,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 	
 	Chapter *chapter = chapters[0];
-	NSLog(@"fetch chapter: %@", chapter);
+	//NSLog(@"fetch chapter: %@", chapter);
 	syncing = YES;
 	
 	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
