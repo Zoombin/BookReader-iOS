@@ -16,16 +16,16 @@
 
 @implementation BRBooksView
 
-+ (PSUICollectionViewFlowLayout *)defaultLayout
++ (PSTCollectionViewFlowLayout *)defaultLayout
 {
-	PSUICollectionViewFlowLayout *layout = [[PSUICollectionViewFlowLayout alloc] init];
+	PSTCollectionViewFlowLayout *layout = [[PSTCollectionViewFlowLayout alloc] init];
 	layout.itemSize = CGSizeMake(70, 90);
 	layout.minimumInteritemSpacing = 11;
 	layout.minimumLineSpacing = 50;
 	return layout;
 }
 
-- (id)initWithFrame:(CGRect)frame collectionViewLayout:(PSUICollectionViewLayout *)layout
+- (id)initWithFrame:(CGRect)frame collectionViewLayout:(PSTCollectionViewLayout *)layout
 {
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {

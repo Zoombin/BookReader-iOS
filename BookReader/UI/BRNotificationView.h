@@ -19,7 +19,7 @@
 
 @end
 
-@interface BRNotificationView : PSUICollectionReusableView
+@interface BRNotificationView : PSTCollectionReusableView
 
 @property (nonatomic, weak) id<BRNotificationViewDelegate> delegate;
 @property (nonatomic, strong) BRNotification *notification;

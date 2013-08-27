@@ -19,11 +19,11 @@
 @end
 
 
-@interface BRBooksView : PSUICollectionView
+@interface BRBooksView : PSTCollectionView
 
 @property (nonatomic, weak) id<BRBooksViewDelegate> booksViewDelegate;
 
-+ (PSUICollectionViewFlowLayout *)defaultLayout;
++ (PSTCollectionViewFlowLayout *)defaultLayout;
 - (BRBookCell *)bookCell:(Book *)book atIndexPath:(NSIndexPath *)indexPath;
 
 + (CGFloat)headerHeight;

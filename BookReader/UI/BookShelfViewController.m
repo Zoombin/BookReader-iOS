@@ -25,7 +25,7 @@
 const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, BookShelfHelpViewDelegate, PSUICollectionViewDataSource, PSUICollectionViewDelegate, PSUICollectionViewDelegateFlowLayout>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, BookShelfHelpViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 @end
 
 @implementation BookShelfViewController {
@@ -62,7 +62,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	CGSize fullSize = self.view.bounds.size;
     
 	
-	PSUICollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
+	PSTCollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
 	layout.footerReferenceSize = CGSizeMake(fullSize.width, 100);
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -541,12 +541,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 #pragma mark - CollectionViewDelegate
 
-- (NSInteger)collectionView:(PSUICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 	return booksForDisplay.count;
 }
 
-- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
@@ -559,7 +559,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	return cell;
 }
 
-- (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (PSTCollectionReusableView *)collectionView:(PSTCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
 	NSString *identifier = nil;
 	
 	if ([kind isEqualToString:PSTCollectionElementKindSectionHeader]) {
@@ -567,7 +567,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
 		identifier = collectionFooterViewIdentifier;
 	}
-    PSUICollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
+    PSTCollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 	if ([supplementaryView isKindOfClass:[BRNotificationView class]]) {
 		BRNotificationView *notificationView = (BRNotificationView *)supplementaryView;
 		notificationView.delegate = self;
@@ -578,7 +578,7 @@ const NSUInteger numberOfBooksPerRow = 3;
     return supplementaryView;
 }
 
-- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
 	if (notification && [notification shouldDisplay]) {
 		return CGSizeMake(booksView.frame.size.width, 120);
@@ -586,7 +586,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	return CGSizeZero;
 }
 
-- (UIEdgeInsets)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+- (UIEdgeInsets)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
 	CGFloat top = 30;
 	if (notification && [notification shouldDisplay]) {

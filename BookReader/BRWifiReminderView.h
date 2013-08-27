@@ -10,6 +10,6 @@
 
 #define collectionFooterViewIdentifier @"collection_footer_view_identifier"
 
-@interface BRWifiReminderView : PSUICollectionReusableView
+@interface BRWifiReminderView : PSTCollectionReusableView
 
 @end

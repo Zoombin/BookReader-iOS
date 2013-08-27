@@ -18,7 +18,7 @@
 - (void)changedValueBookCell:(BRBookCell *)bookCell;
 @end
 
-@interface BRBookCell : PSUICollectionViewCell
+@interface BRBookCell : PSTCollectionViewCell
 
 @property (nonatomic, weak) id<BRBookCellDelegate> bookCellDelegate;
 @property (nonatomic, strong) Book *book;
