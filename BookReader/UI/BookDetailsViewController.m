@@ -343,6 +343,7 @@
     
     shortdescribeTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(favButton.frame)+10, coverView.frame.size.width-5 * 2, 150)];
     [shortdescribeTextView setEditable:NO];
+    [shortdescribeTextView setScrollEnabled:NO];
     [shortdescribeTextView setTextColor:[UIColor bookStoreTxtColor]];
     [shortdescribeTextView setFont:[UIFont systemFontOfSize:15]];
     [shortdescribeTextView setBackgroundColor:[UIColor clearColor]];
@@ -353,7 +354,7 @@
     [commentTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [commentTitle.layer setBorderWidth:0.5];
     [commentTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [commentTitle setText:@"　　书评"];
+    [commentTitle setText:@"　书评"];
     [coverView addSubview:commentTitle];
     
     shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320) style:UITableViewStylePlain];
@@ -369,7 +370,7 @@
     [recommendTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [recommendTitle.layer setBorderWidth:0.5];
     [recommendTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [recommendTitle setText:@"　　同类推荐"];
+    [recommendTitle setText:@"　同类推荐"];
     [coverView addSubview:recommendTitle];
     
     recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260) style:UITableViewStylePlain];
@@ -501,10 +502,7 @@
     }
     
     [shortdescribeTextView setText:book.describe];
-    CGFloat height = shortdescribeTextView.contentSize.height;
-    CGRect rect = shortdescribeTextView.frame;
-    rect.size.height = height;
-    [shortdescribeTextView setFrame:rect];
+    [shortdescribeTextView sizeToFit];
     
     [self loadShortCommitList];
     [self loadSameType];
