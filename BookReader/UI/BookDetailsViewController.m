@@ -251,7 +251,7 @@
     NSMutableArray *headerBtns = [NSMutableArray array];
     NSArray *selectors =  @[@"coverButtonClicked:",@"chapterButtonClicked:",@"commentButtonClicked:",@"authorButtonClicked:"];
     NSInteger width = (fullSize.width-10)/4;
-    NSArray *tabbarStrings = @[@"封\t\t\t面",@"目\t\t\t录",@"书\t\t\t评",@"作者作品"];
+    NSArray *tabbarStrings = @[@"封　　面",@"目　　录",@"书　　评",@"作者作品"];
     for (int i = 0; i<[tabbarStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
@@ -353,7 +353,7 @@
     [commentTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [commentTitle.layer setBorderWidth:0.5];
     [commentTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [commentTitle setText:@"\t\t书评"];
+    [commentTitle setText:@"　　书评"];
     [coverView addSubview:commentTitle];
     
     shortInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(commentTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 320) style:UITableViewStylePlain];
@@ -369,7 +369,7 @@
     [recommendTitle setFont:[UIFont boldSystemFontOfSize:15]];
     [recommendTitle.layer setBorderWidth:0.5];
     [recommendTitle.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [recommendTitle setText:@"\t\t同类推荐"];
+    [recommendTitle setText:@"　　同类推荐"];
     [coverView addSubview:recommendTitle];
     
     recommendTableView = [[UITableView alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(recommendTitle.frame) + 5, coverView.frame.size.width - 5 * 2, 260) style:UITableViewStylePlain];
