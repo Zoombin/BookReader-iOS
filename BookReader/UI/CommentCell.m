@@ -63,9 +63,9 @@
     [messageLabel setText:[[comment.content XXSYHandleRedundantTags] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
     [messageLabel sizeToFit];
     cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height + 15;
-    [line setFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame) - 1 + 15, line.frame.size.width, 2)];
-    [line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self setFrame:cellFrame];
+    [line setFrame:CGRectMake(0, cellFrame.size.height - 2, self.contentView.frame.size.width + 20, 2)];
+    [line setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 }
 
 - (CGFloat)height
