@@ -79,7 +79,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	[self prefersStatusBarHidden];
     backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     [backgroundView setBackgroundColor:[UIColor blackColor]];
@@ -718,5 +718,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     firstAppear = YES;
     BookDetailsViewController *controller = [[BookDetailsViewController alloc] initWithBook:_chapter.bid];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 @end

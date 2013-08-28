@@ -20,7 +20,7 @@
 	if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
 		self.hideKeyboardRecognzier.enabled = NO;
 	}
-	
+	[self prefersStatusBarHidden];
 	CGSize fullSize = self.view.bounds.size;
 	
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
@@ -34,6 +34,11 @@
     [_backgroundView.layer setMasksToBounds:YES];
     [_backgroundView setBackgroundColor:[UIColor whiteColor]];
 	[self.view addSubview:_backgroundView];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 @end

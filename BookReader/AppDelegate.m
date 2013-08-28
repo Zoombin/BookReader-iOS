@@ -40,6 +40,8 @@
 //	[ServiceManager login];
 	
 //	[self testApis];
+
+
 	
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:REALTIME channelId:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
@@ -53,6 +55,7 @@
     _rootControllers[@(kRootControllerIdentifierBookStore)] = [[BookStoreViewController alloc] init];
     _rootControllers[@(kRootControllerIdentifierMember)] = [[MemberViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
     [self gotoRootController:kRootControllerIdentifierBookShelf];
     [self.window makeKeyAndVisible];
     return YES;
