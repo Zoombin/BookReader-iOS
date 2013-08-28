@@ -502,7 +502,13 @@
     }
     
     [shortdescribeTextView setText:book.describe];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
     [shortdescribeTextView sizeToFit];
+    } else {
+        CGFloat height = shortdescribeTextView.contentSize.height;
+        CGRect frame = CGRectMake(shortdescribeTextView.frame.origin.x, shortdescribeTextView.frame.origin.y, shortdescribeTextView.frame.size.width, height);
+        [shortdescribeTextView setFrame:frame];
+    }
     
     [self loadShortCommitList];
     [self loadSameType];

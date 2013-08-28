@@ -136,7 +136,9 @@
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 65, 42)];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
     [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
+    }
     _searchBar.delegate = self;
     _searchBar.tintColor = [UIColor blackColor];
     [_searchBar setPlaceholder:@"请输入书名、作者"];
