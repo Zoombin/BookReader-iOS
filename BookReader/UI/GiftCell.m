@@ -35,6 +35,7 @@
     UIButton *reductBtn;
     UIButton *addBtn;
     
+    UIView *dottedLine;
     CGFloat height;
     GiftCellStyle currentStyle;
 }
@@ -209,7 +210,7 @@
             [self.contentView addSubview:sendButton];
         }
         
-        UIView *dottedLine = [[UIView alloc] initWithFrame:CGRectMake(10, height, self.contentView.frame.size.width - 20, 1)];
+         dottedLine = [[UIView alloc] initWithFrame:CGRectMake(10, height - 1, self.contentView.frame.size.width - 20, 1)];
         [dottedLine setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [dottedLine setBackgroundColor:[UIColor blackColor]];
         [self.contentView addSubview:dottedLine];
