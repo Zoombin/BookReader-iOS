@@ -510,7 +510,7 @@
         [shortdescribeTextView setFrame:frame];
     }
     
-    [self loadShortCommitList];
+    [self loadCommitList];
     [self loadSameType];
 	self.hideKeyboardRecognzier.enabled = NO;
 }
@@ -627,29 +627,10 @@
             commitField.text = @"";
             [self displayHUDError:nil message:message];
             [self performSelector:@selector(loadCommitList) withObject:nil afterDelay:3.0];
-            [shortInfoArray removeAllObjects];
-            [self performSelector:@selector(loadShortCommitList) withObject:nil afterDelay:3.0];
         } else {
             if (!error) {
                 [self displayHUDError:nil message:message];
             } else {
-                [self displayHUDError:nil message:error.description];
-            }
-        }
-    }];
-}
-
-- (void)loadShortCommitList
-{
-	[self displayHUD:@"加载中..."];
-    [ServiceManager bookDiccusssListByBookId:bookid size:@"6" andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-		[self hideHUD:YES];
-		if (success) {
-            [shortInfoArray addObjectsFromArray:resultArray];
-            [shortInfoTableView reloadData];
-            [self refreshCoverViewFrame];
-		} else {
-            if (error) {
                 [self displayHUDError:nil message:error.description];
             }
         }
@@ -667,6 +648,14 @@
 			if ([resultArray count] == 10) {
                 [self addFootView];
             }
+            NSRange theRange;
+            theRange.location = 0;
+            theRange.length = [resultArray count] >= 6 ? 6 : resultArray.count;
+            [shortInfoArray removeAllObjects];
+            [shortInfoArray addObjectsFromArray:[resultArray subarrayWithRange:theRange]];
+            [shortInfoTableView reloadData];
+            [self refreshCoverViewFrame];
+            
              currentIndex++;
             [infoArray addObjectsFromArray:resultArray];
             [infoTableView reloadData];
