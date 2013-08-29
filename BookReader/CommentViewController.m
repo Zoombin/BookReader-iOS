@@ -8,7 +8,7 @@
 
 #import "CommentViewController.h"
 #import "ServiceManager.h"
-#import "UIViewController+HUD.m"
+#import "UIViewController+HUD.h"
 
 @implementation CommentViewController {
     UITextView *textView;
