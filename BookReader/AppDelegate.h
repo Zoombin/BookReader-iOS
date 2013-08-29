@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )
 
 typedef enum {
     kRootControllerIdentifierBookShelf,
