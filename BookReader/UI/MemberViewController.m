@@ -48,7 +48,7 @@
 	[_memberTableView.layer setCornerRadius:5];
 	[_memberTableView.layer setMasksToBounds:YES];
 	[_memberTableView setBackgroundView:nil];
-	[_memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	[_memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 	[self.view addSubview:_memberTableView];
 	
 	UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
