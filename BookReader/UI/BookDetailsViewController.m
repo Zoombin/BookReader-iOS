@@ -626,9 +626,9 @@
         if (success) {
             commitField.text = @"";
             [self displayHUDError:nil message:message];
-            [self loadCommitList];
+            [self performSelector:@selector(loadCommitList) withObject:nil afterDelay:3.0];
             [shortInfoArray removeAllObjects];
-            [self loadShortCommitList];
+            [self performSelector:@selector(loadShortCommitList) withObject:nil afterDelay:3.0];
         } else {
             if (!error) {
                 [self displayHUDError:nil message:message];
