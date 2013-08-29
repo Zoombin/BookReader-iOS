@@ -562,17 +562,18 @@
             [self hideHUD:YES];
             if ([authorBookArray count]>0) {
                 [authorBookArray removeAllObjects];
+                [authorBookTableView reloadData];
             }
             for (int i = 0 ; i<[resultArray count]; i++) {
                 Book *obj = [resultArray objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue]) {
                     [authorBookArray addObject:obj];
+                    [authorBookTableView reloadData];
                 }
             }
             if ([authorBookArray count] == 0) {
                 [authorBookTableView setTableHeaderView:emptyLabel];
             }
-            [authorBookTableView reloadData];
 		} else {
             [self displayHUDError:nil message:error.description];
         }
@@ -585,17 +586,18 @@
 		if (success) {
 			if ([sameTypeBookArray count]>0) {
                 [sameTypeBookArray removeAllObjects];
+                [recommendTableView reloadData];
             }
             for (int i = 0 ; i<[resultArray count]; i++) {
                 Book *obj = [resultArray objectAtIndex:i];
                 if([obj.uid integerValue]!=[bookid integerValue]) {
                     [sameTypeBookArray addObject:obj];
+                    [recommendTableView reloadData];
                 }
 				if ([sameTypeBookArray count]==4) {
 					break;
 				}
 			}
-			[recommendTableView reloadData];
 			[self refreshCoverViewFrame];
 		} else {
             [self displayHUDError:nil message:error.description];
@@ -640,6 +642,7 @@
 - (void)loadCommitList
 {
 	[infoArray removeAllObjects];
+    [infoTableView reloadData];
     currentIndex = 1;
 	[self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
@@ -656,6 +659,7 @@
             theRange.location = 0;
             theRange.length = [resultArray count] >= 6 ? 6 : resultArray.count;
             [shortInfoArray removeAllObjects];
+            [shortInfoTableView reloadData];
             [shortInfoArray addObjectsFromArray:[resultArray subarrayWithRange:theRange]];
             [shortInfoTableView reloadData];
             [self refreshCoverViewFrame];
