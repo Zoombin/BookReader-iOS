@@ -243,7 +243,7 @@
     [rankView addSubview:rankBtnBackGroundView];
     
      allRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [allRankButton setTitle:@"总榜" forState:UIControlStateNormal];
+    [allRankButton setTitle:@"热评" forState:UIControlStateNormal];
     [allRankButton.layer setCornerRadius:5];
     [allRankButton.layer setMasksToBounds:YES];
     [allRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
