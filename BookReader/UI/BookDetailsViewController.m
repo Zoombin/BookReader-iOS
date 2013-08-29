@@ -659,14 +659,15 @@
 - (void)loadCommitList
 {
 	[infoArray removeAllObjects];
+    currentIndex = 1;
 	[self displayHUD:@"加载中..."];
     [ServiceManager bookDiccusssListByBookId:bookid size:@"10" andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 		[self hideHUD:YES];
 		if (success) {
 			if ([resultArray count] == 10) {
                 [self addFootView];
-                currentIndex++;
             }
+             currentIndex++;
             [infoArray addObjectsFromArray:resultArray];
             [infoTableView reloadData];
 		} else {
