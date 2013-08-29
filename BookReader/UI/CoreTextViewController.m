@@ -24,12 +24,13 @@
 #import "PopLoginViewController.h"
 #import "NSString+XXSY.h"
 #import "BRChapterNameView.h"
+#import "CommentViewController.h"
 #import "NSString+ZBUtilites.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
-@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate, CommentDelegate>
+@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -51,7 +52,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     UIView *backgroundView;
 	NSString *pageCurlType;
 	BOOL enterChapterIsVIP;
-    CommentView *commentView;
+    CommentViewController *commentViewController;
 	CGSize fullSize;
 }
 
@@ -594,14 +595,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self showLoginAlert];
         return;
     }
-     commentView = [[CommentView alloc] init];
-     commentView.delegate = self;
-    [commentView show];
-}
-
-- (void)sendButtonClicked
-{
-   [self sendCommitButtonClicked]; 
+     commentViewController = [[CommentViewController alloc] init];
+    [commentViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    commentViewController.bookId = _chapter.bid;
+    [self.view addSubview:commentViewController.view];
 }
 
 - (void)commitButtonClicked
@@ -634,21 +631,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
     [textField resignFirstResponder];
     return YES;
-}
-
-- (void)sendCommitButtonClicked
-{
-    [commentView.textField resignFirstResponder];
-    [commentView dismissWithClickedButtonIndex:0 animated:YES];
-    if (commentView.textField.text.length <= 5) {
-        [self displayHUDError:nil message:@"评论内容太短!"];
-        return;
-    }
-    [ServiceManager disscussWithBookID:_chapter.bid andContent:commentView.textField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
-         if (!success) {
-             [self displayHUDError:nil message:message];
-         }
-     }];
 }
 
 - (void)resetScreenToVer

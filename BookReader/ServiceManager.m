@@ -600,8 +600,10 @@ static NSNumber *sUserID;
     parameters[@"userid"] = [self userID];
     parameters[@"bookid"] = bookid;
     parameters[@"content"] = content;
+    NSLog(@"%@",parameters);
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
         }

@@ -11,7 +11,6 @@
 #import <MessageUI/MessageUI.h>
 #import "ChaptersViewController.h"
 #import "PopLoginViewController.h"
-#import "CommentView.h"
 
 @interface CoreTextViewController : UIViewController
 
