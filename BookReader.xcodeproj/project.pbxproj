@@ -222,6 +222,8 @@
 		779423E317BDDDFA00814D07 /* BRNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E217BDDDFA00814D07 /* BRNotification.m */; };
 		779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */; };
 		779423EC17BF559100814D07 /* BRChapterNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423EB17BF559100814D07 /* BRChapterNameView.m */; };
+		7797535C17CEF521002B9743 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 7797535917CEF521002B9743 /* MBProgressHUD+Appearance.m */; };
+		7797535D17CEF521002B9743 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7797535B17CEF521002B9743 /* UIViewController+HUD.m */; };
 		7798E9B417CAE865000D3A51 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7798E9B317CAE865000D3A51 /* Chapter.m */; };
 		779A5A8E17C0536700C865FE /* BookShelfHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779A5A8D17C0536700C865FE /* BookShelfHelpView.m */; };
 		779A5A9C17C0660C00C865FE /* help1_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A5A9017C0660C00C865FE /* help1_2@2x.png */; };
@@ -242,8 +244,6 @@
 		779C6720174461DB00909D6A /* Book+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C671F174461DB00909D6A /* Book+Setup.m */; };
 		779C6723174461F000909D6A /* Chapter+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C6722174461F000909D6A /* Chapter+Setup.m */; };
 		779C672C17446DCD00909D6A /* BRContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C672B17446DCD00909D6A /* BRContextManager.m */; };
-		77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */; };
-		77A1DB941730DF0A002BE306 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */; };
 		77A1DE2B1730DF9E002BE306 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB9A1730DF9C002BE306 /* AFHTTPClient.m */; };
 		77A1DE2C1730DF9E002BE306 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB9C1730DF9C002BE306 /* AFHTTPRequestOperation.m */; };
 		77A1DE2D1730DF9E002BE306 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A1DB9E1730DF9C002BE306 /* AFImageRequestOperation.m */; };
@@ -311,7 +311,6 @@
 		77D0C5CC17C1A5E100228A70 /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 77D0C5C917C1A5E100228A70 /* iVersion.bundle */; };
 		77D0C5CD17C1A5E100228A70 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D0C5CB17C1A5E100228A70 /* iVersion.m */; };
 		77D0C5D917C24C3B00228A70 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D0C5D817C24C3A00228A70 /* Book.m */; };
-		77D706E417C8916C00D09F50 /* AppDelegate+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D706E317C8916C00D09F50 /* AppDelegate+Setup.m */; };
 		77E039FE173BE7260036614C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E039FD173BE7260036614C /* SignUpViewController.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
 		77E3E2FD174DA83400FCCD91 /* text_field_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */; };
@@ -595,6 +594,10 @@
 		779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ZBUtilites.m"; sourceTree = "<group>"; };
 		779423EA17BF559100814D07 /* BRChapterNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChapterNameView.h; sourceTree = "<group>"; };
 		779423EB17BF559100814D07 /* BRChapterNameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChapterNameView.m; sourceTree = "<group>"; };
+		7797535817CEF521002B9743 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Appearance.h"; sourceTree = "<group>"; };
+		7797535917CEF521002B9743 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Appearance.m"; sourceTree = "<group>"; };
+		7797535A17CEF521002B9743 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
+		7797535B17CEF521002B9743 /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		7798E9B217CAE865000D3A51 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
 		7798E9B317CAE865000D3A51 /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		779A5A8C17C0536700C865FE /* BookShelfHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfHelpView.h; sourceTree = "<group>"; };
@@ -620,10 +623,6 @@
 		779C6722174461F000909D6A /* Chapter+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chapter+Setup.m"; sourceTree = "<group>"; };
 		779C672A17446DCD00909D6A /* BRContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContextManager.h; sourceTree = "<group>"; };
 		779C672B17446DCD00909D6A /* BRContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContextManager.m; sourceTree = "<group>"; };
-		77A1DB8F1730DF0A002BE306 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+Appearance.h"; path = "BookReader/MBProgressHUD+Appearance.h"; sourceTree = SOURCE_ROOT; };
-		77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+Appearance.m"; path = "BookReader/MBProgressHUD+Appearance.m"; sourceTree = SOURCE_ROOT; };
-		77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+HUD.h"; path = "BookReader/UIViewController+HUD.h"; sourceTree = SOURCE_ROOT; };
-		77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+HUD.m"; path = "BookReader/UIViewController+HUD.m"; sourceTree = SOURCE_ROOT; };
 		77A1DB991730DF9C002BE306 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		77A1DB9A1730DF9C002BE306 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		77A1DB9B1730DF9C002BE306 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -758,8 +757,6 @@
 		77D0C5CB17C1A5E100228A70 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		77D0C5D717C24C3A00228A70 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		77D0C5D817C24C3A00228A70 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
-		77D706E217C8916C00D09F50 /* AppDelegate+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Setup.h"; sourceTree = "<group>"; };
-		77D706E317C8916C00D09F50 /* AppDelegate+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Setup.m"; sourceTree = "<group>"; };
 		77E039FC173BE7260036614C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		77E039FD173BE7260036614C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		77E3E2FA174DA83400FCCD91 /* text_field_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = text_field_background.png; path = BookReader/Image/text_field_background.png; sourceTree = SOURCE_ROOT; };
@@ -1052,10 +1049,6 @@
 			children = (
 				77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */,
 				77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */,
-				77A1DB8F1730DF0A002BE306 /* MBProgressHUD+Appearance.h */,
-				77A1DB901730DF0A002BE306 /* MBProgressHUD+Appearance.m */,
-				77A1DB911730DF0A002BE306 /* UIViewController+HUD.h */,
-				77A1DB921730DF0A002BE306 /* UIViewController+HUD.m */,
 				77A612D51716635F00934254 /* NSString+XXSY.h */,
 				77A612D61716635F00934254 /* NSString+XXSY.m */,
 				186292F61732572500777357 /* UITextField+BookReader.h */,
@@ -1348,8 +1341,10 @@
 		77B378E617ABE65200D8D63D /* ZBUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				77D706E217C8916C00D09F50 /* AppDelegate+Setup.h */,
-				77D706E317C8916C00D09F50 /* AppDelegate+Setup.m */,
+				7797535817CEF521002B9743 /* MBProgressHUD+Appearance.h */,
+				7797535917CEF521002B9743 /* MBProgressHUD+Appearance.m */,
+				7797535A17CEF521002B9743 /* UIViewController+HUD.h */,
+				7797535B17CEF521002B9743 /* UIViewController+HUD.m */,
 				779423E717BF50EA00814D07 /* UIDevice+ZBUtilites.h */,
 				779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */,
 				7704EFF617AE2907006F1E08 /* ZBTextValidate.h */,
@@ -1839,8 +1834,6 @@
 				18ABAF321724FB1D00ED02C6 /* BRUser.m in Sources */,
 				18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */,
 				180318F2172CDDE200733C58 /* GiftCell.m in Sources */,
-				77A1DB931730DF0A002BE306 /* MBProgressHUD+Appearance.m in Sources */,
-				77A1DB941730DF0A002BE306 /* UIViewController+HUD.m in Sources */,
 				77A1DE2B1730DF9E002BE306 /* AFHTTPClient.m in Sources */,
 				77A1DE2C1730DF9E002BE306 /* AFHTTPRequestOperation.m in Sources */,
 				77A1DE2D1730DF9E002BE306 /* AFImageRequestOperation.m in Sources */,
@@ -1856,7 +1849,6 @@
 				77A1DE541730DF9E002BE306 /* NSNumber+MagicalDataImport.m in Sources */,
 				77A1DE551730DF9E002BE306 /* NSObject+MagicalDataImport.m in Sources */,
 				77A1DE561730DF9E002BE306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
-				77D706E417C8916C00D09F50 /* AppDelegate+Setup.m in Sources */,
 				77A1DE571730DF9E002BE306 /* NSString+MagicalDataImport.m in Sources */,
 				77A1DE581730DF9E002BE306 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				77A1DE591730DF9E002BE306 /* NSManagedObject+MagicalDataImport.m in Sources */,
@@ -1934,6 +1926,8 @@
 				77D0C5CD17C1A5E100228A70 /* iVersion.m in Sources */,
 				77D0C5D917C24C3B00228A70 /* Book.m in Sources */,
 				7798E9B417CAE865000D3A51 /* Chapter.m in Sources */,
+				7797535C17CEF521002B9743 /* MBProgressHUD+Appearance.m in Sources */,
+				7797535D17CEF521002B9743 /* UIViewController+HUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
