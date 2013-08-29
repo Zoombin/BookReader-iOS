@@ -13,7 +13,7 @@
 #import "NSString+ZBUtilites.h"
 
 @implementation CommentCell {
-    UILabel *messageLabel;
+    UITextView *messageLabel;
     UILabel *nameLabel;
     UILabel *timeLabel;
     UILabel *line;
@@ -39,13 +39,12 @@
         [timeLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:timeLabel];
         
-        messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width - 30 - 6, self.contentView.frame.size.height-20)];
+        messageLabel = [[UITextView alloc]initWithFrame:CGRectMake(8, 25, self.contentView.frame.size.width - 16, self.contentView.frame.size.height - 20)];
         [messageLabel setFont:[UIFont systemFontOfSize:14]];
         [messageLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin];
+        [messageLabel setUserInteractionEnabled:NO];
         [messageLabel setTextColor:[UIColor bookStoreTxtColor]];
         [messageLabel setBackgroundColor:[UIColor clearColor]];
-        [messageLabel setNumberOfLines:0];
-        [messageLabel setLineBreakMode:NSLineBreakByCharWrapping];
         [self.contentView addSubview:messageLabel];
         
 		line = [UILabel dashLineWithFrame:CGRectMake(0, self.contentView.frame.size.height - 2, self.contentView.frame.size.width + 20, 2)];
@@ -61,7 +60,12 @@
     [nameLabel setText:comment.userName];
     [timeLabel setText:comment.insertTime];
     [messageLabel setText:[[comment.content XXSYHandleRedundantTags] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-    [messageLabel sizeToFit];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+        [messageLabel sizeToFit];
+        [messageLabel setFrame:CGRectMake(messageLabel.frame.origin.x, messageLabel.frame.origin.y, self.contentView.frame.size.width - 16, messageLabel.frame.size.height + 5)];
+    }else  {
+        [messageLabel setFrame:CGRectMake(messageLabel.frame.origin.x, messageLabel.frame.origin.y, messageLabel.frame.size.width, messageLabel.contentSize.height)];
+    }
     cellFrame.size.height =  messageLabel.frame.size.height+timeLabel.frame.size.height + 15;
     [self setFrame:cellFrame];
     [line setFrame:CGRectMake(0, cellFrame.size.height - 2, self.contentView.frame.size.width + 20, 2)];
@@ -70,7 +74,7 @@
 
 - (CGFloat)height
 {
-   return self.frame.size.height;
+    return self.frame.size.height;
 }
 
 @end
