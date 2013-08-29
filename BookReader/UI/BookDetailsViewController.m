@@ -648,6 +648,10 @@
 			if ([resultArray count] == 10) {
                 [self addFootView];
             }
+             currentIndex++;
+            [infoArray addObjectsFromArray:resultArray];
+            [infoTableView reloadData];
+            
             NSRange theRange;
             theRange.location = 0;
             theRange.length = [resultArray count] >= 6 ? 6 : resultArray.count;
@@ -655,10 +659,6 @@
             [shortInfoArray addObjectsFromArray:[resultArray subarrayWithRange:theRange]];
             [shortInfoTableView reloadData];
             [self refreshCoverViewFrame];
-            
-             currentIndex++;
-            [infoArray addObjectsFromArray:resultArray];
-            [infoTableView reloadData];
 		} else {
             if (error) {
                 [self displayHUDError:nil message:error.description];
