@@ -41,6 +41,14 @@
                    verifyCode:(NSString *)verifyCode
                   andPassword:(NSString *)password
                     withBlock:(void (^)(BOOL success, NSError *error, NSString *message))block;  //sign:md5(username+key)
+
+//昵称注册
++ (void)registerByNickName:(NSString *)nickName
+                     email:(NSString *)email
+               andPassword:(NSString *)password
+                 withBlock:(void (^)(BOOL success, NSError *error, NSString *message))block;
+
+
 //用户登录
 + (void)loginByPhoneNumber:(NSString *)phoneNumber //用户手机号
                andPassword:(NSString *)password

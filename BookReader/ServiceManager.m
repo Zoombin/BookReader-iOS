@@ -194,6 +194,37 @@ static NSNumber *sUserID;
     }];
 }
 
++ (void)registerByNickName:(NSString *)nickName
+                     email:(NSString *)email
+               andPassword:(NSString *)password
+                 withBlock:(void (^)(BOOL, NSError *, NSString *))block
+{
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *valueDict =  [[self randomCode] mutableCopy];
+    NSString *sign = [NSString stringWithFormat:@"%@0000%@", nickName, valueDict[@"key"]];
+    parameters[@"check"] = valueDict[@"check"];
+    parameters[@"sign"] = [sign md532];
+    parameters[@"yzm"] = @"0000";
+    parameters[@"username"] = nickName;
+    parameters[@"pwd"] = [password md516];
+    parameters[@"mail"] = email;
+    [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        if ([theObject isKindOfClass:[NSDictionary class]]) {
+            BRUser *member = [BRUser createWithAttributes:theObject[@"user"]];
+            [ServiceManager saveUserID:member.uid];
+			[ServiceManager login];
+        }
+        if (block) {
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(NO, error, @"");
+        }
+    }];
+}
+
 + (void)loginByPhoneNumber:(NSString *)phoneNumber
                andPassword:(NSString *)password
                  withBlock:(void (^)(BOOL success, NSError *error, NSString *message, BRUser *member))block
