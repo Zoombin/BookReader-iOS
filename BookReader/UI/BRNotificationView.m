@@ -70,8 +70,8 @@
 
 - (void)willClose
 {
+    [self close];
 	[_delegate willClose];
-	[self close];
 }
 
 - (void)setNotification:(BRNotification *)notification

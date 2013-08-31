@@ -21,7 +21,7 @@
 	if ([content isEqualToString:[self displayedContent]]) {
 		return NO;
 	}
-	return YES;
+    return YES;
 }
 
 - (void)didRead
