@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
 #import "iVersion.h"
+#import "BRUser.h"
 
 @interface MemberViewController: BRViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
 
+@property (nonatomic ,strong) BRUser *userinfo;
+@property (nonatomic ,assign) BOOL bReg;
 @end

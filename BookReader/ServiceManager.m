@@ -173,23 +173,24 @@ static NSNumber *sUserID;
 + (void)registerByPhoneNumber:(NSString *)phoneNumber
                    verifyCode:(NSString *)verifyCode
                   andPassword:(NSString *)password
-                    withBlock:(void (^)(BOOL success, NSError *error, NSString *message))block
+                    withBlock:(void (^)(BOOL success, NSError *error, NSString *message, BRUser *member))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"yzm" : verifyCode}]];
     parameters[@"pwd"] = [password md516];
     [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            BRUser *member = [BRUser createWithAttributes:theObject[@"user"]];
+             member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
 			[ServiceManager login];
         }
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"] ,member);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(NO, error, @"");
+            block(NO, error, @"", nil);
         }
     }];
 }
@@ -197,7 +198,7 @@ static NSNumber *sUserID;
 + (void)registerByNickName:(NSString *)nickName
                      email:(NSString *)email
                andPassword:(NSString *)password
-                 withBlock:(void (^)(BOOL, NSError *, NSString *))block
+                 withBlock:(void (^)(BOOL, NSError *, NSString *, BRUser *member))block
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *valueDict =  [[self randomCode] mutableCopy];
@@ -210,17 +211,18 @@ static NSNumber *sUserID;
     parameters[@"mail"] = email;
     [[ServiceManager shared] postPath:@"Register.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            BRUser *member = [BRUser createWithAttributes:theObject[@"user"]];
+            member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
 			[ServiceManager login];
         }
         if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"]);
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, theObject[@"error"],member);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
-            block(NO, error, @"");
+            block(NO, error, @"",nil);
         }
     }];
 }
@@ -236,6 +238,7 @@ static NSNumber *sUserID;
         if ([theObject isKindOfClass:[NSDictionary class]] && [theObject[@"result"] isEqualToString:SUCCESS_FLAG]) {
             member = [BRUser createWithAttributes:theObject[@"user"]];
             [ServiceManager saveUserID:member.uid];
+            [ServiceManager saveUserInfo:member];
 			[ServiceManager login];
         }
         if (block) {
@@ -304,6 +307,7 @@ static NSNumber *sUserID;
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}]];
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
         BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             member = [BRUser createWithAttributes:theObject[@"user"]];

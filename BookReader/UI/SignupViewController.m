@@ -231,10 +231,11 @@
     [self hideKeyboard];
     [self displayHUD:@"注册中..."];
     if (bPhoneReg == YES) {
-        [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
+        [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
             if (success) {
                 [self displayHUDError:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
+                [APP_DELEGATE.memberVC setUserinfo:member];
                 [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
                 if (error) {
@@ -245,10 +246,11 @@
             }
         }];
     } else {
-        [ServiceManager registerByNickName:accountTextField.text email:mailTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
+        [ServiceManager registerByNickName:accountTextField.text email:mailTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
             if (success) {
                 [self displayHUDError:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
+                [APP_DELEGATE.memberVC setUserinfo:member];
                 [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
                 if (error) {
@@ -259,6 +261,12 @@
             }
         }];
     }
+}
+
+- (void)goToMemberVC
+{
+    
+    
 }
 
 - (void)clearTextField

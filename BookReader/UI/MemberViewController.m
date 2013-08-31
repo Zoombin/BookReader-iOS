@@ -32,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.bReg = NO;
 	self.headerView.titleLabel.text = @"个人中心";
 	self.headerView.backButton.hidden = YES;
 	self.hideKeyboardRecognzier.enabled = NO;
@@ -61,6 +62,10 @@
 {
     [super viewDidAppear:animated];
     if ([ServiceManager isSessionValid]) {
+        if (self.bReg) {
+            self.bReg = NO;
+            return;
+        }
         [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
 			if (success) {
 				[ServiceManager saveUserInfo:member];
@@ -70,6 +75,14 @@
     }else {
 		[self goToSignIn];
     }
+}
+
+- (void)setUserinfo:(BRUser *)userinfo
+{
+     self.bReg = YES;
+    _userinfo = userinfo;
+    [ServiceManager saveUserInfo:userinfo];
+    [_memberTableView reloadData];
 }
 
 - (void)goToSignIn

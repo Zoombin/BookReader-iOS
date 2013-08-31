@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MemberViewController.h"
 
 #define APP_DELEGATE ( (AppDelegate *)[[UIApplication sharedApplication] delegate] )
 
@@ -22,5 +23,6 @@ typedef enum {
 
 - (void)gotoRootController:(RootControllerIdentifier)identifier;
 - (void)gotoBookShelf;
+- (MemberViewController *)memberVC;
 
 @end

@@ -68,6 +68,11 @@
     self.window.rootViewController = _navController;
 }
 
+- (MemberViewController *)memberVC
+{
+    return _rootControllers[@(kRootControllerIdentifierMember)];
+}
+
 - (void)gotoBookShelf
 {
 	[self gotoRootController:kRootControllerIdentifierBookShelf];
