@@ -803,7 +803,7 @@ static NSNumber *sUserID;
     [[ServiceManager shared] postPath:@"Other.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSMutableArray *bookList = [@[] mutableCopy];
-        if (theObject[@"book"]) {
+        if ([theObject[@"book"] isKindOfClass:[NSDictionary class]]) {
             Book *book = (Book *)[Book createWithAttributes:theObject[@"book"]];
             [bookList addObject:book];
         }
