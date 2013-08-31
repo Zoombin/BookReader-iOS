@@ -231,7 +231,7 @@ static NSNumber *sUserID;
                andPassword:(NSString *)password
                  withBlock:(void (^)(BOOL success, NSError *error, NSString *message, BRUser *member))block
 {
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : phoneNumber}, @{@"pwd" : [password md516]}]];
+	NSMutableDictionary *parameters = [self commonParameters:@[@{@"username" : [phoneNumber lowercaseString]}, @{@"pwd" : [password md516]}]];
     [[ServiceManager shared] postPath:@"Login.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         BRUser *member = nil;
@@ -446,12 +446,17 @@ static NSNumber *sUserID;
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"intro" : introValue}]];
     [[ServiceManager shared] postPath:@"GetBookDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
-        NSMutableDictionary *dict = [theObject objectForKey:@"book"];
+        NSMutableDictionary *dict = theObject[@"book"];
+        if ([theObject[@"book"] isKindOfClass:[NSDictionary class]]&&theObject[@"book"]) {
         [dict setObject:theObject[@"props"] forKey:@"props"];
         Book *book = (Book *)[Book createWithAttributes:dict];
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil ,book);
+        }
+        } else {
+            if (block) {
+                block(NO, nil ,nil);
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {

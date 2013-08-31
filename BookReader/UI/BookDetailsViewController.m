@@ -129,8 +129,11 @@
 				book = obj;
                 [self initBookDetailUI];
             }else {
-                NSLog(@"%@",error);
-				[self displayHUDError:nil message:error.description];
+                if (error) {
+                    [self displayHUDError:nil message:NETWORK_ERROR];
+                } else {
+                    [self displayHUDError:nil message:@"无法获取此书详情"];
+                }
 				[self performSelector:@selector(backOrClose) withObject:nil afterDelay:2.0f];
             }
         }];
