@@ -174,9 +174,11 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
     [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
 		if (success) {
-			notification = [[BRNotification alloc] init];
-			notification.books = resultArray;
-			notification.content = content;
+            if ([resultArray count]!= 0||[content length] >0) {
+                notification = [[BRNotification alloc] init];
+                notification.books = resultArray;
+                notification.content = content;
+            }
 			if (block) block();
 		} else {
             if (error) {
