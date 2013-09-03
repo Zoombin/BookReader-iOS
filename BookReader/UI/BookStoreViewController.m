@@ -58,6 +58,7 @@
     NSMutableArray *rankBtns;
     UITapGestureRecognizer *gestureRecognizer;
     NSArray *catagoryNames;
+    NSMutableArray *catagoryBtns;
     
     NSMutableArray *hotkeyBtns;
 	NSArray *hotwordsColors;
@@ -83,6 +84,7 @@
         recommendArray = [[NSMutableArray alloc] init];
         infoArray = [[NSMutableArray alloc] init];
         recommendTitlesArray = [[NSMutableArray alloc] init];
+        catagoryBtns = [[NSMutableArray alloc] init];
         
         rankBtns = [[NSMutableArray alloc] init];
         //        currentType = RECOMMEND;
@@ -137,7 +139,7 @@
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 65, 42)];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-    [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
+        [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     } else {
         [_searchBar setBarStyle:UIBarStyleBlack];
         [_searchBar setBarTintColor:[UIColor clearColor]];
@@ -223,6 +225,7 @@
         [button setTag:i];
         [button addTarget:self action:@selector(loadCatagoryDataWithIndex:) forControlEvents:UIControlEventTouchUpInside];
         [catagoryView addSubview:button];
+        [catagoryBtns addObject:button];
         if (i!=9&i!=10) {
             UIView *separteLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(button.frame), CGRectGetMaxY(button.frame), 130, 1)];
             [separteLine setBackgroundColor:[UIColor whiteColor]];
@@ -248,7 +251,7 @@
     [rankBtnBackGroundView setBackgroundColor:[UIColor colorWithRed:223.0/255.0 green:211.0/255.0 blue:187.0/255.0 alpha:1.0]];
     [rankView addSubview:rankBtnBackGroundView];
     
-     allRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    allRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [allRankButton setTitle:@"热评" forState:UIControlStateNormal];
     [allRankButton.layer setCornerRadius:5];
     [allRankButton.layer setMasksToBounds:YES];
@@ -260,7 +263,7 @@
     [rankView addSubview:allRankButton];
     [rankBtns addObject:allRankButton];
     
-     newRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    newRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [newRankButton setTitle:@"最新" forState:UIControlStateNormal];
     [newRankButton.layer setCornerRadius:5];
     [newRankButton.layer setMasksToBounds:YES];
@@ -273,7 +276,7 @@
     [rankView addSubview:newRankButton];
     [rankBtns addObject:newRankButton];
     
-     hotRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    hotRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [hotRankButton setTitle:@"最热" forState:UIControlStateNormal];
     [hotRankButton.layer setCornerRadius:5];
     [hotRankButton.layer setMasksToBounds:YES];
@@ -304,9 +307,7 @@
     [self displayHUD:@"加载中..."];
     [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d", index] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if(success) {
-            if ([infoArray count] > 0) {
-                [infoArray removeAllObjects];
-            }
+            [infoArray removeAllObjects];
             if ([resultArray count]>0) {
                 [self hideAllHotkeyBtns];
             } else if(currentType == SEARCH && [resultArray count]==0) {
@@ -322,6 +323,8 @@
             [infoTableView reloadData];
             [self hideHUD:YES];
         } else {
+            [infoArray removeAllObjects];
+            [infoTableView reloadData];
             if (error) {
                 [self displayHUDError:nil message:NETWORK_ERROR];
             }
@@ -355,7 +358,7 @@
                   classID:0
                   ranking:rankId
                      size:@"6"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
                      if (success){
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
@@ -402,6 +405,7 @@
                                           [self loadRecommendDataWithIndex:index+1];
                                       }
                                   } else {
+                                       [infoTableView reloadData];
                                       if (error) {
                                           [self displayHUDError:nil message:NETWORK_ERROR];
                                       }
@@ -435,7 +439,7 @@
         lastKey = book.recommendTitle;
     }
     if (currentType==RECOMMEND) {
-    [infoTableView reloadData];
+        [infoTableView reloadData];
     }
     [self hideHUD:YES];
 }
@@ -461,7 +465,7 @@
                          [childViewController hideHUD:YES];
                      } else {
                          if (error) {
-                         [childViewController displayHUDError:nil message:NETWORK_ERROR];
+                             [childViewController displayHUDError:nil message:NETWORK_ERROR];
                          }
                      }
                  }];
@@ -537,6 +541,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (currentType == RECOMMEND) {
+        if (recommendTitlesArray.count == 0) {
+            return 1;
+        }
         return [recommendTitlesArray count];
     }
     return 1;
@@ -545,6 +552,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (currentType != RECOMMEND) {
+        return 0;
+    }
+    if (recommendTitlesArray.count == 0) {
         return 0;
     }
     return 30;
@@ -576,6 +586,13 @@
                 return [array count];
             }
         }
+        if ([recommendTitlesArray count] == 0) {
+            return 1;
+        }
+    }else if (currentType == RANK) {
+        if (infoArray.count == 0) {
+            return 1;
+        }
     }
     return [infoArray count];
 }
@@ -592,27 +609,42 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (currentType == RECOMMEND) {
         if (!cell) {
-            NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
+            if (recommendTitlesArray.count == 0) {
+                cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
+                [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+            } else {
+                NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
             if (indexPath.row == 0) {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
-            }else {
+            } else {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleSmall reuseIdentifier:@"MyCell"];
                 Book *book = array[indexPath.row];
                 [(BookCell *)cell setBook:book];
+                }
             }
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
         }
     }
-    else if (currentType != CATAGORY){
+    else if (currentType == RANK){
         if (!cell) {
-            cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
-            [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             if ([infoArray count] > 0) {
+                cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
+                [cell.contentView setBackgroundColor:[UIColor whiteColor]];
                 Book *book = infoArray[indexPath.row];
                 [(BookCell *)cell setBook:book];
+            } else {
+                cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
+                [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             }
+        }
+    } else if (currentType == SEARCH) {
+        cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
+        [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+        if ([infoArray count] >0) {
+            Book *book = infoArray[indexPath.row];
+            [(BookCell *)cell setBook:book];
         }
     }
     return cell;
@@ -621,8 +653,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (currentType != CATAGORY) {
+        if (currentType == RANK) {
+            if (infoArray.count == 0) {
+             [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
+             NSLog(@"重新刷新排行");
+             return;
+            }
+        }
         Book *book;
         if (currentType == RECOMMEND) {
+            if (recommendTitlesArray.count == 0) {
+                [self loadRecommendDataWithIndex:1];
+                NSLog(@"重新刷新推荐");
+                return;
+            }
             NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
             book = array[indexPath.row];
         } else {
@@ -667,7 +711,7 @@
             }
         } else {
             if (error) {
-            [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDError:nil message:NETWORK_ERROR];
             }
         }
     }];

@@ -78,7 +78,6 @@
                          if ([infoArray count]>0) {
                              [infoArray addObjectsFromArray:result];
                              [infoTableView reloadData];
-                             currentIndex++;
                          }else {
                              [infoTableView setTableFooterView:nil];
                          }
@@ -106,6 +105,9 @@
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (infoArray.count == 0) {
+        return 1;
+    }
     return infoArray.count;
 }
 
@@ -120,20 +122,51 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil) {
+        if (infoArray.count == 0) {
+            cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
+            [cell.contentView setBackgroundColor:[UIColor whiteColor]];
+        } else {
         cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
         Book *book = [infoArray objectAtIndex:[indexPath row]];
         [cell setBook:book];
+        }
     }
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (infoArray.count  == 0) {
+        [self loadCatagoryData];
+        return;
+    }
     Book *book = [infoArray objectAtIndex:[indexPath row]];
     BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
 
-
+- (void)loadCatagoryData
+{
+    [ServiceManager books:@""
+                  classID:catagoryId
+                  ranking:0
+                     size:@"7"
+                 andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *result) {
+                     if (success) {
+                         if ([infoArray count]>0) {
+                             [infoArray addObjectsFromArray:result];
+                             [infoTableView reloadData];
+                             currentIndex++;
+                         }else {
+                             [infoTableView setTableFooterView:nil];
+                         }
+                         isLoading = NO;
+                     } else {
+                         if (error) {
+                             [self displayHUDError:nil message:NETWORK_ERROR];
+                         }
+                     }
+                 }];
+}
 
 @end

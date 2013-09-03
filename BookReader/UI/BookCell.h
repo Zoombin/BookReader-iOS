@@ -12,6 +12,7 @@ typedef enum {
     BookCellStyleBig,
     BookCellStyleSmall,
     BookCellStyleCatagory,
+    BookCellStyleEmpty,
 } BookCellStyle;
 
 @interface BookCell : UITableViewCell

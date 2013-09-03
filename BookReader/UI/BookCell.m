@@ -62,7 +62,13 @@
 			authorRect = CGRectMake(self.bounds.size.width - 130, 5, 100, 30);
             authorTextColor = [UIColor blackColor];
 			authorAlignment = NSTextAlignmentRight;
-		} else {//目录界面
+		} else if (myStyle == BookCellStyleEmpty) {
+            height = SmallCellHeight;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+            [label setText:@"点击刷新页面"];
+            [label setTextAlignment:NSTextAlignmentCenter];
+            [self.contentView addSubview:label];
+        } else {//目录界面
 			height = OtherCellHeight;
 			nameRect = CGRectMake(25, 12, 250, 20);
 			nameFontSize = 18.0f;
