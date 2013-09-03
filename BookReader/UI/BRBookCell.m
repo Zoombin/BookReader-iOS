@@ -13,9 +13,9 @@
 
 @implementation BRBookCell {
 	UIImageView *selectedMark;
-    UIImageView *autoBuyMark;
-	MKNumberBadgeView *badgeView;
-	UIButton *autoBuyButton;
+//    UIImageView *autoBuyMark;
+//	MKNumberBadgeView *badgeView;
+//	UIButton *autoBuyButton;
     UIButton *nameLabel;
 	UIImageView *cover;
 }
@@ -33,24 +33,24 @@
 		selectedMark.hidden = YES;
         [self.contentView addSubview:selectedMark];
         
-        badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
-        //[badgeView setHideWhenZero:YES];
-        [self.contentView addSubview:badgeView];
+//        badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+//		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
+//        //[badgeView setHideWhenZero:YES];
+//        [self.contentView addSubview:badgeView];
         
-        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds) + 10, CGRectGetMinY(self.bounds) + 10);
-        [autoBuyMark setBackgroundColor:[UIColor clearColor]];
-        [self.contentView addSubview:autoBuyMark];
+//        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+//        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds) + 10, CGRectGetMinY(self.bounds) + 10);
+//        [autoBuyMark setBackgroundColor:[UIColor clearColor]];
+//        [self.contentView addSubview:autoBuyMark];
         
-		autoBuyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 26, self.bounds.size.width, 30);
-        [autoBuyButton setBackgroundImage:[UIImage imageNamed:@"autobuy_off"] forState:UIControlStateNormal];
-		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
-		[self.contentView addSubview:autoBuyButton];
+//		autoBuyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 26, self.bounds.size.width, 30);
+//        [autoBuyButton setBackgroundImage:[UIImage imageNamed:@"autobuy_off"] forState:UIControlStateNormal];
+//		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
+//		[self.contentView addSubview:autoBuyButton];
         
         nameLabel = [UIButton buttonWithType:UIButtonTypeCustom];
-        [nameLabel setFrame:CGRectMake(CGRectGetMinX(autoBuyButton.frame) - 10, CGRectGetMinY(autoBuyButton.frame), autoBuyButton.frame.size.width + 20, 30)];
+        [nameLabel setFrame:CGRectMake( - 10, CGRectGetMaxY(self.bounds) - 26, self.bounds.size.width + 20, 30)];
         [nameLabel setBackgroundImage:[UIImage imageNamed:@"bookname_background"] forState:UIControlStateNormal];
         [nameLabel setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 3, 0)];
         [nameLabel.titleLabel setFont:[UIFont systemFontOfSize:14]];
@@ -59,8 +59,8 @@
         [nameLabel setAlpha:0.9];
         [self.contentView addSubview:nameLabel];
 				
-		self.autoBuy = NO;
-		self.badge = 0;
+//		self.autoBuy = NO;
+//		self.badge = 0;
 	}
 	return self;
 }
@@ -89,16 +89,16 @@
 	if (_book.name) {
 		[nameLabel setTitle:[_book.name substringToIndex:MIN(_book.name.length, 4)] forState:UIControlStateNormal];
 	}
-    if (_book.autoBuy) {
-		self.autoBuy = _book.autoBuy.boolValue;
-    }
+//    if (_book.autoBuy) {
+//		self.autoBuy = _book.autoBuy.boolValue;
+//    }
 }
 
 - (void)setEditing:(BOOL)editing
 {
     _editing = editing;
-	badgeView.hidden = _editing || _badge == 0;
-	autoBuyButton.hidden = !_editing;
+//	badgeView.hidden = _editing || _badge == 0;
+//	autoBuyButton.hidden = !_editing;
     if (!editing) {
         [self setCellSelected:NO];
     }
@@ -113,21 +113,21 @@
 	selectedMark.hidden = !_cellSelected;
 }
 
-- (void)setBadge:(NSInteger)badge
-{
-	_badge = badge;
-    badgeView.value = _badge;
-}
+//- (void)setBadge:(NSInteger)badge
+//{
+//	_badge = badge;
+//    badgeView.value = _badge;
+//}
 
 - (void)valueChanged:(id)sender {
 	[_bookCellDelegate changedValueBookCell:self];
 }
 
-- (void)setAutoBuy:(BOOL)onOrOff
-{
-	_autoBuy = onOrOff;
-    [autoBuyMark setImage:onOrOff ? [UIImage imageNamed:@"refresh_mark"] : nil];
-    [autoBuyButton setBackgroundImage:[UIImage imageNamed:onOrOff ? @"autobuy_on" : @"autobuy_off"] forState:UIControlStateNormal];
-}
+//- (void)setAutoBuy:(BOOL)onOrOff
+//{
+//	_autoBuy = onOrOff;
+//    [autoBuyMark setImage:onOrOff ? [UIImage imageNamed:@"refresh_mark"] : nil];
+//    [autoBuyButton setBackgroundImage:[UIImage imageNamed:onOrOff ? @"autobuy_on" : @"autobuy_off"] forState:UIControlStateNormal];
+//}
 
 @end

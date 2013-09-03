@@ -515,22 +515,22 @@ const NSUInteger numberOfBooksPerRow = 3;
 		return;
 	}
 	
-	BOOL shiftToOnOrOff = !bookCell.autoBuy;
-	NSString *message = shiftToOnOrOff ? @"开启自动更新..." : @"关闭自动更新...";
-    [self displayHUD:message];
-	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(BOOL success, NSError *error) {
-		[self hideHUD:YES];
-		if (success) {
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
-				b.autoBuy = @(shiftToOnOrOff);
-			} completion:^(BOOL success, NSError *error) {
-				[self refreshBooks];
-			}];
-		} else {
-			[self refreshBooks];
-		}
-	}];
+//	BOOL shiftToOnOrOff = !bookCell.autoBuy;
+//	NSString *message = shiftToOnOrOff ? @"开启自动更新..." : @"关闭自动更新...";
+//    [self displayHUD:message];
+//	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(BOOL success, NSError *error) {
+//		[self hideHUD:YES];
+//		if (success) {
+//			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//				Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
+//				b.autoBuy = @(shiftToOnOrOff);
+//			} completion:^(BOOL success, NSError *error) {
+//				[self refreshBooks];
+//			}];
+//		} else {
+//			[self refreshBooks];
+//		}
+//	}];
 }
 
 - (NSNumber *)numberOfRows
@@ -552,7 +552,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-	cell.badge = book.numberOfUnreadChapters.integerValue;
+//	cell.badge = book.numberOfUnreadChapters.integerValue;
 	cell.editing = editing;
 	
 	if (indexPath.row == booksForDisplay.count - 1) {
