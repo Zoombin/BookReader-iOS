@@ -246,7 +246,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[chapters removeAllObjects];
 		chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifiAvailable]] mutableCopy];
 		NSLog(@"find %d chapters need download content", chapters.count);
-		[self syncChaptersContent];
+		//[self syncChaptersContent];//关闭内容下载了
 		return;
 	}
 	
@@ -316,12 +316,10 @@ const NSUInteger numberOfBooksPerRow = 3;
 			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
 				[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:syncTimeInterval];
-//				[self syncChaptersContent];
 			}];
 		} else {
 			[chapters removeObject:chapter];
 			[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:syncTimeInterval];
-//			[self syncChaptersContent];
 		}
 	}];
 }
@@ -351,12 +349,10 @@ const NSUInteger numberOfBooksPerRow = 3;
 			} completion:^(BOOL success, NSError *error) {
 				[chapters removeObject:chapter];
 				[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:syncTimeInterval];
-//				[self syncAutoSubscribe];
 			}];
 		} else {
 			[chapters removeObject:chapter];
 			[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:syncTimeInterval];
-//			[self syncAutoSubscribe];
 		}
 	}];
 }
