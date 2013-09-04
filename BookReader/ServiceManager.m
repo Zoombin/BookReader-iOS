@@ -527,6 +527,45 @@ static NSNumber *sUserID;
     }];
 }
 
++ (void)getDownChapterList:(NSString *)bookid
+                 andUserid:(NSString *)userid
+                 withBlock:(void (^)(BOOL, NSError *, NSArray *))block{
+    NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"userid" : userid}]];
+    [[ServiceManager shared] postPath:@"GetDownChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
+        if (block) {
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(NO, error, nil);
+        }
+    }];
+}
+
++ (void)getDownChapterDetail:(NSString *)userid
+                   chapterid:(NSString *)chapterid
+                      bookid:(NSString *)bookid
+                    authorid:(NSString *)authorid
+                   withBlock:(void (^)(BOOL, NSError *, NSArray *))block
+{
+    NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : userid}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid}]];
+    [[ServiceManager shared] postPath:@"GetDownChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        NSLog(@"%@",theObject);
+        NSLog(@"%@",theObject[@"error"]);
+        if (block) {
+            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(NO, error, nil);
+        }
+    }];
+}
+
+
 + (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP
             withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block
 {
