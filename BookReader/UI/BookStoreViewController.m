@@ -511,8 +511,8 @@
         if ([self refreshRankInfo]) {
             return;
         }
-        [self changeRankButtonImage:rankBtns[0]];
-		[self loadDataWithKeyWord:@"" classId:0 ranking:XXSYRankingTypeAll size:@"6" andIndex:1];
+        [self changeRankButtonImage:rankBtns[currentPage - 1]];
+		[self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
 	} else if (sender == cataButton) {
 		currentType = CATAGORY;
 		catagoryView.hidden = NO;

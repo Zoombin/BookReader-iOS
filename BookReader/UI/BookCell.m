@@ -63,11 +63,18 @@
             authorTextColor = [UIColor blackColor];
 			authorAlignment = NSTextAlignmentRight;
 		} else if (myStyle == BookCellStyleEmpty) {
-            height = SmallCellHeight;
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
-            [label setText:@"点击刷新页面"];
+            height = 240.0f;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 40, 320, 40)];
+            [label setText:@"点击此处 重新加载"];
+            [label setTextColor:[UIColor grayColor]];
             [label setTextAlignment:NSTextAlignmentCenter];
             [self.contentView addSubview:label];
+            
+            UIImageView *refreshImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - 48) / 2, height - 40 - 29, 48, 29)];
+            [refreshImage setImage:[UIImage imageNamed:@"refresh_btn"]];
+            [self.contentView addSubview:refreshImage];
+            
+            [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         } else {//目录界面
 			height = OtherCellHeight;
 			nameRect = CGRectMake(25, 12, 250, 20);
@@ -118,6 +125,10 @@
 		
         line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 20, 2)];
         [self.contentView addSubview:line];
+        
+        if (style == BookCellStyleEmpty) {
+            line.hidden = YES;
+        }
     }
     return self;
 }
