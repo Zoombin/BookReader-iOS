@@ -63,14 +63,14 @@
             authorTextColor = [UIColor blackColor];
 			authorAlignment = NSTextAlignmentRight;
 		} else if (myStyle == BookCellStyleEmpty) {
-            height = 240.0f;
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, height - 40, 320, 40)];
+            height = [UIScreen mainScreen].bounds.size.height - 94;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 320, 40)];
             [label setText:@"点击此处 重新加载"];
             [label setTextColor:[UIColor grayColor]];
             [label setTextAlignment:NSTextAlignmentCenter];
             [self.contentView addSubview:label];
             
-            UIImageView *refreshImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - 48) / 2, height - 40 - 29, 48, 29)];
+            UIImageView *refreshImage = [[UIImageView alloc] initWithFrame:CGRectMake((320 - 48) / 2, 200 - 29, 48, 29)];
             [refreshImage setImage:[UIImage imageNamed:@"refresh_btn"]];
             [self.contentView addSubview:refreshImage];
             
