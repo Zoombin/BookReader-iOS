@@ -395,22 +395,21 @@
 - (void)loadRecommendDataWithIndex:(NSInteger)index
 {
     [infoTableView setHidden:NO];
-    [ServiceManager recommendBooksIndex:index
-                              WithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-                                  if (success){
-                                      [infoArray addObjectsFromArray:resultArray];
-                                      [recommandArray addObjectsFromArray:resultArray];
-                                      [self refreshRecommendDataWithArray:infoArray];
-                                      if (index<5) {
-                                          [self loadRecommendDataWithIndex:index+1];
-                                      }
-                                  } else {
-                                       [infoTableView reloadData];
-                                      if (error) {
-                                          [self displayHUDError:nil message:NETWORK_ERROR];
-                                      }
-                                  }
-                              }];
+    [ServiceManager recommendBooksIndex:index WithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+		if (success){
+			[infoArray addObjectsFromArray:resultArray];
+			[recommandArray addObjectsFromArray:resultArray];
+			[self refreshRecommendDataWithArray:infoArray];
+			if (index<5) {
+				[self loadRecommendDataWithIndex:index+1];
+			}
+		} else {
+			[infoTableView reloadData];
+			if (error) {
+				[self displayHUDError:nil message:NETWORK_ERROR];
+			}
+		}
+	}];
 }
 
 - (void)refreshRecommendDataWithArray:(NSArray *)array
@@ -613,14 +612,14 @@
                 [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             } else {
                 NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
-            if (indexPath.row == 0) {
-                cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
-                Book *book = array[indexPath.row];
-                [(BookCell *)cell setBook:book];
-            } else {
-                cell = [[BookCell alloc] initWithStyle:BookCellStyleSmall reuseIdentifier:@"MyCell"];
-                Book *book = array[indexPath.row];
-                [(BookCell *)cell setBook:book];
+				if (indexPath.row == 0) {
+					cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
+					Book *book = array[indexPath.row];
+					[(BookCell *)cell setBook:book];
+				} else {
+					cell = [[BookCell alloc] initWithStyle:BookCellStyleSmall reuseIdentifier:@"MyCell"];
+					Book *book = array[indexPath.row];
+					[(BookCell *)cell setBook:book];
                 }
             }
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
@@ -654,9 +653,9 @@
     if (currentType != CATAGORY) {
         if (currentType == RANK) {
             if (infoArray.count == 0) {
-             [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
-             NSLog(@"重新刷新排行");
-             return;
+				[self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
+				NSLog(@"重新刷新排行");
+				return;
             }
         }
         Book *book;
