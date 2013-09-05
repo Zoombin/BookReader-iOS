@@ -505,7 +505,7 @@
     }
     
     [shortdescribeTextView setText:book.describe];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
     [shortdescribeTextView sizeToFit];
     } else {
         CGFloat height = shortdescribeTextView.contentSize.height;

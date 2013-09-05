@@ -60,7 +60,7 @@
     [nameLabel setText:comment.userName];
     [timeLabel setText:comment.insertTime];
     [messageLabel setText:[[comment.content XXSYHandleRedundantTags] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         [messageLabel sizeToFit];
         [messageLabel setFrame:CGRectMake(messageLabel.frame.origin.x, messageLabel.frame.origin.y, self.contentView.frame.size.width - 16, messageLabel.frame.size.height + 5)];
     }else  {

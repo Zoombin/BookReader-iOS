@@ -138,11 +138,11 @@
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 65, 42)];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
     } else {
         [_searchBar setBarStyle:UIBarStyleBlack];
-        [_searchBar setBarTintColor:[UIColor clearColor]];
+        [_searchBar performSelector:@selector(setBarTintColor:) withObject:[UIColor clearColor]];
     }
     
     _searchBar.delegate = self;
