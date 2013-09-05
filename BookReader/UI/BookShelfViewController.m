@@ -180,11 +180,7 @@ const NSUInteger numberOfBooksPerRow = 3;
                 notification.content = content;
             }
 			if (block) block();
-		} else {
-            if (error) {
-                [self displayHUDError:nil message:error.description];
-            }
-        }
+		}
     }];
 }
 
