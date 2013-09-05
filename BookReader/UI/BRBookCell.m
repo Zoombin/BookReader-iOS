@@ -97,8 +97,8 @@
 	if (_book.name) {
 		[nameLabel setTitle:[_book.name substringToIndex:MIN(_book.name.length, 4)] forState:UIControlStateNormal];
 	}
-    if (_book.needUpdate) {
-		self.bUpdate = _book.needUpdate;
+    if (_book.hasNewChapters) {
+		self.bUpdate = _book.hasNewChapters;
     }
 }
 

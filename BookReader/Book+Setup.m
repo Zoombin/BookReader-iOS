@@ -169,6 +169,15 @@
 	return now == [now laterDate:self.nextUpdateTime];
 }
 
+- (BOOL)hasNewChapters
+{
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:dd:ss"];
+    NSDate *lastUpdateTime = [formatter dateFromString:self.lastUpdate];
+    return [now timeIntervalSinceDate:lastUpdateTime] < 3600 * 24 * 2;
+}
+
 #pragma mark - Books for help
 
 + (NSArray *)helpBooks
