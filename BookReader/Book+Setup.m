@@ -175,6 +175,11 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:dd:ss"];
     NSDate *lastUpdateTime = [formatter dateFromString:self.lastUpdate];
+    if (self.lastReadDate) {
+        if ([self.lastReadDate timeIntervalSinceNow] < 3600 * 24 * 2) {
+            return NO;
+        }
+    }
     return [now timeIntervalSinceDate:lastUpdateTime] < 3600 * 24 * 2;
 }
 

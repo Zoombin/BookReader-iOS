@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSNumber * flower;
 @property (nonatomic, retain) NSString * lastChapterName;
 @property (nonatomic, retain) NSString * lastReadChapterID;
+@property (nonatomic, retain) NSDate * lastReadDate;
 @property (nonatomic, retain) NSString * lastUpdate;
 @property (nonatomic, retain) NSDate * localUpdateDate;
 @property (nonatomic, retain) NSNumber * monthTicket;

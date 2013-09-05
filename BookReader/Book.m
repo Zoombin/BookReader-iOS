@@ -29,6 +29,7 @@
 @dynamic flower;
 @dynamic lastChapterName;
 @dynamic lastReadChapterID;
+@dynamic lastReadDate;
 @dynamic lastUpdate;
 @dynamic localUpdateDate;
 @dynamic monthTicket;

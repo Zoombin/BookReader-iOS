@@ -357,6 +357,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
 			if (book) {
 				book.lastReadChapterID = _chapter.uid;
+                book.lastReadDate = [NSDate date];
 				book.localUpdateDate = [NSDate date];
 				book.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:book]);
 			}
