@@ -460,7 +460,6 @@
                          }
                          [infoArray addObjectsFromArray:resultArray];
                          [childViewController reloadDataWithArray:infoArray andCatagoryId:index+1];
-                         currentPage = index +1;
                          [childViewController hideHUD:YES];
                      } else {
                          if (error) {
