@@ -486,6 +486,7 @@ const NSUInteger numberOfBooksPerRow = 3;
         [self.headerView deleteButtonEnable:(BOOL)needRemoveFavoriteBooks.count];
 	} else {
 		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
+        bookCell.bUpdate = NO;
 		if (chapter) {
 			CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 			controller.previousViewController = self;

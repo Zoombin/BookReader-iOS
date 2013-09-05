@@ -78,6 +78,8 @@
 		185535F617A10DEA00E1C9B6 /* bookmark_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185535F217A10DEA00E1C9B6 /* bookmark_btn@2x.png */; };
 		185535F717A10DEA00E1C9B6 /* chapterlist_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 185535F317A10DEA00E1C9B6 /* chapterlist_btn.png */; };
 		185535F817A10DEA00E1C9B6 /* chapterlist_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185535F417A10DEA00E1C9B6 /* chapterlist_btn@2x.png */; };
+		1860035017D85F4000966BDA /* book_update.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860034E17D85F4000966BDA /* book_update.png */; };
+		1860035117D85F4000966BDA /* book_update@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860034F17D85F4000966BDA /* book_update@2x.png */; };
 		186292F81732572500777357 /* UITextField+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292F71732572500777357 /* UITextField+BookReader.m */; };
 		186292FB17325C5300777357 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186292FA17325C5300777357 /* SignInViewController.m */; };
 		186C2D2F177E6EE5002E16C0 /* read_backbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 186C2D18177E6EE5002E16C0 /* read_backbtn.png */; };
@@ -427,6 +429,8 @@
 		185535F217A10DEA00E1C9B6 /* bookmark_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark_btn@2x.png"; sourceTree = "<group>"; };
 		185535F317A10DEA00E1C9B6 /* chapterlist_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapterlist_btn.png; sourceTree = "<group>"; };
 		185535F417A10DEA00E1C9B6 /* chapterlist_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chapterlist_btn@2x.png"; sourceTree = "<group>"; };
+		1860034E17D85F4000966BDA /* book_update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_update.png; sourceTree = "<group>"; };
+		1860034F17D85F4000966BDA /* book_update@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book_update@2x.png"; sourceTree = "<group>"; };
 		186292F61732572500777357 /* UITextField+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+BookReader.h"; path = "../UITextField+BookReader.h"; sourceTree = "<group>"; };
 		186292F71732572500777357 /* UITextField+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BookReader.m"; path = "../UITextField+BookReader.m"; sourceTree = "<group>"; };
 		186292F917325C5300777357 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -937,6 +941,8 @@
 		188FE63716F9A069009561CB /* localBook */ = {
 			isa = PBXGroup;
 			children = (
+				1860034E17D85F4000966BDA /* book_update.png */,
+				1860034F17D85F4000966BDA /* book_update@2x.png */,
 				186E72BE17990A36001E391D /* bookname_background.png */,
 				186E72BF17990A36001E391D /* bookname_background@2x.png */,
 				1848630517967EEF00282A6A /* notification_close.png */,
@@ -1805,6 +1811,8 @@
 				189C6CC117D0940700ABA262 /* phonereg_hl@2x.png in Resources */,
 				189C6CC217D0940700ABA262 /* phonereg_nor.png in Resources */,
 				189C6CC317D0940700ABA262 /* phonereg_nor@2x.png in Resources */,
+				1860035017D85F4000966BDA /* book_update.png in Resources */,
+				1860035117D85F4000966BDA /* book_update@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

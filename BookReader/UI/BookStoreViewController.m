@@ -143,7 +143,6 @@
     } else {
         [_searchBar setBarStyle:UIBarStyleBlack];
         [_searchBar setBarTintColor:[UIColor clearColor]];
-        
     }
     
     _searchBar.delegate = self;

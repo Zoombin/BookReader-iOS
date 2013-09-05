@@ -16,6 +16,7 @@
 //    UIImageView *autoBuyMark;
 //	MKNumberBadgeView *badgeView;
 //	UIButton *autoBuyButton;
+    UIImageView *updateMark;
     UIButton *nameLabel;
 	UIImageView *cover;
 }
@@ -37,6 +38,12 @@
 //		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
 //        //[badgeView setHideWhenZero:YES];
 //        [self.contentView addSubview:badgeView];
+        
+         updateMark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_update"]];
+        [updateMark setFrame:CGRectMake(-2, - 5, 70, 70)];
+        [self.contentView addSubview:updateMark];
+        
+        
         
 //        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 //        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds) + 10, CGRectGetMinY(self.bounds) + 10);
@@ -61,6 +68,7 @@
 				
 //		self.autoBuy = NO;
 //		self.badge = 0;
+        self.bUpdate = NO;
 	}
 	return self;
 }
@@ -89,9 +97,9 @@
 	if (_book.name) {
 		[nameLabel setTitle:[_book.name substringToIndex:MIN(_book.name.length, 4)] forState:UIControlStateNormal];
 	}
-//    if (_book.autoBuy) {
-//		self.autoBuy = _book.autoBuy.boolValue;
-//    }
+    if (_book.needUpdate) {
+		self.bUpdate = _book.needUpdate;
+    }
 }
 
 - (void)setEditing:(BOOL)editing
@@ -99,6 +107,7 @@
     _editing = editing;
 //	badgeView.hidden = _editing || _badge == 0;
 //	autoBuyButton.hidden = !_editing;
+    updateMark.hidden = _editing || self.bUpdate == NO;
     if (!editing) {
         [self setCellSelected:NO];
     }
@@ -111,6 +120,12 @@
 {
 	_cellSelected = selected;
 	selectedMark.hidden = !_cellSelected;
+}
+
+- (void)setBUpdate:(BOOL)bUpdate
+{
+    _bUpdate = bUpdate;
+    updateMark.hidden = !_bUpdate;
 }
 
 //- (void)setBadge:(NSInteger)badge
