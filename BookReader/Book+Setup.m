@@ -191,7 +191,7 @@
 	NSArray *bookNames = @[@"纨绔世子妃", @"庶女有毒", @"楚王妃", @"嫡妃不如美妾", @"婚前试爱", @"重生之高门嫡女", @"军医重生，贵女宝瞳", @"望门庶女", @"蚀骨沉沦"];
 	for (int i = 0; i < 9; i++) {
 		Book *helpBook = [Book createInContext:[BRContextManager memoryOnlyContext]];
-		UIImage *cover = [UIImage imageNamed:[NSString stringWithFormat:@"help_bookcover%d.jpg", i+1]];
+		UIImage *cover = [UIImage imageNamed:[NSString stringWithFormat:@"help_bookcover%d.jpg", i + 1]];
 		helpBook.cover = [[NSData alloc] initWithData:UIImageJPEGRepresentation(cover, 1.0)];
 		helpBook.name = bookNames[i];
 		[helpBooks addObject:helpBook];
