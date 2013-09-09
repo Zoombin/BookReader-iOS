@@ -34,7 +34,7 @@
 		self.backgroundColor = [UIColor clearColor];
 		[self registerClass:[BRBookCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
 		[self registerClass:[BRNotificationView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:collectionHeaderViewIdentifier];
-		[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
+//		[self registerClass:[BRWifiReminderView class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:collectionFooterViewIdentifier];
 		self.allowsSelection = NO;
 		UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 		[self addGestureRecognizer:tapRecognizer];

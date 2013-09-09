@@ -592,6 +592,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		identifier = collectionHeaderViewIdentifier;
 	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
 		identifier = collectionFooterViewIdentifier;
+        return nil;
 	}
     PSTCollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 	if ([supplementaryView isKindOfClass:[BRNotificationView class]]) {
