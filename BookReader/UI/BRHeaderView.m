@@ -12,7 +12,7 @@
 
 @implementation BRHeaderView {
     UIImageView *topBarImage;
-    UIButton *deleteButton;
+//    UIButton *deleteButton;
     UIButton *refreshButton;
     UIButton *bookStoreBtn;
     UIButton *memberBtn;
@@ -92,16 +92,16 @@
 	finishBtn.showsTouchWhenHighlighted = YES;
     [self addSubview:finishBtn];
     
-    deleteButton = [UIButton addButtonWithFrame:DELETE_BUTTON_FRAME andStyle:BookReaderButtonStyleNormal];
-    [deleteButton setUserInteractionEnabled:NO];
-    [deleteButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
-    [deleteButton addTarget:self action:@selector(dButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	deleteButton.showsTouchWhenHighlighted = YES;
-    [self addSubview:deleteButton];
+//    deleteButton = [UIButton addButtonWithFrame:DELETE_BUTTON_FRAME andStyle:BookReaderButtonStyleNormal];
+//    [deleteButton setUserInteractionEnabled:NO];
+//    [deleteButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+//    [deleteButton addTarget:self action:@selector(dButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//	deleteButton.showsTouchWhenHighlighted = YES;
+//    [self addSubview:deleteButton];
     
     [finishBtn setHidden:YES];
-    [deleteButton setHidden:YES];
+//    [deleteButton setHidden:YES];
     [bookStoreBtn setHidden:NO];
     [refreshButton setHidden:NO];
     [memberBtn setHidden:NO];
@@ -110,10 +110,11 @@
 
 - (void)deleteButtonEnable:(BOOL)enable
 {
-    [deleteButton setUserInteractionEnabled:enable];
-    [deleteButton setTitleColor:enable ? [UIColor whiteColor] : [UIColor grayColor] forState:UIControlStateNormal];
+//    [deleteButton setUserInteractionEnabled:enable];
+//    [deleteButton setTitleColor:enable ? [UIColor whiteColor] : [UIColor grayColor] forState:UIControlStateNormal];
+//}
 }
-
+    
 - (void)bButtonClick
 {
     [self invokeDelegateMethod:kHeaderViewButtonBookStore];
@@ -127,7 +128,7 @@
 - (void)eButtonClick
 {
     [finishBtn setHidden:NO];
-    [deleteButton setHidden:NO];
+//    [deleteButton setHidden:NO];
     [bookStoreBtn setHidden:YES];
     [refreshButton setHidden:YES];
     [memberBtn setHidden:YES];
@@ -143,7 +144,7 @@
 - (void)fButtonClick
 {
     [finishBtn setHidden:YES];
-    [deleteButton setHidden:YES];
+//    [deleteButton setHidden:YES];
     [bookStoreBtn setHidden:NO];
     [refreshButton setHidden:NO];
     [memberBtn setHidden:NO];

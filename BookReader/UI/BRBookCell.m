@@ -12,10 +12,11 @@
 #import "ServiceManager.h"
 
 @implementation BRBookCell {
-	UIImageView *selectedMark;
+//	UIImageView *selectedMark;
 //    UIImageView *autoBuyMark;
 //	MKNumberBadgeView *badgeView;
 //	UIButton *autoBuyButton;
+    UIButton *deleteButton;
     UIImageView *updateMark;
     UIButton *nameLabel;
 	UIImageView *cover;
@@ -28,11 +29,21 @@
 		cover.frame = CGRectMake(0, 0, 70, 89);
 		[self.contentView addSubview:cover];
 		
-        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        selectedMark.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
-		[selectedMark setImage:[UIImage imageNamed:@"book_checkmark"]];
-		selectedMark.hidden = YES;
-        [self.contentView addSubview:selectedMark];
+//        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+//        selectedMark.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
+//		[selectedMark setImage:[UIImage imageNamed:@"book_checkmark"]];
+//		selectedMark.hidden = YES;
+//        [self.contentView addSubview:selectedMark];
+        
+        deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [deleteButton setFrame:CGRectMake(0, 0, 25, 25)];
+        deleteButton.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
+		[deleteButton setImage:[UIImage imageNamed:@"localbook_filter_small_delete"] forState:UIControlStateNormal];
+        [deleteButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
+		deleteButton.hidden = YES;
+        [self.contentView addSubview:deleteButton];
+        
+        
         
 //        badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 //		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
@@ -68,6 +79,7 @@
 				
 //		self.autoBuy = NO;
 //		self.badge = 0;
+        self.bDelete = NO;
         self.bUpdate = NO;
 	}
 	return self;
@@ -108,6 +120,7 @@
 //	badgeView.hidden = _editing || _badge == 0;
 //	autoBuyButton.hidden = !_editing;
     updateMark.hidden = _editing || self.bUpdate == NO;
+    deleteButton.hidden = !_editing;
     if (!editing) {
         [self setCellSelected:NO];
     }
@@ -119,7 +132,7 @@
 - (void)setCellSelected:(BOOL)selected
 {
 	_cellSelected = selected;
-	selectedMark.hidden = !_cellSelected;
+//	selectedMark.hidden = !_cellSelected;
 }
 
 - (void)setBUpdate:(BOOL)bUpdate
@@ -135,6 +148,7 @@
 //}
 
 - (void)valueChanged:(id)sender {
+    self.bDelete = YES;
 	[_bookCellDelegate changedValueBookCell:self];
 }
 

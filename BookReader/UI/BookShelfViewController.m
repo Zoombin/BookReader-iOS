@@ -496,17 +496,48 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell
 {
-	if (![ServiceManager isSessionValid]) {
-		[self displayHUDError:nil message:@"您尚未登录不能进行此操作"];
-		return;
+    if (!bookCell.bDelete)
+    {
+        return;
+    }
+	Book *needRemoveBook = bookCell.book;
+	needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
+	if (needRemoveBook.bFav) {
+		[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
+			if (success) {
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+					if (b) {
+						[b deleteInContext:localContext];
+					}
+				} completion:^(BOOL success, NSError *error) {
+					[self refreshBooks];
+				}];
+			} else {
+				[self refreshBooks];
+			}
+		}];
+	} else {
+		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+			Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+			if (b) {
+				[b deleteInContext:localContext];
+			}
+		} completion:^(BOOL success, NSError *error) {
+			[self refreshBooks];
+		}];
 	}
-
-	if (!bookCell.book.bFav) {
-		needFavAndAutoBuyBookCell = bookCell;
-		favAndAutoBuyAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"您尚未收藏本书，开启自动更新需要收藏此书！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"收藏并开启", nil];
-		[favAndAutoBuyAlert show];
-		return;
-	}
+//	if (![ServiceManager isSessionValid]) {
+//		[self displayHUDError:nil message:@"您尚未登录不能进行此操作"];
+//		return;
+//	}
+//
+//	if (!bookCell.book.bFav) {
+//		needFavAndAutoBuyBookCell = bookCell;
+//		favAndAutoBuyAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"您尚未收藏本书，开启自动更新需要收藏此书！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"收藏并开启", nil];
+//		[favAndAutoBuyAlert show];
+//		return;
+//	}
 	
 //	BOOL shiftToOnOrOff = !bookCell.autoBuy;
 //	NSString *message = shiftToOnOrOff ? @"开启自动更新..." : @"关闭自动更新...";
