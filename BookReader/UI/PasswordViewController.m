@@ -170,7 +170,6 @@
 - (void)getFindPasswordCode
 {
     [self hideKeyboard];
-    //    [getCodeButton startCoolDownDuration:20];
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (success) {

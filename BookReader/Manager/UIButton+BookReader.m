@@ -96,12 +96,6 @@ static float duration = 0;
     return button;
 }
 
-- (void)startCoolDownDuration:(NSTimeInterval)delay
-{
-    duration = delay;
-    [self setEnabled:NO];
-}
-
 + (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style
 {
     NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_cata", @"bookstore_rank", @"bookstore_search"];

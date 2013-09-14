@@ -30,7 +30,6 @@ typedef enum {
 + (UIButton *)fontButton:(CGRect)frame;
 
 - (void)setDisabled:(BOOL)disabled;
-- (void)startCoolDownDuration:(NSTimeInterval)delay;
 
 + (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style;
 + (UIButton *)navigationBackButton;
