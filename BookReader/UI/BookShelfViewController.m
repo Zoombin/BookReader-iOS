@@ -349,8 +349,10 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[self refreshBooks];
 		return;
 	}
+
 	Book *needRemoveBook = needRemoveFavoriteBooks[0];
 	needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
+	[self displayHUD:@"正在删除..."];
 	if (needRemoveBook.bFav) {
 		[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
 			if (success) {
@@ -473,10 +475,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)booksView:(BRBooksView *)booksView deleteBookCell:(BRBookCell *)bookCell
 {
-	Book *needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid];
 	if (!needRemoveFavoriteBooks) needRemoveFavoriteBooks = [NSMutableArray array];
-	[needRemoveFavoriteBooks addObject:needRemoveBook];
-	[self displayHUD:@"正在删除..."];
+	[needRemoveFavoriteBooks addObject:bookCell.book];
 	[self syncRemoveFav];
 }
 
