@@ -65,9 +65,9 @@
                      andBook:bookObj.uid
                    withBlock:^(BOOL success, NSError *error, NSString *message) {
                        if (error) {
-                           [self displayHUDError:nil message:NETWORK_ERROR];
+                           [self displayHUDTitle:nil message:NETWORK_ERROR];
                        }else {
-                           [self displayHUDError:nil message:message];
+                           [self displayHUDTitle:nil message:message];
                        }
                    }];
 }

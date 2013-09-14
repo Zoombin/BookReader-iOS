@@ -131,7 +131,7 @@
 {
 	
 	if (accountTextField.text.length == 0|| passwordTextField.text.length == 0) {
-        [self displayHUDError:nil message:@"账号或者密码不能为空"];
+        [self displayHUDTitle:nil message:@"账号或者密码不能为空"];
         return;
     }
 	[self hideKeyboard];
@@ -152,9 +152,9 @@
             [self close];
         } else {
             if (error) {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDTitle:nil message:NETWORK_ERROR];
             } else {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             }
         }
      }];

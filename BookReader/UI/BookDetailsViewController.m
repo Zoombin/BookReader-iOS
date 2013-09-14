@@ -130,9 +130,9 @@
                 [self initBookDetailUI];
             }else {
                 if (error) {
-                    [self displayHUDError:nil message:NETWORK_ERROR];
+                    [self displayHUDTitle:nil message:NETWORK_ERROR];
                 } else {
-                    [self displayHUDError:nil message:@"无法获取此书详情"];
+                    [self displayHUDTitle:nil message:@"无法获取此书详情"];
                 }
 				[self performSelector:@selector(backOrClose) withObject:nil afterDelay:2.0f];
             }
@@ -529,7 +529,7 @@
 			chapterArray = [resultArray mutableCopy];
 			if (block) block();
 		} else {
-			[self displayHUDError:@"获取章节目录失败" message:error.description];
+			[self displayHUDTitle:@"获取章节目录失败" message:error.description];
 		}
 	}];
 }
@@ -578,7 +578,7 @@
                 [authorBookTableView setTableHeaderView:emptyLabel];
             }
 		} else {
-            [self displayHUDError:nil message:error.description];
+            [self displayHUDTitle:nil message:error.description];
         }
     }];
 }
@@ -603,7 +603,7 @@
 			}
 			[self refreshCoverViewFrame];
 		} else {
-            [self displayHUDError:nil message:error.description];
+            [self displayHUDTitle:nil message:error.description];
         }
 	}];
 }
@@ -623,20 +623,20 @@
     if (![self checkLogin]) return;
 
     if ([commitField.text length] <= 5) {
-        [self displayHUDError:nil message:@"评论内容太短!"];
+        [self displayHUDTitle:nil message:@"评论内容太短!"];
         return;
     }
 	
     [ServiceManager disscussWithBookID:bookid andContent:commitField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (success) {
             commitField.text = @"";
-            [self displayHUDError:nil message:message];
+            [self displayHUDTitle:nil message:message];
             [self performSelector:@selector(loadCommitList) withObject:nil afterDelay:3.0];
         } else {
             if (!error) {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             } else {
-                [self displayHUDError:nil message:error.description];
+                [self displayHUDTitle:nil message:error.description];
             }
         }
     }];
@@ -668,7 +668,7 @@
             [self refreshCoverViewFrame];
 		} else {
             if (error) {
-                [self displayHUDError:nil message:error.description];
+                [self displayHUDTitle:nil message:error.description];
             }
         }
     }];
@@ -744,7 +744,7 @@
 				}];
 			}];
 		} else {
-			[self displayHUDError:nil message:message];
+			[self displayHUDTitle:nil message:message];
 		}
 	}];
 }
@@ -853,7 +853,7 @@
             [infoTableView reloadData];
             bLoading = NO;
         } else {
-            [self displayHUDError:nil message:error.description];
+            [self displayHUDTitle:nil message:error.description];
         }
     }];
 }

@@ -225,7 +225,7 @@
 - (void)registerButtonClicked
 {
     if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
-        [self displayHUDError:nil message:@"两次密码不一致"];
+        [self displayHUDTitle:nil message:@"两次密码不一致"];
         return;
     }
     [self hideKeyboard];
@@ -233,30 +233,30 @@
     if (bPhoneReg == YES) {
         [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
             if (success) {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
                 [APP_DELEGATE.memberVC setUserinfo:member];
                 [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
                 if (error) {
-                    [self displayHUDError:nil message:NETWORK_ERROR];
+                    [self displayHUDTitle:nil message:NETWORK_ERROR];
                 } else {
-                    [self displayHUDError:nil message:message];
+                    [self displayHUDTitle:nil message:message];
                 }
             }
         }];
     } else {
         [ServiceManager registerByNickName:accountTextField.text email:mailTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
             if (success) {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
                 [APP_DELEGATE.memberVC setUserinfo:member];
                 [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
             } else {
                 if (error) {
-                    [self displayHUDError:nil message:NETWORK_ERROR];
+                    [self displayHUDTitle:nil message:NETWORK_ERROR];
                 } else {
-                    [self displayHUDError:nil message:message];
+                    [self displayHUDTitle:nil message:message];
                 }
             }
         }];
@@ -284,12 +284,12 @@
     if ([accountTextField.text length]>0) {
         [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message){
             if (success) {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             } else {
                 if (error) {
-                    [self displayHUDError:nil message:NETWORK_ERROR];
+                    [self displayHUDTitle:nil message:NETWORK_ERROR];
                 } else {
-                    [self displayHUDError:nil message:message];
+                    [self displayHUDTitle:nil message:message];
                 }
             }
         }];

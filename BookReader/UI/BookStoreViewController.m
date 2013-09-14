@@ -325,7 +325,7 @@
             [infoArray removeAllObjects];
             [infoTableView reloadData];
             if (error) {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDTitle:nil message:NETWORK_ERROR];
             }
         }
     }];
@@ -369,7 +369,7 @@
                          isLoading = NO;
                      } else {
                          if (error) {
-                             [self displayHUDError:nil message:NETWORK_ERROR];
+                             [self displayHUDTitle:nil message:NETWORK_ERROR];
                          }
                      }
                  }];
@@ -405,7 +405,7 @@
 		} else {
 			[infoTableView reloadData];
 			if (error) {
-				[self displayHUDError:nil message:NETWORK_ERROR];
+				[self displayHUDTitle:nil message:NETWORK_ERROR];
 			}
 		}
 	}];
@@ -462,7 +462,7 @@
                          [childViewController hideHUD:YES];
                      } else {
                          if (error) {
-                             [childViewController displayHUDError:nil message:NETWORK_ERROR];
+                             [childViewController displayHUDTitle:nil message:NETWORK_ERROR];
                          }
                      }
                  }];
@@ -708,7 +708,7 @@
             }
         } else {
             if (error) {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDTitle:nil message:NETWORK_ERROR];
             }
         }
     }];

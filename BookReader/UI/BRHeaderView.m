@@ -57,7 +57,6 @@
     CGRect EDIT_BUTTON_FRAME = CGRectMake(10, 3, 50, 32);
     CGRect UPDATE_BUTTON_FRAME = CGRectMake(EDIT_BUTTON_FRAME.origin.x+50, 3, 50, 32);
     CGRect FINISH_BUTTON_FRAME = EDIT_BUTTON_FRAME;
-    CGRect DELETE_BUTTON_FRAME = BOOKSTORE_BUTTON_FRAME;
     
     [_backButton setHidden:YES];
     [self bringSubviewToFront:_titleLabel];

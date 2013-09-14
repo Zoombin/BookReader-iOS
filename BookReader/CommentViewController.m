@@ -81,14 +81,14 @@
 {
     [textView resignFirstResponder];
     if (textView.text.length <= 5) {
-        [self displayHUDError:nil message:@"评论内容太短!"];
+        [self displayHUDTitle:nil message:@"评论内容太短!"];
         return;
     }
     [ServiceManager disscussWithBookID:_bookId andContent:textView.text withBlock:^(BOOL success, NSError *error, NSString *message) {
             if (!success) {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             } else {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
                 [self performSelector:@selector(close) withObject:nil afterDelay:1.5];
             }
     }];

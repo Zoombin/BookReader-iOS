@@ -229,7 +229,7 @@
 
 - (void)iVersionDidNotDetectNewVersion
 {
-	[self displayHUDError:nil message:@"当前为最新版本！"];
+	[self displayHUDTitle:nil message:@"当前为最新版本！"];
 }
 
 @end

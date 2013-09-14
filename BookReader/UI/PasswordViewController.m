@@ -149,19 +149,19 @@
 - (void)findPassword
 {
     if (![passwordTextField.text isEqualToString:confirmTextField.text]) {
-        [self displayHUDError:nil message:@"两次密码输入不一致"];
+        [self displayHUDTitle:nil message:@"两次密码输入不一致"];
         return;
     }
     [self hideKeyboard];
     [self displayHUD:@"请稍等..."];
     [ServiceManager findPassword:accountTextField.text verifyCode:codeTextField.text andNewPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (success) {
-            [self displayHUDError:nil message:message];
+            [self displayHUDTitle:nil message:message];
         } else {
             if (error) {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDTitle:nil message:NETWORK_ERROR];
             } else {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             }
         }
     }];
@@ -174,12 +174,12 @@
     [self displayHUD:@"请稍等..."];
     [ServiceManager postFindPasswordCode:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (success) {
-            [self displayHUDError:nil message:message];
+            [self displayHUDTitle:nil message:message];
         } else {
             if (error) {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDTitle:nil message:NETWORK_ERROR];
             } else {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             }
         }
     }];
@@ -190,19 +190,19 @@
 - (void)changeButtonClicked
 {
     if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
-        [self displayHUDError:nil message:@"两次密码不一致"];
+        [self displayHUDTitle:nil message:@"两次密码不一致"];
         return;
     }
     [self displayHUD:@"请稍等..."];
 	[self hideKeyboard];
     [ServiceManager changePasswordWithOldPassword:passwordTextField.text andNewPassword:confirmTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (success) {
-            [self displayHUDError:nil message:message];
+            [self displayHUDTitle:nil message:message];
         } else {
             if (error) {
-                [self displayHUDError:nil message:NETWORK_ERROR];
+                [self displayHUDTitle:nil message:NETWORK_ERROR];
             } else {
-                [self displayHUDError:nil message:message];
+                [self displayHUDTitle:nil message:message];
             }
         }
     }];

@@ -157,9 +157,9 @@
 //    badgeView.value = _badge;
 //}
 
-- (void)valueChanged:(id)sender {
-	[_bookCellDelegate changedValueBookCell:self];
-}
+//- (void)valueChanged:(id)sender {
+//	[_bookCellDelegate changedValueBookCell:self];
+//}
 
 
 - (void)deleteBook:(id)sender

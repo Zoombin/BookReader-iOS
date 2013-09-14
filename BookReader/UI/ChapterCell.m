@@ -38,8 +38,10 @@
 	_chapterNameLabel.text = [chapter displayName:allChapters];
     if (chapter.lastReadIndex == nil) {
         _chapterNameLabel.textColor = [UIColor blackColor];
-    }else if (current) {
+    } else if (current) {
+		self.accessoryType = UITableViewCellAccessoryCheckmark;
         _chapterNameLabel.textColor = [UIColor blueColor];
+		
     }
 }
 

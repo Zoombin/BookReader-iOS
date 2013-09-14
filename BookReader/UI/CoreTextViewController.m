@@ -68,7 +68,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			[self presentViewController:messageComposeViewController animated:YES completion:nil];
 		}
     } else {
-        [self displayHUDError:nil message:@"您的设备不能用来发短信！"];
+        [self displayHUDTitle:nil message:@"您的设备不能用来发短信！"];
     }
 }
 
@@ -240,7 +240,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	currentFontSize += reduce ? -1 : 1;
 	if (currentFontSize < UserDefaultFontSizeMin.floatValue || currentFontSize > UserDefaultFontSizeMax.floatValue) {
 		NSString *errorMessage = [NSString stringWithFormat:@"字体已达到最%@", reduce ? @"小" : @"大"];
-		[self displayHUDError:nil message:errorMessage];
+		[self displayHUDTitle:nil message:errorMessage];
 		return;
 	}
 	[NSUserDefaults brSetObject:@(currentFontSize) ForKey:UserDefaultKeyFontSize];
@@ -343,7 +343,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)gotoChapter:(Chapter *)aChapter withReadIndex:(NSNumber *)readIndex
 {
 	if (!aChapter) {
-		[self displayHUDError:@"错误" message:@"获取章节失败"];
+		[self displayHUDTitle:@"错误" message:@"获取章节失败"];
 		[self performSelector:@selector(back) withObject:nil afterDelay:1.5];
 		return;
 	}
@@ -506,7 +506,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)addBookMarkButtonPressed
 {
-    [self displayHUDError:@"" message:@"添加书签成功"];
+    [self displayHUDTitle:@"" message:@"添加书签成功"];
 	NSRange range = NSRangeFromString(pages[currentPageIndex]);
 	NSString *reference = [currentChapterString substringFromIndex:range.location];
 	NSLog(@"before referenct = %@", reference);
@@ -538,7 +538,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	NSLog(@"_chapter: %@", _chapters);
 	if (!_chapter.previousID || !_chapter.previousID.intValue) {
-		[self displayHUDError:@"" message:@"此章是第一章"];
+		[self displayHUDTitle:@"" message:@"此章是第一章"];
 		return;
 	}
 	pageCurlType = nil;
@@ -564,7 +564,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)gotoNextChapter
 {
 	if (!_chapter.nextID || !_chapter.nextID.intValue) {
-		[self displayHUDError:@"" message:@"此章是最后一章"];
+		[self displayHUDTitle:@"" message:@"此章是最后一章"];
 		return;
 	}
 	pageCurlType = nil;

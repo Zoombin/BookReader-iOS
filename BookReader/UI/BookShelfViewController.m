@@ -122,15 +122,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	syncTimeInterval = LONG_SYNC_INTERVAL;
 }
 
-//- (void)helpDisplay
-//{
-//	BookShelfHelpView *helpView = [[BookShelfHelpView alloc] initWithFrame:self.view.bounds];
-//	helpView.delegate = self;
-//	[self.view addSubview:helpView];
-//	booksForDisplay = [Book helpBooks];
-//	[booksView reloadData];
-//}
-
 - (void)formalDisplay
 {
 	[self loginReminderView].hidden = [ServiceManager isSessionValid];
@@ -276,7 +267,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}];
 }
 
-- (void)syncChaptersContent
+//现在书架不用下载书籍内容了
+- (void)syncChaptersContent __deprecated
 {
 	if (stopAllSync) return;
 	if (!chapters.count) {
@@ -313,7 +305,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}];
 }
 
-- (void)syncAutoSubscribe
+//现在书架不用自动订阅内容了
+- (void)syncAutoSubscribe __deprecated
 {
 	if (stopAllSync) return;
 	if (!chapters.count) {
@@ -464,16 +457,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 #pragma mark - BRBooksViewDelegate
 - (void)booksView:(BRBooksView *)booksView tappedBookCell:(BRBookCell *)bookCell
 {
-	if (editing) {
-		bookCell.cellSelected = !bookCell.cellSelected;
-		if (bookCell.cellSelected) {
-			if (!needRemoveFavoriteBooks) needRemoveFavoriteBooks = [NSMutableArray array];
-			[needRemoveFavoriteBooks addObject:bookCell.book];
-		} else {
-			[needRemoveFavoriteBooks removeObject:bookCell.book];
-		}
-        [self.headerView deleteButtonEnable:(BOOL)needRemoveFavoriteBooks.count];
-	} else {
+	if (!editing) {
 		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
         bookCell.bUpdate = NO;
 		if (chapter) {
@@ -515,7 +499,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	Book *book = booksForDisplay[indexPath.row];
 	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-//	cell.badge = book.numberOfUnreadChapters.integerValue;
 	cell.editing = editing;
 	
 	if (indexPath.row == booksForDisplay.count - 1) {

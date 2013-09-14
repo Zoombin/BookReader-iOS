@@ -15,8 +15,9 @@
 @class BRBookCell;
 
 @protocol BRBookCellDelegate <NSObject>
-- (void)changedValueBookCell:(BRBookCell *)bookCell;
+
 - (void)deleteBook:(BRBookCell *)bookCell;
+
 @end
 
 @interface BRBookCell : PSTCollectionViewCell

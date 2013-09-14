@@ -84,7 +84,7 @@
                          isLoading = NO;
                      } else {
                          if (error) {
-                         [self displayHUDError:nil message:NETWORK_ERROR];
+                         [self displayHUDTitle:nil message:NETWORK_ERROR];
                          }
                      }
                  }];
@@ -163,7 +163,7 @@
                          isLoading = NO;
                      } else {
                          if (error) {
-                             [self displayHUDError:nil message:NETWORK_ERROR];
+                             [self displayHUDTitle:nil message:NETWORK_ERROR];
                          }
                      }
                  }];

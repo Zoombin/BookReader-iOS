@@ -101,9 +101,9 @@
 				[self.navigationController popViewControllerAnimated:YES];
             } else {
                 if (error) {
-                    [self displayHUDError:nil message:NETWORK_ERROR];
+                    [self displayHUDTitle:nil message:NETWORK_ERROR];
                 } else {
-                    [self displayHUDError:nil message:message];
+                    [self displayHUDTitle:nil message:message];
                 }
             }
     }];
