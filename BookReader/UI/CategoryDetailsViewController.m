@@ -56,7 +56,7 @@
 - (void)reloadDataWithArray:(NSArray *)array andCatagoryId:(int)cataId
 {
     catagoryId = cataId;
-    NSArray *buttonNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
+    NSArray *buttonNames = [ServiceManager bookCategories];
     [self setTitle:buttonNames[catagoryId-1]];
 	[infoArray removeAllObjects];
     [infoArray addObjectsFromArray:array];

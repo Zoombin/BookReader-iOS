@@ -19,6 +19,7 @@
 
 @interface ServiceManager : AFHTTPClient
 
+
 + (ServiceManager *)shared;
 
 + (BOOL)isSessionValid;
@@ -31,6 +32,7 @@
 + (BRUser *)userInfo;
 + (void)deleteUserID;
 + (void)deleteUserInfo;
++ (NSArray *)bookCategories;
 
 #pragma mark - 用户接口
 //短信获取验证码

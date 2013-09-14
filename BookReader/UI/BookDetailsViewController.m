@@ -257,10 +257,11 @@
     NSArray *tabbarStrings = @[@"封　　面",@"目　　录",@"书　　评",@"作者作品"];
     for (int i = 0; i<[tabbarStrings count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [button setTitleColor:[UIColor colorWithRed:138.0/255.0 green:124.0/255.0 blue:105.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor colorWithRed:192.0/255.0 green:106.0/255.0 blue:46.0/255.0 alpha:1.0] forState:UIControlStateSelected];
+		button.showsTouchWhenHighlighted = YES;
+		[button setTitle:tabbarStrings[i] forState:UIControlStateNormal];
+		[button.titleLabel setFont:[UIFont systemFontOfSize:15]];
+		[button setTitleColor:[UIColor colorWithRed:138.0/255.0 green:124.0/255.0 blue:105.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+		[button setTitleColor:[UIColor colorWithRed:192.0/255.0 green:106.0/255.0 blue:46.0/255.0 alpha:1.0] forState:UIControlStateSelected];
         [button addTarget:self action:NSSelectorFromString(selectors[i]) forControlEvents:UIControlEventTouchUpInside];
         [button setFrame:CGRectMake(5 + width * i, 46, width, 30)];
         [self.view addSubview:button];

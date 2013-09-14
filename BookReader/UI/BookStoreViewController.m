@@ -77,7 +77,7 @@
 {
     self = [super init];
     if (self) {
-        catagoryNames = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
+        catagoryNames = [ServiceManager bookCategories];
 		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
         
         hotkeyBtns = [NSMutableArray array];
@@ -212,7 +212,7 @@
     
     
     for (int i = 0; i < [catagoryNames count]; i++) {
-        if (i%2==0&&i!=0) {
+        if (i % 2 == 0 && i != 0) {
             k++;
         }
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

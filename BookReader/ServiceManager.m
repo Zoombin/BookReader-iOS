@@ -119,6 +119,15 @@ static NSNumber *sUserID;
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++ (NSArray *)bookCategories
+{
+	static NSArray *categories;
+	if (!categories) {
+		categories = @[@"穿越",@"架空",@"都市",@"青春",@"魔幻",@"玄幻",@"豪门",@"历史",@"异能",@"短篇",@"耽美"];
+	}
+	return categories;
+}
+
 //获取随机Key和check
 + (NSDictionary *)randomCode
 {
