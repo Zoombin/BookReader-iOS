@@ -28,6 +28,8 @@
 #define UDID_1 @"064f18ddbfb8bd1492ce34752a787a9342843823"//BAO WEI KANG
 #define UMENG_KEY @"52032fb056240b0e8e00408e"
 #define BOOK_COVER_ORIGIN_SIZE ( CGSizeMake(90, 115) )
+#define BOOK_FINISH_IDENTIFIER @"已完成"
+
 BOOL stopAllSync;
 
 

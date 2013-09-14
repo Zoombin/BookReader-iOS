@@ -57,7 +57,7 @@
 		NSIndexPath *indexPath = [self indexPathForItemAtPoint:initialPinchPoint];
 		if (indexPath) {
 			BRBookCell *cell = (BRBookCell *)[self cellForItemAtIndexPath:indexPath];
-			[self.booksViewDelegate booksView:self tappedBookCell:cell];
+			[_booksViewDelegate booksView:self tappedBookCell:cell];
 		}
 	}
 }
@@ -68,9 +68,15 @@
 }
 
 #pragma mark - BRBookCellDelegate
-- (void)changedValueBookCell:(BRBookCell *)bookCell
+
+- (void)deleteBook:(BRBookCell *)bookCell
 {
-	[self.booksViewDelegate booksView:self changedValueBookCell:bookCell];
+	[_booksViewDelegate booksView:self deleteBookCell:bookCell];
 }
+
+//- (void)changedValueBookCell:(BRBookCell *)bookCell
+//{
+//	[self.booksViewDelegate booksView:self changedValueBookCell:bookCell];
+//}
 
 @end

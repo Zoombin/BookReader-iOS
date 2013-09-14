@@ -219,22 +219,31 @@
 		18FD247F17B4D17700D11CCA /* discuss_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD247B17B4D17700D11CCA /* discuss_nor@2x.png */; };
 		18FD248017B4D17700D11CCA /* discuss_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD247C17B4D17700D11CCA /* discuss_sel.png */; };
 		18FD248117B4D17700D11CCA /* discuss_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD247D17B4D17700D11CCA /* discuss_sel@2x.png */; };
-		7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */; };
-		7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EFF717AE2907006F1E08 /* ZBTextValidate.m */; };
 		774482A81764A58100802600 /* bookshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A61764A58100802600 /* bookshelf.png */; };
 		774482A91764A58100802600 /* bookshelf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A71764A58100802600 /* bookshelf@2x.png */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
+		7786717017E3E3C9001FDB67 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 7786716C17E3E3C9001FDB67 /* fishhook.c */; };
+		7786717117E3E3C9001FDB67 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7786716E17E3E3C9001FDB67 /* LICENSE */; };
+		7786717217E3E3C9001FDB67 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7786716F17E3E3C9001FDB67 /* README.md */; };
+		778671AF17E3E464001FDB67 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786719817E3E464001FDB67 /* MBProgressHUD+Appearance.m */; };
+		778671B117E3E464001FDB67 /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786719C17E3E464001FDB67 /* NSString+BundleExtensions.m */; };
+		778671B217E3E464001FDB67 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786719E17E3E464001FDB67 /* NSString+ZBUtilites.m */; };
+		778671B317E3E464001FDB67 /* QuietAssertMacros.c in Sources */ = {isa = PBXBuildFile; fileRef = 7786719F17E3E464001FDB67 /* QuietAssertMacros.c */; };
+		778671B417E3E464001FDB67 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778671A017E3E464001FDB67 /* README.md */; };
+		778671B517E3E464001FDB67 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671A217E3E464001FDB67 /* UIColor+Hex.m */; };
+		778671B617E3E464001FDB67 /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671A417E3E464001FDB67 /* UIColor+Random.m */; };
+		778671B717E3E464001FDB67 /* UIDevice+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671A617E3E464001FDB67 /* UIDevice+ZBUtilites.m */; };
+		778671B817E3E464001FDB67 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671A817E3E464001FDB67 /* UIViewController+HUD.m */; };
+		778671B917E3E464001FDB67 /* ZBTextValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671AA17E3E464001FDB67 /* ZBTextValidate.m */; };
+		778671BA17E3E464001FDB67 /* ZBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671AC17E3E464001FDB67 /* ZBViewController.m */; };
 		778E79C017B2377F00DC28B7 /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 778E79A417B2377F00DC28B7 /* LICENCE.txt */; };
 		778E79C717B2377F00DC28B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E79B617B2377F00DC28B7 /* Reachability.m */; };
 		778E79C917B2377F00DC28B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778E79B817B2377F00DC28B7 /* README.md */; };
 		778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 778E7A6317B6414700DC28B7 /* StoreKit.framework */; };
 		778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */; };
 		779423E317BDDDFA00814D07 /* BRNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E217BDDDFA00814D07 /* BRNotification.m */; };
-		779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */; };
 		779423EC17BF559100814D07 /* BRChapterNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779423EB17BF559100814D07 /* BRChapterNameView.m */; };
-		7797535C17CEF521002B9743 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 7797535917CEF521002B9743 /* MBProgressHUD+Appearance.m */; };
-		7797535D17CEF521002B9743 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7797535B17CEF521002B9743 /* UIViewController+HUD.m */; };
 		7798E9B417CAE865000D3A51 /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7798E9B317CAE865000D3A51 /* Chapter.m */; };
 		779A5A8E17C0536700C865FE /* BookShelfHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779A5A8D17C0536700C865FE /* BookShelfHelpView.m */; };
 		779A5A9C17C0660C00C865FE /* help1_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A5A9017C0660C00C865FE /* help1_2@2x.png */; };
@@ -315,10 +324,6 @@
 		77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77B378DF17AB8EB400D8D63D /* FTBWKT.ttf */; };
 		77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77B378E017AB8EB400D8D63D /* FZLTHJW.ttf */; };
 		77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */; };
-		77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */; };
-		77B378F217ABE65200D8D63D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77B378EC17ABE65200D8D63D /* README.md */; };
-		77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378EE17ABE65200D8D63D /* UIColor+Hex.m */; };
-		77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B378FB17ABE96B00D8D63D /* ZBViewController.m */; };
 		77D0C5CC17C1A5E100228A70 /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 77D0C5C917C1A5E100228A70 /* iVersion.bundle */; };
 		77D0C5CD17C1A5E100228A70 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D0C5CB17C1A5E100228A70 /* iVersion.m */; };
 		77D0C5D917C24C3B00228A70 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D0C5D817C24C3A00228A70 /* Book.m */; };
@@ -595,14 +600,34 @@
 		18FD247B17B4D17700D11CCA /* discuss_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discuss_nor@2x.png"; sourceTree = "<group>"; };
 		18FD247C17B4D17700D11CCA /* discuss_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discuss_sel.png; sourceTree = "<group>"; };
 		18FD247D17B4D17700D11CCA /* discuss_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discuss_sel@2x.png"; sourceTree = "<group>"; };
-		7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
-		7704EFF417AE2370006F1E08 /* NSString+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZBUtilites.h"; sourceTree = "<group>"; };
-		7704EFF617AE2907006F1E08 /* ZBTextValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTextValidate.h; sourceTree = "<group>"; };
-		7704EFF717AE2907006F1E08 /* ZBTextValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTextValidate.m; sourceTree = "<group>"; };
 		774482A61764A58100802600 /* bookshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookshelf.png; sourceTree = "<group>"; };
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7786716C17E3E3C9001FDB67 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		7786716D17E3E3C9001FDB67 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		7786716E17E3E3C9001FDB67 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7786716F17E3E3C9001FDB67 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		7786719717E3E464001FDB67 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Appearance.h"; sourceTree = "<group>"; };
+		7786719817E3E464001FDB67 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Appearance.m"; sourceTree = "<group>"; };
+		7786719B17E3E464001FDB67 /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BundleExtensions.h"; sourceTree = "<group>"; };
+		7786719C17E3E464001FDB67 /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BundleExtensions.m"; sourceTree = "<group>"; };
+		7786719D17E3E464001FDB67 /* NSString+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZBUtilites.h"; sourceTree = "<group>"; };
+		7786719E17E3E464001FDB67 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
+		7786719F17E3E464001FDB67 /* QuietAssertMacros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = QuietAssertMacros.c; sourceTree = "<group>"; };
+		778671A017E3E464001FDB67 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		778671A117E3E464001FDB67 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		778671A217E3E464001FDB67 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		778671A317E3E464001FDB67 /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
+		778671A417E3E464001FDB67 /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
+		778671A517E3E464001FDB67 /* UIDevice+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+ZBUtilites.h"; sourceTree = "<group>"; };
+		778671A617E3E464001FDB67 /* UIDevice+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ZBUtilites.m"; sourceTree = "<group>"; };
+		778671A717E3E464001FDB67 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
+		778671A817E3E464001FDB67 /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
+		778671A917E3E464001FDB67 /* ZBTextValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBTextValidate.h; sourceTree = "<group>"; };
+		778671AA17E3E464001FDB67 /* ZBTextValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTextValidate.m; sourceTree = "<group>"; };
+		778671AB17E3E464001FDB67 /* ZBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBViewController.h; sourceTree = "<group>"; };
+		778671AC17E3E464001FDB67 /* ZBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBViewController.m; sourceTree = "<group>"; };
 		778E79A417B2377F00DC28B7 /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
 		778E79B517B2377F00DC28B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		778E79B617B2377F00DC28B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -612,14 +637,8 @@
 		778E7A6C17B7520F00DC28B7 /* BRWifiReminderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWifiReminderView.m; sourceTree = "<group>"; };
 		779423E117BDDDFA00814D07 /* BRNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNotification.h; sourceTree = "<group>"; };
 		779423E217BDDDFA00814D07 /* BRNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNotification.m; sourceTree = "<group>"; };
-		779423E717BF50EA00814D07 /* UIDevice+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+ZBUtilites.h"; sourceTree = "<group>"; };
-		779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+ZBUtilites.m"; sourceTree = "<group>"; };
 		779423EA17BF559100814D07 /* BRChapterNameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChapterNameView.h; sourceTree = "<group>"; };
 		779423EB17BF559100814D07 /* BRChapterNameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChapterNameView.m; sourceTree = "<group>"; };
-		7797535817CEF521002B9743 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Appearance.h"; sourceTree = "<group>"; };
-		7797535917CEF521002B9743 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Appearance.m"; sourceTree = "<group>"; };
-		7797535A17CEF521002B9743 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
-		7797535B17CEF521002B9743 /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		7798E9B217CAE865000D3A51 /* Chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chapter.h; sourceTree = "<group>"; };
 		7798E9B317CAE865000D3A51 /* Chapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chapter.m; sourceTree = "<group>"; };
 		779A5A8C17C0536700C865FE /* BookShelfHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookShelfHelpView.h; sourceTree = "<group>"; };
@@ -766,13 +785,6 @@
 		77B378E017AB8EB400D8D63D /* FZLTHJW.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FZLTHJW.ttf; sourceTree = "<group>"; };
 		77B378E317ABDD1800D8D63D /* NSUserDefaults+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+BookReader.h"; path = "../NSUserDefaults+BookReader.h"; sourceTree = "<group>"; };
 		77B378E417ABDD1800D8D63D /* NSUserDefaults+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+BookReader.m"; path = "../NSUserDefaults+BookReader.m"; sourceTree = "<group>"; };
-		77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BundleExtensions.h"; sourceTree = "<group>"; };
-		77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BundleExtensions.m"; sourceTree = "<group>"; };
-		77B378EC17ABE65200D8D63D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		77B378ED17ABE65200D8D63D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
-		77B378EE17ABE65200D8D63D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		77B378FA17ABE96B00D8D63D /* ZBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBViewController.h; sourceTree = "<group>"; };
-		77B378FB17ABE96B00D8D63D /* ZBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBViewController.m; sourceTree = "<group>"; };
 		77B4B46516B281EB00C5C7A0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		77D0C5C917C1A5E100228A70 /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
 		77D0C5CA17C1A5E100228A70 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
@@ -1117,6 +1129,44 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		7786716B17E3E3C9001FDB67 /* fishhook */ = {
+			isa = PBXGroup;
+			children = (
+				7786716C17E3E3C9001FDB67 /* fishhook.c */,
+				7786716D17E3E3C9001FDB67 /* fishhook.h */,
+				7786716E17E3E3C9001FDB67 /* LICENSE */,
+				7786716F17E3E3C9001FDB67 /* README.md */,
+			);
+			path = fishhook;
+			sourceTree = "<group>";
+		};
+		7786717317E3E3DC001FDB67 /* ZBUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				7786719717E3E464001FDB67 /* MBProgressHUD+Appearance.h */,
+				7786719817E3E464001FDB67 /* MBProgressHUD+Appearance.m */,
+				7786719B17E3E464001FDB67 /* NSString+BundleExtensions.h */,
+				7786719C17E3E464001FDB67 /* NSString+BundleExtensions.m */,
+				7786719D17E3E464001FDB67 /* NSString+ZBUtilites.h */,
+				7786719E17E3E464001FDB67 /* NSString+ZBUtilites.m */,
+				7786719F17E3E464001FDB67 /* QuietAssertMacros.c */,
+				778671A017E3E464001FDB67 /* README.md */,
+				778671A117E3E464001FDB67 /* UIColor+Hex.h */,
+				778671A217E3E464001FDB67 /* UIColor+Hex.m */,
+				778671A317E3E464001FDB67 /* UIColor+Random.h */,
+				778671A417E3E464001FDB67 /* UIColor+Random.m */,
+				778671A517E3E464001FDB67 /* UIDevice+ZBUtilites.h */,
+				778671A617E3E464001FDB67 /* UIDevice+ZBUtilites.m */,
+				778671A717E3E464001FDB67 /* UIViewController+HUD.h */,
+				778671A817E3E464001FDB67 /* UIViewController+HUD.m */,
+				778671A917E3E464001FDB67 /* ZBTextValidate.h */,
+				778671AA17E3E464001FDB67 /* ZBTextValidate.m */,
+				778671AB17E3E464001FDB67 /* ZBViewController.h */,
+				778671AC17E3E464001FDB67 /* ZBViewController.m */,
+			);
+			path = ZBUtilities;
+			sourceTree = "<group>";
+		};
 		778E799217B2377F00DC28B7 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -1153,10 +1203,11 @@
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7786717317E3E3DC001FDB67 /* ZBUtilities */,
+				7786716B17E3E3C9001FDB67 /* fishhook */,
 				77D0C5C817C1A5E100228A70 /* iVersion */,
 				18FD246317B37A8000D11CCA /* UMengSDK */,
 				778E799217B2377F00DC28B7 /* Reachability */,
-				77B378E617ABE65200D8D63D /* ZBUtilities */,
 				77A1DB961730DF9C002BE306 /* AFNetworking */,
 				77A1DBD91730DF9C002BE306 /* MagicalRecord */,
 				77A1DCED1730DF9D002BE306 /* MBProgressHUD */,
@@ -1370,30 +1421,6 @@
 			);
 			path = Fonts;
 			sourceTree = SOURCE_ROOT;
-		};
-		77B378E617ABE65200D8D63D /* ZBUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				7797535817CEF521002B9743 /* MBProgressHUD+Appearance.h */,
-				7797535917CEF521002B9743 /* MBProgressHUD+Appearance.m */,
-				7797535A17CEF521002B9743 /* UIViewController+HUD.h */,
-				7797535B17CEF521002B9743 /* UIViewController+HUD.m */,
-				779423E717BF50EA00814D07 /* UIDevice+ZBUtilites.h */,
-				779423E817BF50EA00814D07 /* UIDevice+ZBUtilites.m */,
-				7704EFF617AE2907006F1E08 /* ZBTextValidate.h */,
-				7704EFF717AE2907006F1E08 /* ZBTextValidate.m */,
-				77B378FA17ABE96B00D8D63D /* ZBViewController.h */,
-				77B378FB17ABE96B00D8D63D /* ZBViewController.m */,
-				77B378E817ABE65200D8D63D /* NSString+BundleExtensions.h */,
-				77B378E917ABE65200D8D63D /* NSString+BundleExtensions.m */,
-				7704EFF317AE2370006F1E08 /* NSString+ZBUtilites.m */,
-				7704EFF417AE2370006F1E08 /* NSString+ZBUtilites.h */,
-				77B378EC17ABE65200D8D63D /* README.md */,
-				77B378ED17ABE65200D8D63D /* UIColor+Hex.h */,
-				77B378EE17ABE65200D8D63D /* UIColor+Hex.m */,
-			);
-			path = ZBUtilities;
-			sourceTree = "<group>";
 		};
 		77D0C5C817C1A5E100228A70 /* iVersion */ = {
 			isa = PBXGroup;
@@ -1677,6 +1704,7 @@
 				18BA0AA8176FFE1600DFE9B3 /* bookstore_rank@2x.png in Resources */,
 				18BA0AA9176FFE1600DFE9B3 /* bookstore_reco_hl.png in Resources */,
 				18BA0AAA176FFE1600DFE9B3 /* bookstore_reco_hl@2x.png in Resources */,
+				7786717117E3E3C9001FDB67 /* LICENSE in Resources */,
 				18BA0AAB176FFE1600DFE9B3 /* bookstore_reco.png in Resources */,
 				18BA0AAC176FFE1600DFE9B3 /* bookstore_reco@2x.png in Resources */,
 				18BA0AAD176FFE1600DFE9B3 /* bookstore_search_hl.png in Resources */,
@@ -1688,6 +1716,8 @@
 				18BA0AC6177069F700DFE9B3 /* universal_btn_l.png in Resources */,
 				18BA0AC7177069F700DFE9B3 /* universal_btn_l@2x.png in Resources */,
 				18BA0AC8177069F700DFE9B3 /* universal_btn_r.png in Resources */,
+				778671B417E3E464001FDB67 /* README.md in Resources */,
+				7786717217E3E3C9001FDB67 /* README.md in Resources */,
 				18BA0AC9177069F700DFE9B3 /* universal_btn_r@2x.png in Resources */,
 				18BA0ACA177069F700DFE9B3 /* universal_btn@2x.png in Resources */,
 				18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */,
@@ -1764,7 +1794,6 @@
 				77B378DD17AB8E4700D8D63D /* BookDoc in Resources */,
 				77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */,
 				77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */,
-				77B378F217ABE65200D8D63D /* README.md in Resources */,
 				18FD244F17B237BF00D11CCA /* cancel_nor.png in Resources */,
 				18FD245017B237BF00D11CCA /* cancel_nor@2x.png in Resources */,
 				18FD245117B237BF00D11CCA /* cancel_sel.png in Resources */,
@@ -1858,11 +1887,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BDB0AC2165E03BB008F328A /* main.m in Sources */,
+				778671B117E3E464001FDB67 /* NSString+BundleExtensions.m in Sources */,
 				8BDB0AC6165E03BB008F328A /* AppDelegate.m in Sources */,
 				8BDB0B23165E04F2008F328A /* ReadStatusView.m in Sources */,
 				1888A39E16FD65960046DA4C /* BookStoreViewController.m in Sources */,
 				1888A3A116FD66530046DA4C /* MemberViewController.m in Sources */,
 				1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */,
+				778671B317E3E464001FDB67 /* QuietAssertMacros.c in Sources */,
 				1888A3AB16FFF52F0046DA4C /* BookShelfViewController.m in Sources */,
 				1888A3AE17000CE50046DA4C /* BookCell.m in Sources */,
 				1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */,
@@ -1917,7 +1948,10 @@
 				77A1DF7B1730DF9F002BE306 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				77A1DF7C1730DF9F002BE306 /* PSTCollectionView.m in Sources */,
 				77A1DF7D1730DF9F002BE306 /* PSTCollectionViewCell.m in Sources */,
+				778671B517E3E464001FDB67 /* UIColor+Hex.m in Sources */,
+				778671B617E3E464001FDB67 /* UIColor+Random.m in Sources */,
 				77A1DF7E1730DF9F002BE306 /* PSTCollectionViewController.m in Sources */,
+				778671B817E3E464001FDB67 /* UIViewController+HUD.m in Sources */,
 				77A1DF7F1730DF9F002BE306 /* PSTCollectionViewData.m in Sources */,
 				77A1DF801730DF9F002BE306 /* PSTCollectionViewFlowLayout.m in Sources */,
 				77A1DF811730DF9F002BE306 /* PSTCollectionViewItemKey.m in Sources */,
@@ -1941,37 +1975,35 @@
 				77E039FE173BE7260036614C /* SignUpViewController.m in Sources */,
 				779C6720174461DB00909D6A /* Book+Setup.m in Sources */,
 				779C6723174461F000909D6A /* Chapter+Setup.m in Sources */,
+				778671BA17E3E464001FDB67 /* ZBViewController.m in Sources */,
 				779C672C17446DCD00909D6A /* BRContextManager.m in Sources */,
 				18A0C6B0174CA043003FC599 /* CommentCell.m in Sources */,
+				778671B917E3E464001FDB67 /* ZBTextValidate.m in Sources */,
 				18A0C6B3174DEDAB003FC599 /* BRViewController.m in Sources */,
 				18A0C6B6174DF1E0003FC599 /* BRHeaderView.m in Sources */,
 				18A7FF42176087C900F97099 /* Book+Local.m in Sources */,
 				183CE5261783DD4800976DFB /* ChaptersViewController.m in Sources */,
 				188FD8BC17891C6E00EFF360 /* ChapterCell.m in Sources */,
+				778671AF17E3E464001FDB67 /* MBProgressHUD+Appearance.m in Sources */,
 				188FD8C1178AA7A800EFF360 /* BRLoginReminderView.m in Sources */,
+				778671B717E3E464001FDB67 /* UIDevice+ZBUtilites.m in Sources */,
 				188FD8C4178BA90200EFF360 /* BookMarkCell.m in Sources */,
 				184862FE1796535400282A6A /* BRNotificationView.m in Sources */,
 				18C12BC017A673A500206E93 /* PopLoginViewController.m in Sources */,
 				77B378D817AB81B900D8D63D /* Mark.m in Sources */,
 				77B378E517ABDD1800D8D63D /* NSUserDefaults+BookReader.m in Sources */,
-				77B378F017ABE65200D8D63D /* NSString+BundleExtensions.m in Sources */,
-				77B378F317ABE65200D8D63D /* UIColor+Hex.m in Sources */,
-				77B378FC17ABE96B00D8D63D /* ZBViewController.m in Sources */,
-				7704EFF517AE2370006F1E08 /* NSString+ZBUtilites.m in Sources */,
-				7704EFF817AE2907006F1E08 /* ZBTextValidate.m in Sources */,
+				778671B217E3E464001FDB67 /* NSString+ZBUtilites.m in Sources */,
 				18B39BAC17B067DF0092AC0A /* GiftButton.m in Sources */,
 				778E79C717B2377F00DC28B7 /* Reachability.m in Sources */,
 				18FD247117B3944600D11CCA /* WebViewController.m in Sources */,
 				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
+				7786717017E3E3C9001FDB67 /* fishhook.c in Sources */,
 				779423E317BDDDFA00814D07 /* BRNotification.m in Sources */,
-				779423E917BF50EA00814D07 /* UIDevice+ZBUtilites.m in Sources */,
 				779423EC17BF559100814D07 /* BRChapterNameView.m in Sources */,
 				779A5A8E17C0536700C865FE /* BookShelfHelpView.m in Sources */,
 				77D0C5CD17C1A5E100228A70 /* iVersion.m in Sources */,
 				77D0C5D917C24C3B00228A70 /* Book.m in Sources */,
 				7798E9B417CAE865000D3A51 /* Chapter.m in Sources */,
-				7797535C17CEF521002B9743 /* MBProgressHUD+Appearance.m in Sources */,
-				7797535D17CEF521002B9743 /* UIViewController+HUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

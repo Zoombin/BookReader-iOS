@@ -496,7 +496,7 @@
         [label setTitle:labelTitles[i] forState:UIControlStateNormal];
     }
 	
-    if ([book.bFinish isEqualToString:@"已完成"]) {
+    if ([book.bFinish isEqualToString:BOOK_FINISH_IDENTIFIER]) {
         [finishMark setHidden:NO];
     }
     
@@ -506,7 +506,7 @@
     
     [shortdescribeTextView setText:book.describe];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-    [shortdescribeTextView sizeToFit];
+		[shortdescribeTextView sizeToFit];
     } else {
         CGFloat height = shortdescribeTextView.contentSize.height;
         CGRect frame = CGRectMake(shortdescribeTextView.frame.origin.x, shortdescribeTextView.frame.origin.y, shortdescribeTextView.frame.size.width, height);

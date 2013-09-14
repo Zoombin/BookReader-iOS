@@ -19,3 +19,6 @@
 [submodule "Libraries/iVersion"]
 	path = Libraries/iVersion
 	url = https://qq30135878@github.com/nicklockwood/iVersion.git
+[submodule "Libraries/fishhook"]
+	path = Libraries/fishhook
+	url = https://qq30135878@github.com/qq30135878/fishhook.git

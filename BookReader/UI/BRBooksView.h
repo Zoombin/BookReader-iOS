@@ -15,7 +15,7 @@
 
 @protocol BRBooksViewDelegate <NSObject>
 - (void)booksView:(BRBooksView *)booksView tappedBookCell:(BRBookCell *)bookCell;
-- (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell;
+- (void)booksView:(BRBooksView *)booksView deleteBookCell:(BRBookCell *)bookCell;
 @end
 
 

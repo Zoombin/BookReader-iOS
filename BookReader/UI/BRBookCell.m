@@ -20,6 +20,7 @@
     UIImageView *updateMark;
     UIButton *nameLabel;
 	UIImageView *cover;
+	UIImageView *finishMark;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -36,10 +37,10 @@
 //        [self.contentView addSubview:selectedMark];
         
         deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [deleteButton setFrame:CGRectMake(0, 0, 25, 25)];
+        [deleteButton setFrame:CGRectMake(0, 0, 100, 100)];
         deleteButton.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
 		[deleteButton setImage:[UIImage imageNamed:@"localbook_filter_small_delete"] forState:UIControlStateNormal];
-        [deleteButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
+        [deleteButton addTarget:self action:@selector(deleteBook:) forControlEvents:UIControlEventTouchUpInside];
 		deleteButton.hidden = YES;
         [self.contentView addSubview:deleteButton];
         
@@ -76,10 +77,15 @@
         [nameLabel setBackgroundColor:[UIColor clearColor]];
         [nameLabel setAlpha:0.9];
         [self.contentView addSubview:nameLabel];
+		
+		finishMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+		finishMark.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
+		[finishMark setImage:[UIImage imageNamed:@"finish_mark"]];
+		finishMark.hidden = YES;
+		[self.contentView addSubview:finishMark];
 				
 //		self.autoBuy = NO;
 //		self.badge = 0;
-        self.bDelete = NO;
         self.bUpdate = NO;
 	}
 	return self;
@@ -112,6 +118,10 @@
     if (_book.hasNewChapters) {
 		self.bUpdate = _book.hasNewChapters;
     }
+	
+	if ([_book.bFinish isEqualToString:BOOK_FINISH_IDENTIFIER]) {
+		finishMark.hidden = NO;
+	}
 }
 
 - (void)setEditing:(BOOL)editing
@@ -148,8 +158,13 @@
 //}
 
 - (void)valueChanged:(id)sender {
-    self.bDelete = YES;
 	[_bookCellDelegate changedValueBookCell:self];
+}
+
+
+- (void)deleteBook:(id)sender
+{
+	[_bookCellDelegate deleteBook:self];
 }
 
 //- (void)setAutoBuy:(BOOL)onOrOff

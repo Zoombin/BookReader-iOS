@@ -17,15 +17,13 @@
 #import "BRBookCell.h"
 #import "BookDetailsViewController.h"
 #import "Reachability.h"
-#import "BRWifiReminderView.h"
 #import "BRNotification.h"
-#import "BookShelfHelpView.h"
 #import "BRContextManager.h"
 
 const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, BookShelfHelpViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 @end
 
 @implementation BookShelfViewController {
@@ -63,7 +61,6 @@ const NSUInteger numberOfBooksPerRow = 3;
     
 	
 	PSTCollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
-	layout.footerReferenceSize = CGSizeMake(fullSize.width, 100);
 	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
@@ -117,11 +114,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	[super viewDidAppear:animated];
 	syncTimeInterval = SHORT_SYNC_INTERVAL;
-	if (![ServiceManager hadLaunchedBefore]) {
-		[self helpDisplay];
-	} else {
-		[self formalDisplay];
-	}
+	[self formalDisplay];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -129,14 +122,14 @@ const NSUInteger numberOfBooksPerRow = 3;
 	syncTimeInterval = LONG_SYNC_INTERVAL;
 }
 
-- (void)helpDisplay
-{
-	BookShelfHelpView *helpView = [[BookShelfHelpView alloc] initWithFrame:self.view.bounds];
-	helpView.delegate = self;
-	[self.view addSubview:helpView];
-	booksForDisplay = [Book helpBooks];
-	[booksView reloadData];
-}
+//- (void)helpDisplay
+//{
+//	BookShelfHelpView *helpView = [[BookShelfHelpView alloc] initWithFrame:self.view.bounds];
+//	helpView.delegate = self;
+//	[self.view addSubview:helpView];
+//	booksForDisplay = [Book helpBooks];
+//	[booksView reloadData];
+//}
 
 - (void)formalDisplay
 {
@@ -240,8 +233,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 		syncing = NO;
 		[self refreshBooks];
 		[chapters removeAllObjects];
-		chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifiAvailable]] mutableCopy];
-		NSLog(@"find %d chapters need download content", chapters.count);
+		//chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifiAvailable]] mutableCopy];
+		//NSLog(@"find %d chapters need download content", chapters.count);
 		//[self syncChaptersContent];//关闭内容下载了
 		return;
 	}
@@ -401,7 +394,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	if (alertView == favAndAutoBuyAlert && buttonIndex != alertView.cancelButtonIndex) {
 		if (needFavAndAutoBuyBookCell) {
-			[self displayHUD:@"收藏并开启自动更新..."];
+			[self displayHUD:@"收藏..."];
 			[ServiceManager addFavoriteWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
 				if (success) {
 					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
@@ -428,7 +421,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 					}];
 				} else {
 					[self hideHUD:YES];
-					[self displayHUDError:@"错误" message:message];
+					[self displayHUDTitle:@"错误" message:message];
 				}
 			}];
 		}
@@ -453,7 +446,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		editing = NO;
 		[booksView reloadData];
     } else if (type.intValue == kHeaderViewButtonRefresh) {
-		[self displayHUD:@"开始自动更新..."];
+		[self displayHUD:@"加载中..."];
 		[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
 		if (!syncing) {
 			[self syncBooks];
@@ -494,67 +487,13 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 }
 
-- (void)booksView:(BRBooksView *)booksView changedValueBookCell:(BRBookCell *)bookCell
+- (void)booksView:(BRBooksView *)booksView deleteBookCell:(BRBookCell *)bookCell
 {
-    if (!bookCell.bDelete)
-    {
-        return;
-    }
-	Book *needRemoveBook = bookCell.book;
-	needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
-	if (needRemoveBook.bFav) {
-		[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
-			if (success) {
-				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
-					if (b) {
-						[b deleteInContext:localContext];
-					}
-				} completion:^(BOOL success, NSError *error) {
-					[self refreshBooks];
-				}];
-			} else {
-				[self refreshBooks];
-			}
-		}];
-	} else {
-		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
-			if (b) {
-				[b deleteInContext:localContext];
-			}
-		} completion:^(BOOL success, NSError *error) {
-			[self refreshBooks];
-		}];
-	}
-//	if (![ServiceManager isSessionValid]) {
-//		[self displayHUDError:nil message:@"您尚未登录不能进行此操作"];
-//		return;
-//	}
-//
-//	if (!bookCell.book.bFav) {
-//		needFavAndAutoBuyBookCell = bookCell;
-//		favAndAutoBuyAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"您尚未收藏本书，开启自动更新需要收藏此书！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"收藏并开启", nil];
-//		[favAndAutoBuyAlert show];
-//		return;
-//	}
-	
-//	BOOL shiftToOnOrOff = !bookCell.autoBuy;
-//	NSString *message = shiftToOnOrOff ? @"开启自动更新..." : @"关闭自动更新...";
-//    [self displayHUD:message];
-//	[ServiceManager autoSubscribeWithBookID:bookCell.book.uid On:shiftToOnOrOff withBlock:^(BOOL success, NSError *error) {
-//		[self hideHUD:YES];
-//		if (success) {
-//			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//				Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
-//				b.autoBuy = @(shiftToOnOrOff);
-//			} completion:^(BOOL success, NSError *error) {
-//				[self refreshBooks];
-//			}];
-//		} else {
-//			[self refreshBooks];
-//		}
-//	}];
+	Book *needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid];
+	if (!needRemoveFavoriteBooks) needRemoveFavoriteBooks = [NSMutableArray array];
+	[needRemoveFavoriteBooks addObject:needRemoveBook];
+	[self displayHUD:@"正在删除..."];
+	[self syncRemoveFav];
 }
 
 - (NSNumber *)numberOfRows
@@ -590,10 +529,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	
 	if ([kind isEqualToString:PSTCollectionElementKindSectionHeader]) {
 		identifier = collectionHeaderViewIdentifier;
-	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
-		identifier = collectionFooterViewIdentifier;
-        return nil;
 	}
+
     PSTCollectionReusableView *supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 	if ([supplementaryView isKindOfClass:[BRNotificationView class]]) {
 		BRNotificationView *notificationView = (BRNotificationView *)supplementaryView;
@@ -645,22 +582,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (void)willClose
 {
 	[booksView reloadData];
-}
-
-#pragma mark - BookShelfHelpViewDelegate
-
-- (void)willAppearSecondHelpView
-{
-	editing = YES;
-	[booksView reloadData];
-}
-
-- (void)willDismiss
-{
-	booksForDisplay = nil;
-	editing = NO;
-	[booksView reloadData];
-	[self formalDisplay];
 }
 
 
