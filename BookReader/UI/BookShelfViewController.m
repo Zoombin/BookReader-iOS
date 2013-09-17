@@ -136,6 +136,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED_BEFORE];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		[self recommendBooks:^(void) {
+			[self refreshBooks];
 			[self startSync];
 		}];
     } else {
@@ -204,6 +205,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 					books = [resultArray mutableCopy];
 					[Book persist:books withBlock:^(void) {
 						books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
+						[self refreshBooks];
 						//[self syncChapters];
 					}];
 				}];
@@ -211,6 +213,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		}];
 	} else {
 		books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
+		[self refreshBooks];
 		//[self syncChapters];
 	}
 }
