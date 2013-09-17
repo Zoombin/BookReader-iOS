@@ -34,7 +34,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BOOL editing;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *favAndAutoBuyAlert;
-	BOOL syncing;
+	//BOOL syncing;
 	NSMutableArray *booksStandViews;
 	CGFloat standViewsDistance;
 
@@ -192,7 +192,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	if (stopAllSync) return;
 	if ([ServiceManager isSessionValid]) {
-		syncing = YES;
+		//syncing = YES;
 		NSLog(@"start snyc books");
 		[ServiceManager userBooksWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 			if (success) {
@@ -223,7 +223,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if (stopAllSync) return;
 	if (!books.count) {
 		NSLog(@"sync chapters finished");
-		syncing = NO;
+		//syncing = NO;
 		[self refreshBooks];
 		[chapters removeAllObjects];
 		//chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifiAvailable]] mutableCopy];
@@ -238,7 +238,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[self syncChapters];
 		return;
 	}
-	syncing = YES;
+	//syncing = YES;
 	
 	[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 		if (success) {
@@ -274,7 +274,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	if (stopAllSync) return;
 	if (!chapters.count) {
-		syncing = NO;
+		//syncing = NO;
 		NSLog(@"sync chapter content finished");
 		[chapters removeAllObjects];
 		chapters = [[Chapter chaptersNeedSubscribe] mutableCopy];
@@ -285,7 +285,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	
 	Chapter *chapter = chapters[0];
 	//NSLog(@"fetch chapter: %@", chapter);
-	syncing = YES;
+	//syncing = YES;
 	
 	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
 		if (success) {
@@ -313,12 +313,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if (stopAllSync) return;
 	if (!chapters.count) {
 		NSLog(@"subscribe chapters finished");
-		syncing = NO;
+		//syncing = NO;
 		return;
 	}
 	
 	Chapter *chapter = chapters[0];
-	syncing = YES;
+	//syncing = YES;
 	
 	Book *book = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
 	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
