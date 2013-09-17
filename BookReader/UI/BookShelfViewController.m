@@ -149,7 +149,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:NEED_REFRESH_BOOKSHELF]) {
 		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NEED_REFRESH_BOOKSHELF];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[self performSelector:@selector(startSync) withObject:nil afterDelay:6 * 60 * 60];//sync every 6 hours if app keep running
 		[self syncBooks];
 	}
 }
