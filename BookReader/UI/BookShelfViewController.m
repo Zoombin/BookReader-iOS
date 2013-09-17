@@ -475,10 +475,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		} else {
 			[self displayHUD:@"获取章节目录..."];
 			[ServiceManager bookCatalogueList:bookCell.book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
-				[self hideHUD:YES];
 				if (success) {
-					
-					
 					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 						Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
 						if (b) {
@@ -493,6 +490,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 						}
 					} completion:^(BOOL success, NSError *error) {
 						[Chapter persist:resultArray withBlock:^(void) {
+							[self hideHUD:YES];
 							CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 							controller.chapter = [Chapter lastReadChapterOfBook:bookCell.book];
 							controller.chapters = resultArray;
