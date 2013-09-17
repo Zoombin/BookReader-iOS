@@ -83,6 +83,7 @@
     [refreshButton setImage:[UIImage imageNamed:@"refresh_btn"] forState:UIControlStateNormal];
     [refreshButton addTarget:self action:@selector(uButtonClick) forControlEvents:UIControlEventTouchUpInside];
 	refreshButton.showsTouchWhenHighlighted = YES;
+	refreshButton.hidden = YES;
     [self addSubview:refreshButton];
     
      finishBtn = [UIButton addButtonWithFrame:FINISH_BUTTON_FRAME andStyle:BookReaderButtonStyleNormal];
@@ -102,7 +103,7 @@
     [finishBtn setHidden:YES];
 //    [deleteButton setHidden:YES];
     [bookStoreBtn setHidden:NO];
-    [refreshButton setHidden:NO];
+    [refreshButton setHidden:YES];
     [memberBtn setHidden:NO];
     [editBtn setHidden:NO];
 }
@@ -145,7 +146,7 @@
     [finishBtn setHidden:YES];
 //    [deleteButton setHidden:YES];
     [bookStoreBtn setHidden:NO];
-    [refreshButton setHidden:NO];
+    [refreshButton setHidden:YES];
     [memberBtn setHidden:NO];
     [editBtn setHidden:NO];
     [self invokeDelegateMethod:kHeaderViewButtonFinishEditing];

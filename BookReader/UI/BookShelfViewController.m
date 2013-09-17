@@ -440,15 +440,16 @@ const NSUInteger numberOfBooksPerRow = 3;
     } else if (type.intValue == kHeaderViewButtonFinishEditing) {
 		editing = NO;
 		[booksView reloadData];
-    } else if (type.intValue == kHeaderViewButtonRefresh) {
-		[self displayHUD:@"加载中..."];
-		[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
-		if (!syncing) {
-			[self syncBooks];
-		} else {
-			NSLog(@"already syncing");
-		}		
     }
+//	else if (type.intValue == kHeaderViewButtonRefresh) {
+//		[self displayHUD:@"加载中..."];
+//		[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
+//		if (!syncing) {
+//			[self syncBooks];
+//		} else {
+//			NSLog(@"already syncing");
+//		}		
+//    }
 }
 
 - (void)dismissHUD
