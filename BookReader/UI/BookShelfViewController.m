@@ -473,7 +473,37 @@ const NSUInteger numberOfBooksPerRow = 3;
 			controller.chapter = chapter;
 			[self.navigationController pushViewController:controller animated:YES];
 		} else {
-			NSLog(@"未找到应该阅读的章节");
+			[self displayHUD:@"获取章节目录..."];
+			[ServiceManager bookCatalogueList:bookCell.book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+				[self hideHUD:YES];
+				if (success) {
+					
+					
+					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+						Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
+						if (b) {
+							if (forbidden) {
+								[b deleteInContext:localContext];
+							} else {
+								b.nextUpdateTime = nextUpdateTime;
+								NSUInteger newChaptersCount = resultArray.count;
+								NSUInteger allUnreaderChaptersCount = newChaptersCount + b.numberOfUnreadChapters.integerValue;
+								b.numberOfUnreadChapters = @(allUnreaderChaptersCount);
+							}
+						}
+					} completion:^(BOOL success, NSError *error) {
+						[Chapter persist:resultArray withBlock:^(void) {
+							CoreTextViewController *controller = [[CoreTextViewController alloc] init];
+							controller.chapter = [Chapter lastReadChapterOfBook:bookCell.book];
+							controller.chapters = resultArray;
+							controller.previousViewController = self;
+							[self.navigationController pushViewController:controller animated:YES];
+						}];
+					}];
+				} else {
+					[self displayHUDTitle:@"无法阅读" message:@"获取章节目录错误"];
+				}
+			}];
 		}
 	}
 }
