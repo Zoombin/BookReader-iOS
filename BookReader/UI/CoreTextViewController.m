@@ -134,17 +134,42 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		_chapters = [Chapter allChaptersOfBookID:_chapter.bid];
 	}
 	[self gotoChapter:_chapter withReadIndex:nil];
+	
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChapters) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)updateChapters
+{
+	Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+	if ([book needUpdate]) {
+		[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+			if (success) {
+				
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+					if (b) {
+						if (forbidden) {
+							[b deleteInContext:localContext];
+						} else {
+							b.nextUpdateTime = nextUpdateTime;
+						}
+					}
+				} completion:^(BOOL success, NSError *error) {
+					[Chapter persist:resultArray withBlock:nil];
+				}];
+			}
+		}];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	//NSLog(@"start to read chapter: %@", _chapter);
 	pageCurlType = nil;
 	
 	if (firstAppear) {
-		
-		
+		[self updateChapters];
 	}
 	
     if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
