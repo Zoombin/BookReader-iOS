@@ -205,18 +205,20 @@ const NSUInteger numberOfBooksPerRow = 3;
 					books = [resultArray mutableCopy];
 					[Book persist:books withBlock:^(void) {
 						books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
-						[self syncChapters];
+						//[self syncChapters];
 					}];
 				}];
 			}
 		}];
 	} else {
 		books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
-		[self syncChapters];
+		//[self syncChapters];
 	}
 }
 
-- (void)syncChapters
+
+//现在书架不用更新章节列表了
+- (void)syncChapters __deprecated
 {
 	if (stopAllSync) return;
 	if (!books.count) {
