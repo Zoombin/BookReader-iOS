@@ -161,7 +161,6 @@
     if (!chapterArray.count) {
 		[self getChaptersDataWithBlock:^(void) {
 			[chapterListTableView reloadData];
-			
 		}];
     }
 }
@@ -525,8 +524,8 @@
 	
 	//lastChapterID = 0获取全部章节
 	[ServiceManager bookCatalogueList:book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+		[self hideHUD:YES];
 		if (success) {
-            [self hideHUD:YES];
 			chapterArray = [resultArray mutableCopy];
 			if (block) block();
 		} else {
@@ -547,7 +546,6 @@
 				chapterShouldRead = chapterArray[0];
 			}
 			[chapterListTableView reloadData];
-			[self hideHUD:YES];
 			[self pushToReadViewWithChapter:chapterShouldRead];
         }];
     }
@@ -677,6 +675,7 @@
 
 - (void)pushToReadViewWithChapter:(Chapter *)chapter
 {
+	[self displayHUD:@"加载中..."];
 	[book persistWithBlock:^(void) {
 		Chapter *c = chapter;
 		if (!c) {
@@ -687,6 +686,7 @@
 			}
 		}
 		
+		[self hideHUD:YES];
 		CoreTextViewController *controller = [[CoreTextViewController alloc] init];
 		controller.chapter = c;
 		controller.chapters = chapterArray;
