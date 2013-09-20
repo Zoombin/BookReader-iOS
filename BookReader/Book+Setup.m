@@ -142,7 +142,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"(uid: %@, name: %@)", self.uid, self.name];
+	return [NSString stringWithFormat:@"<uid: %@, name: %@>", self.uid, self.name];
 }
 
 - (void)truncate
