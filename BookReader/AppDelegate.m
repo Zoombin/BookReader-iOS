@@ -24,7 +24,11 @@
 
 - (void)testApis
 {
-
+	
+	//<uid: 472523, name: 天价傻妃:娶一送一>
+//	[ServiceManager getDownChapterList:@"472523" andUserid:@"2797792" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+//		
+//	}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -39,7 +43,7 @@
 //	[ServiceManager saveUserID:@(5639348)];//ton of fav books
 //	[ServiceManager login];
 	
-//	[self testApis];
+	[self testApis];
 
 
 	
