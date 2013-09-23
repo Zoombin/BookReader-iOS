@@ -9,11 +9,5 @@
 #import "BRComment.h"
 
 @implementation BRComment
-@synthesize bookID;
-@synthesize content;
-@synthesize commentID;
-@synthesize insertTime;
-@synthesize uid;
-@synthesize userName;
 
 @end
