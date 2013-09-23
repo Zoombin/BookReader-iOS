@@ -495,6 +495,7 @@ static NSNumber *sUserID;
                 commit.insertTime = tmpDict[@"insertTime"];
                 commit.uid = tmpDict[@"userId"];
                 commit.userName = tmpDict[@"userName"];
+				commit.authorReply = tmpDict[@"authorReply"];
                 [commentArray addObject:commit];
             }
         }

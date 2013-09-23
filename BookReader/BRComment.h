@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *insertTime;
+@property (nonatomic, strong) NSString *authorReply;
 
 @end

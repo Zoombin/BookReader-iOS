@@ -13,7 +13,8 @@
 @implementation NSString (XXSY)
 - (NSString *)XXSYHandleRedundantTags
 {
-	return [self stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
+	NSString *replaced = [self stringByReplacingOccurrencesOfString:@"<p>" withString:@"\n"];
+	return [replaced stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
 }
 
 - (NSString *)XXSYDecoding
