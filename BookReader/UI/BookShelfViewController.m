@@ -600,5 +600,4 @@ const NSUInteger numberOfBooksPerRow = 3;
 	[booksView reloadData];
 }
 
-
 @end

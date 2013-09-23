@@ -661,61 +661,55 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)resetScreenToVer
 {
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        [self changedWithOrientation:UIInterfaceOrientationPortrait];
-    }
+	[self changeToOrientation:UIInterfaceOrientationPortrait];
+	
     if (currentChapterString) {
         [self paging];
         [self updateCurrentPageContent];
     }
-    menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
-    nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
+    menuRect = CGRectMake(self.view.bounds.size.width/3, self.view.bounds.size.height/4, self.view.bounds.size.width/3, self.view.bounds.size.height/2);
+    nextRect = CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height);
 }
 
 - (void)orientationButtonClicked
 {
-    NSLog(@"----%@----",isLandscape ? @"横屏变竖屏" : @"竖屏变横屏");
+    NSLog(@"----%@----", isLandscape ? @"横屏变竖屏" : @"竖屏变横屏");
 	isLandscape = !isLandscape;
-	UIInterfaceOrientationMask orientationMask = UIInterfaceOrientationMaskPortrait;
-	UIInterfaceOrientation orientation = UIInterfaceOrientationPortrait;
-	NSString *defaultValue = UserDefaultScreenPortrait;
-	if (isLandscape) {
-		orientationMask = UIInterfaceOrientationMaskLandscapeRight;
-		orientation = UIInterfaceOrientationLandscapeRight;
-		defaultValue = UserDefaultScreenLandscape;
-	}
+	UIInterfaceOrientation orientation = isLandscape ? UIInterfaceOrientationLandscapeRight :UIInterfaceOrientationPortrait;
+	[self changeToOrientation:orientation];
 	
-	if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-		[self changedWithOrientation:orientation];
-	}
-	
-	[NSUserDefaults brSetObject:defaultValue ForKey:UserDefaultKeyScreen];
+	NSString *value = isLandscape ? UserDefaultScreenLandscape : UserDefaultScreenPortrait;
+	[NSUserDefaults brSetObject:value ForKey:UserDefaultKeyScreen];
 
 	if (currentChapterString) {
 		[self paging];
 		[self updateCurrentPageContent];
 	}
 	
-    menuRect = CGRectMake(self.view.frame.size.width/3, self.view.frame.size.height/4, self.view.frame.size.width/3, self.view.frame.size.height/2);
-    nextRect = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height);
+    menuRect = CGRectMake(self.view.bounds.size.width/3, self.view.bounds.size.height/4, self.view.bounds.size.width/3, self.view.bounds.size.height/2);
+    nextRect = CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height);
     NSNumber *colorIdx = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
     [self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:colorIdx.intValue]];
 }
 
-- (void)changedWithOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+- (void)changeToOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    SEL selector = NSSelectorFromString(@"setOrientation:");
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-    [invocation setSelector:selector];
-    [invocation setTarget:[UIDevice currentDevice]];
-    int val = toInterfaceOrientation;
-    [invocation setArgument:&val atIndex:2];
-    [invocation invoke];
+	[[UIApplication sharedApplication] setStatusBarOrientation:toInterfaceOrientation];
+	NSInteger factor = 1;
+	if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+		factor = 0;
+	}
+	self.view.transform = CGAffineTransformMakeRotation(M_PI/2 * factor);
+	if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+		self.view.bounds = CGRectMake(0, 0, fullSize.width, fullSize.height);
+	} else {
+		self.view.bounds = CGRectMake(0, 0, fullSize.height, fullSize.width);
+	}
 }
 
 - (void)showLoginAlert
 {
-	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
 }
@@ -731,5 +725,15 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+- (BOOL)shouldAutorotate
+{
+	return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+	return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 @end
