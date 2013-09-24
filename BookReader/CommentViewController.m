@@ -9,65 +9,68 @@
 #import "CommentViewController.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
+#import "UIColor+BookReader.h"
 
 @implementation CommentViewController {
     UITextView *textView;
     UIView *backgroundView;
+	CGRect _frame;
 }
 
-- (id)init
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super init];
-    if (self) {
-        _bookId = @"";
-        // Custom initialization
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		_frame = frame;
+	}
+	return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.5]];
-	// Do any additional setup after loading the view.
-    [self showCommentView];
-}
-
-- (void)showCommentView
-{
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(10, 150, 300, 170)];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:175.0/255.0 green:88.0/255.0 blue:42.0/255.0 alpha:1.0]];
+	
+	self.view.frame = _frame;
+	
+    [self.view setBackgroundColor:[UIColor semitransparentBackgroundColor]];
+	
+    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, _frame.size.width - 2 * 10, 170)];
+    [backgroundView setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
+	backgroundView.layer.cornerRadius = 10;
     [self.view addSubview:backgroundView];
     
-    UIImageView *headerView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, backgroundView.frame.size.width, 40)];
-    [headerView setImage:[UIImage imageNamed:@"comment_header"]];
-    [backgroundView addSubview:headerView];
-    
-    UIView *middleBkg = [[UIView alloc] initWithFrame:CGRectMake(1, CGRectGetMaxY(headerView.frame), backgroundView.frame.size.width - 1 * 2, backgroundView.frame.size.height - 40 - 1)];
-    [middleBkg setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
-    [backgroundView addSubview:middleBkg];
-    
-    UIImageView *textViewBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(headerView.bounds) + 5, backgroundView.bounds.size.width - 40, 80)];
+	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(backgroundView.frame), 40)];
+	titleLabel.font = [UIFont systemFontOfSize:22];
+	titleLabel.backgroundColor = [UIColor clearColor];
+	titleLabel.textColor = [UIColor blackColor];
+	titleLabel.textAlignment = NSTextAlignmentCenter;
+	titleLabel.text = @"我要评论";
+	[backgroundView addSubview:titleLabel];
+	
+    UIImageView *textViewBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 40, backgroundView.bounds.size.width - 40, 80)];
     [textViewBackgroundView setImage:[UIImage imageNamed:@"dis_bg"]];
     [backgroundView addSubview:textViewBackgroundView];
     
-     textView = [[UITextView alloc] initWithFrame:textViewBackgroundView.frame];
+	textView = [[UITextView alloc] initWithFrame:textViewBackgroundView.frame];
     [textView setBackgroundColor:[UIColor clearColor]];
+	textView.font = [UIFont systemFontOfSize:18];
     [backgroundView addSubview:textView];
     
     UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [sendBtn setFrame:CGRectMake(20, CGRectGetMaxY(textView.frame) + 7.5, 100, 30)];
-    [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [sendBtn setBackgroundImage:[UIImage imageNamed:@"discuss_nor"] forState:UIControlStateNormal];
-    [sendBtn setBackgroundImage:[UIImage imageNamed:@"discuss_sel"] forState:UIControlStateHighlighted];
+    [sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [sendBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
+    [sendBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
+	[sendBtn setTitle:@"评论" forState:UIControlStateNormal];
     [sendBtn addTarget:self action:@selector(sendCommentMessage) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:sendBtn];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(textView.frame) - 100, CGRectGetMinY(sendBtn.frame), 100, 30)];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"cancel_nor"] forState:UIControlStateNormal];
-    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"cancel_sel"] forState:UIControlStateHighlighted];
+    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
+    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
+	[cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:cancelBtn];
 }

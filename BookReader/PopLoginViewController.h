@@ -17,10 +17,10 @@
 
 @interface PopLoginViewController : ZBViewController
 
-- (id)initWithFrame:(CGRect)frame;
-
 @property (nonatomic, weak) id<PopLoginViewControllerDelegate> delegate;
 @property (nonatomic, assign) SEL actionAfterLogin;
 @property (nonatomic, assign) SEL actionAfterCancel;
+
+- (id)initWithFrame:(CGRect)frame;
 
 @end

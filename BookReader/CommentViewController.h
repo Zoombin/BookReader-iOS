@@ -11,4 +11,7 @@
 @interface CommentViewController : UIViewController
 
 @property (nonatomic, strong) NSString *bookId;
+
+- (id)initWithFrame:(CGRect)frame;
+
 @end

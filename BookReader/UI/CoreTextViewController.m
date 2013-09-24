@@ -621,8 +621,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self showLoginAlert];
         return;
     }
-     commentViewController = [[CommentViewController alloc] init];
-    [commentViewController.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+     commentViewController = [[CommentViewController alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     commentViewController.bookId = _chapter.bid;
     [self.view addSubview:commentViewController.view];
 }
