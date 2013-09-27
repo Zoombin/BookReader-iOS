@@ -26,9 +26,9 @@
 {
 	
 	//<uid: 472523, name: 天价傻妃:娶一送一>
-//	[ServiceManager getDownChapterList:@"472523" andUserid:@"2797792" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
-//		
-//	}];
+	[ServiceManager getDownChapterList:@"472523" andUserid:@"2797792" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+		
+	}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

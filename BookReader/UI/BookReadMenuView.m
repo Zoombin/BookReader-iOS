@@ -53,6 +53,8 @@
     
     UIButton *realPageButton;
     UIButton *simplePageButton;
+	
+	UIButton *addFavButton;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -503,49 +505,103 @@
 
 - (void)initNavigationView
 {
-    float screenWidth = self.bounds.size.width;
-    float screenHeight = self.bounds.size.height;
+    CGFloat screenWidth = self.bounds.size.width;
+    CGFloat screenHeight = self.bounds.size.height;
+	
     navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 3, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3), screenWidth / 3, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3))];
     [navigationView setHidden:YES];
     [navigationView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
 	navigationView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [self addSubview:navigationView];
-    
+	
+	NSUInteger numberOfButtons = 4;
+	CGSize buttonSize = CGSizeMake(navigationView.frame.size.width, navigationView.frame.size.height / numberOfButtons);
+	CGRect buttonFrame = CGRectMake(0, 0, buttonSize.width, buttonSize.height);
+	
     UIButton *backToBookShelf = [UIButton buttonWithType:UIButtonTypeCustom];
     [backToBookShelf setTitle:@"返回书架" forState:UIControlStateNormal];
-    [backToBookShelf setFrame:CGRectMake(5, 0, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
+	backToBookShelf.frame = buttonFrame;
     [backToBookShelf addTarget:self action:@selector(bookShelfButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [backToBookShelf setShowsTouchWhenHighlighted:YES];
     [backToBookShelf.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [backToBookShelf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [navigationView addSubview:backToBookShelf];
     
-    UIView *speateLine1 = [[UIView alloc] initWithFrame:CGRectMake(2, CGRectGetMaxY(backToBookShelf.frame) - 2, navigationView.bounds.size.width - 4, 1)];
-    [speateLine1 setBackgroundColor:[UIColor whiteColor]];
-    [navigationView addSubview:speateLine1];
+	buttonFrame.origin.y = CGRectGetMaxY(backToBookShelf.frame);
+	
+	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(backToBookShelf.frame), buttonSize.width, 1)]];
     
     UIButton *backToBookStore = [UIButton buttonWithType:UIButtonTypeCustom];
     [backToBookStore setTitle:@"返回书城" forState:UIControlStateNormal];
-    [backToBookStore setFrame:CGRectMake(5, 0 + (navigationView.frame.size.height/3) * 1, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
+	backToBookStore.frame = buttonFrame;
     [backToBookStore addTarget:self action:@selector(bookStoreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [backToBookStore setShowsTouchWhenHighlighted:YES];
     [backToBookStore.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [backToBookStore setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [navigationView addSubview:backToBookStore];
-    
-    UIView *speateLine2 = [[UIView alloc] initWithFrame:CGRectMake(2, CGRectGetMaxY(backToBookStore.frame) - 2, navigationView.bounds.size.width - 4, 1)];
-    [speateLine2 setBackgroundColor:[UIColor whiteColor]];
-    [navigationView addSubview:speateLine2];
+	
+	buttonFrame.origin.y = CGRectGetMaxY(backToBookStore.frame);
+	
+	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(backToBookStore.frame), buttonSize.width, 1)]];
     
     UIButton *backToBookDetail = [UIButton buttonWithType:UIButtonTypeCustom];
     [backToBookDetail setTitle:@"返回书籍详情" forState:UIControlStateNormal];
-    [backToBookDetail setFrame:CGRectMake(5, 0 + (navigationView.frame.size.height/3) * 2, navigationView.frame.size.width - 10, navigationView.frame.size.height / 3)];
+	backToBookDetail.frame = buttonFrame;
     [backToBookDetail addTarget:self action:@selector(bookDetailButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [backToBookDetail setShowsTouchWhenHighlighted:YES];
     [backToBookDetail.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [backToBookDetail setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [navigationView addSubview:backToBookDetail];
-    
+	
+	buttonFrame.origin.y = CGRectGetMaxY(backToBookDetail.frame);
+	
+	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(backToBookDetail.frame), buttonSize.width, 1)]];
+	
+	addFavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addFavButton setTitle:@"加入收藏" forState:UIControlStateNormal];
+    addFavButton.frame = buttonFrame;
+    [addFavButton addTarget:self action:@selector(addFavButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [addFavButton setShowsTouchWhenHighlighted:YES];
+    [addFavButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [addFavButton setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:addFavButton];
+	
+	if (_favorited) {
+		[self disableAddFavButton];
+	}
+}
+
+- (UIView *)separateLineWithFrame:(CGRect)frame
+{
+	UIView *separateLine = [[UIView alloc] initWithFrame:frame];
+	[separateLine setBackgroundColor:[UIColor whiteColor]];
+	return separateLine;
+}
+
+- (void)addFavButtonClicked:(UIButton *)sender
+{
+	if (_favorited) {
+		return;
+	}
+	if ([self.delegate respondsToSelector:@selector(willAddFav)]) {
+        [self.delegate willAddFav];
+    }
+}
+
+- (void)setFavorited:(BOOL)favorited
+{
+	_favorited = favorited;
+	if (_favorited) {
+		[self disableAddFavButton];
+	}
+}
+
+- (void)disableAddFavButton
+{
+	if (addFavButton) {
+		[addFavButton setTitle:@"已收藏" forState:UIControlStateNormal];
+		[addFavButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+	}
 }
 
 - (void)bookShelfButtonClicked

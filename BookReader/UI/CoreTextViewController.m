@@ -142,6 +142,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)updateChapters
 {
 	Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+	
+	if (menuView) {
+		menuView.favorited = book.bFav.boolValue;
+	}
+	
 	if ([book needUpdate]) {
 		[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 			if (success) {
@@ -244,8 +249,28 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}];
 }
 
-#pragma mark-
-#pragma mark MenuView Delegate
+#pragma mark - MenuView Delegate
+
+- (void)willAddFav
+{
+	if (![ServiceManager isSessionValid]) {
+		[self displayHUDTitle:@"登录后才能收藏" message:nil];
+		return;
+	};
+
+	Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+	if (book) {
+		[ServiceManager addFavoriteWithBookID:book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
+			if (success) {
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					book.bFav = @(YES);
+				}];
+				menuView.favorited = YES;
+			}
+		}];
+	}
+}
+
 - (void)brightChanged:(UISlider *)slider
 {
 	[NSUserDefaults brSetObject:@(slider.value) ForKey:UserDefaultKeyBright];

@@ -29,17 +29,19 @@
 - (void)northFont;
 - (void)brightChanged:(id)sender;
 - (void)backgroundColorChanged:(NSInteger)index;
+- (void)willAddFav;
 - (void)bookDetailButtonClick;
 - (void)realPaging;
 - (void)simplePaging;
 
 @end
 
-@interface BookReadMenuView : UIView<UIScrollViewDelegate>
+@interface BookReadMenuView : UIView
 
 @property (nonatomic, weak) id<BookReadMenuViewDelegate> delegate;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *fontButonMin;
+@property (nonatomic, assign) BOOL favorited;
 - (void)hidenAllMenu;
 
 @end

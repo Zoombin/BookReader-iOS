@@ -774,7 +774,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == infoTableView||tableView == shortInfoTableView){
+    if (tableView == infoTableView || tableView == shortInfoTableView){
         CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell height];
     } else {
