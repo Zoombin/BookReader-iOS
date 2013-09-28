@@ -33,7 +33,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BOOL editing;
 	NSMutableArray *needRemoveFavoriteBooks;
 	UIAlertView *favAndAutoBuyAlert;
-	//BOOL syncing;
 	NSMutableArray *booksStandViews;
 	CGFloat standViewsDistance;
 
@@ -176,7 +175,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	if (stopAllSync) return;
 	if ([ServiceManager isSessionValid]) {
-		//syncing = YES;
 		NSLog(@"start snyc books");
 		[ServiceManager userBooksWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 			if (success) {
@@ -190,7 +188,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 					[Book persist:books withBlock:^(void) {
 						books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
 						[self refreshBooks];
-						//[self syncChapters];
 					}];
 				}];
 			}
@@ -198,135 +195,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	} else {
 		books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
 		[self refreshBooks];
-		//[self syncChapters];
 	}
 }
-
-
-//现在书架不用更新章节列表了
-- (void)syncChapters __deprecated
-{
-	if (stopAllSync) return;
-	if (!books.count) {
-		NSLog(@"sync chapters finished");
-		//syncing = NO;
-		[self refreshBooks];
-		[chapters removeAllObjects];
-		//chapters = [[Chapter chaptersNeedFetchContentWhenWifiReachable:[self isWifiAvailable]] mutableCopy];
-		//NSLog(@"find %d chapters need download content", chapters.count);
-		//[self syncChaptersContent];//关闭内容下载了
-		return;
-	}
-	
-	Book *book = books[0];
-	if (![book needUpdate]) {
-		[books removeObject:book];
-		[self syncChapters];
-		return;
-	}
-	//syncing = YES;
-	
-	[ServiceManager getDownChapterList:book.uid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
-		if (success) {
-			//NSLog(@"get chapter list of book: %@", book);
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
-				if (b) {
-					if (forbidden) {
-						[b deleteInContext:localContext];
-					} else {
-						b.nextUpdateTime = nextUpdateTime;
-						NSUInteger newChaptersCount = resultArray.count;
-						NSUInteger allUnreaderChaptersCount = newChaptersCount + b.numberOfUnreadChapters.integerValue;
-						b.numberOfUnreadChapters = @(allUnreaderChaptersCount);
-					}
-				}
-			} completion:^(BOOL success, NSError *error) {
-				[Chapter persist:resultArray withBlock:^(void) {
-					[self refreshBooks];
-					[books removeObject:book];
-					[self syncChapters];
-				}];
-			}];
-		} else {
-			[books removeObject:book];
-			[self syncChapters];
-		}
-	}];
-}
-
-//现在书架不用下载书籍内容了
-- (void)syncChaptersContent __deprecated
-{
-	if (stopAllSync) return;
-	if (!chapters.count) {
-		//syncing = NO;
-		NSLog(@"sync chapter content finished");
-		[chapters removeAllObjects];
-		chapters = [[Chapter chaptersNeedSubscribe] mutableCopy];
-		NSLog(@"find %d VIP chapters need subscribe and download content", chapters.count);
-		[self syncAutoSubscribe];
-		return;
-	}
-	
-	Chapter *chapter = chapters[0];
-	//NSLog(@"fetch chapter: %@", chapter);
-	//syncing = YES;
-	
-	[ServiceManager bookCatalogue:chapter.uid VIP:chapter.bVip.boolValue withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-		if (success) {
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Chapter *c = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
-				if (c) {
-					c.content = content;
-					c.previousID = previousID;
-					c.nextID = nextID;
-				}
-			} completion:^(BOOL success, NSError *error) {
-				[chapters removeObject:chapter];
-				[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:syncTimeInterval];
-			}];
-		} else {
-			[chapters removeObject:chapter];
-			[self performSelector:@selector(syncChaptersContent) withObject:nil afterDelay:syncTimeInterval];
-		}
-	}];
-}
-
-//现在书架不用自动订阅内容了
-- (void)syncAutoSubscribe __deprecated
-{
-	if (stopAllSync) return;
-	if (!chapters.count) {
-		NSLog(@"subscribe chapters finished");
-		//syncing = NO;
-		return;
-	}
-	
-	Chapter *chapter = chapters[0];
-	//syncing = YES;
-	
-	Book *book = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
-	[ServiceManager chapterSubscribeWithChapterID:chapter.uid book:chapter.bid author:book.authorID withBlock:^(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-		if (success) {
-			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Chapter *c = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid inContext:localContext];
-				if (c) {
-					c.content = content;
-					c.previousID = previousID;
-					c.nextID = nextID;
-				}
-			} completion:^(BOOL success, NSError *error) {
-				[chapters removeObject:chapter];
-				[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:syncTimeInterval];
-			}];
-		} else {
-			[chapters removeObject:chapter];
-			[self performSelector:@selector(syncAutoSubscribe) withObject:nil afterDelay:syncTimeInterval];
-		}
-	}];
-}
-
 
 - (void)syncRemoveFav
 {
@@ -429,15 +299,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 		editing = NO;
 		[booksView reloadData];
     }
-//	else if (type.intValue == kHeaderViewButtonRefresh) {
-//		[self displayHUD:@"加载中..."];
-//		[self performSelector:@selector(dismissHUD) withObject:nil afterDelay:1];
-//		if (!syncing) {
-//			[self syncBooks];
-//		} else {
-//			NSLog(@"already syncing");
-//		}		
-//    }
 }
 
 - (void)dismissHUD
