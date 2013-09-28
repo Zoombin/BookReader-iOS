@@ -2,7 +2,7 @@
 //  Chapter.h
 //  BookReader
 //
-//  Created by zhangbin on 8/26/13.
+//  Created by zhangbin on 9/28/13.
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
@@ -21,5 +21,7 @@
 @property (nonatomic, retain) NSString * previousID;
 @property (nonatomic, retain) NSNumber * rollID;
 @property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) NSNumber * price;
+@property (nonatomic, retain) NSNumber * hadBought;
 
 @end

@@ -2,7 +2,7 @@
 //  Book.m
 //  BookReader
 //
-//  Created by zhangbin on 8/19/13.
+//  Created by zhangbin on 9/28/13.
 //  Copyright (c) 2013 ZoomBin. All rights reserved.
 //
 
@@ -35,6 +35,7 @@
 @dynamic monthTicket;
 @dynamic name;
 @dynamic nextUpdateTime;
+@dynamic numberOfUnreadChapters;
 @dynamic recommendID;
 @dynamic recommendTitle;
 @dynamic reward;
@@ -43,6 +44,6 @@
 @dynamic uid;
 @dynamic userID;
 @dynamic words;
-@dynamic numberOfUnreadChapters;
+@dynamic shelfCategoryName;
 
 @end

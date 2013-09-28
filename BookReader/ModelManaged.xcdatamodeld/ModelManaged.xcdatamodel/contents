@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3389" systemVersion="13A558" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Book" representedClassName="Book" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorID" optional="YES" attributeType="Integer 32" syncable="YES"/>
@@ -30,6 +30,7 @@
         <attribute name="recommendTitle" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="reward" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="rewardPersons" optional="YES" transient="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shelfCategoryName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
@@ -39,10 +40,12 @@
         <attribute name="bid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bVip" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hadBought" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastReadIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nextID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="previousID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="rollID" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -53,9 +56,13 @@
         <attribute name="reference" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startWordIndex" optional="YES" attributeType="Integer 32" syncable="YES"/>
     </entity>
+    <entity name="ShelfCategory" representedClassName="ShelfCategory" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Book" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Chapter" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Mark" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShelfCategory" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
