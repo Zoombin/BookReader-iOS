@@ -523,7 +523,8 @@
 	[self displayHUD:@"获取章节目录..."];
 	
 	//lastChapterID = 0获取全部章节
-	[ServiceManager bookCatalogueList:book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+	//[ServiceManager getDownChapter:book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+	[ServiceManager getDownChapterList:book.uid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 		[self hideHUD:YES];
 		if (success) {
 			chapterArray = [resultArray mutableCopy];

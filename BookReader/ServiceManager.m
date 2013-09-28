@@ -539,18 +539,29 @@ static NSNumber *sUserID;
 
 + (void)getDownChapterList:(NSString *)bookid
                  andUserid:(NSString *)userid
-                 withBlock:(void (^)(BOOL, NSError *, NSArray *))block{
+                 withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block
+{
+	if (!userid) {
+		userid = @"0";
+	}
     NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookid" : bookid}, @{@"userid" : userid}]];
     [[ServiceManager shared] postPath:@"GetDownChapterList.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
-        if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, nil);
+		BOOL success = [theObject[@"result"] isEqualToString:SUCCESS_FLAG];
+		BOOL forbidden = [theObject[@"result"] isEqualToString:FORBIDDEN_FLAG];
+		
+		NSMutableArray *resultArray = [@[] mutableCopy];
+        if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
+			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
         }
+		NSString *nextUpdateTimeString = theObject[@"nextUpdateTime"];//@"2999-12-31 11:59";
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:NEXT_UPDATE_TIME_FORMATTER];
+		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
+		
+        if (block) block (success, nil, forbidden, resultArray, nextUpdateTime);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(NO, error, nil);
-        }
+        if (block) block (NO, error, nil, nil, nil);
     }];
 }
 

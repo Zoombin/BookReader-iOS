@@ -132,12 +132,12 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
                        withBlock:(void(^)(BOOL success,  NSError *error, NSArray *resultArray))block;
 //章节列表
 + (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
-                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block;
+                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block __deprecated;
 
-//返回章节列表（Android）
+//返回章节列表
 + (void)getDownChapterList:(NSString *)bookid
                  andUserid:(NSString *)userid
-                 withBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray))block __deprecated;//iOS不需要这个接口了
+                 withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block;//新的获取章节列表接口，返回每个章节的价格
 
 //返回章节内容 (Android)
 + (void)getDownChapterDetail:(NSString *)userid

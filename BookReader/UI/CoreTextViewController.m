@@ -148,7 +148,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	
 	if ([book needUpdate]) {
-		[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+		[ServiceManager getDownChapterList:book.uid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 			if (success) {
 				
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {

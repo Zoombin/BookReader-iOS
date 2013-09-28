@@ -105,7 +105,7 @@
 - (void)getChaptersDataWithBlock:(dispatch_block_t)block
 {
 	[self displayHUD:@"获取章节目录..."];
-	[ServiceManager bookCatalogueList:_chapter.bid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+	[ServiceManager getDownChapterList:_chapter.bid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {	
 		[self hideHUD:YES];
 		if (success) {
 			infoArray = [resultArray mutableCopy];

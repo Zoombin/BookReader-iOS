@@ -242,7 +242,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 	//syncing = YES;
 	
-	[ServiceManager bookCatalogueList:book.uid lastChapterID:[Chapter lastChapterIDOfBook:book] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+	[ServiceManager getDownChapterList:book.uid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 		if (success) {
 			//NSLog(@"get chapter list of book: %@", book);
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
@@ -474,7 +474,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 			[self.navigationController pushViewController:controller animated:YES];
 		} else {
 			[self displayHUD:@"获取章节目录..."];
-			[ServiceManager bookCatalogueList:bookCell.book.uid lastChapterID:@"0" withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
+			[ServiceManager getDownChapterList:bookCell.book.uid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 				if (success) {
 					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 						Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];

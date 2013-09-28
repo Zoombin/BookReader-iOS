@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 
 #define EnabledColorHex 0xc0683a
-static float duration = 0;
+
 @implementation UIButton (BookReader)
 
 + (UIButton *)initButtonWithFrame:(CGRect)frame
