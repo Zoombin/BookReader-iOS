@@ -44,8 +44,6 @@
 		deleteButton.hidden = YES;
         [self.contentView addSubview:deleteButton];
         
-        
-        
 //        badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 //		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
 //        //[badgeView setHideWhenZero:YES];
@@ -54,8 +52,6 @@
          updateMark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_update"]];
         [updateMark setFrame:CGRectMake(-2, - 5, 70, 70)];
         [self.contentView addSubview:updateMark];
-        
-        
         
 //        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
 //        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds) + 10, CGRectGetMinY(self.bounds) + 10);
@@ -136,8 +132,11 @@
     }
 	self.alpha = _editing ? 0.5 : 1.0;
     nameLabel.hidden = _editing;
-	finishMark.hidden = _editing;
     //autoBuyMark.hidden = _editing;
+	
+	if (_editing) {
+		finishMark.hidden = YES;
+	}
 }
 
 - (void)setCellSelected:(BOOL)selected
