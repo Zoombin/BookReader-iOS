@@ -10,7 +10,6 @@
 #import "AppDelegate.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
-#import "BRLoginReminderView.h"
 #import "CoreTextViewController.h"
 #import "BookCell.h"
 #import "BRBooksView.h"
@@ -71,19 +70,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	[self createStandViews:@(minNumberOfStandView)];
 }
 
-- (BRLoginReminderView *)loginReminderView {
-	NSArray *subViews = [self.view subviews];
-	for (UIView *sView in subViews) {
-		if ([sView isKindOfClass:[BRLoginReminderView class]]) {
-			[sView removeFromSuperview];
-		}
-	}
-	BRLoginReminderView *loginReminderView = [[BRLoginReminderView alloc] initWithFrame:CGRectMake(10, 38, self.view.frame.size.width - 20, 18)];
-	[self.view addSubview:loginReminderView];
-	return loginReminderView;
-}
-
-
 - (void)createStandViews:(NSNumber *)number
 {
 	if (booksStandViews.count == number.integerValue) {
@@ -124,8 +110,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)formalDisplay
 {
-	[self loginReminderView].hidden = [ServiceManager isSessionValid];
-
 	if (!notification) {
 		[self fetchNotification:^(void){
 			[booksView reloadData];
