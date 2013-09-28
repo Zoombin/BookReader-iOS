@@ -23,7 +23,6 @@
 /* Begin PBXBuildFile section */
 		180318F2172CDDE200733C58 /* GiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180318F1172CDDE200733C58 /* GiftCell.m */; };
 		18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */; };
-		18089E45171BD5E700BCB50E /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */; };
 		18089E4B171CFA7C00BCB50E /* BRComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4A171CFA7A00BCB50E /* BRComment.m */; };
 		18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18089E4D171E3A6900BCB50E /* GiftViewController.m */; };
 		181091D517339104000931AB /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181091D417339104000931AB /* PasswordViewController.m */; };
@@ -363,8 +362,6 @@
 		180318F1172CDDE200733C58 /* GiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GiftCell.m; path = UI/GiftCell.m; sourceTree = "<group>"; };
 		18089DF41718F4E500BCB50E /* CategoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailsViewController.h; sourceTree = "<group>"; };
 		18089DF51718F4E500BCB50E /* CategoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CategoryDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		18089E43171BD5E400BCB50E /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKNumberBadgeView.h; path = UI/MKNumberBadgeView.h; sourceTree = "<group>"; };
-		18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKNumberBadgeView.m; path = UI/MKNumberBadgeView.m; sourceTree = "<group>"; };
 		18089E49171CFA7A00BCB50E /* BRComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRComment.h; sourceTree = "<group>"; };
 		18089E4A171CFA7A00BCB50E /* BRComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRComment.m; sourceTree = "<group>"; };
 		18089E4C171E3A6800BCB50E /* GiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftViewController.h; sourceTree = "<group>"; };
@@ -1445,8 +1442,6 @@
 				188FD8C3178BA90200EFF360 /* BookMarkCell.m */,
 				188FD8BA17891C6E00EFF360 /* ChapterCell.h */,
 				188FD8BB17891C6E00EFF360 /* ChapterCell.m */,
-				18089E43171BD5E400BCB50E /* MKNumberBadgeView.h */,
-				18089E44171BD5E500BCB50E /* MKNumberBadgeView.m */,
 				1888A3AC17000CE40046DA4C /* BookCell.h */,
 				1888A3AD17000CE50046DA4C /* BookCell.m */,
 				18B39BAA17B067DF0092AC0A /* GiftButton.h */,
@@ -1882,7 +1877,6 @@
 				77A2D63517180C11009F2B9F /* CoreTextView.m in Sources */,
 				77A2D63A17180EE8009F2B9F /* CoreTextViewController.m in Sources */,
 				18089DF61718F4E600BCB50E /* CategoryDetailsViewController.m in Sources */,
-				18089E45171BD5E700BCB50E /* MKNumberBadgeView.m in Sources */,
 				18089E4B171CFA7C00BCB50E /* BRComment.m in Sources */,
 				18089E4E171E3A6A00BCB50E /* GiftViewController.m in Sources */,
 				18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */,

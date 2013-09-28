@@ -27,7 +27,5 @@
 @property (nonatomic, assign) BOOL editing;
 @property (nonatomic, assign) BOOL cellSelected;
 @property (nonatomic, assign) BOOL bUpdate;
-//@property (nonatomic, assign) BOOL autoBuy;
-//@property (nonatomic, assign) NSInteger badge;
 
 @end

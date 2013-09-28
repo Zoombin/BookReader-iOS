@@ -8,14 +8,9 @@
 
 #import "BRBookCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "MKNumberBadgeView.h"
 #import "ServiceManager.h"
 
 @implementation BRBookCell {
-//	UIImageView *selectedMark;
-//    UIImageView *autoBuyMark;
-//	MKNumberBadgeView *badgeView;
-//	UIButton *autoBuyButton;
     UIButton *deleteButton;
     UIImageView *updateMark;
     UIButton *nameLabel;
@@ -29,12 +24,6 @@
 		cover = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_placeholder"]];
 		cover.frame = CGRectMake(0, 0, 70, 89);
 		[self.contentView addSubview:cover];
-		
-//        selectedMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-//        selectedMark.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
-//		[selectedMark setImage:[UIImage imageNamed:@"book_checkmark"]];
-//		selectedMark.hidden = YES;
-//        [self.contentView addSubview:selectedMark];
         
         deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [deleteButton setFrame:CGRectMake(0, 0, 100, 100)];
@@ -44,25 +33,9 @@
 		deleteButton.hidden = YES;
         [self.contentView addSubview:deleteButton];
         
-//        badgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-//		badgeView.center = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(self.bounds) + 5);
-//        //[badgeView setHideWhenZero:YES];
-//        [self.contentView addSubview:badgeView];
-        
          updateMark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_update"]];
         [updateMark setFrame:CGRectMake(-2, - 5, 70, 70)];
         [self.contentView addSubview:updateMark];
-        
-//        autoBuyMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-//        autoBuyMark.center = CGPointMake(CGRectGetMinX(self.bounds) + 10, CGRectGetMinY(self.bounds) + 10);
-//        [autoBuyMark setBackgroundColor:[UIColor clearColor]];
-//        [self.contentView addSubview:autoBuyMark];
-        
-//		autoBuyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//		autoBuyButton.frame = CGRectMake(0, CGRectGetMaxY(self.bounds) - 26, self.bounds.size.width, 30);
-//        [autoBuyButton setBackgroundImage:[UIImage imageNamed:@"autobuy_off"] forState:UIControlStateNormal];
-//		[autoBuyButton addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventTouchUpInside];
-//		[self.contentView addSubview:autoBuyButton];
         
         nameLabel = [UIButton buttonWithType:UIButtonTypeCustom];
         [nameLabel setFrame:CGRectMake( - 10, CGRectGetMaxY(self.bounds) - 26, self.bounds.size.width + 20, 30)];
@@ -79,9 +52,7 @@
 		[finishMark setImage:[UIImage imageNamed:@"finish_mark"]];
 		finishMark.hidden = YES;
 		[self.contentView addSubview:finishMark];
-				
-//		self.autoBuy = NO;
-//		self.badge = 0;
+
         self.bUpdate = NO;
 	}
 	return self;
@@ -123,8 +94,6 @@
 - (void)setEditing:(BOOL)editing
 {
     _editing = editing;
-//	badgeView.hidden = _editing || _badge == 0;
-//	autoBuyButton.hidden = !_editing;
     updateMark.hidden = _editing || self.bUpdate == NO;
     deleteButton.hidden = !_editing;
     if (!editing) {
@@ -132,7 +101,6 @@
     }
 	self.alpha = _editing ? 0.5 : 1.0;
     nameLabel.hidden = _editing;
-    //autoBuyMark.hidden = _editing;
 	
 	if (_editing) {
 		finishMark.hidden = YES;
@@ -142,7 +110,6 @@
 - (void)setCellSelected:(BOOL)selected
 {
 	_cellSelected = selected;
-//	selectedMark.hidden = !_cellSelected;
 }
 
 - (void)setBUpdate:(BOOL)bUpdate
@@ -151,27 +118,9 @@
     updateMark.hidden = !_bUpdate;
 }
 
-//- (void)setBadge:(NSInteger)badge
-//{
-//	_badge = badge;
-//    badgeView.value = _badge;
-//}
-
-//- (void)valueChanged:(id)sender {
-//	[_bookCellDelegate changedValueBookCell:self];
-//}
-
-
 - (void)deleteBook:(id)sender
 {
 	[_bookCellDelegate deleteBook:self];
 }
-
-//- (void)setAutoBuy:(BOOL)onOrOff
-//{
-//	_autoBuy = onOrOff;
-//    [autoBuyMark setImage:onOrOff ? [UIImage imageNamed:@"refresh_mark"] : nil];
-//    [autoBuyButton setBackgroundImage:[UIImage imageNamed:onOrOff ? @"autobuy_on" : @"autobuy_off"] forState:UIControlStateNormal];
-//}
 
 @end
