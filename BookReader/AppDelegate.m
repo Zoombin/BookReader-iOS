@@ -32,6 +32,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"XXSY.sqlite"];
+	
 	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
 	
 	//TOTEST
@@ -49,7 +51,7 @@
     [MobClick startWithAppkey:UMENG_KEY reportPolicy:REALTIME channelId:nil];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-    [MagicalRecord setupCoreDataStackWithStoreNamed:@"XXSY.sqlite"];
+    
 	
 	[application setStatusBarHidden:NO];
 	
