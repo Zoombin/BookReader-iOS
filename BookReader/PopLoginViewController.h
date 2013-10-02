@@ -11,6 +11,10 @@
 
 @protocol PopLoginViewControllerDelegate <NSObject>
 
+- (void)popLoginDidLogin;
+- (void)popLoginDidCancel;
+- (void)popLoginWillSignup;
+
 @end
 
 
@@ -18,8 +22,6 @@
 @interface PopLoginViewController : ZBViewController
 
 @property (nonatomic, weak) id<PopLoginViewControllerDelegate> delegate;
-@property (nonatomic, assign) SEL actionAfterLogin;
-@property (nonatomic, assign) SEL actionAfterCancel;
 
 - (id)initWithFrame:(CGRect)frame;
 

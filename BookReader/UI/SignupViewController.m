@@ -236,7 +236,9 @@
                 [self displayHUDTitle:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
                 [APP_DELEGATE.memberVC setUserinfo:member];
-                [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
+				if ([_delegate respondsToSelector:@selector(signUpDone:)]) {
+					[_delegate signUpDone:self];
+				}
             } else {
                 if (error) {
                     [self displayHUDTitle:nil message:NETWORK_ERROR];
@@ -251,7 +253,9 @@
                 [self displayHUDTitle:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
                 [APP_DELEGATE.memberVC setUserinfo:member];
-                [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
+				if ([_delegate respondsToSelector:@selector(signUpDone:)]) {
+					[_delegate signUpDone:self];
+				}
             } else {
                 if (error) {
                     [self displayHUDTitle:nil message:NETWORK_ERROR];
@@ -261,12 +265,6 @@
             }
         }];
     }
-}
-
-- (void)goToMemberVC
-{
-    
-    
 }
 
 - (void)clearTextField

@@ -78,7 +78,7 @@
     
     CGFloat offSetX = 20;
     CGFloat offSetY = 15;
-    CGFloat btnWidth = (width - 5 * 2 - offSetX * 3) / 2;
+    CGFloat btnWidth = (width - 5 * 2 - offSetX * 3) / 3;
     CGFloat btnHeight = 40;
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,8 +90,17 @@
     [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [loginView addSubview:loginBtn];
     
-    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(passwordTextField.frame) - btnWidth, CGRectGetMinY(loginBtn.frame), btnWidth, btnHeight)];
+    UIButton *signupBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [signupBtn setFrame:CGRectMake(CGRectGetMaxX(loginBtn.frame) + offSetX, CGRectGetMinY(loginBtn.frame), btnWidth, btnHeight)];
+    [signupBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [signupBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
+    [signupBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
+	[signupBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [signupBtn addTarget:self action:@selector(signup) forControlEvents:UIControlEventTouchUpInside];
+    [loginView addSubview:signupBtn];
+	
+	UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(signupBtn.frame) + offSetX, CGRectGetMinY(loginBtn.frame), btnWidth, btnHeight)];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [cancelBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
     [cancelBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
@@ -107,8 +116,6 @@
 
 - (void)close
 {
-	_actionAfterLogin = nil;
-	_actionAfterCancel = nil;
 	[self willMoveToParentViewController:nil];
 	[self viewWillDisappear:YES];
 	[self.view removeFromSuperview];
@@ -118,14 +125,9 @@
 - (void)cancel
 {
 	[self hideKeyboard];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	if (_actionAfterCancel) {
-		if ([_delegate respondsToSelector:_actionAfterCancel]) {
-			[_delegate performSelector:_actionAfterCancel];
-		}
+	if ([_delegate respondsToSelector:@selector(popLoginDidCancel)]) {
+		[_delegate popLoginDidCancel];
 	}
-#pragma clang diagnostic pop
 	[self close];
 }
 
@@ -143,14 +145,9 @@
             [self hideHUD:YES];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
             [[NSUserDefaults standardUserDefaults] synchronize];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            if (_actionAfterLogin) {
-                if ([_delegate respondsToSelector:_actionAfterLogin]) {
-                    [_delegate performSelector:_actionAfterLogin];
-                }
-            }
-#pragma clang diagnostic pop
+			if ([_delegate respondsToSelector:@selector(popLoginDidLogin)]) {
+				[_delegate popLoginDidLogin];
+			}
             [self close];
         } else {
             if (error) {
@@ -160,6 +157,13 @@
             }
         }
      }];
+}
+- (void)signup
+{
+	if ([_delegate respondsToSelector:@selector(popLoginWillSignup)]) {
+		[_delegate popLoginWillSignup];
+	}
+	[self close];
 }
 
 @end

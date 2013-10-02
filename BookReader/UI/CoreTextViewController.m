@@ -26,11 +26,12 @@
 #import "BRChapterNameView.h"
 #import "CommentViewController.h"
 #import "NSString+ZBUtilites.h"
+#import "SignUpViewController.h"
 
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
-@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate>
+@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate, SignUpViewControllerDelegate>
 
 @end
 
@@ -439,15 +440,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				if (![ServiceManager isSessionValid]) {
 					NSLog(@"尚未登录无法阅读");
 					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+					popLoginViewController.delegate = self;
 					[self addChildViewController:popLoginViewController];
 					[self.view addSubview:popLoginViewController.view];
-					popLoginViewController.delegate = self;
-					if (enterChapterIsVIP) {//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
-						popLoginViewController.actionAfterCancel = @selector(back);
-						popLoginViewController.actionAfterLogin = @selector(didLogin);
-					}
-					
-					return;
 				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
@@ -475,11 +470,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			}
 		}];
 	}
-}
-
-- (void)didLogin
-{
-	[self gotoChapter:_chapter withReadIndex:nil];
 }
 
 - (void)menu
@@ -734,6 +724,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)showLoginAlert
 {
 	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
+	popLoginViewController.delegate = self;
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
 }
@@ -760,4 +751,38 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	return UIInterfaceOrientationMaskAllButUpsideDown;
 }
+
+#pragma mark - PopLoginViewControllerDelegate
+
+- (void)popLoginDidLogin
+{
+	//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
+	if (enterChapterIsVIP) {
+		[self gotoChapter:_chapter withReadIndex:nil];
+	}
+}
+
+- (void)popLoginDidCancel
+{
+	//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
+	if (enterChapterIsVIP) {
+		[self back];
+	}
+}
+
+- (void)popLoginWillSignup
+{
+	SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
+	signUpViewController.delegate = self;
+	[self.navigationController pushViewController:signUpViewController animated:YES];
+}
+
+#pragma mark - SignUpViewControllerDelegate
+
+- (void)signUpDone:(SignUpViewController *)signUpViewController
+{
+	[signUpViewController backOrClose];
+}
+
+
 @end

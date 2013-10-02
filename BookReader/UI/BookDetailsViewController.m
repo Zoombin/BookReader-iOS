@@ -26,9 +26,14 @@
 #import "Mark.h"
 #import "ChapterCell.h"
 #import "SignInViewController.h"
+#import "SignUpViewController.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
+
+@interface BookDetailsViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate, PopLoginViewControllerDelegate, SignUpViewControllerDelegate>
+
+@end
 
 @implementation BookDetailsViewController
 {
@@ -904,7 +909,6 @@
 {
 	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 	popLoginViewController.delegate = self;
-	popLoginViewController.actionAfterLogin = @selector(didLogin);
 	[self addChildViewController:popLoginViewController];
 	[self.view addSubview:popLoginViewController.view];
 }
@@ -921,11 +925,30 @@
 	}];
 }
 
-#pragma mark - PopLoginViewController callback
+#pragma mark - PopLoginViewControllerDelegate
 
-- (void)didLogin
+- (void)popLoginDidLogin
 {
 	[self checkExistsFav];
+}
+
+- (void)popLoginDidCancel
+{
+	;
+}
+
+- (void)popLoginWillSignup
+{
+	SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
+	signUpViewController.delegate = self;
+	[self.navigationController pushViewController:signUpViewController animated:YES];
+}
+
+#pragma mark - SignUpViewControllerDelegate
+
+- (void)signUpDone:(SignUpViewController *)signUpViewController
+{
+	[signUpViewController backOrClose];
 }
 
 @end

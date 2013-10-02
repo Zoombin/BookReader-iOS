@@ -11,7 +11,8 @@
 #import "BRViewController.h"
 #import "PopLoginViewController.h"
 
-@interface BookDetailsViewController : BRViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate, PopLoginViewControllerDelegate> {
-}
+@interface BookDetailsViewController : BRViewController
+
 - (id)initWithBook:(NSString *)uid;
+
 @end

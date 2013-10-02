@@ -19,6 +19,10 @@
 #import "UIColor+Hex.h"
 #import "UIColor+BookReader.h"
 
+@interface SignInViewController () <SignUpViewControllerDelegate>
+
+@end
+
 @implementation SignInViewController {
     UITextField *accountTextField;
     UITextField *passwordTextField;
@@ -85,7 +89,9 @@
 
 - (void)registerButtonClick
 {
-    [self.navigationController pushViewController:[[SignUpViewController alloc] init] animated:YES];
+	SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
+	signUpViewController.delegate = self;
+	[self.navigationController pushViewController:signUpViewController animated:YES];
 }
 
 - (void)loginButtonClicked
@@ -107,6 +113,13 @@
                 }
             }
     }];
+}
+
+#pragma mark - SignUpViewControllerDelegate
+
+- (void)signUpDone:(SignUpViewController *)signUpViewController
+{
+	[APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
 }
 
 @end

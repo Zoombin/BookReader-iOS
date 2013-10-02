@@ -9,5 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "BRViewController.h"
 
+@class SignUpViewController;
+@protocol SignUpViewControllerDelegate <NSObject>
+
+- (void)signUpDone:(SignUpViewController *)signUpViewController;
+
+@end
+
 @interface SignUpViewController : BRViewController
+
+@property (nonatomic, weak) id<SignUpViewControllerDelegate> delegate;
+
 @end
