@@ -13,4 +13,5 @@
 
 - (void)setComment:(BRComment *)comment;
 - (CGFloat)height;
+
 @end

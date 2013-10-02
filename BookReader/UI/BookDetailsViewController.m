@@ -811,10 +811,18 @@
         }
     } else if (tableView == chapterListTableView) {
         if (cell == nil) {
-            cell = [[ChapterCell alloc] initWithStyle:BookCellStyleCatagory reuseIdentifier:@"MyCell"];
+            cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
-            [(ChapterCell *)cell setChapter:chapter isCurrent:NO andAllChapters:chapterArray];
+			Chapter *lastReadChapter = [Chapter	lastReadChapterOfBookID:chapter.bid];
+			BOOL isCurrent = NO;
+			if (lastReadChapter) {
+				isCurrent = [chapter.uid isEqualToString:lastReadChapter.uid];
+				if (isCurrent) {
+					NSLog(@"same chapter");
+				}
+			}
+            [(ChapterCell *)cell setChapter:chapter isCurrent:isCurrent andAllChapters:chapterArray];
         }
     }
     else {

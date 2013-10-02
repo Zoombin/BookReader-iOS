@@ -164,7 +164,7 @@
 			Mark *mark = [infoArray objectAtIndex:indexPath.row];
             [(BookMarkCell *)cell setMark:mark];
         } else {
-            cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyCell"];
+            cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
 			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
             [(ChapterCell *)cell  setChapter:chapter isCurrent:[chapter.uid isEqualToString:_chapter.uid] andAllChapters:infoArray];
         }

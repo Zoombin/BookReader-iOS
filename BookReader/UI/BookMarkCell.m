@@ -21,9 +21,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
         height = 50;
-        markNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, self.contentView.frame.size.width-30, 20)];
+        markNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, self.bounds.size.width - 30, 20)];
         [markNameLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [markNameLabel setBackgroundColor:[UIColor clearColor]];
         [markNameLabel setTextColor:[UIColor blueColor]];
@@ -41,7 +40,7 @@
         [progressLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:progressLabel];
 
-        UILabel *line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.contentView.frame.size.width + 10, 2)];
+        UILabel *line = [UILabel dashLineWithFrame:CGRectMake(0, height - 2, self.frame.size.width + 100, 2)];
         [self.contentView addSubview:line];
     }
     return self;

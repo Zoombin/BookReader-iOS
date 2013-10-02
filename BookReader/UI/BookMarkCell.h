@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Mark.h"
 
-@interface BookMarkCell : UITableViewCell {
-    
-}
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+@interface BookMarkCell : UITableViewCell
+
 - (CGFloat)height;
 - (void)setMark:(Mark *)mark;
+
 @end

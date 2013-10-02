@@ -16,9 +16,11 @@ typedef enum {
 } BookCellStyle;
 
 @interface BookCell : UITableViewCell
+
 - (id)initWithStyle:(BookCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setBook:(Book *)book;
 - (void)setTextLableText:(NSString *)name;
 - (CGFloat)height;
 - (void)hidenDottedLine;
+
 @end

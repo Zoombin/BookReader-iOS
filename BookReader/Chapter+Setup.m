@@ -115,7 +115,12 @@
 
 + (Chapter *)firstChapterOfBook:(Book *)book
 {
-	NSArray *all = [Chapter allChaptersOfBookID:book.uid];
+	return [self firstChapterOfBookID:book.uid];
+}
+
++ (Chapter *)firstChapterOfBookID:(NSString *)bookID
+{
+	NSArray *all = [Chapter allChaptersOfBookID:bookID];
 	if (all.count) {
 		return all[0];
 	}
@@ -183,12 +188,17 @@
 
 + (Chapter *)lastReadChapterOfBook:(Book *)book//如果没找到就返回第一章
 {
-	Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid];
+	return [self lastReadChapterOfBookID:book.uid];
+}
+
++ (Chapter *)lastReadChapterOfBookID:(NSString *)bookID
+{
+	Book *b = [Book findFirstByAttribute:@"uid" withValue:bookID];
 	if (b) {
 		if (b.lastReadChapterID) {
 			return [Chapter findFirstByAttribute:@"uid" withValue:b.lastReadChapterID];
 		} else {
-			return [Chapter firstChapterOfBook:book];
+			return [Chapter firstChapterOfBookID:bookID];
 		}
 	}
 	return nil;

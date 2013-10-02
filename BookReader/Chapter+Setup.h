@@ -20,6 +20,7 @@
 + (NSArray *)allChaptersOfBookID:(NSString *)bookID;
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book;
 + (Chapter *)firstChapterOfBook:(Book *)book;
++ (Chapter *)firstChapterOfBookID:(NSString *)bookID;
 - (Chapter *)previous;
 - (Chapter *)next;
 + (NSArray *)chaptersNeedFetchContentWhenWifiReachable:(BOOL)bWifi;
@@ -27,6 +28,7 @@
 
 + (NSString *)lastChapterIDOfBook:(Book *)book;
 + (Chapter *)lastReadChapterOfBook:(Book *)book;
++ (Chapter *)lastReadChapterOfBookID:(NSString *)bookID;
 
 - (NSString *)displayName:(NSArray *)allChapters;
 
