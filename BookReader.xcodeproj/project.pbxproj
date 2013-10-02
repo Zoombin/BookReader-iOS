@@ -329,14 +329,7 @@
 		77E3E2FD174DA83400FCCD91 /* text_field_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */; };
 		8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0371C116AD219100DFE776 /* CFNetwork.framework */; };
 		8B22BC55167EBBA900A2B316 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B22BC54167EBBA900A2B316 /* libz.dylib */; };
-		8B453D0F16B8C90A00FD6FE0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936816B7A1C2001BEE70 /* Default.png */; };
-		8B453D1016B8C90F00FD6FE0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936A16B7A1C9001BEE70 /* Default@2x.png */; };
-		8B453D1116B8C91400FD6FE0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9936C16B7A1CC001BEE70 /* Default-568h@2x.png */; };
-		8B453D1316B8DEE400FD6FE0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1216B8DEE400FD6FE0 /* Icon-72.png */; };
-		8B453D1516B8DF1600FD6FE0 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B453D1416B8DF1600FD6FE0 /* Icon-72@2x.png */; };
 		8B9F3CA516A40B8F00DBC77D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F3CA416A40B8F00DBC77D /* libsqlite3.dylib */; };
-		8BC9937416B7A4B4001BEE70 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9937216B7A4B4001BEE70 /* Icon.png */; };
-		8BC9937516B7A4B4001BEE70 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC9937316B7A4B4001BEE70 /* Icon@2x.png */; };
 		8BDB0AB6165E03BB008F328A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0AB5165E03BB008F328A /* UIKit.framework */; };
 		8BDB0AB8165E03BB008F328A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0AB7165E03BB008F328A /* Foundation.framework */; };
 		8BDB0ABA165E03BB008F328A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB0AB9165E03BB008F328A /* CoreGraphics.framework */; };
@@ -793,18 +786,7 @@
 		77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "text_field_background@2x.png"; path = "BookReader/Image/text_field_background@2x.png"; sourceTree = SOURCE_ROOT; };
 		8B0371C116AD219100DFE776 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8B22BC54167EBBA900A2B316 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		8B453D1216B8DEE400FD6FE0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
-		8B453D1416B8DF1600FD6FE0 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
-		8B453D1616B8E26300FD6FE0 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		8B453D1816B8E27300FD6FE0 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
-		8B453D1A16B8E27F00FD6FE0 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		8B453D1C16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		8B9F3CA416A40B8F00DBC77D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		8BC9936816B7A1C2001BEE70 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
-		8BC9936A16B7A1C9001BEE70 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
-		8BC9936C16B7A1CC001BEE70 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		8BC9937216B7A4B4001BEE70 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
-		8BC9937316B7A4B4001BEE70 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		8BDB0AB1165E03BB008F328A /* BookReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDB0AB5165E03BB008F328A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8BDB0AB7165E03BB008F328A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1528,17 +1510,6 @@
 				77B378DE17AB8EB400D8D63D /* Fonts */,
 				77B378DC17AB8E4700D8D63D /* BookDoc */,
 				188FE63616F9A069009561CB /* Remote */,
-				8B453D1C16B8E28900FD6FE0 /* Default-Landscape@2x~ipad.png */,
-				8B453D1A16B8E27F00FD6FE0 /* Default-Landscape~ipad.png */,
-				8B453D1816B8E27300FD6FE0 /* Default-Portrait@2x~ipad.png */,
-				8B453D1616B8E26300FD6FE0 /* Default-Portrait~ipad.png */,
-				8B453D1416B8DF1600FD6FE0 /* Icon-72@2x.png */,
-				8B453D1216B8DEE400FD6FE0 /* Icon-72.png */,
-				8BC9936C16B7A1CC001BEE70 /* Default-568h@2x.png */,
-				8BC9936A16B7A1C9001BEE70 /* Default@2x.png */,
-				8BC9936816B7A1C2001BEE70 /* Default.png */,
-				8BC9937216B7A4B4001BEE70 /* Icon.png */,
-				8BC9937316B7A4B4001BEE70 /* Icon@2x.png */,
 				8BDB0ABD165E03BB008F328A /* BookReader-Info.plist */,
 				8BDB0ABE165E03BB008F328A /* InfoPlist.strings */,
 				188FE62516F84510009561CB /* Localizable.strings */,
@@ -1646,13 +1617,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BDB0AC0165E03BB008F328A /* InfoPlist.strings in Resources */,
-				8BC9937416B7A4B4001BEE70 /* Icon.png in Resources */,
-				8BC9937516B7A4B4001BEE70 /* Icon@2x.png in Resources */,
-				8B453D0F16B8C90A00FD6FE0 /* Default.png in Resources */,
-				8B453D1016B8C90F00FD6FE0 /* Default@2x.png in Resources */,
-				8B453D1116B8C91400FD6FE0 /* Default-568h@2x.png in Resources */,
-				8B453D1316B8DEE400FD6FE0 /* Icon-72.png in Resources */,
-				8B453D1516B8DF1600FD6FE0 /* Icon-72@2x.png in Resources */,
 				188FE62716F84510009561CB /* Localizable.strings in Resources */,
 				1888A37416FC2A3E0046DA4C /* universal_btn.png in Resources */,
 				1888A37616FC3C600046DA4C /* main_view_bkg.png in Resources */,
