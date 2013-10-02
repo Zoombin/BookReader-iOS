@@ -22,6 +22,8 @@
 	//chapter.nextID = [attributes[@"nextId"] stringValue];
 	//chapter.previousID = [attributes[@"prevId"] stringValue];
 	chapter.rollID = attributes[@"rollId"];
+	chapter.price = attributes[@"price"];
+	chapter.hadBought = attributes[@"isBuy"];
 	return chapter;
 }
 
@@ -78,6 +80,8 @@
 //	self.previousID = chapter.previousID;
 	self.rollID = chapter.rollID;
 	self.uid = chapter.uid;
+	self.hadBought = chapter.hadBought;
+	self.price = chapter.price;
 }
 
 - (NSString *)description

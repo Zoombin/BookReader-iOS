@@ -164,7 +164,7 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
        On:(BOOL)onOrOff
       withBlock:(void(^)(BOOL success,  NSError *error, NSString *message))block;
 
-//自动订阅
+//自动订阅(自动更新)
 + (void)autoSubscribeWithBookID:(NSString *)bookid
              On:(BOOL)onOrOff
             withBlock:(void(^)(BOOL success, NSError *error))block;

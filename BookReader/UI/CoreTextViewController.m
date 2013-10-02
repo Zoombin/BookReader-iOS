@@ -459,6 +459,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 								tmpChapter.content = content;
 								tmpChapter.previousID = previousID;
 								tmpChapter.nextID = nextID;
+								tmpChapter.hadBought = @(YES);
 							}
 						}];
 						[self gotoChapter:aChapter withReadIndex:nil];

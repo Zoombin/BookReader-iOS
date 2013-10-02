@@ -36,13 +36,14 @@
 - (void)setChapter:(Chapter *)chapter isCurrent:(BOOL)current andAllChapters:(NSArray *)allChapters
 {
 	_chapterNameLabel.text = [chapter displayName:allChapters];
-    if (chapter.lastReadIndex == nil) {
-        _chapterNameLabel.textColor = [UIColor blackColor];
-    }
+	if (!chapter.bVip.boolValue || chapter.hadBought.boolValue) {
+		_chapterNameLabel.textColor = [UIColor blackColor];
+	} else if (chapter.bVip.boolValue && !chapter.hadBought.boolValue) {
+		_chapterNameLabel.textColor = [UIColor colorWithRed:87/255.0f green:144/255.0f blue:65/255.0f alpha:1];
+	}
 	
 	if (current) {
 		self.accessoryType = UITableViewCellAccessoryCheckmark;
-        _chapterNameLabel.textColor = [UIColor blueColor];
     }
 }
 
