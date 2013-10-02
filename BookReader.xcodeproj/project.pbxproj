@@ -214,13 +214,9 @@
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
 		7784F34517FBFDB500C666DF /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7784F34317FBFDB500C666DF /* ModelManaged.xcdatamodeld */; };
 		7784F34817FC018000C666DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7784F34717FC018000C666DF /* Images.xcassets */; };
-		7786717017E3E3C9001FDB67 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 7786716C17E3E3C9001FDB67 /* fishhook.c */; };
-		7786717117E3E3C9001FDB67 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7786716E17E3E3C9001FDB67 /* LICENSE */; };
-		7786717217E3E3C9001FDB67 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7786716F17E3E3C9001FDB67 /* README.md */; };
 		778671AF17E3E464001FDB67 /* MBProgressHUD+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786719817E3E464001FDB67 /* MBProgressHUD+Appearance.m */; };
 		778671B117E3E464001FDB67 /* NSString+BundleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786719C17E3E464001FDB67 /* NSString+BundleExtensions.m */; };
 		778671B217E3E464001FDB67 /* NSString+ZBUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 7786719E17E3E464001FDB67 /* NSString+ZBUtilites.m */; };
-		778671B317E3E464001FDB67 /* QuietAssertMacros.c in Sources */ = {isa = PBXBuildFile; fileRef = 7786719F17E3E464001FDB67 /* QuietAssertMacros.c */; };
 		778671B417E3E464001FDB67 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 778671A017E3E464001FDB67 /* README.md */; };
 		778671B517E3E464001FDB67 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671A217E3E464001FDB67 /* UIColor+Hex.m */; };
 		778671B617E3E464001FDB67 /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671A417E3E464001FDB67 /* UIColor+Random.m */; };
@@ -583,17 +579,12 @@
 		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7784F34417FBFDB500C666DF /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		7784F34717FC018000C666DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		7786716C17E3E3C9001FDB67 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
-		7786716D17E3E3C9001FDB67 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
-		7786716E17E3E3C9001FDB67 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		7786716F17E3E3C9001FDB67 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7786719717E3E464001FDB67 /* MBProgressHUD+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Appearance.h"; sourceTree = "<group>"; };
 		7786719817E3E464001FDB67 /* MBProgressHUD+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Appearance.m"; sourceTree = "<group>"; };
 		7786719B17E3E464001FDB67 /* NSString+BundleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BundleExtensions.h"; sourceTree = "<group>"; };
 		7786719C17E3E464001FDB67 /* NSString+BundleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BundleExtensions.m"; sourceTree = "<group>"; };
 		7786719D17E3E464001FDB67 /* NSString+ZBUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZBUtilites.h"; sourceTree = "<group>"; };
 		7786719E17E3E464001FDB67 /* NSString+ZBUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZBUtilites.m"; sourceTree = "<group>"; };
-		7786719F17E3E464001FDB67 /* QuietAssertMacros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = QuietAssertMacros.c; sourceTree = "<group>"; };
 		778671A017E3E464001FDB67 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		778671A117E3E464001FDB67 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		778671A217E3E464001FDB67 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
@@ -1107,17 +1098,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		7786716B17E3E3C9001FDB67 /* fishhook */ = {
-			isa = PBXGroup;
-			children = (
-				7786716C17E3E3C9001FDB67 /* fishhook.c */,
-				7786716D17E3E3C9001FDB67 /* fishhook.h */,
-				7786716E17E3E3C9001FDB67 /* LICENSE */,
-				7786716F17E3E3C9001FDB67 /* README.md */,
-			);
-			path = fishhook;
-			sourceTree = "<group>";
-		};
 		7786717317E3E3DC001FDB67 /* ZBUtilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1127,7 +1107,6 @@
 				7786719C17E3E464001FDB67 /* NSString+BundleExtensions.m */,
 				7786719D17E3E464001FDB67 /* NSString+ZBUtilites.h */,
 				7786719E17E3E464001FDB67 /* NSString+ZBUtilites.m */,
-				7786719F17E3E464001FDB67 /* QuietAssertMacros.c */,
 				778671A017E3E464001FDB67 /* README.md */,
 				778671A117E3E464001FDB67 /* UIColor+Hex.h */,
 				778671A217E3E464001FDB67 /* UIColor+Hex.m */,
@@ -1182,7 +1161,6 @@
 			isa = PBXGroup;
 			children = (
 				7786717317E3E3DC001FDB67 /* ZBUtilities */,
-				7786716B17E3E3C9001FDB67 /* fishhook */,
 				77D0C5C817C1A5E100228A70 /* iVersion */,
 				18FD246317B37A8000D11CCA /* UMengSDK */,
 				778E799217B2377F00DC28B7 /* Reachability */,
@@ -1664,7 +1642,6 @@
 				18BA0AA8176FFE1600DFE9B3 /* bookstore_rank@2x.png in Resources */,
 				18BA0AA9176FFE1600DFE9B3 /* bookstore_reco_hl.png in Resources */,
 				18BA0AAA176FFE1600DFE9B3 /* bookstore_reco_hl@2x.png in Resources */,
-				7786717117E3E3C9001FDB67 /* LICENSE in Resources */,
 				18BA0AAB176FFE1600DFE9B3 /* bookstore_reco.png in Resources */,
 				18BA0AAC176FFE1600DFE9B3 /* bookstore_reco@2x.png in Resources */,
 				18BA0AAD176FFE1600DFE9B3 /* bookstore_search_hl.png in Resources */,
@@ -1678,7 +1655,6 @@
 				18BA0AC7177069F700DFE9B3 /* universal_btn_l@2x.png in Resources */,
 				18BA0AC8177069F700DFE9B3 /* universal_btn_r.png in Resources */,
 				778671B417E3E464001FDB67 /* README.md in Resources */,
-				7786717217E3E3C9001FDB67 /* README.md in Resources */,
 				18BA0AC9177069F700DFE9B3 /* universal_btn_r@2x.png in Resources */,
 				18BA0ACA177069F700DFE9B3 /* universal_btn@2x.png in Resources */,
 				18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */,
@@ -1847,7 +1823,6 @@
 				1888A39E16FD65960046DA4C /* BookStoreViewController.m in Sources */,
 				1888A3A116FD66530046DA4C /* MemberViewController.m in Sources */,
 				1888A3A516FFE8420046DA4C /* ServiceManager.m in Sources */,
-				778671B317E3E464001FDB67 /* QuietAssertMacros.c in Sources */,
 				1888A3AB16FFF52F0046DA4C /* BookShelfViewController.m in Sources */,
 				1888A3AE17000CE50046DA4C /* BookCell.m in Sources */,
 				1888A3E11702DE470046DA4C /* BookDetailsViewController.m in Sources */,
@@ -1955,7 +1930,6 @@
 				778E79C717B2377F00DC28B7 /* Reachability.m in Sources */,
 				18FD247117B3944600D11CCA /* WebViewController.m in Sources */,
 				778E7A6D17B7520F00DC28B7 /* BRWifiReminderView.m in Sources */,
-				7786717017E3E3C9001FDB67 /* fishhook.c in Sources */,
 				779423E317BDDDFA00814D07 /* BRNotification.m in Sources */,
 				779423EC17BF559100814D07 /* BRChapterNameView.m in Sources */,
 				779A5A8E17C0536700C865FE /* BookShelfHelpView.m in Sources */,
