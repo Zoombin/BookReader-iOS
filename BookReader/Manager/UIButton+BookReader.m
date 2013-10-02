@@ -141,4 +141,14 @@
     return button;
 }
 
+- (void)shelfCategoryButtonStyle
+{
+	self.showsTouchWhenHighlighted = YES;
+	//button.layer.borderWidth = 1;
+	//self.layer.borderColor = [[UIColor blackColor] CGColor];
+	[self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[self setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
+	[self setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
+}
+
 @end

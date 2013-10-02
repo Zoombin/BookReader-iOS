@@ -38,4 +38,6 @@ typedef enum {
 
 + (UIButton *)bookMenuButtonWithFrame:(CGRect)frame andTitle:(NSString *)title;
 
+- (void)shelfCategoryButtonStyle;
+
 @end
