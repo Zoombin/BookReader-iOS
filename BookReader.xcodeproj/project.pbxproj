@@ -154,7 +154,6 @@
 		18B39BAC17B067DF0092AC0A /* GiftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B39BAB17B067DF0092AC0A /* GiftButton.m */; };
 		18B5C9CC17729C14004AAA16 /* bookstore_search_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */; };
 		18B5C9CD17729C14004AAA16 /* bookstore_search_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */; };
-		18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */; };
 		18BA0AA1176FFE1600DFE9B3 /* bookstore_cata_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */; };
 		18BA0AA2176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */; };
 		18BA0AA3176FFE1600DFE9B3 /* bookstore_cata.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BA0A93176FFE1600DFE9B3 /* bookstore_cata.png */; };
@@ -213,6 +212,7 @@
 		774482A91764A58100802600 /* bookshelf@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 774482A71764A58100802600 /* bookshelf@2x.png */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
+		7784F34517FBFDB500C666DF /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7784F34317FBFDB500C666DF /* ModelManaged.xcdatamodeld */; };
 		7786717017E3E3C9001FDB67 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 7786716C17E3E3C9001FDB67 /* fishhook.c */; };
 		7786717117E3E3C9001FDB67 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7786716E17E3E3C9001FDB67 /* LICENSE */; };
 		7786717217E3E3C9001FDB67 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7786716F17E3E3C9001FDB67 /* README.md */; };
@@ -322,6 +322,8 @@
 		77E2E15917F69A04003FD87A /* Chapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E15817F69A04003FD87A /* Chapter.m */; };
 		77E2E15C17F69A74003FD87A /* ShelfCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E15B17F69A74003FD87A /* ShelfCategory.m */; };
 		77E2E15F17F69AAF003FD87A /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E15E17F69AAF003FD87A /* Book.m */; };
+		77E2E16517F6A02F003FD87A /* BRShelfCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E16417F6A02F003FD87A /* BRShelfCategoryView.m */; };
+		77E2E16817F6CB68003FD87A /* ShelfCategory+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E16717F6CB68003FD87A /* ShelfCategory+Setup.m */; };
 		77E3E2FC174DA83400FCCD91 /* text_field_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FA174DA83400FCCD91 /* text_field_background.png */; };
 		77E3E2FD174DA83400FCCD91 /* text_field_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */; };
 		8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0371C116AD219100DFE776 /* CFNetwork.framework */; };
@@ -522,7 +524,6 @@
 		18B39BAB17B067DF0092AC0A /* GiftButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftButton.m; sourceTree = "<group>"; };
 		18B5C9CA17729C14004AAA16 /* bookstore_search_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_search_btn.png; sourceTree = "<group>"; };
 		18B5C9CB17729C14004AAA16 /* bookstore_search_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_search_btn@2x.png"; sourceTree = "<group>"; };
-		18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		18BA0A91176FFE1600DFE9B3 /* bookstore_cata_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_cata_hl.png; sourceTree = "<group>"; };
 		18BA0A92176FFE1600DFE9B3 /* bookstore_cata_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookstore_cata_hl@2x.png"; sourceTree = "<group>"; };
 		18BA0A93176FFE1600DFE9B3 /* bookstore_cata.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookstore_cata.png; sourceTree = "<group>"; };
@@ -586,6 +587,7 @@
 		774482A71764A58100802600 /* bookshelf@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookshelf@2x.png"; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7784F34417FBFDB500C666DF /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
 		7786716C17E3E3C9001FDB67 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		7786716D17E3E3C9001FDB67 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		7786716E17E3E3C9001FDB67 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -781,6 +783,10 @@
 		77E2E15B17F69A74003FD87A /* ShelfCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShelfCategory.m; sourceTree = "<group>"; };
 		77E2E15D17F69AAF003FD87A /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		77E2E15E17F69AAF003FD87A /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		77E2E16317F6A02F003FD87A /* BRShelfCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRShelfCategoryView.h; sourceTree = "<group>"; };
+		77E2E16417F6A02F003FD87A /* BRShelfCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRShelfCategoryView.m; sourceTree = "<group>"; };
+		77E2E16617F6CB68003FD87A /* ShelfCategory+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShelfCategory+Setup.h"; sourceTree = "<group>"; };
+		77E2E16717F6CB68003FD87A /* ShelfCategory+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShelfCategory+Setup.m"; sourceTree = "<group>"; };
 		77E3E2FA174DA83400FCCD91 /* text_field_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = text_field_background.png; path = BookReader/Image/text_field_background.png; sourceTree = SOURCE_ROOT; };
 		77E3E2FB174DA83400FCCD91 /* text_field_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "text_field_background@2x.png"; path = "BookReader/Image/text_field_background@2x.png"; sourceTree = SOURCE_ROOT; };
 		8B0371C116AD219100DFE776 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -900,7 +906,7 @@
 		1888A36916FBE4150046DA4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */,
+				7784F34317FBFDB500C666DF /* ModelManaged.xcdatamodeld */,
 				779423E117BDDDFA00814D07 /* BRNotification.h */,
 				779423E217BDDDFA00814D07 /* BRNotification.m */,
 				779C672A17446DCD00909D6A /* BRContextManager.h */,
@@ -915,6 +921,8 @@
 				18A7FF41176087C900F97099 /* Book+Local.m */,
 				779C671E174461DB00909D6A /* Book+Setup.h */,
 				779C671F174461DB00909D6A /* Book+Setup.m */,
+				77E2E16617F6CB68003FD87A /* ShelfCategory+Setup.h */,
+				77E2E16717F6CB68003FD87A /* ShelfCategory+Setup.m */,
 				779C6721174461F000909D6A /* Chapter+Setup.h */,
 				779C6722174461F000909D6A /* Chapter+Setup.m */,
 				77E2E15D17F69AAF003FD87A /* Book.h */,
@@ -1422,6 +1430,8 @@
 		77F2956517A3C3F000D10A31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				77E2E16317F6A02F003FD87A /* BRShelfCategoryView.h */,
+				77E2E16417F6A02F003FD87A /* BRShelfCategoryView.m */,
 				77A3FA2C173497890027D1DF /* BRBooksView.h */,
 				77A3FA2D173497890027D1DF /* BRBooksView.m */,
 				77A3FA29173497320027D1DF /* BRBookCell.h */,
@@ -1882,7 +1892,6 @@
 				18FC1ACB1720CAFE00A043C9 /* BookReadMenuView.m in Sources */,
 				18ABAF2F1724FAFC00ED02C6 /* BRPay.m in Sources */,
 				18ABAF321724FB1D00ED02C6 /* BRUser.m in Sources */,
-				18B7C49D172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld in Sources */,
 				180318F2172CDDE200733C58 /* GiftCell.m in Sources */,
 				77A1DE2B1730DF9E002BE306 /* AFHTTPClient.m in Sources */,
 				77A1DE2C1730DF9E002BE306 /* AFHTTPRequestOperation.m in Sources */,
@@ -1890,6 +1899,7 @@
 				77A1DE2E1730DF9E002BE306 /* AFJSONRequestOperation.m in Sources */,
 				77A1DE2F1730DF9E002BE306 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				77A1DE301730DF9E002BE306 /* AFPropertyListRequestOperation.m in Sources */,
+				77E2E16517F6A02F003FD87A /* BRShelfCategoryView.m in Sources */,
 				77A1DE311730DF9E002BE306 /* AFURLConnectionOperation.m in Sources */,
 				77A1DE321730DF9E002BE306 /* AFXMLRequestOperation.m in Sources */,
 				77A1DE331730DF9E002BE306 /* UIImageView+AFNetworking.m in Sources */,
@@ -1897,6 +1907,7 @@
 				77A1DE521730DF9E002BE306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				77A1DE531730DF9E002BE306 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				77A1DE541730DF9E002BE306 /* NSNumber+MagicalDataImport.m in Sources */,
+				77E2E16817F6CB68003FD87A /* ShelfCategory+Setup.m in Sources */,
 				77A1DE551730DF9E002BE306 /* NSObject+MagicalDataImport.m in Sources */,
 				77A1DE561730DF9E002BE306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				77A1DE571730DF9E002BE306 /* NSString+MagicalDataImport.m in Sources */,
@@ -1908,6 +1919,7 @@
 				77A1DE5D1730DF9E002BE306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				77A1DE5E1730DF9E002BE306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				77A1DE5F1730DF9E002BE306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
+				7784F34517FBFDB500C666DF /* ModelManaged.xcdatamodeld in Sources */,
 				77A1DE601730DF9E002BE306 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				77A1DE611730DF9E002BE306 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				77A1DE621730DF9E002BE306 /* NSPersistentStore+MagicalRecord.m in Sources */,
@@ -2183,12 +2195,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		18B7C49B172BAFF200B0FFB3 /* ModelManaged.xcdatamodeld */ = {
+		7784F34317FBFDB500C666DF /* ModelManaged.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */,
+				7784F34417FBFDB500C666DF /* ModelManaged.xcdatamodel */,
 			);
-			currentVersion = 18B7C49C172BAFF200B0FFB3 /* ModelManaged.xcdatamodel */;
+			currentVersion = 7784F34417FBFDB500C666DF /* ModelManaged.xcdatamodel */;
 			path = ModelManaged.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

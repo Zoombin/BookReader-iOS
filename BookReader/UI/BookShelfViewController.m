@@ -18,11 +18,12 @@
 #import "Reachability.h"
 #import "BRNotification.h"
 #import "BRContextManager.h"
+#import "BRShelfCategoryView.h"
 
 const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
 
-@interface BookShelfViewController () <BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+@interface BookShelfViewController () <BRShelfCategoryViewDelegate ,BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 @end
 
 @implementation BookShelfViewController {
@@ -39,6 +40,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	BRBookCell *needFavAndAutoBuyBookCell;
 	UIImage *standImage;
 	BRNotification *notification;
+	BRShelfCategoryView *shelfCategoryView;
 }
 
 - (BOOL)isWifiAvailable
@@ -56,10 +58,17 @@ const NSUInteger numberOfBooksPerRow = 3;
 	self.hideKeyboardRecognzier.enabled = NO;
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
+	
+	CGFloat startY = BRHeaderView.height;
     
+//	shelfCategoryView = [[BRShelfCategoryView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width, 60)];
+//	shelfCategoryView.delegate = self;
+//	[self.view addSubview:shelfCategoryView];
+	
+//	startY = CGRectGetMaxY(shelfCategoryView.frame);
 	
 	PSTCollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - CGRectGetMaxY(shelfCategoryView.frame)) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
@@ -99,22 +108,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	[super viewDidAppear:animated];
 	syncTimeInterval = SHORT_SYNC_INTERVAL;
-	[self formalDisplay];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	syncTimeInterval = LONG_SYNC_INTERVAL;
-}
-
-- (void)formalDisplay
-{
 	if (!notification) {
 		[self fetchNotification:^(void){
 			[booksView reloadData];
 		}];
 	}
-
+	
 	if (![ServiceManager hadLaunchedBefore]) {
 		[[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:HAD_LAUNCHED_BEFORE];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -126,6 +125,15 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[self refreshBooks];
 		[self startSync];
 	}
+	
+	[ShelfCategory createDefaultShelfCategoryWithCompletionBlock:^{
+		shelfCategoryView.shelfCategories = [ShelfCategory findAll];
+	}];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	syncTimeInterval = LONG_SYNC_INTERVAL;
 }
 
 - (void)startSync
@@ -443,6 +451,24 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (void)willClose
 {
 	[booksView reloadData];
+}
+
+#pragma mark - BRShelfCategoryViewDelegate
+
+- (void)shelfCategoryTapped:(ShelfCategory *)shelfCategory
+{
+	NSLog(@"shelfCategory: %@", shelfCategory);
+}
+
+- (void)editShelfCategories
+{
+	NSLog(@"editShelfCategories");
+}
+
+- (void)shelfCategoryViewResize:(CGSize)newSize
+{
+	//booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(shelfCategoryView.frame), fullSize.width,  fullSize.height - CGRectGetMaxY(shelfCategoryView.frame)) collectionViewLayout:layout];
+//	booksView.frame =
 }
 
 @end
