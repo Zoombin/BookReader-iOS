@@ -68,7 +68,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 //	startY = CGRectGetMaxY(shelfCategoryView.frame);
 	
 	PSTCollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - CGRectGetMaxY(shelfCategoryView.frame)) collectionViewLayout:layout];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
