@@ -42,7 +42,7 @@ float syncTimeInterval;
 #define DISPLAY_V_FLAG 1
 #endif
 
-#define APP_ID @"597986893"//TODO: this is PvZ2's id
+#define APP_ID @"719359889"
 
 
 //testAccount
