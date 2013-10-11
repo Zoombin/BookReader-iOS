@@ -349,13 +349,18 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         return;
     }
 	[self updateCurrentPageContent];
-    [pageCurlType isEqualToString:kPageUnCurl];
 	[self playPageCurlAnimation:[pageCurlType isEqualToString:kPageUnCurl] ? YES : NO];
 }
 
 - (void)playPageCurlAnimation:(BOOL)bRight
 {
-	if (pageCurlType) [self performTransition:bRight ? kCATransitionFromRight : kCATransitionFromLeft andType:pageCurlType];
+	if (pageCurlType) {
+		if (isLandscape) {
+			[self performTransition:bRight ? kCATransitionFromTop : kCATransitionFromBottom andType:pageCurlType];
+		} else {
+			[self performTransition:bRight ? kCATransitionFromRight : kCATransitionFromLeft andType:pageCurlType];
+		}
+	}
 }
 
 - (void)nextPage
