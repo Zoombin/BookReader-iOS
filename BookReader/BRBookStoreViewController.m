@@ -15,9 +15,10 @@
 #import "UIViewController+HUD.h"
 #import "UIColor+Hex.h"
 #import "CategoryDetailsViewController.h"
-#import "UIColor+BookReader.h"
 #import "UIView+BookReader.h"
 #import "BookCell.h"
+#import "BRBookStoreTabBarView.h"
+#import "BRBottomView.h"
 
 #define RECOMMEND 0
 #define RANK 1
@@ -105,43 +106,49 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.headerView.backButton.hidden = YES;
-	self.headerView.titleLabel.text = @"书城";
+	self.headerView.hidden = YES;
 	
 	CGSize fullSize = self.view.bounds.size;
-    
-    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, fullSize.height - 45, fullSize.width, 50)];
-    [bottomView setImage:[UIImage imageNamed:@"bookstore_bottom_bar"]];
-    [self.view addSubview:bottomView];
-    
-    UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(fullSize.width - 60, 3)];
-    [self.view addSubview:bookShelfButton];
-    
-    float width = 53;
-    float delta = (bottomView.frame.size.width - width * 4) / 5;
-    
-    recommendButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (0 + 1) + 0 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleRecomend];
+	CGSize buttonSize = CGSizeMake(fullSize.width / 4, 45);
+	CGFloat startX = 0;
+	
+	UIImageView *tabBarBGView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 44)];
+	[tabBarBGView setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
+	tabBarBGView.userInteractionEnabled = YES;
+	[self.view addSubview:tabBarBGView];
+	
+    recommendButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleRecomend];
     [recommendButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:recommendButton];
+	[recommendButton setTitle:@"推荐" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:recommendButton];
     
-    rankButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (2 + 1) + 2 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleRank];
+	startX = CGRectGetMaxX(recommendButton.frame);
+	
+    rankButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleRank];
     [rankButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:rankButton];
+	[rankButton setTitle:@"排行" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:rankButton];
+	
+	startX = CGRectGetMaxX(rankButton.frame);
     
-    cataButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (1 + 1) + 1 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleCatagory];
+    cataButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleCatagory];
     [cataButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cataButton];
+	[cataButton setTitle:@"分类" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:cataButton];
     
-    searchButton = [UIButton bookStoreBottomButtonWithFrame:CGRectMake(delta * (3 + 1) + 3 * width, fullSize.height - 45, width, 50) andStyle:BookReaderBookStoreBottomButtonStyleSearch];
+	startX = CGRectGetMaxX(cataButton.frame);
+	
+    searchButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleSearch];
     [searchButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:searchButton];
+	[searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:searchButton];
     
     tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 40)];
     [tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 65, 42)];
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        [[_searchBar.subviews objectAtIndex:0]removeFromSuperview];
+        [[_searchBar.subviews objectAtIndex:0] removeFromSuperview];
     } else {
         [_searchBar setBarStyle:UIBarStyleBlack];
         [_searchBar performSelector:@selector(setBarTintColor:) withObject:[UIColor clearColor]];
@@ -171,7 +178,7 @@
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 10, fullSize.height - [BRHeaderView height] - 50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, [BRHeaderView height], fullSize.width - 16, fullSize.height  - [BRHeaderView height] - 50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, [BRHeaderView height], fullSize.width - 16, fullSize.height  - [BRHeaderView height] - [BRBottomView height]) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
@@ -180,6 +187,10 @@
     [infoTableView setDelegate:self];
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
+	
+	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView.bookstoreButton.selected = YES;
+	[self.view addSubview:bottomView];
     
     catagoryView = [[UIView alloc] initWithFrame:infoTableView.frame];
     [self showCatagoryViewBtn];

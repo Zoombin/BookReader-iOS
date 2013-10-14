@@ -88,7 +88,6 @@
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:frame];
-    //    [button setBackgroundImage:[UIImage imageNamed:@"font_select"] forState:UIControlStateDisabled];
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor clearColor]];
@@ -96,15 +95,14 @@
     return button;
 }
 
-+ (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style
++ (UIButton *)bookStoreTabBarButtonWithFrame:(CGRect)frame andStyle:(BRBookStoreTabBarButtonStyle)style
 {
-    NSArray *buttonImagesNormal = @[@"bookstore_reco", @"bookstore_cata", @"bookstore_rank", @"bookstore_search"];
-    NSArray *buttonImagesHighlighted = @[@"bookstore_reco_hl", @"bookstore_cata_hl", @"bookstore_rank_hl", @"bookstore_search_hl"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[style]] forState:UIControlStateHighlighted];
-    [button setBackgroundImage:[UIImage imageNamed:buttonImagesHighlighted[style]] forState:UIControlStateSelected];
-    [button setBackgroundImage:[UIImage imageNamed:buttonImagesNormal[style]] forState:UIControlStateNormal];
     [button setFrame:frame];
+	[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	[button setTitleColor:[UIColor cyanColor] forState:UIControlStateSelected];
+	button.showsTouchWhenHighlighted = YES;
+	button.titleLabel.font = [UIFont systemFontOfSize:16];
     return button;
 }
 
@@ -144,8 +142,6 @@
 - (void)shelfCategoryButtonStyle
 {
 	self.showsTouchWhenHighlighted = YES;
-	//button.layer.borderWidth = 1;
-	//self.layer.borderColor = [[UIColor blackColor] CGColor];
 	[self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 	[self setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
 	[self setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];

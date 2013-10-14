@@ -10,4 +10,6 @@
 
 @interface BRBookStoreTabBarView : UIView
 
++ (CGFloat)height;
+
 @end

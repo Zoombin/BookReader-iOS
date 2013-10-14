@@ -16,4 +16,5 @@
 + (UIColor *)rankButtonTextColor;
 + (UIColor *)bookCellGrayTextColor;
 + (UIColor *)semitransparentBackgroundColor;
++ (UIColor *)brGreenColor;
 @end

@@ -39,4 +39,9 @@
 {
 	return [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
 }
+
++ (UIColor *)brGreenColor
+{
+	return [UIColor colorWithRed:87/255.0f green:144/255.0f blue:65/255.0f alpha:1];
+}
 @end

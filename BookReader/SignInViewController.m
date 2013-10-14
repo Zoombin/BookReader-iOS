@@ -17,7 +17,6 @@
 #import "UIView+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+Hex.h"
-#import "UIColor+BookReader.h"
 #import "BRBottomView.h"
 
 @interface SignInViewController () <SignUpViewControllerDelegate>

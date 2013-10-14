@@ -9,18 +9,18 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    BookReaderButtonStyleLeft = 0,
-    BookReaderButtonStyleRight = 1,
-    BookReaderButtonStyleNormal = 2,
-    BookReaderButtonStyleBack = 3,
+    BookReaderButtonStyleLeft,
+    BookReaderButtonStyleRight,
+    BookReaderButtonStyleNormal,
+    BookReaderButtonStyleBack
 }BookReaderButtonStyle;
 
 typedef enum {
-    BookReaderBookStoreBottomButtonStyleRecomend = 0,
-    BookReaderBookStoreBottomButtonStyleCatagory = 1,
-    BookReaderBookStoreBottomButtonStyleRank = 2,
-    BookReaderBookStoreBottomButtonStyleSearch = 3,
-}BookReaderBookStoreBottomButtonStyle;
+    BRBookStoreTabBarButtonStyleRecomend,
+    BRBookStoreTabBarButtonStyleCatagory,
+    BRBookStoreTabBarButtonStyleRank,
+    BRBookStoreTabBarButtonStyleSearch
+}BRBookStoreTabBarButtonStyle;
 
 @interface UIButton (BookReader)
 + (UIButton *)addButtonWithFrame:(CGRect)frame andStyle:(BookReaderButtonStyle)style;
@@ -31,7 +31,7 @@ typedef enum {
 
 - (void)setDisabled:(BOOL)disabled;
 
-+ (UIButton *)bookStoreBottomButtonWithFrame:(CGRect)frame andStyle:(BookReaderBookStoreBottomButtonStyle)style;
++ (UIButton *)bookStoreTabBarButtonWithFrame:(CGRect)frame andStyle:(BRBookStoreTabBarButtonStyle)style;
 + (UIButton *)navigationBackButton;
 
 + (UIButton *)bookShelfButtonWithStartPosition:(CGPoint)position;

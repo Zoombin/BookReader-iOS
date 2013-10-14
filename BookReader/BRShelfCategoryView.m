@@ -7,7 +7,6 @@
 //
 
 #import "BRShelfCategoryView.h"
-#import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
 
 #define kHeightOfCategoryButton 30

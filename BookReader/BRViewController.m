@@ -7,7 +7,6 @@
 //
 
 #import "BRViewController.h"
-#import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIDevice+ZBUtilites.h"
 

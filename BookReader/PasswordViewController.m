@@ -12,7 +12,6 @@
 #import "UITextField+BookReader.h"
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
-#import "UIColor+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation PasswordViewController {

@@ -17,7 +17,6 @@
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIColor+BookReader.h"
 #import "BRUser.h"
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"

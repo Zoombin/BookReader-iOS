@@ -39,7 +39,7 @@
 	if (!chapter.bVip.boolValue || chapter.hadBought.boolValue) {
 		_chapterNameLabel.textColor = [UIColor blackColor];
 	} else if (chapter.bVip.boolValue && !chapter.hadBought.boolValue) {
-		_chapterNameLabel.textColor = [UIColor colorWithRed:87/255.0f green:144/255.0f blue:65/255.0f alpha:1];
+		_chapterNameLabel.textColor = [UIColor brGreenColor];
 	}
 	
 	if (current) {

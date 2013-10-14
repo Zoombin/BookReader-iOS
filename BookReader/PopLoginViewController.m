@@ -12,8 +12,6 @@
 #import "UIViewController+HUD.h"
 #import	"ServiceManager.h"
 #import "UIDevice+ZBUtilites.h"
-#import "UIColor+BookReader.h"
-
 
 @implementation PopLoginViewController {
     UITextField *accountTextField;

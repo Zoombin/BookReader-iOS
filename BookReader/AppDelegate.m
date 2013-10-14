@@ -13,7 +13,6 @@
 #import "SignInViewController.h"
 #import "ServiceManager.h"
 #import "NSString+XXSY.h"
-#import "UIColor+BookReader.h"
 #import "MobClick.h"
 #import "iVersion.h"
 

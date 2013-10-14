@@ -9,7 +9,6 @@
 #import "CommentCell.h"
 #import "BRComment.h"
 #import "NSString+XXSY.h"
-#import "UIColor+BookReader.h"
 #import "NSString+ZBUtilites.h"
 
 #define gap 8

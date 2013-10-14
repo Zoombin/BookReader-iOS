@@ -24,8 +24,7 @@
 		CGSize buttonSize = CGSizeMake(frame.size.width / countOfButtons, [[self class] height]);
 		
 		CGFloat startX = 0;
-		
-		UIColor *selectedColor = [UIColor blackColor];
+		UIColor *selectedColor = [UIColor cyanColor];
 
 		_bookshelfButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		_bookshelfButton.frame = CGRectMake(startX, 0, buttonSize.width, buttonSize.height);

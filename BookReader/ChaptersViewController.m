@@ -11,7 +11,6 @@
 #import "Mark.h"
 #import "UIViewController+HUD.h"
 #import "CoreTextViewController.h"
-#import "UIColor+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>

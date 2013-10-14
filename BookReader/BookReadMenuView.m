@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIButton+BookReader.h"
 #import "AppDelegate.h"
-#import "UIColor+BookReader.h"
 
 
 @implementation BookReadMenuView {

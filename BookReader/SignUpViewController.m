@@ -12,7 +12,6 @@
 #import "UIView+BookReader.h"
 #import "UIButton+BookReader.h"
 #import "UIViewController+HUD.h"
-#import "UIColor+BookReader.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
