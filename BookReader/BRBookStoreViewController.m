@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 ZoomBin. All rights reserved.
 //
 
-#import "BookStoreViewController.h"
+#import "BRBookStoreViewController.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIButton+BookReader.h"
@@ -24,7 +24,11 @@
 #define CATAGORY 2
 #define SEARCH 3
 
-@implementation BookStoreViewController
+@interface BRBookStoreViewController () <UIScrollViewDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+
+@end
+
+@implementation BRBookStoreViewController
 {
     int currentPage;
     int currentIndex;
@@ -41,9 +45,7 @@
     UIView *catagoryView;
     
     int currentType;
-    
     NSMutableArray *recommendArray;
-    
     NSMutableArray *recommendTitlesArray;
     
     UIButton *recommendButton;
@@ -87,7 +89,7 @@
         catagoryBtns = [[NSMutableArray alloc] init];
         
         rankBtns = [[NSMutableArray alloc] init];
-        //        currentType = RECOMMEND;
+		
         currentPage = 1;
         currentIndex = 1;
         
@@ -166,10 +168,10 @@
     [_headerSearchButton setBackgroundImage:[UIImage imageNamed:@"bookstore_search_btn"] forState:UIControlStateNormal];
     [tableViewHeader addSubview:_headerSearchButton];
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 10, fullSize.height - BRHeaderView.height - 50)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 10, fullSize.height - [BRHeaderView height] - 50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, BRHeaderView.height, fullSize.width - 16, fullSize.height  - BRHeaderView.height - 50) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, [BRHeaderView height], fullSize.width - 16, fullSize.height  - [BRHeaderView height] - 50) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundView:backgroundView];
@@ -307,14 +309,14 @@
     [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d", index] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if(success) {
             [infoArray removeAllObjects];
-            if ([resultArray count]>0) {
+            if ([resultArray count] > 0) {
                 [self hideAllHotkeyBtns];
             } else if(currentType == SEARCH && [resultArray count]==0) {
                 [self showHotkeyBtns];
                 [searchArray removeAllObjects];
             }
             [self addInfoArrayObjectsWithArray:resultArray];
-            if ([infoArray count]==6) {
+            if ([infoArray count] == 6) {
                 [self addFootView];
             }else {
                 [infoTableView setTableFooterView:nil];

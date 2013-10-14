@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BookShelfViewController.h"
-#import "BookStoreViewController.h"
+#import "BRBookStoreViewController.h"
 #import "MemberViewController.h"
 #import "SignInViewController.h"
 #import "ServiceManager.h"
@@ -57,7 +57,7 @@
 	
     _rootControllers = [@{} mutableCopy];
     _rootControllers[@(kRootControllerIdentifierBookShelf)] = [[BookShelfViewController alloc] init];
-    _rootControllers[@(kRootControllerIdentifierBookStore)] = [[BookStoreViewController alloc] init];
+    _rootControllers[@(kRootControllerIdentifierBookStore)] = [[BRBookStoreViewController alloc] init];
     _rootControllers[@(kRootControllerIdentifierMember)] = [[MemberViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 

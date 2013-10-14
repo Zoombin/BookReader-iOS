@@ -37,7 +37,7 @@
 	self.hideKeyboardRecognzier.enabled = NO;
 	self.headerView.titleLabel.text = @"赠送";
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, self.view.bounds.size.width-5*2, self.view.bounds.size.height - BRHeaderView.height - 10) style:UITableViewStylePlain];
+    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], self.view.bounds.size.width-5*2, self.view.bounds.size.height - [BRHeaderView height] - 10) style:UITableViewStylePlain];
     [infoTableView.layer setCornerRadius:4];
     [infoTableView.layer setMasksToBounds:YES];
     [infoTableView setBackgroundColor:[UIColor clearColor]];

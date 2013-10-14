@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.headerView.titleLabel.text = @"帮助";
     CGSize fullSize = self.view.bounds.size;
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, BRHeaderView.height, fullSize.width, fullSize.height - BRHeaderView.height)];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [BRHeaderView height], fullSize.width, fullSize.height - [BRHeaderView height])];
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.xxsy.net/help.html"]]];
 	webView.backgroundColor = [UIColor clearColor];
 	webView.scrollView.showsHorizontalScrollIndicator = NO;

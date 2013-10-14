@@ -19,6 +19,7 @@
 #import "BRNotification.h"
 #import "BRContextManager.h"
 #import "BRShelfCategoryView.h"
+#import "BRBottomView.h"
 
 const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
@@ -59,7 +60,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
 	
-	CGFloat startY = BRHeaderView.height;
+	CGFloat startY = [BRHeaderView height];
     
 //	shelfCategoryView = [[BRShelfCategoryView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width, 60)];
 //	shelfCategoryView.delegate = self;
@@ -68,12 +69,16 @@ const NSUInteger numberOfBooksPerRow = 3;
 //	startY = CGRectGetMaxY(shelfCategoryView.frame);
 	
 	PSTCollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - BRHeaderView.height) collectionViewLayout:layout];
+	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - [BRHeaderView height] - [BRBottomView height]) collectionViewLayout:layout];
 	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	booksView.delegate = self;
 	booksView.dataSource = self;
 	booksView.booksViewDelegate = self;
 	[self.view addSubview:booksView];
+	
+	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView.bookshelfButton.selected = YES;
+	[self.view addSubview:bottomView];
 	
 	[self createStandViews:@(minNumberOfStandView)];
 }
@@ -211,7 +216,6 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if (!needRemoveFavoriteBooks.count) {
 		NSLog(@"no more book need to remove favorite...");
 		[self hideHUD:YES];
-		[self.headerView deleteButtonEnable:NO];
 		[self refreshBooks];
 		return;
 	}

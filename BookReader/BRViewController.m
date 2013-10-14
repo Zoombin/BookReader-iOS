@@ -25,11 +25,11 @@
 	
 	[self.view setBackgroundColor:[UIColor mainBackgroundColor]];
 	
-	_headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, BRHeaderView.height)];
+	_headerView = [[BRHeaderView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, [BRHeaderView height])];
     [_headerView.backButton addTarget:self action:@selector(backOrClose) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_headerView];
 	
-	_backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, fullSize.width - 5 - 5, fullSize.height - BRHeaderView.height)];
+	_backgroundView = [[UIView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], fullSize.width - 5 - 5, fullSize.height - [BRHeaderView height])];
     [_backgroundView.layer setCornerRadius:4];
     [_backgroundView.layer setMasksToBounds:YES];
     [_backgroundView setBackgroundColor:[UIColor whiteColor]];

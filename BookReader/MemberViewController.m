@@ -22,6 +22,10 @@
 #import "Mark.h"
 #import "NSString+ZBUtilites.h"
 #import "UMFeedback.h"
+#import "BRBottomView.h"
+
+@interface MemberViewController() <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
+@end
 
 @implementation MemberViewController
 {
@@ -39,10 +43,7 @@
 	
 	CGSize fullSize = self.view.bounds.size;
 	
-	UIButton *bookShelfButton = [UIButton bookShelfButtonWithStartPosition:CGPointMake(10, 3)];
-    [self.view addSubview:bookShelfButton];
-    
-	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, BRHeaderView.height, fullSize.width - 10, fullSize.height - BRHeaderView.height) style:UITableViewStyleGrouped];
+	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], fullSize.width - 10, fullSize.height - [BRHeaderView height] - [BRBottomView height]) style:UITableViewStyleGrouped];
 	[_memberTableView setDelegate:self];
 	[_memberTableView setDataSource:self];
 	_memberTableView.backgroundColor = [UIColor clearColor];
@@ -56,6 +57,10 @@
 	[logoutButton setTitle:@"注销" forState:UIControlStateNormal];
 	[logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:logoutButton];
+	
+	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView.memberButton.selected = YES;
+	[self.view addSubview:bottomView];
 }
 
 - (void)viewDidAppear:(BOOL)animated

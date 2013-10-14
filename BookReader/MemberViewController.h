@@ -11,8 +11,9 @@
 #import "iVersion.h"
 #import "BRUser.h"
 
-@interface MemberViewController: BRViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
+@interface MemberViewController: BRViewController
 
 @property (nonatomic ,strong) BRUser *userinfo;
 @property (nonatomic ,assign) BOOL bReg;
+
 @end
