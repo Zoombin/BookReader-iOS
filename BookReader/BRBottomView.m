@@ -16,7 +16,7 @@
     if (self) {
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.bounds];
         [bgView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-        [bgView setImage:[UIImage imageNamed:@"navigationbar_bkg"]];
+        [bgView setImage:[UIImage imageNamed:@"bookstore_tab_bar"]];
         [bgView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [self addSubview:bgView];
 		
@@ -24,7 +24,8 @@
 		CGSize buttonSize = CGSizeMake(frame.size.width / countOfButtons, [[self class] height]);
 		
 		CGFloat startX = 0;
-		UIColor *selectedColor = [UIColor cyanColor];
+		UIColor *normalColor = [UIColor brownColor];
+		UIColor *selectedColor = [UIColor orangeColor];
 
 		_bookshelfButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		_bookshelfButton.frame = CGRectMake(startX, 0, buttonSize.width, buttonSize.height);
@@ -32,6 +33,7 @@
 		[_bookshelfButton setTitle:@"书架" forState:UIControlStateNormal];
 		_bookshelfButton.showsTouchWhenHighlighted = YES;
 		_bookshelfButton.tag = kRootControllerIdentifierBookShelf;
+		[_bookshelfButton setTitleColor:normalColor forState:UIControlStateNormal];
 		[_bookshelfButton setTitleColor:selectedColor forState:UIControlStateSelected];
 		[_bookshelfButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:_bookshelfButton];
@@ -44,6 +46,7 @@
 		[_bookstoreButton setTitle:@"书城" forState:UIControlStateNormal];
 		_bookstoreButton.showsTouchWhenHighlighted = YES;
 		_bookstoreButton.tag = kRootControllerIdentifierBookStore;
+		[_bookstoreButton setTitleColor:normalColor forState:UIControlStateNormal];
 		[_bookstoreButton setTitleColor:selectedColor forState:UIControlStateSelected];
 		[_bookstoreButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:_bookstoreButton];
@@ -56,6 +59,7 @@
 		[_memberButton setTitle:@"个人中心" forState:UIControlStateNormal];
 		_memberButton.showsTouchWhenHighlighted = YES;
 		_memberButton.tag = kRootControllerIdentifierMember;
+		[_memberButton setTitleColor:normalColor forState:UIControlStateNormal];
 		[_memberButton setTitleColor:selectedColor forState:UIControlStateSelected];
 		[_memberButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:_memberButton];
