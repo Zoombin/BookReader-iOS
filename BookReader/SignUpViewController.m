@@ -23,11 +23,8 @@
     UITextField *confirmTextField;
     UITextField *codeTextField;
     UITextField *mailTextField;
-    UITextView *noticeTextView;
-    
     UIButton *phoneRegButton;
     UIButton *nameRegButton;
-    
     BOOL bPhoneReg;
 }
 
@@ -116,13 +113,6 @@
     
 	registerButton.frame = rect;
 	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
-    
-    noticeTextView = [[UITextView alloc] initWithFrame:CGRectMake(startX, rect.origin.y, width, 100)];
-    [noticeTextView setEditable:NO];
-    [noticeTextView setDataDetectorTypes:UIDataDetectorTypeLink];
-    [noticeTextView setText:@"如无法使用手机号注册，请前往潇湘书院官网进行注册。网址：http://www.xxsy.net 。官网注册可以使用昵称等更多功能。"];
-    [noticeTextView setTextColor:[UIColor blackColor]];
-    [self.view addSubview:noticeTextView];
 }
 
 - (void)phoneRegistButtonClicked
@@ -148,10 +138,7 @@
     
 	registerButton.frame = rect;
 	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
-    
-    [noticeTextView setFrame:CGRectMake(startX, rect.origin.y, width, 100)];
-    
-    
+
     [getCodeButton setHidden:NO];
     [codeTextField setHidden:NO];
     [mailTextField setHidden:YES];
@@ -184,8 +171,6 @@
     rect.origin.y += CGRectGetMaxY(mailTextField.bounds) + distance;
 	registerButton.frame = rect;
 	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
-    
-    [noticeTextView setFrame:CGRectMake(startX, rect.origin.y, width, 100)];
     
     [getCodeButton setHidden:YES];
     [codeTextField setHidden:YES];
