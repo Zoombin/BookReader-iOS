@@ -11,5 +11,5 @@
 #import "BRViewController.h"
 
 @interface GiftViewController : BRViewController <UITableViewDataSource,UITableViewDelegate,GiftCellDelegate>
-- (id)initWithIndex:(NSString *)index andBook:(Book *)book;
+- (id)initWithBook:(Book *)book;
 @end

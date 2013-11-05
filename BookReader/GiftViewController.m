@@ -16,15 +16,13 @@
 
 
 @implementation GiftViewController {
-    NSString *currentIndex;
     Book *bookObj;
     UITableView *infoTableView;
 }
 
-- (id)initWithIndex:(NSString *)index andBook:(Book *)book {
+- (id)initWithBook:(Book *)book {
     self = [super init];
     if (self) {
-        currentIndex = index;
         bookObj = book;
     }
     return self;

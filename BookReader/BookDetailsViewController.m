@@ -712,7 +712,7 @@
 - (void)pushToGiftViewWithIndex:(NSString *)index {
     if (![self checkLogin]) return;
 	
-	GiftViewController *giftViewController = [[GiftViewController alloc] initWithIndex:index andBook:book];
+	GiftViewController *giftViewController = [[GiftViewController alloc] initWithBook:book];
 	[self.navigationController pushViewController:giftViewController animated:YES];
 }
 
