@@ -46,10 +46,16 @@ float syncTimeInterval;
 #define APP_ID @"719359889"
 
 #define kXXSYHelpUrlString @"http://link2.xxsy.net/help.aspx"
-#define kXXSYGiftsUrlString @"http://link2.xxsy.net/dialogs/props.aspx";
+#define kXXSYGiftsUrlString @"http://link2.xxsy.net/dialogs/props.aspx"
 
 
 //testAccount
 //bwkpjq:720423
+
+//<uid: 472523, name: 天价傻妃:娶一送一>
+//	[ServiceManager saveUserID:@(2797792)];//曹正华
+//	[ServiceManager saveUserID:@(5639339)];//yanchao
+//	[ServiceManager saveUserID:@(4216157)];//zhangbin
+//	[ServiceManager saveUserID:@(5639348)];//ton of fav books
 
 #endif

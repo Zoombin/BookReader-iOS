@@ -448,6 +448,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 					popLoginViewController.delegate = self;
 					[self addChildViewController:popLoginViewController];
 					[self.view addSubview:popLoginViewController.view];
+					return;
 				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
@@ -665,7 +666,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		}
     } else {
 		WebViewController *controller = [[WebViewController alloc] init];
-		controller.urlString = kXXSYHelpUrlString;
+		controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@", kXXSYHelpUrlString, [ServiceManager userID], _chapter.bid];
 		controller.popTarget = self;
 		if (enterChapterIsVIP) {
 			controller.popTarget = _previousViewController;

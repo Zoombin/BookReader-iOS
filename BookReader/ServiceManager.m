@@ -482,7 +482,6 @@ static NSNumber *sUserID;
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"size" : size}, @{@"index" : index}]];
     [[ServiceManager shared] postPath:@"GetDiscuss.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
         NSMutableArray *commentArray = [[NSMutableArray alloc] init];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
             NSArray *array = [theObject objectForKey:@"discussList"];

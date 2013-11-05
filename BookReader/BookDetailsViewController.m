@@ -713,7 +713,7 @@
     if (![self checkLogin]) return;
 	
 	WebViewController *webViewController = [[WebViewController alloc] init];
-	webViewController.urlString = kXXSYGiftsUrlString;
+	webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@", kXXSYGiftsUrlString, [ServiceManager userID], book.uid];
 	//GiftViewController *giftViewController = [[GiftViewController alloc] initWithBook:book];
 	[self.navigationController pushViewController:webViewController animated:YES];
 }

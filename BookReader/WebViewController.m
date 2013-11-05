@@ -35,6 +35,12 @@
     [self.view addSubview:webView];
 }
 
+- (void)setUrlString:(NSString *)urlString
+{
+	_urlString = urlString;
+	NSLog(@"webView urlString: %@", urlString);
+}
+
 - (void)backOrClose
 {
 	if (_popTarget) {
