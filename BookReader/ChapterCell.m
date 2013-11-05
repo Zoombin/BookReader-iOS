@@ -23,7 +23,6 @@
     if (self) {
 		_chapterNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.bounds.size.width - 30, ChapterCellHeight)];
         [_chapterNameLabel setFont:[UIFont systemFontOfSize:14]];
-        [_chapterNameLabel setTextColor:[UIColor blueColor]];
         [_chapterNameLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:_chapterNameLabel];
 
@@ -38,9 +37,10 @@
 	_chapterNameLabel.text = [chapter displayName:allChapters];
 	if (!chapter.bVip.boolValue || chapter.hadBought.boolValue) {
 		_chapterNameLabel.textColor = [UIColor blackColor];
-	} else if (chapter.bVip.boolValue && !chapter.hadBought.boolValue) {
-		_chapterNameLabel.textColor = [UIColor brGreenColor];
 	}
+//	else if (chapter.bVip.boolValue && !chapter.hadBought.boolValue) {
+//		_chapterNameLabel.textColor = [UIColor brGreenColor];
+//	}
 	
 	if (current) {
 		self.accessoryType = UITableViewCellAccessoryCheckmark;
