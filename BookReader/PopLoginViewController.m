@@ -131,7 +131,6 @@
 
 - (void)login
 {
-	
 	if (accountTextField.text.length == 0|| passwordTextField.text.length == 0) {
         [self displayHUDTitle:nil message:@"账号或者密码不能为空"];
         return;
@@ -156,12 +155,23 @@
         }
      }];
 }
+
 - (void)signup
 {
 	if ([_delegate respondsToSelector:@selector(popLoginWillSignup)]) {
 		[_delegate popLoginWillSignup];
 	}
 	[self close];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//do not delete, to forbiden swipe flip on coreTextViewController
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//do not delete, to forbiden swipe flip on coreTextViewController
 }
 
 @end
