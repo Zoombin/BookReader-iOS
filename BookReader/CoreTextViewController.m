@@ -665,6 +665,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		}
     } else {
 		WebViewController *controller = [[WebViewController alloc] init];
+		controller.urlString = kXXSYHelpUrlString;
 		controller.popTarget = self;
 		if (enterChapterIsVIP) {
 			controller.popTarget = _previousViewController;

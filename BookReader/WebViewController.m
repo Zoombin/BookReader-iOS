@@ -15,7 +15,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -23,10 +22,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	[self.backgroundView removeFromSuperview];
+	
     self.headerView.titleLabel.text = @"帮助";
     CGSize fullSize = self.view.bounds.size;
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [BRHeaderView height], fullSize.width, fullSize.height - [BRHeaderView height])];
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.xxsy.net/help.html"]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
 	webView.backgroundColor = [UIColor clearColor];
 	webView.scrollView.showsHorizontalScrollIndicator = NO;
 	webView.scrollView.showsVerticalScrollIndicator = NO;
@@ -35,7 +37,11 @@
 
 - (void)backOrClose
 {
-	[self.navigationController popToViewController:_popTarget animated:YES];
+	if (_popTarget) {
+		[self.navigationController popToViewController:_popTarget animated:YES];
+	} else {
+		[self.navigationController popViewControllerAnimated:YES];
+	}
 }
 
 - (void)didReceiveMemoryWarning

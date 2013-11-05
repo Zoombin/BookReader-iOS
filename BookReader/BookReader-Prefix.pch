@@ -45,6 +45,9 @@ float syncTimeInterval;
 
 #define APP_ID @"719359889"
 
+#define kXXSYHelpUrlString @"http://link2.xxsy.net/help.aspx"
+#define kXXSYGiftsUrlString @"http://link2.xxsy.net/dialogs/props.aspx";
+
 
 //testAccount
 //bwkpjq:720423

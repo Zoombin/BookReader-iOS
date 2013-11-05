@@ -11,7 +11,6 @@
 #import "UIViewController+HUD.h"
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "GiftViewController.h"
 #import "AppDelegate.h"
 #import "UIButton+BookReader.h"
 #import "BookShelfViewController.h"
@@ -26,6 +25,7 @@
 #import "ChapterCell.h"
 #import "SignInViewController.h"
 #import "SignUpViewController.h"
+#import "WebViewController.h"
 
 #define AUTHORBOOK      1
 #define OTHERBOOK       2
@@ -712,8 +712,10 @@
 - (void)pushToGiftViewWithIndex:(NSString *)index {
     if (![self checkLogin]) return;
 	
-	GiftViewController *giftViewController = [[GiftViewController alloc] initWithBook:book];
-	[self.navigationController pushViewController:giftViewController animated:YES];
+	WebViewController *webViewController = [[WebViewController alloc] init];
+	webViewController.urlString = kXXSYGiftsUrlString;
+	//GiftViewController *giftViewController = [[GiftViewController alloc] initWithBook:book];
+	[self.navigationController pushViewController:webViewController animated:YES];
 }
 
 - (BOOL)checkLogin
