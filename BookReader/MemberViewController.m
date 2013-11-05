@@ -144,7 +144,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if (section == 0) {
-		return 2;
+		return 1;
 	}
     return 5;
 }
@@ -164,8 +164,6 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
                 [cell.textLabel setText:[NSString stringWithFormat:@"用户名 : %@", [ServiceManager userInfo].name ?: @""]];
-            } else {
-                [cell.textLabel setText:[NSString stringWithFormat:@"账%@户 : %@", [NSString ChineseSpace] , [ServiceManager userInfo].coin ?: @""]];
             }
         } else {
             if (indexPath.row == 0) {
