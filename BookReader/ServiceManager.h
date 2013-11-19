@@ -131,23 +131,23 @@ typedef NS_ENUM(NSInteger, XXSYRankingType) {
                         andIndex:(NSString *)index //第几页
                        withBlock:(void(^)(BOOL success,  NSError *error, NSArray *resultArray))block;
 //章节列表
-+ (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
-                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block __deprecated;
+//+ (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
+//                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block __deprecated;
 
 //返回章节列表
 + (void)getDownChapterList:(NSString *)bookid
                  andUserid:(NSString *)userid
                  withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block;//新的获取章节列表接口，返回每个章节的价格
 
-//返回章节内容 (Android)
-+ (void)getDownChapterDetail:(NSString *)userid
-                   chapterid:(NSString *)chapterid
-                      bookid:(NSString *)bookid
-                    authorid:(NSString *)authorid
-                   withBlock:(void (^)(BOOL, NSError *, NSArray *))block __deprecated;//iOS不需要这个接口了
+////返回章节内容 (Android)
+//+ (void)getDownChapterDetail:(NSString *)userid
+//                   chapterid:(NSString *)chapterid
+//                      bookid:(NSString *)bookid
+//                    authorid:(NSString *)authorid
+//                   withBlock:(void (^)(BOOL, NSError *, NSArray *))block __deprecated;//iOS不需要这个接口了
 
 //获取章节内容
-+ (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP
++ (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP extra:(BOOL)extra
             withBlock:(void(^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block; //内容 提示语 提示code
 
 //章节订阅

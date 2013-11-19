@@ -47,6 +47,13 @@
     }
 }
 
+- (void)prepareForReuse
+{
+	[super prepareForReuse];
+	_chapterNameLabel.text = nil;
+	self.accessoryType = UITableViewCellAccessoryNone;
+}
+
 - (CGFloat)height
 {
     return ChapterCellHeight;

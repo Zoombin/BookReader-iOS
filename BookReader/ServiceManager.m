@@ -508,33 +508,33 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
-                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block
-{
-	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : lastChapterID}]];
-    parameters[@"index"] = @"1";
-    parameters[@"size"] = @"9999";
-    parameters[@"auto"] = @"1";
-	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:NEXT_UPDATE_TIME_FORMATTER];
-    [[ServiceManager shared] postPath:@"ChapterList2.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSMutableArray *resultArray = [@[] mutableCopy];
-        if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
-			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
-        }
-		NSString *nextUpdateTimeString = theObject[@"nextUpdateTime"];//@"2999-12-31 11:59";
-		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateFormat:NEXT_UPDATE_TIME_FORMATTER];
-		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
-        if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject[@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(NO, error, nil, nil, nil);
-        }
-    }];
-}
+//+ (void)bookCatalogueList:(NSString *)bookid lastChapterID:(NSString *)lastChapterID
+//                withBlock:(void (^)(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime))block
+//{
+//	NSMutableDictionary *parameters = [self commonParameters:@[@{@"bookId" : bookid}, @{@"lastchapterid" : lastChapterID}]];
+//    parameters[@"index"] = @"1";
+//    parameters[@"size"] = @"9999";
+//    parameters[@"auto"] = @"1";
+//	parameters[@"nextupdatetime"] = [self getCurrentTimeWithFormatter:NEXT_UPDATE_TIME_FORMATTER];
+//    [[ServiceManager shared] postPath:@"ChapterList2.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+//        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+//        NSMutableArray *resultArray = [@[] mutableCopy];
+//        if ([theObject[@"chapterList"] isKindOfClass:[NSArray class]]) {
+//			[resultArray addObjectsFromArray:[Chapter createWithAttributesArray:theObject[@"chapterList"] andExtra:bookid]];
+//        }
+//		NSString *nextUpdateTimeString = theObject[@"nextUpdateTime"];//@"2999-12-31 11:59";
+//		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//		[dateFormatter setDateFormat:NEXT_UPDATE_TIME_FORMATTER];
+//		NSDate *nextUpdateTime = [dateFormatter dateFromString:nextUpdateTimeString];
+//        if (block) {
+//            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, [theObject[@"result"] isEqualToString:FORBIDDEN_FLAG], resultArray, nextUpdateTime);
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        if (block) {
+//            block(NO, error, nil, nil, nil);
+//        }
+//    }];
+//}
 
 + (void)getDownChapterList:(NSString *)bookid
                  andUserid:(NSString *)userid
@@ -564,29 +564,29 @@ static NSNumber *sUserID;
     }];
 }
 
-+ (void)getDownChapterDetail:(NSString *)userid
-                   chapterid:(NSString *)chapterid
-                      bookid:(NSString *)bookid
-                    authorid:(NSString *)authorid
-                   withBlock:(void (^)(BOOL, NSError *, NSArray *))block
-{
-    NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : userid}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid}]];
-    [[ServiceManager shared] postPath:@"GetDownChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
-        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",theObject);
-        NSLog(@"%@",theObject[@"error"]);
-        if (block) {
-            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(NO, error, nil);
-        }
-    }];
-}
+//+ (void)getDownChapterDetail:(NSString *)userid
+//                   chapterid:(NSString *)chapterid
+//                      bookid:(NSString *)bookid
+//                    authorid:(NSString *)authorid
+//                   withBlock:(void (^)(BOOL, NSError *, NSArray *))block
+//{
+//    NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : userid}, @{@"chapterid" : chapterid}, @{@"bookid" : bookid}, @{@"authorid" : authorid}]];
+//    [[ServiceManager shared] postPath:@"GetDownChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
+//        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+//        NSLog(@"%@",theObject);
+//        NSLog(@"%@",theObject[@"error"]);
+//        if (block) {
+//            block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, nil);
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        if (block) {
+//            block(NO, error, nil);
+//        }
+//    }];
+//}
 
 
-+ (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP
++ (void)bookCatalogue:(NSString *)chapterID VIP:(BOOL)VIP extra:(BOOL)extra
             withBlock:(void (^)(BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID))block
 {
 	NSNumber *userid = [self userID];
@@ -594,6 +594,9 @@ static NSNumber *sUserID;
         userid = @0;
     }
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"chapterid" : chapterID}, @{@"userid" : userid.stringValue}]];
+	if (extra) {
+		parameters[@"dy"] = @"1";//避免服务器延时订阅的问题加的参数，具体作用要问xxsy
+	}
     [[ServiceManager shared] postPath:@"ChapterDetail.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if (block) {

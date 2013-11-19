@@ -9,6 +9,10 @@
 #import "WebViewController.h"
 #import "BRHeaderView.h"
 
+@interface WebViewController ()
+
+@end
+
 @implementation WebViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,6 +37,8 @@
 	webView.scrollView.showsHorizontalScrollIndicator = NO;
 	webView.scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:webView];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deeplink:) name:DEEP_LINK object:nil];
 }
 
 - (void)setUrlString:(NSString *)urlString
@@ -55,5 +61,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)deeplink:(NSNotification *)notification
+{
+	NSLog(@"DEEP_LINK notification: %@", notification);
+	NSURL *URL = notification.object;
+	if ([URL.absoluteString hasSuffix:@"success"]) {
+		[self.navigationController popViewControllerAnimated:YES];
+		[_delegate didSubscribe:_chapter];
+	}
+}
+
 
 @end

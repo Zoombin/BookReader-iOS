@@ -155,19 +155,21 @@
 {
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (cell == nil) {
-        if (bBookmarks) {
-            cell = [[BookMarkCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
-            cell.textLabel.textColor = [UIColor blueColor];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:16]];
-			Mark *mark = [infoArray objectAtIndex:indexPath.row];
-            [(BookMarkCell *)cell setMark:mark];
-        } else {
-            cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
-			Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
-            [(ChapterCell *)cell  setChapter:chapter isCurrent:[chapter.uid isEqualToString:_chapter.uid] andAllChapters:infoArray];
-        }
-    }
+	if (bBookmarks) {
+		if (!cell) {
+			cell = [[BookMarkCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
+		}
+		cell.textLabel.textColor = [UIColor blueColor];
+		[cell.textLabel setFont:[UIFont systemFontOfSize:16]];
+		Mark *mark = [infoArray objectAtIndex:indexPath.row];
+		[(BookMarkCell *)cell setMark:mark];
+	} else {
+		if (!cell) {
+			cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
+		}
+		Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
+		[(ChapterCell *)cell  setChapter:chapter isCurrent:[chapter.uid isEqualToString:_chapter.uid] andAllChapters:infoArray];
+	}
     return cell;
 }
 

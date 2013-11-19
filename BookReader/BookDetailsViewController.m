@@ -811,20 +811,20 @@
             [(CommentCell *)cell setComment:obj];
         }
     } else if (tableView == chapterListTableView) {
-        if (cell == nil) {
+        if (!cell) {
             cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"MyCell"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
-			Chapter *lastReadChapter = [Chapter	lastReadChapterOfBookID:chapter.bid];
-			BOOL isCurrent = NO;
-			if (lastReadChapter) {
-				isCurrent = [chapter.uid isEqualToString:lastReadChapter.uid];
-				if (isCurrent) {
-					NSLog(@"same chapter");
-				}
+		}
+		Chapter *chapter = [chapterArray objectAtIndex:[indexPath row]];
+		Chapter *lastReadChapter = [Chapter	lastReadChapterOfBookID:chapter.bid];
+		BOOL isCurrent = NO;
+		if (lastReadChapter) {
+			isCurrent = [chapter.uid isEqualToString:lastReadChapter.uid];
+			if (isCurrent) {
+				NSLog(@"same chapter");
 			}
-            [(ChapterCell *)cell setChapter:chapter isCurrent:isCurrent andAllChapters:chapterArray];
-        }
+		}
+		[(ChapterCell *)cell setChapter:chapter isCurrent:isCurrent andAllChapters:chapterArray];
     }
     else {
         if (cell == nil) {

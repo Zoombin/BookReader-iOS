@@ -45,8 +45,11 @@ float syncTimeInterval;
 
 #define APP_ID @"719359889"
 
-#define kXXSYHelpUrlString @"http://link2.xxsy.net/help.aspx"
-#define kXXSYGiftsUrlString @"http://link2.xxsy.net/dialogs/props.aspx"
+#define DEEP_LINK @"DEEP_LINK"
+
+#define kXXSYHelpUrlString @"http://link.xxsy.net/help.aspx"
+#define kXXSYGiftsUrlString @"http://link.xxsy.net/dialogs/props.aspx"
+#define kXXSYSubscribeUrlString @"http://link.xxsy.net/dialogs/dy.aspx"
 
 
 //testAccount
