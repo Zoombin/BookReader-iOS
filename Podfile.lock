@@ -1,0 +1,25 @@
+PODS:
+  - AFNetworking (1.3.3)
+  - iVersion (1.10.6)
+  - MagicalRecord (2.2)
+  - MBProgressHUD (0.8)
+  - PSTCollectionView (1.2.0)
+  - Reachability (3.1.1)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.3.3)
+  - iVersion (~> 1.10.6)
+  - MagicalRecord (~> 2.2)
+  - MBProgressHUD (~> 0.8)
+  - PSTCollectionView (~> 1.2.0)
+  - Reachability (~> 3.1.1)
+
+SPEC CHECKSUMS:
+  AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
+  iVersion: 36b392de6d86425f4a82439fd120c7753b52ea39
+  MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
+  PSTCollectionView: fb2ad2790c6efa306b2caf10315b2c1464d1f5c6
+  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
+
+COCOAPODS: 0.28.0
