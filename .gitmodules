@@ -1,21 +1,3 @@
-[submodule "Libraries/PSTCollectionView"]
-	path = Libraries/PSTCollectionView
-	url = git://github.com/qq30135878/PSTCollectionView.git
-[submodule "Libraries/MagicalRecord"]
-	path = Libraries/MagicalRecord
-	url = git://github.com/qq30135878/MagicalRecord.git
-[submodule "Libraries/AFNetworking"]
-	path = Libraries/AFNetworking
-	url = git://github.com/qq30135878/AFNetworking.git
-[submodule "Libraries/MBProgressHUD"]
-	path = Libraries/MBProgressHUD
-	url = git://github.com/qq30135878/MBProgressHUD.git
 [submodule "Libraries/ZBUtilities"]
 	path = Libraries/ZBUtilities
 	url = https://30135878%40qq.com@github.com/qq30135878/ZBUtilities.git
-[submodule "Libraries/Reachability"]
-	path = Libraries/Reachability
-	url = https://qq30135878@github.com/qq30135878/Reachability.git
-[submodule "Libraries/iVersion"]
-	path = Libraries/iVersion
-	url = https://qq30135878@github.com/nicklockwood/iVersion.git
