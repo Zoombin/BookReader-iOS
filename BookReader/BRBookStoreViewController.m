@@ -370,7 +370,7 @@
                   classID:0
                   ranking:rankId
                      size:@"6"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
                      if (success){
                          if ([infoArray count]==0) {
                              [infoTableView setTableFooterView:nil];
