@@ -9,6 +9,7 @@
 #import "CommentViewController.h"
 #import "ServiceManager.h"
 #import "UIViewController+HUD.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation CommentViewController {
     UITextView *textView;
