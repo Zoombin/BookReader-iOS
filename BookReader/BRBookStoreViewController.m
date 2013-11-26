@@ -465,7 +465,7 @@
                   classID:index + 1
                   ranking:0
                      size:@"7"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+                 andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
                      if (success){
                          if ([infoArray count]>0) {
                              [infoArray removeAllObjects];

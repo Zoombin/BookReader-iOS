@@ -72,14 +72,15 @@
                     classID:catagoryId
                   ranking:0
                      size:@"7"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *result) {
+                 andIndex:[NSString stringWithFormat:@"%d",currentIndex + 1] withBlock:^(BOOL success, NSError *error, NSArray *result) {
                      if (success) {
-                         if ([infoArray count]>0) {
+                         if ([infoArray count] > 0) {
                              [infoArray addObjectsFromArray:result];
                              [infoTableView reloadData];
                          }else {
                              [infoTableView setTableFooterView:nil];
                          }
+                         currentIndex++;
                          isLoading = NO;
                      } else {
                          if (error) {
@@ -120,14 +121,14 @@
 {
     NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-	if (cell == nil) {
+	if (!cell) {
         if (infoArray.count == 0) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
         } else {
-        cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
-        Book *book = [infoArray objectAtIndex:[indexPath row]];
-        [cell setBook:book];
+            cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
+            Book *book = [infoArray objectAtIndex:[indexPath row]];
+            [cell setBook:book];
         }
     }
 	return cell;
@@ -155,10 +156,10 @@
                          if ([infoArray count]>0) {
                              [infoArray addObjectsFromArray:result];
                              [infoTableView reloadData];
-                             currentIndex++;
                          }else {
                              [infoTableView setTableFooterView:nil];
                          }
+                         currentIndex++;
                          isLoading = NO;
                      } else {
                          if (error) {
