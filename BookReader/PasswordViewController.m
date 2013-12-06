@@ -126,7 +126,6 @@
     rect.origin.y += CGRectGetMaxY(codeTextField.bounds) + distance;
     changeButton.frame = rect;
     rect.origin.y += CGRectGetMaxY(changeButton.bounds) + distance;
-    
 }
 
 #pragma mark -
@@ -208,7 +207,7 @@
 
 - (void)changePasswordValueChanged:(id)sender
 {
-    if ([passwordTextField.text length]&&[confirmTextField.text length]&&[codeTextField.text length]) {
+    if ([passwordTextField.text length]&&[confirmTextField.text length] && [codeTextField.text length]) {
         [changeButton setEnabled:YES];
     } else {
         [changeButton setEnabled:NO];

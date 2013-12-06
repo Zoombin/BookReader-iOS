@@ -445,10 +445,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			} else {//没下载到，尝试订阅
 				if (![ServiceManager isSessionValid]) {
 					NSLog(@"尚未登录无法阅读");
-					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
-					popLoginViewController.delegate = self;
-					[self addChildViewController:popLoginViewController];
-					[self.view addSubview:popLoginViewController.view];
+					[self displayHUDTitle:@"需要登录" message:@"请从会员中心登录后操作"];
+//					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+//					popLoginViewController.delegate = self;
+//					[self addChildViewController:popLoginViewController];
+//					[self.view addSubview:popLoginViewController.view];
 					return;
 				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
@@ -737,10 +738,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showLoginAlert
 {
-	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
-	popLoginViewController.delegate = self;
-	[self addChildViewController:popLoginViewController];
-	[self.view addSubview:popLoginViewController.view];
+	[self displayHUDTitle:@"需要登录" message:@"请从会员中心登录后操作"];
+//	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
+//	popLoginViewController.delegate = self;
+//	[self addChildViewController:popLoginViewController];
+//	[self.view addSubview:popLoginViewController.view];
 }
 
 - (void)bookDetailButtonClick

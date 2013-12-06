@@ -30,6 +30,8 @@
 {
     UITableView *_memberTableView;
 	UIAlertView *_logoutAlert;
+	UIWebView *_webView;
+	UIButton *logoutButton;
 }
 
 - (void)viewDidLoad
@@ -43,6 +45,7 @@
 	CGSize fullSize = self.view.bounds.size;
 	
 	_memberTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], fullSize.width - 10, fullSize.height - [BRHeaderView height] - [BRBottomView height]) style:UITableViewStyleGrouped];
+	_memberTableView.hidden = YES;
 	[_memberTableView setDelegate:self];
 	[_memberTableView setDataSource:self];
 	_memberTableView.backgroundColor = [UIColor clearColor];
@@ -52,20 +55,30 @@
 	[_memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 	[self.view addSubview:_memberTableView];
 	
-	UIButton *logoutButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+	logoutButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
 	[logoutButton setTitle:@"注销" forState:UIControlStateNormal];
+	logoutButton.hidden = YES;
 	[logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:logoutButton];
 	
 	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
 	bottomView.memberButton.selected = YES;
 	[self.view addSubview:bottomView];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deeplink:) name:DEEP_LINK object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([ServiceManager isSessionValid]) {
+	[self fetchUserInfo];
+}
+
+- (void)fetchUserInfo
+{
+	if ([ServiceManager isSessionValid]) {
+		logoutButton.hidden = NO;
+		_memberTableView.hidden = NO;
         if (self.bReg) {
             self.bReg = NO;
             return;
@@ -91,8 +104,79 @@
 
 - (void)goToSignIn
 {
-	SignInViewController *signInViewController = [[SignInViewController alloc] init];
-	[self.navigationController pushViewController:signInViewController animated:NO];
+//	SignInViewController *signInViewController = [[SignInViewController alloc] init];
+//	[self.navigationController pushViewController:signInViewController animated:NO];
+	
+	logoutButton.hidden = YES;
+	_memberTableView.hidden = YES;
+	
+	if (!_webView) {
+		CGSize fullSize = self.view.bounds.size;
+		_webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [BRHeaderView height], fullSize.width, fullSize.height - [BRHeaderView height] - [BRBottomView height])];
+		_webView.backgroundColor = [UIColor clearColor];
+		_webView.scrollView.showsHorizontalScrollIndicator = NO;
+		_webView.scrollView.showsVerticalScrollIndicator = NO;
+		[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kXXSYRegisterUrlString]]];
+		[self.view addSubview:_webView];
+	}
+	_webView.hidden = NO;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)deeplink:(NSNotification *)notification
+{
+	NSLog(@"DEEP_LINK notification: %@", notification);
+	NSURL *URL = notification.object;
+	
+	NSRange range = [URL.absoluteString rangeOfString:@"findpassword"];
+	if (range.location != NSNotFound) {
+		PasswordViewController *passwordViewController = [[PasswordViewController alloc] init];
+		passwordViewController.bFindPassword = YES;
+		[self.navigationController pushViewController:passwordViewController animated:NO];
+		return;
+	}
+	
+	range = [URL.absoluteString rangeOfString:@"login/success/"];
+	NSString *userID = nil;
+	if (range.location != NSNotFound) {
+		userID = [URL.absoluteString substringFromIndex:range.location + range.length];
+		NSLog(@"userID: %@", userID);
+		if (!userID) {
+			return;
+		} else {
+			[self loginAfterDeepLink:userID];
+		}
+	}
+	
+	range = [URL.absoluteString rangeOfString:@"register/success/"];
+	if (range.location != NSNotFound) {
+		userID = [URL.absoluteString substringFromIndex:range.location + range.length];
+		NSLog(@"userID: %@", userID);
+		if (!userID) {
+			return;
+		} else {
+			[self loginAfterDeepLink:userID];
+		}
+	}
+}
+
+- (void)loginAfterDeepLink:(NSString *)userID
+{
+	NSNumber *ID = @([userID longLongValue]);
+	if (!ID) {
+		return;
+	}
+	[ServiceManager saveUserID:ID];
+	[ServiceManager login];
+	
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	_webView.hidden = YES;
+	[self fetchUserInfo];
 }
 
 - (void)logoutButtonClicked

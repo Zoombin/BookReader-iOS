@@ -916,10 +916,11 @@
 
 - (void)showPopLogin
 {
-	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
-	popLoginViewController.delegate = self;
-	[self addChildViewController:popLoginViewController];
-	[self.view addSubview:popLoginViewController.view];
+	[self displayHUDTitle:@"需要登录" message:@"请从会员中心登录后操作"];
+//	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+//	popLoginViewController.delegate = self;
+//	[self addChildViewController:popLoginViewController];
+//	[self.view addSubview:popLoginViewController.view];
 }
 
 - (void)checkExistsFav

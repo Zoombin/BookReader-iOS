@@ -319,7 +319,9 @@ static NSNumber *sUserID;
         NSLog(@"%@",theObject);
         BRUser *member = nil;
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-            member = [BRUser createWithAttributes:theObject[@"user"]];
+			if ([theObject[@"user"] isKindOfClass:[NSDictionary class]]) {
+				member = [BRUser createWithAttributes:theObject[@"user"]];
+			}
         }
         if (block) {
             block([theObject[@"result"] isEqualToString:SUCCESS_FLAG], nil, member);

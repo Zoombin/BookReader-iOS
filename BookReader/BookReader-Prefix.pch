@@ -34,7 +34,6 @@
 
 BOOL stopAllSync;
 
-
 #define LONG_SYNC_INTERVAL 1.0
 #define SHORT_SYNC_INTERVAL 0.3
 float syncTimeInterval;
@@ -53,6 +52,7 @@ float syncTimeInterval;
 #define kXXSYHelpUrlString @"http://link.xxsy.net/help.aspx"
 #define kXXSYGiftsUrlString @"http://link.xxsy.net/dialogs/props.aspx"
 #define kXXSYSubscribeUrlString @"http://link.xxsy.net/dialogs/dy.aspx"
+#define kXXSYRegisterUrlString @"http://link2.xxsy.net/dialogs/register.aspx"
 
 
 //testAccount

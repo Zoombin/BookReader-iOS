@@ -41,6 +41,11 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deeplink:) name:DEEP_LINK object:nil];
 }
 
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setUrlString:(NSString *)urlString
 {
 	_urlString = urlString;

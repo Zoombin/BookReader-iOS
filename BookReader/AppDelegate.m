@@ -84,6 +84,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+	NSLog(@"DEEP_LINK: %@", url);
 	[[NSNotificationCenter defaultCenter] postNotificationName:DEEP_LINK object:url];
 	return YES;
 }
