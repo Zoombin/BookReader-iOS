@@ -314,6 +314,7 @@ static NSNumber *sUserID;
 + (void)userInfoWithBlock:(void (^)(BOOL success,  NSError *error, BRUser *member))block
 {
 	NSMutableDictionary *parameters = [self commonParameters:@[@{@"userid" : [self userID].stringValue}]];
+	parameters[@"requestType"] = @"1";
     [[ServiceManager shared] postPath:@"GetHyuser.aspx" parameters:parameters success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         NSLog(@"%@",theObject);
