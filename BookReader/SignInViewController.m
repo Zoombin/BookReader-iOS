@@ -98,7 +98,7 @@
 - (void)loginButtonClicked
 {
     [self hideKeyboard];
-    [self displayHUD:@"登录中"];
+    [self displayHUD:@"加载..."];
     [ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
 		passwordTextField.text = @"";
             if (success) {

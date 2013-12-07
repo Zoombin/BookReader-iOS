@@ -916,7 +916,7 @@
 
 - (void)showPopLogin
 {
-	[self displayHUDTitle:@"需要登录" message:@"请从会员中心登录后操作"];
+	[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
 //	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 //	popLoginViewController.delegate = self;
 //	[self addChildViewController:popLoginViewController];

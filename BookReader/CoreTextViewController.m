@@ -256,7 +256,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)willAddFav
 {
 	if (![ServiceManager isSessionValid]) {
-		[self displayHUDTitle:@"登录后才能收藏" message:nil];
+		[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
 		return;
 	};
 
@@ -445,7 +445,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			} else {//没下载到，尝试订阅
 				if (![ServiceManager isSessionValid]) {
 					NSLog(@"尚未登录无法阅读");
-					[self displayHUDTitle:@"需要登录" message:@"请从会员中心登录后操作"];
+					[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
 //					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 //					popLoginViewController.delegate = self;
 //					[self addChildViewController:popLoginViewController];
@@ -738,7 +738,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showLoginAlert
 {
-	[self displayHUDTitle:@"需要登录" message:@"请从会员中心登录后操作"];
+	[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
 //	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
 //	popLoginViewController.delegate = self;
 //	[self addChildViewController:popLoginViewController];
