@@ -63,6 +63,8 @@
 		[_memberButton setTitleColor:selectedColor forState:UIControlStateSelected];
 		[_memberButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:_memberButton];
+		
+		_memberButton.hidden = ![NSDate reachThatDay];
     }
     return self;
 }

@@ -347,14 +347,7 @@
         }
 		
 		if (i == 1 || i == 2) {
-			NSString *stringDate = @"12/20/2013";//TODO: 2013年12月20日之前隐藏收藏和投月票的按钮
-			NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-			[dateFormatter setDateFormat:@"MM/dd/yyyy"];
-			NSDate *dateCheck = [dateFormatter dateFromString:stringDate];
-			NSDate *now = [NSDate date];
-			if (dateCheck == [now laterDate:dateCheck]) {
-				button.hidden = YES;
-			}
+			button.hidden = ![NSDate reachThatDay];
 		}
         [coverView addSubview:button];
     }

@@ -26,6 +26,7 @@
 #import "ShelfCategory.h"
 #import "ShelfCategory+Setup.h"
 #import "UIColor+BookReader.h"
+#import "NSDate+Find.h"
 
 #define NEED_REFRESH_BOOKSHELF @"br_need_refresh_bookshelf"
 #define UMENG_KEY @"52032fb056240b0e8e00408e"

@@ -33,6 +33,7 @@
 		18BB11C517CA004500736BB4 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18BB11C217CA004500736BB4 /* umFeedback.bundle */; };
 		18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FD246417B37A8000D11CCA /* libMobClickLibrary.a */; };
 		58F247A5F54B45CE9CE8F721 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F07666AF894B50A100C9D3 /* libPods.a */; };
+		776FA99F185D868B00615DB9 /* NSDate+Find.m in Sources */ = {isa = PBXBuildFile; fileRef = 776FA99E185D868B00615DB9 /* NSDate+Find.m */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
 		7784F34517FBFDB500C666DF /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7784F34317FBFDB500C666DF /* ModelManaged.xcdatamodeld */; };
@@ -71,7 +72,6 @@
 		77E2E16517F6A02F003FD87A /* BRShelfCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E16417F6A02F003FD87A /* BRShelfCategoryView.m */; };
 		77E2E16817F6CB68003FD87A /* ShelfCategory+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E2E16717F6CB68003FD87A /* ShelfCategory+Setup.m */; };
 		77F889B9180BE63A00D6A45D /* BRBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F889B8180BE63A00D6A45D /* BRBottomView.m */; };
-		77F889BC180C2B3500D6A45D /* BRBookStoreTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F889BB180C2B3500D6A45D /* BRBookStoreTabBarView.m */; };
 		77F889C5180C2B9A00D6A45D /* UIButton+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F889BE180C2B9A00D6A45D /* UIButton+BookReader.m */; };
 		77F889C6180C2B9A00D6A45D /* UIColor+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F889C0180C2B9A00D6A45D /* UIColor+BookReader.m */; };
 		77F889C7180C2B9A00D6A45D /* UILabel+BookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F889C2180C2B9A00D6A45D /* UILabel+BookReader.m */; };
@@ -150,6 +150,8 @@
 		18FD246517B37A8000D11CCA /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		40F07666AF894B50A100C9D3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		71420828D2A64A2E969CD3BD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		776FA99D185D868B00615DB9 /* NSDate+Find.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Find.h"; path = "BookReader/NSDate+Find.h"; sourceTree = SOURCE_ROOT; };
+		776FA99E185D868B00615DB9 /* NSDate+Find.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Find.m"; path = "BookReader/NSDate+Find.m"; sourceTree = SOURCE_ROOT; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7784F34417FBFDB500C666DF /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
@@ -218,8 +220,6 @@
 		77E2E16717F6CB68003FD87A /* ShelfCategory+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShelfCategory+Setup.m"; sourceTree = "<group>"; };
 		77F889B7180BE63A00D6A45D /* BRBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBottomView.h; sourceTree = "<group>"; };
 		77F889B8180BE63A00D6A45D /* BRBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBottomView.m; sourceTree = "<group>"; };
-		77F889BA180C2B3500D6A45D /* BRBookStoreTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBookStoreTabBarView.h; sourceTree = "<group>"; };
-		77F889BB180C2B3500D6A45D /* BRBookStoreTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBookStoreTabBarView.m; sourceTree = "<group>"; };
 		77F889BD180C2B9A00D6A45D /* UIButton+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+BookReader.h"; path = "BookReader/UIButton+BookReader.h"; sourceTree = SOURCE_ROOT; };
 		77F889BE180C2B9A00D6A45D /* UIButton+BookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+BookReader.m"; path = "BookReader/UIButton+BookReader.m"; sourceTree = SOURCE_ROOT; };
 		77F889BF180C2B9A00D6A45D /* UIColor+BookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+BookReader.h"; path = "BookReader/UIColor+BookReader.h"; sourceTree = SOURCE_ROOT; };
@@ -376,6 +376,8 @@
 		770D432117191AC3000612D1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				776FA99D185D868B00615DB9 /* NSDate+Find.h */,
+				776FA99E185D868B00615DB9 /* NSDate+Find.m */,
 				77A90A20180CCC750049665B /* NSString+XXSY.h */,
 				77A90A21180CCC750049665B /* NSString+XXSY.m */,
 				77A90A22180CCC750049665B /* UINavigationController+RotationIn_IOS6.h */,
@@ -483,8 +485,6 @@
 				18B39BAB17B067DF0092AC0A /* GiftButton.m */,
 				779A5A8C17C0536700C865FE /* BookShelfHelpView.h */,
 				779A5A8D17C0536700C865FE /* BookShelfHelpView.m */,
-				77F889BA180C2B3500D6A45D /* BRBookStoreTabBarView.h */,
-				77F889BB180C2B3500D6A45D /* BRBookStoreTabBarView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -753,12 +753,12 @@
 				18ABAF321724FB1D00ED02C6 /* BRUser.m in Sources */,
 				77A90A24180CCC750049665B /* NSString+XXSY.m in Sources */,
 				77A90A16180CCC130049665B /* NSUserDefaults+BookReader.m in Sources */,
+				776FA99F185D868B00615DB9 /* NSDate+Find.m in Sources */,
 				77E2E16517F6A02F003FD87A /* BRShelfCategoryView.m in Sources */,
 				77F88A12180C2C0900D6A45D /* ReadHelpView.m in Sources */,
 				77F88A16180C2C0900D6A45D /* WebViewController.m in Sources */,
 				77E2E16817F6CB68003FD87A /* ShelfCategory+Setup.m in Sources */,
 				77A90A1F180CCC640049665B /* PopLoginViewController.m in Sources */,
-				77F889BC180C2B3500D6A45D /* BRBookStoreTabBarView.m in Sources */,
 				7784F34517FBFDB500C666DF /* ModelManaged.xcdatamodeld in Sources */,
 				77A90A25180CCC750049665B /* UINavigationController+RotationIn_IOS6.m in Sources */,
 				77F88A07180C2C0900D6A45D /* BRViewController.m in Sources */,

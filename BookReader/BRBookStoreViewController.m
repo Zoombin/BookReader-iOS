@@ -17,7 +17,6 @@
 #import "CategoryDetailsViewController.h"
 #import "UIView+BookReader.h"
 #import "BookCell.h"
-#import "BRBookStoreTabBarView.h"
 #import "BRBottomView.h"
 
 #define RECOMMEND 0
