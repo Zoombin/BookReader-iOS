@@ -256,7 +256,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)willAddFav
 {
 	if (![ServiceManager isSessionValid]) {
-		[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
+		[self displayHUDTitle:@"操作失败" message:nil];
 		return;
 	};
 
@@ -445,7 +445,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			} else {//没下载到，尝试订阅
 				if (![ServiceManager isSessionValid]) {
 					NSLog(@"尚未登录无法阅读");
-					[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
+					[self displayHUDTitle:@"获取章节" message:nil];
 //					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 //					popLoginViewController.delegate = self;
 //					[self addChildViewController:popLoginViewController];
@@ -455,7 +455,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
 				webSubscribeChapter = aChapter;
-				UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读该章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
+				UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"获取该章节失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
 				[alertView show];
 //				[self displayHUD:@"订阅章节内容..."];
 //				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
@@ -648,7 +648,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
         [self showLoginAlert];
         return;
     }
-     commentViewController = [[CommentViewController alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+	commentViewController = [[CommentViewController alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     commentViewController.bookId = _chapter.bid;
     [self.view addSubview:commentViewController.view];
 }
@@ -738,7 +738,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)showLoginAlert
 {
-	[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
+	[self displayHUDTitle:@"操作失败" message:nil];
 //	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
 //	popLoginViewController.delegate = self;
 //	[self addChildViewController:popLoginViewController];

@@ -163,15 +163,17 @@
     [bottomView addSubview:shareButton];
     [bottomViewBtns addObject:shareButton];
     
-    k ++;
-     frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+    k++;
+	frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
     commitButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"评论"];
     [commitButton setImage:[UIImage imageNamed:@"read_commit"] forState:UIControlStateNormal];
     [commitButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:commitButton];
-    [bottomViewBtns addObject:commitButton];
+	if ([NSDate reachThatDay]) {
+		[bottomView addSubview:commitButton];
+	}
+	[bottomViewBtns addObject:commitButton];
     
-    k ++;
+    k++;
     frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
     resetButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"导航"];
     [resetButton setImage:[UIImage imageNamed:@"read_navigation"] forState:UIControlStateNormal];
@@ -180,32 +182,32 @@
     [bottomViewBtns addObject:resetButton];
     
     k = 0;
-     frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+	frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
     brightButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"亮度调节"];
     [brightButton setImage:[UIImage imageNamed:@"read_bright"] forState:UIControlStateNormal];
     [brightButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:brightButton];
     [bottomViewBtns addObject:brightButton];
     
-    k ++;
-      frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+    k++;
+	frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
     backgroundButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"阅读背景"];
     [backgroundButton setImage:[UIImage imageNamed:@"read_background"] forState:UIControlStateNormal];
     [backgroundButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:backgroundButton];
     [bottomViewBtns addObject:backgroundButton];
     
-    k ++;
-     frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
-     fontSetButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"字体调节"];
+    k++;
+	frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+	fontSetButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"字体调节"];
     [fontSetButton setImage:[UIImage imageNamed:@"read_font"] forState:UIControlStateNormal];
     [fontSetButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:fontSetButton];
     [bottomViewBtns addObject:fontSetButton];
     
-    k ++;
-     frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
-    horizontalButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"横屏"];
+    k++;
+	frame = CGRectMake(k * BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+	horizontalButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"横屏"];
     [horizontalButton setImage:[UIImage imageNamed:@"read_hor"] forState:UIControlStateNormal];
     [horizontalButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:horizontalButton];
@@ -214,7 +216,7 @@
     [self addSubview:bottomView];
 }
 
-- (void) initFontView
+- (void)initFontView
 {
     fontView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 200, self.bounds.size.width, 200)];
     [fontView setHidden:YES];
@@ -563,7 +565,9 @@
     [addFavButton setShowsTouchWhenHighlighted:YES];
     [addFavButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [addFavButton setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [navigationView addSubview:addFavButton];
+	if ([NSDate reachThatDay]) {
+		[navigationView addSubview:addFavButton];
+	}
 	
 	if (_favorited) {
 		[self disableAddFavButton];

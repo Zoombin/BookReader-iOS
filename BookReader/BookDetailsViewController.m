@@ -136,7 +136,7 @@
                 if (error) {
                     [self displayHUDTitle:nil message:NETWORK_ERROR];
                 } else {
-                    [self displayHUDTitle:nil message:@"无法获取此书详情"];
+                    [self displayHUDTitle:nil message:@"获取书籍详情失败"];
                 }
 				[self performSelector:@selector(backOrClose) withObject:nil afterDelay:2.0f];
             }
@@ -920,7 +920,7 @@
 
 - (void)showPopLogin
 {
-	[self displayHUDTitle:@"请进入会员中心后再进行操作" message:nil];
+	[self displayHUDTitle:@"发表失败" message:nil];
 //	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 //	popLoginViewController.delegate = self;
 //	[self addChildViewController:popLoginViewController];
