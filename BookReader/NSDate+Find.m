@@ -17,8 +17,8 @@
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
 	NSDate *dateCheck = [dateFormatter dateFromString:stringDate];
 	NSDate *now = [NSDate date];
-	//if (dateCheck == [now laterDate:dateCheck])
-	//	return NO;
+	if (dateCheck == [now laterDate:dateCheck])
+		return NO;
 	return YES;
 }
 
