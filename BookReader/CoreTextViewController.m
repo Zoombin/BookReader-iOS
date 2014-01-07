@@ -455,8 +455,21 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
 				webSubscribeChapter = aChapter;
-				UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"获取该章节失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
-				[alertView show];
+				
+				WebViewController *controller = [[WebViewController alloc] init];
+				controller.delegate = self;
+				controller.chapter = webSubscribeChapter;
+				controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
+				controller.popTarget = self;
+				if (enterChapterIsVIP) {
+					controller.popTarget = _previousViewController;
+				}
+				[self.navigationController performSelector:@selector(pushViewController:animated:) withObject:controller afterDelay:1];
+//				[self.navigationController pushViewController:controller animated:YES];
+				
+//				UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"获取该章节失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
+//				[alertView show];
+				
 //				[self displayHUD:@"订阅章节内容..."];
 //				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
 //					[self hideHUD:YES];
@@ -663,25 +676,6 @@ static NSString *kPageUnCurl = @"pageUnCurl";
     [APP_DELEGATE gotoRootController:kRootControllerIdentifierBookShelf];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == alertView.cancelButtonIndex) {
-		if (enterChapterIsVIP) {
-			[self back];
-		}
-    } else {
-		WebViewController *controller = [[WebViewController alloc] init];
-		controller.delegate = self;
-		controller.chapter = webSubscribeChapter;
-		controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
-		controller.popTarget = self;
-		if (enterChapterIsVIP) {
-			controller.popTarget = _previousViewController;
-		}
-		[self.navigationController pushViewController:controller animated:YES];
-	}
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -806,6 +800,27 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	Chapter *aChapter = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid];
 	[self gotoChapter:aChapter withReadIndex:nil extra:YES];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == alertView.cancelButtonIndex) {
+		if (enterChapterIsVIP) {
+			[self back];
+		}
+    } else {
+		WebViewController *controller = [[WebViewController alloc] init];
+		controller.delegate = self;
+		controller.chapter = webSubscribeChapter;
+		controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
+		controller.popTarget = self;
+		if (enterChapterIsVIP) {
+			controller.popTarget = _previousViewController;
+		}
+		[self.navigationController pushViewController:controller animated:YES];
+	}
 }
 
 @end

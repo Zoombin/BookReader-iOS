@@ -12,13 +12,13 @@
 
 + (BOOL)reachThatDay
 {
-	NSString *stringDate = @"1/10/2014";//TODO: 2014年1月10日之前隐藏收藏和投月票的按钮
+	NSString *stringDate = @"1/19/2014";//TODO
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
 	NSDate *dateCheck = [dateFormatter dateFromString:stringDate];
 	NSDate *now = [NSDate date];
-	if (dateCheck == [now laterDate:dateCheck])
-		return NO;
+	//if (dateCheck == [now laterDate:dateCheck])
+	//	return NO;
 	return YES;
 }
 

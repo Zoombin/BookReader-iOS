@@ -22,6 +22,7 @@
 #import "NSString+ZBUtilites.h"
 #import "UMFeedback.h"
 #import "BRBottomView.h"
+#import "WebViewController.h"
 
 @interface MemberViewController() <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
 @end
@@ -230,7 +231,7 @@
 	if (section == 0) {
 		return 1;
 	}
-    return 5;
+    return 6;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -260,6 +261,8 @@
 				[cell.textLabel setText:@"清除所有数据缓存"];
                 [cell.detailTextLabel setText:@"(如占用太多空间，可点击此按钮清除数据)"];
                 [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
+			} else if (indexPath.row == 4) {
+				[cell.textLabel setText:@"用户充值"];
 			} else {
                 [cell.textLabel setText:@"新版本检测"];
             }
@@ -287,9 +290,13 @@
     } else if (indexPath.row == 2) {
         NSLog(@"用户反馈");
         [UMFeedback showFeedback:self withAppkey:UMENG_KEY];
-    } else if (indexPath.row == 3){
+    } else if (indexPath.row == 3) {
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"是否进行清理? " delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
 		[alertView show];
+	} else if (indexPath.row == 4) {
+		WebViewController *webViewController = [[WebViewController alloc] init];
+		webViewController.urlString = kXXSYHelpUrlString;
+		[self.navigationController pushViewController:webViewController animated:YES];
 	} else {
         NSLog(@"新版本检测");
         [[iVersion sharedInstance] setIgnoredVersion:@""];

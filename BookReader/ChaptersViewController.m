@@ -175,7 +175,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[self.navigationController popViewControllerAnimated:YES];
+	[self.navigationController popViewControllerAnimated:NO];
 	[_delegate didSelect:infoArray[indexPath.row]];
 }
 
