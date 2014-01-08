@@ -295,7 +295,8 @@
 		[alertView show];
 	} else if (indexPath.row == 4) {
 		WebViewController *webViewController = [[WebViewController alloc] init];
-		webViewController.urlString = kXXSYHelpUrlString;
+		webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&tx=1", kXXSYHelpUrlString, [ServiceManager userID]];
+		NSLog(@"urlString: %@", webViewController.urlString);
 		[self.navigationController pushViewController:webViewController animated:YES];
 	} else {
         NSLog(@"新版本检测");
