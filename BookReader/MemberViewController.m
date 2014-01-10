@@ -33,6 +33,7 @@
 	UIAlertView *_logoutAlert;
 	UIWebView *_webView;
 	UIButton *logoutButton;
+	BRBottomView *bottomView;
 }
 
 - (void)viewDidLoad
@@ -62,11 +63,17 @@
 	[logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:logoutButton];
 	
-	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
 	bottomView.memberButton.selected = YES;
 	[self.view addSubview:bottomView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deeplink:) name:DEEP_LINK object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[bottomView refresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -117,7 +124,8 @@
 		_webView.backgroundColor = [UIColor clearColor];
 		_webView.scrollView.showsHorizontalScrollIndicator = NO;
 		_webView.scrollView.showsVerticalScrollIndicator = NO;
-		[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kXXSYRegisterUrlString]]];
+		_webView.scrollView.scrollEnabled = NO;
+		[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kXXSYLoginUrlString]]];
 		[self.view addSubview:_webView];
 	}
 	_webView.hidden = NO;
@@ -125,7 +133,7 @@
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:DEEP_LINK object:nil];
 }
 
 - (void)deeplink:(NSNotification *)notification
@@ -150,6 +158,7 @@
 			return;
 		} else {
 			[self loginAfterDeepLink:userID];
+			return;
 		}
 	}
 	
@@ -161,6 +170,7 @@
 			return;
 		} else {
 			[self loginAfterDeepLink:userID];
+			return;
 		}
 	}
 }
@@ -295,6 +305,7 @@
 		[alertView show];
 	} else if (indexPath.row == 4) {
 		WebViewController *webViewController = [[WebViewController alloc] init];
+		webViewController.fromWhere = kFromLogin;
 		webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&tx=1", kXXSYHelpUrlString, [ServiceManager userID]];
 		NSLog(@"urlString: %@", webViewController.urlString);
 		[self.navigationController pushViewController:webViewController animated:YES];

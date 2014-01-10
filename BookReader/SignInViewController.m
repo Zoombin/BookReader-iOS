@@ -28,6 +28,7 @@
     UITextField *passwordTextField;
     
     UIButton *loginButton;
+	BRBottomView *bottomView;
 }
 
 - (void)viewDidLoad
@@ -67,9 +68,15 @@
     [findButton setTitle:@"密码忘记点这里" forState:UIControlStateNormal];
     [self.view addSubview:findButton];
 	
-	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
 	bottomView.memberButton.selected = YES;
 	[self.view addSubview:bottomView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[bottomView refresh];
 }
 
 - (void)valueChanged:(id)sender

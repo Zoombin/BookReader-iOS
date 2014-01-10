@@ -10,6 +10,11 @@
 #import "BRViewController.h"
 #import "Chapter.h"
 
+//extern NSString *kFromAddFav;
+extern NSString *kFromGift;
+extern NSString *kFromLogin;
+extern NSString *kFromSubscribe;
+
 @protocol WebViewControllerDelegate <NSObject>
 
 - (void)didSubscribe:(Chapter *)chapter;
@@ -22,5 +27,7 @@
 @property (nonatomic, strong) UIViewController *popTarget;
 @property (nonatomic, strong) NSString *urlString;
 @property (nonatomic, strong) Chapter *chapter;
+@property (nonatomic, strong) Book *book;
+@property (nonatomic, strong) NSString *fromWhere;
 
 @end

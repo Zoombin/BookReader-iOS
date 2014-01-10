@@ -73,6 +73,8 @@
     NSMutableArray *allArray;
     NSMutableArray *newArray;
     NSMutableArray *hotArray;
+	
+	BRBottomView *bottomView;
 }
 
 - (id)init
@@ -187,7 +189,7 @@
     [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:infoTableView];
 	
-	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
 	bottomView.bookstoreButton.selected = YES;
 	[self.view addSubview:bottomView];
     
@@ -204,6 +206,12 @@
     
 	self.hideKeyboardRecognzier.enabled = NO;
 	[self buttonClick:recommendButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[bottomView refresh];
 }
 
 - (void)showCatagoryViewBtn

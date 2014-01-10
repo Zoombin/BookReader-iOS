@@ -7,6 +7,7 @@
 //
 
 #import "BRBottomView.h"
+#import "ServiceManager.h"
 
 @implementation BRBottomView
 
@@ -64,9 +65,18 @@
 		[_memberButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:_memberButton];
 		
-		_memberButton.hidden = ![NSDate reachThatDay];
+		[self refresh];
     }
     return self;
+}
+
+- (void)refresh
+{
+	if (![ServiceManager isSessionValid] && ![ServiceManager showDialogs]) {
+		_memberButton.hidden = YES;
+	} else {
+		_memberButton.hidden = NO;
+	}
 }
 
 - (void)buttonTapped:(UIButton *)sender

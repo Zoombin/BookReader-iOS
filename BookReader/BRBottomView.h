@@ -16,5 +16,6 @@
 @property (nonatomic, strong) UIButton *memberButton;
 
 + (CGFloat)height;
+- (void)refresh;
 
 @end

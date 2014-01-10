@@ -115,6 +115,9 @@
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
+	[ServiceManager showDialogsSettings:^(BOOL success, NSError *error) {
+		;
+	}];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

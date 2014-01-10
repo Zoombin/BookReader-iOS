@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIButton+BookReader.h"
 #import "AppDelegate.h"
+#import "ServiceManager.h"
 
 
 @implementation BookReadMenuView {
@@ -168,10 +169,11 @@
     commitButton = [UIButton bookMenuButtonWithFrame:frame andTitle:@"评论"];
     [commitButton setImage:[UIImage imageNamed:@"read_commit"] forState:UIControlStateNormal];
     [commitButton addTarget:self action:@selector(bottomButtonsPressed:) forControlEvents:UIControlEventTouchUpInside];
-	if ([NSDate reachThatDay]) {
-		[bottomView addSubview:commitButton];
-	}
+	[bottomView addSubview:commitButton];
 	[bottomViewBtns addObject:commitButton];
+	if (![ServiceManager isSessionValid] && ![ServiceManager showDialogs]) {
+		commitButton.hidden = YES;
+	}
     
     k++;
     frame = CGRectMake(k * BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -565,8 +567,9 @@
     [addFavButton setShowsTouchWhenHighlighted:YES];
     [addFavButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [addFavButton setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-	if ([NSDate reachThatDay]) {
-		[navigationView addSubview:addFavButton];
+	[navigationView addSubview:addFavButton];
+	if (![ServiceManager isSessionValid] && ![ServiceManager showDialogs]) {
+		addFavButton.hidden = YES;
 	}
 	
 	if (_favorited) {

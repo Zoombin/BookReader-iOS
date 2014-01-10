@@ -95,6 +95,7 @@
     UIImageView *finishMark;
     
     UIButton *favButton;
+	UIButton *giftButton;
     UILabel *emptyLabel;
     
     UISlider *slider;
@@ -344,10 +345,8 @@
         if (i == 1) {
             favButton = button;
 			[favButton setTitle:@"已收藏" forState:UIControlStateDisabled | UIControlStateSelected];
-        }
-		
-		if (i == 1 || i == 2) {
-			button.hidden = ![NSDate reachThatDay];
+        } else if (i == 2) {
+			giftButton = button;
 		}
         [coverView addSubview:button];
     }
@@ -458,6 +457,18 @@
     [authorBookTableView setDelegate:self];
     [authorBookTableView setDataSource:self];
     [authorBookView addSubview:authorBookTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	if (![ServiceManager isSessionValid] && ![ServiceManager showDialogs]) {
+		favButton.hidden = YES;
+		giftButton.hidden = YES;
+	} else {
+		favButton.hidden = NO;
+		giftButton.hidden = NO;
+	}
 }
 
 - (void)refreshCoverViewFrame
@@ -628,7 +639,10 @@
 - (void)sendCommitButtonClicked
 {
     [commitField resignFirstResponder];
-    if (![self checkLogin]) return;
+	if (![ServiceManager isSessionValid]) {
+		[self displayHUDTitle:@"失败" message:@"发布评论失败"];
+		return;
+	}
 
     if ([commitField.text length] <= 5) {
         [self displayHUDTitle:nil message:@"评论内容太短!"];
@@ -713,28 +727,26 @@
 	}];
 }
 
-- (void)pushToGiftViewWithIndex:(NSString *)index {
-    if (![self checkLogin]) return;
-	
+- (void)pushToGiftViewWithIndex:(NSString *)index
+{
+	NSNumber *userID = [ServiceManager isSessionValid] ? [ServiceManager userID] : @(0);
 	WebViewController *webViewController = [[WebViewController alloc] init];
-	webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@", kXXSYGiftsUrlString, [ServiceManager userID], book.uid];
+	webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@", kXXSYGiftsUrlString, userID, book.uid];
+	webViewController.book = book;
+	webViewController.fromWhere = kFromGift;
 	//GiftViewController *giftViewController = [[GiftViewController alloc] initWithBook:book];
 	[self.navigationController pushViewController:webViewController animated:YES];
 }
 
-- (BOOL)checkLogin
-{
-    if (![ServiceManager isSessionValid]) {
-        [self showPopLogin];
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
 - (void)addFav
 {
-    if (![self checkLogin]) return;
+	if (![ServiceManager isSessionValid]) {
+		WebViewController *webViewController = [[WebViewController alloc] init];
+		webViewController.fromWhere = kFromLogin;
+		webViewController.urlString = kXXSYLoginUrlString;
+		[self.navigationController pushViewController:webViewController animated:YES];
+		return;
+	}
 	
 	[self displayHUD:@"正在收藏..."];
 	[ServiceManager addFavoriteWithBookID:bookid On:YES withBlock:^(BOOL success, NSError *error,NSString *message) {
@@ -920,7 +932,6 @@
 
 - (void)showPopLogin
 {
-	[self displayHUDTitle:@"发表失败" message:nil];
 //	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
 //	popLoginViewController.delegate = self;
 //	[self addChildViewController:popLoginViewController];

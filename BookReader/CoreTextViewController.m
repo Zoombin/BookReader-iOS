@@ -256,7 +256,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)willAddFav
 {
 	if (![ServiceManager isSessionValid]) {
-		[self displayHUDTitle:@"操作失败" message:nil];
+		if ([ServiceManager showDialogs]) {
+			[self showPopLogin];
+		} else {
+			[self displayHUDTitle:@"操作失败" message:nil];
+		}
 		return;
 	};
 
@@ -443,28 +447,31 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				}];
 				[self gotoChapter:aChapter withReadIndex:nil extra:NO];
 			} else {//没下载到，尝试订阅
-				if (![ServiceManager isSessionValid]) {
-					NSLog(@"尚未登录无法阅读");
-					[self displayHUDTitle:@"获取章节" message:nil];
-//					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
-//					popLoginViewController.delegate = self;
-//					[self addChildViewController:popLoginViewController];
-//					[self.view addSubview:popLoginViewController.view];
-					return;
-				}
+//				if (![ServiceManager isSessionValid]) {
+//					NSLog(@"尚未登录无法阅读");
+//					[self displayHUDTitle:@"获取章节" message:nil];
+////					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
+////					popLoginViewController.delegate = self;
+////					[self addChildViewController:popLoginViewController];
+////					[self.view addSubview:popLoginViewController.view];
+//					return;
+//				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
 				webSubscribeChapter = aChapter;
 				
-				WebViewController *controller = [[WebViewController alloc] init];
-				controller.delegate = self;
-				controller.chapter = webSubscribeChapter;
-				controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
-				controller.popTarget = self;
+				WebViewController *webViewController = [[WebViewController alloc] init];
+				webViewController.delegate = self;
+				webViewController.chapter = webSubscribeChapter;
+				webViewController.fromWhere = kFromSubscribe;
+				
+				NSNumber *userID = [ServiceManager isSessionValid] ? [ServiceManager userID] : @(0);
+				webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, userID, webSubscribeChapter.uid];
+				webViewController.popTarget = self;
 				if (enterChapterIsVIP) {
-					controller.popTarget = _previousViewController;
+					webViewController.popTarget = _previousViewController;
 				}
-				[self.navigationController performSelector:@selector(pushViewController:animated:) withObject:controller afterDelay:1];
+				[self.navigationController performSelector:@selector(pushViewController:animated:) withObject:webViewController afterDelay:1];
 //				[self.navigationController pushViewController:controller animated:YES];
 				
 //				UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"获取该章节失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
@@ -658,7 +665,11 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)showCommitAlert
 {
     if (![ServiceManager isSessionValid]) {
-        [self showLoginAlert];
+		if ([ServiceManager showDialogs]) {
+			[self showPopLogin];
+		} else {
+			[self displayHUDTitle:@"操作失败" message:nil];
+		}
         return;
     }
 	commentViewController = [[CommentViewController alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
@@ -730,13 +741,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 }
 
-- (void)showLoginAlert
+- (void)showPopLogin
 {
-	[self displayHUDTitle:@"操作失败" message:nil];
-//	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
-//	popLoginViewController.delegate = self;
-//	[self addChildViewController:popLoginViewController];
-//	[self.view addSubview:popLoginViewController.view];
+	PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.bounds];
+	popLoginViewController.delegate = self;
+	[self addChildViewController:popLoginViewController];
+	[self.view addSubview:popLoginViewController.view];
 }
 
 - (void)bookDetailButtonClick
@@ -804,23 +814,23 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 #pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == alertView.cancelButtonIndex) {
-		if (enterChapterIsVIP) {
-			[self back];
-		}
-    } else {
-		WebViewController *controller = [[WebViewController alloc] init];
-		controller.delegate = self;
-		controller.chapter = webSubscribeChapter;
-		controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
-		controller.popTarget = self;
-		if (enterChapterIsVIP) {
-			controller.popTarget = _previousViewController;
-		}
-		[self.navigationController pushViewController:controller animated:YES];
-	}
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == alertView.cancelButtonIndex) {
+//		if (enterChapterIsVIP) {
+//			[self back];
+//		}
+//    } else {
+//		WebViewController *controller = [[WebViewController alloc] init];
+//		controller.delegate = self;
+//		controller.chapter = webSubscribeChapter;
+//		controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
+//		controller.popTarget = self;
+//		if (enterChapterIsVIP) {
+//			controller.popTarget = _previousViewController;
+//		}
+//		[self.navigationController pushViewController:controller animated:YES];
+//	}
+//}
 
 @end

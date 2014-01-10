@@ -51,10 +51,11 @@ float syncTimeInterval;
 //xxsy://register/success/2797792
 
 #define kXXSYHelpUrlString @"http://link.xxsy.net/help.aspx"
-#define kXXSYGiftsUrlString @"http://link.xxsy.net/dialogs/props.aspx"
-#define kXXSYSubscribeUrlString @"http://link.xxsy.net/dialogs/dy02.aspx"
-#define kXXSYRegisterUrlString @"http://link.xxsy.net/dialogs/register.aspx"
-
+#define kXXSYGiftsUrlString @"http://link.xxsy.net/dialogs02/props.aspx"
+#define kXXSYSubscribeUrlString @"http://link.xxsy.net/dialogs02/dy.aspx"
+#define kXXSYLoginUrlString @"http://link.xxsy.net/dialogs02/login.aspx"
+//#define kXXSYRegisterUrlString @"http://link.xxsy.net/dialogs02/register.aspx"
+//#define kXXSYAddFavUrlString @"http://link.xxsy.net/dialogs02/props.aspx"
 
 //testAccount
 //bwkpjq:720423

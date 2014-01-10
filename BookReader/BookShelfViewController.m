@@ -42,6 +42,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	UIImage *standImage;
 	BRNotification *notification;
 	BRShelfCategoryView *shelfCategoryView;
+	BRBottomView *bottomView;
 }
 
 - (BOOL)isWifiAvailable
@@ -76,7 +77,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	booksView.booksViewDelegate = self;
 	[self.view addSubview:booksView];
 	
-	BRBottomView *bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
 	bottomView.bookshelfButton.selected = YES;
 	[self.view addSubview:bottomView];
 	
@@ -109,9 +110,16 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[bottomView refresh];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
+	
 	syncTimeInterval = SHORT_SYNC_INTERVAL;
 	if (!notification) {
 		[self fetchNotification:^(void){

@@ -16,6 +16,7 @@
 #define USER_MONEY @"usermoney"
 #define USER_NAME @"username"
 #define HAD_LAUNCHED_BEFORE @"had_launched_before"
+#define SHOW_DIALOGS @"SHOW_DIALOGS"
 
 @interface ServiceManager : AFHTTPClient
 
@@ -33,6 +34,7 @@
 + (void)deleteUserID;
 + (void)deleteUserInfo;
 + (NSArray *)bookCategories;
++ (BOOL)showDialogs;
 
 #pragma mark - 用户接口
 //短信获取验证码
@@ -230,6 +232,10 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
 
 //公告接口
 + (void)systemNotifyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray, NSString *content))block;
-#pragma mark -
+
+//控制是否显示登录，审核时候屏蔽，返回yes则跳转去登录，曹："value=0的时候不显示 直接提示失败之类的信息"
++ (void)showDialogsSettings:(void (^)(BOOL success, NSError *error))block;
+
+
 
 @end

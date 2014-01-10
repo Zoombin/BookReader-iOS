@@ -12,7 +12,7 @@
 
 + (BOOL)reachThatDay
 {
-	//return YES;
+	return YES;
 	NSString *stringDate = @"1/19/2014";//TODO
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];

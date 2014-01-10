@@ -128,6 +128,25 @@ static NSNumber *sUserID;
 	return categories;
 }
 
+static NSNumber *showDialogs;
++ (BOOL)showDialogs
+{
+	if (!showDialogs) {
+		showDialogs = [[NSUserDefaults standardUserDefaults] objectForKey:SHOW_DIALOGS];
+	}
+	//return YES;
+	return showDialogs.boolValue;
+}
+
++ (void)saveShowDialogs:(NSNumber *)showD
+{
+	showDialogs = showD;
+	if (showDialogs) {
+		[[NSUserDefaults standardUserDefaults] setObject:showDialogs forKey:SHOW_DIALOGS];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+}
+
 //获取随机Key和check
 + (NSDictionary *)randomCode
 {
@@ -896,6 +915,23 @@ static NSNumber *sUserID;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:formatter];
     return [dateFormatter stringFromDate:[NSDate date]];
+}
+
++ (void)showDialogsSettings:(void (^)(BOOL success, NSError *error))block
+{
+    [[ServiceManager shared] postPath:@"ShowDialogsSettings.aspx" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
+        if ([theObject isKindOfClass:[NSDictionary class]]) {
+			NSString *value = theObject[@"value"];
+			if ([value isEqualToString:@"1"]) {
+				[self saveShowDialogs:@YES];
+			} else {
+				[self saveShowDialogs:@NO];
+			}
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) block(NO, error);
+    }];
 }
 
 @end
