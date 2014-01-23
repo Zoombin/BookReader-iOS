@@ -124,7 +124,6 @@
 		_webView.backgroundColor = [UIColor clearColor];
 		_webView.scrollView.showsHorizontalScrollIndicator = NO;
 		_webView.scrollView.showsVerticalScrollIndicator = NO;
-		_webView.scrollView.scrollEnabled = NO;
 		[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kXXSYLoginUrlString]]];
 		[self.view addSubview:_webView];
 	}
