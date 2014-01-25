@@ -39,7 +39,7 @@ NSString *kFromSubscribe = @"kFromSubscribe";
 	
     self.headerView.titleLabel.text = @"帮助";
     CGSize fullSize = self.view.bounds.size;
-	_webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [BRHeaderView height], fullSize.width, fullSize.height - [BRHeaderView height])];
+	_webView = [[UIWebView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], fullSize.width - 2 * 5, fullSize.height - [BRHeaderView height])];
 	_webView.backgroundColor = [UIColor clearColor];
 	_webView.scrollView.showsHorizontalScrollIndicator = NO;
 	_webView.scrollView.showsVerticalScrollIndicator = NO;
@@ -132,12 +132,12 @@ NSString *kFromSubscribe = @"kFromSubscribe";
 	
 	if ([_fromWhere isEqualToString:kFromSubscribe]) {
 		if (_chapter) {
-			NSString *urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, userID, _chapter.uid];
+			NSString *urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@&version=%@", kXXSYSubscribeUrlString, userID, _chapter.uid, [NSString appVersion]];
 			[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 		}
 	} else if ([_fromWhere isEqualToString:kFromGift]) {
 		if (_book) {
-			NSString *urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@", kXXSYGiftsUrlString, userID, _book.uid];
+			NSString *urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@&version=%@", kXXSYGiftsUrlString, userID, _book.uid, [NSString appVersion]];
 			[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 		}
 	} else if ([_fromWhere isEqualToString:kFromLogin]) {

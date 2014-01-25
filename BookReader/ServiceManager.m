@@ -862,7 +862,7 @@ static NSNumber *showDialogs;
     }];
 }
 
-+ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *result, NSError *error))block
++ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name withBlock:(void (^)(NSString *result, NSError *error))block
 {
     NSString *signString = [NSString stringWithFormat:@"%@%@%@%@%@",[self userID],count,@"5",@"921abacd49a8d1b891ac0870665e61a5",[self getCurrentTimeWithFormatter:@"yyyyMMdd"]];
     NSDictionary *parameters = @{@"userid" : [self userID],@"amount" : count,@"channel" : @"5",@"username" :name,@"sign" : [signString md532], @"cardNo" : cardNum, @"cardPassword" :password};
@@ -917,9 +917,9 @@ static NSNumber *showDialogs;
     return [dateFormatter stringFromDate:[NSDate date]];
 }
 
-+ (void)showDialogsSettings:(void (^)(BOOL success, NSError *error))block
++ (void)showDialogsSettingsByAppVersion:(NSString *)appVersion withBlock:(void (^)(BOOL success, NSError *error))block;
 {
-    [[ServiceManager shared] postPath:@"ShowDialogsSettings.aspx" parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[ServiceManager shared] postPath:@"ShowDialogsSettings.aspx" parameters:@{@"version=" : appVersion} success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
 			NSString *value = theObject[@"value"];
@@ -928,6 +928,7 @@ static NSNumber *showDialogs;
 			} else {
 				[self saveShowDialogs:@NO];
 			}
+			if (block) block(NO, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) block(NO, error);

@@ -82,6 +82,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	[self.view addSubview:bottomView];
 	
 	[self createStandViews:@(minNumberOfStandView)];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:bottomView selector:@selector(refresh) name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)createStandViews:(NSNumber *)number
@@ -147,6 +149,11 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (void)viewWillDisappear:(BOOL)animated
 {
 	syncTimeInterval = LONG_SYNC_INTERVAL;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:bottomView name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)startSync

@@ -228,13 +228,13 @@ typedef NS_ENUM(NSInteger, XXSYIntegralType) {
 //安卓充值
 + (void)androidPayWithType:(NSString *)channel andPhoneNum:(NSString *)num andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void(^)(NSString *result, NSError *error))block __deprecated;//iOS不需要这个接口了
 
-+ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name WithBlock:(void (^)(NSString *result, NSError *error))block __deprecated;//iOS不需要这个接口了
++ (void)godStatePayCardNum:(NSString *)cardNum andCardPassword:(NSString *)password andCount:(NSString *)count andUserName:(NSString *)name withBlock:(void (^)(NSString *result, NSError *error))block __deprecated;//iOS不需要这个接口了
 
 //公告接口
 + (void)systemNotifyWithBlock:(void (^)(BOOL success, NSError *error, NSArray *resultArray, NSString *content))block;
 
 //控制是否显示登录，审核时候屏蔽，返回yes则跳转去登录，曹："value=0的时候不显示 直接提示失败之类的信息"
-+ (void)showDialogsSettings:(void (^)(BOOL success, NSError *error))block;
++ (void)showDialogsSettingsByAppVersion:(NSString *)appVersion withBlock:(void (^)(BOOL success, NSError *error))block;
 
 
 

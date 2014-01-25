@@ -25,16 +25,16 @@
 #import "WebViewController.h"
 
 @interface MemberViewController() <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
+
+@property (readwrite) UITableView *memberTableView;
+@property (readwrite) UIAlertView *logoutAlert;
+@property (readwrite) UIWebView *webView;
+@property (readwrite) UIButton *logoutButton;
+@property (readwrite) BRBottomView *bottomView;
+
 @end
 
 @implementation MemberViewController
-{
-    UITableView *_memberTableView;
-	UIAlertView *_logoutAlert;
-	UIWebView *_webView;
-	UIButton *logoutButton;
-	BRBottomView *bottomView;
-}
 
 - (void)viewDidLoad
 {
@@ -57,23 +57,30 @@
 	[_memberTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 	[self.view addSubview:_memberTableView];
 	
-	logoutButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
-	[logoutButton setTitle:@"注销" forState:UIControlStateNormal];
-	logoutButton.hidden = YES;
-	[logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:logoutButton];
+	_logoutButton = [UIButton addButtonWithFrame:CGRectMake(fullSize.width - 60, 3, 50, 32) andStyle:BookReaderButtonStyleNormal];
+	[_logoutButton setTitle:@"注销" forState:UIControlStateNormal];
+	_logoutButton.hidden = YES;
+	[_logoutButton addTarget:self action:@selector(logoutButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:_logoutButton];
 	
-	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
-	bottomView.memberButton.selected = YES;
-	[self.view addSubview:bottomView];
+	_bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	_bottomView.memberButton.selected = YES;
+	[self.view addSubview:_bottomView];
+	
+	_webView = [[UIWebView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], fullSize.width - 2 * 5, fullSize.height - [BRHeaderView height] - [BRBottomView height])];
+	_webView.backgroundColor = [UIColor clearColor];
+	_webView.scrollView.showsHorizontalScrollIndicator = NO;
+	_webView.scrollView.showsVerticalScrollIndicator = NO;
+	[self.view addSubview:_webView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deeplink:) name:DEEP_LINK object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:_bottomView selector:@selector(refresh) name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[bottomView refresh];
+	[_bottomView refresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,22 +89,31 @@
 	[self fetchUserInfo];
 }
 
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:DEEP_LINK object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:_bottomView name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
+}
+
 - (void)fetchUserInfo
 {
 	if ([ServiceManager isSessionValid]) {
-		logoutButton.hidden = NO;
-		_memberTableView.hidden = NO;
-        if (self.bReg) {
-            self.bReg = NO;
-            return;
-        }
-        [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
-			if (success) {
-				[ServiceManager saveUserInfo:member];
-			}
-			[_memberTableView reloadData];
-        }];
+		_logoutButton.hidden = NO;
+		_memberTableView.hidden = YES;
+		[self goToMemberCenter];
+//        if (self.bReg) {
+//            self.bReg = NO;
+//            return;
+//        }
+//        [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
+//			if (success) {
+//				[ServiceManager saveUserInfo:member];
+//			}
+//			[_memberTableView reloadData];
+//        }];
     }else {
+		_logoutButton.hidden = YES;
+		_memberTableView.hidden = YES;
 		[self goToSignIn];
     }
 }
@@ -110,29 +126,14 @@
     [_memberTableView reloadData];
 }
 
-- (void)goToSignIn
+- (void)goToMemberCenter
 {
-//	SignInViewController *signInViewController = [[SignInViewController alloc] init];
-//	[self.navigationController pushViewController:signInViewController animated:NO];
-	
-	logoutButton.hidden = YES;
-	_memberTableView.hidden = YES;
-	
-	if (!_webView) {
-		CGSize fullSize = self.view.bounds.size;
-		_webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, [BRHeaderView height], fullSize.width, fullSize.height - [BRHeaderView height] - [BRBottomView height])];
-		_webView.backgroundColor = [UIColor clearColor];
-		_webView.scrollView.showsHorizontalScrollIndicator = NO;
-		_webView.scrollView.showsVerticalScrollIndicator = NO;
-		[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kXXSYLoginUrlString]]];
-		[self.view addSubview:_webView];
-	}
-	_webView.hidden = NO;
+	[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&version=%@", kXXSYMemberCenterUrlString, [NSString appVersion]]]]];
 }
 
-- (void)dealloc
+- (void)goToSignIn
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:DEEP_LINK object:nil];
+	[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?version=%@", kXXSYLoginUrlString, [NSString appVersion]]]]];
 }
 
 - (void)deeplink:(NSNotification *)notification
@@ -185,7 +186,7 @@
 	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	_webView.hidden = YES;
+	[self goToMemberCenter];
 	[self fetchUserInfo];
 }
 
@@ -305,7 +306,7 @@
 	} else if (indexPath.row == 4) {
 		WebViewController *webViewController = [[WebViewController alloc] init];
 		webViewController.fromWhere = kFromLogin;
-		webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&tx=1", kXXSYHelpUrlString, [ServiceManager userID]];
+		webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&tx=1&version=%@", kXXSYHelpUrlString, [ServiceManager userID], [NSString appVersion]];
 		NSLog(@"urlString: %@", webViewController.urlString);
 		[self.navigationController pushViewController:webViewController animated:YES];
 	} else {
@@ -322,6 +323,7 @@
 {
 	if (buttonIndex != alertView.cancelButtonIndex) {
 		if (alertView == _logoutAlert) {
+			_logoutButton.hidden = YES;
 			[self logout];
 		} else {
 			[self cleanUp];

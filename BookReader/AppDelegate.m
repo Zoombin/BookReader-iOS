@@ -115,8 +115,8 @@
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
-	[ServiceManager showDialogsSettings:^(BOOL success, NSError *error) {
-		;
+	[ServiceManager showDialogsSettingsByAppVersion:[NSString appVersion] withBlock:^(BOOL success, NSError *error) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 	}];
 }
 

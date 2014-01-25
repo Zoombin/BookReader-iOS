@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import<CommonCrypto/CommonDigest.h>
 
-
 @interface NSString (md5)
+
 - (NSString *) md516;
 - (NSString *) md532;
+
 @end
 
-
 @implementation NSString (md5)
-- (NSString *) md516
+
+- (NSString *)md516
 {
     NSString *md5String = [self md532];
     NSMutableString *returnString = [NSMutableString string];
@@ -27,7 +28,7 @@
     return [returnString lowercaseString];
 }
 
-- (NSString *) md532
+- (NSString *)md532
 {
     const char *cStr = [self UTF8String];
     unsigned char result[16];
@@ -45,5 +46,6 @@
 - (NSString *)XXSYDecoding;
 - (NSArray*) pagesWithFont:(UIFont *)font inSize:(CGSize)size;
 + (NSString *)str:(NSString *)str value1:(NSString *)value1 value2:(NSString *)value2;
++ (NSString *)appVersion;
 
 @end

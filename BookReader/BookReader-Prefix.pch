@@ -27,6 +27,7 @@
 #import "ShelfCategory+Setup.h"
 #import "UIColor+BookReader.h"
 #import "NSDate+Find.h"
+#import "NSString+XXSY.h"
 
 #define NEED_REFRESH_BOOKSHELF @"br_need_refresh_bookshelf"
 #define UMENG_KEY @"52032fb056240b0e8e00408e"
@@ -47,6 +48,8 @@ float syncTimeInterval;
 
 #define DEEP_LINK @"DEEP_LINK"
 
+#define REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER @"REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER"
+
 //xxsy://login/success/2797792
 //xxsy://register/success/2797792
 
@@ -54,6 +57,7 @@ float syncTimeInterval;
 #define kXXSYGiftsUrlString @"http://link.xxsy.net/dialogs02/props.aspx"
 #define kXXSYSubscribeUrlString @"http://link.xxsy.net/dialogs02/dy.aspx"
 #define kXXSYLoginUrlString @"http://link.xxsy.net/dialogs02/login.aspx"
+#define kXXSYMemberCenterUrlString @"http://link.xxsy.net/center.aspx"
 //#define kXXSYRegisterUrlString @"http://link.xxsy.net/dialogs02/register.aspx"
 //#define kXXSYAddFavUrlString @"http://link.xxsy.net/dialogs02/props.aspx"
 

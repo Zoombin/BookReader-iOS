@@ -731,7 +731,7 @@
 {
 	NSNumber *userID = [ServiceManager isSessionValid] ? [ServiceManager userID] : @(0);
 	WebViewController *webViewController = [[WebViewController alloc] init];
-	webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@", kXXSYGiftsUrlString, userID, book.uid];
+	webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@&version=%@", kXXSYGiftsUrlString, userID, book.uid, [NSString appVersion]];
 	webViewController.book = book;
 	webViewController.fromWhere = kFromGift;
 	//GiftViewController *giftViewController = [[GiftViewController alloc] initWithBook:book];
@@ -743,7 +743,7 @@
 	if (![ServiceManager isSessionValid]) {
 		WebViewController *webViewController = [[WebViewController alloc] init];
 		webViewController.fromWhere = kFromLogin;
-		webViewController.urlString = kXXSYLoginUrlString;
+		webViewController.urlString = [NSString stringWithFormat:@"%@?version=%@", kXXSYLoginUrlString, [NSString appVersion]];
 		[self.navigationController pushViewController:webViewController animated:YES];
 		return;
 	}

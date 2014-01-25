@@ -466,7 +466,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				webViewController.fromWhere = kFromSubscribe;
 				
 				NSNumber *userID = [ServiceManager isSessionValid] ? [ServiceManager userID] : @(0);
-				webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, userID, webSubscribeChapter.uid];
+				webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@&version=%@", kXXSYSubscribeUrlString, userID, webSubscribeChapter.uid, [NSString appVersion]];
 				webViewController.popTarget = self;
 				if (enterChapterIsVIP) {
 					webViewController.popTarget = _previousViewController;
