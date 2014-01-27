@@ -23,8 +23,9 @@
 #import "UMFeedback.h"
 #import "BRBottomView.h"
 #import "WebViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface MemberViewController () <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
+@interface MemberViewController () <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate, MFMessageComposeViewControllerDelegate>
 
 @property (readwrite) UITableView *memberTableView;
 @property (readwrite) UIAlertView *logoutAlert;
@@ -40,7 +41,6 @@
 {
     [super viewDidLoad];
 	[self.backgroundView removeFromSuperview];
-    self.bReg = NO;
 	self.headerView.titleLabel.text = @"个人中心";
 	self.headerView.backButton.hidden = YES;
 	self.hideKeyboardRecognzier.enabled = NO;
@@ -108,16 +108,6 @@
 		_logoutButton.hidden = NO;
 		_memberTableView.hidden = YES;
 		[self goToMemberCenter];
-//        if (self.bReg) {
-//            self.bReg = NO;
-//            return;
-//        }
-//        [ServiceManager userInfoWithBlock:^(BOOL success, NSError *error, BRUser *member) {
-//			if (success) {
-//				[ServiceManager saveUserInfo:member];
-//			}
-//			[_memberTableView reloadData];
-//        }];
     }else {
 		_logoutButton.hidden = YES;
 		_memberTableView.hidden = YES;
@@ -127,7 +117,6 @@
 
 - (void)setUserinfo:(BRUser *)userinfo
 {
-     self.bReg = YES;
     _userinfo = userinfo;
     [ServiceManager saveUserInfo:userinfo];
     [_memberTableView reloadData];
@@ -148,7 +137,9 @@
 	NSLog(@"DEEP_LINK notification: %@", notification);
 	NSURL *URL = notification.object;
 	
-	NSRange range = [URL.absoluteString rangeOfString:@"findpassword"];
+	NSRange range;
+	
+	range = [URL.absoluteString rangeOfString:@"findpassword"];
 	if (range.location != NSNotFound) {
 		PasswordViewController *passwordViewController = [[PasswordViewController alloc] init];
 		passwordViewController.bFindPassword = YES;
@@ -179,6 +170,26 @@
 			[self loginAfterDeepLink:userID];
 			return;
 		}
+	}
+	
+	//NSString *fakeURLString = @"xxsy://sms/106123456/109";//TODO: test
+	NSString *flag = @"sms/";
+	range = [URL.absoluteString rangeOfString:flag];
+	if (range.location != NSNotFound) {
+		MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+		messageComposeViewController.messageComposeDelegate = self;
+		NSString *subString = [URL.absoluteString substringFromIndex:range.location + flag.length];
+		NSArray *components = [subString componentsSeparatedByString:@"/"];
+		messageComposeViewController.recipients = components.count ? @[components[0]] : nil;
+		if (components.count >= 2) {
+			id value = components[1];
+			if ([value isKindOfClass:[NSNumber class]]) {
+				[messageComposeViewController setBody:[value stringValue]];
+			} else if ([value isKindOfClass:[NSString class]])
+				[messageComposeViewController setBody:value];
+		}
+		[self presentViewController:messageComposeViewController animated:YES completion:nil];
+		return;
 	}
 }
 
@@ -343,6 +354,13 @@
 - (void)iVersionDidNotDetectNewVersion
 {
 	[self displayHUDTitle:nil message:@"当前为最新版本！"];
+}
+
+#pragma mark - MFMessageComposeViewControllerDelegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end

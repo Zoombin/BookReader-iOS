@@ -14,6 +14,5 @@
 @interface MemberViewController: BRViewController
 
 @property (nonatomic ,strong) BRUser *userinfo;
-@property (nonatomic ,assign) BOOL bReg;
 
 @end
