@@ -31,43 +31,42 @@
 static NSString *kPageCurl = @"pageCurl";
 static NSString *kPageUnCurl = @"pageUnCurl";
 
-@interface CoreTextViewController() <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate, SignUpViewControllerDelegate, WebViewControllerDelegate>
+@interface CoreTextViewController () <BookReadMenuViewDelegate, ChapterViewDelegate, MFMessageComposeViewControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, PopLoginViewControllerDelegate, UIAlertViewDelegate, SignUpViewControllerDelegate, WebViewControllerDelegate>
+
+@property (readwrite) MFMessageComposeViewController *messageComposeViewController;
+@property (readwrite) NSInteger startPointX;
+@property (readwrite) NSInteger startPointY;
+@property (readwrite) CoreTextView *coreTextView;
+@property (readwrite) ReadStatusView *statusView;
+@property (readwrite) BookReadMenuView *menuView;
+@property (readwrite) CGRect menuRect;
+@property (readwrite) CGRect nextRect;
+@property (readwrite) NSMutableArray *pages;
+@property (readwrite) NSInteger currentPageIndex;
+@property (readwrite) NSString *currentChapterString;
+@property (readwrite) BOOL isLandscape;
+@property (readwrite) BOOL firstAppear;
+@property (readwrite) UIView *backgroundView;
+@property (readwrite) NSString *pageCurlType;
+@property (readwrite) BOOL enterChapterIsVIP;
+@property (readwrite) CommentViewController *commentViewController;
+@property (readwrite) CGSize fullSize;
+@property (readwrite) Chapter *webSubscribeChapter;
 
 @end
 
-@implementation CoreTextViewController {
-	MFMessageComposeViewController *messageComposeViewController;
-    NSInteger startPointX;
-    NSInteger startPointY;
-    CoreTextView *coreTextView;
-	ReadStatusView *statusView;
-    BookReadMenuView *menuView;
-	CGRect menuRect;
-	CGRect nextRect;
-    
-    NSMutableArray *pages;
-    NSInteger currentPageIndex;
-	NSString *currentChapterString;
-    BOOL isLandscape;
-    BOOL firstAppear;
-    UIView *backgroundView;
-	NSString *pageCurlType;
-	BOOL enterChapterIsVIP;
-    CommentViewController *commentViewController;
-	CGSize fullSize;
-	Chapter *webSubscribeChapter;
-}
+@implementation CoreTextViewController
 
 - (void)shareButtonClicked
 {
     if([MFMessageComposeViewController canSendText]) {
 		Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
 		if (book) {
-			if (!messageComposeViewController) messageComposeViewController = [[MFMessageComposeViewController alloc] init];
-			messageComposeViewController.messageComposeDelegate = self;			
+			if (!_messageComposeViewController) _messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+			_messageComposeViewController.messageComposeDelegate = self;
 			NSString *message =  [NSString stringWithFormat:@"《%@》这本书太好看了，作者是\"%@\"，赶紧来阅读吧，潇湘书院iOS版下载地址：%@", book.name, book.author, [NSString appStoreLinkWithAppID:APP_ID]];
-			[messageComposeViewController setBody:[NSString stringWithString:message]];
-			[self presentViewController:messageComposeViewController animated:YES completion:nil];
+			[_messageComposeViewController setBody:[NSString stringWithString:message]];
+			[self presentViewController:_messageComposeViewController animated:YES completion:nil];
 		}
     } else {
         [self displayHUDTitle:nil message:@"您的设备不能用来发短信！"];
@@ -83,54 +82,53 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
     [super viewDidLoad];
 	[self prefersStatusBarHidden];
-    backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    [backgroundView setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:backgroundView];
+    _backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [_backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [_backgroundView setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:_backgroundView];
     
-    isLandscape = [[NSUserDefaults brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
-    firstAppear = YES;
+    _isLandscape = [[NSUserDefaults brObjectForKey:UserDefaultKeyScreen] isEqualToString:UserDefaultScreenLandscape];
+    _firstAppear = YES;
 	NSNumber *colorIdx = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
 	[self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:colorIdx.intValue]];
 	
-	currentPageIndex = 0;
+	_currentPageIndex = 0;
 	
-	fullSize = self.view.bounds.size;
+	_fullSize = self.view.bounds.size;
 	
-	menuRect = CGRectMake(fullSize.width/3, fullSize.height/4, fullSize.width/3, fullSize.height/2);
-	nextRect = CGRectMake(fullSize.width/2, 0, fullSize.width/2, fullSize.height);
+	_menuRect = CGRectMake(_fullSize.width/3, _fullSize.height/4, _fullSize.width/3, _fullSize.height/2);
+	_nextRect = CGRectMake(_fullSize.width/2, 0, _fullSize.width/2, _fullSize.height);
     
-    statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 20)];
-    [statusView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:statusView];
+    _statusView = [[ReadStatusView alloc] initWithFrame:CGRectMake(0, 0, _fullSize.width, 20)];
+    [_statusView setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:_statusView];
     
-    coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, fullSize.width, fullSize.height - 30)];
-	coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
-	coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
+    _coreTextView = [[CoreTextView alloc] initWithFrame:CGRectMake(0, 30, _fullSize.width, _fullSize.height - 30)];
+	_coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
+	_coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
 	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
-	coreTextView.textColor = [NSUserDefaults brTextColorWithIndex:textColorNum.integerValue];
-    statusView.title.textColor = coreTextView.textColor;
-    statusView.percentage.textColor = coreTextView.textColor;
-    [coreTextView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    [coreTextView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:coreTextView];
+	_coreTextView.textColor = [NSUserDefaults brTextColorWithIndex:textColorNum.integerValue];
+    _statusView.title.textColor = _coreTextView.textColor;
+    _statusView.percentage.textColor = _coreTextView.textColor;
+    [_coreTextView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [_coreTextView setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:_coreTextView];
     
-    menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, fullSize.height)];
-    [menuView setDelegate:self];
-    [menuView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:menuView];
-    menuView.hidden = YES;
+    _menuView = [[BookReadMenuView alloc] initWithFrame:CGRectMake(0, 0, _fullSize.width, _fullSize.height)];
+    [_menuView setDelegate:self];
+    [_menuView setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:_menuView];
+    _menuView.hidden = YES;
     
-	//if (YES) {//TOTEST
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:UserDefaultKeyNotFirstRead]) {
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:UserDefaultKeyNotFirstRead];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		ReadHelpView *helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds andMenuFrame:menuRect];
+		ReadHelpView *helpView = [[ReadHelpView alloc] initWithFrame:self.view.bounds andMenuFrame:_menuRect];
 		[self.view addSubview:helpView];
 	}
-	backgroundView.alpha = 1.0 - [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
+	_backgroundView.alpha = 1.0 - [[NSUserDefaults brObjectForKey:UserDefaultKeyBright] floatValue];
 	
-	enterChapterIsVIP = _chapter.bVip.boolValue;
+	_enterChapterIsVIP = _chapter.bVip.boolValue;
 	
 	if (_chapter && !_chapters) {
 		_chapters = [Chapter allChaptersOfBookID:_chapter.bid];
@@ -145,8 +143,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
 	
-	if (menuView) {
-		menuView.favorited = book.bFav.boolValue;
+	if (_menuView) {
+		_menuView.favorited = book.bFav.boolValue;
 	}
 	
 	if ([book needUpdate]) {
@@ -173,17 +171,17 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	pageCurlType = nil;
+	_pageCurlType = nil;
 	
-	if (firstAppear) {
+	if (_firstAppear) {
 		[self updateChapters];
 	}
 	
-    if(isLandscape && firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
-        isLandscape = !isLandscape;
+    if(_isLandscape && _firstAppear) { //如果系统设置是横屏并且是第一次运行，则进行横屏翻转
+        _isLandscape = !_isLandscape;
         [self orientationButtonClicked];
     }
-    firstAppear = NO;
+    _firstAppear = NO;
 }
 
 - (NSUInteger)goToIndexWithLastReadPosition:(NSNumber *)position
@@ -191,8 +189,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	NSInteger index = position ? position.intValue : 0;
 	NSUInteger indexCount = 0;
 	NSUInteger rtnPageIndex = 0;
-	for (int i = 0; i < pages.count; i++) {
-		NSRange range = NSRangeFromString(pages[i]);
+	for (int i = 0; i < _pages.count; i++) {
+		NSRange range = NSRangeFromString(_pages[i]);
 		indexCount += range.length;
 		if (index < indexCount) {
 			rtnPageIndex = i;
@@ -212,9 +210,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	NSNumber *textColorNum = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
     UIColor *textColor = [NSUserDefaults brTextColorWithIndex:[textColorNum integerValue]];
-	coreTextView.textColor = textColor;
-    statusView.title.textColor = textColor;
-    statusView.percentage.textColor = textColor;
+	_coreTextView.textColor = textColor;
+    _statusView.title.textColor = textColor;
+    _statusView.percentage.textColor = textColor;
 	[self paging];
     [self updateCurrentPageContent];
 }
@@ -227,21 +225,21 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)paging
 {
-	coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
-    coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
-	NSAssert(currentChapterString != nil, @"currentChapterString == nil when paging....");
-	pages = [[currentChapterString pagesWithFont:coreTextView.font inSize:coreTextView.frame.size] mutableCopy];
+	_coreTextView.font = [NSUserDefaults brObjectForKey:UserDefaultKeyFont];
+    _coreTextView.fontSize = [[NSUserDefaults brObjectForKey:UserDefaultKeyFontSize] floatValue];
+	NSAssert(_currentChapterString != nil, @"currentChapterString == nil when paging....");
+	_pages = [[_currentChapterString pagesWithFont:_coreTextView.font inSize:_coreTextView.frame.size] mutableCopy];
 }
 
 - (void)updateCurrentPageContent
 {
-	NSAssert(currentChapterString != nil, @"currentChapterString == nil when updateCurrentPageContent...");
-	NSRange range = NSRangeFromString(pages[currentPageIndex]);
-	statusView.percentage.text = [NSString stringWithFormat:@"%.2f%%", [self readPercentage]];
-	NSString *currentPageString = [currentChapterString substringWithRange:range];
+	NSAssert(_currentChapterString != nil, @"currentChapterString == nil when updateCurrentPageContent...");
+	NSRange range = NSRangeFromString(_pages[_currentPageIndex]);
+	_statusView.percentage.text = [NSString stringWithFormat:@"%.2f%%", [self readPercentage]];
+	NSString *currentPageString = [_currentChapterString substringWithRange:range];
 	NSAssert(currentPageString != nil, @"currentPageString == nil");
-	[coreTextView buildTextWithString:currentPageString];
-	[coreTextView setNeedsDisplay];
+	[_coreTextView buildTextWithString:currentPageString];
+	[_coreTextView setNeedsDisplay];
 	_chapter.lastReadIndex = @(range.location);
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:_chapter.uid inContext:localContext];
@@ -271,7 +269,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 					book.bFav = @(YES);
 				}];
-				menuView.favorited = YES;
+				_menuView.favorited = YES;
 			}
 		}];
 	}
@@ -280,7 +278,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)brightChanged:(UISlider *)slider
 {
 	[NSUserDefaults brSetObject:@(slider.value) ForKey:UserDefaultKeyBright];
-    backgroundView.alpha = 1.0 - slider.value;
+    _backgroundView.alpha = 1.0 - slider.value;
 }
 
 - (void)backgroundColorChanged:(NSInteger)index
@@ -335,45 +333,45 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 #pragma mark other methods
 - (float)readPercentage
 {
-	if (pages.count == 0) {
+	if (_pages.count == 0) {
 		return 100.0f;
-	} else if (currentPageIndex == 0) {
+	} else if (_currentPageIndex == 0) {
 		return 0.0f;
 	}
-	return ((float)(currentPageIndex + 1) / pages.count) * 100.0f;
+	return ((float)(_currentPageIndex + 1) / _pages.count) * 100.0f;
 }
 
 - (void)previousPage
 {
-	pageCurlType = [[NSUserDefaults brObjectForKey:UserDefaultKeyPage] isEqualToString:UserDefaultRealPage] ? kPageUnCurl : kCATransitionPush;
-    currentPageIndex--;
-    if(currentPageIndex < 0) {
-        currentPageIndex = 0;
+	_pageCurlType = [[NSUserDefaults brObjectForKey:UserDefaultKeyPage] isEqualToString:UserDefaultRealPage] ? kPageUnCurl : kCATransitionPush;
+    _currentPageIndex--;
+    if(_currentPageIndex < 0) {
+        _currentPageIndex = 0;
 		NSLog(@"no more previous page!");
 		[self gotoPreviousChapter];
         return;
     }
 	[self updateCurrentPageContent];
-	[self playPageCurlAnimation:[pageCurlType isEqualToString:kPageUnCurl] ? YES : NO];
+	[self playPageCurlAnimation:[_pageCurlType isEqualToString:kPageUnCurl] ? YES : NO];
 }
 
 - (void)playPageCurlAnimation:(BOOL)bRight
 {
-	if (pageCurlType) {
-		if (isLandscape) {
-			[self performTransition:bRight ? kCATransitionFromTop : kCATransitionFromBottom andType:pageCurlType];
+	if (_pageCurlType) {
+		if (_isLandscape) {
+			[self performTransition:bRight ? kCATransitionFromTop : kCATransitionFromBottom andType:_pageCurlType];
 		} else {
-			[self performTransition:bRight ? kCATransitionFromRight : kCATransitionFromLeft andType:pageCurlType];
+			[self performTransition:bRight ? kCATransitionFromRight : kCATransitionFromLeft andType:_pageCurlType];
 		}
 	}
 }
 
 - (void)nextPage
 {
-	pageCurlType = 	pageCurlType = [[NSUserDefaults brObjectForKey:UserDefaultKeyPage] isEqualToString:UserDefaultRealPage] ? kPageCurl : kCATransitionPush;;
-    currentPageIndex++;
-    if(currentPageIndex > [pages count] - 1) {
-        currentPageIndex = [pages count] - 1;
+	_pageCurlType = 	_pageCurlType = [[NSUserDefaults brObjectForKey:UserDefaultKeyPage] isEqualToString:UserDefaultRealPage] ? kPageCurl : kCATransitionPush;;
+    _currentPageIndex++;
+    if(_currentPageIndex > _pages.count - 1) {
+        _currentPageIndex = _pages.count - 1;
 		NSLog(@"no more next page!");
 		[self gotoNextChapter];
         return;
@@ -410,7 +408,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	if (aChapter.content) {
 		_chapter = aChapter;
-		currentChapterString = [_chapter.content XXSYDecoding];
+		_currentChapterString = [_chapter.content XXSYDecoding];
 
 		[self showChapterName:_chapter];
 		
@@ -423,10 +421,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				book.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:book]);
 			}
 		}];
-		statusView.title.text = _chapter.name;
+		_statusView.title.text = _chapter.name;
 		[self paging];
 		NSNumber *startReadIndex = readIndex ? readIndex : _chapter.lastReadIndex;
-		currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
+		_currentPageIndex = [self goToIndexWithLastReadPosition:startReadIndex];
 		[self updateCurrentPageContent];
 		[self playPageCurlAnimation:YES];
 	} else {
@@ -447,58 +445,22 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				}];
 				[self gotoChapter:aChapter withReadIndex:nil extra:NO];
 			} else {//没下载到，尝试订阅
-//				if (![ServiceManager isSessionValid]) {
-//					NSLog(@"尚未登录无法阅读");
-//					[self displayHUDTitle:@"获取章节" message:nil];
-////					PopLoginViewController *popLoginViewController = [[PopLoginViewController alloc] initWithFrame:self.view.frame];
-////					popLoginViewController.delegate = self;
-////					[self addChildViewController:popLoginViewController];
-////					[self.view addSubview:popLoginViewController.view];
-//					return;
-//				}
 				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
-				webSubscribeChapter = aChapter;
+				_webSubscribeChapter = aChapter;
 				
 				WebViewController *webViewController = [[WebViewController alloc] init];
 				webViewController.delegate = self;
-				webViewController.chapter = webSubscribeChapter;
+				webViewController.chapter = _webSubscribeChapter;
 				webViewController.fromWhere = kFromSubscribe;
 				
 				NSNumber *userID = [ServiceManager isSessionValid] ? [ServiceManager userID] : @(0);
-				webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@&version=%@", kXXSYSubscribeUrlString, userID, webSubscribeChapter.uid, [NSString appVersion]];
+				webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@&version=%@", kXXSYSubscribeUrlString, userID, _webSubscribeChapter.uid, [NSString appVersion]];
 				webViewController.popTarget = self;
-				if (enterChapterIsVIP) {
+				if (_enterChapterIsVIP) {
 					webViewController.popTarget = _previousViewController;
 				}
 				[self.navigationController performSelector:@selector(pushViewController:animated:) withObject:webViewController afterDelay:1];
-//				[self.navigationController pushViewController:controller animated:YES];
-				
-//				UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"获取该章节失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
-//				[alertView show];
-				
-//				[self displayHUD:@"订阅章节内容..."];
-//				[ServiceManager chapterSubscribeWithChapterID:aChapter.uid book:aChapter.bid author:book.authorID withBlock:^( BOOL success, NSError *error, NSString *message, NSString *content, NSString *previousID, NSString *nextID) {
-//					[self hideHUD:YES];
-//					if (success) {
-//						aChapter.content = content;
-//						aChapter.previousID = previousID;
-//						aChapter.nextID = nextID;
-//						[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//							Chapter *tmpChapter = [Chapter findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
-//							if (tmpChapter) {
-//								tmpChapter.content = content;
-//								tmpChapter.previousID = previousID;
-//								tmpChapter.nextID = nextID;
-//								tmpChapter.hadBought = @(YES);
-//							}
-//						}];
-//						[self gotoChapter:aChapter withReadIndex:nil extra:NO];
-//					} else {
-//                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"无法阅读该章节" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"详情", nil];
-//                        [alertView show];
-//					}
-//				}];
 			}
 		}];
 	}
@@ -506,35 +468,35 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)menu
 {
-    startPointX = NSIntegerMax;
-    startPointY = NSIntegerMax;
-	menuView.hidden = NO;
+    _startPointX = NSIntegerMax;
+    _startPointY = NSIntegerMax;
+	_menuView.hidden = NO;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *start = [[event allTouches] anyObject];
     CGPoint startPoint = [start locationInView:self.view];
-    startPointX = startPoint.x;
-    startPointY = startPoint.y;
+    _startPointX = startPoint.x;
+    _startPointY = startPoint.y;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *end = [[event allTouches] anyObject];
     CGPoint endPoint = [end locationInView:self.view];
-    if (startPointX == NSIntegerMax || startPointY == NSIntegerMax) {
+    if (_startPointX == NSIntegerMax || _startPointY == NSIntegerMax) {
         return;
     }
-    if (!menuView.hidden) {
-        menuView.hidden = YES;
-        [menuView hidenAllMenu];
+    if (!_menuView.hidden) {
+        _menuView.hidden = YES;
+        [_menuView hidenAllMenu];
         return;
     }
     
 	//swipe
-	if (fabsf(endPoint.x - startPointX) >= 9) {
-		if (endPoint.x > startPointX ) {
+	if (fabsf(endPoint.x - _startPointX) >= 9) {
+		if (endPoint.x > _startPointX ) {
 			[self previousPage];
 		}else {
 			[self nextPage];
@@ -543,12 +505,12 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	
 	//tap
-	if (CGRectContainsPoint(menuRect, endPoint)) {
+	if (CGRectContainsPoint(_menuRect, endPoint)) {
 		[self menu];
 		return;
 	}
 	
-	if (CGRectContainsPoint(nextRect, endPoint)) {
+	if (CGRectContainsPoint(_nextRect, endPoint)) {
 		[self nextPage];
 	} else {
 		[self previousPage];
@@ -579,8 +541,8 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)addBookMarkButtonPressed
 {
     [self displayHUDTitle:@"" message:@"添加书签成功"];
-	NSRange range = NSRangeFromString(pages[currentPageIndex]);
-	NSString *reference = [currentChapterString substringFromIndex:range.location];
+	NSRange range = NSRangeFromString(_pages[_currentPageIndex]);
+	NSString *reference = [_currentChapterString substringFromIndex:range.location];
 	NSLog(@"before referenct = %@", reference);
 	reference = [reference stringByReplacingOccurrencesOfString:@"\r" withString:@""];
 	reference = [reference stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -613,7 +575,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		[self displayHUDTitle:@"" message:@"此章是第一章"];
 		return;
 	}
-	pageCurlType = nil;
+	_pageCurlType = nil;
 	
 	Chapter *preChapter = [_chapter previous];
 	if (!preChapter) {
@@ -639,7 +601,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		[self displayHUDTitle:@"" message:@"此章是最后一章"];
 		return;
 	}
-	pageCurlType = nil;
+	_pageCurlType = nil;
 	
 	Chapter *nextChapter = [_chapter next];
 	if (!nextChapter) {
@@ -651,7 +613,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 #pragma mark -
 - (void)didSelect:(id)selected
 {
-	pageCurlType = nil;
+	_pageCurlType = nil;
 	if ([selected isKindOfClass:[Chapter class]]) {
 		[self gotoChapter:selected withReadIndex:nil extra:NO];
 	} else if ([selected isKindOfClass:[Mark class]]){
@@ -672,9 +634,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		}
         return;
     }
-	commentViewController = [[CommentViewController alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    commentViewController.bookId = _chapter.bid;
-    [self.view addSubview:commentViewController.view];
+	_commentViewController = [[CommentViewController alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    _commentViewController.bookId = _chapter.bid;
+    [self.view addSubview:_commentViewController.view];
 }
 
 - (void)commitButtonClicked
@@ -697,31 +659,31 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 {
 	[self changeToOrientation:UIInterfaceOrientationPortrait];
 	
-    if (currentChapterString) {
+    if (_currentChapterString) {
         [self paging];
         [self updateCurrentPageContent];
     }
-    menuRect = CGRectMake(self.view.bounds.size.width/3, self.view.bounds.size.height/4, self.view.bounds.size.width/3, self.view.bounds.size.height/2);
-    nextRect = CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height);
+    _menuRect = CGRectMake(self.view.bounds.size.width/3, self.view.bounds.size.height/4, self.view.bounds.size.width/3, self.view.bounds.size.height/2);
+    _nextRect = CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height);
 }
 
 - (void)orientationButtonClicked
 {
-    NSLog(@"----%@----", isLandscape ? @"横屏变竖屏" : @"竖屏变横屏");
-	isLandscape = !isLandscape;
-	UIInterfaceOrientation orientation = isLandscape ? UIInterfaceOrientationLandscapeRight :UIInterfaceOrientationPortrait;
+    NSLog(@"----%@----", _isLandscape ? @"横屏变竖屏" : @"竖屏变横屏");
+	_isLandscape = !_isLandscape;
+	UIInterfaceOrientation orientation = _isLandscape ? UIInterfaceOrientationLandscapeRight :UIInterfaceOrientationPortrait;
 	[self changeToOrientation:orientation];
 	
-	NSString *value = isLandscape ? UserDefaultScreenLandscape : UserDefaultScreenPortrait;
+	NSString *value = _isLandscape ? UserDefaultScreenLandscape : UserDefaultScreenPortrait;
 	[NSUserDefaults brSetObject:value ForKey:UserDefaultKeyScreen];
 
-	if (currentChapterString) {
+	if (_currentChapterString) {
 		[self paging];
 		[self updateCurrentPageContent];
 	}
 	
-    menuRect = CGRectMake(self.view.bounds.size.width/3, self.view.bounds.size.height/4, self.view.bounds.size.width/3, self.view.bounds.size.height/2);
-    nextRect = CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height);
+    _menuRect = CGRectMake(self.view.bounds.size.width/3, self.view.bounds.size.height/4, self.view.bounds.size.width/3, self.view.bounds.size.height/2);
+    _nextRect = CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height);
     NSNumber *colorIdx = [NSUserDefaults brObjectForKey:UserDefaultKeyBackground];
     [self.view setBackgroundColor:[NSUserDefaults brBackgroundColorWithIndex:colorIdx.intValue]];
 }
@@ -735,9 +697,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	self.view.transform = CGAffineTransformMakeRotation(M_PI/2 * factor);
 	if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
-		self.view.bounds = CGRectMake(0, 0, fullSize.width, fullSize.height);
+		self.view.bounds = CGRectMake(0, 0, _fullSize.width, _fullSize.height);
 	} else {
-		self.view.bounds = CGRectMake(0, 0, fullSize.height, fullSize.width);
+		self.view.bounds = CGRectMake(0, 0, _fullSize.height, _fullSize.width);
 	}
 }
 
@@ -752,7 +714,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)bookDetailButtonClick
 {
     [self resetScreenToVer];
-    firstAppear = YES;
+    _firstAppear = YES;
     BookDetailsViewController *controller = [[BookDetailsViewController alloc] initWithBook:_chapter.bid];
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -777,7 +739,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)popLoginDidLogin
 {
 	//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
-	if (enterChapterIsVIP) {
+	if (_enterChapterIsVIP) {
 		[self gotoChapter:_chapter withReadIndex:nil extra:NO];
 	}
 }
@@ -785,7 +747,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)popLoginDidCancel
 {
 	//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
-	if (enterChapterIsVIP) {
+	if (_enterChapterIsVIP) {
 		[self back];
 	}
 }
@@ -811,26 +773,5 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	Chapter *aChapter = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid];
 	[self gotoChapter:aChapter withReadIndex:nil extra:YES];
 }
-
-#pragma mark - UIAlertViewDelegate
-
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    if (buttonIndex == alertView.cancelButtonIndex) {
-//		if (enterChapterIsVIP) {
-//			[self back];
-//		}
-//    } else {
-//		WebViewController *controller = [[WebViewController alloc] init];
-//		controller.delegate = self;
-//		controller.chapter = webSubscribeChapter;
-//		controller.urlString = [NSString stringWithFormat:@"%@?userid=%@&chapterid=%@", kXXSYSubscribeUrlString, [ServiceManager userID], webSubscribeChapter.uid];
-//		controller.popTarget = self;
-//		if (enterChapterIsVIP) {
-//			controller.popTarget = _previousViewController;
-//		}
-//		[self.navigationController pushViewController:controller animated:YES];
-//	}
-//}
 
 @end

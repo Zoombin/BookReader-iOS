@@ -17,69 +17,72 @@
 #import "ChapterCell.h"
 #import "BookMarkCell.h"
 
+@interface ChaptersViewController ()
+
+@property (readwrite) UITableView *infoTableView;
+@property (readwrite) NSMutableArray *infoArray;
+@property (readwrite) BOOL bBookmarks;
+@property (readwrite) UIButton *chapterlistBtn;
+@property (readwrite) UIButton *bookmarkBtn;
+@property (readwrite) UISlider *slider;
+
+@end
+
 @implementation ChaptersViewController
-{
-    UITableView *infoTableView;
-    NSMutableArray *infoArray;
-	BOOL bBookmarks;
-    UIButton *chapterlistBtn;
-    UIButton *bookmarkBtn;
-    UISlider *slider;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	self.hideKeyboardRecognzier.enabled = NO;
     
-    infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width-8, self.view.bounds.size.height - 38 - 30) style:UITableViewStylePlain];
-    [infoTableView setDelegate:self];
-    [infoTableView.layer setCornerRadius:5];
-    [infoTableView setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
-    [infoTableView.layer setMasksToBounds:YES];
-    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-    [infoTableView setDataSource:self];
-    [self.view addSubview:infoTableView];
+    _infoTableView = [[UITableView alloc]initWithFrame:CGRectMake(4, 38, self.view.bounds.size.width - 8, self.view.bounds.size.height - 38 - 30) style:UITableViewStylePlain];
+    [_infoTableView setDelegate:self];
+    [_infoTableView.layer setCornerRadius:5];
+    [_infoTableView setBackgroundColor:[UIColor colorWithRed:249.0/255.0 green:248.0/255.0 blue:245.0/255.0 alpha:1.0]];
+    [_infoTableView.layer setMasksToBounds:YES];
+    [_infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [_infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [_infoTableView setDataSource:self];
+    [self.view addSubview:_infoTableView];
     
-    slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 260, self.view.bounds.size.height - 150, 20)];
-    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
-    [slider setThumbImage:[UIImage imageNamed:@"thumb_image"] forState:UIControlStateNormal];
-    [slider setMinimumTrackTintColor:[UIColor clearColor]];
-    [slider setMaximumTrackTintColor:[UIColor clearColor]];
-    [slider.layer setBorderColor:[UIColor clearColor].CGColor];
-    [slider setMinimumValue:0];
-    [slider setMaximumValue:100];
-    [self.view addSubview:slider];
+    _slider = [[UISlider alloc] initWithFrame:CGRectMake(80, 260, self.view.bounds.size.height - 150, 20)];
+    [_slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [_slider setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth];
+    [_slider setThumbImage:[UIImage imageNamed:@"thumb_image"] forState:UIControlStateNormal];
+    [_slider setMinimumTrackTintColor:[UIColor clearColor]];
+    [_slider setMaximumTrackTintColor:[UIColor clearColor]];
+    [_slider.layer setBorderColor:[UIColor clearColor].CGColor];
+    [_slider setMinimumValue:0];
+    [_slider setMaximumValue:100];
+    [self.view addSubview:_slider];
     
-    for (int i = 0; i < [slider.subviews count]; i++) {
+    for (int i = 0; i < _slider.subviews.count; i++) {
         if (i != 2) {
-            UIView *view = slider.subviews[i];
+            UIView *view = _slider.subviews[i];
             view.hidden = YES;
         }
     }
     
     CGAffineTransform rotation = CGAffineTransformMakeRotation(M_PI * (-1.5));
-	[slider setTransform:rotation];
-    [slider setFrame:CGRectMake(CGRectGetMaxX(infoTableView.bounds) - 20, 38, 20, infoTableView.bounds.size.height)];
+	[_slider setTransform:rotation];
+    [_slider setFrame:CGRectMake(CGRectGetMaxX(_infoTableView.bounds) - 20, 38, 20, _infoTableView.bounds.size.height)];
     
-    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, CGRectGetMaxY(infoTableView.frame), 55, 30);
-    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 55 , CGRectGetMaxY(infoTableView.frame), 55, 30);
+    CGRect BOOKMARK_BUTTON_FRAME = CGRectMake(self.view.bounds.size.width - 60, CGRectGetMaxY(_infoTableView.frame), 55, 30);
+    CGRect CHAPTERS_BUTTON_FRAME = CGRectMake(CGRectGetMinX(BOOKMARK_BUTTON_FRAME) - 55 , CGRectGetMaxY(_infoTableView.frame), 55, 30);
     
-     chapterlistBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [chapterlistBtn setFrame:CHAPTERS_BUTTON_FRAME];
-    [chapterlistBtn setBackgroundImage:[UIImage imageNamed:@"chapterlist_btn"] forState:UIControlStateNormal];
-    [chapterlistBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
-    [chapterlistBtn addTarget:self action:@selector(chaptersButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:chapterlistBtn];
+	_chapterlistBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_chapterlistBtn setFrame:CHAPTERS_BUTTON_FRAME];
+    [_chapterlistBtn setBackgroundImage:[UIImage imageNamed:@"chapterlist_btn"] forState:UIControlStateNormal];
+    [_chapterlistBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
+    [_chapterlistBtn addTarget:self action:@selector(chaptersButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_chapterlistBtn];
     
-     bookmarkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bookmarkBtn setFrame:BOOKMARK_BUTTON_FRAME];
-    [bookmarkBtn setBackgroundImage:[UIImage imageNamed:@"bookmark_btn"] forState:UIControlStateNormal];
-    [bookmarkBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
-    [bookmarkBtn addTarget:self action:@selector(bookmarksButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:bookmarkBtn];
+	_bookmarkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_bookmarkBtn setFrame:BOOKMARK_BUTTON_FRAME];
+    [_bookmarkBtn setBackgroundImage:[UIImage imageNamed:@"bookmark_btn"] forState:UIControlStateNormal];
+    [_bookmarkBtn setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
+    [_bookmarkBtn addTarget:self action:@selector(bookmarksButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_bookmarkBtn];
     
     [self.backgroundView removeFromSuperview];
 }
@@ -87,18 +90,18 @@
 - (void)chaptersButtonClicked
 {
 	self.headerView.titleLabel.text = @"目录";
-	bBookmarks = NO;
-    [chapterlistBtn setEnabled:NO];
-    [bookmarkBtn setEnabled:YES];
-	infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
-	if (!infoArray.count) {
+	_bBookmarks = NO;
+    [_chapterlistBtn setEnabled:NO];
+    [_bookmarkBtn setEnabled:YES];
+	_infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
+	if (!_infoArray.count) {
 		[self getChaptersDataWithBlock:^(void) {
-			[infoTableView reloadData];
+			[_infoTableView reloadData];
 		}];
 	} else {
-		[infoTableView reloadData];
+		[_infoTableView reloadData];
 	}
-    slider.hidden = NO;
+    _slider.hidden = NO;
 }
 
 - (void)getChaptersDataWithBlock:(dispatch_block_t)block
@@ -107,9 +110,9 @@
 	[ServiceManager getDownChapterList:_chapter.bid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {	
 		[self hideHUD:YES];
 		if (success) {
-			infoArray = [resultArray mutableCopy];
+			_infoArray = [resultArray mutableCopy];
 		} else {
-			infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
+			_infoArray = [[Chapter allChaptersOfBookID:_chapter.bid] mutableCopy];
 		}
 		if (block) block();
 	}];
@@ -118,9 +121,9 @@
 - (void)bookmarksButtonClicked
 {
 	self.headerView.titleLabel.text = @"书签";
-	bBookmarks = YES;
-    [chapterlistBtn setEnabled:YES];
-    [bookmarkBtn setEnabled:NO];
+	_bBookmarks = YES;
+    [_chapterlistBtn setEnabled:YES];
+    [_bookmarkBtn setEnabled:NO];
 	NSArray *chapters = [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", _chapter.bid]];
 	NSMutableArray *marks = [NSMutableArray array];
 	for (Chapter *chapter in chapters) {
@@ -129,9 +132,9 @@
 			[marks addObjectsFromArray:mks];
 		}
 	}
-	infoArray = marks;
-	[infoTableView reloadData];
-    slider.hidden = YES;
+	_infoArray = marks;
+	[_infoTableView reloadData];
+    _slider.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -143,7 +146,7 @@
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [infoArray count];
+    return [_infoArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,20 +158,20 @@
 {
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-	if (bBookmarks) {
+	if (_bBookmarks) {
 		if (!cell) {
 			cell = [[BookMarkCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
 		}
 		cell.textLabel.textColor = [UIColor blueColor];
 		[cell.textLabel setFont:[UIFont systemFontOfSize:16]];
-		Mark *mark = [infoArray objectAtIndex:indexPath.row];
+		Mark *mark = _infoArray[indexPath.row];
 		[(BookMarkCell *)cell setMark:mark];
 	} else {
 		if (!cell) {
 			cell = [[ChapterCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyCell"];
 		}
-		Chapter *chapter = [infoArray objectAtIndex:indexPath.row];
-		[(ChapterCell *)cell  setChapter:chapter isCurrent:[chapter.uid isEqualToString:_chapter.uid] andAllChapters:infoArray];
+		Chapter *chapter = _infoArray[indexPath.row];
+		[(ChapterCell *)cell  setChapter:chapter isCurrent:[chapter.uid isEqualToString:_chapter.uid] andAllChapters:_infoArray];
 	}
     return cell;
 }
@@ -176,35 +179,35 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self.navigationController popViewControllerAnimated:NO];
-	[_delegate didSelect:infoArray[indexPath.row]];
+	[_delegate didSelect:_infoArray[indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Mark *mark = infoArray[indexPath.row];
+			Mark *mark = _infoArray[indexPath.row];
 			[mark deleteEntity];
-			[infoArray removeObjectAtIndex:indexPath.row];
-			[infoTableView reloadData];
+			[_infoArray removeObjectAtIndex:indexPath.row];
+			[_infoTableView reloadData];
 		}];
 	}
 }
 
 - (void)sliderValueChanged:(id)sender {
-    if (bBookmarks) {
+    if (_bBookmarks) {
         return;
     }
-	float offsetY = (slider.value / 100.0) * (infoTableView.contentSize.height - 460);
-	[infoTableView setContentOffset:CGPointMake(0, offsetY)];
+	float offsetY = (_slider.value / 100.0) * (_infoTableView.contentSize.height - 460);
+	[_infoTableView setContentOffset:CGPointMake(0, offsetY)];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (bBookmarks) {
+    if (_bBookmarks) {
         return;
     }
-	[infoTableView setContentOffset:CGPointMake(0, infoTableView.contentOffset.y)];
-	slider.value = 100.0 * infoTableView.contentOffset.y / (infoTableView.contentSize.height - 460);
+	[_infoTableView setContentOffset:CGPointMake(0, _infoTableView.contentOffset.y)];
+	_slider.value = 100.0 * _infoTableView.contentOffset.y / (_infoTableView.contentSize.height - 460);
 }
 
 @end

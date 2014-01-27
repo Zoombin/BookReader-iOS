@@ -24,7 +24,7 @@
 #import "BRBottomView.h"
 #import "WebViewController.h"
 
-@interface MemberViewController() <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
+@interface MemberViewController () <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, iVersionDelegate>
 
 @property (readwrite) UITableView *memberTableView;
 @property (readwrite) UIAlertView *logoutAlert;
@@ -39,6 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	[self.backgroundView removeFromSuperview];
     self.bReg = NO;
 	self.headerView.titleLabel.text = @"个人中心";
 	self.headerView.backButton.hidden = YES;
@@ -80,7 +81,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[_bottomView refresh];
+	if (![ServiceManager showDialogs]) {
+		[ServiceManager showDialogsSettingsByAppVersion:[NSString appVersion] withBlock:^(BOOL success, NSError *error) {
+			[_bottomView refresh];
+		}];
+	} else {
+		[_bottomView refresh];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated

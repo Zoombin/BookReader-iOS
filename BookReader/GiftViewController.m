@@ -13,17 +13,19 @@
 #import "UIViewController+HUD.h"
 #import "UIButton+BookReader.h"
 
+@interface GiftViewController ()
 
+@property (readwrite) Book *bookObj;
+@property (readwrite) UITableView *infoTableView;
 
-@implementation GiftViewController {
-    Book *bookObj;
-    UITableView *infoTableView;
-}
+@end
+
+@implementation GiftViewController
 
 - (id)initWithBook:(Book *)book {
     self = [super init];
     if (self) {
-        bookObj = book;
+        _bookObj = book;
     }
     return self;
 }
@@ -34,15 +36,15 @@
 	self.hideKeyboardRecognzier.enabled = NO;
 	self.headerView.titleLabel.text = @"赠送";
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], self.view.bounds.size.width-5*2, self.view.bounds.size.height - [BRHeaderView height] - 10) style:UITableViewStylePlain];
-    [infoTableView.layer setCornerRadius:4];
-    [infoTableView.layer setMasksToBounds:YES];
-    [infoTableView setBackgroundColor:[UIColor clearColor]];
-    [infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [infoTableView setDataSource:self];
-    [infoTableView setDelegate:self];
-    [self.view addSubview:infoTableView];
+    _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, [BRHeaderView height], self.view.bounds.size.width-5*2, self.view.bounds.size.height - [BRHeaderView height] - 10) style:UITableViewStylePlain];
+    [_infoTableView.layer setCornerRadius:4];
+    [_infoTableView.layer setMasksToBounds:YES];
+    [_infoTableView setBackgroundColor:[UIColor clearColor]];
+    [_infoTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [_infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [_infoTableView setDataSource:self];
+    [_infoTableView setDelegate:self];
+    [self.view addSubview:_infoTableView];
 }
 
 - (void)sendButtonClick:(NSDictionary *)value
@@ -56,10 +58,10 @@
     }
     [self displayHUD:@"处理中..."];
     [ServiceManager giveGiftWithType:index.integerValue
-                      author:bookObj.authorID
+                      author:_bookObj.authorID
                        count:count
                     integral:integral.integerValue
-                     andBook:bookObj.uid
+                     andBook:_bookObj.uid
                    withBlock:^(BOOL success, NSError *error, NSString *message) {
                        if (error) {
                            [self displayHUDTitle:nil message:NETWORK_ERROR];

@@ -26,80 +26,67 @@
 
 @interface BRBookStoreViewController () <UIScrollViewDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 
+@property (readwrite) int currentPage;
+@property (readwrite) int currentIndex;
+@property (readwrite) UILabel *titleLabel;
+@property (readwrite) UISearchBar *searchBar;
+@property (readwrite) UIButton *headerSearchButton;
+@property (readwrite) UIView *tableViewHeader;
+@property (readwrite) NSMutableArray *infoArray;
+@property (readwrite) UITableView *infoTableView;
+@property (readwrite) UIView *rankView;
+@property (readwrite) UIView *catagoryView;
+@property (readwrite) int currentType;
+@property (readwrite) NSMutableArray *recommendArray;
+@property (readwrite) NSMutableArray *recommendTitlesArray;
+@property (readwrite) UIButton *recommendButton;
+@property (readwrite) UIButton *rankButton;
+@property (readwrite) UIButton *cataButton;
+@property (readwrite) UIButton *searchButton;
+@property (readwrite) UIButton *allRankButton;
+@property (readwrite) UIButton *latestRankButton;
+@property (readwrite) UIButton *hotRankButton;
+@property (readwrite) NSMutableArray *rankBtns;
+@property (readwrite) UITapGestureRecognizer *gestureRecognizer;
+@property (readwrite) NSArray *catagoryNames;
+@property (readwrite) NSMutableArray *catagoryBtns;
+@property (readwrite) NSMutableArray *hotkeyBtns;
+@property (readwrite) NSArray *hotwordsColors;
+@property (readwrite) BOOL isLoading;
+@property (readwrite) NSMutableArray *recommandArray;
+@property (readwrite) NSMutableArray *searchArray;
+@property (readwrite) NSMutableArray *allArray;
+@property (readwrite) NSMutableArray *latestArray;
+@property (readwrite) NSMutableArray *hotArray;
+@property (readwrite) BRBottomView *bottomView;
+
 @end
 
 @implementation BRBookStoreViewController
-{
-    int currentPage;
-    int currentIndex;
-    UILabel *titleLabel;
-    
-    UISearchBar *_searchBar;
-    UIButton *_headerSearchButton;
-    UIView *tableViewHeader;
-    
-    NSMutableArray *infoArray;
-    UITableView *infoTableView;
-    
-    UIView *rankView;
-    UIView *catagoryView;
-    
-    int currentType;
-    NSMutableArray *recommendArray;
-    NSMutableArray *recommendTitlesArray;
-    
-    UIButton *recommendButton;
-    UIButton *rankButton;
-    UIButton *cataButton;
-    UIButton *searchButton;
-    
-    UIButton *allRankButton;
-    UIButton *newRankButton;
-    UIButton *hotRankButton;
-    
-    NSMutableArray *rankBtns;
-    UITapGestureRecognizer *gestureRecognizer;
-    NSArray *catagoryNames;
-    NSMutableArray *catagoryBtns;
-    
-    NSMutableArray *hotkeyBtns;
-	NSArray *hotwordsColors;
-    
-    BOOL isLoading;
-    
-    //Arrays
-    NSMutableArray *recommandArray;
-    NSMutableArray *searchArray;
-    NSMutableArray *allArray;
-    NSMutableArray *newArray;
-    NSMutableArray *hotArray;
-	
-	BRBottomView *bottomView;
-}
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        catagoryNames = [ServiceManager bookCategories];
-		hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
+        _catagoryNames = [ServiceManager bookCategories];
+		_hotwordsColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blackColor], [UIColor blueColor], [UIColor grayColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor purpleColor], [UIColor brownColor]];
         
-        hotkeyBtns = [NSMutableArray array];
-        recommendArray = [[NSMutableArray alloc] init];
-        infoArray = [[NSMutableArray alloc] init];
-        recommendTitlesArray = [[NSMutableArray alloc] init];
-        catagoryBtns = [[NSMutableArray alloc] init];
+        _hotkeyBtns = [NSMutableArray array];
+        _recommendArray = [[NSMutableArray alloc] init];
+        _infoArray = [[NSMutableArray alloc] init];
+        _recommendTitlesArray = [[NSMutableArray alloc] init];
+        _catagoryBtns = [[NSMutableArray alloc] init];
         
-        rankBtns = [[NSMutableArray alloc] init];
+        _rankBtns = [[NSMutableArray alloc] init];
 		
-        currentPage = 1;
-        currentIndex = 1;
+        _currentPage = 1;
+        _currentIndex = 1;
         
-        recommandArray = [[NSMutableArray alloc] init];
-        searchArray = [[NSMutableArray alloc] init];
-        allArray = [[NSMutableArray alloc] init];
-        hotArray = [[NSMutableArray alloc] init];
-        newArray = [[NSMutableArray alloc] init];
+        _recommandArray = [[NSMutableArray alloc] init];
+        _searchArray = [[NSMutableArray alloc] init];
+        _allArray = [[NSMutableArray alloc] init];
+        _hotArray = [[NSMutableArray alloc] init];
+        _latestArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -118,34 +105,34 @@
 	tabBarBGView.userInteractionEnabled = YES;
 	[self.view addSubview:tabBarBGView];
 	
-    recommendButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleRecomend];
-    [recommendButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[recommendButton setTitle:@"推荐" forState:UIControlStateNormal];
-    [tabBarBGView addSubview:recommendButton];
+    _recommendButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleRecomend];
+    [_recommendButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+	[_recommendButton setTitle:@"推荐" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:_recommendButton];
     
-	startX = CGRectGetMaxX(recommendButton.frame);
+	startX = CGRectGetMaxX(_recommendButton.frame);
 	
-    rankButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleRank];
-    [rankButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[rankButton setTitle:@"排行" forState:UIControlStateNormal];
-    [tabBarBGView addSubview:rankButton];
+    _rankButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleRank];
+    [_rankButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+	[_rankButton setTitle:@"排行" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:_rankButton];
 	
-	startX = CGRectGetMaxX(rankButton.frame);
+	startX = CGRectGetMaxX(_rankButton.frame);
     
-    cataButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleCatagory];
-    [cataButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[cataButton setTitle:@"分类" forState:UIControlStateNormal];
-    [tabBarBGView addSubview:cataButton];
+    _cataButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleCatagory];
+    [_cataButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+	[_cataButton setTitle:@"分类" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:_cataButton];
     
-	startX = CGRectGetMaxX(cataButton.frame);
+	startX = CGRectGetMaxX(_cataButton.frame);
 	
-    searchButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleSearch];
-    [searchButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[searchButton setTitle:@"搜索" forState:UIControlStateNormal];
-    [tabBarBGView addSubview:searchButton];
+    _searchButton = [UIButton bookStoreTabBarButtonWithFrame:CGRectMake(startX, 0, buttonSize.width, buttonSize.height) andStyle:BRBookStoreTabBarButtonStyleSearch];
+    [_searchButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+	[_searchButton setTitle:@"搜索" forState:UIControlStateNormal];
+    [tabBarBGView addSubview:_searchButton];
     
-    tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 40)];
-    [tableViewHeader setBackgroundColor:[UIColor clearColor]];
+    _tableViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width, 40)];
+    [_tableViewHeader setBackgroundColor:[UIColor clearColor]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 65, 42)];
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
@@ -169,93 +156,99 @@
 		}
 	}
     [_searchBar layoutSubviews];
-    [tableViewHeader addSubview:_searchBar];
+    [_tableViewHeader addSubview:_searchBar];
     
     _headerSearchButton = [UIButton createButtonWithFrame:CGRectMake(CGRectGetMaxX(_searchBar.frame), 5, 45, 30)];
     [_headerSearchButton addTarget:self action:@selector(searchBarSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_headerSearchButton setBackgroundImage:[UIImage imageNamed:@"bookstore_search_btn"] forState:UIControlStateNormal];
-    [tableViewHeader addSubview:_headerSearchButton];
+    [_tableViewHeader addSubview:_headerSearchButton];
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, fullSize.width - 10, fullSize.height - [BRHeaderView height] - 50)];
     [backgroundView setBackgroundColor:[UIColor clearColor]];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, [BRHeaderView height], fullSize.width - 16, fullSize.height  - [BRHeaderView height] - [BRBottomView height]) style:UITableViewStylePlain];
-    [infoTableView.layer setCornerRadius:4];
-    [infoTableView.layer setMasksToBounds:YES];
-    [infoTableView setBackgroundView:backgroundView];
-    [infoTableView setBackgroundColor:[UIColor clearColor]];
-    [infoTableView setDataSource:self];
-    [infoTableView setDelegate:self];
-    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view addSubview:infoTableView];
+    _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(8, [BRHeaderView height], fullSize.width - 16, fullSize.height  - [BRHeaderView height] - [BRBottomView height]) style:UITableViewStylePlain];
+    [_infoTableView.layer setCornerRadius:4];
+    [_infoTableView.layer setMasksToBounds:YES];
+    [_infoTableView setBackgroundView:backgroundView];
+    [_infoTableView setBackgroundColor:[UIColor clearColor]];
+    [_infoTableView setDataSource:self];
+    [_infoTableView setDelegate:self];
+    [_infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view addSubview:_infoTableView];
 	
-	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
-	bottomView.bookstoreButton.selected = YES;
-	[self.view addSubview:bottomView];
+	_bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	_bottomView.bookstoreButton.selected = YES;
+	[self.view addSubview:_bottomView];
     
-    catagoryView = [[UIView alloc] initWithFrame:infoTableView.frame];
+    _catagoryView = [[UIView alloc] initWithFrame:_infoTableView.frame];
     [self showCatagoryViewBtn];
-    [self.view addSubview:catagoryView];
+    [self.view addSubview:_catagoryView];
     
-    catagoryView.hidden = YES;
+    _catagoryView.hidden = YES;
     
     [self initRandButton];
     
-    gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    [backgroundView addGestureRecognizer:gestureRecognizer];
+    _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [backgroundView addGestureRecognizer:_gestureRecognizer];
     
 	self.hideKeyboardRecognzier.enabled = NO;
-	[self buttonClick:recommendButton];
+	[self buttonClick:_recommendButton];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:bottomView selector:@selector(refresh) name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:_bottomView selector:@selector(refresh) name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[bottomView refresh];
+	if (![ServiceManager showDialogs]) {
+		[ServiceManager showDialogsSettingsByAppVersion:[NSString appVersion] withBlock:^(BOOL success, NSError *error) {
+			[_bottomView refresh];
+		}];
+	} else {
+		[_bottomView refresh];
+	}
 }
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:bottomView name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:_bottomView name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)showCatagoryViewBtn
 {
     int k = 0;
-    int offSet = (catagoryView.frame.size.width-20) - (130 *2);
+    int offSet = (_catagoryView.frame.size.width-20) - (130 *2);
     
     UIColor *backGroundColor = [UIColor colorWithRed:225.0/255.0 green:223.0/255.0 blue:213.0/255.0 alpha:1.0];
     UIView *leftBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(10, 28, 130, 3+(51*6))];
     [leftBackGroundView.layer setCornerRadius:5];
     [leftBackGroundView setBackgroundColor:backGroundColor];
-    [catagoryView addSubview:leftBackGroundView];
+    [_catagoryView addSubview:leftBackGroundView];
     
     UIView *rightBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(10+(130+offSet), 28, 130, 3+(51*5))];
     [rightBackGroundView.layer setCornerRadius:5];
     [rightBackGroundView setBackgroundColor:backGroundColor];
-    [catagoryView addSubview:rightBackGroundView];
+    [_catagoryView addSubview:rightBackGroundView];
     
     
-    for (int i = 0; i < [catagoryNames count]; i++) {
+    for (int i = 0; i < [_catagoryNames count]; i++) {
         if (i % 2 == 0 && i != 0) {
             k++;
         }
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:catagoryNames[i] forState:UIControlStateNormal];
+        [button setTitle:_catagoryNames[i] forState:UIControlStateNormal];
 		button.showsTouchWhenHighlighted = YES;
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setBackgroundColor:backGroundColor];
         [button setFrame:CGRectMake(10 + (130 + offSet) *(i%2 ==0 ? 0 :1), 30+ 51 *k, 130, 50)];
         [button setTag:i];
         [button addTarget:self action:@selector(loadCatagoryDataWithIndex:) forControlEvents:UIControlEventTouchUpInside];
-        [catagoryView addSubview:button];
-        [catagoryBtns addObject:button];
+        [_catagoryView addSubview:button];
+        [_catagoryBtns addObject:button];
         if (i!=9&i!=10) {
             UIView *separteLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(button.frame), CGRectGetMaxY(button.frame), 130, 1)];
             [separteLine setBackgroundColor:[UIColor whiteColor]];
-            [catagoryView addSubview:separteLine];
+            [_catagoryView addSubview:separteLine];
         }
     }
 }
@@ -265,55 +258,55 @@
 }
 
 - (void)initRandButton {
-    rankView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, infoTableView.bounds.size.width, 50)];
-    float width = (rankView.bounds.size.width - 40)/3;
+    _rankView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _infoTableView.bounds.size.width, 50)];
+    float width = (_rankView.bounds.size.width - 40)/3;
     CGRect frame = CGRectMake(20, 10, width, 30);
     
-    UIView *rankBtnBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(18, 8, rankView.bounds.size.width - 36, 34)];
+    UIView *rankBtnBackGroundView = [[UIView alloc] initWithFrame:CGRectMake(18, 8, _rankView.bounds.size.width - 36, 34)];
     [rankBtnBackGroundView.layer setCornerRadius:5];
     [rankBtnBackGroundView.layer setMasksToBounds:YES];
     [rankBtnBackGroundView.layer setBorderColor:[UIColor colorWithRed:206.0/255.0 green:195.0/255.0 blue:173.0/255.0 alpha:1.0].CGColor];
     [rankBtnBackGroundView.layer setBorderWidth:0.5];
     [rankBtnBackGroundView setBackgroundColor:[UIColor colorWithRed:223.0/255.0 green:211.0/255.0 blue:187.0/255.0 alpha:1.0]];
-    [rankView addSubview:rankBtnBackGroundView];
+    [_rankView addSubview:rankBtnBackGroundView];
     
-    allRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [allRankButton setTitle:@"热评" forState:UIControlStateNormal];
-    [allRankButton.layer setCornerRadius:5];
-    [allRankButton.layer setMasksToBounds:YES];
-    [allRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
-    [allRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [allRankButton setBackgroundColor:[UIColor whiteColor]];
-    [allRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
-    [allRankButton setFrame:frame];
-    [rankView addSubview:allRankButton];
-    [rankBtns addObject:allRankButton];
+    _allRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_allRankButton setTitle:@"热评" forState:UIControlStateNormal];
+    [_allRankButton.layer setCornerRadius:5];
+    [_allRankButton.layer setMasksToBounds:YES];
+    [_allRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
+    [_allRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_allRankButton setBackgroundColor:[UIColor whiteColor]];
+    [_allRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
+    [_allRankButton setFrame:frame];
+    [_rankView addSubview:_allRankButton];
+    [_rankBtns addObject:_allRankButton];
     
-    newRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [newRankButton setTitle:@"最新" forState:UIControlStateNormal];
-    [newRankButton.layer setCornerRadius:5];
-    [newRankButton.layer setMasksToBounds:YES];
-    [newRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
-    [newRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [newRankButton setBackgroundColor:[UIColor clearColor]];
-    [newRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
+    _latestRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_latestRankButton setTitle:@"最新" forState:UIControlStateNormal];
+    [_latestRankButton.layer setCornerRadius:5];
+    [_latestRankButton.layer setMasksToBounds:YES];
+    [_latestRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
+    [_latestRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_latestRankButton setBackgroundColor:[UIColor clearColor]];
+    [_latestRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
     frame = CGRectMake(CGRectGetMaxX(frame), 10, width, frame.size.height);
-    [newRankButton setFrame:frame];
-    [rankView addSubview:newRankButton];
-    [rankBtns addObject:newRankButton];
+    [_latestRankButton setFrame:frame];
+    [_rankView addSubview:_latestRankButton];
+    [_rankBtns addObject:_latestRankButton];
     
-    hotRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hotRankButton setTitle:@"最热" forState:UIControlStateNormal];
-    [hotRankButton.layer setCornerRadius:5];
-    [hotRankButton.layer setMasksToBounds:YES];
-    [hotRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
-    [hotRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [hotRankButton setBackgroundColor:[UIColor clearColor]];
-    [hotRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
+    _hotRankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_hotRankButton setTitle:@"最热" forState:UIControlStateNormal];
+    [_hotRankButton.layer setCornerRadius:5];
+    [_hotRankButton.layer setMasksToBounds:YES];
+    [_hotRankButton setTitleColor:[UIColor rankButtonTextColor] forState:UIControlStateNormal];
+    [_hotRankButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_hotRankButton setBackgroundColor:[UIColor clearColor]];
+    [_hotRankButton addTarget:self action:@selector(reloadDataByIndex:) forControlEvents:UIControlEventTouchUpInside];
     frame = CGRectMake(CGRectGetMaxX(frame), 10, width, frame.size.height);
-    [hotRankButton setFrame:frame];
-    [rankView addSubview:hotRankButton];
-    [rankBtns addObject:hotRankButton];
+    [_hotRankButton setFrame:frame];
+    [_rankView addSubview:_hotRankButton];
+    [_rankBtns addObject:_hotRankButton];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -329,28 +322,28 @@
                        size:(NSString *)size
                    andIndex:(NSInteger)index
 {
-    currentIndex = 1;
+    _currentIndex = 1;
     [self displayHUD:@"加载中..."];
     [ServiceManager books:[NSString stringWithFormat:@"%@",keyword] classID:classid.integerValue ranking:rank size:size andIndex:[NSString stringWithFormat:@"%d", index] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if(success) {
-            [infoArray removeAllObjects];
+            [_infoArray removeAllObjects];
             if ([resultArray count] > 0) {
                 [self hideAllHotkeyBtns];
-            } else if(currentType == SEARCH && [resultArray count]==0) {
+            } else if(_currentType == SEARCH && [resultArray count]==0) {
                 [self showHotkeyBtns];
-                [searchArray removeAllObjects];
+                [_searchArray removeAllObjects];
             }
             [self addInfoArrayObjectsWithArray:resultArray];
-            if ([infoArray count] == 6) {
+            if ([_infoArray count] == 6) {
                 [self addFootView];
             }else {
-                [infoTableView setTableFooterView:nil];
+                [_infoTableView setTableFooterView:nil];
             }
-            [infoTableView reloadData];
+            [_infoTableView reloadData];
             [self hideHUD:YES];
         } else {
-            [infoArray removeAllObjects];
-            [infoTableView reloadData];
+            [_infoArray removeAllObjects];
+            [_infoTableView reloadData];
             if (error) {
                 [self displayHUDTitle:nil message:NETWORK_ERROR];
             }
@@ -361,7 +354,7 @@
 
 - (void)changeRankButtonImage:(UIButton *)sender {
     for (int i = 0; i<3; i++) {
-        UIButton *button = rankBtns[i];
+        UIButton *button = _rankBtns[i];
         if(sender == button) {
             [sender setBackgroundColor:[UIColor whiteColor]];
         }else {
@@ -373,8 +366,8 @@
 - (void)getMore {
     NSString *keyWord = @"";
     NSInteger rankId = 0;
-    if (currentType == RANK) {
-        rankId = currentPage;
+    if (_currentType == RANK) {
+        rankId = _currentPage;
     } else {
         if (_searchBar.text) {
             keyWord = _searchBar.text;
@@ -384,16 +377,16 @@
                   classID:0
                   ranking:rankId
                      size:@"6"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
+                 andIndex:[NSString stringWithFormat:@"%d", _currentIndex+1] withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
                      if (success){
-                         if ([infoArray count]==0) {
-                             [infoTableView setTableFooterView:nil];
+                         if (_infoArray.count == 0) {
+                             [_infoTableView setTableFooterView:nil];
                          } else {
                              [self addInfoArrayObjectsWithArray:resultArray];
                          }
-                         currentIndex++;
-                         [infoTableView reloadData];
-                         isLoading = NO;
+                         _currentIndex++;
+                         [_infoTableView reloadData];
+                         _isLoading = NO;
                      } else {
                          if (error) {
                              [self displayHUDTitle:nil message:NETWORK_ERROR];
@@ -404,33 +397,33 @@
 
 - (void)addFootView {
     UIView *footview = [UIView tableViewFootView:CGRectMake(-4, 0, 316, 26) andSel:NSSelectorFromString(@"getMore") andTarget:self];
-    [infoTableView setTableFooterView:footview];
+    [_infoTableView setTableFooterView:footview];
 }
 
 - (void)reloadDataByIndex:(id)sender {
-    if (currentPage==[rankBtns indexOfObject:sender]+1)
+    if (_currentPage==[_rankBtns indexOfObject:sender]+1)
         return;
-    currentPage = [rankBtns indexOfObject:sender]+1;
+    _currentPage = [_rankBtns indexOfObject:sender]+1;
     [self changeRankButtonImage:sender];
     if ([self refreshRankInfo]) {
         return;
     }
-    [self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
+    [self loadDataWithKeyWord:@"" classId:0 ranking:_currentPage size:@"6" andIndex:1];
 }
 
 - (void)loadRecommendDataWithIndex:(NSInteger)index
 {
-    [infoTableView setHidden:NO];
+    [_infoTableView setHidden:NO];
     [ServiceManager recommendBooksIndex:index WithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 		if (success){
-			[infoArray addObjectsFromArray:resultArray];
-			[recommandArray addObjectsFromArray:resultArray];
-			[self refreshRecommendDataWithArray:infoArray];
+			[_infoArray addObjectsFromArray:resultArray];
+			[_recommandArray addObjectsFromArray:resultArray];
+			[self refreshRecommendDataWithArray:_infoArray];
 			if (index<5) {
 				[self loadRecommendDataWithIndex:index+1];
 			}
 		} else {
-			[infoTableView reloadData];
+			[_infoTableView reloadData];
 			if (error) {
 				[self displayHUDTitle:nil message:NETWORK_ERROR];
 			}
@@ -441,30 +434,30 @@
 - (void)refreshRecommendDataWithArray:(NSArray *)array
 {
     NSString *lastKey = nil;
-    if ([recommendTitlesArray count]>0) {
-        [recommendTitlesArray removeAllObjects];
-        [recommendArray removeAllObjects];
+    if ([_recommendTitlesArray count]>0) {
+        [_recommendTitlesArray removeAllObjects];
+        [_recommendArray removeAllObjects];
     }
     for (int i = 0; i < [array count]; i++) {
         Book *book = [array objectAtIndex:i];
         if (book.recommendTitle == nil) {
             break;
         }
-        if (![recommendTitlesArray containsObject:book.recommendTitle]) {
-            [recommendTitlesArray addObject:book.recommendTitle];
+        if (![_recommendTitlesArray containsObject:book.recommendTitle]) {
+            [_recommendTitlesArray addObject:book.recommendTitle];
         }
         NSMutableArray *tmpArray;
         if ([lastKey isEqualToString:book.recommendTitle]) {
-            tmpArray = [recommendArray objectAtIndex:[recommendTitlesArray indexOfObject:book.recommendTitle]];
+            tmpArray = [_recommendArray objectAtIndex:[_recommendTitlesArray indexOfObject:book.recommendTitle]];
         } else {
             tmpArray = [[NSMutableArray alloc] init];
-            [recommendArray addObject:tmpArray];
+            [_recommendArray addObject:tmpArray];
         }
         [tmpArray addObject:book];
         lastKey = book.recommendTitle;
     }
-    if (currentType==RECOMMEND) {
-        [infoTableView reloadData];
+    if (_currentType == RECOMMEND) {
+        [_infoTableView reloadData];
     }
     [self hideHUD:YES];
 }
@@ -481,11 +474,11 @@
                      size:@"7"
                  andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
                      if (success){
-                         if ([infoArray count]>0) {
-                             [infoArray removeAllObjects];
+                         if ([_infoArray count]>0) {
+                             [_infoArray removeAllObjects];
                          }
-                         [infoArray addObjectsFromArray:resultArray];
-                         [childViewController reloadDataWithArray:infoArray andCatagoryId:index+1];
+                         [_infoArray addObjectsFromArray:resultArray];
+                         [childViewController reloadDataWithArray:_infoArray andCatagoryId:index+1];
                          [childViewController hideHUD:YES];
                      } else {
                          if (error) {
@@ -497,104 +490,104 @@
 
 - (void)resetBottomButtons
 {
-	recommendButton.selected = NO;
-	rankButton.selected = NO;
-	cataButton.selected = NO;
-	searchButton.selected = NO;
+	_recommendButton.selected = NO;
+	_rankButton.selected = NO;
+	_cataButton.selected = NO;
+	_searchButton.selected = NO;
 }
 
 - (void)buttonClick:(UIButton *)sender {
 	if (sender.selected) return;
 	[self resetBottomButtons];
 	sender.selected = YES;
-    catagoryView.hidden = YES;
+    _catagoryView.hidden = YES;
     [self hideAllHotkeyBtns];
-    [infoArray removeAllObjects];
-    [infoTableView reloadData];
-    [infoTableView setTableFooterView:nil];
+    [_infoArray removeAllObjects];
+    [_infoTableView reloadData];
+    [_infoTableView setTableFooterView:nil];
 	
-	if (sender == recommendButton) {
-		currentType = RECOMMEND;
-		[infoTableView setTableHeaderView:nil];
+	if (sender == _recommendButton) {
+		_currentType = RECOMMEND;
+		[_infoTableView setTableHeaderView:nil];
 		[self.headerView.titleLabel setText:@"推荐"];
-		[rankView setHidden:YES];
-		[infoTableView setHidden:NO];
-        if ([recommandArray count] > 0) {
-            [infoArray addObjectsFromArray:recommandArray];
-            [infoTableView reloadData];
+		[_rankView setHidden:YES];
+		[_infoTableView setHidden:NO];
+        if ([_recommandArray count] > 0) {
+            [_infoArray addObjectsFromArray:_recommandArray];
+            [_infoTableView reloadData];
             return;
         }
         [self displayHUD:@"加载中..."];
         [self loadRecommendDataWithIndex:1];
-	} else if (sender == rankButton) {
-		currentType = RANK;
-		[infoTableView setTableHeaderView:rankView];
+	} else if (sender == _rankButton) {
+		_currentType = RANK;
+		[_infoTableView setTableHeaderView:_rankView];
 		[self.headerView.titleLabel setText:@"排行"];
-        [rankView setHidden:NO];
-		[infoTableView setHidden:NO];
+        [_rankView setHidden:NO];
+		[_infoTableView setHidden:NO];
         if ([self refreshRankInfo]) {
             return;
         }
-        [self changeRankButtonImage:rankBtns[currentPage - 1]];
-		[self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
-	} else if (sender == cataButton) {
-		currentType = CATAGORY;
-		catagoryView.hidden = NO;
-		[infoTableView setTableHeaderView:nil];
+        [self changeRankButtonImage:_rankBtns[_currentPage - 1]];
+		[self loadDataWithKeyWord:@"" classId:0 ranking:_currentPage size:@"6" andIndex:1];
+	} else if (sender == _cataButton) {
+		_currentType = CATAGORY;
+		_catagoryView.hidden = NO;
+		[_infoTableView setTableHeaderView:nil];
 		[self.headerView.titleLabel setText:@"分类"];
-		[rankView setHidden:YES];
-		[infoTableView reloadData];
-	} else if (sender == searchButton) {
-		currentType = SEARCH;
-		[infoTableView setTableHeaderView:tableViewHeader];
+		[_rankView setHidden:YES];
+		[_infoTableView reloadData];
+	} else if (sender == _searchButton) {
+		_currentType = SEARCH;
+		[_infoTableView setTableHeaderView:_tableViewHeader];
 		[self.headerView.titleLabel setText:@"搜索"];
-		[rankView setHidden:YES];
-		[infoTableView setHidden:NO];
-        if ([searchArray count] > 0) {
-            currentIndex = (searchArray.count / 6) + 1;
-            [infoArray addObjectsFromArray:searchArray];
+		[_rankView setHidden:YES];
+		[_infoTableView setHidden:NO];
+        if ([_searchArray count] > 0) {
+            _currentIndex = (_searchArray.count / 6) + 1;
+            [_infoArray addObjectsFromArray:_searchArray];
             [self hideAllHotkeyBtns];
         } else{
             [self showHotkeyBtns];
         }
-		[infoTableView reloadData];
+		[_infoTableView reloadData];
 	}
 }
 
 #pragma mark tableview
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (currentType == RECOMMEND) {
-        if (recommendTitlesArray.count == 0) {
+    if (_currentType == RECOMMEND) {
+        if (_recommendTitlesArray.count == 0) {
             return 1;
         }
-        return [recommendTitlesArray count];
+        return [_recommendTitlesArray count];
     }
     return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (currentType != RECOMMEND) {
+    if (_currentType != RECOMMEND) {
         return 0;
     }
-    if (recommendTitlesArray.count == 0) {
+    if (_recommendTitlesArray.count == 0) {
         return 0;
     }
     return 30;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (currentType != RECOMMEND) {
+    if (_currentType != RECOMMEND) {
         return nil;
     }
     UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
     [view setImage:[UIImage imageNamed:@"bookstore_recommend_title"]];
     UILabel *label = [UILabel bookStoreLabelWithFrame:CGRectMake(0, 0, view.bounds.size.width, 30)];
     [label setTextColor:[UIColor blackColor]];
-    for (int i = 0; i<[recommendTitlesArray count]; i++) {
+    for (int i = 0; i < [_recommendTitlesArray count]; i++) {
         if (section == i) {
-            [label setText:[@"  " stringByAppendingString:[recommendTitlesArray objectAtIndex:i]]];
+            [label setText:[@"  " stringByAppendingString:[_recommendTitlesArray objectAtIndex:i]]];
         }
     }
     [view addSubview:label];
@@ -603,22 +596,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (currentType == RECOMMEND) {
-        for (int i = 0; i<[recommendTitlesArray count]; i++) {
+    if (_currentType == RECOMMEND) {
+        for (int i = 0; i < [_recommendTitlesArray count]; i++) {
             if (section == i) {
-                NSMutableArray *array = [recommendArray objectAtIndex:i];
+                NSMutableArray *array = [_recommendArray objectAtIndex:i];
                 return [array count];
             }
         }
-        if ([recommendTitlesArray count] == 0) {
+        if ([_recommendTitlesArray count] == 0) {
             return 1;
         }
-    }else if (currentType == RANK) {
-        if (infoArray.count == 0) {
+    }else if (_currentType == RANK) {
+        if (_infoArray.count == 0) {
             return 1;
         }
     }
-    return [infoArray count];
+    return [_infoArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -631,13 +624,13 @@
 {
     static NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (currentType == RECOMMEND) {
+    if (_currentType == RECOMMEND) {
         if (!cell) {
-            if (recommendTitlesArray.count == 0) {
+            if (_recommendTitlesArray.count == 0) {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
                 [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             } else {
-                NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
+                NSMutableArray *array = _recommendArray[indexPath.section];
 				if (indexPath.row == 0) {
 					cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
 					Book *book = array[indexPath.row];
@@ -651,23 +644,23 @@
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
         }
     }
-    else if (currentType == RANK){
+    else if (_currentType == RANK){
         if (!cell) {
-            if ([infoArray count] > 0) {
+            if ([_infoArray count] > 0) {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
                 [cell.contentView setBackgroundColor:[UIColor whiteColor]];
-                Book *book = infoArray[indexPath.row];
+                Book *book = _infoArray[indexPath.row];
                 [(BookCell *)cell setBook:book];
             } else {
                 cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
                 [cell.contentView setBackgroundColor:[UIColor whiteColor]];
             }
         }
-    } else if (currentType == SEARCH) {
+    } else if (_currentType == SEARCH) {
         cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
         [cell.contentView setBackgroundColor:[UIColor whiteColor]];
-        if ([infoArray count] >0) {
-            Book *book = infoArray[indexPath.row];
+        if ([_infoArray count] >0) {
+            Book *book = _infoArray[indexPath.row];
             [(BookCell *)cell setBook:book];
         }
     }
@@ -676,25 +669,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (currentType != CATAGORY) {
-        if (currentType == RANK) {
-            if (infoArray.count == 0) {
-				[self loadDataWithKeyWord:@"" classId:0 ranking:currentPage size:@"6" andIndex:1];
+    if (_currentType != CATAGORY) {
+        if (_currentType == RANK) {
+            if (_infoArray.count == 0) {
+				[self loadDataWithKeyWord:@"" classId:0 ranking:_currentPage size:@"6" andIndex:1];
 				NSLog(@"重新刷新排行");
 				return;
             }
         }
         Book *book;
-        if (currentType == RECOMMEND) {
-            if (recommendTitlesArray.count == 0) {
+        if (_currentType == RECOMMEND) {
+            if (_recommendTitlesArray.count == 0) {
                 [self loadRecommendDataWithIndex:1];
                 NSLog(@"重新刷新推荐");
                 return;
             }
-            NSMutableArray *array = [recommendArray objectAtIndex:[indexPath section]];
+            NSMutableArray *array = [_recommendArray objectAtIndex:[indexPath section]];
             book = array[indexPath.row];
         } else {
-            book = infoArray[indexPath.row];
+            book = _infoArray[indexPath.row];
         }
         [_searchBar resignFirstResponder];
         BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
@@ -705,12 +698,12 @@
 //显示热词
 - (void)showHotkeyBtns {
     [self hideAllHotkeyBtns];
-    if (currentType!=SEARCH)
+    if (_currentType!=SEARCH)
         return;
     NSMutableArray *hotNamesIndex = [NSMutableArray array];
     [ServiceManager hotKeyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
         if (success) {
-            if (currentType!=SEARCH)
+            if (_currentType!=SEARCH)
                 return;
             while (hotNamesIndex.count < resultArray.count) {
                 int randomNum = arc4random() % resultArray.count;
@@ -725,13 +718,13 @@
                 [tmpButton setFrame:CGRectFromString(cgrectstring)];
                 NSNumber *indexNum = [hotNamesIndex objectAtIndex:i];
                 [tmpButton setTitle:resultArray[indexNum.integerValue] forState:UIControlStateNormal];
-                NSInteger colorIndex = arc4random() % hotwordsColors.count;
-                [tmpButton setTitleColor:hotwordsColors[colorIndex] forState:UIControlStateNormal];
+                NSInteger colorIndex = arc4random() % _hotwordsColors.count;
+                [tmpButton setTitleColor:_hotwordsColors[colorIndex] forState:UIControlStateNormal];
                 [tmpButton.titleLabel setFont:[UIFont boldSystemFontOfSize:arc4random() % 10 + 15]];
                 [tmpButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
                 [tmpButton addTarget:self action:@selector(hotkeybuttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                [infoTableView addSubview:tmpButton];
-                [hotkeyBtns addObject:tmpButton];
+                [_infoTableView addSubview:tmpButton];
+                [_hotkeyBtns addObject:tmpButton];
             }
         } else {
             if (error) {
@@ -743,14 +736,14 @@
 
 - (void)hideAllHotkeyBtns
 {
-    for (UIButton *button in hotkeyBtns) {
+    for (UIButton *button in _hotkeyBtns) {
         [button removeFromSuperview];
     }
 }
 
 - (void)hotkeybuttonClick:(id)sender
 {
-    [searchArray removeAllObjects];
+    [_searchArray removeAllObjects];
     UIButton *button = (UIButton *)sender;
     _searchBar.text = button.titleLabel.text;
     [self searchBarSearchButtonClicked:_searchBar];
@@ -782,13 +775,13 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([infoArray count] == 0) {
+    if ([_infoArray count] == 0) {
         return;
     }
-    if (currentType == RANK || currentType == SEARCH) {
+    if (_currentType == RANK || _currentType == SEARCH) {
         if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 100) {
-            if (!isLoading) {
-                isLoading = YES;
+            if (!_isLoading) {
+                _isLoading = YES;
                 NSLog(@"可刷新");
                 [self getMore];
             }
@@ -798,28 +791,28 @@
 
 - (BOOL)refreshRankInfo
 {
-    if (currentPage == 1) {
-        if ([allArray count] > 0) {
-            [infoArray removeAllObjects];
-            [infoArray addObjectsFromArray:allArray];
-            currentIndex = ([allArray count] / 6) + 1;
-            [infoTableView reloadData];
+    if (_currentPage == 1) {
+        if (_allArray.count) {
+            [_infoArray removeAllObjects];
+            [_infoArray addObjectsFromArray:_allArray];
+            _currentIndex = _allArray.count / 6 + 1;
+            [_infoTableView reloadData];
             return YES;
         }
-    } else if (currentPage == 2) {
-        if ([newArray count] > 0) {
-            [infoArray removeAllObjects];
-            [infoArray addObjectsFromArray:newArray];
-            currentIndex = ([newArray count] / 6) + 1;
-            [infoTableView reloadData];
+    } else if (_currentPage == 2) {
+        if (_latestArray.count) {
+            [_infoArray removeAllObjects];
+            [_infoArray addObjectsFromArray:_latestArray];
+            _currentIndex = _latestArray.count / 6 + 1;
+            [_infoTableView reloadData];
             return YES;
         }
-    } else if (currentPage == 3) {
-        if ([hotArray count] > 0) {
-            [infoArray removeAllObjects];
-            [infoArray addObjectsFromArray:hotArray];
-            currentIndex = ([hotArray count] / 6) + 1;
-            [infoTableView reloadData];
+    } else if (_currentPage == 3) {
+        if (_hotArray.count) {
+            [_infoArray removeAllObjects];
+            [_infoArray addObjectsFromArray:_hotArray];
+            _currentIndex = _hotArray.count / 6 + 1;
+            [_infoTableView reloadData];
             return YES;
         }
     }
@@ -828,16 +821,16 @@
 
 - (void)addInfoArrayObjectsWithArray:(NSArray *)resultArray
 {
-    [infoArray addObjectsFromArray:resultArray];
-    if (currentType == SEARCH) {
-        [searchArray addObjectsFromArray:resultArray];
-    } else if (currentType == RANK) {
-        if (currentPage == 1) {
-            [allArray addObjectsFromArray:resultArray];
-        } else if (currentPage == 2) {
-            [newArray addObjectsFromArray:resultArray];
+    [_infoArray addObjectsFromArray:resultArray];
+    if (_currentType == SEARCH) {
+        [_searchArray addObjectsFromArray:resultArray];
+    } else if (_currentType == RANK) {
+        if (_currentPage == 1) {
+            [_allArray addObjectsFromArray:resultArray];
+        } else if (_currentPage == 2) {
+            [_latestArray addObjectsFromArray:resultArray];
         } else {
-            [hotArray addObjectsFromArray:resultArray];
+            [_hotArray addObjectsFromArray:resultArray];
         }
     }
 }

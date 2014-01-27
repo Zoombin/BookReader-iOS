@@ -16,23 +16,26 @@
 #import "UIView+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation CategoryDetailsViewController
-{
-    UITableView *infoTableView;
-    NSMutableArray *infoArray;
-    int catagoryId;
-    int currentIndex;
-    BOOL isLoading;
-}
+@interface CategoryDetailsViewController ()
 
-- (id)init
+@property (readwrite) UITableView *infoTableView;
+@property (readwrite) NSMutableArray *infoArray;
+@property (readwrite) int catagoryId;
+@property (readwrite) int currentIndex;
+@property (readwrite) BOOL isLoading;
+
+@end
+
+@implementation CategoryDetailsViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super init];
     if (self) {
-        isLoading = NO;
-        currentIndex = 1;
-        catagoryId = 0;
-        infoArray = [[NSMutableArray alloc] init];
+        _isLoading = NO;
+        _currentIndex = 1;
+        _catagoryId = 0;
+        _infoArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -40,48 +43,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 50, self.view.bounds.size.width-10, self.view.bounds.size.height-54) style:UITableViewStylePlain];
-    [infoTableView setBackgroundColor:[UIColor clearColor]];
-    [infoTableView.layer setCornerRadius:5];
-    [infoTableView.layer setMasksToBounds:YES];
-    [infoTableView setDataSource:self];
-    [infoTableView setDelegate:self];
-    [infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view addSubview:infoTableView];
-    [infoTableView reloadData];
+    _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 50, self.view.bounds.size.width - 10, self.view.bounds.size.height - 54) style:UITableViewStylePlain];
+    [_infoTableView setBackgroundColor:[UIColor clearColor]];
+    [_infoTableView.layer setCornerRadius:5];
+    [_infoTableView.layer setMasksToBounds:YES];
+    [_infoTableView setDataSource:self];
+    [_infoTableView setDelegate:self];
+    [_infoTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view addSubview:_infoTableView];
+    [_infoTableView reloadData];
 	self.hideKeyboardRecognzier.enabled = NO;
 }
 
 - (void)reloadDataWithArray:(NSArray *)array andCatagoryId:(int)cataId
 {
-    catagoryId = cataId;
+    _catagoryId = cataId;
     NSArray *buttonNames = [ServiceManager bookCategories];
-    [self setTitle:buttonNames[catagoryId-1]];
-	[infoArray removeAllObjects];
-    [infoArray addObjectsFromArray:array];
-    if ([infoArray count] == 7) {
+    [self setTitle:buttonNames[_catagoryId - 1]];
+	[_infoArray removeAllObjects];
+    [_infoArray addObjectsFromArray:array];
+    if ([_infoArray count] == 7) {
         UIView *footview = [UIView tableViewFootView:CGRectMake(-4, 0, 316, 26) andSel:NSSelectorFromString(@"getMore") andTarget:self];
-        [infoTableView setTableFooterView:footview];
+        [_infoTableView setTableFooterView:footview];
     }
-    [infoTableView reloadData];
+    [_infoTableView reloadData];
 }
 
 - (void)getMore
 {
     [ServiceManager books:@""
-                    classID:catagoryId
+                    classID:_catagoryId
                   ranking:0
                      size:@"7"
-                 andIndex:[NSString stringWithFormat:@"%d",currentIndex + 1] withBlock:^(BOOL success, NSError *error, NSArray *result) {
+                 andIndex:[NSString stringWithFormat:@"%d", _currentIndex + 1] withBlock:^(BOOL success, NSError *error, NSArray *result) {
                      if (success) {
-                         if ([infoArray count] > 0) {
-                             [infoArray addObjectsFromArray:result];
-                             [infoTableView reloadData];
+                         if ([_infoArray count] > 0) {
+                             [_infoArray addObjectsFromArray:result];
+                             [_infoTableView reloadData];
                          }else {
-                             [infoTableView setTableFooterView:nil];
+                             [_infoTableView setTableFooterView:nil];
                          }
-                         currentIndex++;
-                         isLoading = NO;
+                         _currentIndex++;
+                         _isLoading = NO;
                      } else {
                          if (error) {
                          [self displayHUDTitle:nil message:NETWORK_ERROR];
@@ -94,8 +97,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height - 100) {
-        if (!isLoading) {
-            isLoading = YES;
+        if (!_isLoading) {
+            _isLoading = YES;
             NSLog(@"可刷新");
             [self getMore];
         }
@@ -105,10 +108,10 @@
 #pragma mark tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (infoArray.count == 0) {
+    if (_infoArray.count == 0) {
         return 1;
     }
-    return infoArray.count;
+    return _infoArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,12 +125,12 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%d", [indexPath row]];
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (!cell) {
-        if (infoArray.count == 0) {
+        if (_infoArray.count == 0) {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleEmpty reuseIdentifier:@"MyCell"];
             [cell.contentView setBackgroundColor:[UIColor whiteColor]];
         } else {
             cell = [[BookCell alloc] initWithStyle:BookCellStyleBig reuseIdentifier:@"MyCell"];
-            Book *book = [infoArray objectAtIndex:[indexPath row]];
+            Book *book = [_infoArray objectAtIndex:[indexPath row]];
             [cell setBook:book];
         }
     }
@@ -136,11 +139,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (infoArray.count  == 0) {
+    if (_infoArray.count  == 0) {
         [self loadCatagoryData];
         return;
     }
-    Book *book = [infoArray objectAtIndex:[indexPath row]];
+    Book *book = [_infoArray objectAtIndex:[indexPath row]];
     BookDetailsViewController *childViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
     [self.navigationController pushViewController:childViewController animated:YES];
 }
@@ -148,19 +151,19 @@
 - (void)loadCatagoryData
 {
     [ServiceManager books:@""
-                  classID:catagoryId
+                  classID:_catagoryId
                   ranking:0
                      size:@"7"
                  andIndex:@"1" withBlock:^(BOOL success, NSError *error, NSArray *result) {
                      if (success) {
-                         if ([infoArray count]>0) {
-                             [infoArray addObjectsFromArray:result];
-                             [infoTableView reloadData];
+                         if (_infoArray.count) {
+                             [_infoArray addObjectsFromArray:result];
+                             [_infoTableView reloadData];
                          }else {
-                             [infoTableView setTableFooterView:nil];
+                             [_infoTableView setTableFooterView:nil];
                          }
-                         currentIndex++;
-                         isLoading = NO;
+                         _currentIndex++;
+                         _isLoading = NO;
                      } else {
                          if (error) {
                              [self displayHUDTitle:nil message:NETWORK_ERROR];

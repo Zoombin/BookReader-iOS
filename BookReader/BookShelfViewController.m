@@ -25,25 +25,25 @@ const NSUInteger minNumberOfStandView = 3;
 const NSUInteger numberOfBooksPerRow = 3;
 
 @interface BookShelfViewController () <BRShelfCategoryViewDelegate ,BookShelfHeaderViewDelegate,UIAlertViewDelegate, BRBooksViewDelegate, BRNotificationViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+
+@property (readwrite) NSArray *booksForDisplay;
+@property (readwrite) NSMutableArray *books;
+@property (readwrite) NSMutableArray *chapters;
+@property (readwrite) BRBooksView *booksView;
+@property (readwrite) BOOL editing;
+@property (readwrite) NSMutableArray *needRemoveFavoriteBooks;
+@property (readwrite) UIAlertView *favAndAutoBuyAlert;
+@property (readwrite) NSMutableArray *booksStandViews;
+@property (readwrite)CGFloat standViewsDistance;
+@property (readwrite) BRBookCell *needFavAndAutoBuyBookCell;
+@property (readwrite) UIImage *standImage;
+@property (readwrite) BRNotification *notification;
+@property (readwrite) BRShelfCategoryView *shelfCategoryView;
+@property (readwrite) BRBottomView *bottomView;
+
 @end
 
-@implementation BookShelfViewController {
-	NSArray *booksForDisplay;
-    NSMutableArray *books;
-	NSMutableArray *chapters;
-	BRBooksView *booksView;
-	BOOL editing;
-	NSMutableArray *needRemoveFavoriteBooks;
-	UIAlertView *favAndAutoBuyAlert;
-	NSMutableArray *booksStandViews;
-	CGFloat standViewsDistance;
-
-	BRBookCell *needFavAndAutoBuyBookCell;
-	UIImage *standImage;
-	BRNotification *notification;
-	BRShelfCategoryView *shelfCategoryView;
-	BRBottomView *bottomView;
-}
+@implementation BookShelfViewController
 
 - (BOOL)isWifiAvailable
 {
@@ -58,7 +58,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	[self.headerView addButtons];
 	[self.headerView setDelegate:self];
 	self.hideKeyboardRecognzier.enabled = NO;
-	booksStandViews = [NSMutableArray array];
+	_booksStandViews = [NSMutableArray array];
 	CGSize fullSize = self.view.bounds.size;
 	
 	CGFloat startY = [BRHeaderView height];
@@ -70,52 +70,58 @@ const NSUInteger numberOfBooksPerRow = 3;
 //	startY = CGRectGetMaxY(shelfCategoryView.frame);
 	
 	PSTCollectionViewFlowLayout *layout = [BRBooksView defaultLayout];
-	booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - [BRHeaderView height] - [BRBottomView height]) collectionViewLayout:layout];
-	booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	booksView.delegate = self;
-	booksView.dataSource = self;
-	booksView.booksViewDelegate = self;
-	[self.view addSubview:booksView];
+	_booksView = [[BRBooksView alloc] initWithFrame:CGRectMake(0, startY, fullSize.width,  fullSize.height - [BRHeaderView height] - [BRBottomView height]) collectionViewLayout:layout];
+	_booksView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	_booksView.delegate = self;
+	_booksView.dataSource = self;
+	_booksView.booksViewDelegate = self;
+	[self.view addSubview:_booksView];
 	
-	bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
-	bottomView.bookshelfButton.selected = YES;
-	[self.view addSubview:bottomView];
+	_bottomView = [[BRBottomView alloc] initWithFrame:CGRectMake(0, fullSize.height - [BRBottomView height], fullSize.width, [BRBottomView height])];
+	_bottomView.bookshelfButton.selected = YES;
+	[self.view addSubview:_bottomView];
 	
 	[self createStandViews:@(minNumberOfStandView)];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:bottomView selector:@selector(refresh) name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:_bottomView selector:@selector(refresh) name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)createStandViews:(NSNumber *)number
 {
-	if (booksStandViews.count == number.integerValue) {
-		for (UIView *standView in booksStandViews) {
-			[booksView sendSubviewToBack:standView];
+	if (_booksStandViews.count == number.integerValue) {
+		for (UIView *standView in _booksStandViews) {
+			[_booksView sendSubviewToBack:standView];
 		}
 		return;
 	}
 
-	if (!standImage) {
-		standImage = [UIImage imageNamed:@"bookshelf"];
+	if (!_standImage) {
+		_standImage = [UIImage imageNamed:@"bookshelf"];
 	}
-	for (UIImageView *standView in booksStandViews) {
+	for (UIImageView *standView in _booksStandViews) {
 		[standView removeFromSuperview];
 	}
-	[booksStandViews removeAllObjects];
-	standViewsDistance = 140;
+	[_booksStandViews removeAllObjects];
+	_standViewsDistance = 140;
 	for (int i = 0; i < number.integerValue; i++) {
-		UIImageView *standView = [[UIImageView alloc] initWithImage:standImage];
-		standView.frame = CGRectMake(0, standViewsDistance * (i + 1) - standImage.size.height, self.view.frame.size.width, standImage.size.height);
-		[booksStandViews addObject:standView];
-		[booksView addSubview:standView];
-		[booksView sendSubviewToBack:standView];
+		UIImageView *standView = [[UIImageView alloc] initWithImage:_standImage];
+		standView.frame = CGRectMake(0, _standViewsDistance * (i + 1) - _standImage.size.height, self.view.frame.size.width, _standImage.size.height);
+		[_booksStandViews addObject:standView];
+		[_booksView addSubview:standView];
+		[_booksView sendSubviewToBack:standView];
 	}
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[bottomView refresh];
+	if (![ServiceManager showDialogs]) {
+		[ServiceManager showDialogsSettingsByAppVersion:[NSString appVersion] withBlock:^(BOOL success, NSError *error) {
+			[_bottomView refresh];
+		}];
+	} else {
+		[_bottomView refresh];
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -123,9 +129,9 @@ const NSUInteger numberOfBooksPerRow = 3;
 	[super viewDidAppear:animated];
 	
 	syncTimeInterval = SHORT_SYNC_INTERVAL;
-	if (!notification) {
+	if (!_notification) {
 		[self fetchNotification:^(void){
-			[booksView reloadData];
+			[_booksView reloadData];
 		}];
 	}
 	
@@ -142,7 +148,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 	
 	[ShelfCategory createDefaultShelfCategoryWithCompletionBlock:^{
-		shelfCategoryView.shelfCategories = [ShelfCategory findAll];
+		_shelfCategoryView.shelfCategories = [ShelfCategory findAll];
 	}];
 }
 
@@ -153,7 +159,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:bottomView name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:_bottomView name:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 }
 
 - (void)startSync
@@ -170,9 +176,9 @@ const NSUInteger numberOfBooksPerRow = 3;
     [ServiceManager systemNotifyWithBlock:^(BOOL success, NSError *error, NSArray *resultArray, NSString *content) {
 		if (success) {
             if ([resultArray count]!= 0||[content length] >0) {
-                notification = [[BRNotification alloc] init];
-                notification.books = resultArray;
-                notification.content = content;
+                _notification = [[BRNotification alloc] init];
+                _notification.books = resultArray;
+                _notification.content = content;
             }
 			if (block) block();
 		}
@@ -183,8 +189,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
     [ServiceManager recommandDefaultBookwithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 		if (success) {
-			books = [resultArray mutableCopy];
-			[Book persist:books withBlock:^(void) {
+			_books = [resultArray mutableCopy];
+			[Book persist:_books withBlock:^(void) {
 				if (block) block();
 			}];
 		} else {
@@ -195,8 +201,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)refreshBooks
 {
-	booksForDisplay = [Book allBooksOfUser:[ServiceManager userID]];
-	[booksView reloadData];
+	_booksForDisplay = [Book allBooksOfUser:[ServiceManager userID]];
+	[_booksView reloadData];
 }
 
 - (void)syncBooks
@@ -212,30 +218,30 @@ const NSUInteger numberOfBooksPerRow = 3;
 						b.bFav = NO;
 					}
 				} completion:^(BOOL success, NSError *error) {
-					books = [resultArray mutableCopy];
-					[Book persist:books withBlock:^(void) {
-						books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
+					_books = [resultArray mutableCopy];
+					[Book persist:_books withBlock:^(void) {
+						_books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
 						[self refreshBooks];
 					}];
 				}];
 			}
 		}];
 	} else {
-		books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
+		_books = [[Book allBooksOfUser:[ServiceManager userID]] mutableCopy];
 		[self refreshBooks];
 	}
 }
 
 - (void)syncRemoveFav
 {
-	if (!needRemoveFavoriteBooks.count) {
+	if (!_needRemoveFavoriteBooks.count) {
 		NSLog(@"no more book need to remove favorite...");
 		[self hideHUD:YES];
 		[self refreshBooks];
 		return;
 	}
 
-	Book *needRemoveBook = needRemoveFavoriteBooks[0];
+	Book *needRemoveBook = _needRemoveFavoriteBooks[0];
 	needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
 	[self displayHUD:@"正在删除..."];
 	if (needRemoveBook.bFav) {
@@ -247,11 +253,11 @@ const NSUInteger numberOfBooksPerRow = 3;
 						[b deleteInContext:localContext];
 					}
 				} completion:^(BOOL success, NSError *error) {
-					[needRemoveFavoriteBooks removeObject:needRemoveBook];
+					[_needRemoveFavoriteBooks removeObject:needRemoveBook];
 					[self syncRemoveFav];
 				}];
 			} else {
-				[needRemoveFavoriteBooks removeObject:needRemoveBook];
+				[_needRemoveFavoriteBooks removeObject:needRemoveBook];
 				[self syncRemoveFav];
 			}
 		}];
@@ -262,7 +268,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 				[b deleteInContext:localContext];
 			}
 		} completion:^(BOOL success, NSError *error) {
-			[needRemoveFavoriteBooks removeObject:needRemoveBook];
+			[_needRemoveFavoriteBooks removeObject:needRemoveBook];
 			[self syncRemoveFav];
 		}];
 	}
@@ -272,23 +278,23 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (alertView == favAndAutoBuyAlert && buttonIndex != alertView.cancelButtonIndex) {
-		if (needFavAndAutoBuyBookCell) {
+	if (alertView == _favAndAutoBuyAlert && buttonIndex != alertView.cancelButtonIndex) {
+		if (_needFavAndAutoBuyBookCell) {
 			[self displayHUD:@"收藏..."];
-			[ServiceManager addFavoriteWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
+			[ServiceManager addFavoriteWithBookID:_needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
 				if (success) {
 					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-						Book *b = [Book findFirstByAttribute:@"uid" withValue:needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+						Book *b = [Book findFirstByAttribute:@"uid" withValue:_needFavAndAutoBuyBookCell.book.uid inContext:localContext];
 						if (b) {
 							b.bFav = @(YES);
 						}
 					}];
-					NSLog(@"bookuid: %@", needFavAndAutoBuyBookCell.book.uid);
-					[ServiceManager autoSubscribeWithBookID:needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error) {
+					NSLog(@"bookuid: %@", _needFavAndAutoBuyBookCell.book.uid);
+					[ServiceManager autoSubscribeWithBookID:_needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error) {
 						[self hideHUD:YES];
 						if (success) {
 							[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-								Book *b = [Book findFirstByAttribute:@"uid" withValue:needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+								Book *b = [Book findFirstByAttribute:@"uid" withValue:_needFavAndAutoBuyBookCell.book.uid inContext:localContext];
 								if (b) {
 									b.autoBuy = @(YES);
 								}
@@ -317,14 +323,14 @@ const NSUInteger numberOfBooksPerRow = 3;
     } else if (type.intValue == kHeaderViewButtonMember) {
         [APP_DELEGATE gotoRootController:kRootControllerIdentifierMember];
     } else if (type.intValue == kHeaderViewButtonEdit) {
-		editing = YES;
-		[booksView reloadData];
+		_editing = YES;
+		[_booksView reloadData];
     } else if (type.intValue == kHeaderViewButtonDelete) {
 		[self displayHUD:@"删除收藏..."];
 		[self syncRemoveFav];
     } else if (type.intValue == kHeaderViewButtonFinishEditing) {
-		editing = NO;
-		[booksView reloadData];
+		_editing = NO;
+		[_booksView reloadData];
     }
 }
 
@@ -336,7 +342,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 #pragma mark - BRBooksViewDelegate
 - (void)booksView:(BRBooksView *)booksView tappedBookCell:(BRBookCell *)bookCell
 {
-	if (!editing) {
+	if (!_editing) {
 		Chapter *chapter = [Chapter lastReadChapterOfBook:bookCell.book];
         bookCell.bUpdate = NO;
 		if (chapter) {
@@ -380,15 +386,15 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (void)booksView:(BRBooksView *)booksView deleteBookCell:(BRBookCell *)bookCell
 {
-	if (!needRemoveFavoriteBooks) needRemoveFavoriteBooks = [NSMutableArray array];
-	[needRemoveFavoriteBooks addObject:bookCell.book];
+	if (!_needRemoveFavoriteBooks) _needRemoveFavoriteBooks = [NSMutableArray array];
+	[_needRemoveFavoriteBooks addObject:bookCell.book];
 	[self syncRemoveFav];
 }
 
 - (NSNumber *)numberOfRows
 {
-	NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
-	numberOfRows += [notification shouldDisplay] ? 1 : 0;
+	NSUInteger numberOfRows = (int)ceil((CGFloat)_booksForDisplay.count / numberOfBooksPerRow);
+	numberOfRows += [_notification shouldDisplay] ? 1 : 0;
 	numberOfRows = MAX(minNumberOfStandView, numberOfRows);
 	return @(numberOfRows);
 }
@@ -397,16 +403,16 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	return booksForDisplay.count;
+	return _booksForDisplay.count;
 }
 
 - (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	Book *book = booksForDisplay[indexPath.row];
-	BRBookCell *cell = [booksView bookCell:book atIndexPath:indexPath];
-	cell.editing = editing;
+	Book *book = _booksForDisplay[indexPath.row];
+	BRBookCell *cell = [_booksView bookCell:book atIndexPath:indexPath];
+	cell.editing = _editing;
 	
-	if (indexPath.row == booksForDisplay.count - 1) {
+	if (indexPath.row == _booksForDisplay.count - 1) {
 		[self createStandViews:[self numberOfRows]];
 	}
 	return cell;
@@ -423,8 +429,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 	if ([supplementaryView isKindOfClass:[BRNotificationView class]]) {
 		BRNotificationView *notificationView = (BRNotificationView *)supplementaryView;
 		notificationView.delegate = self;
-		if (notification) {
-			notificationView.notification = notification;
+		if (_notification) {
+			notificationView.notification = _notification;
 		}
 	}
     return supplementaryView;
@@ -432,8 +438,8 @@ const NSUInteger numberOfBooksPerRow = 3;
 
 - (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-	if (notification && [notification shouldDisplay]) {
-		return CGSizeMake(booksView.frame.size.width, 120);
+	if (_notification && [_notification shouldDisplay]) {
+		return CGSizeMake(_booksView.frame.size.width, 120);
 	}
 	return CGSizeZero;
 }
@@ -441,12 +447,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 - (UIEdgeInsets)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
 	CGFloat top = 30;
-	if (notification && [notification shouldDisplay]) {
+	if (_notification && [_notification shouldDisplay]) {
 		top = 50;
 	}
 	if ([self numberOfRows].integerValue <= minNumberOfStandView) {
-		NSUInteger numberOfRows = (int)ceil((CGFloat)booksForDisplay.count / numberOfBooksPerRow);
-		CGFloat bottom = 245 - standViewsDistance * (numberOfRows - 1);
+		NSUInteger numberOfRows = (int)ceil((CGFloat)_booksForDisplay.count / numberOfBooksPerRow);
+		CGFloat bottom = 245 - _standViewsDistance * (numberOfRows - 1);
 		if (top == 30) {
 			bottom += 140;
 		}
@@ -464,12 +470,12 @@ const NSUInteger numberOfBooksPerRow = 3;
 {
 	BookDetailsViewController *bookDetailsViewController = [[BookDetailsViewController alloc] initWithBook:book.uid];
 	[self.navigationController pushViewController:bookDetailsViewController animated:YES];
-	[booksView reloadData];
+	[_booksView reloadData];
 }
 
 - (void)willClose
 {
-	[booksView reloadData];
+	[_booksView reloadData];
 }
 
 #pragma mark - BRShelfCategoryViewDelegate

@@ -11,11 +11,15 @@
 #import "UIViewController+HUD.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation CommentViewController {
-    UITextView *textView;
-    UIView *backgroundView;
-	CGRect _frame;
-}
+@interface CommentViewController ()
+
+@property (readwrite) UITextView *textView;
+@property (readwrite) UIView *backgroundView;
+@property (readwrite) CGRect frame;
+
+@end
+
+@implementation CommentViewController
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -34,45 +38,45 @@
 	
     [self.view setBackgroundColor:[UIColor semitransparentBackgroundColor]];
 	
-    backgroundView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, _frame.size.width - 2 * 10, 170)];
-    [backgroundView setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
-	backgroundView.layer.cornerRadius = 10;
-    [self.view addSubview:backgroundView];
+    _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, _frame.size.width - 2 * 10, 170)];
+    [_backgroundView setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
+	_backgroundView.layer.cornerRadius = 10;
+    [self.view addSubview:_backgroundView];
     
-	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(backgroundView.frame), 40)];
+	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_backgroundView.frame), 40)];
 	titleLabel.font = [UIFont systemFontOfSize:22];
 	titleLabel.backgroundColor = [UIColor clearColor];
 	titleLabel.textColor = [UIColor blackColor];
 	titleLabel.textAlignment = NSTextAlignmentCenter;
 	titleLabel.text = @"我要评论";
-	[backgroundView addSubview:titleLabel];
+	[_backgroundView addSubview:titleLabel];
 	
-    UIImageView *textViewBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 40, backgroundView.bounds.size.width - 40, 80)];
+    UIImageView *textViewBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 40, _backgroundView.bounds.size.width - 40, 80)];
     [textViewBackgroundView setImage:[UIImage imageNamed:@"dis_bg"]];
-    [backgroundView addSubview:textViewBackgroundView];
+    [_backgroundView addSubview:textViewBackgroundView];
     
-	textView = [[UITextView alloc] initWithFrame:textViewBackgroundView.frame];
-    [textView setBackgroundColor:[UIColor clearColor]];
-	textView.font = [UIFont systemFontOfSize:18];
-    [backgroundView addSubview:textView];
+	_textView = [[UITextView alloc] initWithFrame:textViewBackgroundView.frame];
+    [_textView setBackgroundColor:[UIColor clearColor]];
+	_textView.font = [UIFont systemFontOfSize:18];
+    [_backgroundView addSubview:_textView];
     
     UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sendBtn setFrame:CGRectMake(20, CGRectGetMaxY(textView.frame) + 7.5, 100, 30)];
+    [sendBtn setFrame:CGRectMake(20, CGRectGetMaxY(_textView.frame) + 7.5, 100, 30)];
     [sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [sendBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
     [sendBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
 	[sendBtn setTitle:@"评论" forState:UIControlStateNormal];
     [sendBtn addTarget:self action:@selector(sendCommentMessage) forControlEvents:UIControlEventTouchUpInside];
-    [backgroundView addSubview:sendBtn];
+    [_backgroundView addSubview:sendBtn];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(textView.frame) - 100, CGRectGetMinY(sendBtn.frame), 100, 30)];
+    [cancelBtn setFrame:CGRectMake(CGRectGetMaxX(_textView.frame) - 100, CGRectGetMinY(sendBtn.frame), 100, 30)];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [cancelBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
     [cancelBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
 	[cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    [backgroundView addSubview:cancelBtn];
+    [_backgroundView addSubview:cancelBtn];
 }
 
 - (void)close
@@ -82,12 +86,12 @@
 
 - (void)sendCommentMessage
 {
-    [textView resignFirstResponder];
-    if (textView.text.length <= 5) {
+    [_textView resignFirstResponder];
+    if (_textView.text.length <= 5) {
         [self displayHUDTitle:nil message:@"评论内容太短!"];
         return;
     }
-    [ServiceManager disscussWithBookID:_bookId andContent:textView.text withBlock:^(BOOL success, NSError *error, NSString *message) {
+    [ServiceManager disscussWithBookID:_bookId andContent:_textView.text withBlock:^(BOOL success, NSError *error, NSString *message) {
             if (!success) {
                 [self displayHUDTitle:nil message:message];
             } else {

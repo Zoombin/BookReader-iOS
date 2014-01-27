@@ -13,11 +13,15 @@
 #import	"ServiceManager.h"
 #import "UIDevice+ZBUtilites.h"
 
-@implementation PopLoginViewController {
-    UITextField *accountTextField;
-    UITextField *passwordTextField;
-	CGRect _frame;
-}
+@interface PopLoginViewController ()
+
+@property (readwrite) UITextField *accountTextField;
+@property (readwrite) UITextField *passwordTextField;
+@property (readwrite) CGRect frame;
+
+@end
+
+@implementation PopLoginViewController
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -57,22 +61,22 @@
 	titleLabel.text = @"用户登录";
 	[loginView addSubview:titleLabel];
     
-    accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 60, loginView.frame.size.width - 20 * 2, 35)];
-    [accountTextField setLeftViewMode:UITextFieldViewModeAlways];
-    [accountTextField setLeftView: [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)]];
-    [accountTextField setBackground:[UIImage imageNamed:@"login_username"]];
-    [accountTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-	accountTextField.placeholder = @"请输入用户名";
-    [loginView addSubview:accountTextField];
+    _accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 60, loginView.frame.size.width - 20 * 2, 35)];
+    [_accountTextField setLeftViewMode:UITextFieldViewModeAlways];
+    [_accountTextField setLeftView: [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)]];
+    [_accountTextField setBackground:[UIImage imageNamed:@"login_username"]];
+    [_accountTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+	_accountTextField.placeholder = @"请输入用户名";
+    [loginView addSubview:_accountTextField];
     
-    passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(accountTextField.frame) + 10, loginView.frame.size.width - 20 * 2, 35)];
-    [passwordTextField setLeftViewMode:UITextFieldViewModeAlways];
-    [passwordTextField setLeftView: [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)]];
-    [passwordTextField setBackground:[UIImage imageNamed:@"login_password"]];
-    [passwordTextField setSecureTextEntry:YES];
-    [passwordTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-	passwordTextField.placeholder = @"请输入密码";
-    [loginView addSubview:passwordTextField];
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_accountTextField.frame) + 10, loginView.frame.size.width - 20 * 2, 35)];
+    [_passwordTextField setLeftViewMode:UITextFieldViewModeAlways];
+    [_passwordTextField setLeftView: [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)]];
+    [_passwordTextField setBackground:[UIImage imageNamed:@"login_password"]];
+    [_passwordTextField setSecureTextEntry:YES];
+    [_passwordTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+	_passwordTextField.placeholder = @"请输入密码";
+    [loginView addSubview:_passwordTextField];
     
     CGFloat offSetX = 20;
     CGFloat offSetY = 15;
@@ -80,7 +84,7 @@
     CGFloat btnHeight = 40;
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginBtn setFrame:CGRectMake(offSetX, CGRectGetMaxY(passwordTextField.frame) + offSetY, btnWidth, btnHeight)];
+    [loginBtn setFrame:CGRectMake(offSetX, CGRectGetMaxY(_passwordTextField.frame) + offSetY, btnWidth, btnHeight)];
     [loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_normal"] forState:UIControlStateNormal];
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"btn_bg_click"] forState:UIControlStateHighlighted];
@@ -109,7 +113,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-	[accountTextField becomeFirstResponder];
+	[_accountTextField becomeFirstResponder];
 }
 
 - (void)close
@@ -131,13 +135,13 @@
 
 - (void)login
 {
-	if (accountTextField.text.length == 0|| passwordTextField.text.length == 0) {
+	if (_accountTextField.text.length == 0 || _passwordTextField.text.length == 0) {
         [self displayHUDTitle:nil message:@"账号或者密码不能为空"];
         return;
     }
 	[self hideKeyboard];
 	[self displayHUD:@"登录中"];
-	[ServiceManager loginByPhoneNumber:accountTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
+	[ServiceManager loginByPhoneNumber:_accountTextField.text andPassword:_passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
         if (success) {
             [self hideHUD:YES];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];

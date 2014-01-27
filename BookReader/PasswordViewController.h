@@ -10,5 +10,7 @@
 #import "BRViewController.h"
 
 @interface PasswordViewController : BRViewController
+
 @property (nonatomic, assign) BOOL bFindPassword;
+
 @end

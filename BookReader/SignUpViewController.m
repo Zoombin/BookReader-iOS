@@ -15,18 +15,22 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation SignUpViewController {
-    UIButton *registerButton;
-    UIButton *getCodeButton;
-    UITextField *accountTextField;
-    UITextField *passwordTextField;
-    UITextField *confirmTextField;
-    UITextField *codeTextField;
-    UITextField *mailTextField;
-    UIButton *phoneRegButton;
-    UIButton *nameRegButton;
-    BOOL bPhoneReg;
-}
+@interface SignUpViewController ()
+
+@property (readwrite) UIButton *registerButton;
+@property (readwrite) UIButton *getCodeButton;
+@property (readwrite) UITextField *accountTextField;
+@property (readwrite) UITextField *passwordTextField;
+@property (readwrite) UITextField *confirmTextField;
+@property (readwrite) UITextField *codeTextField;
+@property (readwrite) UITextField *mailTextField;
+@property (readwrite) UIButton *phoneRegButton;
+@property (readwrite) UIButton *nameRegButton;
+@property (readwrite) BOOL bPhoneReg;
+
+@end
+
+@implementation SignUpViewController
 
 - (void)viewDidLoad
 {
@@ -34,65 +38,65 @@
 	self.headerView.titleLabel.text = @"注册";
     CGSize fullSize = self.view.bounds.size;
     
-    bPhoneReg = YES;
-    
-	accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    mailTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
-    NSArray *textFields = @[accountTextField,passwordTextField,confirmTextField,codeTextField,mailTextField];
+    _bPhoneReg = YES;
+
+	_accountTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    _passwordTextField = [UITextField passwordTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    _confirmTextField = [UITextField passwordConfirmTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    _codeTextField = [UITextField codeTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    _mailTextField = [UITextField accountTextFieldWithFrame:CGRectMake(0, 0, 0, 0)];
+    NSArray *textFields = @[_accountTextField, _passwordTextField, _confirmTextField, _codeTextField, _mailTextField];
     for (int i = 0; i < textFields.count; i++) {
         UITextField *textField = textFields[i];
         [textField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
 		[self.view addSubview:textField];
     }
-    [mailTextField setPlaceholder:@"请输入邮箱"];
+    [_mailTextField setPlaceholder:@"请输入邮箱"];
     
-    getCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [getCodeButton memberButton:CGRectMake(0, 0, 0, 0)];
-    [getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
-    [getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCodeButton setEnabled:NO];
-    [self.view addSubview:getCodeButton];
+    _getCodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_getCodeButton memberButton:CGRectMake(0, 0, 0, 0)];
+    [_getCodeButton addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
+    [_getCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [_getCodeButton setEnabled:NO];
+    [self.view addSubview:_getCodeButton];
     
-	registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton memberButton:CGRectMake(0, 0, 0, 0)];
-    [registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [registerButton setEnabled:NO];
-	[self.view addSubview:registerButton];
+	_registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_registerButton memberButton:CGRectMake(0, 0, 0, 0)];
+    [_registerButton addTarget:self action:@selector(registerButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    [_registerButton setEnabled:NO];
+	[self.view addSubview:_registerButton];
     
-    phoneRegButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [phoneRegButton.layer setCornerRadius:5];
-    [phoneRegButton.layer setMasksToBounds:YES];
-    [phoneRegButton.layer setBorderColor:[UIColor blackColor].CGColor];
-    [phoneRegButton.layer setBorderWidth:0.5];
-    [phoneRegButton setFrame:CGRectMake(5, 45, 155, 45)];
-    [phoneRegButton setBackgroundColor:[UIColor colorWithRed:165.0/255.0 green:134.0/255.0 blue:117.0/255.0 alpha:0.8]];
-    [phoneRegButton setShowsTouchWhenHighlighted:YES];
-    [phoneRegButton setBackgroundImage:[UIImage imageNamed:@"phonereg_nor"] forState:UIControlStateNormal];
-    [phoneRegButton setBackgroundImage:[UIImage imageNamed:@"phonereg_hl"] forState:UIControlStateDisabled];
-    [phoneRegButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
-    [phoneRegButton addTarget:self action:@selector(phoneRegistButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:phoneRegButton];
+    _phoneRegButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_phoneRegButton.layer setCornerRadius:5];
+    [_phoneRegButton.layer setMasksToBounds:YES];
+    [_phoneRegButton.layer setBorderColor:[UIColor blackColor].CGColor];
+    [_phoneRegButton.layer setBorderWidth:0.5];
+    [_phoneRegButton setFrame:CGRectMake(5, 45, 155, 45)];
+    [_phoneRegButton setBackgroundColor:[UIColor colorWithRed:165.0/255.0 green:134.0/255.0 blue:117.0/255.0 alpha:0.8]];
+    [_phoneRegButton setShowsTouchWhenHighlighted:YES];
+    [_phoneRegButton setBackgroundImage:[UIImage imageNamed:@"phonereg_nor"] forState:UIControlStateNormal];
+    [_phoneRegButton setBackgroundImage:[UIImage imageNamed:@"phonereg_hl"] forState:UIControlStateDisabled];
+    [_phoneRegButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    [_phoneRegButton addTarget:self action:@selector(phoneRegistButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_phoneRegButton];
     
-    nameRegButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [nameRegButton.layer setCornerRadius:5];
-    [nameRegButton.layer setMasksToBounds:YES];
-    [nameRegButton.layer setBorderWidth:0.5];
-    [nameRegButton setBackgroundImage:[UIImage imageNamed:@"namereg_nor"] forState:UIControlStateNormal];
-    [nameRegButton setBackgroundImage:[UIImage imageNamed:@"namereg_hl"] forState:UIControlStateDisabled];
-    [nameRegButton.layer setBorderColor:[UIColor blackColor].CGColor];
-    [nameRegButton setFrame:CGRectMake(5 + 155, 45, 155, 45)];
-    [nameRegButton setShowsTouchWhenHighlighted:YES];
-    [nameRegButton setBackgroundColor:phoneRegButton.backgroundColor];
-    [nameRegButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
-    [nameRegButton addTarget:self action:@selector(nameRegistButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:nameRegButton];
+    _nameRegButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_nameRegButton.layer setCornerRadius:5];
+    [_nameRegButton.layer setMasksToBounds:YES];
+    [_nameRegButton.layer setBorderWidth:0.5];
+    [_nameRegButton setBackgroundImage:[UIImage imageNamed:@"namereg_nor"] forState:UIControlStateNormal];
+    [_nameRegButton setBackgroundImage:[UIImage imageNamed:@"namereg_hl"] forState:UIControlStateDisabled];
+    [_nameRegButton.layer setBorderColor:[UIColor blackColor].CGColor];
+    [_nameRegButton setFrame:CGRectMake(5 + 155, 45, 155, 45)];
+    [_nameRegButton setShowsTouchWhenHighlighted:YES];
+    [_nameRegButton setBackgroundColor:_phoneRegButton.backgroundColor];
+    [_nameRegButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    [_nameRegButton addTarget:self action:@selector(nameRegistButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_nameRegButton];
     
-    [phoneRegButton setEnabled:NO];
-    [phoneRegButton setAlpha:0.8];
+    [_phoneRegButton setEnabled:NO];
+    [_phoneRegButton setAlpha:0.8];
 	
 	CGFloat startX = 25;
 	CGFloat startY = 55 + 50;
@@ -100,19 +104,19 @@
 	CGFloat height = 50;
 	CGFloat distance = 10;
 	CGRect rect = CGRectMake(startX, startY, width, height);
-	accountTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(accountTextField.bounds) + distance;
-    passwordTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
-    confirmTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
+	_accountTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_accountTextField.bounds) + distance;
+    _passwordTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_passwordTextField.bounds) + distance;
+    _confirmTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_confirmTextField.bounds) + distance;
     
-    codeTextField.frame = CGRectMake(startX, rect.origin.y, -5 + width/2, height);
-    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame) + 10, rect.origin.y, -5 +width/2, height);
-	rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
+    _codeTextField.frame = CGRectMake(startX, rect.origin.y, -5 + width/2, height);
+    _getCodeButton.frame = CGRectMake(CGRectGetMaxX(_codeTextField.frame) + 10, rect.origin.y, -5 +width/2, height);
+	rect.origin.y += CGRectGetMaxY(_getCodeButton.bounds) + distance;
     
-	registerButton.frame = rect;
-	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
+	_registerButton.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_registerButton.bounds) + distance;
 }
 
 - (void)phoneRegistButtonClicked
@@ -125,29 +129,29 @@
 	CGFloat height = 50;
 	CGFloat distance = 10;
 	CGRect rect = CGRectMake(startX, startY, width, height);
-	accountTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(accountTextField.bounds) + distance;
-    passwordTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
-    confirmTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
+	_accountTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_accountTextField.bounds) + distance;
+    _passwordTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_passwordTextField.bounds) + distance;
+    _confirmTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_confirmTextField.bounds) + distance;
     
-    codeTextField.frame = CGRectMake(startX, rect.origin.y, -5 + width/2, height);
-    getCodeButton.frame = CGRectMake(CGRectGetMaxX(codeTextField.frame) + 10, rect.origin.y, -5 +width/2, height);
-	rect.origin.y += CGRectGetMaxY(getCodeButton.bounds) + distance;
+    _codeTextField.frame = CGRectMake(startX, rect.origin.y, -5 + width/2, height);
+    _getCodeButton.frame = CGRectMake(CGRectGetMaxX(_codeTextField.frame) + 10, rect.origin.y, -5 +width/2, height);
+	rect.origin.y += CGRectGetMaxY(_getCodeButton.bounds) + distance;
     
-	registerButton.frame = rect;
-	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
+	_registerButton.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_registerButton.bounds) + distance;
 
-    [getCodeButton setHidden:NO];
-    [codeTextField setHidden:NO];
-    [mailTextField setHidden:YES];
-    [nameRegButton setEnabled:YES];
-    [nameRegButton setAlpha:1.0];
-    [phoneRegButton setEnabled:NO];
-    [phoneRegButton setAlpha:0.8];
+    [_getCodeButton setHidden:NO];
+    [_codeTextField setHidden:NO];
+    [_mailTextField setHidden:YES];
+    [_nameRegButton setEnabled:YES];
+    [_nameRegButton setAlpha:1.0];
+    [_phoneRegButton setEnabled:NO];
+    [_phoneRegButton setAlpha:0.8];
     
-    bPhoneReg = YES;
+    _bPhoneReg = YES;
     [self clearTextField];
 }
 
@@ -161,61 +165,57 @@
 	CGFloat height = 50;
 	CGFloat distance = 10;
 	CGRect rect = CGRectMake(startX, startY, width, height);
-	accountTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(accountTextField.bounds) + distance;
-    passwordTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(passwordTextField.bounds) + distance;
-    confirmTextField.frame = rect;
-	rect.origin.y += CGRectGetMaxY(confirmTextField.bounds) + distance;
-    mailTextField.frame = rect;
-    rect.origin.y += CGRectGetMaxY(mailTextField.bounds) + distance;
-	registerButton.frame = rect;
-	rect.origin.y += CGRectGetMaxY(registerButton.bounds) + distance;
+	_accountTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_accountTextField.bounds) + distance;
+    _passwordTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_passwordTextField.bounds) + distance;
+    _confirmTextField.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_confirmTextField.bounds) + distance;
+    _mailTextField.frame = rect;
+    rect.origin.y += CGRectGetMaxY(_mailTextField.bounds) + distance;
+	_registerButton.frame = rect;
+	rect.origin.y += CGRectGetMaxY(_registerButton.bounds) + distance;
     
-    [getCodeButton setHidden:YES];
-    [codeTextField setHidden:YES];
-    [mailTextField setHidden:NO];
-    [nameRegButton setEnabled:NO];
-    [nameRegButton setAlpha:0.8];
-    [phoneRegButton setEnabled:YES];
-    [phoneRegButton setAlpha:1.0];
+    [_getCodeButton setHidden:YES];
+    [_codeTextField setHidden:YES];
+    [_mailTextField setHidden:NO];
+    [_nameRegButton setEnabled:NO];
+    [_nameRegButton setAlpha:0.8];
+    [_phoneRegButton setEnabled:YES];
+    [_phoneRegButton setAlpha:1.0];
     
-    bPhoneReg = NO;
+    _bPhoneReg = NO;
     [self clearTextField];
 }
 
 - (void)valueChanged:(id)sender
 {
-    if ([accountTextField.text length]) {
-        [getCodeButton setEnabled:YES];
-    } else {
-        [getCodeButton setEnabled:NO];
-    }
-    if (bPhoneReg) {
-        if ([accountTextField.text length] && [passwordTextField.text length] && [confirmTextField.text length] && [codeTextField.text length]) {
-            [registerButton setEnabled:YES];
+	_getCodeButton.enabled = _accountTextField.text.length ? YES : NO;
+    if (_bPhoneReg) {
+        if (_accountTextField.text.length && _passwordTextField.text.length && _confirmTextField.text.length && _codeTextField.text.length) {
+            [_registerButton setEnabled:YES];
         } else {
-            [registerButton setEnabled:NO];
+            [_registerButton setEnabled:NO];
         }
     }else {
-        if ([accountTextField.text length] && [passwordTextField.text length] && [confirmTextField.text length] && [mailTextField.text length]) {
-            [registerButton setEnabled:YES];
+        if (_accountTextField.text.length && _passwordTextField.text.length && _confirmTextField.text.length && _mailTextField.text.length) {
+            [_registerButton setEnabled:YES];
         } else {
-            [registerButton setEnabled:NO];
+            [_registerButton setEnabled:NO];
         }
     }
 }
 
 - (void)registerButtonClicked
 {
-    if (![confirmTextField.text isEqualToString:passwordTextField.text]) {
+    if (![_confirmTextField.text isEqualToString:_passwordTextField.text]) {
         [self displayHUDTitle:nil message:@"两次密码不一致"];
         return;
     }
     [self hideKeyboard];
     [self displayHUD:@"注册中..."];
-    if (bPhoneReg == YES) {
-        [ServiceManager registerByPhoneNumber:accountTextField.text verifyCode:codeTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
+    if (_bPhoneReg) {
+        [ServiceManager registerByPhoneNumber:_accountTextField.text verifyCode:_codeTextField.text andPassword:_passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
             if (success) {
                 [self displayHUDTitle:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
@@ -232,7 +232,7 @@
             }
         }];
     } else {
-        [ServiceManager registerByNickName:accountTextField.text email:mailTextField.text andPassword:passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
+        [ServiceManager registerByNickName:_accountTextField.text email:_mailTextField.text andPassword:_passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message, BRUser *member) {
             if (success) {
                 [self displayHUDTitle:nil message:message];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
@@ -253,18 +253,18 @@
 
 - (void)clearTextField
 {
-    accountTextField.text = @"";
-    passwordTextField.text = @"";
-    confirmTextField.text = @"";
-    codeTextField.text = @"";
-    mailTextField.text = @"";
+    _accountTextField.text = @"";
+    _passwordTextField.text = @"";
+    _confirmTextField.text = @"";
+    _codeTextField.text = @"";
+    _mailTextField.text = @"";
 }
 
 - (void)getCode
 {
     [self hideKeyboard];
-    if ([accountTextField.text length]>0) {
-        [ServiceManager verifyCodeByPhoneNumber:accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message){
+    if (_accountTextField.text.length) {
+        [ServiceManager verifyCodeByPhoneNumber:_accountTextField.text withBlock:^(BOOL success, NSError *error, NSString *message){
             if (success) {
                 [self displayHUDTitle:nil message:message];
             } else {
