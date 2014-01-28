@@ -157,6 +157,7 @@
     [ServiceManager findPassword:_accountTextField.text verifyCode:_codeTextField.text andNewPassword:_passwordTextField.text withBlock:^(BOOL success, NSError *error, NSString *message) {
         if (success) {
             [self displayHUDTitle:nil message:message];
+			[self performSelector:@selector(backOrClose) withObject:nil afterDelay:1.0];
         } else {
             if (error) {
                 [self displayHUDTitle:nil message:NETWORK_ERROR];

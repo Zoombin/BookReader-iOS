@@ -32,6 +32,7 @@
 @property (readwrite) UIWebView *webView;
 @property (readwrite) UIButton *logoutButton;
 @property (readwrite) BRBottomView *bottomView;
+@property (readwrite) BOOL bNoNeedRefresh;
 
 @end
 
@@ -107,7 +108,10 @@
 	if ([ServiceManager isSessionValid]) {
 		_logoutButton.hidden = NO;
 		_memberTableView.hidden = YES;
-		[self goToMemberCenter];
+		if (!_bNoNeedRefresh) {
+			[self goToMemberCenter];
+		}
+		_bNoNeedRefresh = NO;
     }else {
 		_logoutButton.hidden = YES;
 		_memberTableView.hidden = YES;
@@ -124,7 +128,9 @@
 
 - (void)goToMemberCenter
 {
-	[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&version=%@", kXXSYMemberCenterUrlString, [NSString appVersion]]]]];
+	NSString *URLString = [NSString stringWithFormat:@"%@?userid=%@&version=%@", kXXSYMemberCenterUrlString, [ServiceManager userID], [NSString appVersion]];
+	NSLog(@"urlstring: %@", URLString);
+	[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]]];
 }
 
 - (void)goToSignIn
@@ -191,6 +197,13 @@
 		[self presentViewController:messageComposeViewController animated:YES completion:nil];
 		return;
 	}
+	
+	range = [URL.absoluteString rangeOfString:@"cache/clear/"];
+	if (range.location != NSNotFound) {
+		[self cleanUp];
+		return;
+	}
+	
 }
 
 - (void)loginAfterDeepLink:(NSString *)userID
@@ -324,7 +337,7 @@
 	} else if (indexPath.row == 4) {
 		WebViewController *webViewController = [[WebViewController alloc] init];
 		webViewController.fromWhere = kFromLogin;
-		webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&tx=1&version=%@", kXXSYHelpUrlString, [ServiceManager userID], [NSString appVersion]];
+		webViewController.urlString = [NSString stringWithFormat:@"%@?userid=%@&tx=1&version=%@", kXXSYPayUrlString, [ServiceManager userID], [NSString appVersion]];
 		NSLog(@"urlString: %@", webViewController.urlString);
 		[self.navigationController pushViewController:webViewController animated:YES];
 	} else {
@@ -360,6 +373,7 @@
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
+	_bNoNeedRefresh = YES;
 	[self dismissModalViewControllerAnimated:YES];
 }
 
