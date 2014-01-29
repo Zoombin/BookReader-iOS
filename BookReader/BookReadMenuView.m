@@ -12,6 +12,16 @@
 #import "AppDelegate.h"
 #import "ServiceManager.h"
 
+@interface BookReadMenuView ()
+
+@property (readwrite) UIButton *backToBookShelf;
+@property (readwrite) UIButton *backToBookStore;
+@property (readwrite) UIButton *backToBookDetail;
+@property (readwrite) UIButton *addFavButton;
+@property (readwrite) UIView *lastLine;
+
+@end
+
 
 @implementation BookReadMenuView {
     UIView *topView;
@@ -19,7 +29,6 @@
     UIView *backgroundView;//背景色
     UIView *brightView;//亮度
     UIView *navigationView;//导航
-    
     UIButton *chaptersListButton;
     UIButton *shareButton;
     UIButton *commitButton;
@@ -28,33 +37,24 @@
     UIButton *backgroundButton;
     UIButton *fontSetButton;
     UIButton *resetButton;
-    
     UIButton *fontButton;
     UIButton *backgroundSettingButton;
-    
     UIButton *defaultFontButton;
     UIButton *foundFontButton;
     UIButton *northFontButton;
     UISlider *brightSlider;
-    
     NSMutableArray *bottomViewBtns;
     NSMutableArray *backgroundBtns;
-    
     UIImageView *markImageViewOne;
     UIImageView *markImageViewTwo;
     UIImageView *markImageViewSelect;
     UIImageView *pageImageUnSelect;
     UIImageView *pageImageSelect;
-    
     UIPageControl *pageControl;
-    
     UIView *bottomView;
     UITapGestureRecognizer *tapGestureReconizer;
-    
     UIButton *realPageButton;
     UIButton *simplePageButton;
-	
-	UIButton *addFavButton;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -511,65 +511,68 @@
     CGFloat screenWidth = self.bounds.size.width;
     CGFloat screenHeight = self.bounds.size.height;
 	
-    navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 3, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3), screenWidth / 3, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3))];
+    navigationView = [[UIView alloc] initWithFrame:CGRectMake(bottomView.frame.size.width - screenWidth / 3, screenHeight - bottomView.frame.size.height - (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3) - 54, screenWidth / 3, (screenWidth > 320 ? 2.2 : 1) * (screenWidth / 3) + 54)];
     [navigationView setHidden:YES];
-    [navigationView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
+    [navigationView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
 	navigationView.backgroundColor = [UIColor semitransparentBackgroundColor];
     [self addSubview:navigationView];
 	
-	NSUInteger numberOfButtons = 4;
-	CGSize buttonSize = CGSizeMake(navigationView.frame.size.width, navigationView.frame.size.height / numberOfButtons);
+	CGSize buttonSize = CGSizeMake(navigationView.frame.size.width, 40);
 	CGRect buttonFrame = CGRectMake(0, 0, buttonSize.width, buttonSize.height);
 	
-    UIButton *backToBookShelf = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backToBookShelf setTitle:@"返回书架" forState:UIControlStateNormal];
-	backToBookShelf.frame = buttonFrame;
-    [backToBookShelf addTarget:self action:@selector(bookShelfButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [backToBookShelf setShowsTouchWhenHighlighted:YES];
-    [backToBookShelf.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [backToBookShelf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [navigationView addSubview:backToBookShelf];
+	_backToBookShelf = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backToBookShelf setTitle:@"返回书架" forState:UIControlStateNormal];
+	_backToBookShelf.frame = buttonFrame;
+    [_backToBookShelf addTarget:self action:@selector(bookShelfButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_backToBookShelf setShowsTouchWhenHighlighted:YES];
+    [_backToBookShelf.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_backToBookShelf setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:_backToBookShelf];
     
-	buttonFrame.origin.y = CGRectGetMaxY(backToBookShelf.frame);
+	buttonFrame.origin.y = CGRectGetMaxY(_backToBookShelf.frame);
 	
-	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(backToBookShelf.frame), buttonSize.width, 1)]];
+	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(_backToBookShelf.frame) - 1, buttonSize.width, 1)]];
     
-    UIButton *backToBookStore = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backToBookStore setTitle:@"返回书城" forState:UIControlStateNormal];
-	backToBookStore.frame = buttonFrame;
-    [backToBookStore addTarget:self action:@selector(bookStoreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [backToBookStore setShowsTouchWhenHighlighted:YES];
-    [backToBookStore.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [backToBookStore setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [navigationView addSubview:backToBookStore];
+	_backToBookStore = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backToBookStore setTitle:@"返回书城" forState:UIControlStateNormal];
+	_backToBookStore.frame = buttonFrame;
+    [_backToBookStore addTarget:self action:@selector(bookStoreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_backToBookStore setShowsTouchWhenHighlighted:YES];
+    [_backToBookStore.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_backToBookStore setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:_backToBookStore];
 	
-	buttonFrame.origin.y = CGRectGetMaxY(backToBookStore.frame);
+	buttonFrame.origin.y = CGRectGetMaxY(_backToBookStore.frame);
 	
-	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(backToBookStore.frame), buttonSize.width, 1)]];
+	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(_backToBookStore.frame) - 1, buttonSize.width, 1)]];
     
-    UIButton *backToBookDetail = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backToBookDetail setTitle:@"返回书籍详情" forState:UIControlStateNormal];
-	backToBookDetail.frame = buttonFrame;
-    [backToBookDetail addTarget:self action:@selector(bookDetailButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    [backToBookDetail setShowsTouchWhenHighlighted:YES];
-    [backToBookDetail.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [backToBookDetail setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [navigationView addSubview:backToBookDetail];
+	_backToBookDetail = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backToBookDetail setTitle:@"返回书籍详情" forState:UIControlStateNormal];
+	_backToBookDetail.frame = buttonFrame;
+    [_backToBookDetail addTarget:self action:@selector(bookDetailButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_backToBookDetail setShowsTouchWhenHighlighted:YES];
+    [_backToBookDetail.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_backToBookDetail setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [navigationView addSubview:_backToBookDetail];
 	
-	buttonFrame.origin.y = CGRectGetMaxY(backToBookDetail.frame);
+	buttonFrame.origin.y = CGRectGetMaxY(_backToBookDetail.frame);
 	
-	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(backToBookDetail.frame), buttonSize.width, 1)]];
+	[navigationView addSubview:[self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(_backToBookDetail.frame) - 1, buttonSize.width, 1)]];
 	
-	addFavButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addFavButton setTitle:@"加入收藏" forState:UIControlStateNormal];
-    addFavButton.frame = buttonFrame;
-    [addFavButton addTarget:self action:@selector(addFavButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [addFavButton setShowsTouchWhenHighlighted:YES];
-    [addFavButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [addFavButton setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-	[navigationView addSubview:addFavButton];
+	_addFavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_addFavButton setTitle:@"加入收藏" forState:UIControlStateNormal];
+    _addFavButton.frame = buttonFrame;
+    [_addFavButton addTarget:self action:@selector(addFavButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_addFavButton setShowsTouchWhenHighlighted:YES];
+    [_addFavButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [_addFavButton setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+	[navigationView addSubview:_addFavButton];
+	
+	_lastLine = [self separateLineWithFrame:CGRectMake(0, CGRectGetMaxY(_addFavButton.frame) - 1, buttonSize.width, 1)];
+	[navigationView addSubview:_lastLine];
+	
 	if (![ServiceManager isSessionValid] && ![ServiceManager showDialogs]) {
-		addFavButton.hidden = YES;
+		_addFavButton.hidden = YES;
 	}
 	
 	if (_favorited) {
@@ -604,10 +607,21 @@
 
 - (void)disableAddFavButton
 {
-	if (addFavButton) {
-		[addFavButton setTitle:@"已收藏" forState:UIControlStateNormal];
-		[addFavButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+	if (_addFavButton) {
+		[_addFavButton setTitle:@"已收藏" forState:UIControlStateNormal];
+		[_addFavButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+		_addFavButton.hidden = YES;
+		_lastLine.hidden = YES;
 	}
+	
+	if (navigationView) {
+		CGRect frame = navigationView.frame;
+		frame.origin.y += 40;
+		frame.size.height -= 40;
+		navigationView.frame = frame;
+	}
+	
+	[self setNeedsLayout];
 }
 
 - (void)bookShelfButtonClicked

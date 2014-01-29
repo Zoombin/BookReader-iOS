@@ -135,6 +135,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}
 	[self gotoChapter:_chapter withReadIndex:nil extra:NO];
 	
+	if ([ServiceManager isSessionValid]) {
+		[self checkExistsFav];
+	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateChapters) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
@@ -249,6 +252,17 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	}];
 }
 
+- (void)checkExistsFav
+{
+	[ServiceManager existsFavoriteWithBookID:_chapter.bid withBlock:^(BOOL isExist, NSError *error) {
+		if (!error) {
+			if (isExist) {
+				_menuView.favorited = YES;
+			}
+		}
+	}];
+}
+
 #pragma mark - MenuView Delegate
 
 - (void)willAddFav
@@ -266,10 +280,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	if (book) {
 		[ServiceManager addFavoriteWithBookID:book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
 			if (success) {
-				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					book.bFav = @(YES);
-				}];
+				[self displayHUDTitle:@"收藏成功" message:nil];
 				_menuView.favorited = YES;
+				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+					Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
+					if (book) {
+						book.bFav = @(YES);
+					}
+				}];
 			}
 		}];
 	}
@@ -738,6 +756,9 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)popLoginDidLogin
 {
+	if ([ServiceManager isSessionValid]) {
+		[self checkExistsFav];
+	}
 	//如果从其他界面进入时候传进来的章节是vip章节，如取消登录则需要返回之前的界面，如登录则需要订阅该章节
 	if (_enterChapterIsVIP) {
 		[self gotoChapter:_chapter withReadIndex:nil extra:NO];

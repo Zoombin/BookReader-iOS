@@ -36,6 +36,7 @@ NSString *kFromSubscribe = @"kFromSubscribe";
 	_webView.scrollView.showsHorizontalScrollIndicator = NO;
 	_webView.scrollView.showsVerticalScrollIndicator = NO;
 	[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
+	NSLog(@"web _urlString: %@", _urlString);
     [self.view addSubview:_webView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deeplink:) name:DEEP_LINK object:nil];
@@ -130,6 +131,7 @@ NSString *kFromSubscribe = @"kFromSubscribe";
 	} else if ([_fromWhere isEqualToString:kFromGift]) {
 		if (_book) {
 			NSString *urlString = [NSString stringWithFormat:@"%@?userid=%@&bookid=%@&version=%@", kXXSYGiftsUrlString, userID, _book.uid, [NSString appVersion]];
+			NSLog(@"urlString: %@", urlString);
 			[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 		}
 	} else if ([_fromWhere isEqualToString:kFromLogin]) {

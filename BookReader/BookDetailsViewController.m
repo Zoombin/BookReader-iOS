@@ -131,6 +131,10 @@
             }
         }];
     }
+	
+	if ([ServiceManager isSessionValid]) {
+		[self checkExistsFav];
+    }
 }
 
 - (void)coverButtonClicked:(id)sender
