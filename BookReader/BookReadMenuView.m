@@ -572,7 +572,7 @@
 	[navigationView addSubview:_lastLine];
 	
 	if (![ServiceManager isSessionValid] && ![ServiceManager showDialogs]) {
-		_addFavButton.hidden = YES;
+		[self disableAddFavButton];
 	}
 	
 	if (_favorited) {
@@ -607,18 +607,18 @@
 
 - (void)disableAddFavButton
 {
+	if (navigationView && _addFavButton.hidden == NO) {
+		CGRect frame = navigationView.frame;
+		frame.origin.y += 40;
+		frame.size.height -= 40;
+		navigationView.frame = frame;
+	}
+	
 	if (_addFavButton) {
 		[_addFavButton setTitle:@"已收藏" forState:UIControlStateNormal];
 		[_addFavButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
 		_addFavButton.hidden = YES;
 		_lastLine.hidden = YES;
-	}
-	
-	if (navigationView) {
-		CGRect frame = navigationView.frame;
-		frame.origin.y += 40;
-		frame.size.height -= 40;
-		navigationView.frame = frame;
 	}
 	
 	[self setNeedsLayout];
