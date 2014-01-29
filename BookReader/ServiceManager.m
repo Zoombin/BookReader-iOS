@@ -922,20 +922,19 @@ static NSNumber *showDialogs;
     [[ServiceManager shared] postPath:@"ShowDialogsSettings.aspx" parameters:@{@"version=" : appVersion} success:^(AFHTTPRequestOperation *operation, id JSON) {
         id theObject = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONWritingPrettyPrinted error:nil];
         if ([theObject isKindOfClass:[NSDictionary class]]) {
-			NSString *version = @"2.02";//theObject[@"version"];
-			if (version) {
-				if ([[NSString appVersion] compare:version options:NSNumericSearch] != NSOrderedDescending) {
-					[self saveShowDialogs:@YES];
-				} else {
-					[self saveShowDialogs:@NO];
-				}
+			id version = theObject[@"version"];
+			CGFloat versionFloat = 0;
+			if ([version isKindOfClass:[NSNumber class]]) {
+				versionFloat = [version floatValue];
+			} else if ([version isKindOfClass:[NSString class]]) {
+				versionFloat = [version floatValue];
 			}
-//			NSString *value = theObject[@"value"];
-//			if ([value isEqualToString:@"1"]) {
-//				[self saveShowDialogs:@YES];
-//			} else {
-//				[self saveShowDialogs:@NO];
-//			}
+			
+			if ([[NSString appVersion] floatValue] > versionFloat) {
+				[self saveShowDialogs:@NO];
+			} else {
+				[self saveShowDialogs:@YES];
+			}
 			if (block) block(NO, nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
