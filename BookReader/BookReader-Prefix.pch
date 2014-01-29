@@ -58,8 +58,7 @@ float syncTimeInterval;
 #define kXXSYSubscribeUrlString @"http://link.xxsy.net/ios/pages/dingyue.aspx"
 #define kXXSYLoginUrlString @"http://link.xxsy.net/ios/pages/login.aspx"
 #define kXXSYMemberCenterUrlString @"http://link.xxsy.net/ios/pages/center.aspx"
-//#define kXXSYRegisterUrlString @"http://link.xxsy.net/dialogs02/register.aspx"
-//#define kXXSYAddFavUrlString @"http://link.xxsy.net/dialogs02/props.aspx"
+#define kXXSYRegisterUrlString @"http://link.xxsy.net/ios/pages/register.aspx"
 
 //testAccount
 //bwkpjq:720423

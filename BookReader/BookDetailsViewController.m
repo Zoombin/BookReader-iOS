@@ -952,9 +952,14 @@
 
 - (void)popLoginWillSignup
 {
-	SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
-	signUpViewController.delegate = self;
-	[self.navigationController pushViewController:signUpViewController animated:YES];
+	WebViewController *webViewController = [[WebViewController alloc] init];
+	webViewController.fromWhere = kFromLogin;
+	webViewController.urlString = [NSString stringWithFormat:@"%@?version=%@", kXXSYRegisterUrlString, [NSString appVersion]];
+	NSLog(@"urlString: %@", webViewController.urlString);
+	[self.navigationController pushViewController:webViewController animated:YES];
+	//SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
+	//signUpViewController.delegate = self;
+	//[self.navigationController pushViewController:signUpViewController animated:YES];
 }
 
 #pragma mark - SignUpViewControllerDelegate
