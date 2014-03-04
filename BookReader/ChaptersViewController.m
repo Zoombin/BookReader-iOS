@@ -10,7 +10,6 @@
 #import "ServiceManager.h"
 #import "Mark.h"
 #import "UIViewController+HUD.h"
-#import "CoreTextViewController.h"
 #import "UIButton+BookReader.h"
 #import "UIButton+BookReader.h"
 #import <QuartzCore/QuartzCore.h>
