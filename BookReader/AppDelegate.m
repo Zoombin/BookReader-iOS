@@ -133,11 +133,11 @@
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[iVersion sharedInstance].displayAppUsingStorekitIfAvailable = NO;
-	if (![ServiceManager showDialogs]) {
+	//if ([ServiceManager showDialogs]) {
 		[ServiceManager showDialogsSettingsByAppVersion:[NSString appVersion] withBlock:^(BOOL success, NSError *error) {
 			[[NSNotificationCenter defaultCenter] postNotificationName:REFRESH_BOTTOM_TAB_NOTIFICATION_IDENTIFIER object:nil];
 		}];
-	}
+	//}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
