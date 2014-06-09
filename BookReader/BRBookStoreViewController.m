@@ -143,18 +143,9 @@
     }
     
     _searchBar.delegate = self;
-    _searchBar.tintColor = [UIColor blackColor];
+	_searchBar.backgroundImage = [UIImage new];
+//    _searchBar.tintColor = [UIColor grayColor];
     [_searchBar setPlaceholder:@"请输入书名、作者"];
-    UITextField *searchField;
-	NSUInteger numViews = [_searchBar.subviews count];
-	for(int i = 0; i < numViews; i++) {
-		if([[_searchBar.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) {
-            NSLog(@"有textField");
-			searchField = [_searchBar.subviews objectAtIndex:i];
-            [searchField setBorderStyle:UITextBorderStyleRoundedRect];
-            searchField.leftView = nil;
-		}
-	}
     [_searchBar layoutSubviews];
     [_tableViewHeader addSubview:_searchBar];
     
