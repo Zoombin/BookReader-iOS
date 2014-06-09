@@ -19,9 +19,9 @@
 {
 	if (!name) return;
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		ShelfCategory *shelfCategory = [ShelfCategory findFirstByAttribute:@"name" withValue:name inContext:localContext];
+		ShelfCategory *shelfCategory = [ShelfCategory MR_findFirstByAttribute:@"name" withValue:name inContext:localContext];
 		if (!shelfCategory) {
-			shelfCategory = [ShelfCategory createInContext:localContext];
+			shelfCategory = [ShelfCategory MR_createInContext:localContext];
 			shelfCategory.name = name;
 		}
 	} completion:^(BOOL success, NSError *error) {

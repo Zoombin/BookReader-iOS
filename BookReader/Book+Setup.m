@@ -16,7 +16,7 @@
 
 + (NSManagedObject *)createWithAttributes:(NSDictionary *)attributes
 {
-    Book *book = [Book createInContext:[BRContextManager memoryOnlyContext]];
+    Book *book = [Book MR_createInContext:[BRContextManager memoryOnlyContext]];
 	book.author = attributes[@"authorName"];
 	book.autoBuy = attributes[@"auto"];
 	book.name = attributes[@"bookName"];
@@ -78,9 +78,9 @@
 - (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Book *book = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
 		if (!book) {
-			book = [Book createInContext:localContext];
+			book = [Book MR_createInContext:localContext];
 		}
 		[book clone:self];
 	} completion:^(BOOL success, NSError *error) {
@@ -92,9 +92,9 @@
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[array enumerateObjectsUsingBlock:^(Book *b, NSUInteger idx, BOOL *stop) {
-			Book *book = [Book findFirstByAttribute:@"uid" withValue:b.uid inContext:localContext];
+			Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:b.uid inContext:localContext];
 			if (!book) {
-				book = [Book createInContext:localContext];
+				book = [Book MR_createInContext:localContext];
 			}
 			[book clone:b];
 		}];
@@ -148,9 +148,9 @@
 - (void)truncate
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Book *book = [Book findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
 		if (book) {
-			[book deleteInContext:localContext];
+			[book MR_deleteInContext:localContext];
 		}
 	}];
 }
@@ -160,7 +160,7 @@
 + (NSArray *)allBooksOfUser:(NSNumber *)userID
 {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userID = nil OR userID = %@", userID];
-	return [Book findAllSortedBy:@"localUpdateDate" ascending:NO withPredicate:predicate];
+	return [Book MR_findAllSortedBy:@"localUpdateDate" ascending:NO withPredicate:predicate];
 }
 
 - (BOOL)needUpdate
@@ -190,7 +190,7 @@
 	NSMutableArray *helpBooks = [NSMutableArray array];
 	NSArray *bookNames = @[@"纨绔世子妃", @"庶女有毒", @"楚王妃", @"嫡妃不如美妾", @"婚前试爱", @"重生之高门嫡女", @"军医重生，贵女宝瞳", @"望门庶女", @"蚀骨沉沦"];
 	for (int i = 0; i < 9; i++) {
-		Book *helpBook = [Book createInContext:[BRContextManager memoryOnlyContext]];
+		Book *helpBook = [Book MR_createInContext:[BRContextManager memoryOnlyContext]];
 		UIImage *cover = [UIImage imageNamed:[NSString stringWithFormat:@"help_bookcover%d.jpg", i + 1]];
 		helpBook.cover = [[NSData alloc] initWithData:UIImageJPEGRepresentation(cover, 1.0)];
 		helpBook.name = bookNames[i];

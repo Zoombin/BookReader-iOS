@@ -516,7 +516,7 @@ static NSDictionary *booksDictionary;
     [content setString:[self getTextWithBookId:bookid]];
     NSMutableArray *chapterObjArray = [[NSMutableArray alloc] init];
     for (int i = 0; i< [chaptersNameArray count]; i++) {
-        Chapter *chapter = [Chapter createInContext:[BRContextManager memoryOnlyContext]];
+        Chapter *chapter = [Chapter MR_createInContext:[BRContextManager memoryOnlyContext]];
         chapter.name = chaptersNameArray[i];
         chapter.bid = bookid;
         chapter.uid = [NSString stringWithFormat:@"%@%d",bookid,i];

@@ -245,9 +245,9 @@
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NEED_REFRESH_BOOKSHELF];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[Book truncateAllInContext:localContext];
-		[Chapter truncateAllInContext:localContext];
-		[Mark truncateAllInContext:localContext];
+		[Book MR_truncateAllInContext:localContext];
+		[Chapter MR_truncateAllInContext:localContext];
+		[Mark MR_truncateAllInContext:localContext];
 		[self hideHUD:YES];
 		stopAllSync = NO;
 	}];

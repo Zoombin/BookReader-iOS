@@ -213,7 +213,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[ServiceManager userBooksWithBlock:^(BOOL success, NSError *error, NSArray *resultArray) {
 			if (success) {
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-					NSArray *allBooks = [Book findAllInContext:localContext];//把当前数据库中的书籍全部设置成bFav = NO;
+					NSArray *allBooks = [Book MR_findAllInContext:localContext];//把当前数据库中的书籍全部设置成bFav = NO;
 					for (Book *b in allBooks) {
 						b.bFav = NO;
 					}
@@ -242,15 +242,15 @@ const NSUInteger numberOfBooksPerRow = 3;
 	}
 
 	Book *needRemoveBook = _needRemoveFavoriteBooks[0];
-	needRemoveBook = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
+	needRemoveBook = [Book MR_findFirstByAttribute:@"uid" withValue:needRemoveBook.uid];
 	[self displayHUD:@"正在删除..."];
 	if (needRemoveBook.bFav) {
 		[ServiceManager addFavoriteWithBookID:needRemoveBook.uid On:NO withBlock:^(BOOL success, NSError *error, NSString *message) {
 			if (success) {
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+					Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
 					if (b) {
-						[b deleteInContext:localContext];
+						[b MR_deleteInContext:localContext];
 					}
 				} completion:^(BOOL success, NSError *error) {
 					[_needRemoveFavoriteBooks removeObject:needRemoveBook];
@@ -263,9 +263,9 @@ const NSUInteger numberOfBooksPerRow = 3;
 		}];
 	} else {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Book *b = [Book findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
+			Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:needRemoveBook.uid inContext:localContext];
 			if (b) {
-				[b deleteInContext:localContext];
+				[b MR_deleteInContext:localContext];
 			}
 		} completion:^(BOOL success, NSError *error) {
 			[_needRemoveFavoriteBooks removeObject:needRemoveBook];
@@ -284,7 +284,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 			[ServiceManager addFavoriteWithBookID:_needFavAndAutoBuyBookCell.book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
 				if (success) {
 					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-						Book *b = [Book findFirstByAttribute:@"uid" withValue:_needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+						Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:_needFavAndAutoBuyBookCell.book.uid inContext:localContext];
 						if (b) {
 							b.bFav = @(YES);
 						}
@@ -294,7 +294,7 @@ const NSUInteger numberOfBooksPerRow = 3;
 						[self hideHUD:YES];
 						if (success) {
 							[MagicalRecord saveWithBlock:^(NSManagedObjectContext  *localContext) {
-								Book *b = [Book findFirstByAttribute:@"uid" withValue:_needFavAndAutoBuyBookCell.book.uid inContext:localContext];
+								Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:_needFavAndAutoBuyBookCell.book.uid inContext:localContext];
 								if (b) {
 									b.autoBuy = @(YES);
 								}
@@ -355,10 +355,10 @@ const NSUInteger numberOfBooksPerRow = 3;
 			[ServiceManager getDownChapterList:bookCell.book.uid andUserid:[[ServiceManager userID] stringValue] withBlock:^(BOOL success, NSError *error, BOOL forbidden, NSArray *resultArray, NSDate *nextUpdateTime) {
 				if (success) {
 					[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-						Book *b = [Book findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
+						Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:bookCell.book.uid inContext:localContext];
 						if (b) {
 							if (forbidden) {
-								[b deleteInContext:localContext];
+								[b MR_deleteInContext:localContext];
 							} else {
 								b.nextUpdateTime = nextUpdateTime;
 								NSUInteger newChaptersCount = resultArray.count;

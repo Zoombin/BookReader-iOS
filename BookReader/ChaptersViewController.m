@@ -123,10 +123,10 @@
 	_bBookmarks = YES;
     [_chapterlistBtn setEnabled:YES];
     [_bookmarkBtn setEnabled:NO];
-	NSArray *chapters = [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", _chapter.bid]];
+	NSArray *chapters = [Chapter MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", _chapter.bid]];
 	NSMutableArray *marks = [NSMutableArray array];
 	for (Chapter *chapter in chapters) {
-		NSArray *mks = [Mark findAllWithPredicate:[NSPredicate predicateWithFormat:@"chapterID = %@", chapter.uid]];
+		NSArray *mks = [Mark MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"chapterID = %@", chapter.uid]];
 		if (mks) {
 			[marks addObjectsFromArray:mks];
 		}
@@ -186,7 +186,7 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 			Mark *mark = _infoArray[indexPath.row];
-			[mark deleteEntity];
+			[mark MR_deleteEntity];
 			[_infoArray removeObjectAtIndex:indexPath.row];
 			[_infoTableView reloadData];
 		}];

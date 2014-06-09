@@ -60,7 +60,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 - (void)shareButtonClicked
 {
     if([MFMessageComposeViewController canSendText]) {
-		Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+		Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:_chapter.bid];
 		if (book) {
 			if (!_messageComposeViewController) _messageComposeViewController = [[MFMessageComposeViewController alloc] init];
 			_messageComposeViewController.messageComposeDelegate = self;
@@ -144,7 +144,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)updateChapters
 {
-	Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+	Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:_chapter.bid];
 	
 	if (_menuView) {
 		_menuView.favorited = book.bFav.boolValue;
@@ -155,10 +155,10 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 			if (success) {
 				
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *b = [Book findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
+					Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:book.uid inContext:localContext];
 					if (b) {
 						if (forbidden) {
-							[b deleteInContext:localContext];
+							[b MR_deleteInContext:localContext];
 						} else {
 							b.nextUpdateTime = nextUpdateTime;
 						}
@@ -245,7 +245,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	[_coreTextView setNeedsDisplay];
 	_chapter.lastReadIndex = @(range.location);
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:_chapter.uid inContext:localContext];
+		Chapter *chapter = [Chapter MR_findFirstByAttribute:@"uid" withValue:_chapter.uid inContext:localContext];
 		if (chapter) {
 			chapter.lastReadIndex = @(range.location);
 		}
@@ -276,14 +276,14 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		return;
 	};
 
-	Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid];
+	Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:_chapter.bid];
 	if (book) {
 		[ServiceManager addFavoriteWithBookID:book.uid On:YES withBlock:^(BOOL success, NSError *error, NSString *message) {
 			if (success) {
 				[self displayHUDTitle:@"收藏成功" message:nil];
 				_menuView.favorited = YES;
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
+					Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
 					if (book) {
 						book.bFav = @(YES);
 					}
@@ -431,7 +431,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 		[self showChapterName:_chapter];
 		
 		[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-			Book *book = [Book findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
+			Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:_chapter.bid inContext:localContext];
 			if (book) {
 				book.lastReadChapterID = _chapter.uid;
                 book.lastReadDate = [NSDate date];
@@ -454,7 +454,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				aChapter.previousID = previousID;
 				aChapter.nextID = nextID;
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Chapter *tmpChapter = [Chapter findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
+					Chapter *tmpChapter = [Chapter MR_findFirstByAttribute:@"uid" withValue:aChapter.uid inContext:localContext];
 					if (tmpChapter) {
 						tmpChapter.content = content;
 						tmpChapter.previousID = previousID;
@@ -463,7 +463,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 				}];
 				[self gotoChapter:aChapter withReadIndex:nil extra:NO];
 			} else {//没下载到，尝试订阅
-				Book *book = [Book findFirstByAttribute:@"uid" withValue:aChapter.bid];
+				Book *book = [Book MR_findFirstByAttribute:@"uid" withValue:aChapter.bid];
 				if (!book) return;
 				_webSubscribeChapter = aChapter;
 				
@@ -569,7 +569,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	reference = [reference substringToIndex:40];
 	NSLog(@"referenct = %@", reference);
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Mark *mark = [Mark createInContext:localContext];
+		Mark *mark = [Mark MR_createInContext:localContext];
 		mark.chapterID = _chapter.uid;
 		mark.chapterName = _chapter.name;
 		mark.reference = reference;
@@ -637,7 +637,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 	} else if ([selected isKindOfClass:[Mark class]]){
 		NSLog(@"selected a mark");
 		Mark *mark = (Mark *)selected;
-		Chapter *aChapter = [Chapter findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", mark.chapterID]];
+		Chapter *aChapter = [Chapter MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"uid = %@", mark.chapterID]];
 		[self gotoChapter:aChapter withReadIndex:mark.startWordIndex extra:NO];
 	}
 }
@@ -796,7 +796,7 @@ static NSString *kPageUnCurl = @"pageUnCurl";
 
 - (void)didSubscribe:(Chapter *)chapter
 {
-	Chapter *aChapter = [Chapter findFirstByAttribute:@"uid" withValue:chapter.uid];
+	Chapter *aChapter = [Chapter MR_findFirstByAttribute:@"uid" withValue:chapter.uid];
 	[self gotoChapter:aChapter withReadIndex:nil extra:YES];
 }
 

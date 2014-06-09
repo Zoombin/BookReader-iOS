@@ -13,8 +13,6 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
-#define MR_SHORTHAND 1
 #import "CoreData+MagicalRecord.h"
 #import "NSUserDefaults+BookReader.h"
 #import "UILabel+BookReader.h"
@@ -29,6 +27,9 @@
 #import "NSDate+Find.h"
 #import "NSString+XXSY.h"
 #import "MobClick.h"
+
+#define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
+//#define MR_SHORTHAND 1
 
 #define NEED_REFRESH_BOOKSHELF @"br_need_refresh_bookshelf"
 #define UMENG_KEY @"52032fb056240b0e8e00408e"

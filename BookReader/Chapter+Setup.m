@@ -15,7 +15,7 @@
 
 + (Chapter *)createWithAttributes:(NSDictionary *)attributes
 {
-    Chapter *chapter = [Chapter createInContext:[BRContextManager memoryOnlyContext]];
+    Chapter *chapter = [Chapter MR_createInContext:[BRContextManager memoryOnlyContext]];
     chapter.name = attributes[@"chapterName"];
     chapter.uid = [attributes[@"chapterId"] stringValue];
     chapter.bVip = attributes[@"isVip"];
@@ -44,9 +44,9 @@
 - (void)persistWithBlock:(dispatch_block_t)block
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		Chapter *chapter = [Chapter MR_findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
 		if (!chapter) {
-			chapter = [Chapter createInContext:localContext];
+			chapter = [Chapter MR_createInContext:localContext];
 		}
 		[chapter clone:self];
 	} completion:^(BOOL success, NSError *error) {
@@ -58,9 +58,9 @@
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
 		[array enumerateObjectsUsingBlock:^(Chapter *c, NSUInteger idx, BOOL *stop) {
-			Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:c.uid inContext:localContext];
+			Chapter *chapter = [Chapter MR_findFirstByAttribute:@"uid" withValue:c.uid inContext:localContext];
 			if (!chapter) {
-				chapter = [Chapter createInContext:localContext];
+				chapter = [Chapter MR_createInContext:localContext];
 			}
 			[chapter clone:c];
 		}];
@@ -92,9 +92,9 @@
 - (void)truncate
 {
 	[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-		Chapter *chapter = [Chapter findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
+		Chapter *chapter = [Chapter MR_findFirstByAttribute:@"uid" withValue:self.uid inContext:localContext];
 		if (chapter) {
-			[chapter deleteInContext:localContext];
+			[chapter MR_deleteInContext:localContext];
 		}
 	}];
 }
@@ -103,17 +103,17 @@
 
 + (NSArray *)allChaptersOfBookID:(NSString *)bookID
 {
-	return [Chapter findByAttribute:@"bid" withValue:bookID andOrderBy:@"rollID,uid" ascending:YES];
+	return [Chapter MR_findByAttribute:@"bid" withValue:bookID andOrderBy:@"rollID,uid" ascending:YES];
 }
 
 + (NSUInteger)countOfUnreadChaptersOfBook:(Book *)book
 {
-	NSArray *allSortedReadBeforeChapters = [Chapter findAllSortedBy:@"rollID,uid" ascending:NO withPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex != nil", book.uid]];
+	NSArray *allSortedReadBeforeChapters = [Chapter MR_findAllSortedBy:@"rollID,uid" ascending:NO withPredicate:[NSPredicate predicateWithFormat:@"bid = %@ AND lastReadIndex != nil", book.uid]];
 	Chapter *theChapter = allSortedReadBeforeChapters.count ? allSortedReadBeforeChapters[0] : nil;
 	if (theChapter) {
-		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"rollID >= %@ AND uid > %@ AND bid = %@", theChapter.rollID, theChapter.uid, book.uid]];
+		return [Chapter MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"rollID >= %@ AND uid > %@ AND bid = %@", theChapter.rollID, theChapter.uid, book.uid]];
 	} else {
-		return [Chapter countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", book.uid]];
+		return [Chapter MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"bid = %@", book.uid]];
 	}
 }
 
@@ -134,18 +134,18 @@
 - (Chapter *)previous
 {
 	if (!self.previousID) return nil;
-	return [Chapter findFirstByAttribute:@"uid" withValue:self.previousID];
+	return [Chapter MR_findFirstByAttribute:@"uid" withValue:self.previousID];
 }
 
 - (Chapter *)next
 {
 	if (!self.nextID) return nil;
-	return [Chapter findFirstByAttribute:@"uid" withValue:self.nextID];
+	return [Chapter MR_findFirstByAttribute:@"uid" withValue:self.nextID];
 }
 
 + (NSArray *)contentNilChapters
 {
-	return [Chapter findAllWithPredicate:[NSPredicate predicateWithFormat:@"content = nil"]];
+	return [Chapter MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"content = nil"]];
 }
 
 + (NSArray *)chaptersNeedFetchContentWhenWifiReachable:(BOOL)bWifi
@@ -156,7 +156,7 @@
 	}
 	NSMutableArray *chaptersNeedFetchContent = [NSMutableArray array];
 	[allContentNilChapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-		Book *b = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
+		Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:chapter.bid];
 		if (b) {
 			if (b.autoBuy.boolValue) {
 				[chaptersNeedFetchContent addObject:chapter];
@@ -171,7 +171,7 @@
 	NSArray *allContentNilChapters = [self contentNilChapters];
 	NSMutableArray *chaptersNeedSubscribe = [NSMutableArray array];
 	[allContentNilChapters enumerateObjectsUsingBlock:^(Chapter *chapter, NSUInteger idx, BOOL *stop) {
-		Book *b = [Book findFirstByAttribute:@"uid" withValue:chapter.bid];
+		Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:chapter.bid];
 		if (b) {
 			if (b.autoBuy.boolValue) {
 				[chaptersNeedSubscribe addObject:chapter];
@@ -183,7 +183,7 @@
 
 + (NSString *)lastChapterIDOfBook:(Book *)book
 {
-	NSArray *allChapters = [Chapter findByAttribute:@"bid" withValue:book.uid andOrderBy:@"uid" ascending:NO];//不用考虑rollid，只要传递最大章节id即可
+	NSArray *allChapters = [Chapter MR_findByAttribute:@"bid" withValue:book.uid andOrderBy:@"uid" ascending:NO];//不用考虑rollid，只要传递最大章节id即可
 	if (allChapters.count) {
 		return [allChapters[0] uid];
 	}
@@ -197,10 +197,10 @@
 
 + (Chapter *)lastReadChapterOfBookID:(NSString *)bookID
 {
-	Book *b = [Book findFirstByAttribute:@"uid" withValue:bookID];
+	Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:bookID];
 	if (b) {
 		if (b.lastReadChapterID) {
-			return [Chapter findFirstByAttribute:@"uid" withValue:b.lastReadChapterID];
+			return [Chapter MR_findFirstByAttribute:@"uid" withValue:b.lastReadChapterID];
 		} else {
 			return [Chapter firstChapterOfBookID:bookID];
 		}

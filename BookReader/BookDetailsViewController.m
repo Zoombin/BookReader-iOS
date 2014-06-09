@@ -710,7 +710,7 @@
 		
 		[Chapter persist:_chapterArray withBlock:^(void) {
 			[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-				Book *b = [Book findFirstByAttribute:@"uid" withValue:_book.uid inContext:localContext];
+				Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:_book.uid inContext:localContext];
 				if (b) {
 					b.numberOfUnreadChapters = @([Chapter countOfUnreadChaptersOfBook:b]);
 				}
@@ -751,7 +751,7 @@
 			[[NSUserDefaults standardUserDefaults] synchronize];
 			[_book persistWithBlock:^(void) {
 				[MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-					Book *b = [Book findFirstByAttribute:@"uid" withValue:_book.uid inContext:localContext];
+					Book *b = [Book MR_findFirstByAttribute:@"uid" withValue:_book.uid inContext:localContext];
 					b.bFav = @(YES);
 				} completion:^(BOOL success, NSError *error) {
 					if (_chapterArray) {
