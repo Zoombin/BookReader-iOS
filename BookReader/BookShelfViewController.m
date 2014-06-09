@@ -147,9 +147,9 @@ const NSUInteger numberOfBooksPerRow = 3;
 		[self startSync];
 	}
 	
-	[ShelfCategory createDefaultShelfCategoryWithCompletionBlock:^{
-		_shelfCategoryView.shelfCategories = [ShelfCategory findAll];
-	}];
+//	[ShelfCategory createDefaultShelfCategoryWithCompletionBlock:^{
+//		_shelfCategoryView.shelfCategories = [ShelfCategory findAll];
+//	}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
