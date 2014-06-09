@@ -2,8 +2,8 @@
 //  Book.h
 //  BookReader
 //
-//  Created by zhangbin on 9/28/13.
-//  Copyright (c) 2013 ZoomBin. All rights reserved.
+//  Created by zhangbin on 6/9/14.
+//  Copyright (c) 2014 ZoomBin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -41,10 +41,10 @@
 @property (nonatomic, retain) NSString * recommendTitle;
 @property (nonatomic, retain) NSNumber * reward;
 @property (nonatomic, retain) NSNumber * rewardPersons;
+@property (nonatomic, retain) NSString * shelfCategoryName;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSNumber * words;
-@property (nonatomic, retain) NSString * shelfCategoryName;
 
 @end

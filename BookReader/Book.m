@@ -2,8 +2,8 @@
 //  Book.m
 //  BookReader
 //
-//  Created by zhangbin on 9/28/13.
-//  Copyright (c) 2013 ZoomBin. All rights reserved.
+//  Created by zhangbin on 6/9/14.
+//  Copyright (c) 2014 ZoomBin. All rights reserved.
 //
 
 #import "Book.h"
@@ -40,10 +40,10 @@
 @dynamic recommendTitle;
 @dynamic reward;
 @dynamic rewardPersons;
+@dynamic shelfCategoryName;
 @dynamic status;
 @dynamic uid;
 @dynamic userID;
 @dynamic words;
-@dynamic shelfCategoryName;
 
 @end

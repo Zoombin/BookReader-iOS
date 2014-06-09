@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Book" representedClassName="Book" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorID" optional="YES" attributeType="Integer 32" syncable="YES"/>
@@ -60,9 +60,9 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Chapter" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Mark" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShelfCategory" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Book" positionX="0" positionY="0" width="128" height="553"/>
+        <element name="Chapter" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Mark" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="ShelfCategory" positionX="0" positionY="0" width="128" height="60"/>
     </elements>
 </model>
