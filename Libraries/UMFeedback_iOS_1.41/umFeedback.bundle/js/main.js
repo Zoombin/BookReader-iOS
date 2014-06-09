@@ -146,7 +146,27 @@ function initFormValues(values_json){
 //    $("#content").val(JSON.stringify(FeedbackJSON));
 }
 
+function setViewport() {
+    var iOS_version = parseFloat(
+        ('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(navigator.userAgent) || [0,''])[1])
+            .replace('undefined', '3_2').replace('_', '.').replace('_', '')
+    ) || 6.0;
+
+    if (iOS_version >= 7.0) {
+        var el = $('meta[name=viewport]');
+        if (window.orientation == 90 || window.orientation == -90) {
+            el.attr('content', 'width=device-height,height=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=0, minimum-scale=1.0');
+        } else {
+            el.attr('content', 'width=device-width,height=device-height,initial-scale=1.0, maximum-scale=1.0,user-scalable=0, minimum-scale=1.0');
+        }
+    }
+}
 $(document).ready(function () {
+    window.onorientationchange = function(){
+        setViewport();
+    };
+
+    setViewport();
     $('#cancelUserDashBoard').click(function () {
         $('#userDashBoard').modal('hide');
     });
@@ -156,8 +176,9 @@ $(document).ready(function () {
     $('#wrapper').click(function () {
         $('input:focus').blur();
         return false;
-    })
+    });
 });
+
 
 
 function renderFeedbacks(feedbacks) {
@@ -165,7 +186,7 @@ function renderFeedbacks(feedbacks) {
     var template = Handlebars.compile(template_source);
     var html = template(feedbacks);
     $("#topics").append(html);
-    if($('#topics').height() > $('#wrapper').height()){
+    if($('#page').height() > $('#wrapper').height()){
         myScroll.refresh();
         myScroll.scrollToElement("#feedbacks_foot", 10);
     }
@@ -179,7 +200,7 @@ function renderNewFeedback(feedback) {
     var html = template(feedback);
     setTimeout(function () {
             $("#topics").append(html);
-            if ($('#topics').height() > $('#wrapper').height()) {
+            if ($('#page').height() > $('#wrapper').height()) {
                     myScroll.refresh();
                     myScroll.scrollToElement("#feedbacks_foot", 10);
                 }

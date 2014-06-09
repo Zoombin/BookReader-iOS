@@ -3,9 +3,9 @@
 //  MobClick
 //
 //  Created by Aladdin on 2010-03-25.
-//  Updated by Minghua on 2013-04-01.
+//  Updated by Minghua on 2014-01-17.
 //  Copyright 2010-2012 Umeng.com . All rights reserved.
-//  Version 2.2.0.OpenUDID, updated_at 2013-04-01.
+//  Version 2.2.2.OpenUDID, updated_at 2014-01-17.
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>

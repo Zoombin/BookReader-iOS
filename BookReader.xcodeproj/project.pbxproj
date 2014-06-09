@@ -29,11 +29,12 @@
 		18ABAF2F1724FAFC00ED02C6 /* BRPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF2E1724FAFC00ED02C6 /* BRPay.m */; };
 		18ABAF321724FB1D00ED02C6 /* BRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ABAF311724FB1D00ED02C6 /* BRUser.m */; };
 		18B39BAC17B067DF0092AC0A /* GiftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B39BAB17B067DF0092AC0A /* GiftButton.m */; };
-		18BB11C417CA004500736BB4 /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BB11C117CA004500736BB4 /* libUMFeedback.a */; };
-		18BB11C517CA004500736BB4 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18BB11C217CA004500736BB4 /* umFeedback.bundle */; };
-		18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FD246417B37A8000D11CCA /* libMobClickLibrary.a */; };
 		58F247A5F54B45CE9CE8F721 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F07666AF894B50A100C9D3 /* libPods.a */; };
 		776FA99F185D868B00615DB9 /* NSDate+Find.m in Sources */ = {isa = PBXBuildFile; fileRef = 776FA99E185D868B00615DB9 /* NSDate+Find.m */; };
+		777530EA194560B4005385DE /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 777530E7194560B4005385DE /* libMobClickLibrary.a */; };
+		777530EB194560B4005385DE /* libMobClickLibrary_armv6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 777530E8194560B4005385DE /* libMobClickLibrary_armv6.a */; };
+		777530F019456323005385DE /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 777530ED19456323005385DE /* libUMFeedback.a */; };
+		777530F119456324005385DE /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 777530EE19456323005385DE /* umFeedback.bundle */; };
 		7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154D17622204005296DD /* MobileCoreServices.framework */; };
 		778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7780154F1762222B005296DD /* SystemConfiguration.framework */; };
 		7784F34517FBFDB500C666DF /* ModelManaged.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7784F34317FBFDB500C666DF /* ModelManaged.xcdatamodeld */; };
@@ -143,15 +144,16 @@
 		18ABAF311724FB1D00ED02C6 /* BRUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUser.m; sourceTree = "<group>"; };
 		18B39BAA17B067DF0092AC0A /* GiftButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftButton.h; sourceTree = "<group>"; };
 		18B39BAB17B067DF0092AC0A /* GiftButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftButton.m; sourceTree = "<group>"; };
-		18BB11C117CA004500736BB4 /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
-		18BB11C217CA004500736BB4 /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
-		18BB11C317CA004500736BB4 /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
-		18FD246417B37A8000D11CCA /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		18FD246517B37A8000D11CCA /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		40F07666AF894B50A100C9D3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		71420828D2A64A2E969CD3BD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		776FA99D185D868B00615DB9 /* NSDate+Find.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Find.h"; path = "BookReader/NSDate+Find.h"; sourceTree = SOURCE_ROOT; };
 		776FA99E185D868B00615DB9 /* NSDate+Find.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Find.m"; path = "BookReader/NSDate+Find.m"; sourceTree = SOURCE_ROOT; };
+		777530E7194560B4005385DE /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		777530E8194560B4005385DE /* libMobClickLibrary_armv6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary_armv6.a; sourceTree = "<group>"; };
+		777530E9194560B4005385DE /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		777530ED19456323005385DE /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
+		777530EE19456323005385DE /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
+		777530EF19456323005385DE /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
 		7780154D17622204005296DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7780154F1762222B005296DD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7784F34417FBFDB500C666DF /* ModelManaged.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelManaged.xcdatamodel; sourceTree = "<group>"; };
@@ -307,6 +309,8 @@
 				7780154E17622205005296DD /* MobileCoreServices.framework in Frameworks */,
 				778E7A6417B6414900DC28B7 /* StoreKit.framework in Frameworks */,
 				778015511762224A005296DD /* SystemConfiguration.framework in Frameworks */,
+				777530EB194560B4005385DE /* libMobClickLibrary_armv6.a in Frameworks */,
+				777530EA194560B4005385DE /* libMobClickLibrary.a in Frameworks */,
 				8BF74730166DF0DF0079E464 /* MessageUI.framework in Frameworks */,
 				188FE67416FB003F009561CB /* CoreData.framework in Frameworks */,
 				8B0371C216AD219100DFE776 /* CFNetwork.framework in Frameworks */,
@@ -314,12 +318,11 @@
 				8B22BC55167EBBA900A2B316 /* libz.dylib in Frameworks */,
 				8BF7472E166DF0D90079E464 /* Security.framework in Frameworks */,
 				8BDB0BDA165E065B008F328A /* QuartzCore.framework in Frameworks */,
+				777530F019456323005385DE /* libUMFeedback.a in Frameworks */,
 				8BDB0BD4165E0638008F328A /* CoreText.framework in Frameworks */,
 				8BDB0AB6165E03BB008F328A /* UIKit.framework in Frameworks */,
 				8BDB0AB8165E03BB008F328A /* Foundation.framework in Frameworks */,
 				8BDB0ABA165E03BB008F328A /* CoreGraphics.framework in Frameworks */,
-				18FD246617B37A8000D11CCA /* libMobClickLibrary.a in Frameworks */,
-				18BB11C417CA004500736BB4 /* libUMFeedback.a in Frameworks */,
 				58F247A5F54B45CE9CE8F721 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,18 +364,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		18FD246317B37A8000D11CCA /* UMengSDK */ = {
-			isa = PBXGroup;
-			children = (
-				18BB11C117CA004500736BB4 /* libUMFeedback.a */,
-				18BB11C217CA004500736BB4 /* umFeedback.bundle */,
-				18BB11C317CA004500736BB4 /* UMFeedback.h */,
-				18FD246417B37A8000D11CCA /* libMobClickLibrary.a */,
-				18FD246517B37A8000D11CCA /* MobClick.h */,
-			);
-			path = UMengSDK;
-			sourceTree = "<group>";
-		};
 		770D432117191AC3000612D1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +388,26 @@
 			);
 			name = Categories;
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		777530E6194560B4005385DE /* UMAnalytics_Sdk_2.2.1.OpenUDID */ = {
+			isa = PBXGroup;
+			children = (
+				777530E7194560B4005385DE /* libMobClickLibrary.a */,
+				777530E8194560B4005385DE /* libMobClickLibrary_armv6.a */,
+				777530E9194560B4005385DE /* MobClick.h */,
+			);
+			path = UMAnalytics_Sdk_2.2.1.OpenUDID;
+			sourceTree = "<group>";
+		};
+		777530EC19456323005385DE /* UMFeedback_iOS_1.41 */ = {
+			isa = PBXGroup;
+			children = (
+				777530ED19456323005385DE /* libUMFeedback.a */,
+				777530EE19456323005385DE /* umFeedback.bundle */,
+				777530EF19456323005385DE /* UMFeedback.h */,
+			);
+			path = UMFeedback_iOS_1.41;
 			sourceTree = "<group>";
 		};
 		7786717317E3E3DC001FDB67 /* ZBUtilities */ = {
@@ -428,8 +439,9 @@
 		77A1DB951730DF9C002BE306 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				777530EC19456323005385DE /* UMFeedback_iOS_1.41 */,
+				777530E6194560B4005385DE /* UMAnalytics_Sdk_2.2.1.OpenUDID */,
 				7786717317E3E3DC001FDB67 /* ZBUtilities */,
-				18FD246317B37A8000D11CCA /* UMengSDK */,
 			);
 			name = Libraries;
 			path = ../Libraries;
@@ -662,6 +674,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				777530F119456324005385DE /* umFeedback.bundle in Resources */,
 				8BDB0AC0165E03BB008F328A /* InfoPlist.strings in Resources */,
 				188FE62716F84510009561CB /* Localizable.strings in Resources */,
 				7784F34817FC018000C666DF /* Images.xcassets in Resources */,
@@ -669,7 +682,6 @@
 				77B378DD17AB8E4700D8D63D /* BookDoc in Resources */,
 				77B378E117AB8EB400D8D63D /* FTBWKT.ttf in Resources */,
 				77B378E217AB8EB400D8D63D /* FZLTHJW.ttf in Resources */,
-				18BB11C517CA004500736BB4 /* umFeedback.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +949,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
 					"\"$(SRCROOT)/Libraries/UMengSDK\"",
+					"$(PROJECT_DIR)/Libraries/UMAnalytics_Sdk_2.2.1.OpenUDID",
+					"$(PROJECT_DIR)/Libraries/UMFeedback_iOS_1.41",
 				);
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "-all_load";
@@ -974,6 +988,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries/CNZZ\"",
 					"\"$(SRCROOT)/Libraries/UMengSDK\"",
+					"$(PROJECT_DIR)/Libraries/UMAnalytics_Sdk_2.2.1.OpenUDID",
+					"$(PROJECT_DIR)/Libraries/UMFeedback_iOS_1.41",
 				);
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "-all_load";
